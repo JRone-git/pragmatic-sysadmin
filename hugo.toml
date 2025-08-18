@@ -1,0 +1,41 @@
+baseURL = "https://pragmaticsysadmin.help/"
+title = "Pragmatic Sysadmin"
+theme = "PaperMod"
+[pagination]
+  pagerSize = 10
+enableRobotsTXT = true
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true
+
+[params]
+  description = "Funny, practical home networking and de-mystified cloud."
+  defaultTheme = "auto"
+  ShowReadingTime = true
+  ShowPostNavLinks = true
+  ShowShareButtons = true
+  
+  # SEO & Social
+  images = ["og-default.png"]
+  
+  # Navigation
+  [[params.socialIcons]]
+    name = "rss"
+    url = "index.xml"
+
+[[menu.main]]
+  name = "Home"
+  url = "/"
+  weight = 10
+
+[[menu.main]]
+  name = "About"
+  url = "/about/"
+  weight = 20
+
+[[menu.main]]
+  name = "Newsletter"
+  url = "/newsletter/"
+  weight = 30
