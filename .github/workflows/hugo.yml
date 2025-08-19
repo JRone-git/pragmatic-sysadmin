@@ -1,10 +1,15 @@
+<<<<<<< HEAD
 name: Deploy Hugo Site
+=======
+name: Deploy Hugo
+>>>>>>> 86cc8c1d4bbba2815bfab0bb4d78a97949f23e72
 
 on:
   push:
     branches: [main]
 
 jobs:
+<<<<<<< HEAD
   build:
     runs-on: ubuntu-latest
     steps:
@@ -12,12 +17,25 @@ jobs:
         with:
           submodules: true
           fetch-depth: 0
+=======
+  build-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+>>>>>>> 86cc8c1d4bbba2815bfab0bb4d78a97949f23e72
 
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
+<<<<<<< HEAD
           hugo-version: '0.148.2'
           extended: true
+=======
+          hugo-version: '0.125.4' # Match your local version
+>>>>>>> 86cc8c1d4bbba2815bfab0bb4d78a97949f23e72
 
       - name: Build
         run: hugo --minify
@@ -26,4 +44,8 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
+<<<<<<< HEAD
           publish_dir: ./public
+=======
+          publish_dir: ./public
+>>>>>>> 86cc8c1d4bbba2815bfab0bb4d78a97949f23e72
