@@ -1,0 +1,15 @@
+baseURL = "https://pragmaticsysadmin.help/"
+languageCode = "en-us"
+title = "Pragmatic Sysadmin"
+theme = "hugo-theme-stack"
+
+[params]
+  description = "Sysadmin tutorials and guides"
+
+[markup]
+  [markup.goldmark]
+    [markup.goldmark.renderer]
+      unsafe = true  # Allows raw HTML in markdown
+
+[deployment]
+  order = [".png$", ".jpg$", ".gif$", ".svg$"]
