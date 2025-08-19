@@ -1,6 +1,7 @@
 baseURL = "https://pragmaticsysadmin.help/"
 title = "Pragmatic Sysadmin"
 theme = "PaperMod"
+
 [pagination]
   pagerSize = 10
 enableRobotsTXT = true
@@ -10,12 +11,20 @@ enableRobotsTXT = true
     [markup.goldmark.renderer]
       unsafe = true
 
+# Language settings
+[languages]
+  [languages.en]
+    languageName = "English"
+    weight = 1
+
 [params]
   description = "Funny, practical home networking and de-mystified cloud."
   defaultTheme = "auto"
   ShowReadingTime = true
   ShowPostNavLinks = true
   ShowShareButtons = true
+  # Disable home info which is causing the error
+  homeInfoParams = false
   
   # SEO & Social
   images = ["og-default.png"]
@@ -26,16 +35,19 @@ enableRobotsTXT = true
     url = "index.xml"
 
 [[menu.main]]
+  identifier = "home"
   name = "Home"
   url = "/"
   weight = 10
 
 [[menu.main]]
+  identifier = "about"
   name = "About"
   url = "/about/"
   weight = 20
 
 [[menu.main]]
+  identifier = "newsletter"
   name = "Newsletter"
   url = "/newsletter/"
   weight = 30
