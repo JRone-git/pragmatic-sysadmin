@@ -1,8 +1,8 @@
-name: Deploy Hugo Site to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
-    branches: [main]
+    branches: [ main ]
 
 jobs:
   build-deploy:
@@ -22,10 +22,9 @@ jobs:
       - name: Build
         run: hugo --minify
 
-      - name: Deploy to GitHub Pages
+      # This is the key change - Deploys to GitHub Pages
+      - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-          # Remove the following line if you don't want to use a custom domain
-          cname: pragmaticsysadmin.help
