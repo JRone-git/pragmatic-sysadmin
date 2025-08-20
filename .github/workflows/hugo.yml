@@ -1,11 +1,11 @@
-name: Deploy Hugo to GitHub Pages
+name: Deploy to GitHub Pages
 
 on:
   push:
     branches: [ main ]
 
 jobs:
-  build:
+  build-deploy:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -16,15 +16,16 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          hugo-version: '0.125.4'
+          hugo-version: 'latest'           # Changed to latest instead of specific version
+          extended: true                    # Keep this for proper PaperMod compatibility
 
-      - name: Build
-        run: hugo --minify
+      - name: Build site                   # Renamed for clarity
+        run: |
+          hugo mod graph                  # New Hugo command to check module dependencies
+          hugo --minify
 
-      - name: Deploy
+      - name: Deploy to GitHub Pages       # Updated deployment command
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./public
-          # The following line FORCES the action to deploy to the 'gh-pages' branch
-          publish_branch: gh-pages
