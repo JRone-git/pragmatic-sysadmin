@@ -1,4 +1,5 @@
 baseURL = "https://pragmaticsysadmin.help/"
+canonifyURLs = true
 title = "Pragmatic Sysadmin"
 theme = "PaperMod"
 
