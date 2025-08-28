@@ -16,12 +16,14 @@ jobs:
       - name: Setup Hugo
         uses: peaceiris/actions-hugo@v2
         with:
-          # Use a compatible Hugo version
-          hugo-version: '0.148.2'  # This should work with PaperMod
+          hugo-version: '0.148.2'
           extended: true
 
+      - name: Clean
+        run: rm -rf public/ resources/ || true
+
       - name: Build
-        run: hugo --minify
+        run: hugo --minify --environment production --cleanDestinationDir
 
       - name: Deploy
         uses: peaceiris/actions-gh-pages@v3
