@@ -1,8 +1,3 @@
-+++
-date = '2025-08-28T13:05:44+03:00'
-draft = true
-title = 'Stop Doing Things Manually'
-+++
 ---
 title: "Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius"
 date: 2025-01-27
