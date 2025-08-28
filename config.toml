@@ -13,3 +13,7 @@ theme = "hugo-theme-stack"
 
 [deployment]
   order = [".png$", ".jpg$", ".gif$", ".svg$"]
+
+[build]
+  buildFuture = true  # Include future-dated posts if needed
+  buildDrafts = false # Ensure drafts are excluded in production  

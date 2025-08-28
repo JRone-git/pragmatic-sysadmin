@@ -2,6 +2,15 @@
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   <url>
+    <loc>http://localhost:1313/</loc>
+    <lastmod>2025-08-28T13:05:44+03:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/</loc>
+    <lastmod>2025-08-28T13:05:44+03:00</lastmod>
+  </url><url>
+    <loc>http://localhost:1313/posts/stop-doing-things-manually/</loc>
+    <lastmod>2025-08-28T13:05:44+03:00</lastmod>
+  </url><url>
     <loc>http://localhost:1313/about/</loc>
     <lastmod>2025-08-16T00:00:00+00:00</lastmod>
   </url><url>
@@ -26,9 +35,6 @@
     <loc>http://localhost:1313/tags/firebase/</loc>
     <lastmod>2025-08-16T00:00:00+00:00</lastmod>
   </url><url>
-    <loc>http://localhost:1313/</loc>
-    <lastmod>2025-08-16T00:00:00+00:00</lastmod>
-  </url><url>
     <loc>http://localhost:1313/tags/home-networking/</loc>
     <lastmod>2025-08-16T00:00:00+00:00</lastmod>
   </url><url>
@@ -48,9 +54,6 @@
     <lastmod>2025-08-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/newsletter/</loc>
-    <lastmod>2025-08-16T00:00:00+00:00</lastmod>
-  </url><url>
-    <loc>http://localhost:1313/posts/</loc>
     <lastmod>2025-08-16T00:00:00+00:00</lastmod>
   </url><url>
     <loc>http://localhost:1313/tags/productivity-break/</loc>
