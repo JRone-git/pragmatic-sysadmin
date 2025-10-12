@@ -45,6 +45,8 @@ let nickname = '';
 let score = 0;
 let current = 0;
 let leaderboard = JSON.parse(localStorage.getItem('kids_leaderboard') || '[]');
+let streak = 0; // consecutive correct
+const bestReadKey = 'kids_read_best';
 
 function startGame() {
   score = 0; current = 0;
@@ -93,12 +95,13 @@ function showItem() {
   document.getElementById('reading-game').innerHTML = `
     <div style='margin-bottom:1em;font-size:1.2em;'>${lang==='fi' ? 'Nimimerkki' : 'Nickname'}: <b>${nickname}</b></div>
     <img src="${item.img}" alt="pic" style="max-width:220px;display:block;margin-bottom:1em;border-radius:12px;box-shadow:0 0 10px #ccc;" />
+    <div style='margin-bottom:0.5em;'><button onclick='speakWord()' style='margin-right:.5em;'>🔊</button><button onclick='showHint()'>Hint</button></div>
     <div style='font-size:1.3em;margin-bottom:1em;'>${lang==='fi' ? 'Tavutus' : 'Syllables'}: <b>${item.syllables}</b></div>
     <div>
       ${item.options.map(opt => `<button style='font-size:2em;margin:0.7em;padding:0.7em 2em;border-radius:1em;background:#f7c873;color:#222;border:2px solid #f7c873;box-shadow:0 2px 6px #ccc;' onclick='checkWord("${opt}")'>${opt}</button>`).join('')}
     </div>
     <div id='feedback'></div>
-    <div style='margin-top:1em;'>${lang==='fi' ? 'Pisteet' : 'Score'}: ${score}/${items.length}</div>
+    <div style='margin-top:1em;'>${lang==='fi' ? 'Pisteet' : 'Score'}: ${score}/${items.length} | Streak: <b id='r-streak'>${streak}</b> | Best: <b id='r-best'>${localStorage.getItem(bestReadKey)||0}</b></div>
   `;
 }
 window.checkWord = function(word) {
@@ -106,12 +109,43 @@ window.checkWord = function(word) {
   const item = items[current];
   if (word === item.word) {
     score++;
-    document.getElementById('feedback').innerHTML = `<span style="color:green;font-size:1.3em;">${lang==='fi' ? 'Oikein!' : 'Correct!'}</span>`;
+    streak++;
+    document.getElementById('feedback').innerHTML = `<span style="color:green;font-size:1.3em;">${lang==='fi' ? 'Oikein!' : 'Correct!'} ✅</span>`;
+    document.getElementById('r-streak').textContent = streak;
+    // update best
+    const best = parseInt(localStorage.getItem(bestReadKey)||'0',10);
+    if (score > best) localStorage.setItem(bestReadKey, score);
+    document.getElementById('r-best').textContent = localStorage.getItem(bestReadKey)||0;
   } else {
+    streak = 0;
     document.getElementById('feedback').innerHTML = `<span style="color:red;font-size:1.3em;">${lang==='fi' ? 'Yritä uudelleen!' : 'Try again!'}</span>`;
+    document.getElementById('r-streak').textContent = streak;
     return;
   }
   setTimeout(() => { current++; showItem(); }, 1000);
 };
+// speak the current word (uses browser speech synthesis)
+window.speakWord = function() {
+  try {
+    const items = lang === 'fi' ? items_fi : items_en;
+    const item = items[current];
+    const utter = new SpeechSynthesisUtterance(item.word);
+    utter.lang = lang === 'fi' ? 'fi-FI' : 'en-US';
+    window.speechSynthesis.cancel();
+    window.speechSynthesis.speak(utter);
+  } catch(e) { /* ignore if unsupported */ }
+}
+// simple hint: highlight correct button briefly
+window.showHint = function() {
+  const items = lang === 'fi' ? items_fi : items_en;
+  const item = items[current];
+  const buttons = Array.from(document.querySelectorAll('#reading-game button'));
+  const btn = buttons.find(b => b.textContent.trim() === item.word);
+  if (btn) {
+    const orig = btn.style.boxShadow;
+    btn.style.boxShadow = '0 0 12px 3px #7ed957';
+    setTimeout(() => btn.style.boxShadow = orig, 800);
+  }
+}
 showStart();
 </script>
