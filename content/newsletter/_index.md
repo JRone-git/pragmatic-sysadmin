@@ -21,10 +21,26 @@ Short, practical tips. No spam, just sysadmin sanity.
   </script>
 </div>
 
+<div style="margin:1.5em 0;padding:1em 1.5em;background:#f7f7f7;border-radius:8px;border:1px solid #e0e0e0;">
+<b>🎁 Subscribe and get instant access to the <a href="/static/checklist.pdf" target="_blank">Home Network Security Checklist (PDF)</a>!</b><br>
+Plus, every month you'll receive a new bonus gift for subscribers (e.g. cheat sheets, guides, templates).
+</div>
+
 Get weekly insights on:
 - Home networking security
 - Cloud infrastructure tips  
 - Practical automation tricks
 - Tool recommendations
 
-**Plus: Get the free [Home Network Security Checklist](/home-network-security-checklist.pdf)** when you subscribe - a printable 1-pager covering router security, DNS setup, and network monitoring.
+<div id="newsletter-thankyou" style="display:none;margin-top:2em;padding:1em 1.5em;background:#e6ffe6;border-radius:8px;border:1px solid #b2f2b2;">
+<b>Thank you for subscribing!</b><br>
+Your free checklist PDF: <a href="/static/checklist.pdf" target="_blank">Download now</a><br>
+Watch your inbox for future monthly gifts and tips.
+</div>
+<script>
+// Show thank-you message after successful signup (AWeber form fires window.AWFormSuccess)
+window.AWFormSuccess = function() {
+  document.querySelector('.aweber-form').style.display = 'none';
+  document.getElementById('newsletter-thankyou').style.display = 'block';
+}
+</script>
