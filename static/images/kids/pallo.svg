@@ -1,5 +1,20 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 100 100">
-  <circle cx="50" cy="50" r="40" fill="#ffd54f" stroke="#ffb300" stroke-width="3"/>
-  <path d="M20 50 Q40 30 60 50" stroke="#fff" stroke-width="3" fill="none"/>
-  <path d="M20 60 Q40 80 60 60" stroke="#fff" stroke-width="3" fill="none"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <!-- Ball SVG with friendly, rounded style -->
+    <defs>
+        <style>
+            .ball { fill: #FF4500; stroke: #333; stroke-width: 3; }
+            .pattern { fill: none; stroke: #FFF; stroke-width: 2; }
+            .shine { fill: #FFF; opacity: 0.3; }
+        </style>
+    </defs>
+    <!-- Main Ball -->
+    <circle class="ball" cx="100" cy="100" r="60"/>
+    <!-- Pattern -->
+    <path class="pattern" d="M60 100 Q100 40 140 100"/>
+    <path class="pattern" d="M60 100 Q100 160 140 100"/>
+    <!-- Vertical Line -->
+    <line class="pattern" x1="100" y1="40" x2="100" y2="160"/>
+    <!-- Shine Effect -->
+    <ellipse class="shine" cx="80" cy="80" rx="15" ry="20" transform="rotate(-30 80 80)"/>
 </svg>

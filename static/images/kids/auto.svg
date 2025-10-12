@@ -1,6 +1,26 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="300" height="200" viewBox="0 0 120 60">
-  <rect x="10" y="20" width="100" height="30" rx="6" fill="#ffd1d1" stroke="#ff8a8a"/>
-  <circle cx="30" cy="50" r="6" fill="#333"/>
-  <circle cx="90" cy="50" r="6" fill="#333"/>
-  <rect x="30" y="10" width="60" height="18" rx="4" fill="#fff"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <!-- Car SVG with friendly, rounded style -->
+    <defs>
+        <style>
+            .car-body { fill: #4169E1; stroke: #333; stroke-width: 3; }
+            .car-window { fill: #87CEEB; stroke: #333; stroke-width: 2; }
+            .car-wheel { fill: #333; stroke: #333; stroke-width: 2; }
+            .wheel-cap { fill: #DDD; stroke: #333; stroke-width: 1; }
+        </style>
+    </defs>
+    <!-- Car Body -->
+    <path class="car-body" d="M40 120 Q40 100 60 100 L140 100 Q160 100 160 120 L160 140 Q160 150 150 150 L50 150 Q40 150 40 140 Z"/>
+    <!-- Roof -->
+    <path class="car-body" d="M70 100 L90 70 L110 70 L130 100"/>
+    <!-- Windows -->
+    <path class="car-window" d="M75 95 L90 75 L110 75 L125 95"/>
+    <!-- Wheels -->
+    <circle class="car-wheel" cx="70" cy="150" r="20"/>
+    <circle class="car-wheel" cx="130" cy="150" r="20"/>
+    <!-- Wheel Caps -->
+    <circle class="wheel-cap" cx="70" cy="150" r="10"/>
+    <circle class="wheel-cap" cx="130" cy="150" r="10"/>
+    <!-- Headlight -->
+    <circle fill="#FFD700" cx="45" cy="110" r="5"/>
 </svg>

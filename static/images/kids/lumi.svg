@@ -1,6 +1,37 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 100 100">
-  <g fill="#e3f2fd">
-    <circle cx="50" cy="50" r="20" stroke="#90caf9" stroke-width="2"/>
-    <path d="M50 20 L54 38 L72 40 L56 52 L62 70 L50 58 L38 70 L44 52 L28 40 L46 38 Z" fill="#bbdefb"/>
-  </g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <!-- Snow SVG with friendly, rounded style -->
+    <defs>
+        <style>
+            .snowflake { fill: #FFF; stroke: #87CEEB; stroke-width: 2; }
+            .crystal { fill: #E6F3FF; stroke: #87CEEB; stroke-width: 1.5; }
+        </style>
+    </defs>
+    <!-- Main Snowflake -->
+    <g transform="translate(100 100)">
+        <!-- Center -->
+        <circle class="crystal" r="15"/>
+        <!-- Main Arms -->
+        <g class="snowflake">
+            <!-- Vertical -->
+            <rect x="-5" y="-60" width="10" height="120" rx="5"/>
+            <!-- Horizontal -->
+            <rect x="-60" y="-5" width="120" height="10" rx="5"/>
+            <!-- Diagonal 1 -->
+            <rect x="-5" y="-60" width="10" height="120" rx="5" transform="rotate(45)"/>
+            <!-- Diagonal 2 -->
+            <rect x="-5" y="-60" width="10" height="120" rx="5" transform="rotate(-45)"/>
+        </g>
+        <!-- Crystal Details -->
+        <g class="crystal">
+            <circle cx="0" cy="-40" r="8"/>
+            <circle cx="0" cy="40" r="8"/>
+            <circle cx="-40" cy="0" r="8"/>
+            <circle cx="40" cy="0" r="8"/>
+            <circle cx="-28" cy="-28" r="8"/>
+            <circle cx="28" cy="28" r="8"/>
+            <circle cx="-28" cy="28" r="8"/>
+            <circle cx="28" cy="-28" r="8"/>
+        </g>
+    </g>
 </svg>

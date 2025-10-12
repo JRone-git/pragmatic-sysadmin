@@ -1,10 +1,30 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="300" height="300" viewBox="0 0 100 100">
-  <circle cx="50" cy="50" r="45" fill="#ffecb3" stroke="#f4b400" stroke-width="2"/>
-  <ellipse cx="40" cy="45" rx="10" ry="7" fill="#fff"/>
-  <ellipse cx="60" cy="45" rx="10" ry="7" fill="#fff"/>
-  <circle cx="40" cy="45" r="2" fill="#000"/>
-  <circle cx="60" cy="45" r="2" fill="#000"/>
-  <path d="M35 60 Q50 70 65 60" stroke="#000" stroke-width="2" fill="none"/>
-  <polygon points="22,22 30,12 38,22" fill="#ffecb3" stroke="#f4b400" stroke-width="1"/>
-  <polygon points="78,22 70,12 62,22" fill="#ffecb3" stroke="#f4b400" stroke-width="1"/>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <!-- Cat SVG with friendly, rounded style -->
+    <defs>
+        <style>
+            .cat-body { fill: #FFB6C1; stroke: #333; stroke-width: 3; }
+            .cat-ear { fill: #FFB6C1; stroke: #333; stroke-width: 2; }
+            .cat-eye { fill: #4CAF50; stroke: #333; stroke-width: 1; }
+            .cat-nose { fill: #FF69B4; stroke: #333; stroke-width: 1; }
+            .cat-whisker { stroke: #333; stroke-width: 1.5; }
+        </style>
+    </defs>
+    <!-- Body -->
+    <circle class="cat-body" cx="100" cy="110" r="60"/>
+    <!-- Head -->
+    <circle class="cat-body" cx="100" cy="80" r="40"/>
+    <!-- Ears -->
+    <path class="cat-ear" d="M70 50 L60 20 L85 45 Z"/>
+    <path class="cat-ear" d="M130 50 L140 20 L115 45 Z"/>
+    <!-- Eyes -->
+    <ellipse class="cat-eye" cx="85" cy="75" rx="5" ry="8"/>
+    <ellipse class="cat-eye" cx="115" cy="75" rx="5" ry="8"/>
+    <!-- Nose -->
+    <path class="cat-nose" d="M97 85 L103 85 L100 90 Z"/>
+    <!-- Whiskers -->
+    <line class="cat-whisker" x1="85" y1="90" x2="55" y2="85"/>
+    <line class="cat-whisker" x1="85" y1="95" x2="55" y2="95"/>
+    <line class="cat-whisker" x1="115" y1="90" x2="145" y2="85"/>
+    <line class="cat-whisker" x1="115" y1="95" x2="145" y2="95"/>
 </svg>
