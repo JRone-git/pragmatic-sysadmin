@@ -58,3 +58,9 @@ enableRobotsTXT = true
   name = "Tools"
   url = "/tools/"
   weight = 40
+
+[[menu.main]]
+  identifier = "kids"
+  name = "Kids"
+  url = "/kids/"
+  weight = 50
