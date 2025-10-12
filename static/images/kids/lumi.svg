@@ -1,37 +1,82 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-    <!-- Snow SVG with friendly, rounded style -->
     <defs>
-        <style>
-            .snowflake { fill: #FFF; stroke: #87CEEB; stroke-width: 2; }
-            .crystal { fill: #E6F3FF; stroke: #87CEEB; stroke-width: 1.5; }
-        </style>
+        <linearGradient id="snowGradient" x1="0%" y1="0%" x2="100%" y2="100%">
+            <stop offset="0%" style="stop-color:#F0F8FF"/>
+            <stop offset="100%" style="stop-color:#E6E6FA"/>
+        </linearGradient>
+        <filter id="glow">
+            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
+            <feMerge>
+                <feMergeNode in="coloredBlur"/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
+        <filter id="softShadow">
+            <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
+            <feOffset dx="2" dy="2" result="offsetblur"/>
+            <feComponentTransfer>
+                <feFuncA type="linear" slope="0.5"/>
+            </feComponentTransfer>
+            <feMerge>
+                <feMergeNode/>
+                <feMergeNode in="SourceGraphic"/>
+            </feMerge>
+        </filter>
     </defs>
     <!-- Main Snowflake -->
-    <g transform="translate(100 100)">
+    <g transform="translate(100 100)" filter="url(#softShadow)">
         <!-- Center -->
-        <circle class="crystal" r="15"/>
+        <circle r="20" fill="url(#snowGradient)" stroke="#87CEEB" stroke-width="3"/>
         <!-- Main Arms -->
-        <g class="snowflake">
+        <g stroke="#87CEEB" stroke-width="4" fill="url(#snowGradient)">
             <!-- Vertical -->
-            <rect x="-5" y="-60" width="10" height="120" rx="5"/>
+            <rect x="-6" y="-70" width="12" height="140" rx="6"/>
             <!-- Horizontal -->
-            <rect x="-60" y="-5" width="120" height="10" rx="5"/>
+            <rect x="-70" y="-6" width="140" height="12" rx="6"/>
             <!-- Diagonal 1 -->
-            <rect x="-5" y="-60" width="10" height="120" rx="5" transform="rotate(45)"/>
+            <rect x="-6" y="-70" width="12" height="140" rx="6" transform="rotate(45)"/>
             <!-- Diagonal 2 -->
-            <rect x="-5" y="-60" width="10" height="120" rx="5" transform="rotate(-45)"/>
+            <rect x="-6" y="-70" width="12" height="140" rx="6" transform="rotate(-45)"/>
         </g>
         <!-- Crystal Details -->
-        <g class="crystal">
-            <circle cx="0" cy="-40" r="8"/>
-            <circle cx="0" cy="40" r="8"/>
-            <circle cx="-40" cy="0" r="8"/>
-            <circle cx="40" cy="0" r="8"/>
-            <circle cx="-28" cy="-28" r="8"/>
-            <circle cx="28" cy="28" r="8"/>
-            <circle cx="-28" cy="28" r="8"/>
-            <circle cx="28" cy="-28" r="8"/>
+        <g fill="url(#snowGradient)" stroke="#87CEEB" stroke-width="2">
+            <circle cx="0" cy="-50" r="10">
+                <animate attributeName="r" values="10;12;10" dur="2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="0" cy="50" r="10">
+                <animate attributeName="r" values="10;12;10" dur="2.2s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="-50" cy="0" r="10">
+                <animate attributeName="r" values="10;12;10" dur="1.8s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="50" cy="0" r="10">
+                <animate attributeName="r" values="10;12;10" dur="2.4s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="-35" cy="-35" r="10">
+                <animate attributeName="r" values="10;12;10" dur="2.1s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="35" cy="35" r="10">
+                <animate attributeName="r" values="10;12;10" dur="1.9s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="-35" cy="35" r="10">
+                <animate attributeName="r" values="10;12;10" dur="2.3s" repeatCount="indefinite"/>
+            </circle>
+            <circle cx="35" cy="-35" r="10">
+                <animate attributeName="r" values="10;12;10" dur="2s" repeatCount="indefinite"/>
+            </circle>
         </g>
+    </g>
+    <!-- Sparkles -->
+    <g fill="#FFF" filter="url(#glow)">
+        <circle cx="60" cy="60" r="3">
+            <animate attributeName="opacity" values="1;0.2;1" dur="2s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="140" cy="60" r="3">
+            <animate attributeName="opacity" values="1;0.2;1" dur="1.5s" repeatCount="indefinite"/>
+        </circle>
+        <circle cx="100" cy="40" r="3">
+            <animate attributeName="opacity" values="1;0.2;1" dur="1.8s" repeatCount="indefinite"/>
+        </circle>
     </g>
 </svg>
