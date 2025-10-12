@@ -3,14 +3,13 @@ name: Deploy Hugo to GitHub Pages
 on:
   push:
     branches: [ main ]
+  workflow_dispatch:
 
-# Allow permissions for deployment
 permissions:
   contents: read
   pages: write
   id-token: write
 
-# Allow only one concurrent deployment
 concurrency:
   group: "pages"
   cancel-in-progress: false
@@ -33,6 +32,9 @@ jobs:
 
       - name: Build
         run: hugo --minify --environment production --cleanDestinationDir --gc
+
+      - name: Add .nojekyll file
+        run: touch ./public/.nojekyll
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3

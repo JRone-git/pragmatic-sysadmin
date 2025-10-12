@@ -52,3 +52,9 @@ enableRobotsTXT = true
   name = "Newsletter"
   url = "/newsletter/"
   weight = 30
+
+[[menu.main]]
+  identifier = "tools"
+  name = "Tools"
+  url = "/tools/"
+  weight = 40
