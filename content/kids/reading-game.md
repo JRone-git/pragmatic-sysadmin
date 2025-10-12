@@ -114,8 +114,12 @@ window.checkWord = function(word) {
     document.getElementById('r-streak').textContent = streak;
     // update best
     const best = parseInt(localStorage.getItem(bestReadKey)||'0',10);
-    if (score > best) localStorage.setItem(bestReadKey, score);
+    let isNewBest = false;
+    if (score > best) { localStorage.setItem(bestReadKey, score); isNewBest = true; }
     document.getElementById('r-best').textContent = localStorage.getItem(bestReadKey)||0;
+    // celebratory confetti on milestones
+    if (streak >= 5) launchConfetti();
+    if (isNewBest) launchConfetti();
   } else {
     streak = 0;
     document.getElementById('feedback').innerHTML = `<span style="color:red;font-size:1.3em;">${lang==='fi' ? 'Yritä uudelleen!' : 'Try again!'}</span>`;
@@ -146,6 +150,42 @@ window.showHint = function() {
     btn.style.boxShadow = '0 0 12px 3px #7ed957';
     setTimeout(() => btn.style.boxShadow = orig, 800);
   }
+}
+// lightweight confetti (no external libs) — draws confetti pieces then fades
+function launchConfetti() {
+  const container = document.createElement('div');
+  container.style.position = 'fixed';
+  container.style.left = 0;
+  container.style.top = 0;
+  container.style.width = '100%';
+  container.style.height = '100%';
+  container.style.pointerEvents = 'none';
+  container.style.overflow = 'hidden';
+  document.body.appendChild(container);
+  const colours = ['#ff5e5b','#ffca3a','#8ac926','#1982c4','#6a4c93'];
+  const count = 30;
+  for (let i=0;i<count;i++) {
+    const el = document.createElement('div');
+    const size = Math.random()*10+6;
+    el.style.position = 'absolute';
+    el.style.width = size+'px';
+    el.style.height = (size*0.6)+'px';
+    el.style.background = colours[Math.floor(Math.random()*colours.length)];
+    el.style.left = (Math.random()*100)+'%';
+    el.style.top = '-10%';
+    el.style.opacity = '0.95';
+    el.style.transform = `rotate(${Math.random()*360}deg)`;
+    el.style.borderRadius = '2px';
+    el.style.transition = 'transform 1.6s linear, top 1.6s cubic-bezier(.17,.67,.83,.67), opacity 0.5s linear 1.6s';
+    container.appendChild(el);
+    // animate on next tick
+    setTimeout(() => {
+      el.style.top = (60 + Math.random()*40)+'%';
+      el.style.transform = `rotate(${Math.random()*720}deg) translateX(${(Math.random()-0.5)*200}px)`;
+    }, 20 + Math.random()*200);
+  }
+  // remove after animation
+  setTimeout(() => { container.style.transition='opacity .5s'; container.style.opacity='0'; setTimeout(()=>container.remove(),600); }, 2200);
 }
 showStart();
 </script>
