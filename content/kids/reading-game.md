@@ -11,7 +11,7 @@ draft: false
 <div id="reading-game"></div>
 
 <script>
-// Reliable images for kissa and koira
+// Reliable images for kissa, koira, auto, pallo, lumi (Finnish and English)
 const images = {
   kissa: '/images/kids/kissa.svg',
   koira: '/images/kids/koira.svg',

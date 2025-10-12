@@ -1,43 +1,11 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="200" height="200" viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
-    <defs>
-        <linearGradient id="ballGradient" x1="0%" y1="0%" x2="100%" y2="100%">
-            <stop offset="0%" style="stop-color:#FF6B6B"/>
-            <stop offset="50%" style="stop-color:#FF4500"/>
-            <stop offset="100%" style="stop-color:#FF6347"/>
-        </linearGradient>
-        <filter id="shadow">
-            <feGaussianBlur in="SourceAlpha" stdDeviation="3"/>
-            <feOffset dx="2" dy="2" result="offsetblur"/>
-            <feComponentTransfer>
-                <feFuncA type="linear" slope="0.5"/>
-            </feComponentTransfer>
-            <feMerge>
-                <feMergeNode/>
-                <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-        </filter>
-        <filter id="glow">
-            <feGaussianBlur stdDeviation="2" result="coloredBlur"/>
-            <feMerge>
-                <feMergeNode in="coloredBlur"/>
-                <feMergeNode in="SourceGraphic"/>
-            </feMerge>
-        </filter>
-    </defs>
-    <!-- Main Ball -->
-    <circle cx="100" cy="100" r="60" fill="url(#ballGradient)" stroke="#FF4500" stroke-width="4" filter="url(#shadow)"/>
-    <!-- Decorative Patterns -->
-    <g stroke="#FFF" stroke-width="3" fill="none">
-        <path d="M60 100 Q100 40 140 100"/>
-        <path d="M60 100 Q100 160 140 100"/>
-        <path d="M100 40 L100 160"/>
-    </g>
-    <!-- Stars -->
-    <g fill="#FFD700" filter="url(#glow)">
-        <path d="M80 70 L82 75 L87 75 L83 79 L85 84 L80 81 L75 84 L77 79 L73 75 L78 75 Z"/>
-        <path d="M120 70 L122 75 L127 75 L123 79 L125 84 L120 81 L115 84 L117 79 L113 75 L118 75 Z"/>
-        <path d="M100 120 L102 125 L107 125 L103 129 L105 134 L100 131 L95 134 L97 129 L93 125 L98 125 Z"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" width="24" height="24">
+  <!-- Base circle -->
+  <circle cx="12" cy="12" r="10" fill="#FFFFFF" stroke="#000000" stroke-width="2"/>
+  <!-- Decorative panel lines -->
+  <path d="M12 2 Q 16 6, 16 12 Q 16 18, 12 22" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
+  <path d="M12 2 Q 8 6, 8 12 Q 8 18, 12 22" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
+  <path d="M2 12 h20" fill="none" stroke="#000000" stroke-width="2" stroke-linecap="round"/>
+</svg>
     </g>
     <!-- Shine Effect -->
     <ellipse cx="75" cy="75" rx="20" ry="15" fill="#FFF" opacity="0.3" transform="rotate(-30 75 75)"/>
