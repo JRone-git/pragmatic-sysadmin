@@ -44,3 +44,10 @@ window.AWFormSuccess = function() {
   document.getElementById('newsletter-thankyou').style.display = 'block';
 }
 </script>
+
+<div style="text-align:center;margin:2em 0;">
+  <a href="https://www.buymeacoffee.com/YOURUSERNAME" target="_blank" rel="noopener" style="display:inline-block;padding:0.7em 2em;background:#ffdd00;color:#222;font-weight:bold;border-radius:8px;font-size:1.3em;box-shadow:0 2px 8px #eee;text-decoration:none;">
+    ☕ Buy Me a Coffee
+  </a>
+  <div style="margin-top:0.5em;color:#888;font-size:1em;">Support the newsletter and get more free resources!</div>
+</div>
