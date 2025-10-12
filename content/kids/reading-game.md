@@ -13,16 +13,16 @@ draft: false
 <script>
 // Reliable images for kissa and koira
 const images = {
-  kissa: 'https://openclipart.org/image/400px/307087', // cartoon cat
-  koira: 'https://openclipart.org/image/400px/307089', // cartoon dog
-  auto: 'https://openclipart.org/image/400px/307091', // cartoon car
-  pallo: 'https://openclipart.org/image/400px/307093', // cartoon ball
-  lumi: 'https://openclipart.org/image/400px/307095', // cartoon snowflake
-  koira_en: 'https://openclipart.org/image/400px/307089',
-  cat: 'https://openclipart.org/image/400px/307087',
-  car: 'https://openclipart.org/image/400px/307091',
-  ball: 'https://openclipart.org/image/400px/307093',
-  snow: 'https://openclipart.org/image/400px/307095'
+  kissa: '/images/kids/kissa.svg',
+  koira: '/images/kids/koira.svg',
+  auto: '/images/kids/auto.svg',
+  pallo: '/images/kids/pallo.svg',
+  lumi: '/images/kids/lumi.svg',
+  koira_en: '/images/kids/koira.svg',
+  cat: '/images/kids/kissa.svg',
+  car: '/images/kids/auto.svg',
+  ball: '/images/kids/pallo.svg',
+  snow: '/images/kids/lumi.svg'
 };
 
 const items_fi = [
