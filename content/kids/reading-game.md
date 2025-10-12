@@ -13,16 +13,16 @@ draft: false
 <script>
 // Reliable images for kissa and koira
 const images = {
-  kissa: 'https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&w=300',
-  koira: 'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&w=300',
-  auto: 'https://images.pexels.com/photos/1707828/pexels-photo-1707828.jpeg?auto=compress&w=300',
-  pallo: 'https://images.pexels.com/photos/209841/pexels-photo-209841.jpeg?auto=compress&w=300',
-  lumi: 'https://images.pexels.com/photos/235621/pexels-photo-235621.jpeg?auto=compress&w=300',
-  koira_en: 'https://images.pexels.com/photos/1108099/pexels-photo-1108099.jpeg?auto=compress&w=300',
-  cat: 'https://images.pexels.com/photos/45201/kitty-cat-kitten-pet-45201.jpeg?auto=compress&w=300',
-  car: 'https://images.pexels.com/photos/1707828/pexels-photo-1707828.jpeg?auto=compress&w=300',
-  ball: 'https://images.pexels.com/photos/209841/pexels-photo-209841.jpeg?auto=compress&w=300',
-  snow: 'https://images.pexels.com/photos/235621/pexels-photo-235621.jpeg?auto=compress&w=300'
+  kissa: 'https://openclipart.org/image/400px/307087', // cartoon cat
+  koira: 'https://openclipart.org/image/400px/307089', // cartoon dog
+  auto: 'https://openclipart.org/image/400px/307091', // cartoon car
+  pallo: 'https://openclipart.org/image/400px/307093', // cartoon ball
+  lumi: 'https://openclipart.org/image/400px/307095', // cartoon snowflake
+  koira_en: 'https://openclipart.org/image/400px/307089',
+  cat: 'https://openclipart.org/image/400px/307087',
+  car: 'https://openclipart.org/image/400px/307091',
+  ball: 'https://openclipart.org/image/400px/307093',
+  snow: 'https://openclipart.org/image/400px/307095'
 };
 
 const items_fi = [
