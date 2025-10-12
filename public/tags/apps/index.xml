@@ -1,1 +1,24 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/"><channel><title>Apps on Pragmatic Sysadmin</title><link>https://pragmaticsysadmin.help/tags/apps/</link><description>Recent content in Apps on Pragmatic Sysadmin</description><image><title>Pragmatic Sysadmin</title><url>https://pragmaticsysadmin.help/og-default.png</url><link>https://pragmaticsysadmin.help/og-default.png</link></image><generator>Hugo -- 0.148.2</generator><language>en</language><lastBuildDate>Sat, 16 Aug 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://pragmaticsysadmin.help/tags/apps/index.xml" rel="self" type="application/rss+xml"/><item><title>Take a Break: Earn Gift Cards Playing Mobile Games (FeaturePoints)</title><link>https://pragmaticsysadmin.help/posts/earn-gift-cards-playing-mobile-games-featurepoints/</link><pubDate>Sat, 16 Aug 2025 00:00:00 +0000</pubDate><guid>https://pragmaticsysadmin.help/posts/earn-gift-cards-playing-mobile-games-featurepoints/</guid><description>Sometimes you need a mental break from servers and networks. Here&amp;#39;s how I earn Amazon gift cards playing mobile games during downtime.</description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+  <channel>
+    <title>Apps on Pragmatic Sysadmin</title>
+    <link>https://pragmaticsysadmin.help/tags/apps/</link>
+    <description>Recent content in Apps on Pragmatic Sysadmin</description>
+    <image>
+      <title>Pragmatic Sysadmin</title>
+      <url>https://pragmaticsysadmin.help/og-default.png</url>
+      <link>https://pragmaticsysadmin.help/og-default.png</link>
+    </image>
+    <generator>Hugo -- 0.148.2</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 16 Aug 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://pragmaticsysadmin.help/tags/apps/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Take a Break: Earn Gift Cards Playing Mobile Games (FeaturePoints)</title>
+      <link>https://pragmaticsysadmin.help/posts/earn-gift-cards-playing-mobile-games-featurepoints/</link>
+      <pubDate>Sat, 16 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://pragmaticsysadmin.help/posts/earn-gift-cards-playing-mobile-games-featurepoints/</guid>
+      <description>Sometimes you need a mental break from servers and networks. Here&amp;#39;s how I earn Amazon gift cards playing mobile games during downtime.</description>
+    </item>
+  </channel>
+</rss>
