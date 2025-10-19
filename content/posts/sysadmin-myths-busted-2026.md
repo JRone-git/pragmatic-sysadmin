@@ -1,7 +1,7 @@
 ---
 title: "Sysadmin Myths Busted: What Actually Works in 2026"
 date: 2025-10-19
-draft: true
+draft: false
 description: "Debunking the most persistent sysadmin myths with real-world solutions for 2026."
 tags: ["sysadmin", "myths", "productivity", "automation"]
 ---
