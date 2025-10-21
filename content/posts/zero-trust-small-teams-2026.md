@@ -1,9 +1,10 @@
 ---
 title: "Zero Trust for Small Teams: Practical Steps"
-date: 2025-10-26
-draft: true
+author: "Pragmatic"
+date: "2025-10-26T00:00:00.000Z"
 description: "How to implement zero trust security in small organizations without breaking the bank."
 tags: ["security", "zero trust", "sysadmin", "small business"]
+draft: "false"
 ---
 
 # Zero Trust for Small Teams: Practical Steps
