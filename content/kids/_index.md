@@ -6,10 +6,11 @@ draft: false
 
 # Kids Learning Games
 
-Welcome! Play fun games to learn Finnish words and maths. Tap below to start:
+Welcome! Play fun games to learn Finnish words, maths, and create music! Tap below to start:
 
 - [Reading Game](/kids/reading-game/)
 - [Maths Game](/kids/maths-game/)
+- [Melody Mixer Creatures](/melody-mixer.html) 🎵
 
 ---
 
