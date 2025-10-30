@@ -26,7 +26,7 @@
 
         header {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 20px;
             color: white;
             text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
@@ -40,6 +40,121 @@
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-10px); }
+        }
+
+        /* Kid Mode Toggle */
+        .mode-toggle-container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            text-align: center;
+            position: relative;
+        }
+
+        .mode-toggle-title {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+
+        .mode-toggle {
+            position: relative;
+            display: inline-block;
+            width: 120px;
+            height: 60px;
+        }
+
+        .mode-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .mode-toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #48dbfb 0%, #0abde3 100%);
+            transition: 0.4s;
+            border-radius: 60px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .mode-toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 50px;
+            width: 50px;
+            left: 5px;
+            bottom: 5px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: 0.4s;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        input:checked + .mode-toggle-slider {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        input:checked + .mode-toggle-slider:before {
+            transform: translateX(60px);
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .mode-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .mode-label {
+            flex: 1;
+            padding: 5px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .mode-label.kid {
+            color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        .mode-label.advanced {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .mode-toggle input:checked ~ .mode-labels .mode-label.kid {
+            background: rgba(255, 107, 107, 0.2);
+            transform: scale(1.1);
+        }
+
+        .mode-toggle input:checked ~ .mode-labels .mode-label.advanced {
+            background: transparent;
+            transform: scale(1);
+        }
+
+        .mode-toggle input:not(:checked) ~ .mode-labels .mode-label.kid {
+            background: transparent;
+            transform: scale(1);
+        }
+
+        .mode-toggle input:not(:checked) ~ .mode-labels .mode-label.advanced {
+            background: rgba(102, 126, 234, 0.2);
+            transform: scale(1.1);
         }
 
         .instructions {
@@ -71,6 +186,21 @@
             color: #555;
             font-size: 1.1em;
             line-height: 1.6;
+        }
+
+        .instructions.kid-mode {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .instructions.kid-mode h2 {
+            color: #ff6b6b;
+            font-size: 1.8em;
+        }
+
+        .instructions.kid-mode p {
+            color: #d63384;
+            font-size: 1.3em;
+            font-weight: bold;
         }
 
         /* Enhanced Controls Panel */
@@ -274,6 +404,56 @@
         .preset-description {
             font-size: 0.8em;
             opacity: 0.8;
+        }
+
+        /* Kid Mode specific styles */
+        .kid-mode .enhanced-controls,
+        .kid-mode .presets-panel,
+        .kid-mode .save-load-panel {
+            display: none;
+        }
+
+        .kid-mode .mode-toggle-container {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .kid-mode .mode-toggle-title {
+            color: #ff6b6b;
+        }
+
+        .kid-mode .creature {
+            min-height: 80px;
+            padding: 20px;
+            font-size: 1.1em;
+        }
+
+        .kid-mode .creature-icon {
+            font-size: 3em;
+            margin-bottom: 8px;
+        }
+
+        .kid-mode .creature-name {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .kid-mode .creature-controls {
+            font-size: 0.9em;
+        }
+
+        .kid-mode .btn {
+            min-height: 60px;
+            font-size: 1.4em;
+            padding: 20px 40px;
+        }
+
+        .kid-mode .grid-cell {
+            min-height: 100px;
+            border-width: 4px;
+        }
+
+        .kid-mode .grid-cell .creature-icon {
+            font-size: 2.5em;
         }
 
         /* Game Area */
@@ -665,6 +845,25 @@
             .presets-grid {
                 grid-template-columns: 1fr;
             }
+
+            .kid-mode .btn {
+                min-height: 50px;
+                font-size: 1.2em;
+                padding: 15px 30px;
+            }
+
+            .kid-mode .grid-cell {
+                min-height: 80px;
+            }
+
+            .kid-mode .creature {
+                min-height: 70px;
+                padding: 15px;
+            }
+
+            .kid-mode .creature-icon {
+                font-size: 2.5em;
+            }
         }
 
         .playhead {
@@ -677,11 +876,6 @@
             border-radius: 12px;
             animation: pulse 0.2s ease-in-out;
             pointer-events: none;
-        }
-
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
         }
 
         .nav-link {
@@ -714,16 +908,42 @@
                 font-size: 2em;
             }
         }
+
+        /* Safari specific fixes */
+        @supports (-webkit-touch-callout: none) {
+            .mode-toggle-slider {
+                -webkit-appearance: none;
+                appearance: none;
+            }
+            
+            .mode-toggle-slider::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+            }
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <header>
             <h1>Melody Mixer Creatures</h1>
-            <p style="font-size: 1.2em;">Drag creatures to create your own music with advanced instruments!</p>
+            <p id="mainSubtitle" style="font-size: 1.2em;">Drag creatures to create your own music with advanced instruments!</p>
         </header>
 
-        <div class="instructions">
+        <!-- Kid Mode Toggle -->
+        <div class="mode-toggle-container">
+            <div class="mode-toggle-title">Choose Your Mode</div>
+            <label class="mode-toggle">
+                <input type="checkbox" id="modeToggle">
+                <span class="mode-toggle-slider"></span>
+            </label>
+            <div class="mode-labels">
+                <div class="mode-label kid">Kid Mode</div>
+                <div class="mode-label advanced">Advanced Mode</div>
+            </div>
+        </div>
+
+        <div class="instructions" id="instructions">
             <h2>How to Play:</h2>
             <p>
                 1. Drag and drop creatures from the left panel onto the music grid<br>
@@ -857,7 +1077,7 @@
 
     <!-- Recording Indicator -->
     <div id="recordingIndicator" class="recording-indicator">
-        🔴 Recording...
+        Recording...
     </div>
 
     <script>
@@ -882,6 +1102,7 @@
         let currentBPM = 120;
         let tempoSlider;
         let tempoValueDisplay;
+        let isKidMode = true; // Default to Kid Mode
 
         // Enhanced audio variables
         let currentWaveform = 'sine';
@@ -905,6 +1126,7 @@
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
         const isAndroid = /Android/.test(navigator.userAgent);
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
 
         // Performance optimization: Use requestAnimationFrame for DOM updates
         let pendingDOMUpdates = [];
@@ -989,13 +1211,81 @@
             }
         ];
 
-        // Enhanced iOS audio system with multiple fallback strategies
+        // Kid Mode Management
+        function initModeToggle() {
+            const modeToggle = document.getElementById('modeToggle');
+            const instructions = document.getElementById('instructions');
+            const mainSubtitle = document.getElementById('mainSubtitle');
+            
+            // Load saved mode preference
+            const savedMode = localStorage.getItem('melodyMixerMode');
+            if (savedMode !== null) {
+                isKidMode = savedMode === 'kid';
+                modeToggle.checked = !isKidMode; // Checked = Advanced Mode
+            } else {
+                // Default to Kid Mode for new users
+                isKidMode = true;
+                modeToggle.checked = false;
+            }
+            
+            updateMode();
+            
+            modeToggle.addEventListener('change', () => {
+                isKidMode = !modeToggle.checked;
+                updateMode();
+                saveModePreference();
+            });
+        }
+
+        function updateMode() {
+            const body = document.body;
+            const instructions = document.getElementById('instructions');
+            const mainSubtitle = document.getElementById('mainSubtitle');
+            
+            if (isKidMode) {
+                body.classList.add('kid-mode');
+                instructions.classList.add('kid-mode');
+                mainSubtitle.textContent = 'Drag creatures to make music!';
+                
+                // Use simple, pleasant sounds for kid mode
+                currentInstrument = 'sine';
+                currentWaveform = 'sine';
+                envelopeSettings = {
+                    attack: 0.05,
+                    decay: 0.2,
+                    sustain: 0.8,
+                    release: 0.3
+                };
+                reverbAmount = 0.1;
+            } else {
+                body.classList.remove('kid-mode');
+                instructions.classList.remove('kid-mode');
+                mainSubtitle.textContent = 'Drag creatures to create your own music with advanced instruments!';
+                
+                // Restore advanced settings
+                currentInstrument = 'piano';
+                currentWaveform = 'sine';
+                envelopeSettings = {
+                    attack: 0.1,
+                    decay: 0.3,
+                    sustain: 0.7,
+                    release: 0.5
+                };
+                reverbAmount = 0.2;
+            }
+        }
+
+        function saveModePreference() {
+            localStorage.setItem('melodyMixerMode', isKidMode ? 'kid' : 'advanced');
+        }
+
+        // Safari-compatible iOS audio system with multiple fallback strategies
         function initAudioContext() {
             if (!audioContext) {
                 try {
                     const AudioContext = window.AudioContext || window.webkitAudioContext;
                     
-                    // iOS requires specific audio context configuration
+                    // Safari and iOS require specific audio context configuration
                     audioContext = new AudioContext({
                         latencyHint: 'interactive',
                         sampleRate: 44100,
@@ -1007,8 +1297,8 @@
                     
                     console.log('AudioContext created with state:', audioContext.state);
                     
-                    // iOS-specific audio preparation
-                    prepareAudioForIOS();
+                    // Safari/iOS-specific audio preparation
+                    prepareAudioForSafariIOS();
                     
                 } catch (error) {
                     console.error('Failed to create AudioContext:', error);
@@ -1017,9 +1307,9 @@
             return audioContext;
         }
 
-        // iOS-specific audio preparation
-        function prepareAudioForIOS() {
-            if (!isIOS) return;
+        // Safari/iOS-specific audio preparation
+        function prepareAudioForSafariIOS() {
+            if (!isIOS && !isSafari) return;
 
             // Create a silent audio buffer to "prime" the system
             const sampleRate = audioContext.sampleRate;
@@ -1041,10 +1331,10 @@
             source.connect(gainNode);
             gainNode.connect(audioContext.destination);
             
-            console.log('iOS audio preparation complete');
+            console.log('Safari/iOS audio preparation complete');
         }
 
-        // Enhanced audio enablement with multiple strategies
+        // Safari-compatible audio enablement with multiple strategies
         function enableAudio() {
             console.log('Enabling audio - user interaction detected');
             
@@ -1054,7 +1344,7 @@
             const audioStatus = document.getElementById('audioStatus');
             const audioStatusText = document.getElementById('audioStatusText');
             
-            // Strategy 1: Direct resume
+            // Safari/iOS compatible resume strategy
             const attemptResume = () => {
                 if (audioContext.state === 'suspended') {
                     audioContext.resume()
@@ -1071,10 +1361,10 @@
                 }
             };
 
-            // Strategy 2: iOS-specific interaction triggers
-            const triggerIOSAudio = () => {
-                if (isIOS && audioContext.state === 'suspended') {
-                    // Create and play a minimal sound to enable iOS audio
+            // Safari/iOS-specific interaction triggers
+            const triggerSafariAudio = () => {
+                if ((isIOS || isSafari) && audioContext.state === 'suspended') {
+                    // Create and play a minimal sound to enable Safari/iOS audio
                     const osc = audioContext.createOscillator();
                     const gain = audioContext.createGain();
                     
@@ -1088,13 +1378,13 @@
                     osc.start(audioContext.currentTime);
                     osc.stop(audioContext.currentTime + 0.05);
                     
-                    console.log('iOS audio trigger executed');
+                    console.log('Safari/iOS audio trigger executed');
                 }
             };
 
             // Execute strategies
             attemptResume();
-            triggerIOSAudio();
+            triggerSafariAudio();
             updateAudioStatus('initializing');
             
             // Wait and retry
@@ -1115,16 +1405,16 @@
             switch (status) {
                 case 'initializing':
                     audioStatus.classList.remove('enabled');
-                    audioStatusText.textContent = '⚡ Initializing audio...';
+                    audioStatusText.textContent = 'Initializing audio...';
                     break;
                 case 'ready':
                     audioStatus.classList.add('enabled');
-                    audioStatusText.textContent = '🔊 Audio Ready!';
+                    audioStatusText.textContent = 'Audio Ready!';
                     audioInitialized = true;
                     break;
                 case 'error':
                     audioStatus.classList.remove('enabled');
-                    audioStatusText.textContent = '❌ Audio Error - Tap to retry';
+                    audioStatusText.textContent = 'Audio Error - Tap to retry';
                     break;
                 default:
                     audioStatus.classList.remove('enabled');
@@ -1210,8 +1500,8 @@
                 gainNode.gain.linearRampToValueAtTime(volume * envelopeSettings.sustain, now + envelopeSettings.attack + envelopeSettings.decay);
                 gainNode.gain.exponentialRampToValueAtTime(0.01, now + duration + envelopeSettings.release);
                 
-                // Add reverb effect
-                if (reverbAmount > 0) {
+                // Add reverb effect (skip in kid mode for simplicity)
+                if (!isKidMode && reverbAmount > 0) {
                     const delayNode = audioContext.createDelay(1.0);
                     const delayGain = audioContext.createGain();
                     
@@ -1225,7 +1515,7 @@
                 
                 // Connect to both output and recording destination
                 filterNode.connect(audioContext.destination);
-                if (audioDestination) {
+                if (audioDestination && !isKidMode) {
                     filterNode.connect(audioDestination);
                 }
                 
@@ -1250,9 +1540,9 @@
                 return;
             }
 
-            // Get creature's specific instrument or use global setting
+            // Get creature's specific instrument or use mode-based setting
             let instrument = currentInstrument;
-            let volume = 0.5;
+            let volume = isKidMode ? 0.6 : 0.5; // Slightly louder for kids
             
             if (creatureId) {
                 const creature = creatures.find(c => c.id === creatureId);
@@ -1260,12 +1550,14 @@
                     instrument = creature.instrument;
                 }
                 
-                // Check for individual volume control in grid
-                const gridIndex = gridState.findIndex(c => c && c.id === creatureId);
-                if (gridIndex !== -1) {
-                    const cellVolumeSlider = document.querySelector(`[data-beat="${gridIndex}"] .volume-control`);
-                    if (cellVolumeSlider) {
-                        volume = parseFloat(cellVolumeSlider.value) / 100;
+                // Check for individual volume control in grid (only in advanced mode)
+                if (!isKidMode) {
+                    const gridIndex = gridState.findIndex(c => c && c.id === creatureId);
+                    if (gridIndex !== -1) {
+                        const cellVolumeSlider = document.querySelector(`[data-beat="${gridIndex}"] .volume-control`);
+                        if (cellVolumeSlider) {
+                            volume = parseFloat(cellVolumeSlider.value) / 100;
+                        }
                     }
                 }
             }
@@ -1405,8 +1697,10 @@
             return Math.round((60 / bpm) * 1000);
         }
 
-        // Initialize enhanced controls
+        // Initialize enhanced controls (only for advanced mode)
         function initEnhancedControls() {
+            if (isKidMode) return;
+
             // Waveform buttons
             document.querySelectorAll('.waveform-btn').forEach(btn => {
                 btn.addEventListener('click', () => {
@@ -1455,6 +1749,7 @@
                 timestamp: Date.now(),
                 gridState: gridState.map(cell => cell ? cell.id : null),
                 bpm: currentBPM,
+                mode: isKidMode ? 'kid' : 'advanced',
                 settings: {
                     waveform: currentWaveform,
                     instrument: currentInstrument,
@@ -1477,6 +1772,14 @@
 
             const composition = savedCompositions[index];
             
+            // Switch to appropriate mode
+            if (composition.mode && composition.mode !== (isKidMode ? 'kid' : 'advanced')) {
+                isKidMode = composition.mode === 'kid';
+                const modeToggle = document.getElementById('modeToggle');
+                modeToggle.checked = !isKidMode;
+                updateMode();
+            }
+            
             // Restore grid state
             for (let i = 0; i < 8; i++) {
                 if (composition.gridState[i]) {
@@ -1487,12 +1790,12 @@
                 }
             }
 
-            // Restore settings
+            // Restore settings (only for advanced mode)
             currentBPM = composition.bpm;
             document.getElementById('tempoSlider').value = currentBPM;
             document.getElementById('tempoValue').textContent = currentBPM;
 
-            if (composition.settings) {
+            if (!isKidMode && composition.settings) {
                 currentWaveform = composition.settings.waveform || 'sine';
                 currentInstrument = composition.settings.instrument || 'piano';
                 Object.assign(envelopeSettings, composition.settings.envelope || envelopeSettings);
@@ -1529,20 +1832,24 @@
             compositionsList.innerHTML = savedCompositions.map((comp, index) => `
                 <div class="composition-item" onclick="loadComposition(${index})">
                     <div class="composition-name">${comp.name}</div>
-                    <div class="composition-date">${new Date(comp.timestamp).toLocaleDateString()}</div>
+                    <div class="composition-date">${new Date(comp.timestamp).toLocaleDateString()} ${comp.mode === 'kid' ? '(Kid Mode)' : '(Advanced)'}</div>
                 </div>
             `).join('');
         }
 
-        // Recording functionality
+        // Recording functionality (Safari compatible)
         function startRecording() {
-            if (isRecording) return;
+            if (isRecording || isKidMode) return;
 
             try {
                 recordedChunks = [];
 
+                const mimeType = MediaRecorder.isTypeSupported('audio/webm;codecs=opus') ? 'audio/webm;codecs=opus' : 
+                               MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : 
+                               'audio/mp4'; // Safari fallback
+
                 mediaRecorder = new MediaRecorder(audioDestination.stream, {
-                    mimeType: 'audio/webm;codecs=opus'
+                    mimeType: mimeType
                 });
 
                 mediaRecorder.ondataavailable = (event) => {
@@ -1552,11 +1859,11 @@
                 };
 
                 mediaRecorder.onstop = () => {
-                    const blob = new Blob(recordedChunks, { type: 'audio/webm' });
+                    const blob = new Blob(recordedChunks, { type: mimeType });
                     const url = URL.createObjectURL(blob);
                     const a = document.createElement('a');
                     a.href = url;
-                    a.download = `melody-mixer-recording-${Date.now()}.webm`;
+                    a.download = `melody-mixer-recording-${Date.now()}.${mimeType.includes('webm') ? 'webm' : 'm4a'}`;
                     a.click();
                     URL.revokeObjectURL(url);
                 };
@@ -1591,6 +1898,7 @@
                 timestamp: Date.now(),
                 gridState: gridState.map(cell => cell ? cell.id : null),
                 bpm: currentBPM,
+                mode: isKidMode ? 'kid' : 'advanced',
                 settings: {
                     waveform: currentWaveform,
                     instrument: currentInstrument,
@@ -1612,6 +1920,11 @@
         }
 
         function exportAudio() {
+            if (isKidMode) {
+                alert('Audio export is only available in Advanced Mode. Switch to Advanced Mode to export audio.');
+                return;
+            }
+
             try {
                 const wavBlob = createWAVFromComposition();
                 const url = URL.createObjectURL(wavBlob);
@@ -1652,7 +1965,7 @@
             document.getElementById('tempoSlider').value = currentBPM;
             document.getElementById('tempoValue').textContent = currentBPM;
 
-            if (preset.settings) {
+            if (preset.settings && !isKidMode) {
                 currentWaveform = preset.settings.waveform || 'sine';
                 reverbAmount = preset.settings.reverb || 0.2;
 
@@ -1670,7 +1983,7 @@
         // Initialize presets grid
         function initPresets() {
             const presetsGrid = document.getElementById('presetsGrid');
-            if (!presetsGrid) return;
+            if (!presetsGrid || isKidMode) return;
 
             presetsGrid.innerHTML = presets.map(preset => `
                 <div class="preset-item" onclick="loadPreset('${preset.id}')">
@@ -1696,7 +2009,7 @@
                 div.innerHTML = `
                     <div class="creature-icon">${creature.icon}</div>
                     <div class="creature-name">${creature.name}</div>
-                    <div class="creature-controls">${creature.instrument}</div>
+                    <div class="creature-controls">${isKidMode ? creature.name + ' Sound' : creature.instrument}</div>
                 `;
                 
                 // Drag and drop events
@@ -1839,12 +2152,19 @@
                 if (creature) {
                     cell.classList.add('occupied');
                     cell.dataset.creature = creature.id;
-                    cell.innerHTML = `
+                    
+                    let cellContent = `
                         <div class="creature-icon">${creature.icon}</div>
                         <button class="remove-btn" onclick="removeCreature(${index}); event.stopPropagation();">×</button>
-                        <input type="range" class="volume-control" min="0" max="100" value="50" title="Volume">
                         <span class="beat-label">${index + 1}</span>
                     `;
+                    
+                    // Add volume control only in advanced mode
+                    if (!isKidMode) {
+                        cellContent += `<input type="range" class="volume-control" min="0" max="100" value="50" title="Volume">`;
+                    }
+                    
+                    cell.innerHTML = cellContent;
                 } else {
                     cell.classList.remove('occupied');
                     delete cell.dataset.creature;
@@ -1882,7 +2202,7 @@
             currentBeat = (currentBeat + 1) % 8;
         }
 
-        // Start playing with enhanced iOS audio handling and tempo support
+        // Start playing with enhanced Safari/iOS audio handling and tempo support
         function startPlaying() {
             console.log('Starting playback...');
             
@@ -1948,6 +2268,10 @@
             if (clearBtn) clearBtn.addEventListener('click', clearAll);
             if (saveBtn) saveBtn.addEventListener('click', saveComposition);
             if (recordBtn) recordBtn.addEventListener('click', () => {
+                if (isKidMode) {
+                    alert('Recording is only available in Advanced Mode. Switch to Advanced Mode to record audio.');
+                    return;
+                }
                 if (isRecording) {
                     stopRecording();
                 } else {
@@ -1960,9 +2284,9 @@
             console.log('Event listeners initialized');
         }
 
-        // Comprehensive iOS audio enablement with multiple strategies
+        // Safari/iOS compatible audio enablement with multiple strategies
         function initAudioListeners() {
-            // Multiple user interaction triggers for iOS
+            // Multiple user interaction triggers for Safari/iOS
             const interactionEvents = ['touchstart', 'click', 'touchend', 'mousedown', 'keydown', 'pointerdown'];
             
             interactionEvents.forEach(eventType => {
@@ -1972,26 +2296,26 @@
                 });
             });
 
-            // Specific iOS audio triggers
-            if (isIOS) {
-                // Enhanced touch handling for iOS
+            // Safari/iOS specific audio triggers
+            if (isIOS || isSafari) {
+                // Enhanced touch handling for Safari/iOS
                 document.addEventListener('touchstart', function(e) {
                     const audioContext = initAudioContext();
                     if (audioContext && audioContext.state === 'suspended') {
                         audioContext.resume()
                             .then(() => {
-                                console.log('iOS audio resumed on touch');
+                                console.log('Safari/iOS audio resumed on touch');
                                 audioInitialized = true;
                             })
-                            .catch(err => console.error('iOS audio resume failed:', err));
+                            .catch(err => console.error('Safari/iOS audio resume failed:', err));
                     }
                 }, { passive: true });
                 
-                // iOS-specific audio priming
+                // Safari/iOS-specific audio priming
                 setTimeout(() => {
                     const audioContext = initAudioContext();
                     if (audioContext && audioContext.state === 'suspended') {
-                        // Create minimal audio to enable iOS audio
+                        // Create minimal audio to enable Safari/iOS audio
                         try {
                             const osc = audioContext.createOscillator();
                             const gain = audioContext.createGain();
@@ -2006,9 +2330,9 @@
                             osc.start(audioContext.currentTime);
                             osc.stop(audioContext.currentTime + 0.1);
                             
-                            console.log('iOS audio priming executed');
+                            console.log('Safari/iOS audio priming executed');
                         } catch (error) {
-                            console.error('iOS audio priming failed:', error);
+                            console.error('Safari/iOS audio priming failed:', error);
                         }
                     }
                 }, 500);
@@ -2029,8 +2353,11 @@
 
         // Initialize game components
         function initGame() {
-            console.log('Initializing Enhanced Melody Mixer game...');
-            console.log('Device info:', { isMobile, isIOS, isAndroid });
+            console.log('Initializing Melody Mixer game with Kid Mode...');
+            console.log('Device info:', { isMobile, isIOS, isAndroid, isSafari });
+            
+            // Initialize mode toggle first
+            initModeToggle();
             
             initCreatures();
             initGrid();
@@ -2046,7 +2373,7 @@
             window.loadComposition = loadComposition;
             window.loadPreset = loadPreset;
             
-            console.log('Enhanced game initialization complete');
+            console.log('Game initialization complete');
         }
 
         // Enhanced initialization with proper timing
