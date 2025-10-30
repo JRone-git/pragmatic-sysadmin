@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Melody Mixer Creatures - Music Game</title>
+    <title>Melody Mixer Creatures - Music Game (Mobile Friendly)</title>
     <style>
         * {
             margin: 0;
@@ -113,6 +113,25 @@
         .creature.dragging {
             opacity: 0.5;
             cursor: grabbing;
+        }
+
+        /* Mobile touch feedback */
+        .creature.touch-active {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            border-color: #fff;
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .creature:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            
+            .creature:active {
+                transform: scale(1.05);
+                transition: transform 0.1s;
+            }
         }
 
         .creature-icon {
@@ -363,17 +382,36 @@
         // Grid state
         const gridState = Array(8).fill(null);
 
-        // Initialize audio context
+        // Initialize audio context with iOS support
         function initAudio() {
             if (!audioContext) {
                 audioContext = new (window.AudioContext || window.webkitAudioContext)();
             }
+            
+            // iOS-specific: ensure audio context is running
+            if (audioContext.state === 'suspended') {
+                audioContext.resume().then(() => {
+                    console.log('Audio context resumed for iOS');
+                });
+            }
         }
 
-        // Play a tone
+        // Play a tone with iOS audio support
         function playTone(frequency, duration = 0.3) {
             initAudio();
             
+            // Double-check audio context state for iOS
+            if (audioContext.state === 'suspended') {
+                audioContext.resume().then(() => {
+                    createAndPlayTone(frequency, duration);
+                });
+            } else {
+                createAndPlayTone(frequency, duration);
+            }
+        }
+
+        // Helper function to create and play tone
+        function createAndPlayTone(frequency, duration) {
             const oscillator = audioContext.createOscillator();
             const gainNode = audioContext.createGain();
             
@@ -388,6 +426,12 @@
             
             oscillator.start(audioContext.currentTime);
             oscillator.stop(audioContext.currentTime + duration);
+        }
+
+        // Enable audio on first user interaction (iOS requirement)
+        function enableAudio() {
+            initAudio();
+            console.log('Audio enabled via user interaction');
         }
 
         // Initialize creatures list
@@ -415,9 +459,30 @@
                     div.classList.remove('dragging');
                 });
 
-                // Click to preview sound
-                div.addEventListener('click', () => {
-                    playTone(creature.freq);
+                // Touch support for mobile devices
+                div.addEventListener('touchstart', (e) => {
+                    div.classList.add('touch-active');
+                });
+
+                // Click/touch to preview sound and place on grid
+                div.addEventListener('click', (e) => {
+                    enableAudio();
+                    if (e.target === div || e.target.closest('.creature')) {
+                        // If already on grid, remove it
+                        const existingCell = document.querySelector(`[data-creature="${creature.id}"]`);
+                        if (existingCell) {
+                            removeCreature(parseInt(existingCell.dataset.beat));
+                            return;
+                        }
+                        
+                        // Place on first empty cell
+                        const emptyCell = document.querySelector('.grid-cell:not([data-creature])');
+                        if (emptyCell) {
+                            const beatIndex = parseInt(emptyCell.dataset.beat);
+                            placeCreature(beatIndex, creature);
+                            playTone(creature.freq);
+                        }
+                    }
                 });
                 
                 creaturesList.appendChild(div);
@@ -558,6 +623,12 @@
         document.getElementById('playBtn').addEventListener('click', startPlaying);
         document.getElementById('stopBtn').addEventListener('click', stopPlaying);
         document.getElementById('clearBtn').addEventListener('click', clearAll);
+
+        // iOS audio enablement - enables audio on first user interaction
+        document.addEventListener('touchstart', enableAudio, { passive: true });
+        document.addEventListener('click', enableAudio, { passive: true });
+        document.addEventListener('touchend', enableAudio, { passive: true });
+        document.addEventListener('touchmove', enableAudio, { passive: true });
 
         // Initialize game
         initCreatures();
