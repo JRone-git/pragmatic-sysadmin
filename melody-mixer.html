@@ -1,0 +1,1164 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melody Mixer Creatures - Music Game (Mobile Friendly)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .instructions {
+            background: rgba(255,255,255,0.95);
+            padding: 15px 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        #audioStatus {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: white;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        #audioStatus.enabled {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .instructions h2 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        .instructions p {
+            color: #555;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        /* Cache-busting comment - Updated: 2025-10-31 */
+
+        .game-area {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .creatures-panel {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .creatures-panel h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .creatures-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+        }
+
+        .creature {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: grab;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .creature:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            border-color: #fff;
+        }
+
+        .creature:active {
+            cursor: grabbing;
+        }
+
+        .creature.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        /* Mobile touch feedback */
+        .creature.touch-active {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            border-color: #fff;
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .creature:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            
+            .creature:active {
+                transform: scale(1.05);
+                transition: transform 0.1s;
+            }
+        }
+
+        .creature-icon {
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+
+        .creature-name {
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .music-grid-container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .music-grid-container h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .grid-cell {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #e0e7ff 0%, #cfd9ff 100%);
+            border: 3px dashed #667eea;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+            min-height: 80px;
+        }
+
+        .grid-cell.drag-over {
+            background: linear-gradient(135deg, #a7f3d0 0%, #6ee7b7 100%);
+            border-color: #10b981;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+        }
+
+        .grid-cell.occupied {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-style: solid;
+            border-color: #fff;
+        }
+
+        .grid-cell .creature-icon {
+            font-size: 2em;
+        }
+
+        .grid-cell .remove-btn {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: rgba(255,0,0,0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .grid-cell.occupied:hover .remove-btn {
+            display: block;
+        }
+
+        .beat-label {
+            position: absolute;
+            bottom: 2px;
+            right: 4px;
+            font-size: 10px;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .btn-play {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .btn-stop {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+
+        .btn-clear {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Tempo Control Styles */
+        .tempo-control {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .tempo-control h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .tempo-display {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .tempo-slider-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .tempo-slider {
+            width: 300px;
+            height: 8px;
+            border-radius: 5px;
+            background: linear-gradient(90deg, #e0e7ff 0%, #667eea 50%, #764ba2 100%);
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .tempo-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: all 0.2s ease;
+        }
+
+        .tempo-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .tempo-slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .tempo-label {
+            min-width: 40px;
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        /* Performance optimizations for mobile */
+        @media (prefers-reduced-motion: reduce) {
+            .creature:hover,
+            .creature:active {
+                transform: none;
+                transition: none;
+            }
+            
+            h1 {
+                animation: none;
+            }
+            
+            .grid-cell.drag-over {
+                transform: none;
+            }
+        }
+
+        /* Mobile touch optimizations */
+        .creature {
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        .grid-cell {
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        /* Reduce animations on slow devices */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .creature {
+                transition: all 0.2s ease; /* Faster transitions on mobile */
+            }
+            
+            .grid-cell {
+                transition: all 0.2s ease;
+            }
+        }
+
+        .playhead {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 4px solid #10b981;
+            border-radius: 12px;
+            animation: pulse 0.2s ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.9);
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: white;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .game-area {
+                grid-template-columns: 1fr;
+            }
+
+            .music-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Melody Mixer Creatures</h1>
+            <p style="font-size: 1.2em;">Drag creatures to create your own music!</p>
+        </header>
+
+        <div class="instructions">
+            <h2>How to Play:</h2>
+            <p>
+                1. Drag and drop creatures from the left panel onto the music grid<br>
+                2. Each creature makes a unique sound<br>
+                3. Click "Play" to hear your creation loop<br>
+                4. Click creatures on the grid to remove them<br>
+                5. Create awesome music combinations!
+            </p>
+            <div id="audioStatus" style="margin-top: 10px; padding: 8px; border-radius: 5px; font-weight: bold;">
+                <span id="audioStatusText">Tap anywhere to enable sound...</span>
+            </div>
+        </div>
+
+        <!-- Tempo Control -->
+        <div class="tempo-control">
+            <h3>Tempo Control</h3>
+            <div class="tempo-display">
+                <span id="tempoValue">120</span> BPM
+            </div>
+            <div class="tempo-slider-container">
+                <span class="tempo-label">60</span>
+                <input type="range" id="tempoSlider" class="tempo-slider" min="60" max="180" value="120" step="5">
+                <span class="tempo-label">180</span>
+            </div>
+        </div>
+
+        <div class="game-area">
+            <div class="creatures-panel">
+                <h3>Creatures</h3>
+                <div class="creatures-list" id="creaturesList"></div>
+            </div>
+
+            <div class="music-grid-container">
+                <h3>Music Grid (8 Beats)</h3>
+                <div class="music-grid" id="musicGrid"></div>
+                <div class="controls">
+                    <button class="btn btn-play" id="playBtn">Play</button>
+                    <button class="btn btn-stop" id="stopBtn" disabled>Stop</button>
+                    <button class="btn btn-clear" id="clearBtn">Clear All</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="index.html" class="nav-link">Back to Home</a>
+        </div>
+    </div>
+
+    <script>
+        // Creature definitions with sounds
+        const creatures = [
+            { id: 'cat', name: 'Cat', icon: '🐱', freq: 523.25 }, // C5
+            { id: 'dog', name: 'Dog', icon: '🐶', freq: 587.33 }, // D5
+            { id: 'bird', name: 'Bird', icon: '🐦', freq: 659.25 }, // E5
+            { id: 'frog', name: 'Frog', icon: '🐸', freq: 698.46 }, // F5
+            { id: 'lion', name: 'Lion', icon: '🦁', freq: 783.99 }, // G5
+            { id: 'elephant', name: 'Elephant', icon: '🐘', freq: 880.00 }, // A5
+            { id: 'monkey', name: 'Monkey', icon: '🐵', freq: 987.77 }, // B5
+            { id: 'pig', name: 'Pig', icon: '🐷', freq: 1046.50 }, // C6
+        ];
+
+        // Global variables
+        let audioContext;
+        let isPlaying = false;
+        let playInterval;
+        let currentBeat = 0;
+        let audioInitialized = false;
+        let currentBPM = 120;
+        let tempoSlider;
+        let tempoValueDisplay;
+
+        // Grid state
+        const gridState = Array(8).fill(null);
+
+        // Mobile device detection for optimizations
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const isAndroid = /Android/.test(navigator.userAgent);
+
+        // Performance optimization: Use requestAnimationFrame for DOM updates
+        let pendingDOMUpdates = [];
+        function optimizeDOMUpdate(callback) {
+            pendingDOMUpdates.push(callback);
+            if (pendingDOMUpdates.length === 1) {
+                requestAnimationFrame(processDOMUpdates);
+            }
+        }
+
+        function processDOMUpdates() {
+            const updates = [...pendingDOMUpdates];
+            pendingDOMUpdates = [];
+            updates.forEach(update => update());
+        }
+
+        // Enhanced iOS audio system with multiple fallback strategies
+        function initAudioContext() {
+            if (!audioContext) {
+                try {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    
+                    // iOS requires specific audio context configuration
+                    audioContext = new AudioContext({
+                        latencyHint: 'interactive',
+                        sampleRate: 44100,
+                        outputLatency: 'interactive'
+                    });
+
+                    console.log('AudioContext created with state:', audioContext.state);
+                    
+                    // iOS-specific audio preparation
+                    prepareAudioForIOS();
+                    
+                } catch (error) {
+                    console.error('Failed to create AudioContext:', error);
+                }
+            }
+            return audioContext;
+        }
+
+        // iOS-specific audio preparation
+        function prepareAudioForIOS() {
+            if (!isIOS) return;
+
+            // Create a silent audio buffer to "prime" the system
+            const sampleRate = audioContext.sampleRate;
+            const duration = 0.1;
+            const buffer = audioContext.createBuffer(1, sampleRate * duration, sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            // Fill with silent data (all zeros)
+            for (let i = 0; i < data.length; i++) {
+                data[i] = 0;
+            }
+
+            // Create silent source and connect it
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            const gainNode = audioContext.createGain();
+            gainNode.gain.value = 0;
+            
+            source.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            console.log('iOS audio preparation complete');
+        }
+
+        // Enhanced audio enablement with multiple strategies
+        function enableAudio() {
+            console.log('Enabling audio - user interaction detected');
+            
+            const audioContext = initAudioContext();
+            if (!audioContext) return;
+
+            const audioStatus = document.getElementById('audioStatus');
+            const audioStatusText = document.getElementById('audioStatusText');
+            
+            // Strategy 1: Direct resume
+            const attemptResume = () => {
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume()
+                        .then(() => {
+                            console.log('Audio context resumed successfully');
+                            updateAudioStatus('ready');
+                        })
+                        .catch(err => {
+                            console.error('Failed to resume audio context:', err);
+                            updateAudioStatus('error');
+                        });
+                } else if (audioContext.state === 'running') {
+                    updateAudioStatus('ready');
+                }
+            };
+
+            // Strategy 2: iOS-specific interaction triggers
+            const triggerIOSAudio = () => {
+                if (isIOS && audioContext.state === 'suspended') {
+                    // Create and play a minimal sound to enable iOS audio
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
+                    
+                    osc.type = 'sine';
+                    osc.frequency.value = 440;
+                    gain.gain.value = 0;
+                    
+                    osc.start(audioContext.currentTime);
+                    osc.stop(audioContext.currentTime + 0.05);
+                    
+                    console.log('iOS audio trigger executed');
+                }
+            };
+
+            // Execute strategies
+            attemptResume();
+            triggerIOSAudio();
+            updateAudioStatus('initializing');
+            
+            // Wait and retry
+            setTimeout(() => {
+                if (audioContext.state === 'running') {
+                    updateAudioStatus('ready');
+                }
+            }, 200);
+        }
+
+        // Update audio status indicator
+        function updateAudioStatus(status) {
+            const audioStatus = document.getElementById('audioStatus');
+            const audioStatusText = document.getElementById('audioStatusText');
+            
+            if (!audioStatus || !audioStatusText) return;
+            
+            switch (status) {
+                case 'initializing':
+                    audioStatus.classList.remove('enabled');
+                    audioStatusText.textContent = '⚡ Initializing audio...';
+                    break;
+                case 'ready':
+                    audioStatus.classList.add('enabled');
+                    audioStatusText.textContent = '🔊 Audio Ready!';
+                    audioInitialized = true;
+                    break;
+                case 'error':
+                    audioStatus.classList.remove('enabled');
+                    audioStatusText.textContent = '❌ Audio Error - Tap to retry';
+                    break;
+                default:
+                    audioStatus.classList.remove('enabled');
+                    audioStatusText.textContent = 'Tap anywhere to enable sound...';
+            }
+        }
+
+        // Enhanced playTone with multiple audio strategies
+        function playTone(frequency, duration = 0.3) {
+            const audioContext = initAudioContext();
+            if (!audioContext || audioContext.state !== 'running') {
+                console.log('Audio not ready, attempting to initialize...');
+                enableAudio();
+                
+                // Retry after a brief delay
+                setTimeout(() => playTone(frequency, duration), 100);
+                return;
+            }
+
+            try {
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                
+                oscillator.connect(gainNode);
+                gainNode.connect(audioContext.destination);
+                
+                oscillator.type = 'sine';
+                oscillator.frequency.value = frequency;
+                
+                // Mobile-optimized gain settings
+                const baseGain = isIOS ? 0.5 : 0.3;
+                const mobileGain = isMobile ? baseGain * 1.5 : baseGain;
+                
+                gainNode.gain.setValueAtTime(mobileGain, audioContext.currentTime);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
+                
+                oscillator.start(audioContext.currentTime);
+                oscillator.stop(audioContext.currentTime + duration);
+                
+                console.log(`Playing tone: ${frequency}Hz for ${duration}s`);
+            } catch (error) {
+                console.error('Error playing tone:', error);
+            }
+        }
+
+        // Tempo control functionality
+        function initTempoControl() {
+            tempoSlider = document.getElementById('tempoSlider');
+            tempoValueDisplay = document.getElementById('tempoValue');
+            
+            if (!tempoSlider || !tempoValueDisplay) return;
+            
+            // Update tempo display
+            const updateTempoDisplay = (bpm) => {
+                currentBPM = parseInt(bpm);
+                tempoValueDisplay.textContent = currentBPM;
+            };
+            
+            // Initialize display
+            updateTempoDisplay(tempoSlider.value);
+            
+            // Listen for tempo changes
+            tempoSlider.addEventListener('input', (e) => {
+                const newBPM = parseInt(e.target.value);
+                updateTempoDisplay(newBPM);
+                
+                // Update playback interval if currently playing
+                if (isPlaying) {
+                    clearInterval(playInterval);
+                    const interval = calculateInterval(currentBPM);
+                    playInterval = setInterval(playLoop, interval);
+                }
+            });
+            
+            console.log('Tempo control initialized');
+        }
+
+        // Calculate interval based on BPM
+        function calculateInterval(bpm) {
+            // Convert BPM to milliseconds per beat
+            return Math.round((60 / bpm) * 1000);
+        }
+
+        // Initialize creatures list with performance optimizations
+        function initCreatures() {
+            const creaturesList = document.getElementById('creaturesList');
+            if (!creaturesList) return;
+            
+            // Optimize for mobile - use DocumentFragment for better performance
+            const fragment = document.createDocumentFragment();
+            
+            creatures.forEach(creature => {
+                const div = document.createElement('div');
+                div.className = 'creature';
+                div.draggable = true;
+                div.dataset.creatureId = creature.id;
+                div.innerHTML = `
+                    <div class="creature-icon">${creature.icon}</div>
+                    <div class="creature-name">${creature.name}</div>
+                `;
+                
+                // Drag and drop events
+                div.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.effectAllowed = 'copy';
+                    e.dataTransfer.setData('text/plain', creature.id);
+                    div.classList.add('dragging');
+                });
+                
+                div.addEventListener('dragend', () => {
+                    div.classList.remove('dragging');
+                });
+
+                // Enhanced touch events for mobile
+                if (isMobile) {
+                    div.addEventListener('touchstart', (e) => {
+                        div.classList.add('touch-active');
+                        e.preventDefault();
+                    });
+                    
+                    div.addEventListener('touchend', (e) => {
+                        div.classList.remove('touch-active');
+                        e.preventDefault();
+                        handleCreatureClick(creature);
+                    });
+                }
+
+                // Click/touch to preview sound and place on grid
+                div.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    handleCreatureClick(creature);
+                });
+                
+                fragment.appendChild(div);
+            });
+            
+            creaturesList.appendChild(fragment);
+            console.log('Creatures initialized');
+        }
+
+        // Handle creature click/tap with audio enabling
+        function handleCreatureClick(creature) {
+            enableAudio();
+            
+            // If already on grid, remove it
+            const existingCell = document.querySelector(`[data-creature="${creature.id}"]`);
+            if (existingCell) {
+                removeCreature(parseInt(existingCell.dataset.beat));
+                return;
+            }
+            
+            // Place on first empty cell
+            const emptyCell = document.querySelector('.grid-cell:not([data-creature])');
+            if (emptyCell) {
+                const beatIndex = parseInt(emptyCell.dataset.beat);
+                placeCreature(beatIndex, creature);
+                playTone(creature.freq);
+            }
+        }
+
+        // Initialize music grid with performance optimizations
+        function initGrid() {
+            const grid = document.getElementById('musicGrid');
+            if (!grid) return;
+            
+            // Use DocumentFragment for better performance
+            const fragment = document.createDocumentFragment();
+            
+            for (let i = 0; i < 8; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'grid-cell';
+                cell.dataset.beat = i;
+                cell.innerHTML = `<span class="beat-label">${i + 1}</span>`;
+                
+                // Drag and drop events
+                cell.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'copy';
+                    cell.classList.add('drag-over');
+                });
+                
+                cell.addEventListener('dragleave', () => {
+                    cell.classList.remove('drag-over');
+                });
+                
+                cell.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    cell.classList.remove('drag-over');
+                    
+                    const creatureId = e.dataTransfer.getData('text/plain');
+                    const creature = creatures.find(c => c.id === creatureId);
+                    
+                    if (creature) {
+                        placeCreature(i, creature);
+                        playTone(creature.freq); // Preview sound
+                    }
+                });
+                
+                // Enhanced click handling for mobile
+                if (isMobile) {
+                    cell.addEventListener('touchend', (e) => {
+                        e.preventDefault();
+                        if (gridState[i] && !e.target.classList.contains('remove-btn')) {
+                            removeCreature(i);
+                        }
+                    });
+                }
+                
+                cell.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (gridState[i] && !e.target.classList.contains('remove-btn')) {
+                        removeCreature(i);
+                    }
+                });
+                
+                fragment.appendChild(cell);
+            }
+            
+            grid.appendChild(fragment);
+            console.log('Grid initialized');
+        }
+
+        // Place creature on grid
+        function placeCreature(beat, creature) {
+            gridState[beat] = creature;
+            updateGridDisplay();
+        }
+
+        // Remove creature from grid
+        function removeCreature(beat) {
+            gridState[beat] = null;
+            updateGridDisplay();
+        }
+
+        // Update grid display
+        function updateGridDisplay() {
+            const cells = document.querySelectorAll('.grid-cell');
+            cells.forEach((cell, index) => {
+                const creature = gridState[index];
+                if (creature) {
+                    cell.classList.add('occupied');
+                    cell.innerHTML = `
+                        <div class="creature-icon">${creature.icon}</div>
+                        <button class="remove-btn" onclick="removeCreature(${index}); event.stopPropagation();">×</button>
+                        <span class="beat-label">${index + 1}</span>
+                    `;
+                } else {
+                    cell.classList.remove('occupied');
+                    cell.innerHTML = `<span class="beat-label">${index + 1}</span>`;
+                }
+            });
+        }
+
+        // Place creature on grid
+        function placeCreature(beat, creature) {
+            gridState[beat] = creature;
+            optimizeDOMUpdate(updateGridDisplay);
+        }
+
+        // Remove creature from grid
+        function removeCreature(beat) {
+            gridState[beat] = null;
+            optimizeDOMUpdate(updateGridDisplay);
+        }
+
+        // Optimized grid display update
+        function updateGridDisplay() {
+            const cells = document.querySelectorAll('.grid-cell');
+            cells.forEach((cell, index) => {
+                const creature = gridState[index];
+                if (creature) {
+                    cell.classList.add('occupied');
+                    cell.dataset.creature = creature.id;
+                    cell.innerHTML = `
+                        <div class="creature-icon">${creature.icon}</div>
+                        <button class="remove-btn" onclick="removeCreature(${index}); event.stopPropagation();">×</button>
+                        <span class="beat-label">${index + 1}</span>
+                    `;
+                } else {
+                    cell.classList.remove('occupied');
+                    delete cell.dataset.creature;
+                    cell.innerHTML = `<span class="beat-label">${index + 1}</span>`;
+                }
+            });
+        }
+
+        // Enhanced play loop with tempo support
+        function playLoop() {
+            if (!isPlaying) return;
+            
+            // Remove previous playhead with performance optimization
+            optimizeDOMUpdate(() => {
+                document.querySelectorAll('.playhead').forEach(el => el.remove());
+            });
+            
+            // Play current beat
+            const creature = gridState[currentBeat];
+            if (creature) {
+                playTone(creature.freq);
+                
+                // Visual feedback with performance optimization
+                optimizeDOMUpdate(() => {
+                    const cell = document.querySelector(`[data-beat="${currentBeat}"]`);
+                    if (cell) {
+                        const playhead = document.createElement('div');
+                        playhead.className = 'playhead';
+                        cell.appendChild(playhead);
+                    }
+                });
+            }
+            
+            // Move to next beat
+            currentBeat = (currentBeat + 1) % 8;
+        }
+
+        // Start playing with enhanced iOS audio handling and tempo support
+        function startPlaying() {
+            console.log('Starting playback...');
+            
+            // Ensure audio is enabled
+            enableAudio();
+            
+            // Wait for audio context to be ready
+            const startPlayback = () => {
+                if (audioContext && audioContext.state === 'running') {
+                    isPlaying = true;
+                    currentBeat = 0;
+                    document.getElementById('playBtn').disabled = true;
+                    document.getElementById('stopBtn').disabled = false;
+                    
+                    console.log('Audio is ready, starting playback at', currentBPM, 'BPM');
+                    
+                    playLoop();
+                    const interval = calculateInterval(currentBPM);
+                    playInterval = setInterval(playLoop, interval);
+                } else {
+                    console.log('Audio not ready yet, retrying...');
+                    setTimeout(startPlayback, 200);
+                }
+            };
+            
+            setTimeout(startPlayback, 100);
+        }
+
+        // Stop playing
+        function stopPlaying() {
+            isPlaying = false;
+            clearInterval(playInterval);
+            document.getElementById('playBtn').disabled = false;
+            document.getElementById('stopBtn').disabled = true;
+            
+            // Remove playhead with performance optimization
+            optimizeDOMUpdate(() => {
+                document.querySelectorAll('.playhead').forEach(el => el.remove());
+            });
+        }
+
+        // Clear all
+        function clearAll() {
+            gridState.fill(null);
+            optimizeDOMUpdate(updateGridDisplay);
+            if (isPlaying) {
+                stopPlaying();
+            }
+        }
+
+        // Enhanced event listeners with performance optimizations
+        function initEventListeners() {
+            const playBtn = document.getElementById('playBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            
+            if (playBtn) playBtn.addEventListener('click', startPlaying);
+            if (stopBtn) stopBtn.addEventListener('click', stopPlaying);
+            if (clearBtn) clearBtn.addEventListener('click', clearAll);
+            
+            console.log('Event listeners initialized');
+        }
+
+        // Comprehensive iOS audio enablement with multiple strategies
+        function initAudioListeners() {
+            // Multiple user interaction triggers for iOS
+            const interactionEvents = ['touchstart', 'click', 'touchend', 'mousedown', 'keydown', 'pointerdown'];
+            
+            interactionEvents.forEach(eventType => {
+                document.addEventListener(eventType, enableAudio, { 
+                    passive: true, 
+                    once: false 
+                });
+            });
+
+            // Specific iOS audio triggers
+            if (isIOS) {
+                // Enhanced touch handling for iOS
+                document.addEventListener('touchstart', function(e) {
+                    const audioContext = initAudioContext();
+                    if (audioContext && audioContext.state === 'suspended') {
+                        audioContext.resume()
+                            .then(() => {
+                                console.log('iOS audio resumed on touch');
+                                audioInitialized = true;
+                            })
+                            .catch(err => console.error('iOS audio resume failed:', err));
+                    }
+                }, { passive: true });
+                
+                // iOS-specific audio priming
+                setTimeout(() => {
+                    const audioContext = initAudioContext();
+                    if (audioContext && audioContext.state === 'suspended') {
+                        // Create minimal audio to enable iOS audio
+                        try {
+                            const osc = audioContext.createOscillator();
+                            const gain = audioContext.createGain();
+                            
+                            osc.connect(gain);
+                            gain.connect(audioContext.destination);
+                            
+                            osc.type = 'sine';
+                            osc.frequency.value = 440;
+                            gain.gain.value = 0.001; // Very minimal volume
+                            
+                            osc.start(audioContext.currentTime);
+                            osc.stop(audioContext.currentTime + 0.1);
+                            
+                            console.log('iOS audio priming executed');
+                        } catch (error) {
+                            console.error('iOS audio priming failed:', error);
+                        }
+                    }
+                }, 500);
+            }
+            
+            // Audio context state monitoring
+            const audioContext = initAudioContext();
+            if (audioContext) {
+                audioContext.addEventListener('statechange', () => {
+                    console.log('AudioContext state changed to:', audioContext.state);
+                    if (audioContext.state === 'running') {
+                        audioInitialized = true;
+                        updateAudioStatus('ready');
+                    }
+                });
+            }
+        }
+
+        // Initialize game components
+        function initGame() {
+            console.log('Initializing Melody Mixer game...');
+            console.log('Device info:', { isMobile, isIOS, isAndroid });
+            
+            initCreatures();
+            initGrid();
+            initTempoControl();
+            initEventListeners();
+            initAudioListeners();
+            
+            // Make removeCreature available globally for inline onclick
+            window.removeCreature = removeCreature;
+            
+            console.log('Game initialization complete');
+        }
+
+        // Enhanced initialization with proper timing
+        document.addEventListener('DOMContentLoaded', () => {
+            // Small delay to ensure all elements are ready
+            setTimeout(initGame, 100);
+        });
+
+        // Fallback initialization if DOMContentLoaded already fired
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initGame);
+        } else {
+            setTimeout(initGame, 100);
+        }
+    </script>
+</body>
+</html>
