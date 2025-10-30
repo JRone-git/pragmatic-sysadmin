@@ -3,11 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<<<<<<< HEAD
-    <title>Melody Mixer Creatures - Music Game</title>
-=======
     <title>Melody Mixer Creatures - Music Game (Mobile Friendly)</title>
->>>>>>> gh-pages
     <style>
         * {
             margin: 0;
@@ -54,8 +50,6 @@
             box-shadow: 0 8px 16px rgba(0,0,0,0.2);
         }
 
-<<<<<<< HEAD
-=======
         #audioStatus {
             background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
             color: white;
@@ -67,7 +61,6 @@
             background: linear-gradient(135deg, #10b981 0%, #059669 100%);
         }
 
->>>>>>> gh-pages
         .instructions h2 {
             color: #667eea;
             margin-bottom: 10px;
@@ -80,11 +73,8 @@
             line-height: 1.6;
         }
 
-<<<<<<< HEAD
-=======
         /* Cache-busting comment - Updated: 2025-10-31 */
 
->>>>>>> gh-pages
         .game-area {
             display: grid;
             grid-template-columns: 1fr 2fr;
@@ -138,8 +128,6 @@
             cursor: grabbing;
         }
 
-<<<<<<< HEAD
-=======
         /* Mobile touch feedback */
         .creature.touch-active {
             transform: scale(1.1);
@@ -159,7 +147,6 @@
             }
         }
 
->>>>>>> gh-pages
         .creature-icon {
             font-size: 2.5em;
             margin-bottom: 5px;
@@ -297,8 +284,6 @@
             cursor: not-allowed;
         }
 
-<<<<<<< HEAD
-=======
         /* Tempo Control Styles */
         .tempo-control {
             background: rgba(255,255,255,0.95);
@@ -416,7 +401,6 @@
             }
         }
 
->>>>>>> gh-pages
         .playhead {
             position: absolute;
             top: -5px;
@@ -482,8 +466,6 @@
                 4. Click creatures on the grid to remove them<br>
                 5. Create awesome music combinations!
             </p>
-<<<<<<< HEAD
-=======
             <div id="audioStatus" style="margin-top: 10px; padding: 8px; border-radius: 5px; font-weight: bold;">
                 <span id="audioStatusText">Tap anywhere to enable sound...</span>
             </div>
@@ -500,7 +482,6 @@
                 <input type="range" id="tempoSlider" class="tempo-slider" min="60" max="180" value="120" step="5">
                 <span class="tempo-label">180</span>
             </div>
->>>>>>> gh-pages
         </div>
 
         <div class="game-area">
@@ -538,58 +519,19 @@
             { id: 'pig', name: 'Pig', icon: '🐷', freq: 1046.50 }, // C6
         ];
 
-<<<<<<< HEAD
-        // Audio context for sound generation
-=======
         // Global variables
->>>>>>> gh-pages
         let audioContext;
         let isPlaying = false;
         let playInterval;
         let currentBeat = 0;
-<<<<<<< HEAD
-=======
         let audioInitialized = false;
         let currentBPM = 120;
         let tempoSlider;
         let tempoValueDisplay;
->>>>>>> gh-pages
 
         // Grid state
         const gridState = Array(8).fill(null);
 
-<<<<<<< HEAD
-        // Initialize audio context
-        function initAudio() {
-            if (!audioContext) {
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
-            }
-        }
-
-        // Play a tone
-        function playTone(frequency, duration = 0.3) {
-            initAudio();
-            
-            const oscillator = audioContext.createOscillator();
-            const gainNode = audioContext.createGain();
-            
-            oscillator.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            oscillator.type = 'sine';
-            oscillator.frequency.value = frequency;
-            
-            gainNode.gain.setValueAtTime(0.3, audioContext.currentTime);
-            gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
-            
-            oscillator.start(audioContext.currentTime);
-            oscillator.stop(audioContext.currentTime + duration);
-        }
-
-        // Initialize creatures list
-        function initCreatures() {
-            const creaturesList = document.getElementById('creaturesList');
-=======
         // Mobile device detection for optimizations
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
@@ -834,7 +776,6 @@
             // Optimize for mobile - use DocumentFragment for better performance
             const fragment = document.createDocumentFragment();
             
->>>>>>> gh-pages
             creatures.forEach(creature => {
                 const div = document.createElement('div');
                 div.className = 'creature';
@@ -845,39 +786,17 @@
                     <div class="creature-name">${creature.name}</div>
                 `;
                 
-<<<<<<< HEAD
-                // Drag start
-=======
                 // Drag and drop events
->>>>>>> gh-pages
                 div.addEventListener('dragstart', (e) => {
                     e.dataTransfer.effectAllowed = 'copy';
                     e.dataTransfer.setData('text/plain', creature.id);
                     div.classList.add('dragging');
                 });
                 
-<<<<<<< HEAD
-                // Drag end
-=======
->>>>>>> gh-pages
                 div.addEventListener('dragend', () => {
                     div.classList.remove('dragging');
                 });
 
-<<<<<<< HEAD
-                // Click to preview sound
-                div.addEventListener('click', () => {
-                    playTone(creature.freq);
-                });
-                
-                creaturesList.appendChild(div);
-            });
-        }
-
-        // Initialize music grid
-        function initGrid() {
-            const grid = document.getElementById('musicGrid');
-=======
                 // Enhanced touch events for mobile
                 if (isMobile) {
                     div.addEventListener('touchstart', (e) => {
@@ -933,36 +852,23 @@
             // Use DocumentFragment for better performance
             const fragment = document.createDocumentFragment();
             
->>>>>>> gh-pages
             for (let i = 0; i < 8; i++) {
                 const cell = document.createElement('div');
                 cell.className = 'grid-cell';
                 cell.dataset.beat = i;
                 cell.innerHTML = `<span class="beat-label">${i + 1}</span>`;
                 
-<<<<<<< HEAD
-                // Drag over
-=======
                 // Drag and drop events
->>>>>>> gh-pages
                 cell.addEventListener('dragover', (e) => {
                     e.preventDefault();
                     e.dataTransfer.dropEffect = 'copy';
                     cell.classList.add('drag-over');
                 });
                 
-<<<<<<< HEAD
-                // Drag leave
-=======
->>>>>>> gh-pages
                 cell.addEventListener('dragleave', () => {
                     cell.classList.remove('drag-over');
                 });
                 
-<<<<<<< HEAD
-                // Drop
-=======
->>>>>>> gh-pages
                 cell.addEventListener('drop', (e) => {
                     e.preventDefault();
                     cell.classList.remove('drag-over');
@@ -976,10 +882,6 @@
                     }
                 });
                 
-<<<<<<< HEAD
-                // Click to remove
-                cell.addEventListener('click', (e) => {
-=======
                 // Enhanced click handling for mobile
                 if (isMobile) {
                     cell.addEventListener('touchend', (e) => {
@@ -992,63 +894,18 @@
                 
                 cell.addEventListener('click', (e) => {
                     e.preventDefault();
->>>>>>> gh-pages
                     if (gridState[i] && !e.target.classList.contains('remove-btn')) {
                         removeCreature(i);
                     }
                 });
                 
-<<<<<<< HEAD
-                grid.appendChild(cell);
-            }
-=======
                 fragment.appendChild(cell);
             }
             
             grid.appendChild(fragment);
             console.log('Grid initialized');
->>>>>>> gh-pages
         }
 
-        // Place creature on grid
-        function placeCreature(beat, creature) {
-            gridState[beat] = creature;
-            updateGridDisplay();
-        }
-
-        // Remove creature from grid
-        function removeCreature(beat) {
-            gridState[beat] = null;
-            updateGridDisplay();
-        }
-
-        // Update grid display
-        function updateGridDisplay() {
-            const cells = document.querySelectorAll('.grid-cell');
-            cells.forEach((cell, index) => {
-                const creature = gridState[index];
-                if (creature) {
-                    cell.classList.add('occupied');
-                    cell.innerHTML = `
-                        <div class="creature-icon">${creature.icon}</div>
-                        <button class="remove-btn" onclick="removeCreature(${index}); event.stopPropagation();">×</button>
-                        <span class="beat-label">${index + 1}</span>
-                    `;
-                } else {
-                    cell.classList.remove('occupied');
-                    cell.innerHTML = `<span class="beat-label">${index + 1}</span>`;
-                }
-            });
-        }
-
-<<<<<<< HEAD
-        // Play loop
-        function playLoop() {
-            if (!isPlaying) return;
-            
-            // Remove previous playhead
-            document.querySelectorAll('.playhead').forEach(el => el.remove());
-=======
         // Place creature on grid
         function placeCreature(beat, creature) {
             gridState[beat] = creature;
@@ -1090,20 +947,12 @@
             optimizeDOMUpdate(() => {
                 document.querySelectorAll('.playhead').forEach(el => el.remove());
             });
->>>>>>> gh-pages
             
             // Play current beat
             const creature = gridState[currentBeat];
             if (creature) {
                 playTone(creature.freq);
                 
-<<<<<<< HEAD
-                // Visual feedback
-                const cell = document.querySelector(`[data-beat="${currentBeat}"]`);
-                const playhead = document.createElement('div');
-                playhead.className = 'playhead';
-                cell.appendChild(playhead);
-=======
                 // Visual feedback with performance optimization
                 optimizeDOMUpdate(() => {
                     const cell = document.querySelector(`[data-beat="${currentBeat}"]`);
@@ -1113,25 +962,12 @@
                         cell.appendChild(playhead);
                     }
                 });
->>>>>>> gh-pages
             }
             
             // Move to next beat
             currentBeat = (currentBeat + 1) % 8;
         }
 
-<<<<<<< HEAD
-        // Start playing
-        function startPlaying() {
-            initAudio();
-            isPlaying = true;
-            currentBeat = 0;
-            document.getElementById('playBtn').disabled = true;
-            document.getElementById('stopBtn').disabled = false;
-            
-            playLoop();
-            playInterval = setInterval(playLoop, 500); // 120 BPM (500ms per beat)
-=======
         // Start playing with enhanced iOS audio handling and tempo support
         function startPlaying() {
             console.log('Starting playback...');
@@ -1159,7 +995,6 @@
             };
             
             setTimeout(startPlayback, 100);
->>>>>>> gh-pages
         }
 
         // Stop playing
@@ -1168,43 +1003,22 @@
             clearInterval(playInterval);
             document.getElementById('playBtn').disabled = false;
             document.getElementById('stopBtn').disabled = true;
-<<<<<<< HEAD
-            document.querySelectorAll('.playhead').forEach(el => el.remove());
-=======
             
             // Remove playhead with performance optimization
             optimizeDOMUpdate(() => {
                 document.querySelectorAll('.playhead').forEach(el => el.remove());
             });
->>>>>>> gh-pages
         }
 
         // Clear all
         function clearAll() {
             gridState.fill(null);
-<<<<<<< HEAD
-            updateGridDisplay();
-=======
             optimizeDOMUpdate(updateGridDisplay);
->>>>>>> gh-pages
             if (isPlaying) {
                 stopPlaying();
             }
         }
 
-<<<<<<< HEAD
-        // Event listeners
-        document.getElementById('playBtn').addEventListener('click', startPlaying);
-        document.getElementById('stopBtn').addEventListener('click', stopPlaying);
-        document.getElementById('clearBtn').addEventListener('click', clearAll);
-
-        // Initialize game
-        initCreatures();
-        initGrid();
-
-        // Make removeCreature available globally for inline onclick
-        window.removeCreature = removeCreature;
-=======
         // Enhanced event listeners with performance optimizations
         function initEventListeners() {
             const playBtn = document.getElementById('playBtn');
@@ -1314,7 +1128,6 @@
         } else {
             setTimeout(initGame, 100);
         }
->>>>>>> gh-pages
     </script>
 </body>
 </html>
