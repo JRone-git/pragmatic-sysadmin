@@ -909,37 +909,6 @@
         // Place creature on grid
         function placeCreature(beat, creature) {
             gridState[beat] = creature;
-            updateGridDisplay();
-        }
-
-        // Remove creature from grid
-        function removeCreature(beat) {
-            gridState[beat] = null;
-            updateGridDisplay();
-        }
-
-        // Update grid display
-        function updateGridDisplay() {
-            const cells = document.querySelectorAll('.grid-cell');
-            cells.forEach((cell, index) => {
-                const creature = gridState[index];
-                if (creature) {
-                    cell.classList.add('occupied');
-                    cell.innerHTML = `
-                        <div class="creature-icon">${creature.icon}</div>
-                        <button class="remove-btn" onclick="removeCreature(${index}); event.stopPropagation();">×</button>
-                        <span class="beat-label">${index + 1}</span>
-                    `;
-                } else {
-                    cell.classList.remove('occupied');
-                    cell.innerHTML = `<span class="beat-label">${index + 1}</span>`;
-                }
-            });
-        }
-
-        // Place creature on grid
-        function placeCreature(beat, creature) {
-            gridState[beat] = creature;
             optimizeDOMUpdate(updateGridDisplay);
         }
 
