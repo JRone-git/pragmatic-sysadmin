@@ -19,7 +19,7 @@ enableRobotsTXT = true
     weight = 1
 
 [params]
-  description = "Funny, practical home networking and de-mystified cloud."
+  description = "Practical sysadmin tutorials and DevOps guides. Learn home lab setup, Kubernetes, zero trust security, and automation with hands-on examples for system administrators."
   defaultTheme = "auto"
   ShowReadingTime = true
   ShowPostNavLinks = true
@@ -29,6 +29,11 @@ enableRobotsTXT = true
   
   # SEO & Social
   images = ["og-default.png"]
+  keywords = ["sysadmin", "devops", "kubernetes", "home lab", "zero trust", "automation", "system administration", "cloud computing"]
+  
+  # OpenGraph/Twitter Cards
+  twitterCards = true
+  openGraph = true
   
   # Navigation
   [[params.socialIcons]]
