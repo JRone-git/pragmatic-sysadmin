@@ -1,19 +1,7 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Newsletter on Pragmatic Sysadmin</title>
-    <link>https://pragmaticsysadmin.help/newsletter/</link>
-    <description>Recent content in Newsletter on Pragmatic Sysadmin</description>
-    <generator>Hugo</generator>
-    <language>en</language>
-    <lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://pragmaticsysadmin.help/newsletter/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Thank You for Subscribing!</title>
-      <link>https://pragmaticsysadmin.help/newsletter/thank-you/</link>
-      <pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate>
-      <guid>https://pragmaticsysadmin.help/newsletter/thank-you/</guid>
-      <description>&lt;h1 id=&#34;thank-you-for-subscribing&#34;&gt;Thank You for Subscribing!&lt;/h1&gt;&#xA;&lt;p&gt;Your subscription is confirmed. 🎉&lt;/p&gt;&#xA;&lt;h2 id=&#34;download-your-free-checklist-pdf&#34;&gt;Download your free checklist PDF&lt;/h2&gt;&#xA;&lt;p&gt;&lt;a href=&#34;https://pragmaticsysadmin.help/static/checklist.pdf&#34; target=&#34;_blank&#34; style=&#34;display:inline-block;padding:1em 2em;background:#ffdd00;color:#222;font-weight:bold;border-radius:8px;font-size:1.2em;text-decoration:none;box-shadow:0 2px 8px #eee;&#34;&gt;⬇️ Download Home Network Security Checklist (PDF)&lt;/a&gt;&lt;/p&gt;&#xA;&lt;hr&gt;&#xA;&lt;p&gt;You’ll also receive monthly bonus gifts and practical sysadmin tips in your inbox.&lt;/p&gt;&#xA;&lt;p&gt;If you have any trouble downloading, contact me and I’ll send it directly!&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Newsletter on Pragmatic Sysadmin</title><link>https://pragmaticsysadmin.help/newsletter/</link><description>Recent content in Newsletter on Pragmatic Sysadmin</description><generator>Hugo</generator><language>en</language><lastBuildDate>Mon, 01 Jan 0001 00:00:00 +0000</lastBuildDate><atom:link href="https://pragmaticsysadmin.help/newsletter/index.xml" rel="self" type="application/rss+xml"/><item><title>Thank You for Subscribing!</title><link>https://pragmaticsysadmin.help/newsletter/thank-you/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pragmaticsysadmin.help/newsletter/thank-you/</guid><description>&lt;h1 id="thank-you-for-subscribing">Thank You for Subscribing!&lt;/h1>
+&lt;p>Your subscription is confirmed. 🎉&lt;/p>
+&lt;h2 id="download-your-free-checklist-pdf">Download your free checklist PDF&lt;/h2>
+&lt;p>&lt;a href="https://pragmaticsysadmin.help/static/checklist.pdf" target="_blank" style="display:inline-block;padding:1em 2em;background:#ffdd00;color:#222;font-weight:bold;border-radius:8px;font-size:1.2em;text-decoration:none;box-shadow:0 2px 8px #eee;">⬇️ Download Home Network Security Checklist (PDF)&lt;/a>&lt;/p>
+&lt;hr>
+&lt;p>You’ll also receive monthly bonus gifts and practical sysadmin tips in your inbox.&lt;/p>
+&lt;p>If you have any trouble downloading, contact me and I’ll send it directly!&lt;/p></description></item></channel></rss>

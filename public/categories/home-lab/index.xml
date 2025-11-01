@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Home Lab on Pragmatic Sysadmin</title><link>https://pragmaticsysadmin.help/categories/home-lab/</link><description>Recent content in Home Lab on Pragmatic Sysadmin</description><generator>Hugo</generator><language>en</language><lastBuildDate>Wed, 29 Oct 2025 20:00:00 +0000</lastBuildDate><atom:link href="https://pragmaticsysadmin.help/categories/home-lab/index.xml" rel="self" type="application/rss+xml"/><item><title>Setting Up a Home Lab: A Beginner's Guide</title><link>https://pragmaticsysadmin.help/posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/</link><pubDate>Wed, 29 Oct 2025 20:00:00 +0000</pubDate><guid>https://pragmaticsysadmin.help/posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/</guid><description>&lt;script type="application/ld+json">
+{
+ "@context": "https://schema.org",
+ "@type": "Article",
+ "headline": "Setting Up a Home Lab: A Beginner's Guide",
+ "description": "Learn how to build your first home lab for learning DevOps, containerization, and system administration. This practical guide covers hardware recommendations, essential software, and step-by-step setup instructions.",
+ "author": {
+ "@type": "Person",
+ "name": "Pragmatic Sysadmin"
+ },
+ "publisher": {
+ "@type": "Organization",
+ "name": "Pragmatic Sysadmin"
+ },
+ "datePublished": "2025-10-29",
+ "dateModified": "2025-10-29",
+ "mainEntityOfPage": {
+ "@type": "WebPage",
+ "@id": "https://pragmaticsysadmin.help/posts/setting-up-home-lab-beginners-guide/"
+ },
+ "image": {
+ "@type": "ImageObject",
+ "url": "https://pragmaticsysadmin.help/images/home-lab-setup.jpg",
+ "width": 1200,
+ "height": 630
+ },
+ "articleSection": "Home Lab",
+ "keywords": ["home lab", "devops", "sysadmin", "virtualization", "docker", "kubernetes", "beginner guide"],
+ "wordCount": "2800"
+}
+&lt;/script>
+&lt;p>Title: Setting Up a Home Lab: A Beginner&amp;rsquo;s Guide
+Description
+Learn how to build your first home lab for learning DevOps, containerization, and system administration. This practical guide covers hardware recommendations, essential software, and step-by-step setup instructions.&lt;/p></description></item></channel></rss>

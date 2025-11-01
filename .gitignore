@@ -230,7 +230,20 @@
 
 # Gatsby files
 **/.cache/
-**/public
+**/public/bundles/
+**/public/build/
+**/public/hot/
+**/public/storage
+
+# Allow Hugo public directory for GitHub Pages
+!public/*.html
+!public/*.xml
+!public/*.css
+!public/*.js
+!public/**/*.html
+!public/**/*.xml
+!public/**/*.css
+!public/**/*.js
 
 # Vue.js
 **/dist/

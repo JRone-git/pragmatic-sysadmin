@@ -1,0 +1,2502 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melody Mixer Creatures - Enhanced Music Game (Mobile Friendly)</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 20px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        /* Kid Mode Toggle */
+        .mode-toggle-container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 20px;
+            padding: 15px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            text-align: center;
+            position: relative;
+        }
+
+        .mode-toggle-title {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.4em;
+            font-weight: bold;
+        }
+
+        .mode-toggle {
+            position: relative;
+            display: inline-block;
+            width: 120px;
+            height: 60px;
+        }
+
+        .mode-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .mode-toggle-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, #ff6b6b 0%, #feca57 50%, #48dbfb 0%, #0abde3 100%);
+            transition: 0.4s;
+            border-radius: 60px;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .mode-toggle-slider:before {
+            position: absolute;
+            content: "";
+            height: 50px;
+            width: 50px;
+            left: 5px;
+            bottom: 5px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            transition: 0.4s;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        input:checked + .mode-toggle-slider {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        input:checked + .mode-toggle-slider:before {
+            transform: translateX(60px);
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .mode-labels {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            font-weight: bold;
+        }
+
+        .mode-label {
+            flex: 1;
+            padding: 5px;
+            border-radius: 10px;
+            transition: all 0.3s ease;
+        }
+
+        .mode-label.kid {
+            color: #ff6b6b;
+            background: rgba(255, 107, 107, 0.1);
+        }
+
+        .mode-label.advanced {
+            color: #667eea;
+            background: rgba(102, 126, 234, 0.1);
+        }
+
+        .mode-toggle input:checked ~ .mode-labels .mode-label.kid {
+            background: rgba(255, 107, 107, 0.2);
+            transform: scale(1.1);
+        }
+
+        .mode-toggle input:checked ~ .mode-labels .mode-label.advanced {
+            background: transparent;
+            transform: scale(1);
+        }
+
+        .mode-toggle input:not(:checked) ~ .mode-labels .mode-label.kid {
+            background: transparent;
+            transform: scale(1);
+        }
+
+        .mode-toggle input:not(:checked) ~ .mode-labels .mode-label.advanced {
+            background: rgba(102, 126, 234, 0.2);
+            transform: scale(1.1);
+        }
+
+        .instructions {
+            background: rgba(255,255,255,0.95);
+            padding: 15px 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        #audioStatus {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: white;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        #audioStatus.enabled {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .instructions h2 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        .instructions p {
+            color: #555;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        .instructions.kid-mode {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .instructions.kid-mode h2 {
+            color: #ff6b6b;
+            font-size: 1.8em;
+        }
+
+        .instructions.kid-mode p {
+            color: #d63384;
+            font-size: 1.3em;
+            font-weight: bold;
+        }
+
+        /* Enhanced Controls Panel */
+        .enhanced-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .controls-panel {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .controls-panel h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            text-align: center;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            color: #555;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .control-group select,
+        .control-group input[type="range"] {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+
+        .waveform-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 5px;
+        }
+
+        .waveform-btn {
+            padding: 5px 10px;
+            background: #e0e7ff;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .waveform-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .envelope-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .slider-group {
+            text-align: center;
+        }
+
+        .slider-group label {
+            font-size: 0.8em;
+            margin-bottom: 3px;
+        }
+
+        .slider-group input[type="range"] {
+            width: 100%;
+            height: 4px;
+            margin: 0;
+        }
+
+        /* Save/Load Panel */
+        .save-load-panel {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .save-load-panel h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            text-align: center;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+        }
+
+        .btn-tertiary {
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            color: white;
+        }
+
+        .saved-compositions {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .composition-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .composition-item:hover {
+            background: #e0e7ff;
+            border-color: #667eea;
+        }
+
+        .composition-name {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .composition-date {
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        /* Presets Panel */
+        .presets-panel {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .presets-panel h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            text-align: center;
+        }
+
+        .presets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+        }
+
+        .preset-item {
+            background: linear-gradient(135deg, #e0e7ff 0%, #dbeafe 100%);
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .preset-item:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .preset-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .preset-description {
+            font-size: 0.8em;
+            opacity: 0.8;
+        }
+
+        /* Kid Mode specific styles */
+        .kid-mode .enhanced-controls,
+        .kid-mode .presets-panel,
+        .kid-mode .save-load-panel {
+            display: none;
+        }
+
+        .kid-mode .mode-toggle-container {
+            background: linear-gradient(135deg, #ffecd2 0%, #fcb69f 100%);
+        }
+
+        .kid-mode .mode-toggle-title {
+            color: #ff6b6b;
+        }
+
+        .kid-mode .creature {
+            min-height: 80px;
+            padding: 20px;
+            font-size: 1.1em;
+        }
+
+        .kid-mode .creature-icon {
+            font-size: 3em;
+            margin-bottom: 8px;
+        }
+
+        .kid-mode .creature-name {
+            font-size: 1.1em;
+            margin-bottom: 5px;
+        }
+
+        .kid-mode .creature-controls {
+            font-size: 0.9em;
+        }
+
+        .kid-mode .btn {
+            min-height: 60px;
+            font-size: 1.4em;
+            padding: 20px 40px;
+        }
+
+        .kid-mode .grid-cell {
+            min-height: 100px;
+            border-width: 4px;
+        }
+
+        .kid-mode .grid-cell .creature-icon {
+            font-size: 2.5em;
+        }
+
+        /* Game Area */
+        .game-area {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .creatures-panel {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .creatures-panel h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .creatures-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+        }
+
+        .creature {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: grab;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .creature:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            border-color: #fff;
+        }
+
+        .creature:active {
+            cursor: grabbing;
+        }
+
+        .creature.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        /* Mobile touch feedback */
+        .creature.touch-active {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            border-color: #fff;
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .creature:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            
+            .creature:active {
+                transform: scale(1.05);
+                transition: transform 0.1s;
+            }
+        }
+
+        .creature-icon {
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+
+        .creature-name {
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .creature-controls {
+            margin-top: 8px;
+            font-size: 0.7em;
+            color: white;
+            opacity: 0.9;
+        }
+
+        .music-grid-container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .music-grid-container h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .grid-cell {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #e0e7ff 0%, #cfd9ff 100%);
+            border: 3px dashed #667eea;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+            min-height: 80px;
+        }
+
+        .grid-cell.drag-over {
+            background: linear-gradient(135deg, #a7f3d0 0%, #6ee7b7 100%);
+            border-color: #10b981;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+        }
+
+        .grid-cell.occupied {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-style: solid;
+            border-color: #fff;
+        }
+
+        .grid-cell .creature-icon {
+            font-size: 2em;
+        }
+
+        .grid-cell .remove-btn {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: rgba(255,0,0,0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            cursor: pointer;
+            display: none;
+        }
+
+        .grid-cell.occupied:hover .remove-btn {
+            display: block;
+        }
+
+        .beat-label {
+            position: absolute;
+            bottom: 2px;
+            right: 4px;
+            font-size: 10px;
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .btn-play {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .btn-stop {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+
+        .btn-clear {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Volume Control in Grid */
+        .grid-cell .volume-control {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .grid-cell.occupied:hover .volume-control {
+            opacity: 1;
+        }
+
+        /* Tempo Control Styles */
+        .tempo-control {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .tempo-control h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .tempo-display {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .tempo-slider-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .tempo-slider {
+            width: 300px;
+            height: 8px;
+            border-radius: 5px;
+            background: linear-gradient(90deg, #e0e7ff 0%, #667eea 50%, #764ba2 100%);
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .tempo-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: all 0.2s ease;
+        }
+
+        .tempo-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .tempo-slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .tempo-label {
+            min-width: 40px;
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        /* Recording Indicator */
+        .recording-indicator {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-weight: bold;
+            z-index: 1000;
+            animation: pulse 1s infinite;
+        }
+
+        .recording-indicator.show {
+            display: block;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Performance optimizations for mobile */
+        @media (prefers-reduced-motion: reduce) {
+            .creature:hover,
+            .creature:active {
+                transform: none;
+                transition: none;
+            }
+            
+            h1 {
+                animation: none;
+            }
+            
+            .grid-cell.drag-over {
+                transform: none;
+            }
+        }
+
+        /* Mobile touch optimizations */
+        .creature {
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        .grid-cell {
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        /* Reduce animations on slow devices */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .creature {
+                transition: all 0.2s ease; /* Faster transitions on mobile */
+            }
+            
+            .grid-cell {
+                transition: all 0.2s ease;
+            }
+
+            .enhanced-controls {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 200px;
+            }
+
+            .presets-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .kid-mode .btn {
+                min-height: 50px;
+                font-size: 1.2em;
+                padding: 15px 30px;
+            }
+
+            .kid-mode .grid-cell {
+                min-height: 80px;
+            }
+
+            .kid-mode .creature {
+                min-height: 70px;
+                padding: 15px;
+            }
+
+            .kid-mode .creature-icon {
+                font-size: 2.5em;
+            }
+        }
+
+        .playhead {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 4px solid #10b981;
+            border-radius: 12px;
+            animation: pulse 0.2s ease-in-out;
+            pointer-events: none;
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.9);
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: white;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .game-area {
+                grid-template-columns: 1fr;
+            }
+
+            .music-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+        }
+
+        /* Safari specific fixes */
+        @supports (-webkit-touch-callout: none) {
+            .mode-toggle-slider {
+                -webkit-appearance: none;
+                appearance: none;
+            }
+            
+            .mode-toggle-slider::-webkit-slider-thumb {
+                -webkit-appearance: none;
+                appearance: none;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Melody Mixer Creatures</h1>
+            <p id="mainSubtitle" style="font-size: 1.2em;">Drag creatures to create your own music with advanced instruments!</p>
+        </header>
+
+        <!-- Kid Mode Toggle -->
+        <div class="mode-toggle-container">
+            <div class="mode-toggle-title">Choose Your Mode</div>
+            <label class="mode-toggle">
+                <input type="checkbox" id="modeToggle">
+                <span class="mode-toggle-slider"></span>
+            </label>
+            <div class="mode-labels">
+                <div class="mode-label kid">Kid Mode</div>
+                <div class="mode-label advanced">Advanced Mode</div>
+            </div>
+        </div>
+
+        <div class="instructions" id="instructions">
+            <h2>How to Play:</h2>
+            <p>
+                1. Drag and drop creatures from the left panel onto the music grid<br>
+                2. Each creature makes a unique sound with different instruments<br>
+                3. Use the controls to adjust instrument sounds, volume, and effects<br>
+                4. Click "Play" to hear your creation loop<br>
+                5. Save your compositions and record audio<br>
+                6. Try our preset compositions to get started!<br>
+                7. Create awesome music combinations!
+            </p>
+            <div id="audioStatus" style="margin-top: 10px; padding: 8px; border-radius: 5px; font-weight: bold;">
+                <span id="audioStatusText">Tap anywhere to enable sound...</span>
+            </div>
+        </div>
+
+        <!-- Enhanced Controls Panel -->
+        <div class="enhanced-controls">
+            <div class="controls-panel">
+                <h3>Instrument & Effects</h3>
+                
+                <div class="control-group">
+                    <label for="globalInstrument">Global Instrument:</label>
+                    <select id="globalInstrument">
+                        <option value="sine">Piano (Sine)</option>
+                        <option value="square">Guitar (Square)</option>
+                        <option value="sawtooth">Violin (Sawtooth)</option>
+                        <option value="triangle">Bass (Triangle)</option>
+                    </select>
+                </div>
+
+                <div class="control-group">
+                    <label>Waveform:</label>
+                    <div class="waveform-buttons">
+                        <button class="waveform-btn active" data-waveform="sine">Sine</button>
+                        <button class="waveform-btn" data-waveform="square">Square</button>
+                        <button class="waveform-btn" data-waveform="sawtooth">Saw</button>
+                        <button class="waveform-btn" data-waveform="triangle">Tri</button>
+                    </div>
+                </div>
+
+                <div class="control-group">
+                    <label for="reverbAmount">Reverb Intensity:</label>
+                    <input type="range" id="reverbAmount" min="0" max="100" value="20">
+                </div>
+
+                <div class="control-group">
+                    <label>ADSR Envelope:</label>
+                    <div class="envelope-controls">
+                        <div class="slider-group">
+                            <label>Attack</label>
+                            <input type="range" id="attack" min="0.01" max="1" step="0.01" value="0.1">
+                        </div>
+                        <div class="slider-group">
+                            <label>Decay</label>
+                            <input type="range" id="decay" min="0.01" max="1" step="0.01" value="0.3">
+                        </div>
+                        <div class="slider-group">
+                            <label>Sustain</label>
+                            <input type="range" id="sustain" min="0" max="1" step="0.01" value="0.7">
+                        </div>
+                        <div class="slider-group">
+                            <label>Release</label>
+                            <input type="range" id="release" min="0.1" max="2" step="0.1" value="0.5">
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="save-load-panel">
+                <h3>Save, Load & Record</h3>
+                
+                <div class="button-group">
+                    <button class="btn btn-secondary" id="saveBtn">Save Composition</button>
+                    <button class="btn btn-tertiary" id="recordBtn">Start Recording</button>
+                </div>
+
+                <div class="button-group">
+                    <button class="btn btn-secondary" id="exportJsonBtn">Export JSON</button>
+                    <button class="btn btn-tertiary" id="exportAudioBtn">Export WAV</button>
+                </div>
+
+                <div id="savedCompositions" class="saved-compositions">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Saved Compositions:</h4>
+                    <div id="compositionsList"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Presets Panel -->
+        <div class="presets-panel">
+            <h3>Try These Preset Compositions</h3>
+            <div class="presets-grid" id="presetsGrid">
+                <!-- Presets will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Tempo Control -->
+        <div class="tempo-control">
+            <h3>Tempo Control</h3>
+            <div class="tempo-display">
+                <span id="tempoValue">120</span> BPM
+            </div>
+            <div class="tempo-slider-container">
+                <span class="tempo-label">60</span>
+                <input type="range" id="tempoSlider" class="tempo-slider" min="60" max="180" value="120" step="5">
+                <span class="tempo-label">180</span>
+            </div>
+        </div>
+
+        <div class="game-area">
+            <div class="creatures-panel">
+                <h3>Creatures</h3>
+                <div class="creatures-list" id="creaturesList"></div>
+            </div>
+
+            <div class="music-grid-container">
+                <h3>Music Grid (8 Beats)</h3>
+                <div class="music-grid" id="musicGrid"></div>
+                <div class="controls">
+                    <button class="btn btn-play" id="playBtn">Play</button>
+                    <button class="btn btn-stop" id="stopBtn" disabled>Stop</button>
+                    <button class="btn btn-clear" id="clearBtn">Clear All</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="index.html" class="nav-link">Back to Home</a>
+        </div>
+    </div>
+
+    <!-- Recording Indicator -->
+    <div id="recordingIndicator" class="recording-indicator">
+        Recording...
+    </div>
+
+    <script>
+        // Enhanced creature definitions with advanced audio properties
+        const creatures = [
+            { id: 'cat', name: 'Cat', icon: '🐱', freq: 523.25, instrument: 'piano' }, // C5
+            { id: 'dog', name: 'Dog', icon: '🐶', freq: 587.33, instrument: 'guitar' }, // D5
+            { id: 'bird', name: 'Bird', icon: '🐦', freq: 659.25, instrument: 'flute' }, // E5
+            { id: 'frog', name: 'Frog', icon: '🐸', freq: 698.46, instrument: 'bass' }, // F5
+            { id: 'lion', name: 'Lion', icon: '🦁', freq: 783.99, instrument: 'violin' }, // G5
+            { id: 'elephant', name: 'Elephant', icon: '🐘', freq: 880.00, instrument: 'drums' }, // A5
+            { id: 'monkey', name: 'Monkey', icon: '🐵', freq: 987.77, instrument: 'synth' }, // B5
+            { id: 'pig', name: 'Pig', icon: '🐷', freq: 1046.50, instrument: 'trumpet' }, // C6
+        ];
+
+        // Global variables
+        let audioContext;
+        let isPlaying = false;
+        let playInterval;
+        let currentBeat = 0;
+        let audioInitialized = false;
+        let currentBPM = 120;
+        let tempoSlider;
+        let tempoValueDisplay;
+        let isKidMode = true; // Default to Kid Mode
+
+        // Enhanced audio variables
+        let currentWaveform = 'sine';
+        let currentInstrument = 'piano';
+        let envelopeSettings = {
+            attack: 0.1,
+            decay: 0.3,
+            sustain: 0.7,
+            release: 0.5
+        };
+        let reverbAmount = 0.2;
+        let mediaRecorder;
+        let recordedChunks = [];
+        let isRecording = false;
+        let audioDestination;
+
+        // Grid state with enhanced properties
+        const gridState = Array(8).fill(null);
+
+        // Mobile device detection for optimizations
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const isAndroid = /Android/.test(navigator.userAgent);
+        const isSafari = /^((?!chrome|android).)*safari/i.test(navigator.userAgent);
+
+        // Performance optimization: Use requestAnimationFrame for DOM updates
+        let pendingDOMUpdates = [];
+        function optimizeDOMUpdate(callback) {
+            pendingDOMUpdates.push(callback);
+            if (pendingDOMUpdates.length === 1) {
+                requestAnimationFrame(processDOMUpdates);
+            }
+        }
+
+        function processDOMUpdates() {
+            const updates = [...pendingDOMUpdates];
+            pendingDOMUpdates = [];
+            updates.forEach(update => update());
+        }
+
+        // Enhanced preset compositions (5-8 as requested)
+        const presets = [
+            {
+                id: 'simpleMelody',
+                name: 'Simple Melody',
+                description: 'Basic 4-beat melody pattern',
+                gridState: ['cat', null, 'bird', null, 'lion', null, 'monkey', null],
+                bpm: 100,
+                settings: { waveform: 'sine', reverb: 0.1 }
+            },
+            {
+                id: 'bassLine',
+                name: 'Bass Line',
+                description: 'Deep bass rhythm foundation',
+                gridState: [null, 'frog', null, 'elephant', null, 'pig', null, null],
+                bpm: 80,
+                settings: { waveform: 'triangle', reverb: 0.3 }
+            },
+            {
+                id: 'jazzChord',
+                name: 'Jazz Chord',
+                description: 'Sophisticated chord progression',
+                gridState: ['cat', 'dog', 'bird', 'frog', 'lion', 'elephant', 'monkey', 'pig'],
+                bpm: 120,
+                settings: { waveform: 'sawtooth', reverb: 0.5 }
+            },
+            {
+                id: 'drumBeat',
+                name: 'Drum Beat',
+                description: 'Percussive elephant rhythm',
+                gridState: ['elephant', null, 'elephant', null, 'elephant', null, 'elephant', null],
+                bpm: 90,
+                settings: { waveform: 'sine', reverb: 0.2 }
+            },
+            {
+                id: 'synthArp',
+                name: 'Synth Arpeggio',
+                description: 'Monkey synth ascending pattern',
+                gridState: [null, null, 'monkey', null, null, null, 'monkey', null],
+                bpm: 140,
+                settings: { waveform: 'square', reverb: 0.4 }
+            },
+            {
+                id: 'fluteMelody',
+                name: 'Flute Melody',
+                description: 'Bird flute classical pattern',
+                gridState: [null, 'bird', null, null, 'bird', null, null, null],
+                bpm: 110,
+                settings: { waveform: 'sine', reverb: 0.6 }
+            },
+            {
+                id: 'guitarRiff',
+                name: 'Guitar Riff',
+                description: 'Dog guitar rock riff',
+                gridState: [null, 'dog', null, 'dog', null, 'dog', null, 'dog'],
+                bpm: 130,
+                settings: { waveform: 'sawtooth', reverb: 0.3 }
+            },
+            {
+                id: 'catPiano',
+                name: 'Cat Piano',
+                description: 'Solo piano cat melody',
+                gridState: ['cat', null, 'cat', null, 'cat', null, 'cat', null],
+                bpm: 100,
+                settings: { waveform: 'sine', reverb: 0.4 }
+            }
+        ];
+
+        // Kid Mode Management
+        function initModeToggle() {
+            const modeToggle = document.getElementById('modeToggle');
+            const instructions = document.getElementById('instructions');
+            const mainSubtitle = document.getElementById('mainSubtitle');
+            
+            // Load saved mode preference
+            const savedMode = localStorage.getItem('melodyMixerMode');
+            if (savedMode !== null) {
+                isKidMode = savedMode === 'kid';
+                modeToggle.checked = !isKidMode; // Checked = Advanced Mode
+            } else {
+                // Default to Kid Mode for new users
+                isKidMode = true;
+                modeToggle.checked = false;
+            }
+            
+            updateMode();
+            
+            modeToggle.addEventListener('change', () => {
+                isKidMode = !modeToggle.checked;
+                updateMode();
+                saveModePreference();
+            });
+        }
+
+        function updateMode() {
+            const body = document.body;
+            const instructions = document.getElementById('instructions');
+            const mainSubtitle = document.getElementById('mainSubtitle');
+            
+            if (isKidMode) {
+                body.classList.add('kid-mode');
+                instructions.classList.add('kid-mode');
+                mainSubtitle.textContent = 'Drag creatures to make music!';
+                
+                // Use simple, pleasant sounds for kid mode
+                currentInstrument = 'sine';
+                currentWaveform = 'sine';
+                envelopeSettings = {
+                    attack: 0.05,
+                    decay: 0.2,
+                    sustain: 0.8,
+                    release: 0.3
+                };
+                reverbAmount = 0.1;
+            } else {
+                body.classList.remove('kid-mode');
+                instructions.classList.remove('kid-mode');
+                mainSubtitle.textContent = 'Drag creatures to create your own music with advanced instruments!';
+                
+                // Restore advanced settings
+                currentInstrument = 'piano';
+                currentWaveform = 'sine';
+                envelopeSettings = {
+                    attack: 0.1,
+                    decay: 0.3,
+                    sustain: 0.7,
+                    release: 0.5
+                };
+                reverbAmount = 0.2;
+            }
+        }
+
+        function saveModePreference() {
+            localStorage.setItem('melodyMixerMode', isKidMode ? 'kid' : 'advanced');
+        }
+
+        // Safari-compatible iOS audio system with multiple fallback strategies
+        function initAudioContext() {
+            if (!audioContext) {
+                try {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    
+                    // Safari and iOS require specific audio context configuration
+                    audioContext = new AudioContext({
+                        latencyHint: 'interactive',
+                        sampleRate: 44100,
+                        outputLatency: 'interactive'
+                    });
+
+                    // Create audio destination for recording
+                    audioDestination = audioContext.createMediaStreamDestination();
+                    
+                    console.log('AudioContext created with state:', audioContext.state);
+                    
+                    // Safari/iOS-specific audio preparation
+                    prepareAudioForSafariIOS();
+                    
+                } catch (error) {
+                    console.error('Failed to create AudioContext:', error);
+                }
+            }
+            return audioContext;
+        }
+
+        // Safari/iOS-specific audio preparation
+        function prepareAudioForSafariIOS() {
+            if (!isIOS && !isSafari) return;
+
+            // Create a silent audio buffer to "prime" the system
+            const sampleRate = audioContext.sampleRate;
+            const duration = 0.1;
+            const buffer = audioContext.createBuffer(1, sampleRate * duration, sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            // Fill with silent data (all zeros)
+            for (let i = 0; i < data.length; i++) {
+                data[i] = 0;
+            }
+
+            // Create silent source and connect it
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            const gainNode = audioContext.createGain();
+            gainNode.gain.value = 0;
+            
+            source.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            console.log('Safari/iOS audio preparation complete');
+        }
+
+        // Safari-compatible audio enablement with multiple strategies
+        function enableAudio() {
+            console.log('Enabling audio - user interaction detected');
+            
+            const audioContext = initAudioContext();
+            if (!audioContext) return;
+
+            const audioStatus = document.getElementById('audioStatus');
+            const audioStatusText = document.getElementById('audioStatusText');
+            
+            // Safari/iOS compatible resume strategy
+            const attemptResume = () => {
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume()
+                        .then(() => {
+                            console.log('Audio context resumed successfully');
+                            updateAudioStatus('ready');
+                        })
+                        .catch(err => {
+                            console.error('Failed to resume audio context:', err);
+                            updateAudioStatus('error');
+                        });
+                } else if (audioContext.state === 'running') {
+                    updateAudioStatus('ready');
+                }
+            };
+
+            // Safari/iOS-specific interaction triggers
+            const triggerSafariAudio = () => {
+                if ((isIOS || isSafari) && audioContext.state === 'suspended') {
+                    // Create and play a minimal sound to enable Safari/iOS audio
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
+                    
+                    osc.type = 'sine';
+                    osc.frequency.value = 440;
+                    gain.gain.value = 0;
+                    
+                    osc.start(audioContext.currentTime);
+                    osc.stop(audioContext.currentTime + 0.05);
+                    
+                    console.log('Safari/iOS audio trigger executed');
+                }
+            };
+
+            // Execute strategies
+            attemptResume();
+            triggerSafariAudio();
+            updateAudioStatus('initializing');
+            
+            // Wait and retry
+            setTimeout(() => {
+                if (audioContext.state === 'running') {
+                    updateAudioStatus('ready');
+                }
+            }, 200);
+        }
+
+        // Update audio status indicator
+        function updateAudioStatus(status) {
+            const audioStatus = document.getElementById('audioStatus');
+            const audioStatusText = document.getElementById('audioStatusText');
+            
+            if (!audioStatus || !audioStatusText) return;
+            
+            switch (status) {
+                case 'initializing':
+                    audioStatus.classList.remove('enabled');
+                    audioStatusText.textContent = 'Initializing audio...';
+                    break;
+                case 'ready':
+                    audioStatus.classList.add('enabled');
+                    audioStatusText.textContent = 'Audio Ready!';
+                    audioInitialized = true;
+                    break;
+                case 'error':
+                    audioStatus.classList.remove('enabled');
+                    audioStatusText.textContent = 'Audio Error - Tap to retry';
+                    break;
+                default:
+                    audioStatus.classList.remove('enabled');
+                    audioStatusText.textContent = 'Tap anywhere to enable sound...';
+            }
+        }
+
+        // Enhanced instrument synthesis with recording support
+        function createInstrumentSound(frequency, duration = 0.3, instrument = 'piano', volume = 0.5) {
+            const audioContext = initAudioContext();
+            if (!audioContext || audioContext.state !== 'running') return;
+
+            try {
+                // Create base oscillator
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                const filterNode = audioContext.createBiquadFilter();
+                
+                // Connect audio graph
+                oscillator.connect(filterNode);
+                filterNode.connect(gainNode);
+                
+                // Apply instrument-specific characteristics
+                switch(instrument) {
+                    case 'piano':
+                        oscillator.type = currentWaveform;
+                        filterNode.type = 'lowpass';
+                        filterNode.frequency.setValueAtTime(frequency * 3, audioContext.currentTime);
+                        filterNode.Q.setValueAtTime(1, audioContext.currentTime);
+                        break;
+                    case 'guitar':
+                        oscillator.type = 'sawtooth';
+                        filterNode.type = 'bandpass';
+                        filterNode.frequency.setValueAtTime(frequency * 2, audioContext.currentTime);
+                        filterNode.Q.setValueAtTime(5, audioContext.currentTime);
+                        break;
+                    case 'violin':
+                        oscillator.type = 'sawtooth';
+                        filterNode.type = 'lowpass';
+                        filterNode.frequency.setValueAtTime(frequency * 4, audioContext.currentTime);
+                        filterNode.Q.setValueAtTime(2, audioContext.currentTime);
+                        break;
+                    case 'bass':
+                        oscillator.type = 'triangle';
+                        filterNode.type = 'lowpass';
+                        filterNode.frequency.setValueAtTime(frequency * 1.5, audioContext.currentTime);
+                        filterNode.Q.setValueAtTime(0.5, audioContext.currentTime);
+                        break;
+                    case 'flute':
+                        oscillator.type = 'sine';
+                        filterNode.type = 'bandpass';
+                        filterNode.frequency.setValueAtTime(frequency * 3, audioContext.currentTime);
+                        filterNode.Q.setValueAtTime(3, audioContext.currentTime);
+                        break;
+                    case 'trumpet':
+                        oscillator.type = 'square';
+                        filterNode.type = 'highpass';
+                        filterNode.frequency.setValueAtTime(frequency * 0.8, audioContext.currentTime);
+                        filterNode.Q.setValueAtTime(1, audioContext.currentTime);
+                        break;
+                    case 'synth':
+                        oscillator.type = currentWaveform;
+                        filterNode.type = 'lowpass';
+                        filterNode.frequency.setValueAtTime(frequency * 2, audioContext.currentTime);
+                        filterNode.Q.setValueAtTime(3, audioContext.currentTime);
+                        break;
+                    case 'drums':
+                        oscillator.type = 'sine';
+                        filterNode.type = 'lowpass';
+                        filterNode.frequency.setValueAtTime(frequency * 0.5, audioContext.currentTime);
+                        filterNode.Q.setValueAtTime(0.1, audioContext.currentTime);
+                        break;
+                    default:
+                        oscillator.type = currentWaveform;
+                }
+                
+                oscillator.frequency.value = frequency;
+                
+                // Apply ADSR envelope
+                const now = audioContext.currentTime;
+                gainNode.gain.setValueAtTime(0, now);
+                gainNode.gain.linearRampToValueAtTime(volume, now + envelopeSettings.attack);
+                gainNode.gain.linearRampToValueAtTime(volume * envelopeSettings.sustain, now + envelopeSettings.attack + envelopeSettings.decay);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, now + duration + envelopeSettings.release);
+                
+                // Add reverb effect (skip in kid mode for simplicity)
+                if (!isKidMode && reverbAmount > 0) {
+                    const delayNode = audioContext.createDelay(1.0);
+                    const delayGain = audioContext.createGain();
+                    
+                    delayNode.delayTime.setValueAtTime(0.3, now);
+                    delayGain.gain.setValueAtTime(reverbAmount * 0.3, now);
+                    
+                    filterNode.connect(delayNode);
+                    delayNode.connect(delayGain);
+                    delayGain.connect(audioContext.destination);
+                }
+                
+                // Connect to both output and recording destination
+                filterNode.connect(audioContext.destination);
+                if (audioDestination && !isKidMode) {
+                    filterNode.connect(audioDestination);
+                }
+                
+                oscillator.start(now);
+                oscillator.stop(now + duration + envelopeSettings.release + 0.1);
+                
+                console.log(`Playing ${instrument} sound: ${frequency}Hz`);
+            } catch (error) {
+                console.error('Error creating instrument sound:', error);
+            }
+        }
+
+        // Enhanced playTone with instrument support
+        function playTone(frequency, duration = 0.3, creatureId = null) {
+            const audioContext = initAudioContext();
+            if (!audioContext || audioContext.state !== 'running') {
+                console.log('Audio not ready, attempting to initialize...');
+                enableAudio();
+                
+                // Retry after a brief delay
+                setTimeout(() => playTone(frequency, duration, creatureId), 100);
+                return;
+            }
+
+            // Get creature's specific instrument or use mode-based setting
+            let instrument = currentInstrument;
+            let volume = isKidMode ? 0.6 : 0.5; // Slightly louder for kids
+            
+            if (creatureId) {
+                const creature = creatures.find(c => c.id === creatureId);
+                if (creature) {
+                    instrument = creature.instrument;
+                }
+                
+                // Check for individual volume control in grid (only in advanced mode)
+                if (!isKidMode) {
+                    const gridIndex = gridState.findIndex(c => c && c.id === creatureId);
+                    if (gridIndex !== -1) {
+                        const cellVolumeSlider = document.querySelector(`[data-beat="${gridIndex}"] .volume-control`);
+                        if (cellVolumeSlider) {
+                            volume = parseFloat(cellVolumeSlider.value) / 100;
+                        }
+                    }
+                }
+            }
+            
+            createInstrumentSound(frequency, duration, instrument, volume);
+        }
+
+        // WAV conversion utility
+        function convertToWAV(audioBuffer) {
+            const length = audioBuffer.length;
+            const arrayBuffer = new ArrayBuffer(44 + length * 2);
+            const view = new DataView(arrayBuffer);
+            
+            // WAV header
+            const writeString = (offset, string) => {
+                for (let i = 0; i < string.length; i++) {
+                    view.setUint8(offset + i, string.charCodeAt(i));
+                }
+            };
+            
+            // RIFF header
+            writeString(0, 'RIFF');
+            view.setUint32(4, 36 + length * 2, true);
+            writeString(8, 'WAVE');
+            
+            // fmt chunk
+            writeString(12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true);
+            view.setUint16(22, 1, true);
+            view.setUint32(24, audioBuffer.sampleRate, true);
+            view.setUint32(28, audioBuffer.sampleRate * 2, true);
+            view.setUint16(32, 2, true);
+            view.setUint16(34, 16, true);
+            
+            // data chunk
+            writeString(36, 'data');
+            view.setUint32(40, length * 2, true);
+            
+            // Convert float samples to 16-bit PCM
+            const channelData = audioBuffer.getChannelData(0);
+            let offset = 44;
+            for (let i = 0; i < length; i++) {
+                const sample = Math.max(-1, Math.min(1, channelData[i]));
+                view.setInt16(offset, sample * 0x7FFF, true);
+                offset += 2;
+            }
+            
+            return new Blob([arrayBuffer], { type: 'audio/wav' });
+        }
+
+        // Create a simple audio buffer from current composition for WAV export
+        function createWAVFromComposition() {
+            const duration = 8 * (60 / currentBPM); // 8 beats at current BPM
+            const sampleRate = 44100;
+            const length = sampleRate * duration;
+            const audioBuffer = audioContext.createBuffer(1, length, sampleRate);
+            const channelData = audioBuffer.getChannelData(0);
+            
+            // Fill with silence initially
+            for (let i = 0; i < length; i++) {
+                channelData[i] = 0;
+            }
+            
+            // Add note data based on current grid state
+            const beatDuration = 60 / currentBPM;
+            
+            for (let beat = 0; beat < 8; beat++) {
+                const creature = gridState[beat];
+                if (creature) {
+                    const startSample = Math.floor(beat * beatDuration * sampleRate);
+                    const noteLength = Math.floor(beatDuration * 0.8 * sampleRate); // 80% of beat duration
+                    
+                    // Create a simple envelope for the note
+                    for (let i = 0; i < noteLength && startSample + i < length; i++) {
+                        const t = i / noteLength;
+                        let envelope = 1;
+                        
+                        if (t < envelopeSettings.attack) {
+                            envelope = t / envelopeSettings.attack;
+                        } else if (t < envelopeSettings.attack + envelopeSettings.decay) {
+                            envelope = 1 - ((t - envelopeSettings.attack) / envelopeSettings.decay) * (1 - envelopeSettings.sustain);
+                        } else if (t < envelopeSettings.sustain) {
+                            envelope = envelopeSettings.sustain;
+                        } else {
+                            envelope = envelopeSettings.sustain * (1 - (t - envelopeSettings.sustain) / (1 - envelopeSettings.sustain));
+                        }
+                        
+                        // Simple synthesis (sine wave)
+                        const frequency = creature.freq;
+                        const time = (startSample + i) / sampleRate;
+                        const sample = Math.sin(2 * Math.PI * frequency * time) * envelope * 0.3;
+                        
+                        channelData[startSample + i] += sample;
+                    }
+                }
+            }
+            
+            return convertToWAV(audioBuffer);
+        }
+
+        // Tempo control functionality
+        function initTempoControl() {
+            tempoSlider = document.getElementById('tempoSlider');
+            tempoValueDisplay = document.getElementById('tempoValue');
+            
+            if (!tempoSlider || !tempoValueDisplay) return;
+            
+            // Update tempo display
+            const updateTempoDisplay = (bpm) => {
+                currentBPM = parseInt(bpm);
+                tempoValueDisplay.textContent = currentBPM;
+            };
+            
+            // Initialize display
+            updateTempoDisplay(tempoSlider.value);
+            
+            // Listen for tempo changes
+            tempoSlider.addEventListener('input', (e) => {
+                const newBPM = parseInt(e.target.value);
+                updateTempoDisplay(newBPM);
+                
+                // Update playback interval if currently playing
+                if (isPlaying) {
+                    clearInterval(playInterval);
+                    const interval = calculateInterval(currentBPM);
+                    playInterval = setInterval(playLoop, interval);
+                }
+            });
+            
+            console.log('Tempo control initialized');
+        }
+
+        // Calculate interval based on BPM
+        function calculateInterval(bpm) {
+            // Convert BPM to milliseconds per beat
+            return Math.round((60 / bpm) * 1000);
+        }
+
+        // Initialize enhanced controls (only for advanced mode)
+        function initEnhancedControls() {
+            if (isKidMode) return;
+
+            // Waveform buttons
+            document.querySelectorAll('.waveform-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.waveform-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentWaveform = btn.dataset.waveform;
+                });
+            });
+
+            // Global instrument selector
+            const instrumentSelector = document.getElementById('globalInstrument');
+            if (instrumentSelector) {
+                instrumentSelector.addEventListener('change', (e) => {
+                    currentInstrument = e.target.value;
+                });
+            }
+
+            // Reverb control
+            const reverbSlider = document.getElementById('reverbAmount');
+            if (reverbSlider) {
+                reverbSlider.addEventListener('input', (e) => {
+                    reverbAmount = parseFloat(e.target.value) / 100;
+                });
+            }
+
+            // ADSR envelope controls
+            ['attack', 'decay', 'sustain', 'release'].forEach(param => {
+                const slider = document.getElementById(param);
+                if (slider) {
+                    slider.addEventListener('input', (e) => {
+                        envelopeSettings[param] = parseFloat(e.target.value);
+                    });
+                }
+            });
+
+            console.log('Enhanced controls initialized');
+        }
+
+        // Save/Load functionality
+        function saveComposition() {
+            const name = prompt('Enter a name for your composition:');
+            if (!name) return;
+
+            const composition = {
+                name: name,
+                timestamp: Date.now(),
+                gridState: gridState.map(cell => cell ? cell.id : null),
+                bpm: currentBPM,
+                mode: isKidMode ? 'kid' : 'advanced',
+                settings: {
+                    waveform: currentWaveform,
+                    instrument: currentInstrument,
+                    envelope: envelopeSettings,
+                    reverb: reverbAmount
+                }
+            };
+
+            const savedCompositions = JSON.parse(localStorage.getItem('melodyMixerCompositions') || '[]');
+            savedCompositions.push(composition);
+            localStorage.setItem('melodyMixerCompositions', JSON.stringify(savedCompositions));
+
+            alert(`Composition "${name}" saved successfully!`);
+            updateCompositionsList();
+        }
+
+        function loadComposition(index) {
+            const savedCompositions = JSON.parse(localStorage.getItem('melodyMixerCompositions') || '[]');
+            if (index >= savedCompositions.length) return;
+
+            const composition = savedCompositions[index];
+            
+            // Switch to appropriate mode
+            if (composition.mode && composition.mode !== (isKidMode ? 'kid' : 'advanced')) {
+                isKidMode = composition.mode === 'kid';
+                const modeToggle = document.getElementById('modeToggle');
+                modeToggle.checked = !isKidMode;
+                updateMode();
+            }
+            
+            // Restore grid state
+            for (let i = 0; i < 8; i++) {
+                if (composition.gridState[i]) {
+                    const creature = creatures.find(c => c.id === composition.gridState[i]);
+                    gridState[i] = creature;
+                } else {
+                    gridState[i] = null;
+                }
+            }
+
+            // Restore settings (only for advanced mode)
+            currentBPM = composition.bpm;
+            document.getElementById('tempoSlider').value = currentBPM;
+            document.getElementById('tempoValue').textContent = currentBPM;
+
+            if (!isKidMode && composition.settings) {
+                currentWaveform = composition.settings.waveform || 'sine';
+                currentInstrument = composition.settings.instrument || 'piano';
+                Object.assign(envelopeSettings, composition.settings.envelope || envelopeSettings);
+                reverbAmount = composition.settings.reverb || 0.2;
+
+                // Update UI controls
+                document.querySelectorAll('.waveform-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.waveform === currentWaveform);
+                });
+                document.getElementById('globalInstrument').value = currentInstrument;
+                document.getElementById('reverbAmount').value = reverbAmount * 100;
+                
+                Object.entries(envelopeSettings).forEach(([param, value]) => {
+                    const slider = document.getElementById(param);
+                    if (slider) slider.value = value;
+                });
+            }
+
+            optimizeDOMUpdate(updateGridDisplay);
+            alert(`Loaded composition: ${composition.name}`);
+        }
+
+        function updateCompositionsList() {
+            const compositionsList = document.getElementById('compositionsList');
+            if (!compositionsList) return;
+
+            const savedCompositions = JSON.parse(localStorage.getItem('melodyMixerCompositions') || '[]');
+            
+            if (savedCompositions.length === 0) {
+                compositionsList.innerHTML = '<p style="color: #888; text-align: center;">No saved compositions</p>';
+                return;
+            }
+
+            compositionsList.innerHTML = savedCompositions.map((comp, index) => `
+                <div class="composition-item" onclick="loadComposition(${index})">
+                    <div class="composition-name">${comp.name}</div>
+                    <div class="composition-date">${new Date(comp.timestamp).toLocaleDateString()} ${comp.mode === 'kid' ? '(Kid Mode)' : '(Advanced)'}</div>
+                </div>
+            `).join('');
+        }
+
+        // Recording functionality (Safari compatible)
+        function startRecording() {
+            if (isRecording || isKidMode) return;
+
+            try {
+                recordedChunks = [];
+
+                const mimeType = MediaRecorder.isTypeSupported('audio/webm;codecs=opus') ? 'audio/webm;codecs=opus' : 
+                               MediaRecorder.isTypeSupported('audio/webm') ? 'audio/webm' : 
+                               'audio/mp4'; // Safari fallback
+
+                mediaRecorder = new MediaRecorder(audioDestination.stream, {
+                    mimeType: mimeType
+                });
+
+                mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        recordedChunks.push(event.data);
+                    }
+                };
+
+                mediaRecorder.onstop = () => {
+                    const blob = new Blob(recordedChunks, { type: mimeType });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `melody-mixer-recording-${Date.now()}.${mimeType.includes('webm') ? 'webm' : 'm4a'}`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                };
+
+                mediaRecorder.start();
+                isRecording = true;
+                
+                document.getElementById('recordingIndicator').classList.add('show');
+                document.getElementById('recordBtn').textContent = 'Stop Recording';
+                console.log('Recording started');
+            } catch (error) {
+                console.error('Failed to start recording:', error);
+                alert('Recording is not supported in this browser or context.');
+            }
+        }
+
+        function stopRecording() {
+            if (!isRecording || !mediaRecorder) return;
+
+            mediaRecorder.stop();
+            isRecording = false;
+            
+            document.getElementById('recordingIndicator').classList.remove('show');
+            document.getElementById('recordBtn').textContent = 'Start Recording';
+            console.log('Recording stopped');
+        }
+
+        // Export functionality
+        function exportComposition() {
+            const composition = {
+                name: 'Exported Composition',
+                timestamp: Date.now(),
+                gridState: gridState.map(cell => cell ? cell.id : null),
+                bpm: currentBPM,
+                mode: isKidMode ? 'kid' : 'advanced',
+                settings: {
+                    waveform: currentWaveform,
+                    instrument: currentInstrument,
+                    envelope: envelopeSettings,
+                    reverb: reverbAmount
+                }
+            };
+
+            const dataStr = JSON.stringify(composition, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `melody-mixer-${Date.now()}.json`;
+            a.click();
+            
+            URL.revokeObjectURL(url);
+        }
+
+        function exportAudio() {
+            if (isKidMode) {
+                alert('Audio export is only available in Advanced Mode. Switch to Advanced Mode to export audio.');
+                return;
+            }
+
+            try {
+                const wavBlob = createWAVFromComposition();
+                const url = URL.createObjectURL(wavBlob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `melody-mixer-export-${Date.now()}.wav`;
+                a.click();
+                URL.revokeObjectURL(url);
+                
+                alert('WAV audio exported successfully!');
+            } catch (error) {
+                console.error('Failed to export WAV:', error);
+                // Fallback to webm recording
+                alert('WAV export failed. Try the recording feature instead.');
+            }
+        }
+
+        // Load preset function
+        function loadPreset(presetId) {
+            const preset = presets.find(p => p.id === presetId);
+            if (!preset) return;
+
+            // Clear grid
+            gridState.fill(null);
+
+            // Load preset
+            for (let i = 0; i < 8; i++) {
+                if (preset.gridState[i]) {
+                    const creature = creatures.find(c => c.id === preset.gridState[i]);
+                    if (creature) {
+                        gridState[i] = creature;
+                    }
+                }
+            }
+
+            // Apply preset settings
+            currentBPM = preset.bpm;
+            document.getElementById('tempoSlider').value = currentBPM;
+            document.getElementById('tempoValue').textContent = currentBPM;
+
+            if (preset.settings && !isKidMode) {
+                currentWaveform = preset.settings.waveform || 'sine';
+                reverbAmount = preset.settings.reverb || 0.2;
+
+                // Update UI controls
+                document.querySelectorAll('.waveform-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.waveform === currentWaveform);
+                });
+                document.getElementById('reverbAmount').value = reverbAmount * 100;
+            }
+
+            optimizeDOMUpdate(updateGridDisplay);
+            alert(`Loaded preset: ${preset.name}`);
+        }
+
+        // Initialize presets grid
+        function initPresets() {
+            const presetsGrid = document.getElementById('presetsGrid');
+            if (!presetsGrid || isKidMode) return;
+
+            presetsGrid.innerHTML = presets.map(preset => `
+                <div class="preset-item" onclick="loadPreset('${preset.id}')">
+                    <div class="preset-name">${preset.name}</div>
+                    <div class="preset-description">${preset.description}</div>
+                </div>
+            `).join('');
+        }
+
+        // Initialize creatures list with performance optimizations
+        function initCreatures() {
+            const creaturesList = document.getElementById('creaturesList');
+            if (!creaturesList) return;
+            
+            // Optimize for mobile - use DocumentFragment for better performance
+            const fragment = document.createDocumentFragment();
+            
+            creatures.forEach(creature => {
+                const div = document.createElement('div');
+                div.className = 'creature';
+                div.draggable = true;
+                div.dataset.creatureId = creature.id;
+                div.innerHTML = `
+                    <div class="creature-icon">${creature.icon}</div>
+                    <div class="creature-name">${creature.name}</div>
+                    <div class="creature-controls">${isKidMode ? creature.name + ' Sound' : creature.instrument}</div>
+                `;
+                
+                // Drag and drop events
+                div.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.effectAllowed = 'copy';
+                    e.dataTransfer.setData('text/plain', creature.id);
+                    div.classList.add('dragging');
+                });
+                
+                div.addEventListener('dragend', () => {
+                    div.classList.remove('dragging');
+                });
+
+                // Enhanced touch events for mobile
+                if (isMobile) {
+                    div.addEventListener('touchstart', (e) => {
+                        div.classList.add('touch-active');
+                        e.preventDefault();
+                    });
+                    
+                    div.addEventListener('touchend', (e) => {
+                        div.classList.remove('touch-active');
+                        e.preventDefault();
+                        handleCreatureClick(creature);
+                    });
+                }
+
+                // Click/touch to preview sound and place on grid
+                div.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    handleCreatureClick(creature);
+                });
+                
+                fragment.appendChild(div);
+            });
+            
+            creaturesList.appendChild(fragment);
+            console.log('Creatures initialized');
+        }
+
+        // Handle creature click/tap with audio enabling
+        function handleCreatureClick(creature) {
+            enableAudio();
+            
+            // If already on grid, remove it
+            const existingCell = document.querySelector(`[data-creature="${creature.id}"]`);
+            if (existingCell) {
+                removeCreature(parseInt(existingCell.dataset.beat));
+                return;
+            }
+            
+            // Place on first empty cell
+            const emptyCell = document.querySelector('.grid-cell:not([data-creature])');
+            if (emptyCell) {
+                const beatIndex = parseInt(emptyCell.dataset.beat);
+                placeCreature(beatIndex, creature);
+                playTone(creature.freq, 0.5, creature.id);
+            }
+        }
+
+        // Initialize music grid with performance optimizations
+        function initGrid() {
+            const grid = document.getElementById('musicGrid');
+            if (!grid) return;
+            
+            // Use DocumentFragment for better performance
+            const fragment = document.createDocumentFragment();
+            
+            for (let i = 0; i < 8; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'grid-cell';
+                cell.dataset.beat = i;
+                cell.innerHTML = `<span class="beat-label">${i + 1}</span>`;
+                
+                // Drag and drop events
+                cell.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'copy';
+                    cell.classList.add('drag-over');
+                });
+                
+                cell.addEventListener('dragleave', () => {
+                    cell.classList.remove('drag-over');
+                });
+                
+                cell.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    cell.classList.remove('drag-over');
+                    
+                    const creatureId = e.dataTransfer.getData('text/plain');
+                    const creature = creatures.find(c => c.id === creatureId);
+                    
+                    if (creature) {
+                        placeCreature(i, creature);
+                        playTone(creature.freq, 0.5, creature.id); // Preview sound
+                    }
+                });
+                
+                // Enhanced click handling for mobile
+                if (isMobile) {
+                    cell.addEventListener('touchend', (e) => {
+                        e.preventDefault();
+                        if (gridState[i] && !e.target.classList.contains('remove-btn')) {
+                            removeCreature(i);
+                        }
+                    });
+                }
+                
+                cell.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (gridState[i] && !e.target.classList.contains('remove-btn')) {
+                        removeCreature(i);
+                    }
+                });
+                
+                fragment.appendChild(cell);
+            }
+            
+            grid.appendChild(fragment);
+            console.log('Grid initialized');
+        }
+
+        // Place creature on grid
+        function placeCreature(beat, creature) {
+            gridState[beat] = creature;
+            optimizeDOMUpdate(updateGridDisplay);
+        }
+
+        // Remove creature from grid
+        function removeCreature(beat) {
+            gridState[beat] = null;
+            optimizeDOMUpdate(updateGridDisplay);
+        }
+
+        // Optimized grid display update with volume controls
+        function updateGridDisplay() {
+            const cells = document.querySelectorAll('.grid-cell');
+            cells.forEach((cell, index) => {
+                const creature = gridState[index];
+                if (creature) {
+                    cell.classList.add('occupied');
+                    cell.dataset.creature = creature.id;
+                    
+                    let cellContent = `
+                        <div class="creature-icon">${creature.icon}</div>
+                        <button class="remove-btn" onclick="removeCreature(${index}); event.stopPropagation();">×</button>
+                        <span class="beat-label">${index + 1}</span>
+                    `;
+                    
+                    // Add volume control only in advanced mode
+                    if (!isKidMode) {
+                        cellContent += `<input type="range" class="volume-control" min="0" max="100" value="50" title="Volume">`;
+                    }
+                    
+                    cell.innerHTML = cellContent;
+                } else {
+                    cell.classList.remove('occupied');
+                    delete cell.dataset.creature;
+                    cell.innerHTML = `<span class="beat-label">${index + 1}</span>`;
+                }
+            });
+        }
+
+        // Enhanced play loop with tempo support
+        function playLoop() {
+            if (!isPlaying) return;
+            
+            // Remove previous playhead with performance optimization
+            optimizeDOMUpdate(() => {
+                document.querySelectorAll('.playhead').forEach(el => el.remove());
+            });
+            
+            // Play current beat
+            const creature = gridState[currentBeat];
+            if (creature) {
+                playTone(creature.freq, 0.3, creature.id);
+                
+                // Visual feedback with performance optimization
+                optimizeDOMUpdate(() => {
+                    const cell = document.querySelector(`[data-beat="${currentBeat}"]`);
+                    if (cell) {
+                        const playhead = document.createElement('div');
+                        playhead.className = 'playhead';
+                        cell.appendChild(playhead);
+                    }
+                });
+            }
+            
+            // Move to next beat
+            currentBeat = (currentBeat + 1) % 8;
+        }
+
+        // Start playing with enhanced Safari/iOS audio handling and tempo support
+        function startPlaying() {
+            console.log('Starting playback...');
+            
+            // Ensure audio is enabled
+            enableAudio();
+            
+            // Wait for audio context to be ready
+            const startPlayback = () => {
+                if (audioContext && audioContext.state === 'running') {
+                    isPlaying = true;
+                    currentBeat = 0;
+                    document.getElementById('playBtn').disabled = true;
+                    document.getElementById('stopBtn').disabled = false;
+                    
+                    console.log('Audio is ready, starting playback at', currentBPM, 'BPM');
+                    
+                    playLoop();
+                    const interval = calculateInterval(currentBPM);
+                    playInterval = setInterval(playLoop, interval);
+                } else {
+                    console.log('Audio not ready yet, retrying...');
+                    setTimeout(startPlayback, 200);
+                }
+            };
+            
+            setTimeout(startPlayback, 100);
+        }
+
+        // Stop playing
+        function stopPlaying() {
+            isPlaying = false;
+            clearInterval(playInterval);
+            document.getElementById('playBtn').disabled = false;
+            document.getElementById('stopBtn').disabled = true;
+            
+            // Remove playhead with performance optimization
+            optimizeDOMUpdate(() => {
+                document.querySelectorAll('.playhead').forEach(el => el.remove());
+            });
+        }
+
+        // Clear all
+        function clearAll() {
+            gridState.fill(null);
+            optimizeDOMUpdate(updateGridDisplay);
+            if (isPlaying) {
+                stopPlaying();
+            }
+        }
+
+        // Enhanced event listeners with performance optimizations
+        function initEventListeners() {
+            const playBtn = document.getElementById('playBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            const recordBtn = document.getElementById('recordBtn');
+            const exportJsonBtn = document.getElementById('exportJsonBtn');
+            const exportAudioBtn = document.getElementById('exportAudioBtn');
+            
+            if (playBtn) playBtn.addEventListener('click', startPlaying);
+            if (stopBtn) stopBtn.addEventListener('click', stopPlaying);
+            if (clearBtn) clearBtn.addEventListener('click', clearAll);
+            if (saveBtn) saveBtn.addEventListener('click', saveComposition);
+            if (recordBtn) recordBtn.addEventListener('click', () => {
+                if (isKidMode) {
+                    alert('Recording is only available in Advanced Mode. Switch to Advanced Mode to record audio.');
+                    return;
+                }
+                if (isRecording) {
+                    stopRecording();
+                } else {
+                    startRecording();
+                }
+            });
+            if (exportJsonBtn) exportJsonBtn.addEventListener('click', exportComposition);
+            if (exportAudioBtn) exportAudioBtn.addEventListener('click', exportAudio);
+            
+            console.log('Event listeners initialized');
+        }
+
+        // Safari/iOS compatible audio enablement with multiple strategies
+        function initAudioListeners() {
+            // Multiple user interaction triggers for Safari/iOS
+            const interactionEvents = ['touchstart', 'click', 'touchend', 'mousedown', 'keydown', 'pointerdown'];
+            
+            interactionEvents.forEach(eventType => {
+                document.addEventListener(eventType, enableAudio, { 
+                    passive: true, 
+                    once: false 
+                });
+            });
+
+            // Safari/iOS specific audio triggers
+            if (isIOS || isSafari) {
+                // Enhanced touch handling for Safari/iOS
+                document.addEventListener('touchstart', function(e) {
+                    const audioContext = initAudioContext();
+                    if (audioContext && audioContext.state === 'suspended') {
+                        audioContext.resume()
+                            .then(() => {
+                                console.log('Safari/iOS audio resumed on touch');
+                                audioInitialized = true;
+                            })
+                            .catch(err => console.error('Safari/iOS audio resume failed:', err));
+                    }
+                }, { passive: true });
+                
+                // Safari/iOS-specific audio priming
+                setTimeout(() => {
+                    const audioContext = initAudioContext();
+                    if (audioContext && audioContext.state === 'suspended') {
+                        // Create minimal audio to enable Safari/iOS audio
+                        try {
+                            const osc = audioContext.createOscillator();
+                            const gain = audioContext.createGain();
+                            
+                            osc.connect(gain);
+                            gain.connect(audioContext.destination);
+                            
+                            osc.type = 'sine';
+                            osc.frequency.value = 440;
+                            gain.gain.value = 0.001; // Very minimal volume
+                            
+                            osc.start(audioContext.currentTime);
+                            osc.stop(audioContext.currentTime + 0.1);
+                            
+                            console.log('Safari/iOS audio priming executed');
+                        } catch (error) {
+                            console.error('Safari/iOS audio priming failed:', error);
+                        }
+                    }
+                }, 500);
+            }
+            
+            // Audio context state monitoring
+            const audioContext = initAudioContext();
+            if (audioContext) {
+                audioContext.addEventListener('statechange', () => {
+                    console.log('AudioContext state changed to:', audioContext.state);
+                    if (audioContext.state === 'running') {
+                        audioInitialized = true;
+                        updateAudioStatus('ready');
+                    }
+                });
+            }
+        }
+
+        // Initialize game components
+        function initGame() {
+            console.log('Initializing Melody Mixer game with Kid Mode...');
+            console.log('Device info:', { isMobile, isIOS, isAndroid, isSafari });
+            
+            // Initialize mode toggle first
+            initModeToggle();
+            
+            initCreatures();
+            initGrid();
+            initTempoControl();
+            initEnhancedControls();
+            initEventListeners();
+            initAudioListeners();
+            initPresets();
+            updateCompositionsList();
+            
+            // Make functions available globally for inline onclick
+            window.removeCreature = removeCreature;
+            window.loadComposition = loadComposition;
+            window.loadPreset = loadPreset;
+            
+            console.log('Game initialization complete');
+        }
+
+        // Enhanced initialization with proper timing
+        document.addEventListener('DOMContentLoaded', () => {
+            // Small delay to ensure all elements are ready
+            setTimeout(initGame, 100);
+        });
+
+        // Fallback initialization if DOMContentLoaded already fired
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initGame);
+        } else {
+            setTimeout(initGame, 100);
+        }
+    </script>
+<style>
+#minimax-floating-ball {
+  position: fixed;
+  bottom: 20px;
+  right: 20px;
+  padding: 10px 12px;
+  background: #222222;
+  border-radius: 12px;
+  display: flex;
+  align-items: center;
+  color: #F8F8F8;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  z-index: 9999;
+  transition: all 0.3s ease;
+  overflow: hidden;
+  cursor: pointer;
+}
+
+#minimax-floating-ball:hover {
+  transform: translateY(-2px);
+  background: #383838;
+}
+.minimax-ball-content {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.minimax-logo-wave {
+  width: 26px;
+  height: 22px;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='26' height='22' viewBox='0 0 26 22' fill='none'%3E%3Cg clip-path='url(%23clip0_3442_102412)'%3E%3Cpath d='M12.8405 14.6775C12.8405 14.9897 13.0932 15.2424 13.4055 15.2424C13.7178 15.2424 13.9705 14.9897 13.9705 14.6775V2.98254C13.9705 1.88957 13.0809 1 11.9879 1C10.895 1 10.0054 1.88957 10.0054 2.98254V11.566V17.1068C10.0054 17.5773 9.62327 17.9594 9.1528 17.9594C8.68233 17.9594 8.30021 17.5773 8.30021 17.1068V8.04469C8.30021 6.95172 7.41063 6.06215 6.31767 6.06215C5.22471 6.06215 4.33513 6.95172 4.33513 8.04469V11.8855C4.33513 12.3559 3.953 12.7381 3.48254 12.7381C3.01207 12.7381 2.62994 12.3559 2.62994 11.8855V10.4936C2.62994 10.1813 2.37725 9.92861 2.06497 9.92861C1.7527 9.92861 1.5 10.1813 1.5 10.4936V11.8855C1.5 12.9784 2.38957 13.868 3.48254 13.868C4.5755 13.868 5.46508 12.9784 5.46508 11.8855V8.04469C5.46508 7.57422 5.8472 7.19209 6.31767 7.19209C6.78814 7.19209 7.17026 7.57422 7.17026 8.04469V17.1068C7.17026 18.1998 8.05984 19.0894 9.1528 19.0894C10.2458 19.0894 11.1353 18.1998 11.1353 17.1068V2.98254C11.1353 2.51207 11.5175 2.12994 11.9879 2.12994C12.4584 2.12994 12.8405 2.51207 12.8405 2.98254V14.6775Z' fill='%23F8F8F8'/%3E%3Cpath d='M23.3278 6.06215C22.2348 6.06215 21.3452 6.95172 21.3452 8.04469V15.6143C21.3452 16.0847 20.9631 16.4669 20.4926 16.4669C20.0222 16.4669 19.6401 16.0847 19.6401 15.6143V2.98254C19.6401 1.88957 18.7505 1 17.6575 1C16.5645 1 15.675 1.88957 15.675 2.98254V19.0175C15.675 19.4879 15.2928 19.8701 14.8224 19.8701C14.3519 19.8701 13.9698 19.4879 13.9698 19.0175V17.0329C13.9698 16.7206 13.7171 16.4679 13.4048 16.4679C13.0925 16.4679 12.8398 16.7206 12.8398 17.0329V19.0175C12.8398 20.1104 13.7294 21 14.8224 21C15.9153 21 16.8049 20.1104 16.8049 19.0175V2.98254C16.8049 2.51207 17.187 2.12994 17.6575 2.12994C18.128 2.12994 18.5101 2.51207 18.5101 2.98254V15.6143C18.5101 16.7072 19.3997 17.5968 20.4926 17.5968C21.5856 17.5968 22.4752 16.7072 22.4752 15.6143V8.04469C22.4752 7.57422 22.8573 7.19209 23.3278 7.19209C23.7982 7.19209 24.1804 7.57422 24.1804 8.04469V14.6775C24.1804 14.9897 24.4331 15.2424 24.7453 15.2424C25.0576 15.2424 25.3103 14.9897 25.3103 14.6775V8.04469C25.3103 6.95172 24.4207 6.06215 23.3278 6.06215Z' fill='%23F8F8F8'/%3E%3C/g%3E%3Cdefs%3E%3CclipPath id='clip0_3442_102412'%3E%3Crect width='25' height='22' fill='white' transform='translate(0.5)'/%3E%3C/clipPath%3E%3C/defs%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: center;
+}
+
+.minimax-ball-text {
+  font-size: 12px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.minimax-close-icon {
+  margin-left: 8px;
+  font-size: 16px;
+  width: 18px;
+  height: 18px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  cursor: pointer;
+  opacity: 0.7;
+  transition: opacity 0.2s ease;
+}
+
+.minimax-close-icon:hover {
+  opacity: 1;
+}
+</style>
+<div id="minimax-floating-ball">
+  <div class="minimax-ball-content">
+    <div class="minimax-logo-wave"></div>
+    <span class="minimax-ball-text">Created by MiniMax Agent</span>
+  </div>
+  <div class="minimax-close-icon">×</div>
+</div>
+<script>
+// Initialize floating ball functionality
+function initFloatingBall() {
+  const ball = document.getElementById('minimax-floating-ball');
+  if (!ball) return;
+
+  // Initial animation
+  ball.style.opacity = '0';
+  ball.style.transform = 'translateY(20px)';
+
+  setTimeout(() => {
+    ball.style.opacity = '1';
+    ball.style.transform = 'translateY(0)';
+  }, 500);
+
+  // Handle logo click
+  const ballContent = ball.querySelector('.minimax-ball-content');
+  ballContent.addEventListener('click', function (e) {
+    e.stopPropagation();
+    window.open('https://agent.minimax.io/', '_blank');
+    ball.style.transform = 'scale(0.95)';
+    setTimeout(() => {
+      ball.style.transform = 'scale(1)';
+    }, 100);
+  });
+
+  // Handle close button click
+  const closeIcon = ball.querySelector('.minimax-close-icon');
+  closeIcon.addEventListener('click', function (e) {
+    e.stopPropagation();
+    ball.style.opacity = '0';
+    ball.style.transform = 'translateY(20px)';
+
+    setTimeout(() => {
+      ball.style.display = 'none';
+    }, 300);
+  });
+}
+
+// Initialize when DOM is ready
+document.addEventListener('DOMContentLoaded', initFloatingBall); 
+</script>
+</body>
+</html>

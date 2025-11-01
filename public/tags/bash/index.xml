@@ -1,19 +1,3 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Bash on Pragmatic Sysadmin</title>
-    <link>https://pragmaticsysadmin.help/tags/bash/</link>
-    <description>Recent content in Bash on Pragmatic Sysadmin</description>
-    <generator>Hugo</generator>
-    <language>en</language>
-    <lastBuildDate>Mon, 27 Jan 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://pragmaticsysadmin.help/tags/bash/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Stop Doing Things Manually: 5 Scripts That&#39;ll Make You Look Like a Genius</title>
-      <link>https://pragmaticsysadmin.help/posts/stop-doing-things-manually/</link>
-      <pubDate>Mon, 27 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>https://pragmaticsysadmin.help/posts/stop-doing-things-manually/</guid>
-      <description>&lt;h1 id=&#34;stop-doing-things-manually-5-scripts-thatll-make-you-look-like-a-genius&#34;&gt;Stop Doing Things Manually: 5 Scripts That&amp;rsquo;ll Make You Look Like a Genius&lt;/h1&gt;&#xA;&lt;p&gt;Look, I&amp;rsquo;ll be honest with you. Last week I caught myself manually checking disk space on 15 servers. FIFTEEN. Like some kind of caveman clicking through Server Manager while my coffee got cold.&lt;/p&gt;&#xA;&lt;p&gt;That&amp;rsquo;s when I remembered why I got into this job in the first place - to make computers do the boring stuff so I don&amp;rsquo;t have to. If you&amp;rsquo;re still doing repetitive tasks manually, this post is for you.&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Bash on Pragmatic Sysadmin</title><link>https://pragmaticsysadmin.help/tags/bash/</link><description>Recent content in Bash on Pragmatic Sysadmin</description><generator>Hugo</generator><language>en</language><lastBuildDate>Mon, 27 Jan 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://pragmaticsysadmin.help/tags/bash/index.xml" rel="self" type="application/rss+xml"/><item><title>Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius</title><link>https://pragmaticsysadmin.help/posts/stop-doing-things-manually/</link><pubDate>Mon, 27 Jan 2025 00:00:00 +0000</pubDate><guid>https://pragmaticsysadmin.help/posts/stop-doing-things-manually/</guid><description>&lt;h1 id="stop-doing-things-manually-5-scripts-thatll-make-you-look-like-a-genius">Stop Doing Things Manually: 5 Scripts That&amp;rsquo;ll Make You Look Like a Genius&lt;/h1>
+&lt;p>Look, I&amp;rsquo;ll be honest with you. Last week I caught myself manually checking disk space on 15 servers. FIFTEEN. Like some kind of caveman clicking through Server Manager while my coffee got cold.&lt;/p>
+&lt;p>That&amp;rsquo;s when I remembered why I got into this job in the first place - to make computers do the boring stuff so I don&amp;rsquo;t have to. If you&amp;rsquo;re still doing repetitive tasks manually, this post is for you.&lt;/p></description></item></channel></rss>

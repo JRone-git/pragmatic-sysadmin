@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Script Generator</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; }
+    label { display: block; margin-top: 1em; }
+    textarea { width: 100%; height: 120px; }
+    select, input[type=text] { width: 100%; padding: 0.5em; }
+    button { margin-top: 1em; padding: 0.5em 1em; }
+    .output { margin-top: 2em; background: #f4f4f4; padding: 1em; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>PowerShell/Bash Script Generator</h1>
+  <form id="scriptForm">
+    <label for="scriptType">Script Type:</label>
+    <select id="scriptType">
+      <option value="powershell">PowerShell</option>
+      <option value="bash">Bash</option>
+    </select>
+    <label for="task">Task Description (e.g., check disk space):</label>
+    <input type="text" id="task" required>
+    <label for="variables">Variables (comma separated):</label>
+    <input type="text" id="variables" placeholder="e.g., path, threshold">
+    <button type="submit">Generate Script</button>
+  </form>
+  <div class="output" id="output"></div>
+  <script>
+    function generateScript(type, task, variables) {
+      let vars = variables.split(',').map(v => v.trim()).filter(v => v);
+      if (type === 'powershell') {
+        let script = `# PowerShell Script\n# Task: ${task}\n`;
+        if (vars.length) script += `# Variables: ${vars.join(', ')}\n`;
+        script += `\n`;
+        if (task.toLowerCase().includes('disk')) {
+          script += `$drives = Get-PSDrive -PSProvider 'FileSystem'\nforeach ($drive in $drives) {\n  Write-Output \"$($drive.Name): $($drive.Free) bytes free\"\n}`;
+        } else if (task.toLowerCase().includes('process')) {
+          script += `Get-Process | Sort-Object CPU -Descending | Select-Object -First 10`;
+        } else {
+          script += `# Add your logic here\nWrite-Output \"Task: ${task}\"`;
+        }
+        return script;
+      } else {
+        let script = `#!/bin/bash\n# Task: ${task}\n`;
+        if (vars.length) script += `# Variables: ${vars.join(', ')}\n`;
+        script += `\n`;
+        if (task.toLowerCase().includes('disk')) {
+          script += `df -h`;
+        } else if (task.toLowerCase().includes('process')) {
+          script += `ps aux --sort=-%cpu | head -10`;
+        } else {
+          script += `# Add your logic here\necho \"Task: ${task}\"`;
+        }
+        return script;
+      }
+    }
+    document.getElementById('scriptForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const type = document.getElementById('scriptType').value;
+      const task = document.getElementById('task').value;
+      const variables = document.getElementById('variables').value;
+      const script = generateScript(type, task, variables);
+      document.getElementById('output').innerHTML = `<pre>${script}</pre>`;
+    });
+  </script>
+</body>
+</html>

@@ -1,33 +1,8 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
-  <channel>
-    <title>Automation on Pragmatic Sysadmin</title>
-    <link>https://pragmaticsysadmin.help/tags/automation/</link>
-    <description>Recent content in Automation on Pragmatic Sysadmin</description>
-    <generator>Hugo</generator>
-    <language>en</language>
-    <lastBuildDate>Sun, 19 Oct 2025 00:00:00 +0000</lastBuildDate>
-    <atom:link href="https://pragmaticsysadmin.help/tags/automation/index.xml" rel="self" type="application/rss+xml" />
-    <item>
-      <title>Sysadmin Myths Busted: What Actually Works in 2026</title>
-      <link>https://pragmaticsysadmin.help/posts/sysadmin-myths-busted-2026/</link>
-      <pubDate>Sun, 19 Oct 2025 00:00:00 +0000</pubDate>
-      <guid>https://pragmaticsysadmin.help/posts/sysadmin-myths-busted-2026/</guid>
-      <description>&lt;h1 id=&#34;sysadmin-myths-busted-what-actually-works-in-2026&#34;&gt;Sysadmin Myths Busted: What Actually Works in 2026&lt;/h1&gt;&#xA;&lt;p&gt;Forget what you heard in 2015. In this post, we bust the most common sysadmin myths and show you what actually works today. From automation fears to cloud confusion, get the facts and actionable tips for modern IT.&lt;/p&gt;&#xA;&lt;h2 id=&#34;myth-1-automation-will-take-your-job&#34;&gt;Myth 1: Automation Will Take Your Job&lt;/h2&gt;&#xA;&lt;p&gt;Reality: Automation takes your boring tasks, not your job. Learn how to use scripts and tools to free up your time for real problem-solving.&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Tech Survival Guide: AI Edition 2026 (From &#39;Help!&#39; to &#39;I&#39;m a Genius!&#39;)</title>
-      <link>https://pragmaticsysadmin.help/posts/tech-survival-guide-ai-edition-2026/</link>
-      <pubDate>Sun, 12 Oct 2025 00:00:00 +0000</pubDate>
-      <guid>https://pragmaticsysadmin.help/posts/tech-survival-guide-ai-edition-2026/</guid>
-      <description>&lt;h1 id=&#34;tech-survival-guide-ai-edition-2026&#34;&gt;Tech Survival Guide: AI Edition 2026&lt;/h1&gt;&#xA;&lt;p&gt;Look, we&amp;rsquo;ve all been there. It&amp;rsquo;s 11 PM, something&amp;rsquo;s broken, and you&amp;rsquo;re frantically googling error messages while your AI assistant keeps suggesting solutions that make absolutely no sense. Fun times.&lt;/p&gt;&#xA;&lt;p&gt;But here&amp;rsquo;s the thing: Most tech problems (and AI conversations) fail for the same reason - garbage in, garbage out. Today, I&amp;rsquo;m going to show you how to turn both your tech disasters and your AI interactions from &amp;ldquo;Oh God Why&amp;rdquo; into &amp;ldquo;I&amp;rsquo;m Actually a Genius.&amp;rdquo;&lt;/p&gt;</description>
-    </item>
-    <item>
-      <title>Stop Doing Things Manually: 5 Scripts That&#39;ll Make You Look Like a Genius</title>
-      <link>https://pragmaticsysadmin.help/posts/stop-doing-things-manually/</link>
-      <pubDate>Mon, 27 Jan 2025 00:00:00 +0000</pubDate>
-      <guid>https://pragmaticsysadmin.help/posts/stop-doing-things-manually/</guid>
-      <description>&lt;h1 id=&#34;stop-doing-things-manually-5-scripts-thatll-make-you-look-like-a-genius&#34;&gt;Stop Doing Things Manually: 5 Scripts That&amp;rsquo;ll Make You Look Like a Genius&lt;/h1&gt;&#xA;&lt;p&gt;Look, I&amp;rsquo;ll be honest with you. Last week I caught myself manually checking disk space on 15 servers. FIFTEEN. Like some kind of caveman clicking through Server Manager while my coffee got cold.&lt;/p&gt;&#xA;&lt;p&gt;That&amp;rsquo;s when I remembered why I got into this job in the first place - to make computers do the boring stuff so I don&amp;rsquo;t have to. If you&amp;rsquo;re still doing repetitive tasks manually, this post is for you.&lt;/p&gt;</description>
-    </item>
-  </channel>
-</rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Automation on Pragmatic Sysadmin</title><link>https://pragmaticsysadmin.help/tags/automation/</link><description>Recent content in Automation on Pragmatic Sysadmin</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sun, 19 Oct 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://pragmaticsysadmin.help/tags/automation/index.xml" rel="self" type="application/rss+xml"/><item><title>Sysadmin Myths Busted: What Actually Works in 2026</title><link>https://pragmaticsysadmin.help/posts/sysadmin-myths-busted-2026/</link><pubDate>Sun, 19 Oct 2025 00:00:00 +0000</pubDate><guid>https://pragmaticsysadmin.help/posts/sysadmin-myths-busted-2026/</guid><description>&lt;h1 id="sysadmin-myths-busted-what-actually-works-in-2026">Sysadmin Myths Busted: What Actually Works in 2026&lt;/h1>
+&lt;p>Forget what you heard in 2015. In this post, we bust the most common sysadmin myths and show you what actually works today. From automation fears to cloud confusion, get the facts and actionable tips for modern IT.&lt;/p>
+&lt;h2 id="myth-1-automation-will-take-your-job">Myth 1: Automation Will Take Your Job&lt;/h2>
+&lt;p>Reality: Automation takes your boring tasks, not your job. Learn how to use scripts and tools to free up your time for real problem-solving.&lt;/p></description></item><item><title>Tech Survival Guide: AI Edition 2026 (From 'Help!' to 'I'm a Genius!')</title><link>https://pragmaticsysadmin.help/posts/tech-survival-guide-ai-edition-2026/</link><pubDate>Sun, 12 Oct 2025 00:00:00 +0000</pubDate><guid>https://pragmaticsysadmin.help/posts/tech-survival-guide-ai-edition-2026/</guid><description>&lt;h1 id="tech-survival-guide-ai-edition-2026">Tech Survival Guide: AI Edition 2026&lt;/h1>
+&lt;p>Look, we&amp;rsquo;ve all been there. It&amp;rsquo;s 11 PM, something&amp;rsquo;s broken, and you&amp;rsquo;re frantically googling error messages while your AI assistant keeps suggesting solutions that make absolutely no sense. Fun times.&lt;/p>
+&lt;p>But here&amp;rsquo;s the thing: Most tech problems (and AI conversations) fail for the same reason - garbage in, garbage out. Today, I&amp;rsquo;m going to show you how to turn both your tech disasters and your AI interactions from &amp;ldquo;Oh God Why&amp;rdquo; into &amp;ldquo;I&amp;rsquo;m Actually a Genius.&amp;rdquo;&lt;/p></description></item><item><title>Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius</title><link>https://pragmaticsysadmin.help/posts/stop-doing-things-manually/</link><pubDate>Mon, 27 Jan 2025 00:00:00 +0000</pubDate><guid>https://pragmaticsysadmin.help/posts/stop-doing-things-manually/</guid><description>&lt;h1 id="stop-doing-things-manually-5-scripts-thatll-make-you-look-like-a-genius">Stop Doing Things Manually: 5 Scripts That&amp;rsquo;ll Make You Look Like a Genius&lt;/h1>
+&lt;p>Look, I&amp;rsquo;ll be honest with you. Last week I caught myself manually checking disk space on 15 servers. FIFTEEN. Like some kind of caveman clicking through Server Manager while my coffee got cold.&lt;/p>
+&lt;p>That&amp;rsquo;s when I remembered why I got into this job in the first place - to make computers do the boring stuff so I don&amp;rsquo;t have to. If you&amp;rsquo;re still doing repetitive tasks manually, this post is for you.&lt;/p></description></item></channel></rss>

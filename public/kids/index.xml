@@ -1,0 +1,350 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Kids Learning Games on Pragmatic Sysadmin</title><link>https://pragmaticsysadmin.help/kids/</link><description>Recent content in Kids Learning Games on Pragmatic Sysadmin</description><generator>Hugo</generator><language>en</language><atom:link href="https://pragmaticsysadmin.help/kids/index.xml" rel="self" type="application/rss+xml"/><item><title>Maths Game</title><link>https://pragmaticsysadmin.help/kids/maths-game/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pragmaticsysadmin.help/kids/maths-game/</guid><description>&lt;h1 id="maths-game">Maths Game&lt;/h1>
+&lt;p>Solve the problem and tap your answer:&lt;/p>
+&lt;div id="maths-game">&lt;/div>
+&lt;script>
+function randomInt(a, b) { return Math.floor(Math.random() * (b - a + 1)) + a; }
+
+// Game state
+let score = 0, total = 0, streak = 0, multiplier = 1;
+let difficulty = 'easy'; // easy | medium | hard
+let timerId = null, timeLeft = 0;
+const bestKey = 'kids_maths_best';
+
+const ranges = {
+ easy: {min:1, max:10, time:12},
+ medium: {min:5, max:20, time:9},
+ hard: {min:10, max:50, time:6}
+};
+
+function setDifficulty(d) {
+ difficulty = d;
+ showStart();
+}
+
+function showStart() {
+ const best = localStorage.getItem(bestKey) || 0;
+ document.getElementById('maths-game').innerHTML = `
+ &lt;div style='margin-bottom:1em;'>
+ &lt;button onclick="setDifficulty('easy')" style='margin-right:.5em;'>Easy&lt;/button>
+ &lt;button onclick="setDifficulty('medium')" style='margin-right:.5em;'>Medium&lt;/button>
+ &lt;button onclick="setDifficulty('hard')">Hard&lt;/button>
+ &lt;/div>
+ &lt;div style='margin-bottom:1em;'>Difficulty: &lt;b>${difficulty}&lt;/b>&lt;/div>
+ &lt;div style='margin-bottom:1em;'>Best score: &lt;b>${best}&lt;/b>&lt;/div>
+ &lt;button onclick='startGame()' style='font-size:1.2em;padding:.5em 1em;'>Start&lt;/button>
+ &lt;div id='math-controls' style='margin-top:1em;'>&lt;/div>
+ `;
+}
+
+function startGame() {
+ score = 0; total = 0; streak = 0; multiplier = 1;
+ nextQuestion();
+}
+
+function nextQuestion() {
+ clearTimeout(timerId);
+ const r = ranges[difficulty];
+ const a = randomInt(r.min, r.max), b = randomInt(r.min, r.max);
+ const answer = a + b;
+ // generate distractors with variety
+ const opts = new Set([answer]);
+ while (opts.size &lt; 3) {
+ const delta = randomInt(1, Math.max(2, Math.floor(answer * 0.2)));
+ const sign = Math.random() &lt; 0.5 ? -1 : 1;
+ opts.add(Math.max(0, answer + sign * delta));
+ }
+ const options = Array.from(opts).sort(() => Math.random() - 0.5);
+
+ timeLeft = r.time;
+ document.getElementById('maths-game').innerHTML = `
+ &lt;div style='display:flex;justify-content:space-between;align-items:center;'>&lt;div>Score: &lt;b>${score}&lt;/b> (Best: &lt;b>${localStorage.getItem(bestKey)||0}&lt;/b>)&lt;/div>&lt;div>Streak: &lt;b id="streak">${streak}&lt;/b> x&lt;b id="mult">${multiplier}&lt;/b>&lt;/div>&lt;/div>
+ &lt;h3 style='font-size:1.6em;'>${a} + ${b} = ?&lt;/h3>
+ &lt;div>${options.map(opt => `&lt;button class='math-btn' style='font-size:1.2em;margin:0.5em;padding:.6em 1em;' onclick='checkMath(${opt},${answer})'>${opt}&lt;/button>`).join('')}&lt;/div>
+ &lt;div id='math-feedback' style='min-height:1.5em;margin-top:.8em;'>&lt;/div>
+ &lt;div style='margin-top:0.5em;'>Time left: &lt;span id='time'>${timeLeft}&lt;/span>s&lt;/div>
+ `;
+
+ // start countdown
+ timerId = setInterval(() => {
+ timeLeft--;
+ const el = document.getElementById('time');
+ if (el) el.textContent = timeLeft;
+ if (timeLeft &lt;= 0) {
+ clearInterval(timerId);
+ total++;
+ streak = 0; multiplier = 1;
+ document.getElementById('math-feedback').innerHTML = `&lt;span style="color:orange;">Time's up! The answer was &lt;b>${answer}&lt;/b>&lt;/span>`;
+ setTimeout(nextQuestion, 1200);
+ }
+ }, 1000);
+}
+
+window.checkMath = function(opt, answer) {
+ clearInterval(timerId);
+ total++;
+ if (opt === answer) {
+ streak++;
+ multiplier = 1 + Math.floor(streak / 3);
+ score += multiplier;
+ document.getElementById('math-feedback').innerHTML = `&lt;span style="color:green;">Correct! +${multiplier}&lt;/span>`;
+ } else {
+ streak = 0; multiplier = 1;
+ document.getElementById('math-feedback').innerHTML = `&lt;span style="color:red;">Wrong — answer was &lt;b>${answer}&lt;/b>&lt;/span>`;
+ }
+ const best = parseInt(localStorage.getItem(bestKey) || '0', 10);
+ let isNewBest = false;
+ if (score > best) { localStorage.setItem(bestKey, score); isNewBest = true; }
+ // celebratory confetti on milestones
+ if (streak >= 5) launchConfetti();
+ if (isNewBest) launchConfetti();
+ // brief pause then next
+ setTimeout(nextQuestion, 900);
+};
+
+// lightweight confetti (same implementation as reading-game)
+function launchConfetti() {
+ const container = document.createElement('div');
+ container.style.position = 'fixed';
+ container.style.left = 0;
+ container.style.top = 0;
+ container.style.width = '100%';
+ container.style.height = '100%';
+ container.style.pointerEvents = 'none';
+ container.style.overflow = 'hidden';
+ document.body.appendChild(container);
+ const colours = ['#ff5e5b','#ffca3a','#8ac926','#1982c4','#6a4c93'];
+ const count = 30;
+ for (let i=0;i&lt;count;i++) {
+ const el = document.createElement('div');
+ const size = Math.random()*10+6;
+ el.style.position = 'absolute';
+ el.style.width = size+'px';
+ el.style.height = (size*0.6)+'px';
+ el.style.background = colours[Math.floor(Math.random()*colours.length)];
+ el.style.left = (Math.random()*100)+'%';
+ el.style.top = '-10%';
+ el.style.opacity = '0.95';
+ el.style.transform = `rotate(${Math.random()*360}deg)`;
+ el.style.borderRadius = '2px';
+ el.style.transition = 'transform 1.6s linear, top 1.6s cubic-bezier(.17,.67,.83,.67), opacity 0.5s linear 1.6s';
+ container.appendChild(el);
+ setTimeout(() => {
+ el.style.top = (60 + Math.random()*40)+'%';
+ el.style.transform = `rotate(${Math.random()*720}deg) translateX(${(Math.random()-0.5)*200}px)`;
+ }, 20 + Math.random()*200);
+ }
+ setTimeout(() => { container.style.transition='opacity .5s'; container.style.opacity='0'; setTimeout(()=>container.remove(),600); }, 2200);
+}
+
+// initialize
+showStart();
+&lt;/script></description></item><item><title>Melody Mixer Creatures</title><link>https://pragmaticsysadmin.help/kids/melody-mixer/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pragmaticsysadmin.help/kids/melody-mixer/</guid><description>&lt;h1 id="melody-mixer-creatures-">Melody Mixer Creatures 🎵&lt;/h1>
+&lt;p>Create your own music with adorable creatures! Drag and drop creatures onto the music grid to make beautiful melodies.&lt;/p>
+&lt;h2 id="how-to-play">How to Play&lt;/h2>
+&lt;ol>
+&lt;li>&lt;strong>Drag creatures&lt;/strong> from the left panel to the music grid&lt;/li>
+&lt;li>&lt;strong>Each creature&lt;/strong> makes a unique musical note&lt;/li>
+&lt;li>&lt;strong>Click &amp;ldquo;Play&amp;rdquo;&lt;/strong> to hear your creation loop&lt;/li>
+&lt;li>&lt;strong>Click creatures&lt;/strong> on the grid to remove them&lt;/li>
+&lt;li>&lt;strong>Click &amp;ldquo;Clear All&amp;rdquo;&lt;/strong> to start over&lt;/li>
+&lt;/ol>
+&lt;h2 id="meet-the-creatures">Meet the Creatures&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Cat&lt;/strong> 🐱 - C5 note&lt;/li>
+&lt;li>&lt;strong>Dog&lt;/strong> 🐶 - D5 note&lt;/li>
+&lt;li>&lt;strong>Bird&lt;/strong> 🐦 - E5 note&lt;/li>
+&lt;li>&lt;strong>Frog&lt;/strong> 🐸 - F5 note&lt;/li>
+&lt;li>&lt;strong>Lion&lt;/strong> 🦁 - G5 note&lt;/li>
+&lt;li>&lt;strong>Elephant&lt;/strong> 🐘 - A5 note&lt;/li>
+&lt;li>&lt;strong>Monkey&lt;/strong> 🐵 - B5 note&lt;/li>
+&lt;li>&lt;strong>Pig&lt;/strong> 🐷 - C6 note&lt;/li>
+&lt;/ul>
+&lt;h2 id="features">Features&lt;/h2>
+&lt;ul>
+&lt;li>&lt;strong>Drag &amp;amp; Drop&lt;/strong>: Simple interface for placing creatures&lt;/li>
+&lt;li>&lt;strong>Real-time Music&lt;/strong>: Web Audio API creates sounds instantly&lt;/li>
+&lt;li>&lt;strong>Visual Feedback&lt;/strong>: See and hear your music come to life&lt;/li>
+&lt;li>&lt;strong>Mobile Friendly&lt;/strong>: Works on tablets and phones&lt;/li>
+&lt;li>&lt;strong>Educational&lt;/strong>: Learn about rhythm and musical notes&lt;/li>
+&lt;/ul>
+&lt;p>&lt;a href="https://pragmaticsysadmin.help/melody-mixer.html">🎮 Play Melody Mixer Creatures&lt;/a>&lt;/p></description></item><item><title>Reading Game (Finnish)</title><link>https://pragmaticsysadmin.help/kids/reading-game/</link><pubDate>Mon, 01 Jan 0001 00:00:00 +0000</pubDate><guid>https://pragmaticsysadmin.help/kids/reading-game/</guid><description>&lt;h1 id="lukupeli--reading-game">Lukupeli / Reading Game&lt;/h1>
+&lt;div id="reading-game">&lt;/div>
+&lt;script>
+// Reliable images for kissa, koira, auto, pallo, lumi (Finnish and English)
+const images = {
+ kissa: '/images/kids/kissa.svg',
+ koira: '/images/kids/koira.svg',
+ auto: '/images/kids/auto.svg',
+ pallo: '/images/kids/pallo.svg',
+ lumi: '/images/kids/lumi.svg',
+ koira_en: '/images/kids/koira.svg',
+ cat: '/images/kids/kissa.svg',
+ car: '/images/kids/auto.svg',
+ ball: '/images/kids/pallo.svg',
+ snow: '/images/kids/lumi.svg'
+};
+
+const items_fi = [
+ {img: images.kissa, word: 'kissa', syllables: 'kis-sa', options: ['kissa', 'koira', 'auto']},
+ {img: images.koira, word: 'koira', syllables: 'koi-ra', options: ['kissa', 'koira', 'pallo']},
+ {img: images.auto, word: 'auto', syllables: 'au-to', options: ['koira', 'auto', 'kissa']},
+ {img: images.pallo, word: 'pallo', syllables: 'pal-lo', options: ['pallo', 'kissa', 'koira']},
+ {img: images.lumi, word: 'lumi', syllables: 'lu-mi', options: ['lumi', 'auto', 'koira']}
+];
+const items_en = [
+ {img: images.cat, word: 'cat', syllables: 'cat', options: ['cat', 'dog', 'car']},
+ {img: images.koira_en, word: 'dog', syllables: 'dog', options: ['cat', 'dog', 'ball']},
+ {img: images.car, word: 'car', syllables: 'car', options: ['dog', 'car', 'cat']},
+ {img: images.ball, word: 'ball', syllables: 'ball', options: ['ball', 'cat', 'dog']},
+ {img: images.snow, word: 'snow', syllables: 'snow', options: ['snow', 'car', 'dog']}
+];
+
+let lang = 'fi';
+let nickname = '';
+let score = 0;
+let current = 0;
+let leaderboard = JSON.parse(localStorage.getItem('kids_leaderboard') || '[]');
+let streak = 0; // consecutive correct
+const bestReadKey = 'kids_read_best';
+
+function startGame() {
+ score = 0; current = 0;
+ showItem();
+}
+
+function showStart() {
+ document.getElementById('reading-game').innerHTML = `
+ &lt;div style='margin-bottom:1em;'>
+ &lt;label for='nickname'>&lt;b>Valitse nimimerkki / Choose nickname:&lt;/b>&lt;/label>
+ &lt;input id='nickname' type='text' maxlength='12' style='font-size:1.2em;padding:0.3em;' />
+ &lt;/div>
+ &lt;div style='margin-bottom:1em;'>
+ &lt;label>&lt;b>Kieli / Language:&lt;/b>&lt;/label>
+ &lt;button onclick='setLang("fi")' style='font-size:1.2em;margin-right:1em;'>Suomi&lt;/button>
+ &lt;button onclick='setLang("en")' style='font-size:1.2em;'>English&lt;/button>
+ &lt;/div>
+ &lt;button onclick='beginGame()' style='font-size:1.5em;padding:0.5em 2em;background:#7ed957;color:#222;border-radius:1em;border:2px solid #7ed957;'>Aloita / Start&lt;/button>
+ &lt;div style='margin-top:2em;'>
+ &lt;b>Leaderboard:&lt;/b>
+ &lt;ul id='lb'>&lt;/ul>
+ &lt;/div>
+ `;
+ showLeaderboard();
+ document.getElementById('nickname').addEventListener('input', e => nickname = e.target.value);
+}
+
+function setLang(l) { lang = l; }
+function beginGame() { if (!nickname) nickname = 'Pelaaja'; startGame(); }
+
+function showLeaderboard() {
+ const lb = leaderboard.sort((a,b) => b.score - a.score).slice(0,5);
+ document.getElementById('lb').innerHTML = lb.map(e => `&lt;li>${e.name}: ${e.score}&lt;/li>`).join('');
+}
+
+function showItem() {
+ const items = lang === 'fi' ? items_fi : items_en;
+ if (current >= items.length) {
+ leaderboard.push({name: nickname, score});
+ localStorage.setItem('kids_leaderboard', JSON.stringify(leaderboard));
+ document.getElementById('reading-game').innerHTML = `&lt;h3>${lang==='fi' ? 'Peli loppui!' : 'Game Over!'} ${lang==='fi' ? 'Pisteet' : 'Score'}: ${score}/${items.length}&lt;/h3>&lt;button onclick='showStart()' style='font-size:1.2em;padding:0.5em 2em;background:#7ed957;color:#222;border-radius:1em;border:2px solid #7ed957;'>${lang==='fi' ? 'Uudestaan' : 'Restart'}&lt;/button>&lt;div style='margin-top:2em;'>&lt;b>Leaderboard:&lt;/b>&lt;ul id='lb'>&lt;/ul>&lt;/div>`;
+ showLeaderboard();
+ return;
+ }
+ const item = items[current];
+ document.getElementById('reading-game').innerHTML = `
+ &lt;div style='margin-bottom:1em;font-size:1.2em;'>${lang==='fi' ? 'Nimimerkki' : 'Nickname'}: &lt;b>${nickname}&lt;/b>&lt;/div>
+ &lt;img src="${item.img}" alt="pic" style="max-width:220px;display:block;margin-bottom:1em;border-radius:12px;box-shadow:0 0 10px #ccc;" />
+ &lt;div style='margin-bottom:0.5em;'>&lt;button onclick='speakWord()' style='margin-right:.5em;'>🔊&lt;/button>&lt;button onclick='showHint()'>Hint&lt;/button>&lt;/div>
+ &lt;div style='font-size:1.3em;margin-bottom:1em;'>${lang==='fi' ? 'Tavutus' : 'Syllables'}: &lt;b>${item.syllables}&lt;/b>&lt;/div>
+ &lt;div>
+ ${item.options.map(opt => `&lt;button style='font-size:2em;margin:0.7em;padding:0.7em 2em;border-radius:1em;background:#f7c873;color:#222;border:2px solid #f7c873;box-shadow:0 2px 6px #ccc;' onclick='checkWord("${opt}")'>${opt}&lt;/button>`).join('')}
+ &lt;/div>
+ &lt;div id='feedback'>&lt;/div>
+ &lt;div style='margin-top:1em;'>${lang==='fi' ? 'Pisteet' : 'Score'}: ${score}/${items.length} | Streak: &lt;b id='r-streak'>${streak}&lt;/b> | Best: &lt;b id='r-best'>${localStorage.getItem(bestReadKey)||0}&lt;/b>&lt;/div>
+ `;
+}
+window.checkWord = function(word) {
+ const items = lang === 'fi' ? items_fi : items_en;
+ const item = items[current];
+ if (word === item.word) {
+ score++;
+ streak++;
+ document.getElementById('feedback').innerHTML = `&lt;span style="color:green;font-size:1.3em;">${lang==='fi' ? 'Oikein!' : 'Correct!'} ✅&lt;/span>`;
+ document.getElementById('r-streak').textContent = streak;
+ // update best
+ const best = parseInt(localStorage.getItem(bestReadKey)||'0',10);
+ let isNewBest = false;
+ if (score > best) { localStorage.setItem(bestReadKey, score); isNewBest = true; }
+ document.getElementById('r-best').textContent = localStorage.getItem(bestReadKey)||0;
+ // celebratory confetti on milestones
+ if (streak >= 5) launchConfetti();
+ if (isNewBest) launchConfetti();
+ } else {
+ streak = 0;
+ document.getElementById('feedback').innerHTML = `&lt;span style="color:red;font-size:1.3em;">${lang==='fi' ? 'Yritä uudelleen!' : 'Try again!'}&lt;/span>`;
+ document.getElementById('r-streak').textContent = streak;
+ return;
+ }
+ setTimeout(() => { current++; showItem(); }, 1000);
+};
+// speak the current word (uses browser speech synthesis)
+window.speakWord = function() {
+ try {
+ const items = lang === 'fi' ? items_fi : items_en;
+ const item = items[current];
+ const utter = new SpeechSynthesisUtterance(item.word);
+ utter.lang = lang === 'fi' ? 'fi-FI' : 'en-US';
+ window.speechSynthesis.cancel();
+ window.speechSynthesis.speak(utter);
+ } catch(e) { /* ignore if unsupported */ }
+}
+// simple hint: highlight correct button briefly
+window.showHint = function() {
+ const items = lang === 'fi' ? items_fi : items_en;
+ const item = items[current];
+ const buttons = Array.from(document.querySelectorAll('#reading-game button'));
+ const btn = buttons.find(b => b.textContent.trim() === item.word);
+ if (btn) {
+ const orig = btn.style.boxShadow;
+ btn.style.boxShadow = '0 0 12px 3px #7ed957';
+ setTimeout(() => btn.style.boxShadow = orig, 800);
+ }
+}
+// lightweight confetti (no external libs) — draws confetti pieces then fades
+function launchConfetti() {
+ const container = document.createElement('div');
+ container.style.position = 'fixed';
+ container.style.left = 0;
+ container.style.top = 0;
+ container.style.width = '100%';
+ container.style.height = '100%';
+ container.style.pointerEvents = 'none';
+ container.style.overflow = 'hidden';
+ document.body.appendChild(container);
+ const colours = ['#ff5e5b','#ffca3a','#8ac926','#1982c4','#6a4c93'];
+ const count = 30;
+ for (let i=0;i&lt;count;i++) {
+ const el = document.createElement('div');
+ const size = Math.random()*10+6;
+ el.style.position = 'absolute';
+ el.style.width = size+'px';
+ el.style.height = (size*0.6)+'px';
+ el.style.background = colours[Math.floor(Math.random()*colours.length)];
+ el.style.left = (Math.random()*100)+'%';
+ el.style.top = '-10%';
+ el.style.opacity = '0.95';
+ el.style.transform = `rotate(${Math.random()*360}deg)`;
+ el.style.borderRadius = '2px';
+ el.style.transition = 'transform 1.6s linear, top 1.6s cubic-bezier(.17,.67,.83,.67), opacity 0.5s linear 1.6s';
+ container.appendChild(el);
+ // animate on next tick
+ setTimeout(() => {
+ el.style.top = (60 + Math.random()*40)+'%';
+ el.style.transform = `rotate(${Math.random()*720}deg) translateX(${(Math.random()-0.5)*200}px)`;
+ }, 20 + Math.random()*200);
+ }
+ // remove after animation
+ setTimeout(() => { container.style.transition='opacity .5s'; container.style.opacity='0'; setTimeout(()=>container.remove(),600); }, 2200);
+}
+showStart();
+&lt;/script></description></item></channel></rss>
