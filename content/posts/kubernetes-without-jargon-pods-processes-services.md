@@ -2,9 +2,73 @@
 title: "Kubernetes Without Jargon: Pods = Processes, Services = Stable Names"
 date: 2025-08-16
 draft: false
-description: "Skip the shipping container metaphors. Here's what Kubernetes actually does: runs your apps reliably across multiple servers without the 3 AM wake-up calls."
+description: "Learn Kubernetes for beginners without confusing jargon. Clear explanation of pods, services, and containers with practical examples for DevOps beginners."
 tags: ["kubernetes","devops","containers","cloud","scaling"]
 ---
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Kubernetes Without Jargon: Pods = Processes, Services = Stable Names",
+  "description": "Learn Kubernetes for beginners without confusing jargon. Clear explanation of pods, services, and containers with practical examples for DevOps beginners.",
+  "author": {
+    "@type": "Person",
+    "name": "Pragmatic Sysadmin"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Pragmatic Sysadmin",
+    "url": "https://pragmatic-sysadmin.com",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://pragmatic-sysadmin.com/images/logo.png"
+    }
+  },
+  "datePublished": "2025-08-16",
+  "dateModified": "2025-08-16",
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://pragmatic-sysadmin.com/images/kubernetes-beginners-guide.jpg",
+    "width": 1200,
+    "height": 630,
+    "alt": "Kubernetes beginner's guide showing pods, services and containers explained without jargon"
+  },
+  "keywords": ["kubernetes", "kubernetes beginners", "pods", "services", "containers", "devops", "kubernetes tutorial", "container orchestration", "kubernetes explained", "kubernetes guide", "beginner kubernetes", "devops beginners", "cloud computing", "scaling", "kubernetes pods vs processes", "kubernetes services explained"],
+  "articleSection": "DevOps",
+  "about": [
+    {
+      "@type": "Thing",
+      "name": "Kubernetes"
+    },
+    {
+      "@type": "Thing", 
+      "name": "Container Orchestration"
+    },
+    {
+      "@type": "Thing",
+      "name": "DevOps"
+    }
+  ],
+  "audience": {
+    "@type": "Audience",
+    "audienceType": ["Developers", "System Administrators", "DevOps Engineers", "Cloud Architects"],
+    "educationalLevel": "Beginner"
+  },
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://pragmatic-sysadmin.com/posts/kubernetes-without-jargon-pods-processes-services/"
+  },
+  "url": "https://pragmatic-sysadmin.com/posts/kubernetes-without-jargon-pods-processes-services/",
+  "wordCount": 2200,
+  "timeRequired": "PT10M",
+  "inLanguage": "en",
+  "potentialAction": {
+    "@type": "ReadAction",
+    "target": "https://pragmatic-sysadmin.com/posts/kubernetes-without-jargon-pods-processes-services/"
+  }
+}
+</script>
 
 If you've ever tried to Google "What is Kubernetes?" you've probably seen a wall of buzzwords: *orchestration, scalability, microservices, YAML manifests*. Somewhere in there, someone will tell you it's like "a shipping port for containers," and you'll want to slam your laptop shut.
 
