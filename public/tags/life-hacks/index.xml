@@ -1,15 +1,10 @@
 <?xml version="1.0" encoding="utf-8" standalone="yes"?>
-<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:content="http://purl.org/rss/1.0/modules/content/">
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>Life-Hacks on Pragmatic Sysadmin</title>
     <link>https://pragmaticsysadmin.help/tags/life-hacks/</link>
     <description>Recent content in Life-Hacks on Pragmatic Sysadmin</description>
-    <image>
-      <title>Pragmatic Sysadmin</title>
-      <url>https://pragmaticsysadmin.help/og-default.png</url>
-      <link>https://pragmaticsysadmin.help/og-default.png</link>
-    </image>
-    <generator>Hugo -- 0.148.2</generator>
+    <generator>Hugo</generator>
     <language>en</language>
     <lastBuildDate>Sun, 12 Oct 2025 00:00:00 +0000</lastBuildDate>
     <atom:link href="https://pragmaticsysadmin.help/tags/life-hacks/index.xml" rel="self" type="application/rss+xml" />
@@ -18,7 +13,7 @@
       <link>https://pragmaticsysadmin.help/posts/tech-survival-guide-ai-edition-2026/</link>
       <pubDate>Sun, 12 Oct 2025 00:00:00 +0000</pubDate>
       <guid>https://pragmaticsysadmin.help/posts/tech-survival-guide-ai-edition-2026/</guid>
-      <description>Stop struggling with tech problems AND AI tools. Learn how to solve tech issues like a pro using AI, with solutions from panic mode to automation master.</description>
+      <description>&lt;h1 id=&#34;tech-survival-guide-ai-edition-2026&#34;&gt;Tech Survival Guide: AI Edition 2026&lt;/h1&gt;&#xA;&lt;p&gt;Look, we&amp;rsquo;ve all been there. It&amp;rsquo;s 11 PM, something&amp;rsquo;s broken, and you&amp;rsquo;re frantically googling error messages while your AI assistant keeps suggesting solutions that make absolutely no sense. Fun times.&lt;/p&gt;&#xA;&lt;p&gt;But here&amp;rsquo;s the thing: Most tech problems (and AI conversations) fail for the same reason - garbage in, garbage out. Today, I&amp;rsquo;m going to show you how to turn both your tech disasters and your AI interactions from &amp;ldquo;Oh God Why&amp;rdquo; into &amp;ldquo;I&amp;rsquo;m Actually a Genius.&amp;rdquo;&lt;/p&gt;</description>
     </item>
   </channel>
 </rss>

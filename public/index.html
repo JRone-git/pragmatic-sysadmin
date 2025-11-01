@@ -1,314 +1,3016 @@
 <!DOCTYPE html>
-<html lang="en" dir="auto">
-
+<html lang="en">
 <head>
-	<meta name="generator" content="Hugo 0.148.2"><meta charset="utf-8">
-<meta http-equiv="X-UA-Compatible" content="IE=edge">
-<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-<meta name="robots" content="index, follow">
-<title>Pragmatic Sysadmin</title>
-
-<meta name="description" content="Funny, practical home networking and de-mystified cloud.">
-<meta name="author" content="">
-<link rel="canonical" href="https://pragmaticsysadmin.help/">
-<link crossorigin="anonymous" href="https://pragmaticsysadmin.help/assets/css/stylesheet.36819bea596090d8b48cf10d9831382996197aa7e4fc86f792f7c08c9ca4d23b.css" integrity="sha256-NoGb6llgkNi0jPENmDE4KZYZeqfk/Ib3kvfAjJyk0js=" rel="preload stylesheet" as="style">
-<link rel="icon" href="https://pragmaticsysadmin.help/favicon.ico">
-<link rel="icon" type="image/png" sizes="16x16" href="https://pragmaticsysadmin.help/favicon-16x16.png">
-<link rel="icon" type="image/png" sizes="32x32" href="https://pragmaticsysadmin.help/favicon-32x32.png">
-<link rel="apple-touch-icon" href="https://pragmaticsysadmin.help/apple-touch-icon.png">
-<link rel="mask-icon" href="https://pragmaticsysadmin.help/safari-pinned-tab.svg">
-<meta name="theme-color" content="#2e2e33">
-<meta name="msapplication-TileColor" content="#2e2e33">
-<link rel="alternate" type="application/rss+xml" href="https://pragmaticsysadmin.help/index.xml">
-<link rel="alternate" hreflang="en" href="https://pragmaticsysadmin.help/">
-<noscript>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Melody Mixer Creatures - Enhanced Music Game (Mobile Friendly)</title>
     <style>
-        #theme-toggle,
-        .top-link {
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            overflow-x: hidden;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        h1 {
+            font-size: 3em;
+            margin-bottom: 10px;
+            animation: bounce 2s ease-in-out infinite;
+        }
+
+        @keyframes bounce {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-10px); }
+        }
+
+        .instructions {
+            background: rgba(255,255,255,0.95);
+            padding: 15px 25px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        #audioStatus {
+            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
+            color: white;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        #audioStatus.enabled {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+        }
+
+        .instructions h2 {
+            color: #667eea;
+            margin-bottom: 10px;
+            font-size: 1.5em;
+        }
+
+        .instructions p {
+            color: #555;
+            font-size: 1.1em;
+            line-height: 1.6;
+        }
+
+        /* Enhanced Controls Panel */
+        .enhanced-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .controls-panel {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .controls-panel h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            text-align: center;
+        }
+
+        .control-group {
+            margin-bottom: 15px;
+        }
+
+        .control-group label {
+            display: block;
+            color: #555;
+            font-weight: bold;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+        }
+
+        .control-group select,
+        .control-group input[type="range"] {
+            width: 100%;
+            padding: 8px;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            font-size: 0.9em;
+        }
+
+        .waveform-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 5px;
+            margin-top: 5px;
+        }
+
+        .waveform-btn {
+            padding: 5px 10px;
+            background: #e0e7ff;
+            border: 2px solid #667eea;
+            border-radius: 5px;
+            font-size: 0.8em;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .waveform-btn.active {
+            background: #667eea;
+            color: white;
+        }
+
+        .envelope-controls {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .slider-group {
+            text-align: center;
+        }
+
+        .slider-group label {
+            font-size: 0.8em;
+            margin-bottom: 3px;
+        }
+
+        .slider-group input[type="range"] {
+            width: 100%;
+            height: 4px;
+            margin: 0;
+        }
+
+        /* Save/Load Panel */
+        .save-load-panel {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .save-load-panel h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            text-align: center;
+        }
+
+        .button-group {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 15px;
+        }
+
+        .btn-secondary {
+            background: linear-gradient(135deg, #8b5cf6 0%, #7c3aed 100%);
+            color: white;
+        }
+
+        .btn-tertiary {
+            background: linear-gradient(135deg, #06b6d4 0%, #0891b2 100%);
+            color: white;
+        }
+
+        .saved-compositions {
+            max-height: 200px;
+            overflow-y: auto;
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 10px;
+            margin-top: 10px;
+        }
+
+        .composition-item {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 6px;
+            padding: 8px;
+            margin-bottom: 8px;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .composition-item:hover {
+            background: #e0e7ff;
+            border-color: #667eea;
+        }
+
+        .composition-name {
+            font-weight: bold;
+            color: #555;
+        }
+
+        .composition-date {
+            font-size: 0.8em;
+            color: #888;
+        }
+
+        /* Presets Panel */
+        .presets-panel {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            margin-bottom: 20px;
+        }
+
+        .presets-panel h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.3em;
+            text-align: center;
+        }
+
+        .presets-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 10px;
+        }
+
+        .preset-item {
+            background: linear-gradient(135deg, #e0e7ff 0%, #dbeafe 100%);
+            border: 2px solid #667eea;
+            border-radius: 8px;
+            padding: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s ease;
+        }
+
+        .preset-item:hover {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            transform: translateY(-2px);
+        }
+
+        .preset-name {
+            font-weight: bold;
+            margin-bottom: 5px;
+        }
+
+        .preset-description {
+            font-size: 0.8em;
+            opacity: 0.8;
+        }
+
+        /* Game Area */
+        .game-area {
+            display: grid;
+            grid-template-columns: 1fr 2fr;
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+
+        .creatures-panel {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .creatures-panel h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .creatures-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+            gap: 15px;
+        }
+
+        .creature {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-radius: 12px;
+            padding: 15px;
+            text-align: center;
+            cursor: grab;
+            transition: all 0.3s ease;
+            border: 3px solid transparent;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .creature:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            border-color: #fff;
+        }
+
+        .creature:active {
+            cursor: grabbing;
+        }
+
+        .creature.dragging {
+            opacity: 0.5;
+            cursor: grabbing;
+        }
+
+        /* Mobile touch feedback */
+        .creature.touch-active {
+            transform: scale(1.1);
+            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
+            border-color: #fff;
+        }
+
+        @media (hover: none) and (pointer: coarse) {
+            .creature:hover {
+                transform: none;
+                box-shadow: none;
+            }
+            
+            .creature:active {
+                transform: scale(1.05);
+                transition: transform 0.1s;
+            }
+        }
+
+        .creature-icon {
+            font-size: 2.5em;
+            margin-bottom: 5px;
+        }
+
+        .creature-name {
+            color: white;
+            font-weight: bold;
+            font-size: 0.9em;
+        }
+
+        .creature-controls {
+            margin-top: 8px;
+            font-size: 0.7em;
+            color: white;
+            opacity: 0.9;
+        }
+
+        .music-grid-container {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+        }
+
+        .music-grid-container h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.8em;
+            text-align: center;
+        }
+
+        .music-grid {
+            display: grid;
+            grid-template-columns: repeat(8, 1fr);
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .grid-cell {
+            aspect-ratio: 1;
+            background: linear-gradient(135deg, #e0e7ff 0%, #cfd9ff 100%);
+            border: 3px dashed #667eea;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            position: relative;
+            min-height: 80px;
+        }
+
+        .grid-cell.drag-over {
+            background: linear-gradient(135deg, #a7f3d0 0%, #6ee7b7 100%);
+            border-color: #10b981;
+            transform: scale(1.05);
+            box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
+        }
+
+        .grid-cell.occupied {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+            border-style: solid;
+            border-color: #fff;
+        }
+
+        .grid-cell .creature-icon {
+            font-size: 2em;
+        }
+
+        .grid-cell .remove-btn {
+            position: absolute;
+            top: 2px;
+            right: 2px;
+            background: rgba(255,0,0,0.8);
+            color: white;
+            border: none;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            font-size: 12px;
+            cursor: pointer;
             display: none;
         }
 
-    </style>
-    <style>
-        @media (prefers-color-scheme: dark) {
-            :root {
-                --theme: rgb(29, 30, 32);
-                --entry: rgb(46, 46, 51);
-                --primary: rgb(218, 218, 219);
-                --secondary: rgb(155, 156, 157);
-                --tertiary: rgb(65, 66, 68);
-                --content: rgb(196, 196, 197);
-                --code-block-bg: rgb(46, 46, 51);
-                --code-bg: rgb(55, 56, 62);
-                --border: rgb(51, 51, 51);
-            }
+        .grid-cell.occupied:hover .remove-btn {
+            display: block;
+        }
 
-            .list {
-                background: var(--theme);
-            }
+        .beat-label {
+            position: absolute;
+            bottom: 2px;
+            right: 4px;
+            font-size: 10px;
+            color: #667eea;
+            font-weight: bold;
+        }
 
-            .list:not(.dark)::-webkit-scrollbar-track {
-                background: 0 0;
-            }
+        .controls {
+            display: flex;
+            gap: 10px;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
 
-            .list:not(.dark)::-webkit-scrollbar-thumb {
-                border-color: var(--theme);
+        .btn {
+            padding: 15px 30px;
+            font-size: 1.2em;
+            font-weight: bold;
+            border: none;
+            border-radius: 12px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .btn-play {
+            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
+            color: white;
+        }
+
+        .btn-stop {
+            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
+            color: white;
+        }
+
+        .btn-clear {
+            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
+            color: white;
+        }
+
+        .btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
+        }
+
+        .btn:active {
+            transform: translateY(-1px);
+        }
+
+        .btn:disabled {
+            opacity: 0.5;
+            cursor: not-allowed;
+        }
+
+        /* Volume Control in Grid */
+        .grid-cell .volume-control {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 60%;
+            opacity: 0.7;
+            transition: opacity 0.2s ease;
+        }
+
+        .grid-cell.occupied:hover .volume-control {
+            opacity: 1;
+        }
+
+        /* Tempo Control Styles */
+        .tempo-control {
+            background: rgba(255,255,255,0.95);
+            border-radius: 15px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+            text-align: center;
+        }
+
+        .tempo-control h3 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .tempo-display {
+            font-size: 2em;
+            font-weight: bold;
+            color: #667eea;
+            margin-bottom: 15px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+
+        .tempo-slider-container {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .tempo-slider {
+            width: 300px;
+            height: 8px;
+            border-radius: 5px;
+            background: linear-gradient(90deg, #e0e7ff 0%, #667eea 50%, #764ba2 100%);
+            outline: none;
+            -webkit-appearance: none;
+            appearance: none;
+        }
+
+        .tempo-slider::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            appearance: none;
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+            transition: all 0.2s ease;
+        }
+
+        .tempo-slider::-webkit-slider-thumb:hover {
+            transform: scale(1.2);
+        }
+
+        .tempo-slider::-moz-range-thumb {
+            width: 25px;
+            height: 25px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            cursor: pointer;
+            border: none;
+            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+        }
+
+        .tempo-label {
+            min-width: 40px;
+            font-weight: bold;
+            color: #667eea;
+            font-size: 1.1em;
+        }
+
+        /* Recording Indicator */
+        .recording-indicator {
+            display: none;
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: rgba(239, 68, 68, 0.9);
+            color: white;
+            padding: 10px 15px;
+            border-radius: 25px;
+            font-weight: bold;
+            z-index: 1000;
+            animation: pulse 1s infinite;
+        }
+
+        .recording-indicator.show {
+            display: block;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        /* Performance optimizations for mobile */
+        @media (prefers-reduced-motion: reduce) {
+            .creature:hover,
+            .creature:active {
+                transform: none;
+                transition: none;
+            }
+            
+            h1 {
+                animation: none;
+            }
+            
+            .grid-cell.drag-over {
+                transform: none;
             }
         }
 
+        /* Mobile touch optimizations */
+        .creature {
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        .grid-cell {
+            will-change: transform;
+            transform: translateZ(0);
+        }
+
+        /* Reduce animations on slow devices */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2em;
+            }
+            
+            .creature {
+                transition: all 0.2s ease; /* Faster transitions on mobile */
+            }
+            
+            .grid-cell {
+                transition: all 0.2s ease;
+            }
+
+            .enhanced-controls {
+                grid-template-columns: 1fr;
+            }
+
+            .button-group {
+                flex-direction: column;
+                align-items: center;
+            }
+
+            .btn {
+                width: 100%;
+                max-width: 200px;
+            }
+
+            .presets-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .playhead {
+            position: absolute;
+            top: -5px;
+            left: -5px;
+            right: -5px;
+            bottom: -5px;
+            border: 4px solid #10b981;
+            border-radius: 12px;
+            animation: pulse 0.2s ease-in-out;
+            pointer-events: none;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .nav-link {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.9);
+            color: #667eea;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            transition: all 0.3s ease;
+        }
+
+        .nav-link:hover {
+            background: white;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 768px) {
+            .game-area {
+                grid-template-columns: 1fr;
+            }
+
+            .music-grid {
+                grid-template-columns: repeat(4, 1fr);
+            }
+
+            h1 {
+                font-size: 2em;
+            }
+        }
     </style>
-</noscript>
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-EKQ0LBDH9Z"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-EKQ0LBDH9Z');
-</script><meta property="og:url" content="https://pragmaticsysadmin.help/">
-  <meta property="og:site_name" content="Pragmatic Sysadmin">
-  <meta property="og:title" content="Home">
-  <meta property="og:description" content="Funny, practical home networking and de-mystified cloud.">
-  <meta property="og:locale" content="en">
-  <meta property="og:type" content="website">
-      <meta property="og:image" content="https://pragmaticsysadmin.help/og-default.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://pragmaticsysadmin.help/og-default.png">
-<meta name="twitter:title" content="Home">
-<meta name="twitter:description" content="Funny, practical home networking and de-mystified cloud.">
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Organization",
-  "name": "Pragmatic Sysadmin",
-  "url": "https://pragmaticsysadmin.help/",
-  "description": "Funny, practical home networking and de-mystified cloud.",
-  "logo": "https://pragmaticsysadmin.help/favicon.ico",
-  "sameAs": [
-      "index.xml"
-  ]
-}
-</script>
 </head>
+<body>
+    <div class="container">
+        <header>
+            <h1>Melody Mixer Creatures</h1>
+            <p style="font-size: 1.2em;">Drag creatures to create your own music with advanced instruments!</p>
+        </header>
 
-<body class="list" id="top">
-<script>
-    if (localStorage.getItem("pref-theme") === "dark") {
-        document.body.classList.add('dark');
-    } else if (localStorage.getItem("pref-theme") === "light") {
-        document.body.classList.remove('dark')
-    } else if (window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.body.classList.add('dark');
-    }
-
-</script>
-
-<header class="header">
-    <nav class="nav">
-        <div class="logo">
-            <a href="https://pragmaticsysadmin.help/" accesskey="h" title="Pragmatic Sysadmin (Alt + H)">Pragmatic Sysadmin</a>
-            <div class="logo-switches">
-                <button id="theme-toggle" accesskey="t" title="(Alt + T)" aria-label="Toggle theme">
-                    <svg id="moon" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
-                    </svg>
-                    <svg id="sun" xmlns="http://www.w3.org/2000/svg" width="24" height="18" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round">
-                        <circle cx="12" cy="12" r="5"></circle>
-                        <line x1="12" y1="1" x2="12" y2="3"></line>
-                        <line x1="12" y1="21" x2="12" y2="23"></line>
-                        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
-                        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
-                        <line x1="1" y1="12" x2="3" y2="12"></line>
-                        <line x1="21" y1="12" x2="23" y2="12"></line>
-                        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
-                        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
-                    </svg>
-                </button>
+        <div class="instructions">
+            <h2>How to Play:</h2>
+            <p>
+                1. Drag and drop creatures from the left panel onto the music grid<br>
+                2. Each creature makes a unique sound with different instruments<br>
+                3. Use the controls to adjust instrument sounds, volume, and effects<br>
+                4. Click "Play" to hear your creation loop<br>
+                5. Save your compositions and record audio<br>
+                6. Try our preset compositions to get started!<br>
+                7. Create awesome music combinations!
+            </p>
+            <div id="audioStatus" style="margin-top: 10px; padding: 8px; border-radius: 5px; font-weight: bold;">
+                <span id="audioStatusText">Tap anywhere to enable sound...</span>
             </div>
         </div>
-        <ul id="menu">
-            <li>
-                <a href="https://pragmaticsysadmin.help/" title="Home">
-                    <span class="active">Home</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://pragmaticsysadmin.help/about/" title="About">
-                    <span>About</span>
-                </a>
-            </li>
-            <li>
-                <a href="https://pragmaticsysadmin.help/newsletter/" title="Newsletter">
-                    <span>Newsletter</span>
-                </a>
-            </li>
-        </ul>
-    </nav>
-</header>
-<main class="main"> 
 
-<article class="first-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Tech Survival Guide: AI Edition 2026 (From &#39;Help!&#39; to &#39;I&#39;m a Genius!&#39;)
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Tech Survival Guide: AI Edition 2026 Look, we’ve all been there. It’s 11 PM, something’s broken, and you’re frantically googling error messages while your AI assistant keeps suggesting solutions that make absolutely no sense. Fun times.
-But here’s the thing: Most tech problems (and AI conversations) fail for the same reason - garbage in, garbage out. Today, I’m going to show you how to turn both your tech disasters and your AI interactions from “Oh God Why” into “I’m Actually a Genius.”
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-10-12 00:00:00 +0000 UTC'>October 12, 2025</span>&nbsp;·&nbsp;4 min</footer>
-  <a class="entry-link" aria-label="post link to Tech Survival Guide: AI Edition 2026 (From &#39;Help!&#39; to &#39;I&#39;m a Genius!&#39;)" href="https://pragmaticsysadmin.help/posts/tech-survival-guide-ai-edition-2026/"></a>
-</article>
+        <!-- Enhanced Controls Panel -->
+        <div class="enhanced-controls">
+            <div class="controls-panel">
+                <h3>Instrument & Effects</h3>
+                
+                <div class="control-group">
+                    <label for="globalInstrument">Global Instrument:</label>
+                    <select id="globalInstrument">
+                        <option value="sine">Piano (Sine)</option>
+                        <option value="square">Guitar (Square)</option>
+                        <option value="sawtooth">Violin (Sawtooth)</option>
+                        <option value="triangle">Bass (Triangle)</option>
+                    </select>
+                </div>
 
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">How I Built This Blog: Hugo &#43; Firebase &#43; AWeber in 30 Minutes
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Why This Stack? As a sysadmin, I wanted a blog that’s:
-Fast: Static sites load instantly Cheap: Firebase free tier handles tons of traffic Simple: No databases, no server maintenance SEO-ready: Hugo generates clean, optimized HTML Here’s exactly how I built this site in under 30 minutes.
-The Stack Hugo: Static site generator (like Jekyll, but faster) PaperMod: Clean, minimal Hugo theme Firebase Hosting: Google’s CDN with free SSL AWeber: Newsletter forms that actually work Google Analytics: Track what people read Step-by-Step Build Process 1. Install the Tools On Windows with Chocolatey:
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-08-16 00:00:00 +0000 UTC'>August 16, 2025</span>&nbsp;·&nbsp;2 min</footer>
-  <a class="entry-link" aria-label="post link to How I Built This Blog: Hugo &#43; Firebase &#43; AWeber in 30 Minutes" href="https://pragmaticsysadmin.help/posts/secure-fast-home-network-2025/"></a>
-</article>
+                <div class="control-group">
+                    <label>Waveform:</label>
+                    <div class="waveform-buttons">
+                        <button class="waveform-btn active" data-waveform="sine">Sine</button>
+                        <button class="waveform-btn" data-waveform="square">Square</button>
+                        <button class="waveform-btn" data-waveform="sawtooth">Saw</button>
+                        <button class="waveform-btn" data-waveform="triangle">Tri</button>
+                    </div>
+                </div>
 
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Kubernetes Without Jargon: Pods = Processes, Services = Stable Names
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>If you’ve ever tried to Google “What is Kubernetes?” you’ve probably seen a wall of buzzwords: orchestration, scalability, microservices, YAML manifests. Somewhere in there, someone will tell you it’s like “a shipping port for containers,” and you’ll want to slam your laptop shut.
-Let’s skip the abstract metaphors and get to the point. Kubernetes (K8s if you want to sound cool and save keystrokes) is just a smart way to run a bunch of apps across multiple machines without losing your mind.
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-08-16 00:00:00 +0000 UTC'>August 16, 2025</span>&nbsp;·&nbsp;4 min</footer>
-  <a class="entry-link" aria-label="post link to Kubernetes Without Jargon: Pods = Processes, Services = Stable Names" href="https://pragmaticsysadmin.help/posts/kubernetes-without-jargon-pods-processes-services/"></a>
-</article>
+                <div class="control-group">
+                    <label for="reverbAmount">Reverb Intensity:</label>
+                    <input type="range" id="reverbAmount" min="0" max="100" value="20">
+                </div>
 
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Take a Break: Earn Gift Cards Playing Mobile Games (FeaturePoints)
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Sometimes You Need to Disconnect Being a sysadmin means constantly thinking about security, networks, and infrastructure. After a long day of troubleshooting servers or configuring firewalls, sometimes you just want to mindlessly tap your phone.
-What if I told you that mindless phone time could actually earn you Amazon gift cards?
-Enter FeaturePoints FeaturePoints is a mobile app that pays you to try other apps and games. It’s not life-changing money, but it’s perfect for:
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-08-16 00:00:00 +0000 UTC'>August 16, 2025</span>&nbsp;·&nbsp;3 min</footer>
-  <a class="entry-link" aria-label="post link to Take a Break: Earn Gift Cards Playing Mobile Games (FeaturePoints)" href="https://pragmaticsysadmin.help/posts/earn-gift-cards-playing-mobile-games-featurepoints/"></a>
-</article>
+                <div class="control-group">
+                    <label>ADSR Envelope:</label>
+                    <div class="envelope-controls">
+                        <div class="slider-group">
+                            <label>Attack</label>
+                            <input type="range" id="attack" min="0.01" max="1" step="0.01" value="0.1">
+                        </div>
+                        <div class="slider-group">
+                            <label>Decay</label>
+                            <input type="range" id="decay" min="0.01" max="1" step="0.01" value="0.3">
+                        </div>
+                        <div class="slider-group">
+                            <label>Sustain</label>
+                            <input type="range" id="sustain" min="0" max="1" step="0.01" value="0.7">
+                        </div>
+                        <div class="slider-group">
+                            <label>Release</label>
+                            <input type="range" id="release" min="0.1" max="2" step="0.1" value="0.5">
+                        </div>
+                    </div>
+                </div>
+            </div>
 
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">The Ultimate Guide to a Secure &amp; Fast Home Network (2025)
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Your home network is the backbone of everything you do online — streaming, remote work, gaming, smart home gadgets, and more. If it’s slow or insecure, everything suffers.
-I’ve spent years as a sysadmin keeping enterprise networks safe and speedy. The same principles apply at home, just scaled down. Here’s how to make your network bulletproof for 2025.
-1. Stop Renting Your Router (Save $120&#43;/Year) The Problem: Your ISP’s rental router is usually outdated, overpriced, and underpowered. You’re paying $10-15/month for hardware that costs $60 to buy.
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-08-16 00:00:00 +0000 UTC'>August 16, 2025</span>&nbsp;·&nbsp;5 min</footer>
-  <a class="entry-link" aria-label="post link to The Ultimate Guide to a Secure & Fast Home Network (2025)" href="https://pragmaticsysadmin.help/posts/ultimate-secure-fast-home-network-2025/"></a>
-</article>
+            <div class="save-load-panel">
+                <h3>Save, Load & Record</h3>
+                
+                <div class="button-group">
+                    <button class="btn btn-secondary" id="saveBtn">Save Composition</button>
+                    <button class="btn btn-tertiary" id="recordBtn">Start Recording</button>
+                </div>
 
-<article class="post-entry"> 
-  <header class="entry-header">
-    <h2 class="entry-hint-parent">Stop Doing Things Manually: 5 Scripts That&#39;ll Make You Look Like a Genius
-    </h2>
-  </header>
-  <div class="entry-content">
-    <p>Stop Doing Things Manually: 5 Scripts That’ll Make You Look Like a Genius Look, I’ll be honest with you. Last week I caught myself manually checking disk space on 15 servers. FIFTEEN. Like some kind of caveman clicking through Server Manager while my coffee got cold.
-That’s when I remembered why I got into this job in the first place - to make computers do the boring stuff so I don’t have to. If you’re still doing repetitive tasks manually, this post is for you.
-...</p>
-  </div>
-  <footer class="entry-footer"><span title='2025-01-27 00:00:00 +0000 UTC'>January 27, 2025</span>&nbsp;·&nbsp;8 min</footer>
-  <a class="entry-link" aria-label="post link to Stop Doing Things Manually: 5 Scripts That&#39;ll Make You Look Like a Genius" href="https://pragmaticsysadmin.help/posts/stop-doing-things-manually/"></a>
-</article>
-    </main>
-    
-<footer class="footer">
-        <span>&copy; 2025 <a href="https://pragmaticsysadmin.help/">Pragmatic Sysadmin</a></span> · 
+                <div class="button-group">
+                    <button class="btn btn-secondary" id="exportJsonBtn">Export JSON</button>
+                    <button class="btn btn-tertiary" id="exportAudioBtn">Export WAV</button>
+                </div>
 
-    <span>
-        Powered by
-        <a href="https://gohugo.io/" rel="noopener noreferrer" target="_blank">Hugo</a> &
-        <a href="https://github.com/adityatelange/hugo-PaperMod/" rel="noopener" target="_blank">PaperMod</a>
-    </span>
-</footer>
-<a href="#top" aria-label="go to top" title="Go to Top (Alt + G)" class="top-link" id="top-link" accesskey="g">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 12 6" fill="currentColor">
-        <path d="M12 6H0l6-6z" />
-    </svg>
-</a>
+                <div id="savedCompositions" class="saved-compositions">
+                    <h4 style="color: #667eea; margin-bottom: 10px;">Saved Compositions:</h4>
+                    <div id="compositionsList"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Presets Panel -->
+        <div class="presets-panel">
+            <h3>Try These Preset Compositions</h3>
+            <div class="presets-grid" id="presetsGrid">
+                <!-- Presets will be populated by JavaScript -->
+            </div>
+        </div>
+
+        <!-- Tempo Control -->
+        <div class="tempo-control">
+            <h3>Tempo Control</h3>
+            <div class="tempo-display">
+                <span id="tempoValue">120</span> BPM
+            </div>
+            <div class="tempo-slider-container">
+                <span class="tempo-label">60</span>
+                <input type="range" id="tempoSlider" class="tempo-slider" min="60" max="180" value="120" step="5">
+                <span class="tempo-label">180</span>
+            </div>
+        </div>
+
+        <div class="game-area">
+            <div class="creatures-panel">
+                <h3>Creatures</h3>
+                <div class="creatures-list" id="creaturesList"></div>
+            </div>
+
+            <div class="music-grid-container">
+                <h3>Music Grid (8 Beats)</h3>
+                <div class="music-grid" id="musicGrid"></div>
+                <div class="controls">
+                    <button class="btn btn-play" id="playBtn">Play</button>
+                    <button class="btn btn-stop" id="stopBtn" disabled>Stop</button>
+                    <button class="btn btn-clear" id="clearBtn">Clear All</button>
+                </div>
+            </div>
+        </div>
+
+        <div style="text-align: center;">
+            <a href="index.html" class="nav-link">Back to Home</a>
+        </div>
+    </div>
+
+    <!-- Recording Indicator -->
+    <div id="recordingIndicator" class="recording-indicator">
+        🔴 Recording...
+    </div>
+
+    <script>
+        // Enhanced creature definitions with advanced audio properties
+        const creatures = [
+            { id: 'cat', name: 'Cat', icon: '🐱', freq: 523.25, instrument: 'piano' }, // C5
+            { id: 'dog', name: 'Dog', icon: '🐶', freq: 587.33, instrument: 'guitar' }, // D5
+            { id: 'bird', name: 'Bird', icon: '🐦', freq: 659.25, instrument: 'flute' }, // E5
+            { id: 'frog', name: 'Frog', icon: '🐸', freq: 698.46, instrument: 'bass' }, // F5
+            { id: 'lion', name: 'Lion', icon: '🦁', freq: 783.99, instrument: 'violin' }, // G5
+            { id: 'elephant', name: 'Elephant', icon: '🐘', freq: 880.00, instrument: 'drums' }, // A5
+            { id: 'monkey', name: 'Monkey', icon: '🐵', freq: 987.77, instrument: 'synth' }, // B5
+            { id: 'pig', name: 'Pig', icon: '🐷', freq: 1046.50, instrument: 'trumpet' }, // C6
+        ];
+
+        // Global variables
+        let audioContext;
+        let isPlaying = false;
+        let playInterval;
+        let currentBeat = 0;
+        let audioInitialized = false;
+        let currentBPM = 120;
+        let tempoSlider;
+        let tempoValueDisplay;
+
+        // Enhanced audio variables
+        let currentWaveform = 'sine';
+        let currentInstrument = 'piano';
+        let envelopeSettings = {
+            attack: 0.1,
+            decay: 0.3,
+            sustain: 0.7,
+            release: 0.5
+        };
+        let reverbAmount = 0.2;
+        let mediaRecorder;
+        let recordedChunks = [];
+        let isRecording = false;
+        let audioDestination;
+
+        // Grid state with enhanced properties
+        const gridState = Array(8).fill(null);
+
+        // Mobile device detection for optimizations
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+        const isAndroid = /Android/.test(navigator.userAgent);
+
+        // Performance optimization: Use requestAnimationFrame for DOM updates
+        let pendingDOMUpdates = [];
+        function optimizeDOMUpdate(callback) {
+            pendingDOMUpdates.push(callback);
+            if (pendingDOMUpdates.length === 1) {
+                requestAnimationFrame(processDOMUpdates);
+            }
+        }
+
+        function processDOMUpdates() {
+            const updates = [...pendingDOMUpdates];
+            pendingDOMUpdates = [];
+            updates.forEach(update => update());
+        }
+
+        // Enhanced preset compositions (5-8 as requested)
+        const presets = [
+            {
+                id: 'simpleMelody',
+                name: 'Simple Melody',
+                description: 'Basic 4-beat melody pattern',
+                gridState: ['cat', null, 'bird', null, 'lion', null, 'monkey', null],
+                bpm: 100,
+                settings: { waveform: 'sine', reverb: 0.1 }
+            },
+            {
+                id: 'bassLine',
+                name: 'Bass Line',
+                description: 'Deep bass rhythm foundation',
+                gridState: [null, 'frog', null, 'elephant', null, 'pig', null, null],
+                bpm: 80,
+                settings: { waveform: 'triangle', reverb: 0.3 }
+            },
+            {
+                id: 'jazzChord',
+                name: 'Jazz Chord',
+                description: 'Sophisticated chord progression',
+                gridState: ['cat', 'dog', 'bird', 'frog', 'lion', 'elephant', 'monkey', 'pig'],
+                bpm: 120,
+                settings: { waveform: 'sawtooth', reverb: 0.5 }
+            },
+            {
+                id: 'drumBeat',
+                name: 'Drum Beat',
+                description: 'Percussive elephant rhythm',
+                gridState: ['elephant', null, 'elephant', null, 'elephant', null, 'elephant', null],
+                bpm: 90,
+                settings: { waveform: 'sine', reverb: 0.2 }
+            },
+            {
+                id: 'synthArp',
+                name: 'Synth Arpeggio',
+                description: 'Monkey synth ascending pattern',
+                gridState: [null, null, 'monkey', null, null, null, 'monkey', null],
+                bpm: 140,
+                settings: { waveform: 'square', reverb: 0.4 }
+            },
+            {
+                id: 'fluteMelody',
+                name: 'Flute Melody',
+                description: 'Bird flute classical pattern',
+                gridState: [null, 'bird', null, null, 'bird', null, null, null],
+                bpm: 110,
+                settings: { waveform: 'sine', reverb: 0.6 }
+            },
+            {
+                id: 'guitarRiff',
+                name: 'Guitar Riff',
+                description: 'Dog guitar rock riff',
+                gridState: [null, 'dog', null, 'dog', null, 'dog', null, 'dog'],
+                bpm: 130,
+                settings: { waveform: 'sawtooth', reverb: 0.3 }
+            },
+            {
+                id: 'catPiano',
+                name: 'Cat Piano',
+                description: 'Solo piano cat melody',
+                gridState: ['cat', null, 'cat', null, 'cat', null, 'cat', null],
+                bpm: 100,
+                settings: { waveform: 'sine', reverb: 0.4 }
+            }
+        ];
+
+        // Enhanced iOS audio system with multiple fallback strategies
+        function initAudioContext() {
+            if (!audioContext) {
+                try {
+                    const AudioContext = window.AudioContext || window.webkitAudioContext;
+                    
+                    // iOS requires specific audio context configuration
+                    audioContext = new AudioContext({
+                        latencyHint: 'interactive',
+                        sampleRate: 44100,
+                        outputLatency: 'interactive'
+                    });
+
+                    // Create audio destination for recording
+                    audioDestination = audioContext.createMediaStreamDestination();
+                    
+                    console.log('AudioContext created with state:', audioContext.state);
+                    
+                    // iOS-specific audio preparation
+                    prepareAudioForIOS();
+                    
+                } catch (error) {
+                    console.error('Failed to create AudioContext:', error);
+                }
+            }
+            return audioContext;
+        }
+
+        // iOS-specific audio preparation
+        function prepareAudioForIOS() {
+            if (!isIOS) return;
+
+            // Create a silent audio buffer to "prime" the system
+            const sampleRate = audioContext.sampleRate;
+            const duration = 0.1;
+            const buffer = audioContext.createBuffer(1, sampleRate * duration, sampleRate);
+            const data = buffer.getChannelData(0);
+            
+            // Fill with silent data (all zeros)
+            for (let i = 0; i < data.length; i++) {
+                data[i] = 0;
+            }
+
+            // Create silent source and connect it
+            const source = audioContext.createBufferSource();
+            source.buffer = buffer;
+            const gainNode = audioContext.createGain();
+            gainNode.gain.value = 0;
+            
+            source.connect(gainNode);
+            gainNode.connect(audioContext.destination);
+            
+            console.log('iOS audio preparation complete');
+        }
+
+        // Enhanced audio enablement with multiple strategies
+        function enableAudio() {
+            console.log('Enabling audio - user interaction detected');
+            
+            const audioContext = initAudioContext();
+            if (!audioContext) return;
+
+            const audioStatus = document.getElementById('audioStatus');
+            const audioStatusText = document.getElementById('audioStatusText');
+            
+            // Strategy 1: Direct resume
+            const attemptResume = () => {
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume()
+                        .then(() => {
+                            console.log('Audio context resumed successfully');
+                            updateAudioStatus('ready');
+                        })
+                        .catch(err => {
+                            console.error('Failed to resume audio context:', err);
+                            updateAudioStatus('error');
+                        });
+                } else if (audioContext.state === 'running') {
+                    updateAudioStatus('ready');
+                }
+            };
+
+            // Strategy 2: iOS-specific interaction triggers
+            const triggerIOSAudio = () => {
+                if (isIOS && audioContext.state === 'suspended') {
+                    // Create and play a minimal sound to enable iOS audio
+                    const osc = audioContext.createOscillator();
+                    const gain = audioContext.createGain();
+                    
+                    osc.connect(gain);
+                    gain.connect(audioContext.destination);
+                    
+                    osc.type = 'sine';
+                    osc.frequency.value = 440;
+                    gain.gain.value = 0;
+                    
+                    osc.start(audioContext.currentTime);
+                    osc.stop(audioContext.currentTime + 0.05);
+                    
+                    console.log('iOS audio trigger executed');
+                }
+            };
+
+            // Execute strategies
+            attemptResume();
+            triggerIOSAudio();
+            updateAudioStatus('initializing');
+            
+            // Wait and retry
+            setTimeout(() => {
+                if (audioContext.state === 'running') {
+                    updateAudioStatus('ready');
+                }
+            }, 200);
+        }
+
+        // Update audio status indicator
+        function updateAudioStatus(status) {
+            const audioStatus = document.getElementById('audioStatus');
+            const audioStatusText = document.getElementById('audioStatusText');
+            
+            if (!audioStatus || !audioStatusText) return;
+            
+            switch (status) {
+                case 'initializing':
+                    audioStatus.classList.remove('enabled');
+                    audioStatusText.textContent = '⚡ Initializing audio...';
+                    break;
+                case 'ready':
+                    audioStatus.classList.add('enabled');
+                    audioStatusText.textContent = '🔊 Audio Ready!';
+                    audioInitialized = true;
+                    break;
+                case 'error':
+                    audioStatus.classList.remove('enabled');
+                    audioStatusText.textContent = '❌ Audio Error - Tap to retry';
+                    break;
+                default:
+                    audioStatus.classList.remove('enabled');
+                    audioStatusText.textContent = 'Tap anywhere to enable sound...';
+            }
+        }
+
+        // Enhanced instrument synthesis with recording support
+        function createInstrumentSound(frequency, duration = 0.3, instrument = 'piano', volume = 0.5) {
+            const audioContext = initAudioContext();
+            if (!audioContext || audioContext.state !== 'running') return;
+
+            try {
+                // Create base oscillator
+                const oscillator = audioContext.createOscillator();
+                const gainNode = audioContext.createGain();
+                const filterNode = audioContext.createBiquadFilter();
+                
+                // Connect audio graph
+                oscillator.connect(filterNode);
+                filterNode.connect(gainNode);
+                
+                // Apply instrument-specific characteristics
+                switch(instrument) {
+                    case 'piano':
+                        oscillator.type = currentWaveform;
+                        filterNode.type = 'lowpass';
+                        filterNode.frequency.setValueAtTime(frequency * 3, audioContext.currentTime);
+                        filterNode.Q.setValueAtTime(1, audioContext.currentTime);
+                        break;
+                    case 'guitar':
+                        oscillator.type = 'sawtooth';
+                        filterNode.type = 'bandpass';
+                        filterNode.frequency.setValueAtTime(frequency * 2, audioContext.currentTime);
+                        filterNode.Q.setValueAtTime(5, audioContext.currentTime);
+                        break;
+                    case 'violin':
+                        oscillator.type = 'sawtooth';
+                        filterNode.type = 'lowpass';
+                        filterNode.frequency.setValueAtTime(frequency * 4, audioContext.currentTime);
+                        filterNode.Q.setValueAtTime(2, audioContext.currentTime);
+                        break;
+                    case 'bass':
+                        oscillator.type = 'triangle';
+                        filterNode.type = 'lowpass';
+                        filterNode.frequency.setValueAtTime(frequency * 1.5, audioContext.currentTime);
+                        filterNode.Q.setValueAtTime(0.5, audioContext.currentTime);
+                        break;
+                    case 'flute':
+                        oscillator.type = 'sine';
+                        filterNode.type = 'bandpass';
+                        filterNode.frequency.setValueAtTime(frequency * 3, audioContext.currentTime);
+                        filterNode.Q.setValueAtTime(3, audioContext.currentTime);
+                        break;
+                    case 'trumpet':
+                        oscillator.type = 'square';
+                        filterNode.type = 'highpass';
+                        filterNode.frequency.setValueAtTime(frequency * 0.8, audioContext.currentTime);
+                        filterNode.Q.setValueAtTime(1, audioContext.currentTime);
+                        break;
+                    case 'synth':
+                        oscillator.type = currentWaveform;
+                        filterNode.type = 'lowpass';
+                        filterNode.frequency.setValueAtTime(frequency * 2, audioContext.currentTime);
+                        filterNode.Q.setValueAtTime(3, audioContext.currentTime);
+                        break;
+                    case 'drums':
+                        oscillator.type = 'sine';
+                        filterNode.type = 'lowpass';
+                        filterNode.frequency.setValueAtTime(frequency * 0.5, audioContext.currentTime);
+                        filterNode.Q.setValueAtTime(0.1, audioContext.currentTime);
+                        break;
+                    default:
+                        oscillator.type = currentWaveform;
+                }
+                
+                oscillator.frequency.value = frequency;
+                
+                // Apply ADSR envelope
+                const now = audioContext.currentTime;
+                gainNode.gain.setValueAtTime(0, now);
+                gainNode.gain.linearRampToValueAtTime(volume, now + envelopeSettings.attack);
+                gainNode.gain.linearRampToValueAtTime(volume * envelopeSettings.sustain, now + envelopeSettings.attack + envelopeSettings.decay);
+                gainNode.gain.exponentialRampToValueAtTime(0.01, now + duration + envelopeSettings.release);
+                
+                // Add reverb effect
+                if (reverbAmount > 0) {
+                    const delayNode = audioContext.createDelay(1.0);
+                    const delayGain = audioContext.createGain();
+                    
+                    delayNode.delayTime.setValueAtTime(0.3, now);
+                    delayGain.gain.setValueAtTime(reverbAmount * 0.3, now);
+                    
+                    filterNode.connect(delayNode);
+                    delayNode.connect(delayGain);
+                    delayGain.connect(audioContext.destination);
+                }
+                
+                // Connect to both output and recording destination
+                filterNode.connect(audioContext.destination);
+                if (audioDestination) {
+                    filterNode.connect(audioDestination);
+                }
+                
+                oscillator.start(now);
+                oscillator.stop(now + duration + envelopeSettings.release + 0.1);
+                
+                console.log(`Playing ${instrument} sound: ${frequency}Hz`);
+            } catch (error) {
+                console.error('Error creating instrument sound:', error);
+            }
+        }
+
+        // Enhanced playTone with instrument support
+        function playTone(frequency, duration = 0.3, creatureId = null) {
+            const audioContext = initAudioContext();
+            if (!audioContext || audioContext.state !== 'running') {
+                console.log('Audio not ready, attempting to initialize...');
+                enableAudio();
+                
+                // Retry after a brief delay
+                setTimeout(() => playTone(frequency, duration, creatureId), 100);
+                return;
+            }
+
+            // Get creature's specific instrument or use global setting
+            let instrument = currentInstrument;
+            let volume = 0.5;
+            
+            if (creatureId) {
+                const creature = creatures.find(c => c.id === creatureId);
+                if (creature) {
+                    instrument = creature.instrument;
+                }
+                
+                // Check for individual volume control in grid
+                const gridIndex = gridState.findIndex(c => c && c.id === creatureId);
+                if (gridIndex !== -1) {
+                    const cellVolumeSlider = document.querySelector(`[data-beat="${gridIndex}"] .volume-control`);
+                    if (cellVolumeSlider) {
+                        volume = parseFloat(cellVolumeSlider.value) / 100;
+                    }
+                }
+            }
+            
+            createInstrumentSound(frequency, duration, instrument, volume);
+        }
+
+        // WAV conversion utility
+        function convertToWAV(audioBuffer) {
+            const length = audioBuffer.length;
+            const arrayBuffer = new ArrayBuffer(44 + length * 2);
+            const view = new DataView(arrayBuffer);
+            
+            // WAV header
+            const writeString = (offset, string) => {
+                for (let i = 0; i < string.length; i++) {
+                    view.setUint8(offset + i, string.charCodeAt(i));
+                }
+            };
+            
+            // RIFF header
+            writeString(0, 'RIFF');
+            view.setUint32(4, 36 + length * 2, true);
+            writeString(8, 'WAVE');
+            
+            // fmt chunk
+            writeString(12, 'fmt ');
+            view.setUint32(16, 16, true);
+            view.setUint16(20, 1, true);
+            view.setUint16(22, 1, true);
+            view.setUint32(24, audioBuffer.sampleRate, true);
+            view.setUint32(28, audioBuffer.sampleRate * 2, true);
+            view.setUint16(32, 2, true);
+            view.setUint16(34, 16, true);
+            
+            // data chunk
+            writeString(36, 'data');
+            view.setUint32(40, length * 2, true);
+            
+            // Convert float samples to 16-bit PCM
+            const channelData = audioBuffer.getChannelData(0);
+            let offset = 44;
+            for (let i = 0; i < length; i++) {
+                const sample = Math.max(-1, Math.min(1, channelData[i]));
+                view.setInt16(offset, sample * 0x7FFF, true);
+                offset += 2;
+            }
+            
+            return new Blob([arrayBuffer], { type: 'audio/wav' });
+        }
+
+        // Create a simple audio buffer from current composition for WAV export
+        function createWAVFromComposition() {
+            const duration = 8 * (60 / currentBPM); // 8 beats at current BPM
+            const sampleRate = 44100;
+            const length = sampleRate * duration;
+            const audioBuffer = audioContext.createBuffer(1, length, sampleRate);
+            const channelData = audioBuffer.getChannelData(0);
+            
+            // Fill with silence initially
+            for (let i = 0; i < length; i++) {
+                channelData[i] = 0;
+            }
+            
+            // Add note data based on current grid state
+            const beatDuration = 60 / currentBPM;
+            
+            for (let beat = 0; beat < 8; beat++) {
+                const creature = gridState[beat];
+                if (creature) {
+                    const startSample = Math.floor(beat * beatDuration * sampleRate);
+                    const noteLength = Math.floor(beatDuration * 0.8 * sampleRate); // 80% of beat duration
+                    
+                    // Create a simple envelope for the note
+                    for (let i = 0; i < noteLength && startSample + i < length; i++) {
+                        const t = i / noteLength;
+                        let envelope = 1;
+                        
+                        if (t < envelopeSettings.attack) {
+                            envelope = t / envelopeSettings.attack;
+                        } else if (t < envelopeSettings.attack + envelopeSettings.decay) {
+                            envelope = 1 - ((t - envelopeSettings.attack) / envelopeSettings.decay) * (1 - envelopeSettings.sustain);
+                        } else if (t < envelopeSettings.sustain) {
+                            envelope = envelopeSettings.sustain;
+                        } else {
+                            envelope = envelopeSettings.sustain * (1 - (t - envelopeSettings.sustain) / (1 - envelopeSettings.sustain));
+                        }
+                        
+                        // Simple synthesis (sine wave)
+                        const frequency = creature.freq;
+                        const time = (startSample + i) / sampleRate;
+                        const sample = Math.sin(2 * Math.PI * frequency * time) * envelope * 0.3;
+                        
+                        channelData[startSample + i] += sample;
+                    }
+                }
+            }
+            
+            return convertToWAV(audioBuffer);
+        }
+
+        // Tempo control functionality
+        function initTempoControl() {
+            tempoSlider = document.getElementById('tempoSlider');
+            tempoValueDisplay = document.getElementById('tempoValue');
+            
+            if (!tempoSlider || !tempoValueDisplay) return;
+            
+            // Update tempo display
+            const updateTempoDisplay = (bpm) => {
+                currentBPM = parseInt(bpm);
+                tempoValueDisplay.textContent = currentBPM;
+            };
+            
+            // Initialize display
+            updateTempoDisplay(tempoSlider.value);
+            
+            // Listen for tempo changes
+            tempoSlider.addEventListener('input', (e) => {
+                const newBPM = parseInt(e.target.value);
+                updateTempoDisplay(newBPM);
+                
+                // Update playback interval if currently playing
+                if (isPlaying) {
+                    clearInterval(playInterval);
+                    const interval = calculateInterval(currentBPM);
+                    playInterval = setInterval(playLoop, interval);
+                }
+            });
+            
+            console.log('Tempo control initialized');
+        }
+
+        // Calculate interval based on BPM
+        function calculateInterval(bpm) {
+            // Convert BPM to milliseconds per beat
+            return Math.round((60 / bpm) * 1000);
+        }
+
+        // Initialize enhanced controls
+        function initEnhancedControls() {
+            // Waveform buttons
+            document.querySelectorAll('.waveform-btn').forEach(btn => {
+                btn.addEventListener('click', () => {
+                    document.querySelectorAll('.waveform-btn').forEach(b => b.classList.remove('active'));
+                    btn.classList.add('active');
+                    currentWaveform = btn.dataset.waveform;
+                });
+            });
+
+            // Global instrument selector
+            const instrumentSelector = document.getElementById('globalInstrument');
+            if (instrumentSelector) {
+                instrumentSelector.addEventListener('change', (e) => {
+                    currentInstrument = e.target.value;
+                });
+            }
+
+            // Reverb control
+            const reverbSlider = document.getElementById('reverbAmount');
+            if (reverbSlider) {
+                reverbSlider.addEventListener('input', (e) => {
+                    reverbAmount = parseFloat(e.target.value) / 100;
+                });
+            }
+
+            // ADSR envelope controls
+            ['attack', 'decay', 'sustain', 'release'].forEach(param => {
+                const slider = document.getElementById(param);
+                if (slider) {
+                    slider.addEventListener('input', (e) => {
+                        envelopeSettings[param] = parseFloat(e.target.value);
+                    });
+                }
+            });
+
+            console.log('Enhanced controls initialized');
+        }
+
+        // Save/Load functionality
+        function saveComposition() {
+            const name = prompt('Enter a name for your composition:');
+            if (!name) return;
+
+            const composition = {
+                name: name,
+                timestamp: Date.now(),
+                gridState: gridState.map(cell => cell ? cell.id : null),
+                bpm: currentBPM,
+                settings: {
+                    waveform: currentWaveform,
+                    instrument: currentInstrument,
+                    envelope: envelopeSettings,
+                    reverb: reverbAmount
+                }
+            };
+
+            const savedCompositions = JSON.parse(localStorage.getItem('melodyMixerCompositions') || '[]');
+            savedCompositions.push(composition);
+            localStorage.setItem('melodyMixerCompositions', JSON.stringify(savedCompositions));
+
+            alert(`Composition "${name}" saved successfully!`);
+            updateCompositionsList();
+        }
+
+        function loadComposition(index) {
+            const savedCompositions = JSON.parse(localStorage.getItem('melodyMixerCompositions') || '[]');
+            if (index >= savedCompositions.length) return;
+
+            const composition = savedCompositions[index];
+            
+            // Restore grid state
+            for (let i = 0; i < 8; i++) {
+                if (composition.gridState[i]) {
+                    const creature = creatures.find(c => c.id === composition.gridState[i]);
+                    gridState[i] = creature;
+                } else {
+                    gridState[i] = null;
+                }
+            }
+
+            // Restore settings
+            currentBPM = composition.bpm;
+            document.getElementById('tempoSlider').value = currentBPM;
+            document.getElementById('tempoValue').textContent = currentBPM;
+
+            if (composition.settings) {
+                currentWaveform = composition.settings.waveform || 'sine';
+                currentInstrument = composition.settings.instrument || 'piano';
+                Object.assign(envelopeSettings, composition.settings.envelope || envelopeSettings);
+                reverbAmount = composition.settings.reverb || 0.2;
+
+                // Update UI controls
+                document.querySelectorAll('.waveform-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.waveform === currentWaveform);
+                });
+                document.getElementById('globalInstrument').value = currentInstrument;
+                document.getElementById('reverbAmount').value = reverbAmount * 100;
+                
+                Object.entries(envelopeSettings).forEach(([param, value]) => {
+                    const slider = document.getElementById(param);
+                    if (slider) slider.value = value;
+                });
+            }
+
+            optimizeDOMUpdate(updateGridDisplay);
+            alert(`Loaded composition: ${composition.name}`);
+        }
+
+        function updateCompositionsList() {
+            const compositionsList = document.getElementById('compositionsList');
+            if (!compositionsList) return;
+
+            const savedCompositions = JSON.parse(localStorage.getItem('melodyMixerCompositions') || '[]');
+            
+            if (savedCompositions.length === 0) {
+                compositionsList.innerHTML = '<p style="color: #888; text-align: center;">No saved compositions</p>';
+                return;
+            }
+
+            compositionsList.innerHTML = savedCompositions.map((comp, index) => `
+                <div class="composition-item" onclick="loadComposition(${index})">
+                    <div class="composition-name">${comp.name}</div>
+                    <div class="composition-date">${new Date(comp.timestamp).toLocaleDateString()}</div>
+                </div>
+            `).join('');
+        }
+
+        // Recording functionality
+        function startRecording() {
+            if (isRecording) return;
+
+            try {
+                recordedChunks = [];
+
+                mediaRecorder = new MediaRecorder(audioDestination.stream, {
+                    mimeType: 'audio/webm;codecs=opus'
+                });
+
+                mediaRecorder.ondataavailable = (event) => {
+                    if (event.data.size > 0) {
+                        recordedChunks.push(event.data);
+                    }
+                };
+
+                mediaRecorder.onstop = () => {
+                    const blob = new Blob(recordedChunks, { type: 'audio/webm' });
+                    const url = URL.createObjectURL(blob);
+                    const a = document.createElement('a');
+                    a.href = url;
+                    a.download = `melody-mixer-recording-${Date.now()}.webm`;
+                    a.click();
+                    URL.revokeObjectURL(url);
+                };
+
+                mediaRecorder.start();
+                isRecording = true;
+                
+                document.getElementById('recordingIndicator').classList.add('show');
+                document.getElementById('recordBtn').textContent = 'Stop Recording';
+                console.log('Recording started');
+            } catch (error) {
+                console.error('Failed to start recording:', error);
+                alert('Recording is not supported in this browser or context.');
+            }
+        }
+
+        function stopRecording() {
+            if (!isRecording || !mediaRecorder) return;
+
+            mediaRecorder.stop();
+            isRecording = false;
+            
+            document.getElementById('recordingIndicator').classList.remove('show');
+            document.getElementById('recordBtn').textContent = 'Start Recording';
+            console.log('Recording stopped');
+        }
+
+        // Export functionality
+        function exportComposition() {
+            const composition = {
+                name: 'Exported Composition',
+                timestamp: Date.now(),
+                gridState: gridState.map(cell => cell ? cell.id : null),
+                bpm: currentBPM,
+                settings: {
+                    waveform: currentWaveform,
+                    instrument: currentInstrument,
+                    envelope: envelopeSettings,
+                    reverb: reverbAmount
+                }
+            };
+
+            const dataStr = JSON.stringify(composition, null, 2);
+            const dataBlob = new Blob([dataStr], { type: 'application/json' });
+            const url = URL.createObjectURL(dataBlob);
+            
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = `melody-mixer-${Date.now()}.json`;
+            a.click();
+            
+            URL.revokeObjectURL(url);
+        }
+
+        function exportAudio() {
+            try {
+                const wavBlob = createWAVFromComposition();
+                const url = URL.createObjectURL(wavBlob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = `melody-mixer-export-${Date.now()}.wav`;
+                a.click();
+                URL.revokeObjectURL(url);
+                
+                alert('WAV audio exported successfully!');
+            } catch (error) {
+                console.error('Failed to export WAV:', error);
+                // Fallback to webm recording
+                alert('WAV export failed. Try the recording feature instead.');
+            }
+        }
+
+        // Load preset function
+        function loadPreset(presetId) {
+            const preset = presets.find(p => p.id === presetId);
+            if (!preset) return;
+
+            // Clear grid
+            gridState.fill(null);
+
+            // Load preset
+            for (let i = 0; i < 8; i++) {
+                if (preset.gridState[i]) {
+                    const creature = creatures.find(c => c.id === preset.gridState[i]);
+                    if (creature) {
+                        gridState[i] = creature;
+                    }
+                }
+            }
+
+            // Apply preset settings
+            currentBPM = preset.bpm;
+            document.getElementById('tempoSlider').value = currentBPM;
+            document.getElementById('tempoValue').textContent = currentBPM;
+
+            if (preset.settings) {
+                currentWaveform = preset.settings.waveform || 'sine';
+                reverbAmount = preset.settings.reverb || 0.2;
+
+                // Update UI controls
+                document.querySelectorAll('.waveform-btn').forEach(btn => {
+                    btn.classList.toggle('active', btn.dataset.waveform === currentWaveform);
+                });
+                document.getElementById('reverbAmount').value = reverbAmount * 100;
+            }
+
+            optimizeDOMUpdate(updateGridDisplay);
+            alert(`Loaded preset: ${preset.name}`);
+        }
+
+        // Initialize presets grid
+        function initPresets() {
+            const presetsGrid = document.getElementById('presetsGrid');
+            if (!presetsGrid) return;
+
+            presetsGrid.innerHTML = presets.map(preset => `
+                <div class="preset-item" onclick="loadPreset('${preset.id}')">
+                    <div class="preset-name">${preset.name}</div>
+                    <div class="preset-description">${preset.description}</div>
+                </div>
+            `).join('');
+        }
+
+        // Initialize creatures list with performance optimizations
+        function initCreatures() {
+            const creaturesList = document.getElementById('creaturesList');
+            if (!creaturesList) return;
+            
+            // Optimize for mobile - use DocumentFragment for better performance
+            const fragment = document.createDocumentFragment();
+            
+            creatures.forEach(creature => {
+                const div = document.createElement('div');
+                div.className = 'creature';
+                div.draggable = true;
+                div.dataset.creatureId = creature.id;
+                div.innerHTML = `
+                    <div class="creature-icon">${creature.icon}</div>
+                    <div class="creature-name">${creature.name}</div>
+                    <div class="creature-controls">${creature.instrument}</div>
+                `;
+                
+                // Drag and drop events
+                div.addEventListener('dragstart', (e) => {
+                    e.dataTransfer.effectAllowed = 'copy';
+                    e.dataTransfer.setData('text/plain', creature.id);
+                    div.classList.add('dragging');
+                });
+                
+                div.addEventListener('dragend', () => {
+                    div.classList.remove('dragging');
+                });
+
+                // Enhanced touch events for mobile
+                if (isMobile) {
+                    div.addEventListener('touchstart', (e) => {
+                        div.classList.add('touch-active');
+                        e.preventDefault();
+                    });
+                    
+                    div.addEventListener('touchend', (e) => {
+                        div.classList.remove('touch-active');
+                        e.preventDefault();
+                        handleCreatureClick(creature);
+                    });
+                }
+
+                // Click/touch to preview sound and place on grid
+                div.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    handleCreatureClick(creature);
+                });
+                
+                fragment.appendChild(div);
+            });
+            
+            creaturesList.appendChild(fragment);
+            console.log('Creatures initialized');
+        }
+
+        // Handle creature click/tap with audio enabling
+        function handleCreatureClick(creature) {
+            enableAudio();
+            
+            // If already on grid, remove it
+            const existingCell = document.querySelector(`[data-creature="${creature.id}"]`);
+            if (existingCell) {
+                removeCreature(parseInt(existingCell.dataset.beat));
+                return;
+            }
+            
+            // Place on first empty cell
+            const emptyCell = document.querySelector('.grid-cell:not([data-creature])');
+            if (emptyCell) {
+                const beatIndex = parseInt(emptyCell.dataset.beat);
+                placeCreature(beatIndex, creature);
+                playTone(creature.freq, 0.5, creature.id);
+            }
+        }
+
+        // Initialize music grid with performance optimizations
+        function initGrid() {
+            const grid = document.getElementById('musicGrid');
+            if (!grid) return;
+            
+            // Use DocumentFragment for better performance
+            const fragment = document.createDocumentFragment();
+            
+            for (let i = 0; i < 8; i++) {
+                const cell = document.createElement('div');
+                cell.className = 'grid-cell';
+                cell.dataset.beat = i;
+                cell.innerHTML = `<span class="beat-label">${i + 1}</span>`;
+                
+                // Drag and drop events
+                cell.addEventListener('dragover', (e) => {
+                    e.preventDefault();
+                    e.dataTransfer.dropEffect = 'copy';
+                    cell.classList.add('drag-over');
+                });
+                
+                cell.addEventListener('dragleave', () => {
+                    cell.classList.remove('drag-over');
+                });
+                
+                cell.addEventListener('drop', (e) => {
+                    e.preventDefault();
+                    cell.classList.remove('drag-over');
+                    
+                    const creatureId = e.dataTransfer.getData('text/plain');
+                    const creature = creatures.find(c => c.id === creatureId);
+                    
+                    if (creature) {
+                        placeCreature(i, creature);
+                        playTone(creature.freq, 0.5, creature.id); // Preview sound
+                    }
+                });
+                
+                // Enhanced click handling for mobile
+                if (isMobile) {
+                    cell.addEventListener('touchend', (e) => {
+                        e.preventDefault();
+                        if (gridState[i] && !e.target.classList.contains('remove-btn')) {
+                            removeCreature(i);
+                        }
+                    });
+                }
+                
+                cell.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    if (gridState[i] && !e.target.classList.contains('remove-btn')) {
+                        removeCreature(i);
+                    }
+                });
+                
+                fragment.appendChild(cell);
+            }
+            
+            grid.appendChild(fragment);
+            console.log('Grid initialized');
+        }
+
+        // Place creature on grid
+        function placeCreature(beat, creature) {
+            gridState[beat] = creature;
+            optimizeDOMUpdate(updateGridDisplay);
+        }
+
+        // Remove creature from grid
+        function removeCreature(beat) {
+            gridState[beat] = null;
+            optimizeDOMUpdate(updateGridDisplay);
+        }
+
+        // Optimized grid display update with volume controls
+        function updateGridDisplay() {
+            const cells = document.querySelectorAll('.grid-cell');
+            cells.forEach((cell, index) => {
+                const creature = gridState[index];
+                if (creature) {
+                    cell.classList.add('occupied');
+                    cell.dataset.creature = creature.id;
+                    cell.innerHTML = `
+                        <div class="creature-icon">${creature.icon}</div>
+                        <button class="remove-btn" onclick="removeCreature(${index}); event.stopPropagation();">×</button>
+                        <input type="range" class="volume-control" min="0" max="100" value="50" title="Volume">
+                        <span class="beat-label">${index + 1}</span>
+                    `;
+                } else {
+                    cell.classList.remove('occupied');
+                    delete cell.dataset.creature;
+                    cell.innerHTML = `<span class="beat-label">${index + 1}</span>`;
+                }
+            });
+        }
+
+        // Enhanced play loop with tempo support
+        function playLoop() {
+            if (!isPlaying) return;
+            
+            // Remove previous playhead with performance optimization
+            optimizeDOMUpdate(() => {
+                document.querySelectorAll('.playhead').forEach(el => el.remove());
+            });
+            
+            // Play current beat
+            const creature = gridState[currentBeat];
+            if (creature) {
+                playTone(creature.freq, 0.3, creature.id);
+                
+                // Visual feedback with performance optimization
+                optimizeDOMUpdate(() => {
+                    const cell = document.querySelector(`[data-beat="${currentBeat}"]`);
+                    if (cell) {
+                        const playhead = document.createElement('div');
+                        playhead.className = 'playhead';
+                        cell.appendChild(playhead);
+                    }
+                });
+            }
+            
+            // Move to next beat
+            currentBeat = (currentBeat + 1) % 8;
+        }
+
+        // Start playing with enhanced iOS audio handling and tempo support
+        function startPlaying() {
+            console.log('Starting playback...');
+            
+            // Ensure audio is enabled
+            enableAudio();
+            
+            // Wait for audio context to be ready
+            const startPlayback = () => {
+                if (audioContext && audioContext.state === 'running') {
+                    isPlaying = true;
+                    currentBeat = 0;
+                    document.getElementById('playBtn').disabled = true;
+                    document.getElementById('stopBtn').disabled = false;
+                    
+                    console.log('Audio is ready, starting playback at', currentBPM, 'BPM');
+                    
+                    playLoop();
+                    const interval = calculateInterval(currentBPM);
+                    playInterval = setInterval(playLoop, interval);
+                } else {
+                    console.log('Audio not ready yet, retrying...');
+                    setTimeout(startPlayback, 200);
+                }
+            };
+            
+            setTimeout(startPlayback, 100);
+        }
+
+        // Stop playing
+        function stopPlaying() {
+            isPlaying = false;
+            clearInterval(playInterval);
+            document.getElementById('playBtn').disabled = false;
+            document.getElementById('stopBtn').disabled = true;
+            
+            // Remove playhead with performance optimization
+            optimizeDOMUpdate(() => {
+                document.querySelectorAll('.playhead').forEach(el => el.remove());
+            });
+        }
+
+        // Clear all
+        function clearAll() {
+            gridState.fill(null);
+            optimizeDOMUpdate(updateGridDisplay);
+            if (isPlaying) {
+                stopPlaying();
+            }
+        }
+
+        // Enhanced event listeners with performance optimizations
+        function initEventListeners() {
+            const playBtn = document.getElementById('playBtn');
+            const stopBtn = document.getElementById('stopBtn');
+            const clearBtn = document.getElementById('clearBtn');
+            const saveBtn = document.getElementById('saveBtn');
+            const recordBtn = document.getElementById('recordBtn');
+            const exportJsonBtn = document.getElementById('exportJsonBtn');
+            const exportAudioBtn = document.getElementById('exportAudioBtn');
+            
+            if (playBtn) playBtn.addEventListener('click', startPlaying);
+            if (stopBtn) stopBtn.addEventListener('click', stopPlaying);
+            if (clearBtn) clearBtn.addEventListener('click', clearAll);
+            if (saveBtn) saveBtn.addEventListener('click', saveComposition);
+            if (recordBtn) recordBtn.addEventListener('click', () => {
+                if (isRecording) {
+                    stopRecording();
+                } else {
+                    startRecording();
+                }
+            });
+            if (exportJsonBtn) exportJsonBtn.addEventListener('click', exportComposition);
+            if (exportAudioBtn) exportAudioBtn.addEventListener('click', exportAudio);
+            
+            console.log('Event listeners initialized');
+        }
+
+        // Comprehensive iOS audio enablement with multiple strategies
+        function initAudioListeners() {
+            // Multiple user interaction triggers for iOS
+            const interactionEvents = ['touchstart', 'click', 'touchend', 'mousedown', 'keydown', 'pointerdown'];
+            
+            interactionEvents.forEach(eventType => {
+                document.addEventListener(eventType, enableAudio, { 
+                    passive: true, 
+                    once: false 
+                });
+            });
+
+            // Specific iOS audio triggers
+            if (isIOS) {
+                // Enhanced touch handling for iOS
+                document.addEventListener('touchstart', function(e) {
+                    const audioContext = initAudioContext();
+                    if (audioContext && audioContext.state === 'suspended') {
+                        audioContext.resume()
+                            .then(() => {
+                                console.log('iOS audio resumed on touch');
+                                audioInitialized = true;
+                            })
+                            .catch(err => console.error('iOS audio resume failed:', err));
+                    }
+                }, { passive: true });
+                
+                // iOS-specific audio priming
+                setTimeout(() => {
+                    const audioContext = initAudioContext();
+                    if (audioContext && audioContext.state === 'suspended') {
+                        // Create minimal audio to enable iOS audio
+                        try {
+                            const osc = audioContext.createOscillator();
+                            const gain = audioContext.createGain();
+                            
+                            osc.connect(gain);
+                            gain.connect(audioContext.destination);
+                            
+                            osc.type = 'sine';
+                            osc.frequency.value = 440;
+                            gain.gain.value = 0.001; // Very minimal volume
+                            
+                            osc.start(audioContext.currentTime);
+                            osc.stop(audioContext.currentTime + 0.1);
+                            
+                            console.log('iOS audio priming executed');
+                        } catch (error) {
+                            console.error('iOS audio priming failed:', error);
+                        }
+                    }
+                }, 500);
+            }
+            
+            // Audio context state monitoring
+            const audioContext = initAudioContext();
+            if (audioContext) {
+                audioContext.addEventListener('statechange', () => {
+                    console.log('AudioContext state changed to:', audioContext.state);
+                    if (audioContext.state === 'running') {
+                        audioInitialized = true;
+                        updateAudioStatus('ready');
+                    }
+                });
+            }
+        }
+
+        // Initialize game components
+        function initGame() {
+            console.log('Initializing Enhanced Melody Mixer game...');
+            console.log('Device info:', { isMobile, isIOS, isAndroid });
+            
+            initCreatures();
+            initGrid();
+            initTempoControl();
+            initEnhancedControls();
+            initEventListeners();
+            initAudioListeners();
+            initPresets();
+            updateCompositionsList();
+            
+            // Make functions available globally for inline onclick
+            window.removeCreature = removeCreature;
+            window.loadComposition = loadComposition;
+            window.loadPreset = loadPreset;
+            
+            console.log('Enhanced game initialization complete');
+        }
+
+        // Enhanced initialization with proper timing
+        document.addEventListener('DOMContentLoaded', () => {
+            // Small delay to ensure all elements are ready
+            setTimeout(initGame, 100);
+        });
+
+        // Fallback initialization if DOMContentLoaded already fired
+        if (document.readyState === 'loading') {
+            document.addEventListener('DOMContentLoaded', initGame);
+        } else {
+            setTimeout(initGame, 100);
+        }
+    </script>
 
 <script>
-    let menu = document.getElementById('menu')
-    if (menu) {
-        menu.scrollLeft = localStorage.getItem("menu-scroll-position");
-        menu.onscroll = function () {
-            localStorage.setItem("menu-scroll-position", menu.scrollLeft);
-        }
+/**
+ * Iframe 元素高亮注入脚本
+ * 需要在目标网站中引入此脚本来支持跨域 iframe 高亮功能
+ *
+ * 使用方法：
+ * 1. 将此脚本添加到目标网站的 HTML 中
+ * 2. 或通过浏览器扩展、用户脚本等方式注入
+ */
+
+(function () {
+  "use strict";
+
+  // 检查是否在 iframe 中
+  if (window.self === window.top) {
+    return; // 不在 iframe 中，不执行
+  }
+
+  // 检查是否已经初始化过
+  if (window.__iframeHighlightInitialized) {
+    return;
+  }
+  window.__iframeHighlightInitialized = true;
+  console.log("Iframe 高亮脚本已加载");
+
+  // 创建高亮覆盖层
+  var overlay = document.createElement("div");
+  overlay.id = "iframe-highlight-overlay";
+  overlay.style.cssText = "\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100vw;\n    height: 100vh;\n    pointer-events: none;\n    z-index: 999999;\n    overflow: hidden;\n  ";
+
+  // 创建悬停高亮框（虚线边框）
+  var highlightBox = document.createElement("div");
+  highlightBox.id = "iframe-highlight-box";
+  highlightBox.style.cssText = "\n    position: absolute;\n    border: 2px dashed #007AFF;\n    background: rgba(0, 122, 255, 0.08);\n    pointer-events: none;\n    display: none;\n    transition: all 0.1s ease;\n    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.8);\n    border-radius: 2px;\n  ";
+
+  // 创建选中节点的常驻高亮框（实线边框）
+  var selectedBox = document.createElement("div");
+  selectedBox.id = "iframe-selected-box";
+  selectedBox.style.cssText = "\n    position: absolute;\n    border: 2px solid #007AFF;\n    pointer-events: none;\n    display: none;\n    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.9), 0 0 8px rgba(255, 107, 53, 0.4);\n    border-radius: 2px;\n    z-index: 1000000;\n  ";
+
+  // 创建悬停标签显示
+  var tagLabel = document.createElement("div");
+  tagLabel.id = "iframe-tag-label";
+  tagLabel.style.cssText = "\n    position: absolute;\n    background: #007AFF;\n    color: white;\n    padding: 2px 6px;\n    font-size: 11px;\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n    border-radius: 2px;\n    pointer-events: none;\n    display: none;\n    white-space: nowrap;\n    z-index: 1000001;\n    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);\n    font-weight: 500;\n  ";
+
+  // 创建选中节点标签
+  var selectedLabel = document.createElement("div");
+  selectedLabel.id = "iframe-selected-label";
+  selectedLabel.style.cssText = "\n    position: absolute;\n    background: #007AFF;\n    color: white;\n    padding: 3px 8px;\n    font-size: 11px;\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n    border-radius: 3px;\n    pointer-events: none;\n    display: none;\n    white-space: nowrap;\n    z-index: 1000002;\n    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);\n    font-weight: 600;\n  ";
+  overlay.appendChild(highlightBox);
+  overlay.appendChild(selectedBox);
+  overlay.appendChild(tagLabel);
+  overlay.appendChild(selectedLabel);
+  document.body.appendChild(overlay);
+
+  // 存储当前选中的元素
+  var selectedElement = null;
+  var highlightEnabled = false;
+
+  // 更新选中元素的高亮显示
+  function updateSelectedHighlight(element) {
+    console.log("updateSelectedHighlight called with:", element);
+    if (!element) {
+      selectedBox.style.display = "none";
+      selectedLabel.style.display = "none";
+      selectedElement = null;
+      console.log("Cleared selected highlight");
+      return;
+    }
+    selectedElement = element;
+    var rect = element.getBoundingClientRect();
+    console.log("Selected element rect:", rect);
+
+    // 更新选中高亮框位置
+    selectedBox.style.display = "block";
+    selectedBox.style.left = "".concat(rect.left - 2, "px");
+    selectedBox.style.top = "".concat(rect.top - 2, "px");
+    selectedBox.style.width = "".concat(rect.width + 4, "px");
+    selectedBox.style.height = "".concat(rect.height + 4, "px");
+
+    // 更新选中标签位置和内容
+    selectedLabel.style.display = "block";
+    selectedLabel.textContent = "\u2713 <".concat(element.tagName.toLowerCase(), ">");
+
+    // 计算标签位置，确保不超出视窗
+    var labelTop = rect.top - 28;
+    var labelLeft = rect.left;
+
+    // 如果标签会超出顶部，显示在元素下方
+    if (labelTop < 5) {
+      labelTop = rect.bottom + 5;
     }
 
-    document.querySelectorAll('a[href^="#"]').forEach(anchor => {
-        anchor.addEventListener("click", function (e) {
-            e.preventDefault();
-            var id = this.getAttribute("href").substr(1);
-            if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView({
-                    behavior: "smooth"
-                });
-            } else {
-                document.querySelector(`[id='${decodeURIComponent(id)}']`).scrollIntoView();
-            }
-            if (id === "top") {
-                history.replaceState(null, null, " ");
-            } else {
-                history.pushState(null, null, `#${id}`);
-            }
-        });
+    // 如果标签会超出右侧，向左调整
+    var labelWidth = selectedLabel.offsetWidth || 100; // 预估宽度
+    if (labelLeft + labelWidth > window.innerWidth - 10) {
+      labelLeft = window.innerWidth - labelWidth - 10;
+    }
+    selectedLabel.style.left = "".concat(Math.max(5, labelLeft), "px");
+    selectedLabel.style.top = "".concat(labelTop, "px");
+    console.log("Selected highlight positioned at:", {
+      left: selectedBox.style.left,
+      top: selectedBox.style.top,
+      width: selectedBox.style.width,
+      height: selectedBox.style.height
+    });
+  }
+  function getElementSelector(element) {
+    if (!(element instanceof Element)) throw new Error('Argument must be a DOM element');
+    var segments = [];
+    var current = element;
+    while (current !== document.documentElement) {
+      var selector = '';
+      // 优先检查唯一ID
+      if (current.id && document.querySelectorAll("#".concat(current.id)).length === 1) {
+        segments.unshift("#".concat(current.id));
+        break; // ID唯一，无需继续向上
+      }
+
+      // 生成类名选择器（取第一个有效类名）
+      var classes = Array.from(current.classList).filter(function (c) {
+        return !c.startsWith('js-');
+      });
+      var className = classes.length > 0 ? ".".concat(classes[0]) : '';
+
+      // 生成位置索引（nth-child）
+      var tag = current.tagName.toLowerCase();
+      if (!className) {
+        var siblings = Array.from(current.parentNode.children);
+        var index = siblings.findIndex(function (el) {
+          return el === current;
+        }) + 1;
+        selector = "".concat(tag, ":nth-child(").concat(index, ")");
+      } else {
+        selector = className;
+      }
+      segments.unshift(selector);
+      current = current.parentElement;
+    }
+
+    // 处理根元素
+    if (current === document.documentElement) {
+      segments.unshift('html');
+    }
+    return segments.join(' > ');
+  }
+
+  // 获取元素文本内容
+  function getElementText(element) {
+    var _element$textContent;
+    if (element.tagName === "INPUT") {
+      return element.value || element.placeholder || "";
+    }
+    if (element.tagName === "TEXTAREA") {
+      return element.value || element.placeholder || "";
+    }
+    var text = ((_element$textContent = element.textContent) === null || _element$textContent === void 0 ? void 0 : _element$textContent.trim()) || "";
+    return text.length > 50 ? text.substring(0, 50) + "..." : text;
+  }
+
+  // 获取元素属性信息
+  function getElementAttributes(element) {
+    var attrs = {};
+    for (var i = 0; i < element.attributes.length; i++) {
+      var attr = element.attributes[i];
+      attrs[attr.name] = attr.value;
+    }
+    return attrs;
+  }
+
+  // 鼠标悬停事件处理
+  function handleMouseOver(e) {
+    if (!highlightEnabled) return;
+    var target = e.target;
+    if (!target || target === overlay || target === highlightBox || target === tagLabel || target === selectedBox || target === selectedLabel) {
+      return;
+    }
+
+    // 避免高亮 html 和 body 元素
+    if (target === document.documentElement || target === document.body) {
+      return;
+    }
+
+    // 如果是已选中的元素，不显示悬停高亮
+    if (target === selectedElement) {
+      highlightBox.style.display = "none";
+      tagLabel.style.display = "none";
+      return;
+    }
+    var rect = target.getBoundingClientRect();
+    var selector = getElementSelector(target);
+    var text = getElementText(target);
+    var attributes = getElementAttributes(target);
+
+    // 更新悬停高亮框位置
+    highlightBox.style.display = "block";
+    highlightBox.style.left = "".concat(rect.left - 2, "px");
+    highlightBox.style.top = "".concat(rect.top - 2, "px");
+    highlightBox.style.width = "".concat(rect.width + 4, "px");
+    highlightBox.style.height = "".concat(rect.height + 4, "px");
+
+    // 更新标签位置和内容
+    tagLabel.style.display = "block";
+    tagLabel.textContent = "<".concat(target.tagName.toLowerCase(), ">");
+
+    // 计算标签位置，确保不超出视窗
+    var labelTop = rect.top - 22;
+    var labelLeft = rect.left;
+
+    // 如果标签会超出顶部，显示在元素下方
+    if (labelTop < 0) {
+      labelTop = rect.bottom + 5;
+    }
+
+    // 如果标签会超出右侧，向左调整
+    if (labelLeft + tagLabel.offsetWidth > window.innerWidth) {
+      labelLeft = window.innerWidth - tagLabel.offsetWidth - 5;
+    }
+    tagLabel.style.left = "".concat(Math.max(0, labelLeft), "px");
+    tagLabel.style.top = "".concat(labelTop, "px");
+
+    // 发送消息到父窗口
+    var elementInfo = {
+      tagName: target.tagName.toLowerCase(),
+      rect: {
+        left: rect.left,
+        top: rect.top,
+        right: rect.right,
+        bottom: rect.bottom,
+        width: rect.width,
+        height: rect.height,
+        x: rect.x,
+        y: rect.y
+      },
+      selector: selector,
+      text: text,
+      attributes: attributes,
+      url: window.location.href,
+      path: window.location.pathname,
+      timestamp: Date.now()
+    };
+    try {
+      window.parent.postMessage({
+        type: "iframe-element-hover",
+        data: elementInfo,
+        source: "iframe-highlight-injector"
+      }, "*");
+    } catch (error) {
+      console.warn("无法发送消息到父窗口:", error);
+    }
+  }
+
+  // 鼠标离开事件处理
+  function handleMouseOut(e) {
+    if (!highlightEnabled) return;
+    var relatedTarget = e.relatedTarget;
+
+    // 如果鼠标移动到高亮相关元素上，不隐藏高亮
+    if (relatedTarget && (relatedTarget === highlightBox || relatedTarget === tagLabel || relatedTarget === overlay || relatedTarget === selectedBox || relatedTarget === selectedLabel)) {
+      return;
+    }
+    highlightBox.style.display = "none";
+    tagLabel.style.display = "none";
+    try {
+      window.parent.postMessage({
+        type: "iframe-element-hover",
+        data: null,
+        source: "iframe-highlight-injector"
+      }, "*");
+    } catch (error) {
+      console.warn("无法发送消息到父窗口:", error);
+    }
+  }
+
+  // 点击事件处理
+  function handleClick(e) {
+    var target = e.target;
+    if (!target || target === overlay || target === highlightBox || target === tagLabel || target === selectedBox || target === selectedLabel) {
+      return;
+    }
+
+    // 避免处理 html 和 body 元素
+    if (target === document.documentElement || target === document.body) {
+      return;
+    }
+
+    // 检查是否是交互元素，这些元素需要保留默认行为
+    var isInteractiveElement = ['input', 'textarea', 'select', 'button', 'a'].includes(target.tagName.toLowerCase());
+
+    // 如果高亮功能启用，对于非交互元素阻止默认行为和事件传播
+    if (highlightEnabled) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    var rect = target.getBoundingClientRect();
+    var selector = getElementSelector(target);
+    var text = getElementText(target);
+    var attributes = getElementAttributes(target);
+    console.log("Element clicked:", {
+      tagName: target.tagName,
+      selector: selector,
+      rect: rect
     });
 
-</script>
-<script>
-    var mybutton = document.getElementById("top-link");
-    window.onscroll = function () {
-        if (document.body.scrollTop > 800 || document.documentElement.scrollTop > 800) {
-            mybutton.style.visibility = "visible";
-            mybutton.style.opacity = "1";
-        } else {
-            mybutton.style.visibility = "hidden";
-            mybutton.style.opacity = "0";
-        }
+    // 立即更新选中高亮
+    updateSelectedHighlight(target);
+
+    // 隐藏悬停高亮，因为现在是选中状态
+    highlightBox.style.display = "none";
+    tagLabel.style.display = "none";
+    var elementInfo = {
+      tagName: target.tagName.toLowerCase(),
+      rect: {
+        left: rect.left,
+        top: rect.top,
+        right: rect.right,
+        bottom: rect.bottom,
+        width: rect.width,
+        height: rect.height,
+        x: rect.x,
+        y: rect.y
+      },
+      selector: selector,
+      text: text,
+      attributes: attributes,
+      url: window.location.href,
+      path: window.location.pathname,
+      timestamp: Date.now()
     };
+    try {
+      window.parent.postMessage({
+        type: "iframe-element-click",
+        data: elementInfo,
+        source: "iframe-highlight-injector"
+      }, "*");
+    } catch (error) {
+      console.warn("无法发送消息到父窗口:", error);
+    }
+  }
 
-</script>
-<script>
-    document.getElementById("theme-toggle").addEventListener("click", () => {
-        if (document.body.className.includes("dark")) {
-            document.body.classList.remove('dark');
-            localStorage.setItem("pref-theme", 'light');
-        } else {
-            document.body.classList.add('dark');
-            localStorage.setItem("pref-theme", 'dark');
+  // 监听来自父窗口的消息
+  function handleParentMessage(event) {
+    console.log("Received message from parent:", event.data);
+    if (event.data.type === "iframe-highlight-toggle") {
+      var enabled = event.data.enabled;
+      console.log("Highlight toggle:", enabled);
+      if (enabled) {
+        enableHighlight();
+      } else {
+        disableHighlight();
+      }
+    } else if (event.data.type === "enable-iframe-highlight") {
+      console.log("Enable iframe highlight");
+      enableHighlight();
+    } else if (event.data.type === "disable-iframe-highlight") {
+      console.log("Disable iframe highlight");
+      disableHighlight();
+    } else if (event.data.type === "toggle-iframe-highlight") {
+      var _enabled = event.data.enabled !== undefined ? event.data.enabled : !highlightEnabled;
+      console.log("Toggle iframe highlight to:", _enabled);
+      if (_enabled) {
+        enableHighlight();
+      } else {
+        disableHighlight();
+      }
+    } else if (event.data.type === "update-selected-element") {
+      var selector = event.data.selector;
+      console.log("Update selected element with selector:", selector);
+      if (selector) {
+        try {
+          var element = document.querySelector(selector);
+          console.log("Found element by selector:", element);
+          updateSelectedHighlight(element);
+        } catch (error) {
+          console.warn("Failed to select element:", error);
+          updateSelectedHighlight(null);
         }
-    })
+      } else {
+        updateSelectedHighlight(null);
+      }
+    } else if (event.data.type === "clear-selected-element") {
+      console.log("Clear selected element");
+      updateSelectedHighlight(null);
+    }
+  }
 
+  // 启用高亮功能
+  function enableHighlight() {
+    console.log("Enabling highlight");
+    document.addEventListener("mouseover", handleMouseOver, true);
+    document.addEventListener("mouseout", handleMouseOut, true);
+    document.addEventListener("click", handleClick, true);
+    highlightEnabled = true;
+    overlay.style.display = "block";
+  }
+
+  // 禁用高亮功能
+  function disableHighlight() {
+    console.log("Disabling highlight");
+    highlightEnabled = false;
+    // 保持事件监听器，但通过 highlightEnabled 变量控制行为
+    // 这样可以保留选中状态的显示
+    highlightBox.style.display = "none";
+    tagLabel.style.display = "none";
+    // 不隐藏 selectedBox 和 selectedLabel，保留选中状态
+  }
+
+  // 完全禁用高亮功能（移除所有监听器）
+  function fullyDisableHighlight() {
+    console.log("Fully disabling highlight");
+    highlightEnabled = false;
+    document.removeEventListener("mouseover", handleMouseOver, true);
+    document.removeEventListener("mouseout", handleMouseOut, true);
+    document.removeEventListener("click", handleClick, true);
+    overlay.style.display = "none";
+    highlightBox.style.display = "none";
+    tagLabel.style.display = "none";
+    selectedBox.style.display = "none";
+    selectedLabel.style.display = "none";
+  }
+
+  // 添加事件监听
+  enableHighlight();
+  window.addEventListener("message", handleParentMessage);
+
+  // 暴露全局函数供外部调用
+  window.__iframeHighlightControl = {
+    enable: enableHighlight,
+    disable: disableHighlight,
+    fullyDisable: fullyDisableHighlight,
+    isEnabled: function isEnabled() {
+      return highlightEnabled;
+    },
+    getSelectedElement: function getSelectedElement() {
+      return selectedElement;
+    },
+    updateSelected: updateSelectedHighlight,
+    // 通过消息发送开关控制
+    sendToggleMessage: function sendToggleMessage(enabled) {
+      window.parent.postMessage({
+        type: 'iframe-highlight-status',
+        enabled: enabled || highlightEnabled,
+        source: 'iframe-highlight-injector'
+      }, '*');
+    }
+  };
+
+  // 通知父窗口脚本已加载
+  try {
+    window.parent.postMessage({
+      type: "iframe-highlight-ready",
+      data: {
+        url: window.location.href,
+        userAgent: navigator.userAgent,
+        timestamp: Date.now()
+      },
+      source: "iframe-highlight-injector"
+    }, "*");
+  } catch (error) {
+    console.warn("无法发送就绪消息到父窗口:", error);
+  }
+
+  // 清理函数
+  window.__iframeHighlightCleanup = function () {
+    fullyDisableHighlight();
+    window.removeEventListener("message", handleParentMessage);
+    if (overlay.parentElement) {
+      overlay.parentElement.removeChild(overlay);
+    }
+    delete window.__iframeHighlightInitialized;
+    delete window.__iframeHighlightCleanup;
+  };
+})();
+</script>
+
+<script>
+/**
+ * Iframe 元素高亮注入脚本
+ * 需要在目标网站中引入此脚本来支持跨域 iframe 高亮功能
+ *
+ * 使用方法：
+ * 1. 将此脚本添加到目标网站的 HTML 中
+ * 2. 或通过浏览器扩展、用户脚本等方式注入
+ */
+
+(function () {
+  "use strict";
+
+  // 检查是否在 iframe 中
+  if (window.self === window.top) {
+    return; // 不在 iframe 中，不执行
+  }
+
+  // 检查是否已经初始化过
+  if (window.__iframeHighlightInitialized) {
+    return;
+  }
+  window.__iframeHighlightInitialized = true;
+  console.log("Iframe 高亮脚本已加载");
+
+  // 创建高亮覆盖层
+  var overlay = document.createElement("div");
+  overlay.id = "iframe-highlight-overlay";
+  overlay.style.cssText = "\n    position: fixed;\n    top: 0;\n    left: 0;\n    width: 100vw;\n    height: 100vh;\n    pointer-events: none;\n    z-index: 999999;\n    overflow: hidden;\n  ";
+
+  // 创建悬停高亮框（虚线边框）
+  var highlightBox = document.createElement("div");
+  highlightBox.id = "iframe-highlight-box";
+  highlightBox.style.cssText = "\n    position: absolute;\n    border: 2px dashed #007AFF;\n    background: rgba(0, 122, 255, 0.08);\n    pointer-events: none;\n    display: none;\n    transition: all 0.1s ease;\n    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.8);\n    border-radius: 2px;\n  ";
+
+  // 创建选中节点的常驻高亮框（实线边框）
+  var selectedBox = document.createElement("div");
+  selectedBox.id = "iframe-selected-box";
+  selectedBox.style.cssText = "\n    position: absolute;\n    border: 2px solid #007AFF;\n    pointer-events: none;\n    display: none;\n    box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.9), 0 0 8px rgba(255, 107, 53, 0.4);\n    border-radius: 2px;\n    z-index: 1000000;\n  ";
+
+  // 创建悬停标签显示
+  var tagLabel = document.createElement("div");
+  tagLabel.id = "iframe-tag-label";
+  tagLabel.style.cssText = "\n    position: absolute;\n    background: #007AFF;\n    color: white;\n    padding: 2px 6px;\n    font-size: 11px;\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n    border-radius: 2px;\n    pointer-events: none;\n    display: none;\n    white-space: nowrap;\n    z-index: 1000001;\n    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);\n    font-weight: 500;\n  ";
+
+  // 创建选中节点标签
+  var selectedLabel = document.createElement("div");
+  selectedLabel.id = "iframe-selected-label";
+  selectedLabel.style.cssText = "\n    position: absolute;\n    background: #007AFF;\n    color: white;\n    padding: 3px 8px;\n    font-size: 11px;\n    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif;\n    border-radius: 3px;\n    pointer-events: none;\n    display: none;\n    white-space: nowrap;\n    z-index: 1000002;\n    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.4);\n    font-weight: 600;\n  ";
+  overlay.appendChild(highlightBox);
+  overlay.appendChild(selectedBox);
+  overlay.appendChild(tagLabel);
+  overlay.appendChild(selectedLabel);
+  document.body.appendChild(overlay);
+
+  // 存储当前选中的元素
+  var selectedElement = null;
+  var highlightEnabled = false;
+
+  // 更新选中元素的高亮显示
+  function updateSelectedHighlight(element) {
+    console.log("updateSelectedHighlight called with:", element);
+    if (!element) {
+      selectedBox.style.display = "none";
+      selectedLabel.style.display = "none";
+      selectedElement = null;
+      console.log("Cleared selected highlight");
+      return;
+    }
+    selectedElement = element;
+    var rect = element.getBoundingClientRect();
+    console.log("Selected element rect:", rect);
+
+    // 更新选中高亮框位置
+    selectedBox.style.display = "block";
+    selectedBox.style.left = "".concat(rect.left - 2, "px");
+    selectedBox.style.top = "".concat(rect.top - 2, "px");
+    selectedBox.style.width = "".concat(rect.width + 4, "px");
+    selectedBox.style.height = "".concat(rect.height + 4, "px");
+
+    // 更新选中标签位置和内容
+    selectedLabel.style.display = "block";
+    selectedLabel.textContent = "\u2713 <".concat(element.tagName.toLowerCase(), ">");
+
+    // 计算标签位置，确保不超出视窗
+    var labelTop = rect.top - 28;
+    var labelLeft = rect.left;
+
+    // 如果标签会超出顶部，显示在元素下方
+    if (labelTop < 5) {
+      labelTop = rect.bottom + 5;
+    }
+
+    // 如果标签会超出右侧，向左调整
+    var labelWidth = selectedLabel.offsetWidth || 100; // 预估宽度
+    if (labelLeft + labelWidth > window.innerWidth - 10) {
+      labelLeft = window.innerWidth - labelWidth - 10;
+    }
+    selectedLabel.style.left = "".concat(Math.max(5, labelLeft), "px");
+    selectedLabel.style.top = "".concat(labelTop, "px");
+    console.log("Selected highlight positioned at:", {
+      left: selectedBox.style.left,
+      top: selectedBox.style.top,
+      width: selectedBox.style.width,
+      height: selectedBox.style.height
+    });
+  }
+  function getElementSelector(element) {
+    if (!(element instanceof Element)) throw new Error('Argument must be a DOM element');
+    var segments = [];
+    var current = element;
+    while (current !== document.documentElement) {
+      var selector = '';
+      // 优先检查唯一ID
+      if (current.id && document.querySelectorAll("#".concat(current.id)).length === 1) {
+        segments.unshift("#".concat(current.id));
+        break; // ID唯一，无需继续向上
+      }
+
+      // 生成类名选择器（取第一个有效类名）
+      var classes = Array.from(current.classList).filter(function (c) {
+        return !c.startsWith('js-');
+      });
+      var className = classes.length > 0 ? ".".concat(classes[0]) : '';
+
+      // 生成位置索引（nth-child）
+      var tag = current.tagName.toLowerCase();
+      if (!className) {
+        var siblings = Array.from(current.parentNode.children);
+        var index = siblings.findIndex(function (el) {
+          return el === current;
+        }) + 1;
+        selector = "".concat(tag, ":nth-child(").concat(index, ")");
+      } else {
+        selector = className;
+      }
+      segments.unshift(selector);
+      current = current.parentElement;
+    }
+
+    // 处理根元素
+    if (current === document.documentElement) {
+      segments.unshift('html');
+    }
+    return segments.join(' > ');
+  }
+
+  // 获取元素文本内容
+  function getElementText(element) {
+    var _element$textContent;
+    if (element.tagName === "INPUT") {
+      return element.value || element.placeholder || "";
+    }
+    if (element.tagName === "TEXTAREA") {
+      return element.value || element.placeholder || "";
+    }
+    var text = ((_element$textContent = element.textContent) === null || _element$textContent === void 0 ? void 0 : _element$textContent.trim()) || "";
+    return text.length > 50 ? text.substring(0, 50) + "..." : text;
+  }
+
+  // 获取元素属性信息
+  function getElementAttributes(element) {
+    var attrs = {};
+    for (var i = 0; i < element.attributes.length; i++) {
+      var attr = element.attributes[i];
+      attrs[attr.name] = attr.value;
+    }
+    return attrs;
+  }
+
+  // 鼠标悬停事件处理
+  function handleMouseOver(e) {
+    if (!highlightEnabled) return;
+    var target = e.target;
+    if (!target || target === overlay || target === highlightBox || target === tagLabel || target === selectedBox || target === selectedLabel) {
+      return;
+    }
+
+    // 避免高亮 html 和 body 元素
+    if (target === document.documentElement || target === document.body) {
+      return;
+    }
+
+    // 如果是已选中的元素，不显示悬停高亮
+    if (target === selectedElement) {
+      highlightBox.style.display = "none";
+      tagLabel.style.display = "none";
+      return;
+    }
+    var rect = target.getBoundingClientRect();
+    var selector = getElementSelector(target);
+    var text = getElementText(target);
+    var attributes = getElementAttributes(target);
+
+    // 更新悬停高亮框位置
+    highlightBox.style.display = "block";
+    highlightBox.style.left = "".concat(rect.left - 2, "px");
+    highlightBox.style.top = "".concat(rect.top - 2, "px");
+    highlightBox.style.width = "".concat(rect.width + 4, "px");
+    highlightBox.style.height = "".concat(rect.height + 4, "px");
+
+    // 更新标签位置和内容
+    tagLabel.style.display = "block";
+    tagLabel.textContent = "<".concat(target.tagName.toLowerCase(), ">");
+
+    // 计算标签位置，确保不超出视窗
+    var labelTop = rect.top - 22;
+    var labelLeft = rect.left;
+
+    // 如果标签会超出顶部，显示在元素下方
+    if (labelTop < 0) {
+      labelTop = rect.bottom + 5;
+    }
+
+    // 如果标签会超出右侧，向左调整
+    if (labelLeft + tagLabel.offsetWidth > window.innerWidth) {
+      labelLeft = window.innerWidth - tagLabel.offsetWidth - 5;
+    }
+    tagLabel.style.left = "".concat(Math.max(0, labelLeft), "px");
+    tagLabel.style.top = "".concat(labelTop, "px");
+
+    // 发送消息到父窗口
+    var elementInfo = {
+      tagName: target.tagName.toLowerCase(),
+      rect: {
+        left: rect.left,
+        top: rect.top,
+        right: rect.right,
+        bottom: rect.bottom,
+        width: rect.width,
+        height: rect.height,
+        x: rect.x,
+        y: rect.y
+      },
+      selector: selector,
+      text: text,
+      attributes: attributes,
+      url: window.location.href,
+      path: window.location.pathname,
+      timestamp: Date.now()
+    };
+    try {
+      window.parent.postMessage({
+        type: "iframe-element-hover",
+        data: elementInfo,
+        source: "iframe-highlight-injector"
+      }, "*");
+    } catch (error) {
+      console.warn("无法发送消息到父窗口:", error);
+    }
+  }
+
+  // 鼠标离开事件处理
+  function handleMouseOut(e) {
+    if (!highlightEnabled) return;
+    var relatedTarget = e.relatedTarget;
+
+    // 如果鼠标移动到高亮相关元素上，不隐藏高亮
+    if (relatedTarget && (relatedTarget === highlightBox || relatedTarget === tagLabel || relatedTarget === overlay || relatedTarget === selectedBox || relatedTarget === selectedLabel)) {
+      return;
+    }
+    highlightBox.style.display = "none";
+    tagLabel.style.display = "none";
+    try {
+      window.parent.postMessage({
+        type: "iframe-element-hover",
+        data: null,
+        source: "iframe-highlight-injector"
+      }, "*");
+    } catch (error) {
+      console.warn("无法发送消息到父窗口:", error);
+    }
+  }
+
+  // 点击事件处理
+  function handleClick(e) {
+    var target = e.target;
+    if (!target || target === overlay || target === highlightBox || target === tagLabel || target === selectedBox || target === selectedLabel) {
+      return;
+    }
+
+    // 避免处理 html 和 body 元素
+    if (target === document.documentElement || target === document.body) {
+      return;
+    }
+
+    // 检查是否是交互元素，这些元素需要保留默认行为
+    var isInteractiveElement = ['input', 'textarea', 'select', 'button', 'a'].includes(target.tagName.toLowerCase());
+
+    // 如果高亮功能启用，对于非交互元素阻止默认行为和事件传播
+    if (highlightEnabled) {
+      e.preventDefault();
+      e.stopPropagation();
+    }
+    var rect = target.getBoundingClientRect();
+    var selector = getElementSelector(target);
+    var text = getElementText(target);
+    var attributes = getElementAttributes(target);
+    console.log("Element clicked:", {
+      tagName: target.tagName,
+      selector: selector,
+      rect: rect
+    });
+
+    // 立即更新选中高亮
+    updateSelectedHighlight(target);
+
+    // 隐藏悬停高亮，因为现在是选中状态
+    highlightBox.style.display = "none";
+    tagLabel.style.display = "none";
+    var elementInfo = {
+      tagName: target.tagName.toLowerCase(),
+      rect: {
+        left: rect.left,
+        top: rect.top,
+        right: rect.right,
+        bottom: rect.bottom,
+        width: rect.width,
+        height: rect.height,
+        x: rect.x,
+        y: rect.y
+      },
+      selector: selector,
+      text: text,
+      attributes: attributes,
+      url: window.location.href,
+      path: window.location.pathname,
+      timestamp: Date.now()
+    };
+    try {
+      window.parent.postMessage({
+        type: "iframe-element-click",
+        data: elementInfo,
+        source: "iframe-highlight-injector"
+      }, "*");
+    } catch (error) {
+      console.warn("无法发送消息到父窗口:", error);
+    }
+  }
+
+  // 监听来自父窗口的消息
+  function handleParentMessage(event) {
+    console.log("Received message from parent:", event.data);
+    if (event.data.type === "iframe-highlight-toggle") {
+      var enabled = event.data.enabled;
+      console.log("Highlight toggle:", enabled);
+      if (enabled) {
+        enableHighlight();
+      } else {
+        disableHighlight();
+      }
+    } else if (event.data.type === "enable-iframe-highlight") {
+      console.log("Enable iframe highlight");
+      enableHighlight();
+    } else if (event.data.type === "disable-iframe-highlight") {
+      console.log("Disable iframe highlight");
+      disableHighlight();
+    } else if (event.data.type === "toggle-iframe-highlight") {
+      var _enabled = event.data.enabled !== undefined ? event.data.enabled : !highlightEnabled;
+      console.log("Toggle iframe highlight to:", _enabled);
+      if (_enabled) {
+        enableHighlight();
+      } else {
+        disableHighlight();
+      }
+    } else if (event.data.type === "update-selected-element") {
+      var selector = event.data.selector;
+      console.log("Update selected element with selector:", selector);
+      if (selector) {
+        try {
+          var element = document.querySelector(selector);
+          console.log("Found element by selector:", element);
+          updateSelectedHighlight(element);
+        } catch (error) {
+          console.warn("Failed to select element:", error);
+          updateSelectedHighlight(null);
+        }
+      } else {
+        updateSelectedHighlight(null);
+      }
+    } else if (event.data.type === "clear-selected-element") {
+      console.log("Clear selected element");
+      updateSelectedHighlight(null);
+    }
+  }
+
+  // 启用高亮功能
+  function enableHighlight() {
+    console.log("Enabling highlight");
+    document.addEventListener("mouseover", handleMouseOver, true);
+    document.addEventListener("mouseout", handleMouseOut, true);
+    document.addEventListener("click", handleClick, true);
+    highlightEnabled = true;
+    overlay.style.display = "block";
+  }
+
+  // 禁用高亮功能
+  function disableHighlight() {
+    console.log("Disabling highlight");
+    highlightEnabled = false;
+    // 保持事件监听器，但通过 highlightEnabled 变量控制行为
+    // 这样可以保留选中状态的显示
+    highlightBox.style.display = "none";
+    tagLabel.style.display = "none";
+    // 不隐藏 selectedBox 和 selectedLabel，保留选中状态
+  }
+
+  // 完全禁用高亮功能（移除所有监听器）
+  function fullyDisableHighlight() {
+    console.log("Fully disabling highlight");
+    highlightEnabled = false;
+    document.removeEventListener("mouseover", handleMouseOver, true);
+    document.removeEventListener("mouseout", handleMouseOut, true);
+    document.removeEventListener("click", handleClick, true);
+    overlay.style.display = "none";
+    highlightBox.style.display = "none";
+    tagLabel.style.display = "none";
+    selectedBox.style.display = "none";
+    selectedLabel.style.display = "none";
+  }
+
+  // 添加事件监听
+  enableHighlight();
+  window.addEventListener("message", handleParentMessage);
+
+  // 暴露全局函数供外部调用
+  window.__iframeHighlightControl = {
+    enable: enableHighlight,
+    disable: disableHighlight,
+    fullyDisable: fullyDisableHighlight,
+    isEnabled: function isEnabled() {
+      return highlightEnabled;
+    },
+    getSelectedElement: function getSelectedElement() {
+      return selectedElement;
+    },
+    updateSelected: updateSelectedHighlight,
+    // 通过消息发送开关控制
+    sendToggleMessage: function sendToggleMessage(enabled) {
+      window.parent.postMessage({
+        type: 'iframe-highlight-status',
+        enabled: enabled || highlightEnabled,
+        source: 'iframe-highlight-injector'
+      }, '*');
+    }
+  };
+
+  // 通知父窗口脚本已加载
+  try {
+    window.parent.postMessage({
+      type: "iframe-highlight-ready",
+      data: {
+        url: window.location.href,
+        userAgent: navigator.userAgent,
+        timestamp: Date.now()
+      },
+      source: "iframe-highlight-injector"
+    }, "*");
+  } catch (error) {
+    console.warn("无法发送就绪消息到父窗口:", error);
+  }
+
+  // 清理函数
+  window.__iframeHighlightCleanup = function () {
+    fullyDisableHighlight();
+    window.removeEventListener("message", handleParentMessage);
+    if (overlay.parentElement) {
+      overlay.parentElement.removeChild(overlay);
+    }
+    delete window.__iframeHighlightInitialized;
+    delete window.__iframeHighlightCleanup;
+  };
+})();
 </script>
 </body>
-
 </html>
