@@ -8,6 +8,38 @@ tags:
 description: "Learn how to build your first home lab for learning DevOps, containerization, and system administration. This practical guide covers hardware recommendations, essential software, and step-by-step setup instructions."
 ---
 
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Setting Up a Home Lab: A Beginner's Guide",
+  "description": "Learn how to build your first home lab for learning DevOps, containerization, and system administration. This practical guide covers hardware recommendations, essential software, and step-by-step setup instructions.",
+  "author": {
+    "@type": "Person",
+    "name": "Pragmatic Sysadmin"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Pragmatic Sysadmin"
+  },
+  "datePublished": "2025-10-29",
+  "dateModified": "2025-10-29",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "https://pragmaticsysadmin.help/posts/setting-up-home-lab-beginners-guide/"
+  },
+  "image": {
+    "@type": "ImageObject",
+    "url": "https://pragmaticsysadmin.help/images/home-lab-setup.jpg",
+    "width": 1200,
+    "height": 630
+  },
+  "articleSection": "Home Lab",
+  "keywords": ["home lab", "devops", "sysadmin", "virtualization", "docker", "kubernetes", "beginner guide"],
+  "wordCount": "2800"
+}
+</script>
+
 Title: Setting Up a Home Lab: A Beginner's Guide
 Description
 Learn how to build your first home lab for learning DevOps, containerization, and system administration. This practical guide covers hardware recommendations, essential software, and step-by-step setup instructions.
