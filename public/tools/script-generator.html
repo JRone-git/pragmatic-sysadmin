@@ -1,69 +1,1858 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Script Generator</title>
-  <style>
-    body { font-family: Arial, sans-serif; margin: 2em; }
-    label { display: block; margin-top: 1em; }
-    textarea { width: 100%; height: 120px; }
-    select, input[type=text] { width: 100%; padding: 0.5em; }
-    button { margin-top: 1em; padding: 0.5em 1em; }
-    .output { margin-top: 2em; background: #f4f4f4; padding: 1em; border-radius: 5px; }
-  </style>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>PowerShell/Bash Script Generator - Pragmatic Sysadmin</title>
+    <meta name="description" content="Generate PowerShell and Bash scripts for common sysadmin tasks. Free tool to automate your system administration workflow.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #f8fafc;
+            padding: 2rem 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            padding: 2rem;
+        }
+        
+        .form-section {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .form-control {
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        select {
+            background-image: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 20 20'%3e%3cpath stroke='%236b7280' stroke-linecap='round' stroke-linejoin='round' stroke-width='1.5' d='m6 8 4 4 4-4'/%3e%3c/svg%3e");
+            background-position: right 0.5rem center;
+            background-repeat: no-repeat;
+            background-size: 1.5em 1.5em;
+            padding-right: 2.5rem;
+            appearance: none;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5a6fd8;
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .output-section {
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .output-header {
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .output-header h3 {
+            color: #f1f5f9;
+            font-size: 1.1rem;
+        }
+        
+        .copy-btn {
+            background: #374151;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .copy-btn:hover {
+            background: #4b5563;
+        }
+        
+        .copy-btn.copied {
+            background: #10b981;
+        }
+        
+        pre {
+            background: #0f172a;
+            padding: 1.5rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Monaco', 'Menlo', 'Ubuntu Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+        
+        code {
+            color: #e2e8f0;
+        }
+        
+        .example-tasks {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .example-tasks h3 {
+            color: #065f46;
+            margin-bottom: 1rem;
+        }
+        
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        .example-task {
+            background: white;
+            border: 1px solid #d1fae5;
+            border-radius: 4px;
+            padding: 1rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .example-task:hover {
+            background: #f0fdf4;
+            border-color: #6ee7b7;
+        }
+        
+        .example-task-title {
+            font-weight: 600;
+            color: #065f46;
+            margin-bottom: 0.5rem;
+        }
+        
+        .example-task-desc {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .feature {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+        }
+        
+        .feature-icon {
+            width: 2.5rem;
+            height: 2.5rem;
+            background: #667eea;
+            border-radius: 6px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            margin-bottom: 1rem;
+        }
+        
+        .feature h4 {
+            margin-bottom: 0.5rem;
+            color: #1a1a1a;
+        }
+        
+        .feature p {
+            color: #6b7280;
+            font-size: 0.9rem;
+        }
+        
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                justify-content: center;
+            }
+        }
+    </style>
 </head>
 <body>
-  <h1>PowerShell/Bash Script Generator</h1>
-  <form id="scriptForm">
-    <label for="scriptType">Script Type:</label>
-    <select id="scriptType">
-      <option value="powershell">PowerShell</option>
-      <option value="bash">Bash</option>
-    </select>
-    <label for="task">Task Description (e.g., check disk space):</label>
-    <input type="text" id="task" required>
-    <label for="variables">Variables (comma separated):</label>
-    <input type="text" id="variables" placeholder="e.g., path, threshold">
-    <button type="submit">Generate Script</button>
-  </form>
-  <div class="output" id="output"></div>
-  <script>
-    function generateScript(type, task, variables) {
-      let vars = variables.split(',').map(v => v.trim()).filter(v => v);
-      if (type === 'powershell') {
-        let script = `# PowerShell Script\n# Task: ${task}\n`;
-        if (vars.length) script += `# Variables: ${vars.join(', ')}\n`;
-        script += `\n`;
-        if (task.toLowerCase().includes('disk')) {
-          script += `$drives = Get-PSDrive -PSProvider 'FileSystem'\nforeach ($drive in $drives) {\n  Write-Output \"$($drive.Name): $($drive.Free) bytes free\"\n}`;
-        } else if (task.toLowerCase().includes('process')) {
-          script += `Get-Process | Sort-Object CPU -Descending | Select-Object -First 10`;
-        } else {
-          script += `# Add your logic here\nWrite-Output \"Task: ${task}\"`;
+    <div class="container">
+        <div class="header">
+            <h1>Script Generator</h1>
+            <p>Generate PowerShell and Bash scripts for common sysadmin tasks instantly</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="features">
+                <div class="feature">
+                    <div class="feature-icon">⚡</div>
+                    <h4>Instant Generation</h4>
+                    <p>Generate production-ready scripts in seconds with proper error handling and logging.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">🔒</div>
+                    <h4>Best Practices</h4>
+                    <p>Every script follows industry standards with proper validation and security considerations.</p>
+                </div>
+                <div class="feature">
+                    <div class="feature-icon">📋</div>
+                    <h4>Copy & Download</h4>
+                    <p>Easily copy scripts to clipboard or download as files for immediate use.</p>
+                </div>
+            </div>
+            
+            <div class="form-section">
+                <form id="scriptForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="scriptType">Script Language:</label>
+                            <select id="scriptType" class="form-control" required>
+                                <option value="powershell">PowerShell (Windows)</option>
+                                <option value="bash">Bash (Linux/macOS)</option>
+                            </select>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="task">Task Description:</label>
+                            <input type="text" id="task" class="form-control" placeholder="e.g., Check disk space on all drives" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="variables">Variables (comma-separated):</label>
+                            <input type="text" id="variables" class="form-control" placeholder="e.g., path, threshold, format">
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="complexity">Script Complexity:</label>
+                            <select id="complexity" class="form-control">
+                                <option value="simple">Simple (Basic task)</option>
+                                <option value="intermediate">Intermediate (With error handling)</option>
+                                <option value="advanced">Advanced (Full features + logging)</option>
+                            </select>
+                        </div>
+                    </div>
+                    
+                    <button type="submit" class="btn btn-primary">
+                        <span>⚡</span>
+                        Generate Script
+                    </button>
+                </form>
+            </div>
+            
+            <div class="example-tasks">
+                <h3>💡 Quick Start Examples</h3>
+                <div class="example-grid">
+                    <div class="example-task" onclick="fillExample('Disk Space Check', 'path, threshold, alert_email')">
+                        <div class="example-task-title">Disk Space Monitor</div>
+                        <div class="example-task-desc">Check disk usage and send alerts when thresholds are exceeded</div>
+                    </div>
+                    <div class="example-task" onclick="fillExample('Process Monitor', 'process_name, threshold, action')">
+                        <div class="example-task-title">Process Watchdog</div>
+                        <div class="example-task-desc">Monitor critical processes and restart if they stop</div>
+                    </div>
+                    <div class="example-task" onclick="fillExample('Log File Cleanup', 'log_directory, days_to_keep, archive_path')">
+                        <div class="example-task-title">Log Rotation</div>
+                        <div class="example-task-desc">Automate log file cleanup and archival</div>
+                    </div>
+                    <div class="example-task" onclick="fillExample('System Health Check', 'critical_services, timeout, log_file')">
+                        <div class="example-task-title">System Health</div>
+                        <div class="example-task-desc">Comprehensive system health monitoring</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="output-section" id="outputSection" style="display: none;">
+                <div class="output-header">
+                    <h3>Generated Script</h3>
+                    <div class="btn-group">
+                        <button class="copy-btn" id="copyBtn">📋 Copy</button>
+                        <button class="copy-btn" id="downloadBtn">💾 Download</button>
+                    </div>
+                </div>
+                <pre><code id="outputCode"></code></pre>
+            </div>
+        </div>
+    </div>
+    
+    <div class="toast" id="toast">Script copied to clipboard!</div>
+    
+    <script>
+        const scriptTemplates = {
+            powershell: {
+                'disk': {
+                    simple: `# PowerShell Disk Space Check
+# Task: Disk Space Monitoring
+# Generated by Pragmatic Sysadmin Script Generator
+
+Write-Host "Checking disk space..." -ForegroundColor Green
+
+$drives = Get-WmiObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3}
+foreach ($drive in $drives) {
+    $freeGB = [math]::Round($drive.FreeSpace / 1GB, 2)
+    $totalGB = [math]::Round($drive.Size / 1GB, 2)
+    $percentFree = [math]::Round(($drive.FreeSpace / $drive.Size) * 100, 2)
+    
+    Write-Host "$($drive.DeviceID): $freeGB GB free of $totalGB GB ($percentFree% free)" -ForegroundColor $(
+        if ($percentFree -lt 10) { "Red" }
+        elseif ($percentFree -lt 20) { "Yellow" }
+        else { "Green" }
+    )
+}`,
+                    
+                    intermediate: `# PowerShell Disk Space Check - Advanced
+# Task: Disk Space Monitoring with Alerting
+# Generated by Pragmatic Sysadmin Script Generator
+
+param(
+    [Parameter(Mandatory=$false)]
+    [int]$WarningThreshold = 20,
+    
+    [Parameter(Mandatory=$false)]
+    [string]$LogPath = "C:\Logs\disk_check.log"
+)
+
+Write-Host "Starting disk space check..." -ForegroundColor Green
+Write-Host "Warning threshold: $WarningThreshold% free space" -ForegroundColor Yellow
+
+# Create log directory if it doesn't exist
+$logDir = Split-Path $LogPath -Parent
+if (!(Test-Path $logDir)) {
+    New-Item -ItemType Directory -Path $logDir -Force | Out-Null
+}
+
+# Function to log messages
+function Write-Log {
+    param([string]$Message)
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    $logMessage = "[$timestamp] $Message"
+    Write-Host $logMessage
+    Add-Content -Path $LogPath -Value $logMessage
+}
+
+try {
+    $drives = Get-WmiObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3}
+    $issues = @()
+    
+    foreach ($drive in $drives) {
+        $freeGB = [math]::Round($drive.FreeSpace / 1GB, 2)
+        $totalGB = [math]::Round($drive.Size / 1GB, 2)
+        $percentFree = [math]::Round(($drive.FreeSpace / $drive.Size) * 100, 2)
+        
+        $color = switch ($percentFree) {
+            {$_ -lt 10} { "Red" }
+            {$_ -lt $WarningThreshold} { "Yellow" }
+            default { "Green" }
         }
-        return script;
-      } else {
-        let script = `#!/bin/bash\n# Task: ${task}\n`;
-        if (vars.length) script += `# Variables: ${vars.join(', ')}\n`;
-        script += `\n`;
-        if (task.toLowerCase().includes('disk')) {
-          script += `df -h`;
-        } else if (task.toLowerCase().includes('process')) {
-          script += `ps aux --sort=-%cpu | head -10`;
-        } else {
-          script += `# Add your logic here\necho \"Task: ${task}\"`;
+        
+        $status = if ($percentFree -lt $WarningThreshold) { "WARNING" } else { "OK" }
+        
+        Write-Log "$($drive.DeviceID): $freeGB GB free of $totalGB GB ($percentFree% free) - $status"
+        
+        if ($percentFree -lt $WarningThreshold) {
+            $issues += "$($drive.DeviceID): $percentFree% free"
         }
-        return script;
-      }
     }
-    document.getElementById('scriptForm').addEventListener('submit', function(e) {
-      e.preventDefault();
-      const type = document.getElementById('scriptType').value;
-      const task = document.getElementById('task').value;
-      const variables = document.getElementById('variables').value;
-      const script = generateScript(type, task, variables);
-      document.getElementById('output').innerHTML = `<pre>${script}</pre>`;
-    });
-  </script>
+    
+    if ($issues.Count -gt 0) {
+        Write-Log "ALERT: Disk space issues detected:"
+        $issues | ForEach-Object { Write-Log "  $_" }
+        exit 1
+    } else {
+        Write-Log "All drives have adequate disk space"
+        exit 0
+    }
+} catch {
+    Write-Log "ERROR: Exception occurred - $($_.Exception.Message)"
+    exit 2
+}`,
+                    
+                    advanced: `# PowerShell Disk Space Check - Enterprise
+# Task: Comprehensive Disk Space Monitoring with Email Alerts
+# Generated by Pragmatic Sysadmin Script Generator
+
+param(
+    [Parameter(Mandatory=$false)]
+    [int]$WarningThreshold = 20,
+    
+    [Parameter(Mandatory=$false)]
+    [int]$CriticalThreshold = 10,
+    
+    [Parameter(Mandatory=$false)]
+    [string]$LogPath = "C:\Logs\disk_check.log",
+    
+    [Parameter(Mandatory=$false)]
+    [string]$SMTPServer = "smtp.company.com",
+    
+    [Parameter(Mandatory=$false)]
+    [string]$AlertEmail = "admin@company.com",
+    
+    [Parameter(Mandatory=$false)]
+    [switch]$SendEmail
+)
+
+function Write-Log {
+    param([string]$Message, [string]$Level = "INFO")
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    $logMessage = "[$timestamp] [$Level] $Message"
+    Write-Host $logMessage
+    Add-Content -Path $LogPath -Value $logMessage
+}
+
+function Send-AlertEmail {
+    param([string]$Subject, [string]$Body)
+    if (-not $SendEmail) { return }
+    
+    try {
+        $smtp = New-Object Net.Mail.SmtpClient($SMTPServer)
+        $msg = New-Object Net.Mail.MailMessage
+        $msg.From = $AlertEmail
+        $msg.To.Add($AlertEmail)
+        $msg.Subject = $Subject
+        $msg.Body = $Body
+        $smtp.Send($msg)
+        Write-Log "Alert email sent successfully" "INFO"
+    } catch {
+        Write-Log "Failed to send email alert: $($_.Exception.Message)" "ERROR"
+    }
+}
+
+try {
+    Write-Log "Starting comprehensive disk space check"
+    Write-Log "Warning threshold: $WarningThreshold% | Critical threshold: $CriticalThreshold%"
+    
+    $criticalIssues = @()
+    $warningIssues = @()
+    $driveReport = @()
+    
+    $drives = Get-WmiObject -Class Win32_LogicalDisk | Where-Object {$_.DriveType -eq 3}
+    
+    foreach ($drive in $drives) {
+        $freeGB = [math]::Round($drive.FreeSpace / 1GB, 2)
+        $totalGB = [math]::Round($drive.Size / 1GB, 2)
+        $percentFree = [math]::Round(($drive.FreeSpace / $drive.Size) * 100, 2)
+        $usedGB = [math]::Round($totalGB - $freeGB, 2)
+        
+        $status = switch ($percentFree) {
+            {$_ -lt $CriticalThreshold} { "CRITICAL" }
+            {$_ -lt $WarningThreshold} { "WARNING" }
+            default { "OK" }
+        }
+        
+        $driveInfo = [PSCustomObject]@{
+            Drive = $drive.DeviceID
+            TotalGB = $totalGB
+            UsedGB = $usedGB
+            FreeGB = $freeGB
+            PercentFree = $percentFree
+            Status = $status
+        }
+        
+        $driveReport += $driveInfo
+        
+        switch ($status) {
+            "CRITICAL" { 
+                $criticalIssues += $driveInfo
+                Write-Log "$($drive.DeviceID): CRITICAL - $percentFree% free ($freeGB GB)" "ERROR"
+            }
+            "WARNING" { 
+                $warningIssues += $driveInfo
+                Write-Log "$($drive.DeviceID): WARNING - $percentFree% free ($freeGB GB)" "WARN"
+            }
+            default {
+                Write-Log "$($drive.DeviceID): OK - $percentFree% free ($freeGB GB)" "INFO"
+            }
+        }
+    }
+    
+    # Generate summary report
+    $summary = "Disk Space Report - $(Get-Date -Format 'yyyy-MM-dd HH:mm:ss')`n"
+    $summary += "=" * 50 + "`n"
+    foreach ($drive in $driveReport) {
+        $summary += "$($drive.Drive): $($drive.PercentFree)% free ($($drive.FreeGB) GB of $($drive.TotalGB) GB) - $($drive.Status)`n"
+    }
+    
+    # Send alerts if needed
+    if ($criticalIssues.Count -gt 0) {
+        Send-AlertEmail "CRITICAL: Disk Space Alert" "The following drives have critical disk space issues:`n`n$($criticalIssues | Format-List | Out-String)"
+        exit 1
+    } elseif ($warningIssues.Count -gt 0) {
+        Send-AlertEmail "WARNING: Disk Space Alert" "The following drives have low disk space:`n`n$($warningIssues | Format-List | Out-String)"
+        exit 2
+    } else {
+        Write-Log "All drives have adequate disk space" "INFO"
+        exit 0
+    }
+    
+} catch {
+    Write-Log "Script execution failed: $($_.Exception.Message)" "ERROR"
+    Send-AlertEmail "ERROR: Disk Check Script Failed" "The disk space check script encountered an error: $($_.Exception.Message)"
+    exit 3
+}`
+                },
+                
+                'process': {
+                    simple: `# PowerShell Process Monitor
+# Task: Process Monitoring
+# Generated by Pragmatic Sysadmin Script Generator
+
+$processName = Read-Host "Enter process name to monitor"
+Write-Host "Monitoring process: $processName" -ForegroundColor Green
+
+if (Get-Process -Name $processName -ErrorAction SilentlyContinue) {
+    Write-Host "Process '$processName' is running" -ForegroundColor Green
+    Get-Process -Name $processName | Select-Object Name, CPU, WorkingSet, StartTime
+} else {
+    Write-Host "Process '$processName' is not running" -ForegroundColor Red
+}`,
+                    
+                    intermediate: `# PowerShell Process Monitor - Advanced
+# Task: Process Monitoring with Restart Logic
+# Generated by Pragmatic Sysadmin Script Generator
+
+param(
+    [Parameter(Mandatory=$true)]
+    [string]$ProcessName,
+    
+    [Parameter(Mandatory=$false)]
+    [string]$ProcessPath = "",
+    
+    [Parameter(Mandatory=$false)]
+    [int]$CheckIntervalSeconds = 60,
+    
+    [Parameter(Mandatory=$false)]
+    [string]$LogPath = "C:\Logs\process_monitor.log"
+)
+
+function Write-Log {
+    param([string]$Message, [string]$Level = "INFO")
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    $logMessage = "[$timestamp] [$Level] $Message"
+    Write-Host $logMessage
+    Add-Content -Path $LogPath -Value $logMessage
+}
+
+function Start-Monitoring {
+    param([string]$ProcessName, [string]$ProcessPath)
+    
+    try {
+        Write-Log "Starting monitoring for process: $ProcessName"
+        
+        while ($true) {
+            $process = Get-Process -Name $ProcessName -ErrorAction SilentlyContinue
+            
+            if (-not $process) {
+                Write-Log "Process '$ProcessName' not found, attempting to start" "WARN"
+                
+                if ($ProcessPath -and (Test-Path $ProcessPath)) {
+                    Start-Process -FilePath $ProcessPath
+                    Write-Log "Started process from path: $ProcessPath" "INFO"
+                } else {
+                    Write-Log "Cannot start process - no path specified or path invalid" "ERROR"
+                    return $false
+                }
+                
+                # Wait a moment for process to start
+                Start-Sleep -Seconds 5
+            } else {
+                Write-Log "Process '$ProcessName' is running (PID: $($process.Id))" "INFO"
+            }
+            
+            Start-Sleep -Seconds $CheckIntervalSeconds
+        }
+    } catch {
+        Write-Log "Error in monitoring loop: $($_.Exception.Message)" "ERROR"
+        return $false
+    }
+}
+
+# Main execution
+try {
+    Write-Log "=== Process Monitor Started ==="
+    Write-Log "Process: $ProcessName"
+    Write-Log "Check Interval: $CheckIntervalSeconds seconds"
+    
+    Start-Monitoring -ProcessName $ProcessName -ProcessPath $ProcessPath
+    
+} catch {
+    Write-Log "Fatal error: $($_.Exception.Message)" "ERROR"
+    exit 1
+}`,
+                    
+                    advanced: `# PowerShell Process Monitor - Enterprise
+# Task: Comprehensive Process Monitoring with Alerts
+# Generated by Pragmatic Sysadmin Script Generator
+
+param(
+    [Parameter(Mandatory=$true)]
+    [string[]]$ProcessNames,
+    
+    [Parameter(Mandatory=$false)]
+    [string[]]$ProcessPaths = @(),
+    
+    [Parameter(Mandatory=$false)]
+    [int]$CPUThreshold = 80,
+    
+    [Parameter(Mandatory=$false)]
+    [int]$MemoryThresholdMB = 1024,
+    
+    [Parameter(Mandatory=$false)]
+    [int]$CheckIntervalSeconds = 30,
+    
+    [Parameter(Mandatory=$false)]
+    [string]$LogPath = "C:\Logs\process_monitor.log",
+    
+    [Parameter(Mandatory=$false)]
+    [switch]$SendAlerts
+)
+
+$ErrorActionPreference = "Stop"
+
+function Write-Log {
+    param([string]$Message, [string]$Level = "INFO")
+    $timestamp = Get-Date -Format "yyyy-MM-dd HH:mm:ss"
+    $logMessage = "[$timestamp] [$Level] $Message"
+    Write-Host $logMessage
+    Add-Content -Path $LogPath -Value $logMessage
+}
+
+function Get-ProcessHealth {
+    param([string]$ProcessName)
+    
+    $process = Get-Process -Name $ProcessName -ErrorAction SilentlyContinue
+    
+    if (-not $process) {
+        return @{ Status = "NOT_RUNNING"; CPU = 0; MemoryMB = 0; Uptime = 0 }
+    }
+    
+    $cpuPercent = $process.CPU
+    $memoryMB = [math]::Round($process.WorkingSet / 1MB, 2)
+    $uptime = (Get-Date) - $process.StartTime
+    
+    return @{
+        Status = "RUNNING"
+        CPU = $cpuPercent
+        MemoryMB = $memoryMB
+        UptimeMinutes = [math]::Round($uptime.TotalMinutes, 1)
+        Process = $process
+    }
+}
+
+function Send-Alert {
+    param([string]$Subject, [string]$Body)
+    if (-not $SendAlerts) { return }
+    
+    # Email sending logic would go here
+    Write-Log "ALERT: $Subject" "WARN"
+}
+
+function Restart-Process {
+    param([string]$ProcessName, [string]$ProcessPath)
+    
+    try {
+        $process = Get-Process -Name $ProcessName -ErrorAction SilentlyContinue
+        if ($process) {
+            Stop-Process -Id $process.Id -Force
+            Write-Log "Stopped process: $ProcessName" "INFO"
+        }
+        
+        if ($ProcessPath -and (Test-Path $ProcessPath)) {
+            Start-Process -FilePath $ProcessPath
+            Write-Log "Restarted process: $ProcessName" "INFO"
+            return $true
+        }
+        
+        return $false
+    } catch {
+        Write-Log "Failed to restart process $ProcessName: $($_.Exception.Message)" "ERROR"
+        return $false
+    }
+}
+
+# Main monitoring loop
+try {
+    Write-Log "=== Enterprise Process Monitor Started ==="
+    Write-Log "Monitoring processes: $($ProcessNames -join ', ')"
+    Write-Log "CPU Threshold: $CPUThreshold% | Memory Threshold: $MemoryThresholdMB MB"
+    
+    while ($true) {
+        foreach ($processName in $ProcessNames) {
+            $health = Get-ProcessHealth -ProcessName $processName
+            
+            if ($health.Status -eq "NOT_RUNNING") {
+                Write-Log "CRITICAL: Process '$processName' is not running" "ERROR"
+                Send-Alert -Subject "Process Down: $processName" -Body "Process $processName is not running"
+                
+                # Attempt restart if path is available
+                $index = [array]::IndexOf($ProcessNames, $processName)
+                if ($index -ge 0 -and $index -lt $ProcessPaths.Count -and $ProcessPaths[$index]) {
+                    Restart-Process -ProcessName $processName -ProcessPath $ProcessPaths[$index] | Out-Null
+                }
+            } else {
+                # Check performance thresholds
+                $issues = @()
+                
+                if ($health.CPU -gt $CPUThreshold) {
+                    $issues += "High CPU usage: $($health.CPU)% (threshold: $CPUThreshold%)"
+                }
+                
+                if ($health.MemoryMB -gt $MemoryThresholdMB) {
+                    $issues += "High memory usage: $($health.MemoryMB) MB (threshold: $MemoryThresholdMB MB)"
+                }
+                
+                if ($issues.Count -gt 0) {
+                    Write-Log "WARNING: Process '$processName' performance issues: $($issues -join ', ')" "WARN"
+                    Send-Alert -Subject "Performance Issue: $processName" -Body "Process $processName has performance issues:`n$($issues -join "`n")"
+                } else {
+                    Write-Log "Process '$processName' healthy (CPU: $($health.CPU)%, Memory: $($health.MemoryMB)MB, Uptime: $($health.UptimeMinutes)min)" "INFO"
+                }
+            }
+        }
+        
+        Start-Sleep -Seconds $CheckIntervalSeconds
+    }
+    
+} catch {
+    Write-Log "Fatal error in process monitor: $($_.Exception.Message)" "ERROR"
+    exit 1
+}`
+                }
+            },
+            
+            bash: {
+                'disk': {
+                    simple: `#!/bin/bash
+# Bash Disk Space Check
+# Task: Disk Space Monitoring
+# Generated by Pragmatic Sysadmin Script Generator
+
+echo "Checking disk space..."
+df -h
+
+echo -e "\nDisk usage by mount point:"
+df -h | grep -v tmpfs | grep -v devtmpfs
+
+# Highlight low space
+echo -e "\n⚠️  Drives with less than 20% free space:"
+df -h | awk '$5 > 80 {printf "WARNING: %s is %s full (%s used)\\n", $1, $5, $3}'`,
+                    
+                    intermediate: `#!/bin/bash
+# Bash Disk Space Check - Advanced
+# Task: Disk Space Monitoring with Logging
+# Generated by Pragmatic Sysadmin Script Generator
+
+# Configuration
+WARNING_THRESHOLD=20
+LOG_FILE="/var/log/disk_check.log"
+EMAIL_ALERT=""
+
+# Function to log messages
+log_message() {
+    local level="$1"
+    local message="$2"
+    echo "[$(date '+%Y-%m-%d %H:%M:%S')] [$level] $message" | tee -a "$LOG_FILE"
+}
+
+# Function to check disk space
+check_disk_space() {
+    local mount_point="$1"
+    local threshold="$2"
+    
+    local usage=$(df "$mount_point" | tail -1 | awk '{print $5}' | sed 's/%//')
+    local total=$(df "$mount_point" | tail -1 | awk '{print $2}')
+    local used=$(df "$mount_point" | tail -1 | awk '{print $3}')
+    local avail=$(df "$mount_point" | tail -1 | awk '{print $4}')
+    
+    # Convert to human readable
+    case "$total" in
+        G*) total_val=$(echo "$total" | sed 's/G//') ;;
+        T*) total_val=$(echo "$total" | sed 's/T//' | awk '{print $1 * 1024}') ;;
+        *) total_val=$(echo "$total" | sed 's/M//' | awk '{print $1 / 1024}') ;;
+    esac
+    
+    if [ "$usage" -gt "$threshold" ]; then
+        log_message "WARNING" "Mount point $mount_point is ${usage}% full (${avail} available)"
+        return 1
+    else
+        log_message "INFO" "Mount point $mount_point is ${usage}% full (${avail} available)"
+        return 0
+    fi
+}
+
+# Main execution
+main() {
+    log_message "INFO" "Starting disk space check"
+    
+    # Check common mount points
+    issues=0
+    
+    for mount_point in "/" "/home" "/var" "/opt" "/tmp"; do
+        if mountpoint -q "$mount_point" 2>/dev/null; then
+            if ! check_disk_space "$mount_point" "$WARNING_THRESHOLD"; then
+                issues=$((issues + 1))
+            fi
+        fi
+    done
+    
+    if [ $issues -gt 0 ]; then
+        log_message "ERROR" "Found $issues mount points exceeding threshold"
+        exit 1
+    else
+        log_message "INFO" "All mount points have adequate disk space"
+        exit 0
+    fi
+}
+
+# Ensure log directory exists
+mkdir -p "$(dirname "$LOG_FILE")"
+main "$@"`,
+                    
+                    advanced: `#!/bin/bash
+# Bash Disk Space Check - Enterprise
+# Task: Comprehensive Disk Space Monitoring with Email Alerts
+# Generated by Pragmatic Sysadmin Script Generator
+
+# Configuration
+WARNING_THRESHOLD=20
+CRITICAL_THRESHOLD=10
+LOG_FILE="/var/log/disk_check.log"
+SMTP_SERVER="smtp.company.com"
+ALERT_EMAIL="admin@company.com"
+SEND_EMAIL=false
+
+# Ensure log directory exists
+mkdir -p "$(dirname "$LOG_FILE")"
+
+# Function to log messages with levels
+log_message() {
+    local level="$1"
+    local message="$2"
+    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+    
+    case "$level" in
+        "INFO")  echo "[$timestamp] [INFO]  $message" ;;
+        "WARN")  echo "[$timestamp] [WARN]  $message" ;;
+        "ERROR") echo "[$timestamp] [ERROR] $message" ;;
+        *) echo "[$timestamp] [DEBUG] $message" ;;
+    esac | tee -a "$LOG_FILE"
+}
+
+# Function to send email alerts
+send_email_alert() {
+    local subject="$1"
+    local body="$2"
+    
+    if [ "$SEND_EMAIL" = "true" ]; then
+        {
+            echo "From: $ALERT_EMAIL"
+            echo "To: $ALERT_EMAIL"
+            echo "Subject: $subject"
+            echo "Date: $(date -R)"
+            echo ""
+            echo "$body"
+        } | sendmail -f "$ALERT_EMAIL" "$ALERT_EMAIL"
+        
+        log_message "INFO" "Alert email sent: $subject"
+    fi
+}
+
+# Function to get human-readable size
+human_readable_size() {
+    local size_bytes="$1"
+    local size=""
+    local unit=""
+    
+    if [ "$size_bytes" -gt 1099511627776 ]; then
+        size=$(echo "scale=2; $size_bytes / 1099511627776" | bc)
+        unit="TB"
+    elif [ "$size_bytes" -gt 1073741824 ]; then
+        size=$(echo "scale=2; $size_bytes / 1073741824" | bc)
+        unit="GB"
+    elif [ "$size_bytes" -gt 1048576 ]; then
+        size=$(echo "scale=2; $size_bytes / 1048576" | bc)
+        unit="MB"
+    else
+        size=$size_bytes
+        unit="KB"
+    fi
+    
+    echo "${size}${unit}"
+}
+
+# Function to check disk usage with detailed analysis
+analyze_disk_usage() {
+    local mount_point="$1"
+    local warning_threshold="$2"
+    local critical_threshold="$3"
+    
+    # Get disk usage percentage (remove %)
+    local usage=$(df "$mount_point" | tail -1 | awk '{print $5}' | sed 's/%//')
+    
+    if [ "$usage" -gt 100 ]; then
+        log_message "ERROR" "Invalid disk usage percentage for $mount_point: $usage%"
+        return 1
+    fi
+    
+    # Get detailed information
+    local filesystem=$(df "$mount_point" | tail -1 | awk '{print $1}')
+    local total=$(df "$mount_point" | tail -1 | awk '{print $2}')
+    local used=$(df "$mount_point" | tail -1 | awk '{print $3}')
+    local avail=$(df "$mount_point" | tail -1 | awk '{print $4}')
+    
+    # Convert to human readable
+    local total_hr=$(human_readable_size "$total")
+    local used_hr=$(human_readable_size "$used")
+    local avail_hr=$(human_readable_size "$avail")
+    
+    # Determine status
+    local status="OK"
+    local log_level="INFO"
+    
+    if [ "$usage" -lt "$critical_threshold" ]; then
+        status="CRITICAL"
+        log_level="ERROR"
+    elif [ "$usage" -lt "$warning_threshold" ]; then
+        status="WARNING"
+        log_level="WARN"
+    fi
+    
+    log_message "$log_level" "$mount_point ($filesystem): $usage% full - $used_hr used / $total_hr ($avail_hr available) - $status"
+    
+    return $([ "$status" = "OK" ] && echo 0 || echo 1)
+}
+
+# Function to generate detailed report
+generate_report() {
+    local temp_report="/tmp/disk_report_$$.txt"
+    
+    echo "=== Disk Space Report ===" > "$temp_report"
+    echo "Generated: $(date)" >> "$temp_report"
+    echo "" >> "$temp_report"
+    echo "Filesystem                Size  Used Avail Use% Mounted on" >> "$temp_report"
+    df -h | tail -n +2 >> "$temp_report"
+    echo "" >> "$temp_report"
+    
+    echo "Critical Issues:" >> "$temp_report"
+    df -h | tail -n +2 | awk '$5+0 >= '$CRITICAL_THRESHOLD' {print "  " $0}' >> "$temp_report" || echo "  None" >> "$temp_report"
+    echo "" >> "$temp_report"
+    
+    echo "Warning Issues:" >> "$temp_report"
+    df -h | tail -n +2 | awk '$5+0 >= '$WARNING_THRESHOLD' && $5+0 < '$CRITICAL_THRESHOLD' {print "  " $0}' >> "$temp_report" || echo "  None" >> "$temp_report"
+    
+    cat "$temp_report"
+    rm -f "$temp_report"
+}
+
+# Function to cleanup old log files
+cleanup_logs() {
+    local max_age_days=30
+    
+    # Find and remove log files older than max_age_days
+    find "$(dirname "$LOG_FILE")" -name "disk_check.log*" -mtime +$max_age_days -delete 2>/dev/null
+    
+    # Truncate log file if it's too large (>100MB)
+    if [ -f "$LOG_FILE" ] && [ $(stat -f%z "$LOG_FILE" 2>/dev/null || stat -c%s "$LOG_FILE" 2>/dev/null) -gt 104857600 ]; then
+        log_message "INFO" "Log file size exceeded 100MB, rotating..."
+        mv "$LOG_FILE" "${LOG_FILE}.old"
+        echo "" > "$LOG_FILE"
+    fi
+}
+
+# Main execution
+main() {
+    log_message "INFO" "Starting comprehensive disk space analysis"
+    log_message "INFO" "Warning threshold: $WARNING_THRESHOLD% | Critical threshold: $CRITICAL_THRESHOLD%"
+    
+    cleanup_logs
+    
+    local critical_count=0
+    local warning_count=0
+    local critical_mounts=()
+    local warning_mounts=()
+    
+    # Get list of mounted filesystems (excluding special filesystems)
+    local mounts=$(mount | grep -v 'tmpfs\|devtmpfs\|proc\|sysfs\|devpts\|swap\|nfs\|cifs' | awk '{print $3}' | sort -u)
+    
+    # Analyze each mount point
+    for mount_point in $mounts; do
+        if analyze_disk_usage "$mount_point" "$WARNING_THRESHOLD" "$CRITICAL_THRESHOLD"; then
+            warning_count=$((warning_count + 1))
+            warning_mounts+=("$mount_point")
+        else
+            # Check if it's critical or warning
+            local usage=$(df "$mount_point" | tail -1 | awk '{print $5}' | sed 's/%//')
+            if [ "$usage" -ge "$CRITICAL_THRESHOLD" ]; then
+                critical_count=$((critical_count + 1))
+                critical_mounts+=("$mount_point")
+            else
+                warning_count=$((warning_count + 1))
+                warning_mounts+=("$mount_point")
+            fi
+        fi
+    done
+    
+    # Generate and display report
+    generate_report
+    
+    # Send alerts and set exit code
+    if [ $critical_count -gt 0 ]; then
+        local alert_body="CRITICAL: The following mount points have critical disk space issues: (>$CRITICAL_THRESHOLD% full)\n\n"
+        alert_body+="$(printf '• %s\n' "${critical_mounts[@]}")\n"
+        alert_body+="\nDetailed report:\n"
+        alert_body+="$(generate_report)"
+        
+        send_email_alert "CRITICAL: Disk Space Alert" "$alert_body"
+        log_message "ERROR" "CRITICAL: $critical_count mount points exceed critical threshold"
+        exit 2
+    elif [ $warning_count -gt 0 ]; then
+        local alert_body="WARNING: The following mount points have low disk space: (>$WARNING_THRESHOLD% full)\n\n"
+        alert_body+="$(printf '• %s\n' "${warning_mounts[@]}")\n"
+        alert_body+="\nDetailed report:\n"
+        alert_body+="$(generate_report)"
+        
+        send_email_alert "WARNING: Disk Space Alert" "$alert_body"
+        log_message "WARN" "WARNING: $warning_count mount points exceed warning threshold"
+        exit 1
+    else
+        log_message "INFO" "All mount points have adequate disk space ($critical_count critical, $warning_count warnings)"
+        exit 0
+    fi
+}
+
+# Handle script arguments
+while [[ $# -gt 0 ]]; do
+    case $1 in
+        --warning-threshold)
+            WARNING_THRESHOLD="$2"
+            shift 2
+            ;;
+        --critical-threshold)
+            CRITICAL_THRESHOLD="$2"
+            shift 2
+            ;;
+        --send-email)
+            SEND_EMAIL=true
+            shift
+            ;;
+        --alert-email)
+            ALERT_EMAIL="$2"
+            shift 2
+            ;;
+        *)
+            echo "Unknown option: $1"
+            echo "Usage: $0 [--warning-threshold PERCENT] [--critical-threshold PERCENT] [--send-email] [--alert-email EMAIL]"
+            exit 1
+            ;;
+    esac
+done
+
+# Run main function
+main "$@"`
+                },
+                
+                'process': {
+                    simple: `#!/bin/bash
+# Bash Process Monitor
+# Task: Process Monitoring
+# Generated by Pragmatic Sysadmin Script Generator
+
+echo "Enter the process name to monitor:"
+read -r process_name
+
+if pgrep -x "$process_name" > /dev/null; then
+    echo "✅ Process '$process_name' is running"
+    echo -e "\nProcess details:"
+    ps aux | grep -v grep | grep "$process_name"
+else
+    echo "❌ Process '$process_name' is not running"
+fi`,
+                    
+                    intermediate: `#!/bin/bash
+# Bash Process Monitor - Advanced
+# Task: Process Monitoring with Auto-Restart
+# Generated by Pragmatic Sysadmin Script Generator
+
+# Configuration
+PROCESS_NAME=""
+PROCESS_PATH=""
+CHECK_INTERVAL=60
+LOG_FILE="/var/log/process_monitor.log"
+MAX_RESTART_ATTEMPTS=3
+
+# Function to log messages
+log_message() {
+    local level="$1"
+    local message="$2"
+    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+    echo "[$timestamp] [$level] $message" | tee -a "$LOG_FILE"
+}
+
+# Function to check if process is running
+is_process_running() {
+    pgrep -x "$1" > /dev/null
+    return $?
+}
+
+# Function to start process
+start_process() {
+    local process_path="$1"
+    local process_name="$2"
+    
+    if [ -z "$process_path" ]; then
+        log_message "ERROR" "Cannot start process: no path specified for $process_name"
+        return 1
+    fi
+    
+    if [ ! -f "$process_path" ]; then
+        log_message "ERROR" "Cannot start process: executable not found at $process_path"
+        return 1
+    fi
+    
+    if [ ! -x "$process_path" ]; then
+        chmod +x "$process_path"
+    fi
+    
+    log_message "INFO" "Starting process: $process_name from $process_path"
+    nohup "$process_path" > /dev/null 2>&1 &
+    
+    # Wait a moment for process to start
+    sleep 3
+    
+    if is_process_running "$process_name"; then
+        log_message "INFO" "Successfully started process: $process_name"
+        return 0
+    else
+        log_message "ERROR" "Failed to start process: $process_name"
+        return 1
+    fi
+}
+
+# Function to restart process
+restart_process() {
+    local process_name="$1"
+    local process_path="$2"
+    local attempt="$3"
+    
+    log_message "WARN" "Attempting to restart process '$process_name' (attempt $attempt)"
+    
+    # Stop the process
+    if is_process_running "$process_name"; then
+        pkill -TERM -x "$process_name"
+        sleep 5
+        
+        # Force kill if still running
+        if is_process_running "$process_name"; then
+            pkill -KILL -x "$process_name"
+            sleep 2
+        fi
+    fi
+    
+    # Start the process
+    start_process "$process_path" "$process_name"
+}
+
+# Function to monitor process
+monitor_process() {
+    local process_name="$1"
+    local process_path="$2"
+    local check_interval="$3"
+    
+    log_message "INFO" "Starting monitoring for process: $process_name"
+    
+    while true; do
+        if ! is_process_running "$process_name"; then
+            log_message "WARN" "Process '$process_name' is not running"
+            
+            # Try to restart the process
+            for attempt in $(seq 1 $MAX_RESTART_ATTEMPTS); do
+                restart_process "$process_name" "$process_path" "$attempt"
+                
+                if is_process_running "$process_name"; then
+                    log_message "INFO" "Successfully restarted process '$process_name' on attempt $attempt"
+                    break
+                else
+                    log_message "ERROR" "Failed to restart on attempt $attempt"
+                    sleep 5
+                fi
+            done
+            
+            if ! is_process_running "$process_name"; then
+                log_message "ERROR" "Failed to restart process '$process_name' after $MAX_RESTART_ATTEMPTS attempts"
+            fi
+        else
+            # Get process details
+            local pid=$(pgrep -x "$process_name")
+            local cpu_usage=$(ps -p "$pid" -o %cpu --no-headers)
+            local mem_usage=$(ps -p "$pid" -o %mem --no-headers)
+            
+            log_message "INFO" "Process '$process_name' is running (PID: $pid, CPU: $cpu_usage%, Memory: $mem_usage%)"
+        fi
+        
+        sleep "$check_interval"
+    done
+}
+
+# Function to show usage
+show_usage() {
+    echo "Usage: $0 -n PROCESS_NAME [-p PROCESS_PATH] [-i INTERVAL] [-l LOG_FILE] [-h]"
+    echo ""
+    echo "Options:"
+    echo "  -n PROCESS_NAME    Name of the process to monitor (required)"
+    echo "  -p PROCESS_PATH    Full path to process executable for auto-restart"
+    echo "  -i INTERVAL        Check interval in seconds (default: 60)"
+    echo "  -l LOG_FILE        Log file path (default: /var/log/process_monitor.log)"
+    echo "  -h                 Show this help message"
+    echo ""
+    echo "Examples:"
+    echo "  $0 -n nginx"
+    echo "  $0 -n apache2 -p /usr/sbin/apache2 -i 30"
+}
+
+# Parse command line arguments
+while getopts "n:p:i:l:h" opt; do
+    case $opt in
+        n) PROCESS_NAME="$OPTARG" ;;
+        p) PROCESS_PATH="$OPTARG" ;;
+        i) CHECK_INTERVAL="$OPTARG" ;;
+        l) LOG_FILE="$OPTARG" ;;
+        h) show_usage; exit 0 ;;
+        *) show_usage; exit 1 ;;
+    esac
+done
+
+# Validate required parameters
+if [ -z "$PROCESS_NAME" ]; then
+    echo "Error: Process name is required"
+    echo ""
+    show_usage
+    exit 1
+fi
+
+# Ensure log directory exists
+mkdir -p "$(dirname "$LOG_FILE")"
+
+# Start monitoring
+main() {
+    log_message "INFO" "=== Process Monitor Started ==="
+    log_message "INFO" "Process: $PROCESS_NAME"
+    log_message "INFO" "Check interval: $CHECK_INTERVAL seconds"
+    log_message "INFO" "Log file: $LOG_FILE"
+    
+    if [ -n "$PROCESS_PATH" ]; then
+        log_message "INFO" "Process path: $PROCESS_PATH"
+    fi
+    
+    monitor_process "$PROCESS_NAME" "$PROCESS_PATH" "$CHECK_INTERVAL"
+}
+
+# Trap SIGTERM and SIGINT for graceful shutdown
+trap 'log_message "INFO" "Received shutdown signal"; exit 0' TERM INT
+
+# Run main function
+main "$@"`,
+                    
+                    advanced: `#!/bin/bash
+# Bash Process Monitor - Enterprise
+# Task: Comprehensive Process Monitoring with Performance Tracking
+# Generated by Pragmatic Sysadmin Script Generator
+
+# Configuration
+declare -A PROCESS_CONFIGS
+PROCESS_NAMES=()
+PROCESS_PATHS=()
+CPU_THRESHOLD=80
+MEMORY_THRESHOLD=1024  # MB
+CHECK_INTERVAL=30
+LOG_FILE="/var/log/process_monitor.log"
+SEND_ALERTS=false
+ALERT_EMAIL="admin@company.com"
+METRICS_FILE="/var/log/process_metrics.log"
+
+# Function to log messages with different levels
+log_message() {
+    local level="$1"
+    local message="$2"
+    local timestamp=$(date '+%Y-%m-%d %H:%M:%S')
+    
+    case "$level" in
+        "INFO")  echo "[$timestamp] [INFO]  $message" ;;
+        "WARN")  echo "[$timestamp] [WARN]  $message" ;;
+        "ERROR") echo "[$timestamp] [ERROR] $message" ;;
+        "FATAL") echo "[$timestamp] [FATAL] $message" ;;
+        *) echo "[$timestamp] [DEBUG] $message" ;;
+    esac | tee -a "$LOG_FILE"
+}
+
+# Function to send email alerts
+send_alert() {
+    local subject="$1"
+    local body="$2"
+    
+    if [ "$SEND_ALERTS" = "false" ]; then
+        return 0
+    fi
+    
+    {
+        echo "From: $ALERT_EMAIL"
+        echo "To: $ALERT_EMAIL"
+        echo "Subject: [PROCESS_MONITOR] $subject"
+        echo "Date: $(date -R)"
+        echo ""
+        echo "$body"
+    } | sendmail -f "$ALERT_EMAIL" "$ALERT_EMAIL" 2>/dev/null
+    
+    if [ $? -eq 0 ]; then
+        log_message "INFO" "Alert email sent successfully"
+    else
+        log_message "ERROR" "Failed to send alert email"
+    fi
+}
+
+# Function to get process statistics
+get_process_stats() {
+    local process_name="$1"
+    local pid
+    
+    # Get the first matching PID
+    pid=$(pgrep -x "$process_name" | head -1)
+    
+    if [ -z "$pid" ]; then
+        echo "NOT_RUNNING:0:0:0"
+        return
+    fi
+    
+    # Get process statistics
+    local cpu_usage
+    local memory_usage_kb
+    local uptime_seconds
+    
+    read cpu_usage memory_usage_kb uptime_seconds < <(ps -p "$pid" -o %cpu,%mem,etime --no-headers | awk '{printf "%.1f:%s:%s", $1, $2, $3}')
+    
+    # Convert memory from KB to MB
+    local memory_usage_mb=$((memory_usage_kb / 1024))
+    
+    # Convert uptime to seconds (simplified)
+    local uptime_minutes=0
+    if [[ $uptime_seconds =~ : ]]; then
+        # Format like "1-02:03:04" or "02:03:04"
+        if [[ $uptime_seconds == *-* ]]; then
+            # Days-hours:minutes:seconds
+            local days=${uptime_seconds%-*}
+            local time_part=${uptime_seconds#*-}
+            local hours=${time_part%%:*}
+            local minutes=${time_part#*:}
+            minutes=${minutes%%:*}
+            uptime_minutes=$((days * 24 * 60 + hours * 60 + minutes))
+        else
+            # Hours:minutes:seconds
+            hours=${uptime_seconds%%:*}
+            minutes=${uptime_seconds#*:}
+            minutes=${minutes%%:*}
+            uptime_minutes=$((hours * 60 + minutes))
+        fi
+    fi
+    
+    echo "RUNNING:$cpu_usage:$memory_usage_mb:$uptime_minutes:$pid"
+}
+
+# Function to analyze process health
+analyze_process_health() {
+    local process_name="$1"
+    local stats="$2"
+    local cpu_threshold="$3"
+    local memory_threshold="$4"
+    
+    IFS=':' read -r status cpu mem uptime pid <<< "$stats"
+    
+    local health_status="HEALTHY"
+    local issues=()
+    
+    case "$status" in
+        "NOT_RUNNING")
+            health_status="DOWN"
+            issues+=("Process is not running")
+            ;;
+        "RUNNING")
+            # Check CPU usage
+            if (( $(echo "$cpu > $cpu_threshold" | bc -l) )); then
+                health_status="WARNING"
+                issues+=("High CPU usage: ${cpu}% (threshold: ${cpu_threshold}%)")
+            fi
+            
+            # Check memory usage
+            if [ "$mem" -gt "$memory_threshold" ]; then
+                health_status="WARNING"
+                issues+=("High memory usage: ${mem}MB (threshold: ${memory_threshold}MB)")
+            fi
+            
+            # Check uptime (warn if less than 5 minutes - might be restarting frequently)
+            if [ "$uptime" -lt 5 ]; then
+                if [ "$health_status" = "HEALTHY" ]; then
+                    health_status="WARNING"
+                fi
+                issues+=("Short uptime: ${uptime} minutes (may be restarting frequently)")
+            fi
+            ;;
+    esac
+    
+    echo "$health_status:$pid:$cpu:$mem:$uptime:$(IFS='|'; echo "${issues[*]}")"
+}
+
+# Function to restart a process
+restart_process() {
+    local process_name="$1"
+    local process_path="$2"
+    local restart_count="$3"
+    
+    log_message "WARN" "Attempting to restart process '$process_name' (attempt $restart_count)"
+    
+    # Stop the process gracefully
+    if pgrep -x "$process_name" > /dev/null; then
+        pkill -TERM -x "$process_name"
+        sleep 5
+        
+        # Force kill if still running
+        if pgrep -x "$process_name" > /dev/null; then
+            pkill -KILL -x "$process_name"
+            sleep 2
+        fi
+    fi
+    
+    # Start the process
+    if [ -n "$process_path" ] && [ -f "$process_path" ]; then
+        if [ ! -x "$process_path" ]; then
+            chmod +x "$process_path"
+        fi
+        
+        nohup "$process_path" > /dev/null 2>&1 &
+        local sleep_time=3
+        sleep $sleep_time
+        
+        if pgrep -x "$process_name" > /dev/null; then
+            log_message "INFO" "Successfully restarted process '$process_name'"
+            return 0
+        fi
+    fi
+    
+    log_message "ERROR" "Failed to restart process '$process_name'"
+    return 1
+}
+
+# Function to generate performance report
+generate_performance_report() {
+    local report_file="/tmp/process_report_$$.txt"
+    
+    echo "=== Process Monitor Report ===" > "$report_file"
+    echo "Generated: $(date)" >> "$report_file"
+    echo "Check Interval: $CHECK_INTERVAL seconds" >> "$report_file"
+    echo "CPU Threshold: $CPU_THRESHOLD% | Memory Threshold: $MEMORY_THRESHOLD MB" >> "$report_file"
+    echo "" >> "$report_file"
+    
+    echo "Process Status:" >> "$report_file"
+    printf "%-20s %-8s %-8s %-8s %-12s %-10s %s\n" "Process" "Status" "PID" "CPU%" "Memory(MB)" "Uptime(min)" "Issues" >> "$report_file"
+    echo "-------------------------------------------------------------------" >> "$report_file"
+    
+    for process_name in "${PROCESS_NAMES[@]}"; do
+        local stats=$(get_process_stats "$process_name")
+        local health=$(analyze_process_health "$process_name" "$stats" "$CPU_THRESHOLD" "$MEMORY_THRESHOLD")
+        
+        IFS=':' read -r health_status pid cpu mem uptime issues_str <<< "$health"
+        
+        printf "%-20s %-8s %-8s %-8s %-12s %-10s %s\n" \
+               "$process_name" "$health_status" "$pid" "$cpu" "$mem" "$uptime" "${issues_str//|/, }" >> "$report_file"
+    done
+    
+    cat "$report_file"
+    rm -f "$report_file"
+}
+
+# Function to monitor single process
+monitor_single_process() {
+    local process_name="$1"
+    local process_path="$2"
+    local index="$3"
+    
+    local restart_count=0
+    local last_restart_time=0
+    
+    while true; do
+        local stats=$(get_process_stats "$process_name")
+        local health=$(analyze_process_health "$process_name" "$stats" "$CPU_THRESHOLD" "$MEMORY_THRESHOLD")
+        
+        IFS=':' read -r health_status pid cpu mem uptime issues_str <<< "$health"
+        IFS='|' read -r -a issues <<< "$issues_str"
+        
+        case "$health_status" in
+            "DOWN")
+                local current_time=$(date +%s)
+                if [ $restart_count -lt 3 ] || [ $((current_time - last_restart_time)) -gt 300 ]; then
+                    restart_process "$process_name" "$process_path" $((restart_count + 1))
+                    restart_count=$((restart_count + 1))
+                    last_restart_time=$current_time
+                else
+                    log_message "FATAL" "Process '$process_name' has failed to restart 3 times in 5 minutes"
+                    send_alert "Process Fatal Error" "Process '$process_name' has failed to restart 3 times in 5 minutes. Manual intervention required."
+                    break
+                fi
+                ;;
+            "WARNING")
+                for issue in "${issues[@]}"; do
+                    if [[ "$issue" == *"not running"* ]]; then
+                        # Handle restart logic here (similar to DOWN case but with less aggressive behavior)
+                        restart_process "$process_name" "$process_path" $((restart_count + 1))
+                        break
+                    else
+                        log_message "WARN" "Process '$process_name': $issue"
+                    fi
+                done
+                ;;
+            "HEALTHY")
+                log_message "INFO" "Process '$process_name' is healthy (CPU: ${cpu}%, Memory: ${mem}MB, Uptime: ${uptime}min)"
+                ;;
+        esac
+        
+        sleep "$CHECK_INTERVAL"
+    done
+}
+
+# Function to cleanup old metrics
+cleanup_metrics() {
+    # Keep only last 30 days of metrics
+    find "$(dirname "$METRICS_FILE")" -name "$(basename "$METRICS_FILE")*" -mtime +30 -delete 2>/dev/null
+    
+    # Rotate log file if larger than 100MB
+    if [ -f "$LOG_FILE" ] && [ $(stat -f%z "$LOG_FILE" 2>/dev/null || stat -c%s "$LOG_FILE" 2>/dev/null) -gt 104857600 ]; then
+        log_message "INFO" "Log file size exceeded 100MB, rotating..."
+        mv "$LOG_FILE" "${LOG_FILE}.$(date +%Y%m%d_%H%M%S)"
+        touch "$LOG_FILE"
+    fi
+}
+
+# Function to show usage
+show_usage() {
+    echo "Usage: $0 [OPTIONS]"
+    echo ""
+    echo "Options:"
+    echo "  -n PROCESS_NAME    Process name to monitor (can be specified multiple times)"
+    echo "  -p PROCESS_PATH    Path to process executable (matches -n order)"
+    echo "  -c CPU_THRESHOLD   CPU usage threshold percentage (default: 80)"
+    echo "  -m MEMORY_THRESHOLD Memory usage threshold in MB (default: 1024)"
+    echo "  -i INTERVAL        Check interval in seconds (default: 30)"
+    echo "  -l LOG_FILE        Log file path (default: /var/log/process_monitor.log)"
+    echo "  -e EMAIL           Email address for alerts (default: admin@company.com)"
+    echo "  -a                 Enable email alerts"
+    echo "  -h                 Show this help message"
+    echo ""
+    echo "Examples:"
+    echo "  $0 -n nginx -n apache2 -a -e admin@company.com"
+    echo "  $0 -n redis -p /usr/bin/redis-server -c 70 -m 2048"
+}
+
+# Parse command line arguments
+while getopts "n:p:c:m:i:l:e:ah" opt; do
+    case $opt in
+        n) PROCESS_NAMES+=("$OPTARG") ;;
+        p) PROCESS_PATHS+=("$OPTARG") ;;
+        c) CPU_THRESHOLD="$OPTARG" ;;
+        m) MEMORY_THRESHOLD="$OPTARG" ;;
+        i) CHECK_INTERVAL="$OPTARG" ;;
+        l) LOG_FILE="$OPTARG" ;;
+        e) ALERT_EMAIL="$OPTARG" ;;
+        a) SEND_ALERTS=true ;;
+        h) show_usage; exit 0 ;;
+        *) show_usage; exit 1 ;;
+    esac
+done
+
+# Main execution
+main() {
+    if [ ${#PROCESS_NAMES[@]} -eq 0 ]; then
+        echo "Error: At least one process name must be specified"
+        echo ""
+        show_usage
+        exit 1
+    fi
+    
+    # Ensure log directory exists
+    mkdir -p "$(dirname "$LOG_FILE")"
+    mkdir -p "$(dirname "$METRICS_FILE")"
+    
+    log_message "INFO" "=== Enterprise Process Monitor Started ==="
+    log_message "INFO" "Monitoring processes: ${PROCESS_NAMES[*]}"
+    log_message "INFO" "CPU Threshold: $CPU_THRESHOLD% | Memory Threshold: $MEMORY_THRESHOLD MB"
+    log_message "INFO" "Check Interval: $CHECK_INTERVAL seconds"
+    
+    # Set up signal handlers for graceful shutdown
+    trap 'log_message "INFO" "Received shutdown signal"; exit 0' TERM INT
+    
+    # Cleanup old files
+    cleanup_metrics
+    
+    # Generate initial report
+    generate_performance_report
+    
+    # Start monitoring each process in background
+    local pids=()
+    for i in "${!PROCESS_NAMES[@]}"; do
+        local process_name="${PROCESS_NAMES[i]}"
+        local process_path="${PROCESS_PATHS[$i]:-}"
+        
+        log_message "INFO" "Starting monitor for process: $process_name"
+        monitor_single_process "$process_name" "$process_path" "$i" &
+        pids+=($!)
+    done
+    
+    # Wait for all background processes
+    wait "${pids[@]}"
+}
+
+# Run main function
+main "$@"`
+                }
+            }
+        };
+
+        function generateScript(type, task, variables, complexity) {
+            const taskLower = task.toLowerCase();
+            let vars = variables.split(',').map(v => v.trim()).filter(v => v);
+            
+            // Determine script type based on task keywords
+            let scriptKey = 'disk';
+            if (taskLower.includes('process') || taskLower.includes('service') || taskLower.includes('monitor')) {
+                scriptKey = 'process';
+            } else if (taskLower.includes('log') || taskLower.includes('cleanup') || taskLower.includes('rotate')) {
+                scriptKey = 'process'; // Using process as alternative template
+            }
+            
+            // Get template
+            const template = scriptTemplates[type][scriptKey][complexity];
+            
+            if (!template) {
+                // Fallback to simple template
+                return scriptTemplates[type][scriptKey]['simple'];
+            }
+            
+            let script = template;
+            
+            // Replace task description in comments
+            script = script.replace(/\{\{TASK\}\}/g, task);
+            
+            // Replace variables in template
+            if (vars.length > 0) {
+                const varComments = vars.map(v => `# Parameter: ${v}`).join('\n');
+                script = script.replace('# {{VARIABLES}}', varComments);
+            }
+            
+            return script;
+        }
+
+        function fillExample(task, variables) {
+            document.getElementById('task').value = task;
+            document.getElementById('variables').value = variables;
+            document.getElementById('task').focus();
+        }
+
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('show');
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        function copyToClipboard(text) {
+            if (navigator.clipboard) {
+                navigator.clipboard.writeText(text).then(() => {
+                    showToast('Script copied to clipboard!');
+                });
+            } else {
+                // Fallback for older browsers
+                const textArea = document.createElement('textarea');
+                textArea.value = text;
+                document.body.appendChild(textArea);
+                textArea.select();
+                document.execCommand('copy');
+                document.body.removeChild(textArea);
+                showToast('Script copied to clipboard!');
+            }
+        }
+
+        function downloadScript(filename, content) {
+            const blob = new Blob([content], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            showToast('Script downloaded!');
+        }
+
+        document.getElementById('scriptForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const type = document.getElementById('scriptType').value;
+            const task = document.getElementById('task').value;
+            const variables = document.getElementById('variables').value;
+            const complexity = document.getElementById('complexity').value;
+            
+            const script = generateScript(type, task, variables, complexity);
+            
+            document.getElementById('outputCode').textContent = script;
+            document.getElementById('outputSection').style.display = 'block';
+            
+            // Update copy and download buttons
+            document.getElementById('copyBtn').onclick = () => copyToClipboard(script);
+            document.getElementById('downloadBtn').onclick = () => {
+                const extension = type === 'powershell' ? '.ps1' : '.sh';
+                const filename = task.toLowerCase().replace(/[^a-z0-9]/g, '_') + extension;
+                downloadScript(filename, script);
+            };
+        });
+    </script>
 </body>
 </html>

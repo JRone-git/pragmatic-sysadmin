@@ -1,64 +1,19 @@
-<?xml version="1.0" encoding="utf-8" standalone="yes"?><rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom"><channel><title>Containers on Pragmatic Sysadmin</title><link>https://pragmaticsysadmin.help/tags/containers/</link><description>Recent content in Containers on Pragmatic Sysadmin</description><generator>Hugo</generator><language>en</language><lastBuildDate>Sat, 16 Aug 2025 00:00:00 +0000</lastBuildDate><atom:link href="https://pragmaticsysadmin.help/tags/containers/index.xml" rel="self" type="application/rss+xml"/><item><title>Kubernetes Without Jargon: Pods = Processes, Services = Stable Names</title><link>https://pragmaticsysadmin.help/posts/kubernetes-without-jargon-pods-processes-services/</link><pubDate>Sat, 16 Aug 2025 00:00:00 +0000</pubDate><guid>https://pragmaticsysadmin.help/posts/kubernetes-without-jargon-pods-processes-services/</guid><description>&lt;script type="application/ld+json">
-{
- "@context": "https://schema.org",
- "@type": "Article",
- "headline": "Kubernetes Without Jargon: Pods = Processes, Services = Stable Names",
- "description": "Learn Kubernetes for beginners without confusing jargon. Clear explanation of pods, services, and containers with practical examples for DevOps beginners.",
- "author": {
- "@type": "Person",
- "name": "Pragmatic Sysadmin"
- },
- "publisher": {
- "@type": "Organization",
- "name": "Pragmatic Sysadmin",
- "url": "https://pragmatic-sysadmin.com",
- "logo": {
- "@type": "ImageObject",
- "url": "https://pragmatic-sysadmin.com/images/logo.png"
- }
- },
- "datePublished": "2025-08-16",
- "dateModified": "2025-08-16",
- "image": {
- "@type": "ImageObject",
- "url": "https://pragmatic-sysadmin.com/images/kubernetes-beginners-guide.jpg",
- "width": 1200,
- "height": 630,
- "alt": "Kubernetes beginner's guide showing pods, services and containers explained without jargon"
- },
- "keywords": ["kubernetes", "kubernetes beginners", "pods", "services", "containers", "devops", "kubernetes tutorial", "container orchestration", "kubernetes explained", "kubernetes guide", "beginner kubernetes", "devops beginners", "cloud computing", "scaling", "kubernetes pods vs processes", "kubernetes services explained"],
- "articleSection": "DevOps",
- "about": [
- {
- "@type": "Thing",
- "name": "Kubernetes"
- },
- {
- "@type": "Thing", 
- "name": "Container Orchestration"
- },
- {
- "@type": "Thing",
- "name": "DevOps"
- }
- ],
- "audience": {
- "@type": "Audience",
- "audienceType": ["Developers", "System Administrators", "DevOps Engineers", "Cloud Architects"],
- "educationalLevel": "Beginner"
- },
- "mainEntityOfPage": {
- "@type": "WebPage",
- "@id": "https://pragmatic-sysadmin.com/posts/kubernetes-without-jargon-pods-processes-services/"
- },
- "url": "https://pragmatic-sysadmin.com/posts/kubernetes-without-jargon-pods-processes-services/",
- "wordCount": 2200,
- "timeRequired": "PT10M",
- "inLanguage": "en",
- "potentialAction": {
- "@type": "ReadAction",
- "target": "https://pragmatic-sysadmin.com/posts/kubernetes-without-jargon-pods-processes-services/"
- }
-}
-&lt;/script>
-&lt;p>If you&amp;rsquo;ve ever tried to Google &amp;ldquo;What is Kubernetes?&amp;rdquo; you&amp;rsquo;ve probably seen a wall of buzzwords: &lt;em>orchestration, scalability, microservices, YAML manifests&lt;/em>. Somewhere in there, someone will tell you it&amp;rsquo;s like &amp;ldquo;a shipping port for containers,&amp;rdquo; and you&amp;rsquo;ll want to slam your laptop shut.&lt;/p></description></item></channel></rss>
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>Containers on Pragmatic Sysadmin</title>
+    <link>https://pragmaticsysadmin.help/tags/containers/</link>
+    <description>Recent content in Containers on Pragmatic Sysadmin</description>
+    <generator>Hugo</generator>
+    <language>en</language>
+    <lastBuildDate>Sat, 16 Aug 2025 00:00:00 +0000</lastBuildDate>
+    <atom:link href="https://pragmaticsysadmin.help/tags/containers/index.xml" rel="self" type="application/rss+xml" />
+    <item>
+      <title>Kubernetes Without Jargon: Pods = Processes, Services = Stable Names</title>
+      <link>https://pragmaticsysadmin.help/posts/kubernetes-without-jargon-pods-processes-services/</link>
+      <pubDate>Sat, 16 Aug 2025 00:00:00 +0000</pubDate>
+      <guid>https://pragmaticsysadmin.help/posts/kubernetes-without-jargon-pods-processes-services/</guid>
+      <description>&lt;script type=&#34;application/ld+json&#34;&gt;&#xA;{&#xA;  &#34;@context&#34;: &#34;https://schema.org&#34;,&#xA;  &#34;@type&#34;: &#34;Article&#34;,&#xA;  &#34;headline&#34;: &#34;Kubernetes Without Jargon: Pods = Processes, Services = Stable Names&#34;,&#xA;  &#34;description&#34;: &#34;Learn Kubernetes for beginners without confusing jargon. Clear explanation of pods, services, and containers with practical examples for DevOps beginners.&#34;,&#xA;  &#34;author&#34;: {&#xA;    &#34;@type&#34;: &#34;Person&#34;,&#xA;    &#34;name&#34;: &#34;Pragmatic Sysadmin&#34;&#xA;  },&#xA;  &#34;publisher&#34;: {&#xA;    &#34;@type&#34;: &#34;Organization&#34;,&#xA;    &#34;name&#34;: &#34;Pragmatic Sysadmin&#34;,&#xA;    &#34;url&#34;: &#34;https://pragmatic-sysadmin.com&#34;,&#xA;    &#34;logo&#34;: {&#xA;      &#34;@type&#34;: &#34;ImageObject&#34;,&#xA;      &#34;url&#34;: &#34;https://pragmatic-sysadmin.com/images/logo.png&#34;&#xA;    }&#xA;  },&#xA;  &#34;datePublished&#34;: &#34;2025-08-16&#34;,&#xA;  &#34;dateModified&#34;: &#34;2025-08-16&#34;,&#xA;  &#34;image&#34;: {&#xA;    &#34;@type&#34;: &#34;ImageObject&#34;,&#xA;    &#34;url&#34;: &#34;https://pragmatic-sysadmin.com/images/kubernetes-beginners-guide.jpg&#34;,&#xA;    &#34;width&#34;: 1200,&#xA;    &#34;height&#34;: 630,&#xA;    &#34;alt&#34;: &#34;Kubernetes beginner&#39;s guide showing pods, services and containers explained without jargon&#34;&#xA;  },&#xA;  &#34;keywords&#34;: [&#34;kubernetes&#34;, &#34;kubernetes beginners&#34;, &#34;pods&#34;, &#34;services&#34;, &#34;containers&#34;, &#34;devops&#34;, &#34;kubernetes tutorial&#34;, &#34;container orchestration&#34;, &#34;kubernetes explained&#34;, &#34;kubernetes guide&#34;, &#34;beginner kubernetes&#34;, &#34;devops beginners&#34;, &#34;cloud computing&#34;, &#34;scaling&#34;, &#34;kubernetes pods vs processes&#34;, &#34;kubernetes services explained&#34;],&#xA;  &#34;articleSection&#34;: &#34;DevOps&#34;,&#xA;  &#34;about&#34;: [&#xA;    {&#xA;      &#34;@type&#34;: &#34;Thing&#34;,&#xA;      &#34;name&#34;: &#34;Kubernetes&#34;&#xA;    },&#xA;    {&#xA;      &#34;@type&#34;: &#34;Thing&#34;, &#xA;      &#34;name&#34;: &#34;Container Orchestration&#34;&#xA;    },&#xA;    {&#xA;      &#34;@type&#34;: &#34;Thing&#34;,&#xA;      &#34;name&#34;: &#34;DevOps&#34;&#xA;    }&#xA;  ],&#xA;  &#34;audience&#34;: {&#xA;    &#34;@type&#34;: &#34;Audience&#34;,&#xA;    &#34;audienceType&#34;: [&#34;Developers&#34;, &#34;System Administrators&#34;, &#34;DevOps Engineers&#34;, &#34;Cloud Architects&#34;],&#xA;    &#34;educationalLevel&#34;: &#34;Beginner&#34;&#xA;  },&#xA;  &#34;mainEntityOfPage&#34;: {&#xA;    &#34;@type&#34;: &#34;WebPage&#34;,&#xA;    &#34;@id&#34;: &#34;https://pragmatic-sysadmin.com/posts/kubernetes-without-jargon-pods-processes-services/&#34;&#xA;  },&#xA;  &#34;url&#34;: &#34;https://pragmatic-sysadmin.com/posts/kubernetes-without-jargon-pods-processes-services/&#34;,&#xA;  &#34;wordCount&#34;: 2200,&#xA;  &#34;timeRequired&#34;: &#34;PT10M&#34;,&#xA;  &#34;inLanguage&#34;: &#34;en&#34;,&#xA;  &#34;potentialAction&#34;: {&#xA;    &#34;@type&#34;: &#34;ReadAction&#34;,&#xA;    &#34;target&#34;: &#34;https://pragmatic-sysadmin.com/posts/kubernetes-without-jargon-pods-processes-services/&#34;&#xA;  }&#xA;}&#xA;&lt;/script&gt;&#xA;&lt;p&gt;If you&amp;rsquo;ve ever tried to Google &amp;ldquo;What is Kubernetes?&amp;rdquo; you&amp;rsquo;ve probably seen a wall of buzzwords: &lt;em&gt;orchestration, scalability, microservices, YAML manifests&lt;/em&gt;. Somewhere in there, someone will tell you it&amp;rsquo;s like &amp;ldquo;a shipping port for containers,&amp;rdquo; and you&amp;rsquo;ll want to slam your laptop shut.&lt;/p&gt;</description>
+    </item>
+  </channel>
+</rss>
