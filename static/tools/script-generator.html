@@ -1643,12 +1643,17 @@ echo "Variables: ${variables || 'None'}"
                 }
                 
                 try {
+                    console.log('Starting script generation...');
                     const script = generateScript(type, task.trim(), variables.trim(), complexity);
-                    console.log('Generated script:', script);
+                    console.log('Generated script length:', script ? script.length : 0);
+                    console.log('Generated script preview:', script ? script.substring(0, 200) + '...' : 'No script');
                     
-                    if (script) {
+                    if (script && script.length > 0) {
+                        console.log('Displaying script in output area...');
                         outputCode.textContent = script;
                         outputSection.style.display = 'block';
+                        outputSection.style.visibility = 'visible';
+                        console.log('Output section display set to:', outputSection.style.display);
                         
                         // Update copy and download buttons
                         copyBtn.onclick = () => copyToClipboard(script);
@@ -1659,15 +1664,25 @@ echo "Variables: ${variables || 'None'}"
                         };
                         
                         showToast('Script generated successfully!');
+                        console.log('Scrolling to output section...');
                         
                         // Scroll to the output
-                        outputSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                        setTimeout(() => {
+                            outputSection.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+                            console.log('Scroll completed');
+                        }, 100);
                     } else {
-                        throw new Error('No script was generated');
+                        console.error('Empty or null script generated');
+                        throw new Error('No script was generated. Please check your input and try again.');
                     }
                 } catch (error) {
-                    console.error('Error:', error);
+                    console.error('Script generation error:', error);
                     showToast('Error generating script: ' + error.message, true);
+                    
+                    // Show output section with error message for debugging
+                    outputCode.textContent = 'Error: ' + error.message + '\n\nDebug info:\nType: ' + type + '\nTask: ' + task + '\nComplexity: ' + complexity + '\nScriptKey: ' + (task.toLowerCase().includes('user') ? 'process' : 'disk');
+                    outputSection.style.display = 'block';
+                    outputSection.style.visibility = 'visible';
                 }
             });
             
