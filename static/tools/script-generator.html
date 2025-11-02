@@ -1504,6 +1504,8 @@ main "$@"`;
                     scriptKey = 'process';
                 } else if (taskLower.includes('log') || taskLower.includes('cleanup') || taskLower.includes('rotate')) {
                     scriptKey = 'process'; // Using process as alternative template
+                } else if (taskLower.includes('user') || taskLower.includes('account') || taskLower.includes('management')) {
+                    scriptKey = 'process'; // User management uses process template
                 }
                 
                 console.log('Generating script:', { type, scriptKey, complexity, task, variables });
