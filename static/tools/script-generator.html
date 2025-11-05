@@ -1325,7 +1325,7 @@ analyze_process_health() {
             ;;
     esac
     
-    echo "$health_status:$pid:$cpu:$mem:$uptime:$(IFS='|'; echo "${issues[*]}")"
+    echo "$health_status:$pid:$cpu:$mem:$uptime:$(IFS='|'; echo "\${issues[*]}")"
 }
 
 # Function to restart a process
@@ -1397,7 +1397,7 @@ monitor_single_process() {
                 fi
                 ;;
             "WARNING")
-                for issue in "${issues[@]}"; do
+                for issue in "\${issues[@]}"; do
                     if [[ "$issue" == *"not running"* ]]; then
                         restart_process "$process_name" "$process_path" $((restart_count + 1))
                         break
@@ -1453,7 +1453,7 @@ done
 
 # Main execution
 main() {
-    if [ ${#PROCESS_NAMES[@]} -eq 0 ]; then
+    if [ \${#PROCESS_NAMES[@]} -eq 0 ]; then
         echo "Error: At least one process name must be specified"
         echo ""
         show_usage
@@ -1464,7 +1464,7 @@ main() {
     mkdir -p "$(dirname "$LOG_FILE")"
     
     log_message "INFO" "=== Enterprise Process Monitor Started ==="
-    log_message "INFO" "Monitoring processes: ${PROCESS_NAMES[*]}"
+    log_message "INFO" "Monitoring processes: \${PROCESS_NAMES[*]}"
     log_message "INFO" "CPU Threshold: $CPU_THRESHOLD% | Memory Threshold: $MEMORY_THRESHOLD MB"
     log_message "INFO" "Check Interval: $CHECK_INTERVAL seconds"
     
@@ -1473,9 +1473,9 @@ main() {
     
     # Start monitoring each process in background
     local pids=()
-    for i in "${!PROCESS_NAMES[@]}"; do
+    for i in "\${!PROCESS_NAMES[@]}"; do
         local process_name="${PROCESS_NAMES[i]}"
-        local process_path="${PROCESS_PATHS[$i]:-}"
+        local process_path="\${PROCESS_PATHS[$i]:-}"
         
         log_message "INFO" "Starting monitor for process: $process_name"
         monitor_single_process "$process_name" "$process_path" "$i" &
@@ -1483,7 +1483,7 @@ main() {
     done
     
     # Wait for all background processes
-    wait "${pids[@]}"
+    wait "\${pids[@]}"
 }
 
 # Run main function
