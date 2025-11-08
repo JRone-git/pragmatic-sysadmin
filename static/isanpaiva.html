@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="fi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Isänpäiväkortti - Father's Day Card</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 20px;
+        }
+
+        .card {
+            width: 800px;
+            height: 500px;
+            background: linear-gradient(to bottom, #87CEEB 0%, #87CEEB 60%, #228B22 60%, #228B22 100%);
+            border-radius: 20px;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Forest background */
+        .forest {
+            position: absolute;
+            bottom: 40%;
+            left: 0;
+            right: 0;
+            height: 200px;
+            background: linear-gradient(to top, #1a5f1a 0%, #2d7a2d 50%, #3a9a3a 100%);
+            z-index: 1;
+        }
+
+        /* Trees */
+        .tree {
+            position: absolute;
+            bottom: 0;
+            width: 0;
+            height: 0;
+            border-left: 15px solid transparent;
+            border-right: 15px solid transparent;
+            border-bottom: 60px solid #0f4d0f;
+            z-index: 2;
+        }
+
+        .tree:nth-child(1) { left: 10%; }
+        .tree:nth-child(2) { left: 25%; transform: scale(1.2); }
+        .tree:nth-child(3) { left: 40%; }
+        .tree:nth-child(4) { left: 60%; transform: scale(0.9); }
+        .tree:nth-child(5) { left: 75%; transform: scale(1.1); }
+        .tree:nth-child(6) { left: 90%; }
+
+        /* Running track */
+        .track {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 40%;
+            background: #8B4513;
+            z-index: 3;
+        }
+
+        .track-lane {
+            position: absolute;
+            bottom: 20%;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: repeating-linear-gradient(
+                to right,
+                white 0px,
+                white 30px,
+                transparent 30px,
+                transparent 50px
+            );
+            z-index: 4;
+        }
+
+        /* Running man illustration */
+        .runner {
+            position: absolute;
+            bottom: 25%;
+            left: 15%;
+            z-index: 5;
+        }
+
+        .runner-body {
+            width: 80px;
+            height: 120px;
+            position: relative;
+        }
+
+        /* Head */
+        .head {
+            width: 30px;
+            height: 30px;
+            background: #fdbcb4;
+            border-radius: 50%;
+            position: absolute;
+            top: 0;
+            left: 25px;
+        }
+
+        /* Smile */
+        .smile {
+            width: 15px;
+            height: 8px;
+            border: 2px solid #333;
+            border-top: none;
+            border-radius: 0 0 15px 15px;
+            position: absolute;
+            top: 18px;
+            left: 7px;
+        }
+
+        /* Eyes */
+        .eye {
+            width: 4px;
+            height: 4px;
+            background: #333;
+            border-radius: 50%;
+            position: absolute;
+            top: 12px;
+        }
+
+        .eye-left { left: 8px; }
+        .eye-right { left: 18px; }
+
+        /* Body (blue tracksuit) */
+        .torso {
+            width: 35px;
+            height: 40px;
+            background: #1E90FF;
+            position: absolute;
+            top: 32px;
+            left: 22px;
+            border-radius: 5px;
+        }
+
+        /* Arms */
+        .arm {
+            width: 12px;
+            height: 35px;
+            background: #1E90FF;
+            position: absolute;
+            border-radius: 6px;
+        }
+
+        .arm-left {
+            top: 35px;
+            left: 10px;
+            transform: rotate(-30deg);
+        }
+
+        .arm-right {
+            top: 35px;
+            right: 10px;
+            transform: rotate(30deg);
+        }
+
+        /* Legs */
+        .leg {
+            width: 14px;
+            height: 45px;
+            background: #1E90FF;
+            position: absolute;
+            border-radius: 7px;
+        }
+
+        .leg-left {
+            bottom: 0;
+            left: 20px;
+            transform: rotate(-20deg);
+        }
+
+        .leg-right {
+            bottom: 0;
+            right: 20px;
+            transform: rotate(40deg);
+        }
+
+        /* Text container */
+        .text-container {
+            position: absolute;
+            right: 8%;
+            top: 50%;
+            transform: translateY(-50%);
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px 40px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+            z-index: 6;
+            max-width: 350px;
+        }
+
+        .main-text {
+            font-size: 28px;
+            font-weight: bold;
+            color: #1E90FF;
+            line-height: 1.4;
+            text-align: center;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 2px rgba(0, 0, 0, 0.1);
+        }
+
+        .subtitle {
+            font-size: 18px;
+            color: #666;
+            text-align: center;
+            font-style: italic;
+        }
+
+        /* Sun */
+        .sun {
+            position: absolute;
+            top: 50px;
+            right: 80px;
+            width: 60px;
+            height: 60px;
+            background: #FFD700;
+            border-radius: 50%;
+            box-shadow: 0 0 30px rgba(255, 215, 0, 0.6);
+            z-index: 1;
+        }
+
+        /* Clouds */
+        .cloud {
+            position: absolute;
+            background: white;
+            border-radius: 50px;
+            opacity: 0.8;
+            z-index: 2;
+        }
+
+        .cloud1 {
+            width: 80px;
+            height: 30px;
+            top: 80px;
+            left: 100px;
+        }
+
+        .cloud1::before {
+            content: '';
+            position: absolute;
+            background: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            top: -20px;
+            left: 15px;
+        }
+
+        .cloud2 {
+            width: 60px;
+            height: 25px;
+            top: 120px;
+            right: 200px;
+        }
+
+        .cloud2::before {
+            content: '';
+            position: absolute;
+            background: white;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            top: -15px;
+            left: 12px;
+        }
+
+        /* Animation */
+        @keyframes run {
+            0%, 100% { transform: translateX(0) scaleX(1); }
+            50% { transform: translateX(10px) scaleX(0.98); }
+        }
+
+        .runner {
+            animation: run 1s ease-in-out infinite;
+        }
+
+        /* Responsive design */
+        @media (max-width: 850px) {
+            .card {
+                width: 100%;
+                height: 600px;
+            }
+
+            .text-container {
+                position: absolute;
+                right: 50%;
+                top: 10%;
+                transform: translateX(50%);
+                max-width: 80%;
+            }
+
+            .runner {
+                left: 50%;
+                bottom: 35%;
+                transform: translateX(-50%);
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="card">
+        <!-- Sky elements -->
+        <div class="sun"></div>
+        <div class="cloud cloud1"></div>
+        <div class="cloud cloud2"></div>
+
+        <!-- Forest background -->
+        <div class="forest">
+            <div class="tree"></div>
+            <div class="tree"></div>
+            <div class="tree"></div>
+            <div class="tree"></div>
+            <div class="tree"></div>
+            <div class="tree"></div>
+        </div>
+
+        <!-- Running track -->
+        <div class="track">
+            <div class="track-lane"></div>
+        </div>
+
+        <!-- Running man -->
+        <div class="runner">
+            <div class="runner-body">
+                <div class="head">
+                    <div class="eye eye-left"></div>
+                    <div class="eye eye-right"></div>
+                    <div class="smile"></div>
+                </div>
+                <div class="torso"></div>
+                <div class="arm arm-left"></div>
+                <div class="arm arm-right"></div>
+                <div class="leg leg-left"></div>
+                <div class="leg leg-right"></div>
+            </div>
+        </div>
+
+        <!-- Text message -->
+        <div class="text-container">
+            <div class="main-text">
+                Rakastan isää<br>juokse vielä lisää
+            </div>
+            <div class="subtitle">
+                Hyvää Isänpäivää! 💙
+            </div>
+        </div>
+    </div>
+</body>
+</html>

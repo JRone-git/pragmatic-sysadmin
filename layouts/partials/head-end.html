@@ -7,3 +7,137 @@
 
   gtag('config', 'G-EKQ0LBDH9Z');
 </script>
+
+<!-- Father's Day Card Popup -->
+<style>
+    .fathersdaypopup-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(0, 0, 0, 0.8);
+        z-index: 9999;
+        justify-content: center;
+        align-items: center;
+        animation: fadeIn 0.3s ease-in;
+    }
+
+    .fathersdaypopup-overlay.active {
+        display: flex;
+    }
+
+    .fathersdaypopup-content {
+        position: relative;
+        width: 90%;
+        max-width: 900px;
+        height: 90vh;
+        max-height: 600px;
+        background: white;
+        border-radius: 20px;
+        overflow: hidden;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
+        animation: slideUp 0.4s ease-out;
+    }
+
+    .fathersdaypopup-close {
+        position: absolute;
+        top: 15px;
+        right: 15px;
+        width: 40px;
+        height: 40px;
+        background: rgba(255, 255, 255, 0.9);
+        border: none;
+        border-radius: 50%;
+        font-size: 24px;
+        font-weight: bold;
+        color: #333;
+        cursor: pointer;
+        z-index: 10;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+    }
+
+    .fathersdaypopup-close:hover {
+        background: #ff4444;
+        color: white;
+        transform: rotate(90deg);
+    }
+
+    .fathersdaypopup-iframe {
+        width: 100%;
+        height: 100%;
+        border: none;
+    }
+
+    @keyframes fadeIn {
+        from { opacity: 0; }
+        to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+        from {
+            transform: translateY(50px);
+            opacity: 0;
+        }
+        to {
+            transform: translateY(0);
+            opacity: 1;
+        }
+    }
+
+    @media (max-width: 768px) {
+        .fathersdaypopup-content {
+            width: 95%;
+            height: 95vh;
+            max-height: none;
+        }
+    }
+</style>
+
+<div id="fathersdayPopup" class="fathersdaypopup-overlay">
+    <div class="fathersdaypopup-content">
+        <button class="fathersdaypopup-close" onclick="closeFathersDayPopup()">×</button>
+        <iframe class="fathersdaypopup-iframe" src="/isanpaiva.html"></iframe>
+    </div>
+</div>
+
+<script>
+    // Show popup on homepage load
+    window.addEventListener('DOMContentLoaded', function() {
+        // Check if we're on the homepage
+        if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+            // Check if popup was already shown in this session
+            const popupShown = sessionStorage.getItem('fathersdayPopupShown');
+            if (!popupShown) {
+                setTimeout(function() {
+                    document.getElementById('fathersdayPopup').classList.add('active');
+                    sessionStorage.setItem('fathersdayPopupShown', 'true');
+                }, 800); // Show after 800ms delay
+            }
+        }
+    });
+
+    function closeFathersDayPopup() {
+        document.getElementById('fathersdayPopup').classList.remove('active');
+    }
+
+    // Close popup when clicking outside
+    document.addEventListener('click', function(event) {
+        const popup = document.getElementById('fathersdayPopup');
+        if (event.target === popup) {
+            closeFathersDayPopup();
+        }
+    });
+
+    // Close popup with Escape key
+    document.addEventListener('keydown', function(event) {
+        if (event.key === 'Escape') {
+            closeFathersDayPopup();
+        }
+    });
+</script>
