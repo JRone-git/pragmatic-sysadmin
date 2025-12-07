@@ -6,7 +6,6 @@ categories:
   - Best actions
   - Best practices
 tags:
-  - "sysadmin", "monitoring", "troubleshooting", "operations"
   - sysadmin
   - monitoring
   - troubleshooting
