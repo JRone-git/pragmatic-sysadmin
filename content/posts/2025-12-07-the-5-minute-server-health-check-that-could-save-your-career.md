@@ -1,10 +1,9 @@
 ---
 title: "The 5-Minute Server Health Check That Could Save Your Career"
-date: 2025-12-07T11:22:00.000Z
+date: 2025-12-07T11:22:00. 000Z
 categories:
   - Operations
-  - Best actions
-  - Best practices
+  - Best Practices
 tags:
   - sysadmin
   - monitoring
