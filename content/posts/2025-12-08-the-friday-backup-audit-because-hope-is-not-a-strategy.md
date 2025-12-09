@@ -1,4 +1,3 @@
-
 ---
 title: "The Friday Backup Audit: Because Hope Is Not a Strategy"
 date: 2025-12-14T08:00:00Z
@@ -23,7 +22,7 @@ If you haven't restored a backup, you don't have a backup. You just have a file 
 
 A backup exists in a state of quantum superposition: it is both successful and failed until you actually try to use it. 
 
-Most sysadmins automate the *creation* of backups but rarely automate the *verification*. I’ve learned the hard way that you need a ritual for this, just like your daily health check. I do this every Friday.
+Most sysadmins automate the *creation* of backups but rarely automate the *verification*. I’ve learned the hard way that you need a ritual for this, just like your daily health check. I do this [...]
 
 ### Step 1: The Timestamp Reality Check (1 minute)
 
@@ -150,4 +149,3 @@ Do this, and you’ll sleep through the night—even when the alerts start firin
 ---
 
 *Do you have a backup horror story? Or a script that saved your bacon? Drop it in the comments below.*
-```
