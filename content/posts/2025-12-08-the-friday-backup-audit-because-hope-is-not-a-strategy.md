@@ -2,8 +2,14 @@
 title: The Friday Backup Audit: Because Hope Is Not a Strategy
 date: 2025-12-14T08:00:00Z
 draft: false
-tags: ["backups", "recovery", "bash", "disaster-recovery"]
-categories: ["Operations", "Safety Nets"]
+tags:
+  - backups
+  - recovery
+  - bash
+  - disaster-recovery
+categories:
+  - Operations
+  - Safety Nets
 description: "Backups are useless if they don't restore. Here is the 10-minute audit to prevent the 'Schrödinger's Backup' scenario."
 ---
 
