@@ -1,6 +1,6 @@
 ---
 title: The Friday Backup Audit: Because Hope Is Not a Strategy
-date: 2025-12-14T08:00:00Z
+date: 2025-12-12T08:00:00Z
 draft: false
 tags:
   - backups
