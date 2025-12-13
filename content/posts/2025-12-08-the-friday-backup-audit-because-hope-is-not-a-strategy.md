@@ -1,5 +1,5 @@
 ---
-title: The Friday Backup Audit: Because Hope Is Not a Strategy
+title: "The Friday Backup Audit: Because Hope Is Not a Strategy"
 date: 2025-12-12T08:00:00Z
 draft: false
 tags:
@@ -7,15 +7,13 @@ tags:
   - recovery
   - bash
   - disaster-recovery
-categories:
-  - Operations
-  - Safety Nets
+categories: ["Operations", "Safety Nets"]
 description: "Backups are useless if they don't restore. Here is the 10-minute audit to prevent the 'Schrödinger's Backup' scenario."
 ---
 
 ## The Nightmare Scenario
 
-We’ve all heard the horror stories. A database corruption hits production. The team stays calm because "Don't worry, we have nightly backups." 
+We've all heard the horror stories. A database corruption hits production. The team stays calm because "Don't worry, we have nightly backups." 
 
 Then comes the moment of truth: `tar -xvf backup.tar.gz`.
 
@@ -28,7 +26,7 @@ If you haven't restored a backup, you don't have a backup. You just have a file 
 
 A backup exists in a state of quantum superposition: it is both successful and failed until you actually try to use it. 
 
-Most sysadmins automate the *creation* of backups but rarely automate the *verification*. I’ve learned the hard way that you need a ritual for this, just like your daily health check. I do this [...]
+Most sysadmins automate the *creation* of backups but rarely automate the *verification*. I've learned the hard way that you need a ritual for this, just like your daily health check. I do this [...]
 
 ### Step 1: The Timestamp Reality Check (1 minute)
 
@@ -150,7 +148,7 @@ Backups are a promise to your future self. Keep that promise.
 3.  **Check integrity** (ensure it's not corrupt).
 4.  **Practice the restore** (ensure you know how).
 
-Do this, and you’ll sleep through the night—even when the alerts start firing.
+Do this, and you'll sleep through the night—even when the alerts start firing.
 
 ---
 
