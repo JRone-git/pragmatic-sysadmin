@@ -13,14 +13,13 @@ categories:
 description: "Backups are useless if they don't restore. Here is the 10-minute audit to prevent the Schrodinger's Backup scenario."
 ---
 
-
 ## The Nightmare Scenario
 
-We've all heard the horror stories. A database corruption hits production. The team stays calm because "Don't worry, we have nightly backups." 
+We've all heard the horror stories. A database corruption hits production. The team stays calm because "Don't worry, we have nightly backups."
 
 Then comes the moment of truth: `tar -xvf backup.tar.gz`.
 
-**Error: Unexpected EOF in archive.** 
+**Error: Unexpected EOF in archive.**
 Or worse: The file extracts perfectly, but the database inside is empty because the `mysqldump` command failed silently three months ago.
 
 If you haven't restored a backup, you don't have a backup. You just have a file taking up disk space.
@@ -136,7 +135,7 @@ echo "SUCCESS: Backup appears healthy."
 
 There is one final step that scripts can't do: **The Full Restore.**
 
-Once a month, take your backup and actually restore it to a virtual machine or a test container. 
+Once a month, take your backup and actually restore it to a virtual machine or a test container.
 *   Does the app start?
 *   Can you log in?
 *   Is the data from yesterday there?
