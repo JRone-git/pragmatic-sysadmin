@@ -1,9 +1,9 @@
 ---
-title: ""The Friday Backup Audit: Because Hope Is Not a Strategy""
-date: 2025-12-12T17:32:00.000Z
+title: "The Friday Backup Audit: Because Hope Is Not a Strategy"
+date: 2025-12-17T17:32:00.000Z
 categories:
   - General
-description: ""Backups are useless if they don't restore. Here is the 10-minute audit to prevent the 'Schrödinger's Backup' scenario.""
+description: "Backups are useless if they don't restore. Here is the 10-minute audit to prevent the 'Schrödinger's Backup' scenario."
 ---
 
 
