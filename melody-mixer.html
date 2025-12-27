@@ -2,1132 +2,1005 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Melody Mixer Creatures - Music Game (Mobile Friendly)</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Monster Beat & Melody Monsters 🎵</title>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
+        @import url('https://fonts.googleapis.com/css2?family=Fredoka+One&display=swap');
+
+        :root {
+            --primary: #FF9FF3;
+            --secondary: #54A0FF;
+            --accent: #FECA57;
+            --guitar-accent: #ff6b6b;
+            --bg-dark: #1a1a2e;
+            --text-dark: #2c3e50;
         }
 
         body {
-            font-family: 'Comic Sans MS', 'Comic Sans', cursive, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            min-height: 100vh;
-            padding: 20px;
-            overflow-x: hidden;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        header {
-            text-align: center;
-            margin-bottom: 30px;
+            margin: 0;
+            padding: 0;
+            overflow: hidden;
+            background-color: var(--bg-dark);
+            font-family: 'Fredoka One', cursive;
+            user-select: none;
+            -webkit-user-select: none;
+            touch-action: manipulation;
             color: white;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
         }
 
-        h1 {
-            font-size: 3em;
-            margin-bottom: 10px;
-            animation: bounce 2s ease-in-out infinite;
-        }
-
-        @keyframes bounce {
-            0%, 100% { transform: translateY(0); }
-            50% { transform: translateY(-10px); }
-        }
-
-        .instructions {
-            background: rgba(255,255,255,0.95);
-            padding: 15px 25px;
-            border-radius: 15px;
-            margin-bottom: 30px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-        }
-
-        #audioStatus {
-            background: linear-gradient(135deg, #fbbf24 0%, #f59e0b 100%);
-            color: white;
-            text-align: center;
-            transition: all 0.3s ease;
-        }
-
-        #audioStatus.enabled {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-        }
-
-        .instructions h2 {
-            color: #667eea;
-            margin-bottom: 10px;
-            font-size: 1.5em;
-        }
-
-        .instructions p {
-            color: #555;
-            font-size: 1.1em;
-            line-height: 1.6;
-        }
-
-        /* Cache-busting comment - Updated: 2025-10-31 */
-
-        .game-area {
-            display: grid;
-            grid-template-columns: 1fr 2fr;
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-
-        .creatures-panel {
-            background: rgba(255,255,255,0.95);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-        }
-
-        .creatures-panel h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.8em;
-            text-align: center;
-        }
-
-        .creatures-list {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
-            gap: 15px;
-        }
-
-        .creature {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border-radius: 12px;
-            padding: 15px;
-            text-align: center;
-            cursor: grab;
-            transition: all 0.3s ease;
-            border: 3px solid transparent;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        .creature:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-            border-color: #fff;
-        }
-
-        .creature:active {
-            cursor: grabbing;
-        }
-
-        .creature.dragging {
-            opacity: 0.5;
-            cursor: grabbing;
-        }
-
-        /* Mobile touch feedback */
-        .creature.touch-active {
-            transform: scale(1.1);
-            box-shadow: 0 8px 16px rgba(0,0,0,0.3);
-            border-color: #fff;
-        }
-
-        @media (hover: none) and (pointer: coarse) {
-            .creature:hover {
-                transform: none;
-                box-shadow: none;
-            }
-            
-            .creature:active {
-                transform: scale(1.05);
-                transition: transform 0.1s;
-            }
-        }
-
-        .creature-icon {
-            font-size: 2.5em;
-            margin-bottom: 5px;
-        }
-
-        .creature-name {
-            color: white;
-            font-weight: bold;
-            font-size: 0.9em;
-        }
-
-        .music-grid-container {
-            background: rgba(255,255,255,0.95);
-            border-radius: 15px;
-            padding: 20px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-        }
-
-        .music-grid-container h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.8em;
-            text-align: center;
-        }
-
-        .music-grid {
-            display: grid;
-            grid-template-columns: repeat(8, 1fr);
-            gap: 10px;
-            margin-bottom: 20px;
-        }
-
-        .grid-cell {
-            aspect-ratio: 1;
-            background: linear-gradient(135deg, #e0e7ff 0%, #cfd9ff 100%);
-            border: 3px dashed #667eea;
-            border-radius: 12px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            transition: all 0.3s ease;
+        #app-container {
             position: relative;
-            min-height: 80px;
-        }
-
-        .grid-cell.drag-over {
-            background: linear-gradient(135deg, #a7f3d0 0%, #6ee7b7 100%);
-            border-color: #10b981;
-            transform: scale(1.05);
-            box-shadow: 0 0 20px rgba(16, 185, 129, 0.5);
-        }
-
-        .grid-cell.occupied {
-            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
-            border-style: solid;
-            border-color: #fff;
-        }
-
-        .grid-cell .creature-icon {
-            font-size: 2em;
-        }
-
-        .grid-cell .remove-btn {
-            position: absolute;
-            top: 2px;
-            right: 2px;
-            background: rgba(255,0,0,0.8);
-            color: white;
-            border: none;
-            border-radius: 50%;
-            width: 20px;
-            height: 20px;
-            font-size: 12px;
-            cursor: pointer;
-            display: none;
-        }
-
-        .grid-cell.occupied:hover .remove-btn {
-            display: block;
-        }
-
-        .beat-label {
-            position: absolute;
-            bottom: 2px;
-            right: 4px;
-            font-size: 10px;
-            color: #667eea;
-            font-weight: bold;
-        }
-
-        .controls {
+            width: 100vw;
+            height: 100vh;
             display: flex;
-            gap: 10px;
+            flex-direction: column;
             justify-content: center;
-            flex-wrap: wrap;
-        }
-
-        .btn {
-            padding: 15px 30px;
-            font-size: 1.2em;
-            font-weight: bold;
-            border: none;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
-        }
-
-        .btn-play {
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            color: white;
-        }
-
-        .btn-stop {
-            background: linear-gradient(135deg, #ef4444 0%, #dc2626 100%);
-            color: white;
-        }
-
-        .btn-clear {
-            background: linear-gradient(135deg, #f59e0b 0%, #d97706 100%);
-            color: white;
-        }
-
-        .btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 6px 12px rgba(0,0,0,0.3);
-        }
-
-        .btn:active {
-            transform: translateY(-1px);
-        }
-
-        .btn:disabled {
-            opacity: 0.5;
-            cursor: not-allowed;
-        }
-
-        /* Tempo Control Styles */
-        .tempo-control {
-            background: rgba(255,255,255,0.95);
-            border-radius: 15px;
-            padding: 20px;
-            margin-bottom: 20px;
-            box-shadow: 0 8px 16px rgba(0,0,0,0.2);
-            text-align: center;
-        }
-
-        .tempo-control h3 {
-            color: #667eea;
-            margin-bottom: 15px;
-            font-size: 1.5em;
-        }
-
-        .tempo-display {
-            font-size: 2em;
-            font-weight: bold;
-            color: #667eea;
-            margin-bottom: 15px;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-
-        .tempo-slider-container {
-            display: flex;
             align-items: center;
-            justify-content: center;
-            gap: 15px;
+            background: linear-gradient(to bottom, #16213e, #0f3460);
         }
 
-        .tempo-slider {
-            width: 300px;
-            height: 8px;
-            border-radius: 5px;
-            background: linear-gradient(90deg, #e0e7ff 0%, #667eea 50%, #764ba2 100%);
-            outline: none;
-            -webkit-appearance: none;
-            appearance: none;
+        canvas {
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            background: transparent;
+            border-radius: 10px;
         }
 
-        .tempo-slider::-webkit-slider-thumb {
-            -webkit-appearance: none;
-            appearance: none;
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            cursor: pointer;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-            transition: all 0.2s ease;
-        }
-
-        .tempo-slider::-webkit-slider-thumb:hover {
-            transform: scale(1.2);
-        }
-
-        .tempo-slider::-moz-range-thumb {
-            width: 25px;
-            height: 25px;
-            border-radius: 50%;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 4px 8px rgba(0,0,0,0.3);
-        }
-
-        .tempo-label {
-            min-width: 40px;
-            font-weight: bold;
-            color: #667eea;
-            font-size: 1.1em;
-        }
-
-        /* Performance optimizations for mobile */
-        @media (prefers-reduced-motion: reduce) {
-            .creature:hover,
-            .creature:active {
-                transform: none;
-                transition: none;
-            }
-            
-            h1 {
-                animation: none;
-            }
-            
-            .grid-cell.drag-over {
-                transform: none;
-            }
-        }
-
-        /* Mobile touch optimizations */
-        .creature {
-            will-change: transform;
-            transform: translateZ(0);
-        }
-
-        .grid-cell {
-            will-change: transform;
-            transform: translateZ(0);
-        }
-
-        /* Reduce animations on slow devices */
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2em;
-            }
-            
-            .creature {
-                transition: all 0.2s ease; /* Faster transitions on mobile */
-            }
-            
-            .grid-cell {
-                transition: all 0.2s ease;
-            }
-        }
-
-        .playhead {
+        /* UI Overlays */
+        .ui-layer {
             position: absolute;
-            top: -5px;
-            left: -5px;
-            right: -5px;
-            bottom: -5px;
-            border: 4px solid #10b981;
-            border-radius: 12px;
-            animation: pulse 0.2s ease-in-out;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            z-index: 10;
+        }
+
+        .hud {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            text-align: left;
             pointer-events: none;
         }
 
-        @keyframes pulse {
-            0%, 100% { opacity: 1; }
-            50% { opacity: 0.5; }
+        .score-label {
+            color: var(--accent);
+            font-size: 1.2rem;
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.8);
         }
 
-        .nav-link {
+        .score-value {
+            color: white;
+            font-size: 2.5rem;
+            text-shadow: 2px 2px 0px rgba(0,0,0,0.8);
+            margin: 0;
+            line-height: 1;
+        }
+
+        .mode-hud {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 1.2rem;
+            color: var(--secondary);
+            text-shadow: 1px 1px 0px rgba(0,0,0,0.8);
+            pointer-events: none;
+        }
+
+        /* Screens */
+        .modal {
+            background: rgba(26, 26, 46, 0.95);
+            backdrop-filter: blur(5px);
+            padding: 2rem;
+            border-radius: 20px;
+            border: 4px solid var(--primary);
+            box-shadow: 0 0 30px var(--primary);
+            pointer-events: auto;
+            transition: opacity 0.3s ease;
+            max-width: 90vw;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2.5rem;
+            margin: 0 0 10px 0;
+            text-shadow: 2px 2px 0px rgba(255,255,255,0.4);
+            letter-spacing: 1px;
+        }
+
+        h2 {
+            color: var(--secondary);
+            font-size: 2rem;
+            margin: 5px 0 10px 0;
+        }
+
+        p {
+            font-size: 1rem;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .small {
+            font-size: 0.9rem;
+            color: #ccc;
+        }
+
+        button {
+            background: linear-gradient(45deg, var(--primary), var(--secondary));
+            border: none;
+            padding: 12px 32px;
+            font-size: 1.2rem;
+            color: white;
+            font-family: 'Fredoka One', cursive;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 5px 0 #2a2a72;
+            margin: 5px;
+            transition: transform 0.1s, box-shadow 0.1s, filter 0.2s;
             display: inline-block;
-            margin-top: 20px;
-            padding: 10px 20px;
-            background: rgba(255,255,255,0.9);
-            color: #667eea;
-            text-decoration: none;
-            border-radius: 8px;
+        }
+
+        button:active {
+            transform: translateY(5px);
+            box-shadow: 0 0 0 #2a2a72;
+        }
+
+        button:hover {
+            filter: brightness(1.15);
+        }
+
+        button:disabled {
+            background: #555;
+            box-shadow: 0 5px 0 #333;
+            cursor: not-allowed;
+            opacity: 0.7;
+        }
+
+        button.secondary {
+            background: linear-gradient(45deg, #4b7bec, #3867d6);
+        }
+
+        button.guitar-btn {
+            background: linear-gradient(45deg, #eb3b5a, #fc5c65);
+            box-shadow: 0 5px 0 #c44569;
+        }
+        
+        button.guitar-btn:active {
+            box-shadow: 0 0 0 #c44569;
+        }
+
+        .instrument-toggle {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+
+        .hidden {
+            display: none !important;
+            opacity: 0;
+            pointer-events: none;
+        }
+
+        /* Melody Styles */
+        .melody-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 12px;
+            margin-bottom: 20px;
+            max-width: 380px;
+        }
+
+        .melody-grid.learn-mode {
+            gap: 15px;
+            margin-bottom: 25px;
+        }
+
+        .melody-card {
+            background: rgba(255,255,255,0.1);
+            border: 2px solid rgba(255,255,255,0.3);
+            border-radius: 15px;
+            padding: 10px 5px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            cursor: pointer;
+            transition: transform 0.1s, background 0.2s, border-color 0.2s;
+        }
+
+        .melody-card:hover {
+            background: rgba(255,255,255,0.2);
+            transform: scale(1.05);
+        }
+
+        .melody-card.active-sequence {
+            background: var(--accent);
+            border-color: #fff;
+            transform: scale(1.1);
+            box-shadow: 0 0 15px var(--accent);
+        }
+
+        .melody-card .emoji {
+            font-size: 2.5rem;
+            margin-bottom: 5px;
+        }
+        
+        .learn-mode .melody-card .emoji {
+            font-size: 3rem; /* Bigger in learn mode */
+        }
+
+        .melody-card .note-name {
+            font-size: 1.2rem;
+            margin-top: 4px;
+            color: #fff;
+        }
+        
+        .learn-mode .melody-card .note-name {
+            font-size: 1.4rem;
             font-weight: bold;
-            transition: all 0.3s ease;
         }
 
-        .nav-link:hover {
-            background: white;
-            transform: translateY(-2px);
+        #instructions {
+            margin-top: 10px;
+            font-size: 0.9rem;
+            color: #ddd;
+            background: rgba(0,0,0,0.3);
+            padding: 10px;
+            border-radius: 10px;
         }
 
-        @media (max-width: 768px) {
-            .game-area {
-                grid-template-columns: 1fr;
-            }
-
-            .music-grid {
-                grid-template-columns: repeat(4, 1fr);
-            }
-
-            h1 {
-                font-size: 2em;
-            }
+        .key {
+            display: inline-block;
+            background: #eee;
+            color: #333;
+            padding: 2px 8px;
+            border-radius: 4px;
+            font-weight: bold;
+            box-shadow: 0 2px 0 #ccc;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <header>
-            <h1>Melody Mixer Creatures</h1>
-            <p style="font-size: 1.2em;">Drag creatures to create your own music!</p>
-        </header>
 
-        <div class="instructions">
-            <h2>How to Play:</h2>
+<div id="app-container">
+    <canvas id="gameCanvas"></canvas>
+
+    <!-- HUD (Score) -->
+    <div id="hud" class="ui-layer hidden">
+        <div class="hud">
+            <div class="score-label">SCORE</div>
+            <div id="scoreDisplay" class="score-value">0</div>
+        </div>
+        <div class="mode-hud" id="modeHud"></div>
+    </div>
+
+    <!-- Main Menu -->
+    <div id="menu-screen" class="ui-layer">
+        <div class="modal">
+            <h1>Monster Beat & Melody Monsters 🎵</h1>
             <p>
-                1. Drag and drop creatures from the left panel onto the music grid<br>
-                2. Each creature makes a unique sound<br>
-                3. Click "Play" to hear your creation loop<br>
-                4. Click creatures on the grid to remove them<br>
-                5. Create awesome music combinations!
+                A gentle, musical game for kids who love monsters and melodies.<br>
+                <span class="small">Soft sounds • Two play modes • No downloads</span>
             </p>
-            <div id="audioStatus" style="margin-top: 10px; padding: 8px; border-radius: 5px; font-weight: bold;">
-                <span id="audioStatusText">Tap anywhere to enable sound...</span>
+            <button id="playBeatBtn">▶ Monster Beat</button>
+            <button id="playMelodyBtn" class="secondary">🎵 Melody Monsters</button>
+            <div id="instructions">
+                <strong>Monster Beat:</strong> Press <span class="key">SPACE</span> or <span class="key">TAP</span> to jump.<br>
+                Land on platforms to make notes. The higher the platform, the higher the note.<br><br>
+                <strong>Melody Monsters:</strong> Learn your notes by ear! Choose Piano or Guitar style.
             </div>
-        </div>
-
-        <!-- Tempo Control -->
-        <div class="tempo-control">
-            <h3>Tempo Control</h3>
-            <div class="tempo-display">
-                <span id="tempoValue">120</span> BPM
-            </div>
-            <div class="tempo-slider-container">
-                <span class="tempo-label">60</span>
-                <input type="range" id="tempoSlider" class="tempo-slider" min="60" max="180" value="120" step="5">
-                <span class="tempo-label">180</span>
-            </div>
-        </div>
-
-        <div class="game-area">
-            <div class="creatures-panel">
-                <h3>Creatures</h3>
-                <div class="creatures-list" id="creaturesList"></div>
-            </div>
-
-            <div class="music-grid-container">
-                <h3>Music Grid (8 Beats)</h3>
-                <div class="music-grid" id="musicGrid"></div>
-                <div class="controls">
-                    <button class="btn btn-play" id="playBtn">Play</button>
-                    <button class="btn btn-stop" id="stopBtn" disabled>Stop</button>
-                    <button class="btn btn-clear" id="clearBtn">Clear All</button>
-                </div>
-            </div>
-        </div>
-
-        <div style="text-align: center;">
-            <a href="index.html" class="nav-link">Back to Home</a>
         </div>
     </div>
 
-    <script>
-        // Creature definitions with sounds
-        const creatures = [
-            { id: 'cat', name: 'Cat', icon: '🐱', freq: 523.25 }, // C5
-            { id: 'dog', name: 'Dog', icon: '🐶', freq: 587.33 }, // D5
-            { id: 'bird', name: 'Bird', icon: '🐦', freq: 659.25 }, // E5
-            { id: 'frog', name: 'Frog', icon: '🐸', freq: 698.46 }, // F5
-            { id: 'lion', name: 'Lion', icon: '🦁', freq: 783.99 }, // G5
-            { id: 'elephant', name: 'Elephant', icon: '🐘', freq: 880.00 }, // A5
-            { id: 'monkey', name: 'Monkey', icon: '🐵', freq: 987.77 }, // B5
-            { id: 'pig', name: 'Pig', icon: '🐷', freq: 1046.50 }, // C6
-        ];
+    <!-- Game Over Screen -->
+    <div id="game-over-screen" class="ui-layer hidden">
+        <div class="modal">
+            <h1>GAME OVER</h1>
+            <p id="finalScoreText">Score: 0</p>
+            <p id="highScoreText">Best: 0</p>
+            <p id="highNoteText" class="small">Highest Note Reached: —</p>
+            <button id="restartBtn">TRY AGAIN</button>
+            <button id="backToMenuBtn" class="secondary">BACK TO MENU</button>
+        </div>
+    </div>
 
-        // Global variables
-        let audioContext;
-        let isPlaying = false;
-        let playInterval;
-        let currentBeat = 0;
-        let audioInitialized = false;
-        let currentBPM = 120;
-        let tempoSlider;
-        let tempoValueDisplay;
+    <!-- Pause Screen -->
+    <div id="pause-screen" class="ui-layer hidden">
+        <div class="modal">
+            <h1>PAUSED</h1>
+            <button id="resumeBtn">▶ RESUME</button>
+            <button id="quitBtn" class="secondary">QUIT TO MENU</button>
+        </div>
+    </div>
 
-        // Grid state
-        const gridState = Array(8).fill(null);
+    <!-- Melody Mode Intro -->
+    <div id="melody-mode-screen" class="ui-layer hidden">
+        <div class="modal">
+            <h1>Melody Monsters 🐱🎵</h1>
+            <p>Choose an instrument to hear different musical scales!</p>
+            
+            <div class="instrument-toggle">
+                <button id="setPianoBtn" class="active">🎹 Piano</button>
+                <button id="setGuitarBtn" class="guitar-btn">🎸 Guitar</button>
+            </div>
 
-        // Mobile device detection for optimizations
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
-        const isAndroid = /Android/.test(navigator.userAgent);
+            <div id="instrument-desc" class="small">Listening to <strong>Piano (C Major)</strong></div>
+            <br>
+            <button id="goToLearnBtn">LISTEN & LEARN</button>
+            <button id="backToMenuFromMelodyBtn" class="secondary">BACK TO MENU</button>
+        </div>
+    </div>
 
-        // Performance optimization: Use requestAnimationFrame for DOM updates
-        let pendingDOMUpdates = [];
-        function optimizeDOMUpdate(callback) {
-            pendingDOMUpdates.push(callback);
-            if (pendingDOMUpdates.length === 1) {
-                requestAnimationFrame(processDOMUpdates);
+    <!-- Melody Learn Screen -->
+    <div id="melody-learn-screen" class="ui-layer hidden">
+        <div class="modal">
+            <h1>Listen & Learn 👂</h1>
+            <p>Tap a monster to hear its sound, or listen to them all!</p>
+            <button id="listenAllBtn">🎶 Play Scale</button>
+            <div class="melody-grid learn-mode" id="learnGrid">
+                <!-- Filled by JS -->
+            </div>
+            <button id="startQuizBtn" class="secondary">✅ I'm Ready to Play!</button>
+        </div>
+    </div>
+
+    <!-- Melody Round (Question) -->
+    <div id="melody-round-screen" class="ui-layer hidden">
+        <div class="modal">
+            <h1>Which Monster Plays This Note?</h1>
+            <p id="melodyRoundText">Round 1 / 5</p>
+            <div class="melody-grid" id="quizGrid">
+                <!-- Filled by JS -->
+            </div>
+            <button id="replayNoteBtn">🔊 Hear Note Again</button>
+        </div>
+    </div>
+
+    <!-- Melody Result -->
+    <div id="melody-result-screen" class="ui-layer hidden">
+        <div class="modal">
+            <h1 id="melodyResultTitle">Nice Try!</h1>
+            <p id="melodyResultMessage"></p>
+            <div id="melodyResultDetails" class="small"></div>
+            <button id="nextMelodyRoundBtn">NEXT ROUND</button>
+            <button id="backToMelodyMenuBtn" class="secondary">BACK TO MELODY MENU</button>
+        </div>
+    </div>
+</div>
+
+<script>
+/**
+ * AUDIO SYSTEM & SCALES
+ */
+class AudioController {
+    constructor() {
+        this.ctx = null;
+        this.currentInstrument = 'PIANO';
+        
+        // Define Scales
+        this.scales = {
+            PIANO: {
+                names: ["C5","D5","E5","F5","G5","A5","B5","C6"],
+                freqs: [523.25, 587.33, 659.25, 698.46, 783.99, 880.00, 987.77, 1046.50],
+                wave: 'sine'
+            },
+            GUITAR: {
+                names: ["E4","F#4","G#4","A4","B4","C#5","D#5","E5"],
+                freqs: [329.63, 369.99, 415.30, 440.00, 493.88, 554.37, 622.25, 659.25],
+                wave: 'triangle' // Triangle feels more like a plucked string
+            }
+        };
+    }
+
+    init() {
+        if (!this.ctx) {
+            this.ctx = new (window.AudioContext || window.webkitAudioContext)();
+        }
+        if (this.ctx.state === 'suspended') {
+            this.ctx.resume();
+        }
+    }
+
+    getScale() {
+        return this.scales[this.currentInstrument];
+    }
+
+    setInstrument(name) {
+        this.currentInstrument = name;
+    }
+
+    playJumpSound() {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = this.getScale().wave;
+        // Random note from the current scale
+        const scaleFreqs = this.getScale().freqs;
+        const base = scaleFreqs[Math.floor(Math.random() * 4)]; 
+        osc.frequency.setValueAtTime(base, this.ctx.currentTime);
+        gain.gain.setValueAtTime(0, this.ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.15, this.ctx.currentTime + 0.06);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.3);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.3);
+    }
+
+    playLandHeight(heightRatio) {
+        if (!this.ctx) return;
+        const scale = this.getScale();
+        const index = Math.min(scale.freqs.length - 1, Math.max(0, Math.floor(heightRatio * scale.freqs.length)));
+        const freq = scale.freqs[index];
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = scale.wave;
+        osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+        gain.gain.setValueAtTime(0, this.ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.2, this.ctx.currentTime + 0.06);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.6);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.6);
+        return scale.names[index];
+    }
+
+    playDing() {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'sine';
+        osc.frequency.setValueAtTime(880, this.ctx.currentTime);
+        gain.gain.setValueAtTime(0, this.ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.18, this.ctx.currentTime + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.4);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.4);
+    }
+
+    playOops() {
+        if (!this.ctx) return;
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = 'triangle';
+        osc.frequency.setValueAtTime(300, this.ctx.currentTime);
+        osc.frequency.linearRampToValueAtTime(220, this.ctx.currentTime + 0.25);
+        gain.gain.setValueAtTime(0, this.ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.15, this.ctx.currentTime + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.35);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.35);
+    }
+
+    playNoteByName(noteName) {
+        if (!this.ctx) return;
+        const scale = this.getScale();
+        const idx = scale.names.indexOf(noteName);
+        if (idx === -1) return;
+        const freq = scale.freqs[idx];
+        const osc = this.ctx.createOscillator();
+        const gain = this.ctx.createGain();
+        osc.type = scale.wave;
+        osc.frequency.setValueAtTime(freq, this.ctx.currentTime);
+        gain.gain.setValueAtTime(0, this.ctx.currentTime);
+        gain.gain.linearRampToValueAtTime(0.25, this.ctx.currentTime + 0.05);
+        gain.gain.exponentialRampToValueAtTime(0.001, this.ctx.currentTime + 0.7);
+        osc.connect(gain);
+        gain.connect(this.ctx.destination);
+        osc.start();
+        osc.stop(this.ctx.currentTime + 0.7);
+    }
+}
+
+const audio = new AudioController();
+
+/**
+ * MONSTER BEAT GAME ENGINE
+ */
+const canvas = document.getElementById('gameCanvas');
+const ctx = canvas.getContext('2d');
+
+let appMode = 'MENU'; 
+let frames = 0;
+let score = 0;
+let highScore = parseInt(localStorage.getItem('monsterBeatHighScore') || '0', 10);
+let highNoteReached = '—';
+let gameSpeed = 5;
+let width, height;
+
+// UI Elements
+const scoreDisplay = document.getElementById('scoreDisplay');
+const modeHud = document.getElementById('modeHud');
+const menuScreen = document.getElementById('menu-screen');
+const gameOverScreen = document.getElementById('game-over-screen');
+const pauseScreen = document.getElementById('pause-screen');
+const hud = document.getElementById('hud');
+const finalScoreText = document.getElementById('finalScoreText');
+const highScoreText = document.getElementById('highScoreText');
+const highNoteText = document.getElementById('highNoteText');
+
+// Melody screens
+const melodyModeScreen = document.getElementById('melody-mode-screen');
+const melodyLearnScreen = document.getElementById('melody-learn-screen');
+const melodyRoundScreen = document.getElementById('melody-round-screen');
+const melodyResultScreen = document.getElementById('melody-result-screen');
+const learnGrid = document.getElementById('learnGrid');
+const quizGrid = document.getElementById('quizGrid');
+const instrumentDesc = document.getElementById('instrument-desc');
+
+function resize() {
+    width = window.innerWidth;
+    height = window.innerHeight;
+    canvas.width = width;
+    canvas.height = height;
+}
+window.addEventListener('resize', resize);
+resize();
+
+// Input
+function handleInputStart(e) {
+    if (e.type === 'keydown' && e.code !== 'Space' && e.code !== 'Escape') return;
+    if (e.type === 'keydown' && e.code === 'Escape') {
+        if (appMode === 'BEAT') togglePause();
+        return;
+    }
+    if (appMode === 'BEAT') player.jump();
+}
+
+window.addEventListener('keydown', handleInputStart);
+window.addEventListener('touchstart', (e) => {
+    if (appMode === 'BEAT') player.jump();
+}, {passive: false});
+window.addEventListener('mousedown', () => {
+    if (appMode === 'BEAT') player.jump();
+});
+
+// Game Objects
+const player = {
+    x: 100, y: 0, width: 40, height: 40,
+    dy: 0, jumpPower: -11, gravity: 0.55,
+    grounded: false, color: '#FF9FF3', rotation: 0,
+    reset() {
+        this.y = height / 2; this.dy = 0; this.rotation = 0; this.grounded = false;
+    },
+    update() {
+        this.dy += this.gravity; this.y += this.dy;
+        if (!this.grounded) this.rotation += 0.13;
+        else this.rotation = Math.round(this.rotation / (Math.PI / 2)) * (Math.PI / 2);
+        if (this.y > height + this.height) endBeatGame();
+    },
+    jump() {
+        if (this.grounded) {
+            this.dy = this.jumpPower; this.grounded = false;
+            audio.playJumpSound();
+            createParticles(this.x + this.width/2, this.y + this.height, 8, '#FF9FF3');
+        }
+    },
+    draw() {
+        ctx.save();
+        ctx.translate(this.x + this.width / 2, this.y + this.height / 2);
+        ctx.rotate(this.rotation);
+        ctx.fillStyle = this.color;
+        ctx.shadowBlur = 15;
+        ctx.shadowColor = this.color;
+        ctx.beginPath();
+        ctx.roundRect(-this.width / 2, -this.height / 2, this.width, this.height, 8);
+        ctx.fill();
+        ctx.shadowBlur = 0;
+        ctx.fillStyle = 'white';
+        ctx.beginPath(); ctx.arc(-6, -5, 7, 0, Math.PI*2); ctx.arc(10, -5, 7, 0, Math.PI*2); ctx.fill();
+        ctx.fillStyle = '#2c3e50';
+        ctx.beginPath(); ctx.arc(-4, -4, 3, 0, Math.PI*2); ctx.arc(12, -4, 3, 0, Math.PI*2); ctx.fill();
+        ctx.strokeStyle = '#2c3e50'; ctx.lineWidth = 2; ctx.beginPath(); ctx.arc(2, 4, 5, 0, Math.PI); ctx.stroke();
+        ctx.restore();
+    }
+};
+
+let platforms = []; let particles = []; let stars = []; let lastLandNote = '—';
+
+class Platform {
+    constructor(x, y, w) {
+        this.x = x; this.y = y; this.width = w; this.height = 16;
+        this.hue = Math.random() * 360; this.playedLand = false;
+    }
+    update() { this.x -= gameSpeed; }
+    draw() {
+        ctx.fillStyle = `hsl(${this.hue}, 80%, 60%)`;
+        ctx.shadowBlur = 12; ctx.shadowColor = `hsl(${this.hue}, 80%, 60%)`;
+        ctx.beginPath(); ctx.roundRect(this.x, this.y, this.width, this.height, 6); ctx.fill();
+        ctx.fillStyle = `hsl(${this.hue}, 80%, 85%)`; ctx.shadowBlur = 0;
+        ctx.fillRect(this.x, this.y, this.width, 4);
+    }
+}
+
+class Star {
+    constructor(x, y) {
+        this.x = x; this.y = y; this.size = 14; this.collected = false; this.angle = 0;
+    }
+    update() { this.x -= gameSpeed; this.angle += 0.08; }
+    draw() {
+        if (this.collected) return;
+        ctx.save(); ctx.translate(this.x, this.y); ctx.rotate(this.angle);
+        ctx.fillStyle = '#FECA57'; ctx.shadowBlur = 10; ctx.shadowColor = '#FECA57';
+        ctx.beginPath(); ctx.moveTo(0, -this.size/2); ctx.lineTo(this.size/2, 0);
+        ctx.lineTo(0, this.size/2); ctx.lineTo(-this.size/2, 0); ctx.closePath(); ctx.fill();
+        ctx.restore();
+    }
+}
+
+class Particle {
+    constructor(x, y, color) {
+        this.x = x; this.y = y; this.size = Math.random() * 5 + 2;
+        this.speedX = Math.random() * 5 - 2.5; this.speedY = Math.random() * 5 - 2.5;
+        this.color = color; this.life = 1.0;
+    }
+    update() {
+        this.x += this.speedX; this.y += this.speedY; this.life -= 0.025;
+    }
+    draw() {
+        ctx.globalAlpha = this.life; ctx.fillStyle = this.color;
+        ctx.beginPath(); ctx.arc(this.x, this.y, this.size, 0, Math.PI*2); ctx.fill();
+        ctx.globalAlpha = 1.0;
+    }
+}
+
+function createParticles(x, y, count, color) {
+    for (let i = 0; i < count; i++) particles.push(new Particle(x, y, color));
+}
+
+function generateBeatLevel() {
+    if (platforms.length > 0 && platforms[0].x + platforms[0].width < -100) platforms.shift();
+    if (stars.length > 0 && stars[0].x < -50) stars.shift();
+
+    let lastPlatform = platforms[platforms.length - 1];
+    if (!lastPlatform || lastPlatform.x + lastPlatform.width < width) {
+        let gap = 90 + Math.random() * 130; if (gap > 200) gap = 200;
+        let w = 220 + Math.random() * 260;
+        let y = lastPlatform ? lastPlatform.y + (Math.random() * 180 - 90) : height / 2 + 60;
+        if (y < 140) y = 140; if (y > height - 90) y = height - 90;
+        let x = lastPlatform ? lastPlatform.x + lastPlatform.width + gap : width;
+        let p = new Platform(x, y, w);
+        platforms.push(p);
+        if (Math.random() > 0.72) stars.push(new Star(x + w / 2, y - 70 - Math.random() * 40));
+    }
+}
+
+function checkCollisions() {
+    player.grounded = false;
+    for (let p of platforms) {
+        if (player.dy > 0 && player.x + player.width > p.x && player.x < p.x + p.width &&
+            player.y + player.height >= p.y && player.y + player.height <= p.y + p.height + 10) {
+            player.grounded = true; player.dy = 0; player.y = p.y - player.height;
+            if (!p.playedLand) {
+                p.playedLand = true;
+                let heightRatio = 1 - (p.y / height);
+                let noteName = audio.playLandHeight(heightRatio);
+                lastLandNote = noteName || '—';
+                createParticles(player.x + player.width/2, player.y + player.height, 5, p.hue);
             }
         }
-
-        function processDOMUpdates() {
-            const updates = [...pendingDOMUpdates];
-            pendingDOMUpdates = [];
-            updates.forEach(update => update());
+    }
+    for (let s of stars) {
+        if (!s.collected && player.x < s.x + s.size && player.x + player.width > s.x - s.size &&
+            player.y < s.y + s.size && player.y + player.height > s.y - s.size) {
+            s.collected = true; score += 50; scoreDisplay.innerText = score;
+            createParticles(s.x, s.y, 12, '#FECA57'); audio.playDing();
         }
+    }
+}
 
-        // Enhanced iOS audio system with multiple fallback strategies
-        function initAudioContext() {
-            if (!audioContext) {
-                try {
-                    const AudioContext = window.AudioContext || window.webkitAudioContext;
-                    
-                    // iOS requires specific audio context configuration
-                    audioContext = new AudioContext({
-                        latencyHint: 'interactive',
-                        sampleRate: 44100,
-                        outputLatency: 'interactive'
-                    });
+function drawBackground() {
+    let gradient = ctx.createLinearGradient(0, 0, 0, height);
+    gradient.addColorStop(0, '#16213e'); gradient.addColorStop(1, '#0f3460');
+    ctx.fillStyle = gradient; ctx.fillRect(0, 0, width, height);
+    ctx.fillStyle = 'rgba(255,255,255,0.4)';
+    for(let i=0; i<50; i++) {
+        let x = (Math.sin(i * 132.1) * width + frames * (i % 3 === 0 ? 0.4 : 0.15)) % width;
+        let y = (Math.cos(i * 432.1) * height + height) % height;
+        if (x < 0) x += width;
+        let size = (i % 5) + 1;
+        let twinkle = (Math.sin(frames * 0.04 + i) + 1) / 2;
+        ctx.globalAlpha = twinkle;
+        ctx.beginPath(); ctx.arc(x, y, size, 0, Math.PI*2); ctx.fill();
+    }
+    ctx.globalAlpha = 1.0;
+}
 
-                    console.log('AudioContext created with state:', audioContext.state);
-                    
-                    // iOS-specific audio preparation
-                    prepareAudioForIOS();
-                    
-                } catch (error) {
-                    console.error('Failed to create AudioContext:', error);
-                }
+function beatLoop() {
+    if (appMode !== 'BEAT') return;
+    frames++;
+    if (frames % 720 === 0) gameSpeed += 0.4;
+    ctx.clearRect(0, 0, width, height);
+    drawBackground();
+    generateBeatLevel();
+    platforms.forEach(p => { p.update(); p.draw(); });
+    stars.forEach(s => { s.update(); s.draw(); });
+    player.update(); checkCollisions(); player.draw();
+    for (let i = particles.length - 1; i >= 0; i--) {
+        particles[i].update(); particles[i].draw();
+        if (particles[i].life <= 0) particles.splice(i, 1);
+    }
+    if (frames % 10 === 0) { score++; scoreDisplay.innerText = score; }
+    requestAnimationFrame(beatLoop);
+}
+
+function startBeatGame() {
+    audio.init(); appMode = 'BEAT'; score = 0; frames = 0; gameSpeed = 5; lastLandNote = '—';
+    platforms = []; stars = []; particles = []; scoreDisplay.innerText = '0';
+    platforms.push(new Platform(50, height/2 + 60, 480));
+    player.reset(); player.grounded = true;
+    menuScreen.classList.add('hidden'); gameOverScreen.classList.add('hidden');
+    hud.classList.remove('hidden'); modeHud.innerText = 'Monster Beat';
+    beatLoop();
+}
+
+function endBeatGame() {
+    appMode = 'GAMEOVER';
+    if (score > highScore) { highScore = score; localStorage.setItem('monsterBeatHighScore', highScore); }
+    finalScoreText.innerText = `Score: ${score}`;
+    highScoreText.innerText = `Best: ${highScore}`;
+    highNoteText.innerText = `Highest Note Reached: ${lastLandNote}`;
+    hud.classList.add('hidden'); gameOverScreen.classList.remove('hidden');
+}
+
+function togglePause() {
+    if (appMode === 'BEAT') { appMode = 'PAUSE'; pauseScreen.classList.remove('hidden'); }
+    else if (appMode === 'PAUSE') { appMode = 'BEAT'; pauseScreen.classList.add('hidden'); beatLoop(); }
+}
+
+/**
+ * MELODY MONSTERS LOGIC
+ */
+
+// Base Monster Data (visuals stay same)
+const baseMonsters = [
+    { name: "Cat",   emoji: "🐱", color: "#FF9FF3" },
+    { name: "Dog",   emoji: "🐶", color: "#FECA57" },
+    { name: "Bird",  emoji: "🐦", color: "#1DD1A1" },
+    { name: "Frog",  emoji: "🐸", color: "#48DBFB" },
+    { name: "Lion",  emoji: "🦁", color: "#5F27CD" },
+    { name: "Elephant", emoji: "🐘", color: "#FF6B6B" },
+    { name: "Monkey",emoji: "🐵", color: "#C8D6E5" },
+    { name: "Pig",   emoji: "🐷", color: "#FF9FF3" }
+];
+
+// Dynamic monsters (changes based on scale)
+let melodyMonsters = [];
+let melodyRound = 1; 
+let melodyTotalRounds = 5; 
+let melodyTargetNote = null; 
+let melodyStreak = 0;
+
+function updateMelodyMonsters() {
+    const scale = audio.getScale();
+    melodyMonsters = baseMonsters.map((m, idx) => {
+        return {
+            ...m,
+            note: scale.names[idx],
+            freq: scale.freqs[idx]
+        };
+    });
+}
+
+function showMelodyModeScreen() {
+    appMode = 'MELODY_INTRO';
+    updateMelodyMonsters(); // Ensure monsters match current audio setting
+    menuScreen.classList.add('hidden'); hud.classList.add('hidden'); gameOverScreen.classList.add('hidden');
+    melodyModeScreen.classList.remove('hidden'); melodyLearnScreen.classList.add('hidden');
+    melodyRoundScreen.classList.add('hidden'); melodyResultScreen.classList.add('hidden');
+}
+
+function setInstrument(instrument) {
+    audio.setInstrument(instrument);
+    updateMelodyMonsters();
+    
+    // UI Updates
+    const pianoBtn = document.getElementById('setPianoBtn');
+    const guitarBtn = document.getElementById('setGuitarBtn');
+    
+    if (instrument === 'PIANO') {
+        pianoBtn.style.opacity = "1";
+        pianoBtn.style.border = "2px solid white";
+        guitarBtn.style.opacity = "0.5";
+        guitarBtn.style.border = "none";
+        instrumentDesc.innerHTML = `Listening to <strong>Piano (C Major)</strong>`;
+    } else {
+        guitarBtn.style.opacity = "1";
+        guitarBtn.style.border = "2px solid white";
+        pianoBtn.style.opacity = "0.5";
+        pianoBtn.style.border = "none";
+        instrumentDesc.innerHTML = `Listening to <strong>Guitar (E Major)</strong>`;
+    }
+}
+
+function showLearnScreen() {
+    appMode = 'MELODY_LEARN';
+    melodyModeScreen.classList.add('hidden');
+    melodyLearnScreen.classList.remove('hidden');
+    renderLearnGrid();
+}
+
+function renderLearnGrid() {
+    learnGrid.innerHTML = '';
+    melodyMonsters.forEach((m, idx) => {
+        const card = document.createElement('div');
+        card.className = 'melody-card';
+        card.id = `learn-card-${idx}`;
+        card.innerHTML = `<span class="emoji">${m.emoji}</span><span class="note-name">${m.note}</span>`;
+        card.addEventListener('click', () => {
+            if (appMode === 'MELODY_LEARN') {
+                audio.playNoteByName(m.note);
+                highlightCard(card);
             }
-            return audioContext;
-        }
-
-        // iOS-specific audio preparation
-        function prepareAudioForIOS() {
-            if (!isIOS) return;
-
-            // Create a silent audio buffer to "prime" the system
-            const sampleRate = audioContext.sampleRate;
-            const duration = 0.1;
-            const buffer = audioContext.createBuffer(1, sampleRate * duration, sampleRate);
-            const data = buffer.getChannelData(0);
-            
-            // Fill with silent data (all zeros)
-            for (let i = 0; i < data.length; i++) {
-                data[i] = 0;
-            }
-
-            // Create silent source and connect it
-            const source = audioContext.createBufferSource();
-            source.buffer = buffer;
-            const gainNode = audioContext.createGain();
-            gainNode.gain.value = 0;
-            
-            source.connect(gainNode);
-            gainNode.connect(audioContext.destination);
-            
-            console.log('iOS audio preparation complete');
-        }
-
-        // Enhanced audio enablement with multiple strategies
-        function enableAudio() {
-            console.log('Enabling audio - user interaction detected');
-            
-            const audioContext = initAudioContext();
-            if (!audioContext) return;
-
-            const audioStatus = document.getElementById('audioStatus');
-            const audioStatusText = document.getElementById('audioStatusText');
-            
-            // Strategy 1: Direct resume
-            const attemptResume = () => {
-                if (audioContext.state === 'suspended') {
-                    audioContext.resume()
-                        .then(() => {
-                            console.log('Audio context resumed successfully');
-                            updateAudioStatus('ready');
-                        })
-                        .catch(err => {
-                            console.error('Failed to resume audio context:', err);
-                            updateAudioStatus('error');
-                        });
-                } else if (audioContext.state === 'running') {
-                    updateAudioStatus('ready');
-                }
-            };
-
-            // Strategy 2: iOS-specific interaction triggers
-            const triggerIOSAudio = () => {
-                if (isIOS && audioContext.state === 'suspended') {
-                    // Create and play a minimal sound to enable iOS audio
-                    const osc = audioContext.createOscillator();
-                    const gain = audioContext.createGain();
-                    
-                    osc.connect(gain);
-                    gain.connect(audioContext.destination);
-                    
-                    osc.type = 'sine';
-                    osc.frequency.value = 440;
-                    gain.gain.value = 0;
-                    
-                    osc.start(audioContext.currentTime);
-                    osc.stop(audioContext.currentTime + 0.05);
-                    
-                    console.log('iOS audio trigger executed');
-                }
-            };
-
-            // Execute strategies
-            attemptResume();
-            triggerIOSAudio();
-            updateAudioStatus('initializing');
-            
-            // Wait and retry
-            setTimeout(() => {
-                if (audioContext.state === 'running') {
-                    updateAudioStatus('ready');
-                }
-            }, 200);
-        }
-
-        // Update audio status indicator
-        function updateAudioStatus(status) {
-            const audioStatus = document.getElementById('audioStatus');
-            const audioStatusText = document.getElementById('audioStatusText');
-            
-            if (!audioStatus || !audioStatusText) return;
-            
-            switch (status) {
-                case 'initializing':
-                    audioStatus.classList.remove('enabled');
-                    audioStatusText.textContent = '⚡ Initializing audio...';
-                    break;
-                case 'ready':
-                    audioStatus.classList.add('enabled');
-                    audioStatusText.textContent = '🔊 Audio Ready!';
-                    audioInitialized = true;
-                    break;
-                case 'error':
-                    audioStatus.classList.remove('enabled');
-                    audioStatusText.textContent = '❌ Audio Error - Tap to retry';
-                    break;
-                default:
-                    audioStatus.classList.remove('enabled');
-                    audioStatusText.textContent = 'Tap anywhere to enable sound...';
-            }
-        }
-
-        // Enhanced playTone with multiple audio strategies
-        function playTone(frequency, duration = 0.3) {
-            const audioContext = initAudioContext();
-            if (!audioContext || audioContext.state !== 'running') {
-                console.log('Audio not ready, attempting to initialize...');
-                enableAudio();
-                
-                // Retry after a brief delay
-                setTimeout(() => playTone(frequency, duration), 100);
-                return;
-            }
-
-            try {
-                const oscillator = audioContext.createOscillator();
-                const gainNode = audioContext.createGain();
-                
-                oscillator.connect(gainNode);
-                gainNode.connect(audioContext.destination);
-                
-                oscillator.type = 'sine';
-                oscillator.frequency.value = frequency;
-                
-                // Mobile-optimized gain settings
-                const baseGain = isIOS ? 0.5 : 0.3;
-                const mobileGain = isMobile ? baseGain * 1.5 : baseGain;
-                
-                gainNode.gain.setValueAtTime(mobileGain, audioContext.currentTime);
-                gainNode.gain.exponentialRampToValueAtTime(0.01, audioContext.currentTime + duration);
-                
-                oscillator.start(audioContext.currentTime);
-                oscillator.stop(audioContext.currentTime + duration);
-                
-                console.log(`Playing tone: ${frequency}Hz for ${duration}s`);
-            } catch (error) {
-                console.error('Error playing tone:', error);
-            }
-        }
-
-        // Tempo control functionality
-        function initTempoControl() {
-            tempoSlider = document.getElementById('tempoSlider');
-            tempoValueDisplay = document.getElementById('tempoValue');
-            
-            if (!tempoSlider || !tempoValueDisplay) return;
-            
-            // Update tempo display
-            const updateTempoDisplay = (bpm) => {
-                currentBPM = parseInt(bpm);
-                tempoValueDisplay.textContent = currentBPM;
-            };
-            
-            // Initialize display
-            updateTempoDisplay(tempoSlider.value);
-            
-            // Listen for tempo changes
-            tempoSlider.addEventListener('input', (e) => {
-                const newBPM = parseInt(e.target.value);
-                updateTempoDisplay(newBPM);
-                
-                // Update playback interval if currently playing
-                if (isPlaying) {
-                    clearInterval(playInterval);
-                    const interval = calculateInterval(currentBPM);
-                    playInterval = setInterval(playLoop, interval);
-                }
-            });
-            
-            console.log('Tempo control initialized');
-        }
-
-        // Calculate interval based on BPM
-        function calculateInterval(bpm) {
-            // Convert BPM to milliseconds per beat
-            return Math.round((60 / bpm) * 1000);
-        }
-
-        // Initialize creatures list with performance optimizations
-        function initCreatures() {
-            const creaturesList = document.getElementById('creaturesList');
-            if (!creaturesList) return;
-            
-            // Optimize for mobile - use DocumentFragment for better performance
-            const fragment = document.createDocumentFragment();
-            
-            creatures.forEach(creature => {
-                const div = document.createElement('div');
-                div.className = 'creature';
-                div.draggable = true;
-                div.dataset.creatureId = creature.id;
-                div.innerHTML = `
-                    <div class="creature-icon">${creature.icon}</div>
-                    <div class="creature-name">${creature.name}</div>
-                `;
-                
-                // Drag and drop events
-                div.addEventListener('dragstart', (e) => {
-                    e.dataTransfer.effectAllowed = 'copy';
-                    e.dataTransfer.setData('text/plain', creature.id);
-                    div.classList.add('dragging');
-                });
-                
-                div.addEventListener('dragend', () => {
-                    div.classList.remove('dragging');
-                });
-
-                // Enhanced touch events for mobile
-                if (isMobile) {
-                    div.addEventListener('touchstart', (e) => {
-                        div.classList.add('touch-active');
-                        e.preventDefault();
-                    });
-                    
-                    div.addEventListener('touchend', (e) => {
-                        div.classList.remove('touch-active');
-                        e.preventDefault();
-                        handleCreatureClick(creature);
-                    });
-                }
-
-                // Click/touch to preview sound and place on grid
-                div.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    handleCreatureClick(creature);
-                });
-                
-                fragment.appendChild(div);
-            });
-            
-            creaturesList.appendChild(fragment);
-            console.log('Creatures initialized');
-        }
-
-        // Handle creature click/tap with audio enabling
-        function handleCreatureClick(creature) {
-            enableAudio();
-            
-            // If already on grid, remove it
-            const existingCell = document.querySelector(`[data-creature="${creature.id}"]`);
-            if (existingCell) {
-                removeCreature(parseInt(existingCell.dataset.beat));
-                return;
-            }
-            
-            // Place on first empty cell
-            const emptyCell = document.querySelector('.grid-cell:not([data-creature])');
-            if (emptyCell) {
-                const beatIndex = parseInt(emptyCell.dataset.beat);
-                placeCreature(beatIndex, creature);
-                playTone(creature.freq);
-            }
-        }
-
-        // Initialize music grid with performance optimizations
-        function initGrid() {
-            const grid = document.getElementById('musicGrid');
-            if (!grid) return;
-            
-            // Use DocumentFragment for better performance
-            const fragment = document.createDocumentFragment();
-            
-            for (let i = 0; i < 8; i++) {
-                const cell = document.createElement('div');
-                cell.className = 'grid-cell';
-                cell.dataset.beat = i;
-                cell.innerHTML = `<span class="beat-label">${i + 1}</span>`;
-                
-                // Drag and drop events
-                cell.addEventListener('dragover', (e) => {
-                    e.preventDefault();
-                    e.dataTransfer.dropEffect = 'copy';
-                    cell.classList.add('drag-over');
-                });
-                
-                cell.addEventListener('dragleave', () => {
-                    cell.classList.remove('drag-over');
-                });
-                
-                cell.addEventListener('drop', (e) => {
-                    e.preventDefault();
-                    cell.classList.remove('drag-over');
-                    
-                    const creatureId = e.dataTransfer.getData('text/plain');
-                    const creature = creatures.find(c => c.id === creatureId);
-                    
-                    if (creature) {
-                        placeCreature(i, creature);
-                        playTone(creature.freq); // Preview sound
-                    }
-                });
-                
-                // Enhanced click handling for mobile
-                if (isMobile) {
-                    cell.addEventListener('touchend', (e) => {
-                        e.preventDefault();
-                        if (gridState[i] && !e.target.classList.contains('remove-btn')) {
-                            removeCreature(i);
-                        }
-                    });
-                }
-                
-                cell.addEventListener('click', (e) => {
-                    e.preventDefault();
-                    if (gridState[i] && !e.target.classList.contains('remove-btn')) {
-                        removeCreature(i);
-                    }
-                });
-                
-                fragment.appendChild(cell);
-            }
-            
-            grid.appendChild(fragment);
-            console.log('Grid initialized');
-        }
-
-        // Place creature on grid
-        function placeCreature(beat, creature) {
-            gridState[beat] = creature;
-            optimizeDOMUpdate(updateGridDisplay);
-        }
-
-        // Remove creature from grid
-        function removeCreature(beat) {
-            gridState[beat] = null;
-            optimizeDOMUpdate(updateGridDisplay);
-        }
-
-        // Optimized grid display update
-        function updateGridDisplay() {
-            const cells = document.querySelectorAll('.grid-cell');
-            cells.forEach((cell, index) => {
-                const creature = gridState[index];
-                if (creature) {
-                    cell.classList.add('occupied');
-                    cell.dataset.creature = creature.id;
-                    cell.innerHTML = `
-                        <div class="creature-icon">${creature.icon}</div>
-                        <button class="remove-btn" onclick="removeCreature(${index}); event.stopPropagation();">×</button>
-                        <span class="beat-label">${index + 1}</span>
-                    `;
-                } else {
-                    cell.classList.remove('occupied');
-                    delete cell.dataset.creature;
-                    cell.innerHTML = `<span class="beat-label">${index + 1}</span>`;
-                }
-            });
-        }
-
-        // Enhanced play loop with tempo support
-        function playLoop() {
-            if (!isPlaying) return;
-            
-            // Remove previous playhead with performance optimization
-            optimizeDOMUpdate(() => {
-                document.querySelectorAll('.playhead').forEach(el => el.remove());
-            });
-            
-            // Play current beat
-            const creature = gridState[currentBeat];
-            if (creature) {
-                playTone(creature.freq);
-                
-                // Visual feedback with performance optimization
-                optimizeDOMUpdate(() => {
-                    const cell = document.querySelector(`[data-beat="${currentBeat}"]`);
-                    if (cell) {
-                        const playhead = document.createElement('div');
-                        playhead.className = 'playhead';
-                        cell.appendChild(playhead);
-                    }
-                });
-            }
-            
-            // Move to next beat
-            currentBeat = (currentBeat + 1) % 8;
-        }
-
-        // Start playing with enhanced iOS audio handling and tempo support
-        function startPlaying() {
-            console.log('Starting playback...');
-            
-            // Ensure audio is enabled
-            enableAudio();
-            
-            // Wait for audio context to be ready
-            const startPlayback = () => {
-                if (audioContext && audioContext.state === 'running') {
-                    isPlaying = true;
-                    currentBeat = 0;
-                    document.getElementById('playBtn').disabled = true;
-                    document.getElementById('stopBtn').disabled = false;
-                    
-                    console.log('Audio is ready, starting playback at', currentBPM, 'BPM');
-                    
-                    playLoop();
-                    const interval = calculateInterval(currentBPM);
-                    playInterval = setInterval(playLoop, interval);
-                } else {
-                    console.log('Audio not ready yet, retrying...');
-                    setTimeout(startPlayback, 200);
-                }
-            };
-            
-            setTimeout(startPlayback, 100);
-        }
-
-        // Stop playing
-        function stopPlaying() {
-            isPlaying = false;
-            clearInterval(playInterval);
-            document.getElementById('playBtn').disabled = false;
-            document.getElementById('stopBtn').disabled = true;
-            
-            // Remove playhead with performance optimization
-            optimizeDOMUpdate(() => {
-                document.querySelectorAll('.playhead').forEach(el => el.remove());
-            });
-        }
-
-        // Clear all
-        function clearAll() {
-            gridState.fill(null);
-            optimizeDOMUpdate(updateGridDisplay);
-            if (isPlaying) {
-                stopPlaying();
-            }
-        }
-
-        // Enhanced event listeners with performance optimizations
-        function initEventListeners() {
-            const playBtn = document.getElementById('playBtn');
-            const stopBtn = document.getElementById('stopBtn');
-            const clearBtn = document.getElementById('clearBtn');
-            
-            if (playBtn) playBtn.addEventListener('click', startPlaying);
-            if (stopBtn) stopBtn.addEventListener('click', stopPlaying);
-            if (clearBtn) clearBtn.addEventListener('click', clearAll);
-            
-            console.log('Event listeners initialized');
-        }
-
-        // Comprehensive iOS audio enablement with multiple strategies
-        function initAudioListeners() {
-            // Multiple user interaction triggers for iOS
-            const interactionEvents = ['touchstart', 'click', 'touchend', 'mousedown', 'keydown', 'pointerdown'];
-            
-            interactionEvents.forEach(eventType => {
-                document.addEventListener(eventType, enableAudio, { 
-                    passive: true, 
-                    once: false 
-                });
-            });
-
-            // Specific iOS audio triggers
-            if (isIOS) {
-                // Enhanced touch handling for iOS
-                document.addEventListener('touchstart', function(e) {
-                    const audioContext = initAudioContext();
-                    if (audioContext && audioContext.state === 'suspended') {
-                        audioContext.resume()
-                            .then(() => {
-                                console.log('iOS audio resumed on touch');
-                                audioInitialized = true;
-                            })
-                            .catch(err => console.error('iOS audio resume failed:', err));
-                    }
-                }, { passive: true });
-                
-                // iOS-specific audio priming
-                setTimeout(() => {
-                    const audioContext = initAudioContext();
-                    if (audioContext && audioContext.state === 'suspended') {
-                        // Create minimal audio to enable iOS audio
-                        try {
-                            const osc = audioContext.createOscillator();
-                            const gain = audioContext.createGain();
-                            
-                            osc.connect(gain);
-                            gain.connect(audioContext.destination);
-                            
-                            osc.type = 'sine';
-                            osc.frequency.value = 440;
-                            gain.gain.value = 0.001; // Very minimal volume
-                            
-                            osc.start(audioContext.currentTime);
-                            osc.stop(audioContext.currentTime + 0.1);
-                            
-                            console.log('iOS audio priming executed');
-                        } catch (error) {
-                            console.error('iOS audio priming failed:', error);
-                        }
-                    }
-                }, 500);
-            }
-            
-            // Audio context state monitoring
-            const audioContext = initAudioContext();
-            if (audioContext) {
-                audioContext.addEventListener('statechange', () => {
-                    console.log('AudioContext state changed to:', audioContext.state);
-                    if (audioContext.state === 'running') {
-                        audioInitialized = true;
-                        updateAudioStatus('ready');
-                    }
-                });
-            }
-        }
-
-        // Initialize game components
-        function initGame() {
-            console.log('Initializing Melody Mixer game...');
-            console.log('Device info:', { isMobile, isIOS, isAndroid });
-            
-            initCreatures();
-            initGrid();
-            initTempoControl();
-            initEventListeners();
-            initAudioListeners();
-            
-            // Make removeCreature available globally for inline onclick
-            window.removeCreature = removeCreature;
-            
-            console.log('Game initialization complete');
-        }
-
-        // Enhanced initialization with proper timing
-        document.addEventListener('DOMContentLoaded', () => {
-            // Small delay to ensure all elements are ready
-            setTimeout(initGame, 100);
         });
+        learnGrid.appendChild(card);
+    });
+}
 
-        // Fallback initialization if DOMContentLoaded already fired
-        if (document.readyState === 'loading') {
-            document.addEventListener('DOMContentLoaded', initGame);
-        } else {
-            setTimeout(initGame, 100);
+function highlightCard(card) {
+    card.classList.add('active-sequence');
+    setTimeout(() => card.classList.remove('active-sequence'), 400);
+}
+
+async function playAllNotes() {
+    if (appMode !== 'MELODY_LEARN') return;
+    const btn = document.getElementById('listenAllBtn');
+    btn.disabled = true;
+    btn.innerText = "Playing...";
+
+    for (let i = 0; i < melodyMonsters.length; i++) {
+        const m = melodyMonsters[i];
+        const card = document.getElementById(`learn-card-${i}`);
+        
+        // Visual
+        card.classList.add('active-sequence');
+        // Audio
+        audio.playNoteByName(m.note);
+        
+        // Wait
+        await new Promise(r => setTimeout(r, 700));
+        
+        card.classList.remove('active-sequence');
+    }
+
+    btn.disabled = false;
+    btn.innerText = "🎶 Play Scale";
+}
+
+function startMelodyMiniGame() {
+    audio.init();
+    melodyRound = 1; melodyStreak = 0;
+    startMelodyRound();
+}
+
+function startMelodyRound() {
+    appMode = 'MELODY_ROUND';
+    melodyLearnScreen.classList.add('hidden'); melodyResultScreen.classList.add('hidden');
+    melodyRoundScreen.classList.remove('hidden');
+
+    document.getElementById('melodyRoundText').innerText = `Round ${melodyRound} / ${melodyTotalRounds}`;
+
+    // Pick target
+    melodyTargetNote = melodyMonsters[Math.floor(Math.random() * melodyMonsters.length)];
+    renderQuizGrid(false);
+
+    // Delay then play
+    setTimeout(() => {
+        if (appMode === 'MELODY_ROUND') audio.playNoteByName(melodyTargetNote.note);
+    }, 600);
+}
+
+function renderQuizGrid(showResult, correctMonster, wrongMonster) {
+    quizGrid.innerHTML = '';
+    melodyMonsters.forEach(m => {
+        const card = document.createElement('div');
+        card.className = 'melody-card';
+        if (showResult) {
+            if (m === correctMonster) {
+                card.style.background = 'rgba(29, 209, 161, 0.45)';
+                card.style.border = '2px solid #1DD1A1';
+            } else if (m === wrongMonster) {
+                card.style.background = 'rgba(255, 107, 107, 0.4)';
+                card.style.border = '2px solid #FF6B6B';
+            }
         }
-    </script>
+        card.innerHTML = `<span class="emoji">${m.emoji}</span><span class="note-name">${m.note}</span>`;
+        card.addEventListener('click', () => {
+            if (appMode === 'MELODY_ROUND' && !showResult) handleMelodyGuess(m);
+            else audio.playNoteByName(m.note);
+        });
+        quizGrid.appendChild(card);
+    });
+}
+
+function handleMelodyGuess(monster) {
+    if (monster.note === melodyTargetNote.note) {
+        melodyStreak++;
+        audio.playDing();
+        showMelodyResult(true, monster, null);
+    } else {
+        audio.playOops();
+        showMelodyResult(false, melodyTargetNote, monster);
+    }
+}
+
+function showMelodyResult(correct, correctMonster, wrongMonster) {
+    appMode = 'MELODY_RESULT';
+    melodyRoundScreen.classList.add('hidden'); melodyResultScreen.classList.remove('hidden');
+    const title = document.getElementById('melodyResultTitle');
+    const message = document.getElementById('melodyResultMessage');
+    const details = document.getElementById('melodyResultDetails');
+
+    if (correct) {
+        title.innerText = "Correct! 🎉";
+        message.innerText = `You found the ${correctMonster.note} monster!`;
+        details.innerText = `${correctMonster.name} plays ${correctMonster.note}. Great ear!`;
+    } else {
+        title.innerText = "Oops!";
+        message.innerText = `That was ${wrongMonster.note}, not ${melodyTargetNote.note}.`;
+        details.innerText = `${correctMonster.name} plays ${correctMonster.note}. Listen again next round!`;
+    }
+    renderQuizGrid(true, correctMonster, wrongMonster);
+}
+
+function nextMelodyRound() {
+    if (melodyRound >= melodyTotalRounds) backToMelodyMenu();
+    else { melodyRound++; startMelodyRound(); }
+}
+
+function backToMelodyMenu() {
+    appMode = 'MELODY_INTRO';
+    melodyResultScreen.classList.add('hidden'); melodyRoundScreen.classList.add('hidden');
+    melodyModeScreen.classList.remove('hidden');
+}
+
+function backToMainMenu() {
+    appMode = 'MENU';
+    menuScreen.classList.remove('hidden'); hud.classList.add('hidden');
+    gameOverScreen.classList.add('hidden'); pauseScreen.classList.add('hidden');
+    melodyModeScreen.classList.add('hidden'); melodyLearnScreen.classList.add('hidden');
+    melodyRoundScreen.classList.add('hidden'); melodyResultScreen.classList.add('hidden');
+}
+
+/**
+ * BUTTON HOOKUPS
+ */
+document.getElementById('playBeatBtn').addEventListener('click', startBeatGame);
+document.getElementById('playMelodyBtn').addEventListener('click', showMelodyModeScreen);
+document.getElementById('restartBtn').addEventListener('click', startBeatGame);
+document.getElementById('backToMenuBtn').addEventListener('click', backToMainMenu);
+
+document.getElementById('resumeBtn').addEventListener('click', togglePause);
+document.getElementById('quitBtn').addEventListener('click', () => {
+    appMode = 'MENU'; pauseScreen.classList.add('hidden'); hud.classList.add('hidden'); menuScreen.classList.remove('hidden');
+});
+
+document.getElementById('setPianoBtn').addEventListener('click', () => setInstrument('PIANO'));
+document.getElementById('setGuitarBtn').addEventListener('click', () => setInstrument('GUITAR'));
+
+document.getElementById('goToLearnBtn').addEventListener('click', showLearnScreen);
+document.getElementById('listenAllBtn').addEventListener('click', playAllNotes);
+document.getElementById('startQuizBtn').addEventListener('click', startMelodyMiniGame);
+document.getElementById('backToMenuFromMelodyBtn').addEventListener('click', backToMainMenu);
+document.getElementById('nextMelodyRoundBtn').addEventListener('click', nextMelodyRound);
+document.getElementById('backToMelodyMenuBtn').addEventListener('click', backToMelodyMenu);
+document.getElementById('replayNoteBtn').addEventListener('click', () => {
+    if (appMode === 'MELODY_ROUND' && melodyTargetNote) audio.playNoteByName(melodyTargetNote.note);
+});
+
+</script>
 </body>
 </html>
