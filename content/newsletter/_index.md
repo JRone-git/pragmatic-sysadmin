@@ -9,13 +9,11 @@ description: "Join the Pragmatic Sysadmin newsletter for practical tips and insi
 
 Short, practical tips. No spam, just sysadmin sanity.
 
-<form action="[https://buttondown.email/api/subscribe/embed](https://buttondown.com/api/emails/embed-subscribe/jonne)" method="post" target="_blank" style="margin:2em 0;padding:1.5em;background:#f7f7f7;border-radius:8px;border:1px solid #e0e0e0;">
-  <input type="hidden" name="account" value="jonne">
-  <label for="bd-email" style="display:block;margin-bottom:0.5em;font-weight:bold;">Enter your email:</label>
-  <div style="display:flex;gap:0.5em;flex-wrap:wrap;">
-    <input type="email" name="email" id="bd-email" placeholder="you@example.com" required style="flex:1;padding:0.7em 1em;border:1px solid #ccc;border-radius:6px;font-size:1em;">
-    <button type="submit" style="padding:0.7em 1.5em;background:#2563eb;color:#fff;font-weight:bold;border:none;border-radius:6px;cursor:pointer;font-size:1em;">Subscribe</button>
-  </div>
+<form action="https://buttondown.com/api/emails/embed-subscribe/jonne" method="post" class="embeddable-buttondown-form" referrerpolicy="unsafe-url">
+    <label for="bd-email">Enter your email</label>
+    <input type="email" name="email" id="bd-email" />
+    <input type="submit" value="Subscribe" />
+    <p><a href="https://buttondown.com/refer/jonne" target="_blank">Powered by Buttondown.</a></p>
 </form>
 
 <div style="margin:1.5em 0;padding:1em 1.5em;background:#f7f7f7;border-radius:8px;border:1px solid #e0e0e0;">
