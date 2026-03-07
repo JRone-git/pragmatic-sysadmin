@@ -14,20 +14,42 @@ description: "Join the Pragmatic Sysadmin newsletter for practical tips and insi
 
   <!-- SUBSCRIPTION FORM CARD -->
   <div id="newsletter-form" style="background: #ffffff; padding: 2em; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 1px solid #e0e0e0; margin-bottom: 2em;">
-    <form action="https://buttondown.email/api/emails/embed-subscribe/jonne" method="post" target="_top">
+    
+    <!-- ✅ Official Buttondown embed form structure - URLs cleaned -->
+    <form
+      action="https://buttondown.com/api/emails/embed-subscribe/jonne"
+      method="post"
+      class="embeddable-buttondown-form"
+      target="_top"
+    >
+      <label for="bd-email" style="display:block; margin-bottom:0.5em; font-weight:500;">Enter your email</label>
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <input type="email" name="email" id="bd-email" placeholder="Enter your email address" required 
-               style="flex: 1; min-width: 200px; padding: 14px; border: 1px solid #ccc; border-radius: 8px; font-size: 1em;">
-        <input type="submit" value="Subscribe" 
-               style="padding: 14px 24px; background: #007bff; color: white; border: none; border-radius: 8px; font-size: 1em; font-weight: bold; cursor: pointer; transition: background 0.3s;">
+        <input 
+          type="email" 
+          name="email" 
+          id="bd-email" 
+          placeholder="you@example.com" 
+          required
+          style="flex: 1; min-width: 200px; padding: 14px; border: 1px solid #ccc; border-radius: 8px; font-size: 1em;"
+        >
+        <input 
+          type="submit" 
+          value="Subscribe" 
+          style="padding: 14px 24px; background: #007bff; color: white; border: none; border-radius: 8px; font-size: 1em; font-weight: bold; cursor: pointer; transition: background 0.3s;"
+        >
       </div>
       
-      <input type="hidden" name="redirect" value="https://pragmaticsysadmin.help/newsletter/?subscribed=true">
+      <!-- Required hidden field for embed detection -->
+      <input type="hidden" name="embed" value="1" />
+      
+      <!-- Optional: redirect after successful subscription -->
+      <input type="hidden" name="redirect" value="https://pragmaticsysadmin.help/newsletter/?subscribed=true" />
       
       <p style="text-align: center; margin-top: 15px; font-size: 0.85em; color: #888;">
-        <a href="https://buttondown.com/refer/jonne" target="_blank" style="color: #aaa; text-decoration: none;">Powered by Buttondown</a>
+        <a href="https://buttondown.com/refer/jonne" target="_blank" style="color: #aaa; text-decoration: none;">Powered by Buttondown.</a>
       </p>
     </form>
+    
   </div>
 
   <!-- SUCCESS MESSAGE (Hidden by default) -->
