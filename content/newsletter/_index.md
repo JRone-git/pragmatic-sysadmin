@@ -21,8 +21,8 @@ description: "Join the Pragmatic Sysadmin newsletter for practical tips and insi
         <input type="submit" value="Subscribe" style="padding: 14px 24px; background: #007bff; color: white; border: none; border-radius: 8px; font-size: 1em; font-weight: bold; cursor: pointer; transition: background 0.3s;">
     </div>
       
-      <!-- SUCCESS REDIRECT (Change 'yourwebsite.com' to your actual domain) -->
-      <input type="hidden" name="redirect" value="https://yourwebsite.com/newsletter/?subscribed=true">
+      <!-- SUCCESS REDIRECT  -->
+      <input type="hidden" name="redirect" value="https://pragmaticsysadmin.help/newsletter/?subscribed=true">
       
       <p style="text-align: center; margin-top: 15px; font-size: 0.85em; color: #888;">
         <a href="https://buttondown.com/refer/jonne" target="_blank" style="color: #aaa; text-decoration: none;">Powered by Buttondown</a>
