@@ -9,11 +9,16 @@ description: "Join the Pragmatic Sysadmin newsletter for practical tips and insi
 
 Short, practical tips. No spam, just sysadmin sanity.
 
-<form action="https://buttondown.com/api/emails/embed-subscribe/jonne" method="post" class="embeddable-buttondown-form" referrerpolicy="unsafe-url">
-    <label for="bd-email">Enter your email</label>
-    <input type="email" name="email" id="bd-email" />
-    <input type="submit" value="Subscribe" />
-    <p><a href="https://buttondown.com/refer/jonne" target="_blank">Powered by Buttondown.</a></p>
+<!-- Buttondown Embed Form -->
+<form action="https://buttondown.com/api/emails/embed-subscribe/jonne" 
+      method="post" 
+      class="embeddable-buttondown-form" 
+      referrerpolicy="unsafe-url">
+  <label for="bd-email" style="display:block;margin-bottom:0.5em;font-weight:bold;">Enter your email:</label>
+  <div style="display:flex;gap:0.5em;flex-wrap:wrap;">
+    <input type="email" name="email" id="bd-email" placeholder="you@example.com" required style="flex:1;padding:0.7em 1em;border:1px solid #ccc;border-radius:6px;font-size:1em;">
+    <button type="submit" style="padding:0.7em 1.5em;background:#2563eb;color:#fff;font-weight:bold;border:none;border-radius:6px;cursor:pointer;font-size:1em;">Subscribe</button>
+  </div>
 </form>
 
 <div style="margin:1.5em 0;padding:1em 1.5em;background:#f7f7f7;border-radius:8px;border:1px solid #e0e0e0;">
@@ -21,7 +26,7 @@ Short, practical tips. No spam, just sysadmin sanity.
 • <strong>Linux Commands</strong> - Essential commands every sysadmin needs<br>
 • <strong>Networking</strong> - Troubleshooting commands and diagnostics<br>
 • <strong>Security Hardening</strong> - Quick security checklist for servers<br>
-<a href="/static/cheat-sheet.html" target="_blank">Download all three cheat sheets (PDF)</a>
+<a href="/checklist.pdf" target="_blank">Download all three cheat sheets (PDF)</a>
 </div>
 
 Get weekly insights on:
