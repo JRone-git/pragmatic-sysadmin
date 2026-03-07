@@ -18,8 +18,11 @@ Short, practical tips. No spam, just sysadmin sanity.
 </form>
 
 <div style="margin:1.5em 0;padding:1em 1.5em;background:#f7f7f7;border-radius:8px;border:1px solid #e0e0e0;">
-<b>🎁 Subscribe and get instant access to the <a href="/checklist.pdf" target="_blank">Home Network Security Checklist (PDF)</a>!</b><br>
-Plus, every month you'll receive a new bonus gift for subscribers (e.g. cheat sheets, guides, templates).
+<b>🎁 Subscribe and get instant access to free cheat sheets:</b><br>
+• <strong>Linux Commands</strong> - Essential commands every sysadmin needs<br>
+• <strong>Networking</strong> - Troubleshooting commands and diagnostics<br>
+• <strong>Security Hardening</strong> - Quick security checklist for servers<br>
+<a href="/cheat-sheet.pdf" target="_blank">Download all three cheat sheets (PDF)</a>
 </div>
 
 Get weekly insights on:
