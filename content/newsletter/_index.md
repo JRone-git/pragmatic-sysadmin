@@ -23,7 +23,7 @@ Short, practical tips. No spam, just sysadmin sanity.
 • <strong>Linux Commands</strong> - Essential commands every sysadmin needs<br>
 • <strong>Networking</strong> - Troubleshooting commands and diagnostics<br>
 • <strong>Security Hardening</strong> - Quick security checklist for servers<br>
-<a href="/checklist.pdf" target="_blank">Download all three cheat sheets (PDF)</a>
+<a href="/static/cheat-sheet.html" target="_blank">Download all three cheat sheets (PDF)</a>
 </div>
 
 Get weekly insights on:
