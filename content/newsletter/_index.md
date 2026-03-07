@@ -1,4 +1,3 @@
-
 ---
 title: "Newsletter"
 date: 2025-08-16
@@ -15,13 +14,14 @@ description: "Join the Pragmatic Sysadmin newsletter for practical tips and insi
 
   <!-- SUBSCRIPTION FORM CARD -->
   <div id="newsletter-form" style="background: #ffffff; padding: 2em; border-radius: 12px; box-shadow: 0 4px 12px rgba(0,0,0,0.08); border: 1px solid #e0e0e0; margin-bottom: 2em;">
-    <form action="https://buttondown.email/api/emails/embed-subscribe/jonne" method="post">
+    <form action="https://buttondown.email/api/emails/embed-subscribe/jonne" method="post" target="_top">
       <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-        <input type="email" name="email" id="bd-email" placeholder="Enter your email address" required style="flex: 1; min-width: 200px; padding: 14px; border: 1px solid #ccc; border-radius: 8px; font-size: 1em;">
-        <input type="submit" value="Subscribe" style="padding: 14px 24px; background: #007bff; color: white; border: none; border-radius: 8px; font-size: 1em; font-weight: bold; cursor: pointer; transition: background 0.3s;">
-    </div>
+        <input type="email" name="email" id="bd-email" placeholder="Enter your email address" required 
+               style="flex: 1; min-width: 200px; padding: 14px; border: 1px solid #ccc; border-radius: 8px; font-size: 1em;">
+        <input type="submit" value="Subscribe" 
+               style="padding: 14px 24px; background: #007bff; color: white; border: none; border-radius: 8px; font-size: 1em; font-weight: bold; cursor: pointer; transition: background 0.3s;">
+      </div>
       
-      <!-- SUCCESS REDIRECT  -->
       <input type="hidden" name="redirect" value="https://pragmaticsysadmin.help/newsletter/?subscribed=true">
       
       <p style="text-align: center; margin-top: 15px; font-size: 0.85em; color: #888;">
@@ -46,7 +46,7 @@ description: "Join the Pragmatic Sysadmin newsletter for practical tips and insi
       <li><strong>Networking</strong> - Troubleshooting & diagnostics</li>
       <li><strong>Security Hardening</strong> - Server security checklist</li>
     </ul>
-    <a href="/cheat-sheet.html" target="_blank" style="display: inline-block; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 0.9em;">Access Resources</a>
+    <a href="/cheat-sheet.html" style="display: inline-block; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 0.9em;">Access Resources</a>
   </div>
 
   <!-- WHAT TO EXPECT -->
@@ -62,7 +62,8 @@ description: "Join the Pragmatic Sysadmin newsletter for practical tips and insi
 
   <!-- SUPPORT SECTION -->
   <div style="text-align: center; padding: 1.5em; background: #fffce6; border-radius: 12px; border: 1px solid #ffeeba;">
-    <a href="https://buymeacoffee.com/pragmaticadmin" target="_blank" rel="noopener" style="display: inline-block; padding: 0.8em 2em; background: #ffdd00; color: #222; font-weight: bold; border-radius: 8px; font-size: 1.2em; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
+    <a href="https://buymeacoffee.com/pragmaticadmin" target="_blank" rel="noopener" 
+       style="display: inline-block; padding: 0.8em 2em; background: #ffdd00; color: #222; font-weight: bold; border-radius: 8px; font-size: 1.2em; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
       ☕ Buy Me a Coffee
     </a>
     <div style="margin-top: 0.5em; color: #888; font-size: 0.9em;">Support the newsletter and get more free resources!</div>
@@ -75,10 +76,14 @@ description: "Join the Pragmatic Sysadmin newsletter for practical tips and insi
 window.onload = function() {
   var urlParams = new URLSearchParams(window.location.search);
   if (urlParams.get('subscribed') === 'true') {
-    document.getElementById('newsletter-form').style.display = 'none';
-    document.getElementById('newsletter-thankyou').style.display = 'block';
-    window.history.replaceState({}, document.title, window.location.pathname);
+    var form = document.getElementById('newsletter-form');
+    var thanks = document.getElementById('newsletter-thankyou');
+    if (form && thanks) {
+      form.style.display = 'none';
+      thanks.style.display = 'block';
+      // Clean URL without query parameter
+      window.history.replaceState({}, document.title, window.location.pathname);
+    }
   }
 };
 </script>
-```
