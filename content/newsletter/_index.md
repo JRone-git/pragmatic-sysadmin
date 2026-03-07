@@ -9,7 +9,7 @@ description: "Join the Pragmatic Sysadmin newsletter for practical tips and insi
 
 Short, practical tips. No spam, just sysadmin sanity.
 
-<form action="https://buttondown.email/api/subscribe/embed" method="post" target="_blank" style="margin:2em 0;padding:1.5em;background:#f7f7f7;border-radius:8px;border:1px solid #e0e0e0;">
+<form action="[https://buttondown.email/api/subscribe/embed](https://buttondown.com/api/emails/embed-subscribe/jonne)" method="post" target="_blank" style="margin:2em 0;padding:1.5em;background:#f7f7f7;border-radius:8px;border:1px solid #e0e0e0;">
   <input type="hidden" name="account" value="jonne">
   <label for="bd-email" style="display:block;margin-bottom:0.5em;font-weight:bold;">Enter your email:</label>
   <div style="display:flex;gap:0.5em;flex-wrap:wrap;">
