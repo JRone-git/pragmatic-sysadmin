@@ -23,8 +23,8 @@ Test your sysadmin skills in realistic IT scenarios. Type commands to solve prob
 ## [Command Simulator](/tools/command-simulator.html)
 Practice Linux and Windows commands safely in a simulated environment. Perfect for learning without breaking anything.
 
-## [Corporate Translator](/tools/corporate-translator.html)
-Translate between business jargon and technical terms. Bridge the communication gap between IT and management.
+## [Pragmatic Pulse](/tools/pulse.html)
+Assess your digital resilience across 3 disaster scenarios. Get scored on your backup, 2FA, and recovery practices with actionable advice.
 
 ---
 
