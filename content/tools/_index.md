@@ -26,6 +26,9 @@ Practice Linux and Windows commands safely in a simulated environment. Perfect f
 ## [Pragmatic Pulse](/tools/pulse.html)
 Assess your digital resilience across 3 disaster scenarios. Get scored on your backup, 2FA, and recovery practices with actionable advice.
 
+## [Battle Station Score](/tools/battle-station-score.html)
+Rate your PC/gaming setup and get ranked! Compare monitors, peripherals, desk setup, cable management, and more. Shareable results perfect for the PCMR crowd.
+
 ---
 
 Feel free to suggest more tools or improvements!
