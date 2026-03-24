@@ -29,6 +29,9 @@ Assess your digital resilience across 3 disaster scenarios. Get scored on your b
 ## [Battle Station Score](/tools/battle-station-score.html)
 Rate your PC/gaming setup and get ranked! Compare monitors, peripherals, desk setup, cable management, and more. Shareable results perfect for the PCMR crowd.
 
+## [Tech Needs Advisor](/tools/tech-needs-advisor.html)
+Not sure what tech you actually need? Answer 3 quick questions and get personalized recommendations for your use case and budget.
+
 ---
 
 Feel free to suggest more tools or improvements!
