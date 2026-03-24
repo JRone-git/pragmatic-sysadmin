@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1069,4 +1070,1077 @@
         });
     </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CLI Adventure Troubleshooter - Pragmatic Sysadmin</title>
+    <meta name="description" content="Test your sysadmin skills in our interactive CLI adventure game. Solve real-world IT scenarios and earn professional resume lines.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #e2e8f0;
+            background: #0f172a;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 2rem;
+            flex: 1;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            border-radius: 12px;
+            margin-bottom: 2rem;
+            text-align: center;
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+            text-shadow: 0 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        
+        .game-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+        
+        @media (max-width: 768px) {
+            .game-container {
+                grid-template-columns: 1fr;
+            }
+        }
+        
+        .terminal {
+            background: #0b1220;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            padding: 1rem;
+            height: 600px;
+            display: flex;
+            flex-direction: column;
+            position: relative;
+        }
+        
+        .terminal-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid #1e293b;
+        }
+        
+        .terminal-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 600;
+            color: #60a5fa;
+        }
+        
+        .terminal-stats {
+            display: flex;
+            gap: 1rem;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+        
+        .terminal-screen {
+            flex: 1;
+            overflow-y: auto;
+            padding: 1rem;
+            background: #0a101f;
+            border: 1px solid #1e293b;
+            border-radius: 4px;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .terminal-input {
+            display: flex;
+            align-items: center;
+            margin-top: 1rem;
+            padding: 0.5rem;
+            background: #0a101f;
+            border: 1px solid #1e293b;
+            border-radius: 4px;
+        }
+        
+        .prompt {
+            color: #60a5fa;
+            font-weight: 600;
+            margin-right: 0.5rem;
+        }
+        
+        .input-field {
+            flex: 1;
+            background: transparent;
+            border: none;
+            color: #e2e8f0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            outline: none;
+        }
+        
+        .cursor {
+            display: inline-block;
+            width: 8px;
+            height: 16px;
+            background: #60a5fa;
+            animation: blink 1s infinite;
+            vertical-align: middle;
+            margin-left: 2px;
+        }
+        
+        @keyframes blink {
+            0%, 50% { opacity: 1; }
+            51%, 100% { opacity: 0; }
+        }
+        
+        .sidebar {
+            background: #111827;
+            border: 1px solid #1e293b;
+            border-radius: 8px;
+            padding: 1.5rem;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+        }
+        
+        .sidebar h3 {
+            color: #f1f5f9;
+            margin-bottom: 1rem;
+            font-size: 1.1rem;
+        }
+        
+        .scenario-info {
+            background: #0b1220;
+            border: 1px solid #1e293b;
+            border-radius: 6px;
+            padding: 1rem;
+        }
+        
+        .scenario-title {
+            color: #ef4444;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+        
+        .scenario-desc {
+            color: #e2e8f0;
+            font-size: 0.9rem;
+            line-height: 1.4;
+        }
+        
+        .difficulty-selector {
+            background: #0b1220;
+            border: 1px solid #1e293b;
+            border-radius: 6px;
+            padding: 1rem;
+        }
+        
+        .difficulty-btn {
+            padding: 0.5rem 1rem;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: #e2e8f0;
+            border-radius: 4px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+            margin-right: 0.5rem;
+            transition: all 0.2s;
+        }
+        
+        .difficulty-btn:hover {
+            background: #1e293b;
+            border-color: #667eea;
+        }
+        
+        .difficulty-btn.active {
+            background: #667eea;
+            border-color: #667eea;
+            color: white;
+        }
+        
+        .progress-section {
+            background: #0b1220;
+            border: 1px solid #1e293b;
+            border-radius: 6px;
+            padding: 1rem;
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 8px;
+            background: #1e293b;
+            border-radius: 4px;
+            overflow: hidden;
+            margin: 0.5rem 0;
+        }
+        
+        .progress-fill {
+            height: 100%;
+            background: #10b981;
+            width: 0%;
+            transition: width 0.3s ease;
+        }
+        
+        .controls {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .btn {
+            padding: 0.5rem 1rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.9rem;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5a6fd8;
+        }
+        
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+        
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #059669;
+        }
+        
+        .log-entry {
+            margin-bottom: 0.5rem;
+            padding: 0.25rem;
+            border-radius: 3px;
+        }
+        
+        .log-entry.system { color: #60a5fa; }
+        .log-entry.success { color: #10b981; }
+        .log-entry.warning { color: #f59e0b; }
+        .log-entry.error { color: #ef4444; }
+        .log-entry.user { color: #94a3b8; font-style: italic; }
+        .log-entry.info { color: #93c5fd; }
+        
+        .resume-line {
+            background: #0b1220;
+            border: 1px solid #1e293b;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .resume-line h3 {
+            color: #10b981;
+            margin-bottom: 0.5rem;
+        }
+        
+        .resume-content {
+            color: #e2e8f0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.6;
+            background: #0a101f;
+            padding: 1rem;
+            border-radius: 4px;
+            border: 1px solid #1e293b;
+        }
+        
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        .hidden {
+            display: none !important;
+        }
+        
+        .achievement {
+            background: #0b1220;
+            border: 1px solid #1e293b;
+            border-radius: 6px;
+            padding: 1rem;
+            margin-top: 1rem;
+        }
+        
+        .achievement h4 {
+            color: #f59e0b;
+            margin-bottom: 0.5rem;
+        }
+        
+        .achievement-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 0.5rem;
+        }
+        
+        .achievement-item {
+            background: #0a101f;
+            border: 1px solid #1e293b;
+            border-radius: 4px;
+            padding: 0.5rem;
+            font-size: 0.8rem;
+            color: #94a3b8;
+        }
+        
+        .achievement-item.unlocked {
+            background: #0f172a;
+            border-color: #10b981;
+            color: #10b981;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>CLI Adventure Troubleshooter</h1>
+            <p>Test your sysadmin skills in realistic IT scenarios. Type commands to solve problems and earn professional resume lines.</p>
+        </div>
+        
+        <div class="game-container">
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-title">PragmaticSysadmin Terminal v2.0</div>
+                    <div class="terminal-stats">
+                        <span id="scenario-display">Scenario: N/A</span>
+                        <span id="streak-display">Streak: 0</span>
+                        <span id="score-display">Score: 0</span>
+                    </div>
+                </div>
+                
+                <div class="terminal-screen" id="terminal-screen">
+                    <div class="log-entry system">Welcome to CLI Adventure Troubleshooter!</div>
+                    <div class="log-entry system">Choose a difficulty level and start solving scenarios.</div>
+                    <div class="log-entry system">Type 'help' for available commands.</div>
+                    <div class="log-entry system">Current directory: /home/sysadmin</div>
+                </div>
+                
+                <div class="terminal-input">
+                    <div class="prompt">sysadmin@cli-adventure:~$</div>
+                    <input type="text" class="input-field" id="command-input" placeholder="Type your command here...">
+                    <div class="cursor"></div>
+                </div>
+            </div>
+            
+            <div class="sidebar">
+                <div class="scenario-info">
+                    <h3>Current Scenario</h3>
+                    <div class="scenario-title" id="scenario-title">Select Difficulty to Begin</div>
+                    <div class="scenario-desc" id="scenario-desc">Choose a difficulty level to start your adventure.</div>
+                </div>
+                
+                <div class="difficulty-selector">
+                    <h3>Difficulty Level</h3>
+                    <button class="difficulty-btn active" onclick="setDifficulty('beginner')">Beginner</button>
+                    <button class="difficulty-btn" onclick="setDifficulty('intermediate')">Intermediate</button>
+                    <button class="difficulty-btn" onclick="setDifficulty('advanced')">Advanced</button>
+                </div>
+                
+                <div class="progress-section">
+                    <h3>Progress</h3>
+                    <div class="progress-bar">
+                        <div class="progress-fill" id="progress-fill"></div>
+                    </div>
+                    <div style="display: flex; justify-content: space-between; font-size: 0.8rem; color: #94a3b8;">
+                        <span>Level Progress</span>
+                        <span id="progress-text">0/5</span>
+                    </div>
+                </div>
+                
+                <div class="achievement">
+                    <h4>Achievements</h4>
+                    <div class="achievement-list" id="achievement-list">
+                        <div class="achievement-item">First Steps</div>
+                        <div class="achievement-item">Problem Solver</div>
+                        <div class="achievement-item">Efficiency Expert</div>
+                        <div class="achievement-item">Master Troubleshooter</div>
+                    </div>
+                </div>
+                
+                <div class="controls">
+                    <button class="btn btn-primary" onclick="startScenario()">🚀 Start Scenario</button>
+                    <button class="btn btn-secondary" onclick="showHelp()">❓ Help</button>
+                    <button class="btn btn-secondary" onclick="showResume()">📄 Resume</button>
+                    <button class="btn btn-success" onclick="resetGame()">🔄 Reset</button>
+                </div>
+            </div>
+        </div>
+        
+        <div class="resume-line" id="resume-line">
+            <h3>Professional Resume Line</h3>
+            <div class="resume-content" id="resume-content">
+                Generated resume line will appear here after completing a scenario.
+            </div>
+            <div style="margin-top: 1rem; display: flex; gap: 1rem;">
+                <button class="btn btn-primary" onclick="copyResume()">📋 Copy to Clipboard</button>
+                <button class="btn btn-secondary" onclick="shareResume()">📤 Share</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="toast" id="toast">Command executed successfully!</div>
+    
+    <script>
+        // Game state
+        const state = {
+            difficulty: 'beginner',
+            currentScenario: null,
+            score: 0,
+            streak: 0,
+            progress: 0,
+            totalScenarios: 0,
+            achievements: {
+                firstSteps: false,
+                problemSolver: false,
+                efficiencyExpert: false,
+                masterTroubleshooter: false
+            },
+            history: []
+        };
+        
+        // Scenarios
+        const scenarios = {
+            beginner: [
+                {
+                    id: 'disk-space',
+                    title: 'Disk Space Crisis',
+                    description: 'Server is running out of disk space. Users can\'t save files and applications are failing.',
+                    commands: ['df -h', 'du -sh /var/log', 'rm /var/log/*.log'],
+                    hints: ['Check disk usage with df -h', 'Find large files with du command', 'Clean up old log files'],
+                    resumeLine: 'Diagnosed and resolved critical disk space issues, implementing automated log rotation to prevent future occurrences and improving system reliability by 95%.'
+                },
+                {
+                    id: 'service-down',
+                    title: 'Web Service Down',
+                    description: 'Website is not responding. Apache service appears to be stopped.',
+                    commands: ['systemctl status apache2', 'systemctl start apache2', 'systemctl enable apache2'],
+                    hints: ['Check service status', 'Start the service', 'Enable auto-start on boot'],
+                    resumeLine: 'Rapidly identified and restored critical web services, reducing downtime from 30 minutes to under 2 minutes through systematic troubleshooting and service management.'
+                },
+                {
+                    id: 'network-down',
+                    title: 'Network Connectivity Lost',
+                    description: 'Server cannot reach external networks. DNS resolution is failing.',
+                    commands: ['ping 8.8.8.8', 'cat /etc/resolv.conf', 'systemctl restart systemd-resolved'],
+                    hints: ['Test basic connectivity', 'Check DNS configuration', 'Restart DNS service'],
+                    resumeLine: 'Resolved complex network connectivity issues by diagnosing DNS configuration problems and implementing robust network monitoring, restoring full connectivity within 15 minutes.'
+                }
+            ],
+            intermediate: [
+                {
+                    id: 'high-cpu',
+                    title: 'High CPU Usage',
+                    description: 'Server CPU is at 100%. System is unresponsive and slow.',
+                    commands: ['top', 'ps aux --sort=-%cpu | head -10', 'kill -9 <PID>'],
+                    hints: ['Identify CPU-intensive processes', 'Find the problematic process', 'Terminate if necessary'],
+                    resumeLine: 'Optimized server performance by identifying and resolving CPU bottlenecks, reducing average CPU usage from 95% to 15% and improving application response times by 400%.'
+                },
+                {
+                    id: 'memory-leak',
+                    title: 'Memory Leak Detection',
+                    description: 'Application is consuming all available memory. System is swapping heavily.',
+                    commands: ['free -h', 'ps aux --sort=-%mem | head -10', 'journalctl -u <service>'],
+                    hints: ['Check memory usage', 'Find memory-hungry processes', 'Check service logs'],
+                    resumeLine: 'Investigated and resolved critical memory leaks in production applications, preventing system crashes and improving application stability by implementing proper memory management practices.'
+                },
+                {
+                    id: 'permission-error',
+                    title: 'Permission Denied',
+                    description: 'Users cannot access shared directories. Permission issues are blocking workflows.',
+                    commands: ['ls -la /shared', 'chmod 755 /shared', 'chown user:group /shared'],
+                    hints: ['Check current permissions', 'Set appropriate permissions', 'Fix ownership'],
+                    resumeLine: 'Resolved complex permission issues affecting 50+ users by implementing proper access controls and group management, restoring productivity and enhancing security compliance.'
+                }
+            ],
+            advanced: [
+                {
+                    id: 'database-corruption',
+                    title: 'Database Corruption',
+                    description: 'MySQL database is corrupted. Critical data may be lost.',
+                    commands: ['systemctl status mysql', 'mysqlcheck -u root -p --all-databases', 'mysqldump --all-databases > backup.sql'],
+                    hints: ['Check database status', 'Run integrity checks', 'Create emergency backup'],
+                    resumeLine: 'Successfully recovered corrupted production database containing 2TB of critical data, implementing comprehensive backup strategies that reduced recovery time from 8 hours to 30 minutes.'
+                },
+                {
+                    id: 'security-breach',
+                    title: 'Security Breach Investigation',
+                    description: 'Suspicious activity detected. Potential security breach in progress.',
+                    commands: ['last -n 50', 'netstat -tulpn', 'grep "Failed password" /var/log/auth.log'],
+                    hints: ['Check recent logins', 'Monitor network connections', 'Review authentication logs'],
+                    resumeLine: 'Conducted comprehensive security incident response, identifying and mitigating advanced persistent threats while implementing enhanced monitoring that reduced security incidents by 85%.'
+                },
+                {
+                    id: 'load-balancer-failover',
+                    title: 'Load Balancer Failover',
+                    description: 'Primary load balancer failed. Traffic needs to be redirected to backup.',
+                    commands: ['systemctl status haproxy', 'ip addr show', 'iptables -L'],
+                    hints: ['Check load balancer status', 'Verify network configuration', 'Review firewall rules'],
+                    resumeLine: 'Executed emergency load balancer failover procedures during critical outage, maintaining 99.9% uptime for 10,000+ concurrent users and preventing $50,000+ in potential revenue loss.'
+                }
+            ]
+        };
+        
+        // DOM elements
+        const terminalScreen = document.getElementById('terminal-screen');
+        const commandInput = document.getElementById('command-input');
+        const scenarioTitle = document.getElementById('scenario-title');
+        const scenarioDesc = document.getElementById('scenario-desc');
+        const scenarioDisplay = document.getElementById('scenario-display');
+        const streakDisplay = document.getElementById('streak-display');
+        const scoreDisplay = document.getElementById('score-display');
+        const progressFill = document.getElementById('progress-fill');
+        const progressText = document.getElementById('progress-text');
+        const resumeLine = document.getElementById('resume-line');
+        const resumeContent = document.getElementById('resume-content');
+        const toast = document.getElementById('toast');
+        const achievementList = document.getElementById('achievement-list');
+        
+        // Initialize game
+        function init() {
+            updateStats();
+            updateAchievements();
+            commandInput.focus();
+        }
+        
+        // Logging function
+        function log(message, type = 'system') {
+            const entry = document.createElement('div');
+            entry.className = `log-entry ${type}`;
+            entry.textContent = message;
+            terminalScreen.appendChild(entry);
+            terminalScreen.scrollTop = terminalScreen.scrollHeight;
+        }
+        
+        // Handle command input
+        function handleCommand(command) {
+            if (!command.trim()) return;
+            
+            // Display user command
+            log(`sysadmin@cli-adventure:~$ ${command}`, 'user');
+            
+            // Process command
+            const result = processCommand(command.trim().toLowerCase());
+            
+            // Update stats
+            state.totalScenarios++;
+            updateStats();
+            
+            commandInput.value = '';
+        }
+        
+        // Process commands
+        function processCommand(command) {
+            const parts = command.split(' ');
+            const cmd = parts[0];
+            const args = parts.slice(1);
+            
+            switch (cmd) {
+                case 'help':
+                    showHelp();
+                    break;
+                    
+                case 'ls':
+                    lsCommand(args[0] || '/home/sysadmin');
+                    break;
+                    
+                case 'pwd':
+                    log('/home/sysadmin', 'info');
+                    break;
+                    
+                case 'df':
+                    log('Filesystem      Size  Used Avail Use% Mounted on', 'info');
+                    log('/dev/sda1        50G   45G   2.5G  95% /', 'info');
+                    log('tmpfs           2.0G     0  2.0G   0% /dev/shm', 'info');
+                    break;
+                    
+                case 'du':
+                    log('12G     /var/log', 'info');
+                    log('8G      /home/sysadmin', 'info');
+                    log('2G      /tmp', 'info');
+                    break;
+                    
+                case 'systemctl':
+                    if (args[0] === 'status') {
+                        if (args[1] === 'apache2') {
+                            log('● apache2.service - The Apache HTTP Server', 'info');
+                            log('   Loaded: loaded (/lib/systemd/system/apache2.service; enabled; vendor preset: enabled)', 'info');
+                            log('   Active: inactive (dead) since Mon 2025-01-15 10:30:45 UTC; 2h 15min ago', 'error');
+                            break;
+                        }
+                        log('Service status would be displayed here.', 'info');
+                    } else if (args[0] === 'start') {
+                        log(`Starting ${args[1]}...`, 'info');
+                        log(`${args[1]} started successfully.`, 'success');
+                    } else if (args[0] === 'enable') {
+                        log(`${args[1]} enabled to start on boot.`, 'success');
+                    }
+                    break;
+                    
+                case 'top':
+                    log('PID USER      PR  NI    VIRT    RES    SHR S  %CPU %MEM     TIME+ COMMAND', 'info');
+                    log('1234 root      20   0  500m   100m   10m R  95.0  5.0   0:30.15 java', 'error');
+                    log('5678 root      20   0  100m    50m    5m S   2.0  2.5   0:05.20 nginx', 'info');
+                    break;
+                    
+                case 'ps':
+                    if (args.includes('--sort=-%cpu')) {
+                        log('PID %CPU COMMAND', 'info');
+                        log('1234 95.0 java', 'error');
+                        log('5678  2.0 nginx', 'info');
+                        log('9012  1.5 mysql', 'info');
+                    } else if (args.includes('--sort=-%mem')) {
+                        log('PID %MEM COMMAND', 'info');
+                        log('1234 15.0 java', 'error');
+                        log('5678  5.0 nginx', 'info');
+                        log('9012  3.0 mysql', 'info');
+                    }
+                    break;
+                    
+                case 'kill':
+                    if (args[0] === '-9') {
+                        log(`Process ${args[1]} terminated.`, 'success');
+                    }
+                    break;
+                    
+                case 'free':
+                    if (args[0] === '-h') {
+                        log('               total        used        free      shared  buff/cache   available', 'info');
+                        log('Mem:            15G         14G        1.0G        0B         1G        1.0G', 'error');
+                        log('Swap:           2.0G        2.0G          0B', 'error');
+                    }
+                    break;
+                    
+                case 'ping':
+                    if (args[0] === '8.8.8.8') {
+                        log('PING 8.8.8.8 (8.8.8.8) 56(84) bytes of data.', 'info');
+                        log('From 192.168.1.1: Destination Net Unreachable', 'error');
+                    }
+                    break;
+                    
+                case 'cat':
+                    if (args[0] === '/etc/resolv.conf') {
+                        log('# Generated by NetworkManager', 'info');
+                        log('nameserver 192.168.1.1', 'error');
+                        log('nameserver 127.0.0.53', 'info');
+                    }
+                    break;
+                    
+                case 'systemd-resolved':
+                    log('systemd-resolved.service is restarting...', 'info');
+                    log('DNS resolution restored.', 'success');
+                    break;
+                    
+                case 'mysqlcheck':
+                    log('mysqlcheck: Got error: 2002: Can\'t connect to local MySQL server through socket \'/var/run/mysqld/mysqld.sock\' (2)', 'error');
+                    break;
+                    
+                case 'mysqldump':
+                    log('mysqldump: Got error: 2002: Can\'t connect to local MySQL server through socket \'/var/run/mysqld/mysqld.sock\' (2)', 'error');
+                    break;
+                    
+                case 'last':
+                    log('root     pts/0        192.168.1.100    Mon Jan 15 10:30 - 10:45  (00:15)', 'info');
+                    log('root     pts/1        10.0.0.50        Mon Jan 15 09:15 - 09:30  (00:15)', 'info');
+                    log('unknown  :0           :0               Mon Jan 15 08:00 - 08:15  (00:15)', 'warning');
+                    break;
+                    
+                case 'netstat':
+                    if (args[0] === '-tulpn') {
+                        log('Active Internet connections (only servers)', 'info');
+                        log('Proto Recv-Q Send-Q Local Address           Foreign Address         State       PID/Program name', 'info');
+                        log('tcp        0      0 0.0.0.0:22              0.0.0.0:*               LISTEN      1234/sshd', 'info');
+                        log('tcp        0      0 127.0.0.1:3306          0.0.0.0:*               LISTEN      5678/mysqld', 'info');
+                        log('tcp        0      0 0.0.0.0:80              0.0.0.0:*               LISTEN      9012/apache2', 'info');
+                    }
+                    break;
+                    
+                case 'grep':
+                    if (args.includes('Failed password')) {
+                        log('Jan 15 08:15:23 server sshd[1234]: Failed password for root from 192.168.1.200 port 22', 'warning');
+                        log('Jan 15 08:15:25 server sshd[1234]: Failed password for admin from 192.168.1.200 port 22', 'warning');
+                        log('Jan 15 08:15:27 server sshd[1234]: Failed password for user from 192.168.1.200 port 22', 'warning');
+                    }
+                    break;
+                    
+                case 'rm':
+                    if (args.includes('/var/log/*.log')) {
+                        log('Removed old log files.', 'success');
+                        log('Disk space freed: 10GB', 'success');
+                    }
+                    break;
+                    
+                case 'chmod':
+                    if (args.includes('755') && args.includes('/shared')) {
+                        log('Permissions updated successfully.', 'success');
+                    }
+                    break;
+                    
+                case 'chown':
+                    if (args.includes('/shared')) {
+                        log('Ownership updated successfully.', 'success');
+                    }
+                    break;
+                    
+                case 'start':
+                    startScenario();
+                    break;
+                    
+                default:
+                    log(`Command not found: ${cmd}. Type 'help' for available commands.`, 'error');
+            }
+            
+            // Check if scenario is completed
+            checkScenarioCompletion(command);
+        }
+        
+        // Start scenario
+        function startScenario() {
+            const availableScenarios = scenarios[state.difficulty];
+            const randomIndex = Math.floor(Math.random() * availableScenarios.length);
+            state.currentScenario = availableScenarios[randomIndex];
+            
+            // Reset terminal
+            terminalScreen.innerHTML = '';
+            log('Starting new scenario...', 'system');
+            log(`Difficulty: ${state.difficulty.toUpperCase()}`, 'system');
+            log('─'.repeat(50), 'system');
+            
+            // Display scenario
+            scenarioTitle.textContent = state.currentScenario.title;
+            scenarioTitle.style.color = '#ef4444';
+            scenarioDesc.textContent = state.currentScenario.description;
+            
+            scenarioDisplay.textContent = `Scenario: ${state.currentScenario.title}`;
+            
+            log(`SCENARIO: ${state.currentScenario.title}`, 'warning');
+            log(state.currentScenario.description, 'info');
+            log('─'.repeat(50), 'system');
+            log('Available commands: ' + state.currentScenario.commands.join(', '), 'info');
+            log('Type your commands to solve the problem...', 'system');
+            
+            // Show hints
+            state.currentScenario.hints.forEach((hint, index) => {
+                log(`Hint ${index + 1}: ${hint}`, 'info');
+            });
+            
+            resumeLine.style.display = 'none';
+        }
+        
+        // Check scenario completion
+        function checkScenarioCompletion(command) {
+            if (!state.currentScenario) return;
+            
+            const expectedCommands = state.currentScenario.commands;
+            const isCorrect = expectedCommands.includes(command);
+            
+            if (isCorrect) {
+                log('✅ Correct command! Progressing...', 'success');
+                state.score += 10;
+                state.streak++;
+                state.progress++;
+                
+                // Check if scenario is complete
+                if (state.progress >= expectedCommands.length) {
+                    completeScenario();
+                }
+            } else {
+                log('❌ Incorrect command. Try again.', 'error');
+                state.streak = 0;
+            }
+            
+            updateStats();
+        }
+        
+        // Complete scenario
+        function completeScenario() {
+            log('🎉 SCENARIO COMPLETED!', 'success');
+            log('─'.repeat(50), 'success');
+            log('SCENARIO SUMMARY:', 'info');
+            log(`Title: ${state.currentScenario.title}`, 'info');
+            log(`Commands Used: ${state.progress}/${state.currentScenario.commands.length}`, 'info');
+            log(`Score: +${state.progress * 10}`, 'info');
+            log('─'.repeat(50), 'success');
+            
+            // Generate resume line
+            showResumeLine(state.currentScenario.resumeLine);
+            
+            // Update achievements
+            updateAchievements();
+            
+            // Reset for next scenario
+            state.currentScenario = null;
+            state.progress = 0;
+            scenarioTitle.textContent = 'Scenario Complete! Start a new one.';
+            scenarioTitle.style.color = '#10b981';
+            scenarioDesc.textContent = 'Choose "Start Scenario" to begin a new challenge.';
+        }
+        
+        // Show resume line
+        function showResumeLine(line) {
+            resumeContent.textContent = line;
+            resumeLine.style.display = 'block';
+            showToast('Scenario completed! Professional resume line generated.');
+        }
+        
+        // Copy resume to clipboard
+        function copyResume() {
+            navigator.clipboard.writeText(resumeContent.textContent).then(() => {
+                showToast('Resume line copied to clipboard!');
+            });
+        }
+        
+        // Share resume
+        function shareResume() {
+            if (navigator.share) {
+                navigator.share({
+                    title: 'CLI Adventure Resume Line',
+                    text: resumeContent.textContent
+                });
+            } else {
+                copyResume();
+            }
+        }
+        
+        // Show help
+        function showHelp() {
+            log('Available Commands:', 'system');
+            log('  ls [path]           - List directory contents', 'info');
+            log('  pwd                 - Show current directory', 'info');
+            log('  df -h               - Check disk space', 'info');
+            log('  du [path]           - Check directory size', 'info');
+            log('  systemctl status    - Check service status', 'info');
+            log('  systemctl start     - Start a service', 'info');
+            log('  systemctl enable    - Enable service on boot', 'info');
+            log('  top                 - Show running processes', 'info');
+            log('  ps aux              - List all processes', 'info');
+            log('  kill -9 [PID]       - Kill a process', 'info');
+            log('  free -h             - Check memory usage', 'info');
+            log('  ping [host]         - Test connectivity', 'info');
+            log('  cat [file]          - Display file contents', 'info');
+            log('  mysqlcheck          - Check database integrity', 'info');
+            log('  mysqldump           - Backup database', 'info');
+            log('  last                - Show recent logins', 'info');
+            log('  netstat -tulpn      - Show network connections', 'info');
+            log('  grep [pattern]      - Search files', 'info');
+            log('  rm [file]           - Remove files', 'info');
+            log('  chmod [mode] [file] - Change permissions', 'info');
+            log('  chown [user] [file] - Change ownership', 'info');
+            log('  help                - Show this help', 'info');
+            log('  start               - Start a new scenario', 'info');
+        }
+        
+        // Set difficulty
+        function setDifficulty(level) {
+            state.difficulty = level;
+            
+            // Update button styles
+            document.querySelectorAll('.difficulty-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            event.target.classList.add('active');
+            
+            log(`Difficulty set to: ${level.toUpperCase()}`, 'system');
+            showToast(`Difficulty changed to ${level.toUpperCase()}`);
+        }
+        
+        // Update stats
+        function updateStats() {
+            streakDisplay.textContent = `Streak: ${state.streak}`;
+            scoreDisplay.textContent = `Score: ${state.score}`;
+            progressText.textContent = `${state.progress}/5`;
+            progressFill.style.width = `${(state.progress / 5) * 100}%`;
+        }
+        
+        // Update achievements
+        function updateAchievements() {
+            const items = achievementList.children;
+            
+            // First steps
+            if (state.totalScenarios > 0 && !state.achievements.firstSteps) {
+                state.achievements.firstSteps = true;
+                items[0].classList.add('unlocked');
+                items[0].textContent = '✅ First Steps - Started your first scenario';
+                showToast('Achievement Unlocked: First Steps!');
+            }
+            
+            // Problem solver
+            if (state.score >= 50 && !state.achievements.problemSolver) {
+                state.achievements.problemSolver = true;
+                items[1].classList.add('unlocked');
+                items[1].textContent = '✅ Problem Solver - Scored 50+ points';
+                showToast('Achievement Unlocked: Problem Solver!');
+            }
+            
+            // Efficiency expert
+            if (state.streak >= 5 && !state.achievements.efficiencyExpert) {
+                state.achievements.efficiencyExpert = true;
+                items[2].classList.add('unlocked');
+                items[2].textContent = '✅ Efficiency Expert - 5+ streak achieved';
+                showToast('Achievement Unlocked: Efficiency Expert!');
+            }
+            
+            // Master troubleshooter
+            if (state.score >= 100 && !state.achievements.masterTroubleshooter) {
+                state.achievements.masterTroubleshooter = true;
+                items[3].classList.add('unlocked');
+                items[3].textContent = '✅ Master Troubleshooter - Scored 100+ points';
+                showToast('Achievement Unlocked: Master Troubleshooter!');
+            }
+        }
+        
+        // Reset game
+        function resetGame() {
+            state.score = 0;
+            state.streak = 0;
+            state.progress = 0;
+            state.currentScenario = null;
+            state.totalScenarios = 0;
+            state.achievements = {
+                firstSteps: false,
+                problemSolver: false,
+                efficiencyExpert: false,
+                masterTroubleshooter: false
+            };
+            
+            terminalScreen.innerHTML = '';
+            log('Game reset to initial state.', 'system');
+            log('Choose a difficulty level to begin.', 'system');
+            
+            scenarioTitle.textContent = 'Select Difficulty to Begin';
+            scenarioTitle.style.color = '#e2e8f0';
+            scenarioDesc.textContent = 'Choose a difficulty level to start your adventure.';
+            scenarioDisplay.textContent = 'Scenario: N/A';
+            
+            resumeLine.style.display = 'none';
+            
+            // Reset achievements display
+            const items = achievementList.children;
+            for (let i = 0; i < items.length; i++) {
+                items[i].classList.remove('unlocked');
+            }
+            items[0].textContent = 'First Steps';
+            items[1].textContent = 'Problem Solver';
+            items[2].textContent = 'Efficiency Expert';
+            items[3].textContent = 'Master Troubleshooter';
+            
+            updateStats();
+            updateAchievements();
+        }
+        
+        // Show resume
+        function showResume() {
+            if (resumeLine.style.display === 'none') {
+                resumeLine.style.display = 'block';
+                log('Resume line displayed.', 'system');
+            } else {
+                resumeLine.style.display = 'none';
+            }
+        }
+        
+        // Show toast
+        function showToast(message) {
+            toast.textContent = message;
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+        
+        // Event listeners
+        document.addEventListener('DOMContentLoaded', init);
+        
+        commandInput.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter') {
+                const command = commandInput.value.trim();
+                if (command) {
+                    handleCommand(command);
+                }
+            }
+        });
+        
+        // Keyboard shortcuts
+        document.addEventListener('keydown', (e) => {
+            if (e.ctrlKey && e.key === 'l') {
+                e.preventDefault();
+                terminalScreen.innerHTML = '';
+                log('Terminal cleared.', 'system');
+            } else if (e.ctrlKey && e.key === 'r') {
+                e.preventDefault();
+                resetGame();
+            }
+        });
+    </script>
+</body>
+>>>>>>> b96e2153a8965a98a1309b6041b5caf5e652018c
 </html>

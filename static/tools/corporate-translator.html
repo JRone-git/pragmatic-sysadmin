@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -1103,4 +1104,1111 @@
         document.addEventListener('DOMContentLoaded', init);
     </script>
 </body>
+=======
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Corporate-Speak Incident Report Generator - Pragmatic Sysadmin</title>
+    <meta name="description" content="Transform your raw incident reports into professional corporate language. Generate PDF reports with just a few clicks.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Libre+Franklin:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            line-height: 1.6;
+            color: #1a1a1a;
+            background: #f8fafc;
+            padding: 2rem 1rem;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 2rem;
+            text-align: center;
+        }
+        
+        .header h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 0.5rem;
+        }
+        
+        .header p {
+            font-size: 1.1rem;
+            opacity: 0.9;
+        }
+        
+        .main-content {
+            padding: 2rem;
+        }
+        
+        .form-section {
+            background: #f8fafc;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .form-group label {
+            font-weight: 600;
+            color: #374151;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
+        }
+        
+        .form-control {
+            padding: 0.75rem;
+            border: 2px solid #e5e7eb;
+            border-radius: 6px;
+            font-size: 1rem;
+            transition: border-color 0.2s;
+            font-family: 'Inter', sans-serif;
+        }
+        
+        .form-control:focus {
+            outline: none;
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+        
+        textarea.form-control {
+            min-height: 120px;
+            resize: vertical;
+        }
+        
+        .btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s;
+            font-size: 1rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+        
+        .btn-primary {
+            background: #667eea;
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #5a6fd8;
+            transform: translateY(-1px);
+        }
+        
+        .btn-secondary {
+            background: #6b7280;
+            color: white;
+        }
+        
+        .btn-secondary:hover {
+            background: #4b5563;
+        }
+        
+        .btn-success {
+            background: #10b981;
+            color: white;
+        }
+        
+        .btn-success:hover {
+            background: #059669;
+        }
+        
+        .btn-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .output-section {
+            background: #1e293b;
+            color: #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+            display: none;
+        }
+        
+        .output-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 1rem;
+        }
+        
+        .output-header h3 {
+            color: #f1f5f9;
+            font-size: 1.1rem;
+        }
+        
+        .copy-btn {
+            background: #374151;
+            color: white;
+            border: none;
+            padding: 0.5rem 1rem;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 0.9rem;
+        }
+        
+        .copy-btn:hover {
+            background: #4b5563;
+        }
+        
+        .copy-btn.copied {
+            background: #10b981;
+        }
+        
+        pre {
+            background: #0f172a;
+            padding: 1.5rem;
+            border-radius: 6px;
+            overflow-x: auto;
+            font-family: 'Libre Franklin', serif;
+            font-size: 1rem;
+            line-height: 1.6;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+        
+        code {
+            color: #e2e8f0;
+            white-space: pre-wrap;
+            font-family: 'Libre Franklin', serif;
+        }
+        
+        .corporate-preview {
+            background: #f8fafc;
+            border: 1px solid #e2e8f0;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 1rem 0;
+        }
+        
+        .corporate-preview h4 {
+            color: #1e293b;
+            margin-bottom: 1rem;
+            font-family: 'Libre Franklin', serif;
+            font-weight: 600;
+        }
+        
+        .corporate-text {
+            font-family: 'Libre Franklin', serif;
+            line-height: 1.8;
+            color: #334155;
+            font-size: 1.1rem;
+        }
+        
+        .corporate-text p {
+            margin-bottom: 1rem;
+        }
+        
+        .corporate-text strong {
+            color: #1e293b;
+            font-weight: 600;
+        }
+        
+        .bingo-card {
+            background: #ecfdf5;
+            border: 1px solid #a7f3d0;
+            border-radius: 6px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .bingo-card h3 {
+            color: #065f46;
+            margin-bottom: 1rem;
+        }
+        
+        .bingo-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+        }
+        
+        .bingo-item {
+            background: white;
+            border: 1px solid #d1fae5;
+            border-radius: 4px;
+            padding: 0.75rem;
+            font-size: 0.9rem;
+        }
+        
+        .bingo-item span {
+            font-weight: 600;
+            color: #065f46;
+        }
+        
+        .toast {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            background: #10b981;
+            color: white;
+            padding: 1rem 1.5rem;
+            border-radius: 6px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            transform: translateX(100%);
+            transition: transform 0.3s;
+        }
+        
+        .toast.show {
+            transform: translateX(0);
+        }
+        
+        .loading {
+            display: none;
+            align-items: center;
+            gap: 0.5rem;
+            color: #667eea;
+            font-weight: 600;
+        }
+        
+        .loading.active {
+            display: inline-flex;
+        }
+        
+        .example-form {
+            background: #fffbeb;
+            border: 1px solid #fde68a;
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin-top: 2rem;
+        }
+        
+        .example-form h3 {
+            color: #92400e;
+            margin-bottom: 1rem;
+        }
+        
+        .example-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+        }
+        
+        @media (max-width: 768px) {
+            body {
+                padding: 1rem;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .btn-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Corporate-Speak Translator</h1>
+            <p>Transform your raw incident reports into professional corporate language. Generate PDF reports with just a few clicks.</p>
+        </div>
+        
+        <div class="main-content">
+            <div class="form-section">
+                <form id="incidentForm">
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="incidentTitle">Incident Title:</label>
+                            <input type="text" id="incidentTitle" class="form-control" placeholder="e.g., Database Connectivity Issue" required>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="incidentDate">Date:</label>
+                            <input type="date" id="incidentDate" class="form-control" required>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="whatHappened">What happened? (Raw description):</label>
+                        <textarea id="whatHappened" class="form-control" placeholder="e.g., I forgot to save the config before rebooting the server..." required></textarea>
+                    </div>
+                    
+                    <div class="form-grid">
+                        <div class="form-group">
+                            <label for="impact">What was the impact?:</label>
+                            <textarea id="impact" class="form-control" placeholder="e.g., Site was down for 2 hours, 500 users affected..." required></textarea>
+                        </div>
+                        
+                        <div class="form-group">
+                            <label for="resolution">How did you fix it?:</label>
+                            <textarea id="resolution" class="form-control" placeholder="e.g., I copied the backup from the test server and restored..." required></textarea>
+                        </div>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label for="rootCause">Root Cause (optional):</label>
+                        <textarea id="rootCause" class="form-control" placeholder="e.g., Configuration management process gap..."></textarea>
+                    </div>
+                    
+                    <div class="btn-group">
+                        <button type="submit" class="btn btn-primary">
+                            <span>🚀</span>
+                            <span class="loading" id="loadingIcon"></span>
+                            Generate Corporate Report
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="fillExample()">
+                            💡 Fill Example
+                        </button>
+                        <button type="button" class="btn btn-secondary" onclick="clearForm()">
+                            🗑️ Clear Form
+                        </button>
+                    </div>
+                </form>
+            </div>
+            
+            <div class="example-form">
+                <h3>💡 Example Input</h3>
+                <div class="example-grid">
+                    <div>
+                        <strong>What happened?</strong>
+                        <p>"I forgot to save the config before rebooting the server. The database went down and users couldn't access the application."</p>
+                    </div>
+                    <div>
+                        <strong>Impact:</strong>
+                        <p>"Site was down for 2 hours during peak business hours. Approximately 500 users were unable to complete transactions."</p>
+                    </div>
+                    <div>
+                        <strong>Resolution:</strong>
+                        <p>"I restored the configuration from the backup server and restarted the database services. All systems are now operational."</p>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="output-section" id="outputSection">
+                <div class="output-header">
+                    <h3>Corporate Report Generated</h3>
+                    <div class="btn-group">
+                        <button class="copy-btn" id="copyBtn">📋 Copy Report</button>
+                        <button class="copy-btn" id="downloadPdfBtn">📄 Download PDF</button>
+                        <button class="copy-btn" id="downloadTxtBtn">💾 Download Text</button>
+                    </div>
+                </div>
+                
+                <div class="corporate-preview">
+                    <h4>Executive Summary</h4>
+                    <div class="corporate-text" id="corporateText"></div>
+                </div>
+                
+                <div class="bingo-card">
+                    <h3>🎯 Corporate Bingo - Watch for these phrases:</h3>
+                    <div class="bingo-grid" id="bingoGrid"></div>
+                </div>
+                
+                <pre><code id="outputCode"></code></pre>
+            </div>
+        </div>
+    </div>
+    
+    <div class="toast" id="toast">Report copied to clipboard!</div>
+    
+    <script>
+        // Corporate jargon dictionary
+        const corporateDictionary = {
+            // What happened phrases
+            'forgot': ['overlooked', 'neglected to', 'failed to account for'],
+            'config': ['configuration parameters', 'system settings', 'operational parameters'],
+            'rebooting': ['initiating a system restart', 'executing a controlled reboot', 'performing a system refresh'],
+            'database went down': ['experienced a service interruption', 'underwent an unplanned outage', 'encountered connectivity issues'],
+            'users couldn\'t access': ['user access was temporarily unavailable', 'service accessibility was compromised', 'end-user functionality was disrupted'],
+            
+            // Impact phrases
+            'site was down': ['service availability was compromised', 'system accessibility was interrupted', 'operational continuity was affected'],
+            '2 hours': ['a two-hour duration', 'approximately 120 minutes', 'an extended period'],
+            '500 users': ['approximately 500 end-users', 'a significant user base', 'multiple stakeholders'],
+            'couldn\'t complete transactions': ['transaction processing was halted', 'business operations were suspended', 'service delivery was interrupted'],
+            
+            // Resolution phrases
+            'restored': ['recovered', 'retrieved', 'reinstated'],
+            'backup server': ['redundant systems', 'secondary infrastructure', 'failover resources'],
+            'restarted': ['reinitialized', 'rebooted', 'reestablished'],
+            'all systems are now operational': ['full operational capacity has been restored', 'service continuity has been reestablished', 'all systems are functioning optimally'],
+            
+            // Root cause phrases
+            'process gap': ['procedural deficiency', 'operational gap', 'process improvement opportunity'],
+            'human error': ['operator oversight', 'manual intervention error', 'procedural deviation'],
+            'lack of': ['absence of', 'insufficient', 'inadequate'],
+            
+            // General corporate phrases
+            'problem': ['challenge', 'situation', 'circumstance', 'issue'],
+            'fix': ['resolve', 'remediate', 'address', 'mitigate'],
+            'error': ['anomaly', 'irregularity', 'deviation'],
+            'down': ['unavailable', 'non-operational', 'degraded'],
+            'broken': ['non-functional', 'compromised', 'degraded'],
+            'mess': ['disorganized state', 'suboptimal condition', 'inefficient configuration'],
+            'stuff': ['components', 'elements', 'resources'],
+            'thing': ['component', 'element', 'asset'],
+            'bad': ['suboptimal', 'inefficient', 'non-compliant'],
+            'good': ['optimal', 'efficient', 'compliant'],
+            'fast': ['expedited', 'accelerated', 'streamlined'],
+            'slow': ['degraded', 'suboptimal', 'inefficient'],
+            'big': ['significant', 'substantial', 'considerable'],
+            'small': ['minimal', 'insignificant', 'limited'],
+            'many': ['numerous', 'multiple', 'various'],
+            'few': ['limited', 'minimal', 'restricted'],
+            'always': ['consistently', 'routinely', 'habitually'],
+            'never': ['infrequently', 'rarely', 'occasionally'],
+            'can\'t': ['unable to', 'incapable of', 'restricted from'],
+            'won\'t': ['refuses to', 'fails to', 'does not'],
+            'should': ['is recommended to', 'is advised to', 'should consider'],
+            'must': ['is required to', 'is obligated to', 'must ensure'],
+            'try': ['attempt to', 'endeavor to', 'seek to'],
+            'need': ['require', 'necessitate', 'demand'],
+            'want': ['desire', 'seek', 'aim for'],
+            'think': ['believe', 'consider', 'assess'],
+            'know': ['understand', 'comprehend', 'recognize'],
+            'see': ['observe', 'witness', 'perceive'],
+            'get': ['obtain', 'acquire', 'receive'],
+            'take': ['utilize', 'employ', 'implement'],
+            'make': ['create', 'generate', 'produce'],
+            'do': ['execute', 'perform', 'accomplish'],
+            'go': ['proceed', 'advance', 'transition'],
+            'come': ['arrive', 'access', 'utilize'],
+            'use': ['leverage', 'utilize', 'employ'],
+            'work': ['function', 'operate', 'perform'],
+            'run': ['execute', 'operate', 'function'],
+            'start': ['initiate', 'commence', 'begin'],
+            'stop': ['terminate', 'cease', 'halt'],
+            'begin': ['initiate', 'commence', 'launch'],
+            'end': ['conclude', 'terminate', 'finalize'],
+            'help': ['assist', 'support', 'facilitate'],
+            'solve': ['resolve', 'remediate', 'address'],
+            'find': ['identify', 'locate', 'discover'],
+            'find out': ['determine', 'ascertain', 'establish'],
+            'figure out': ['analyze', 'evaluate', 'assess'],
+            'look at': ['examine', 'review', 'analyze'],
+            'check': ['verify', 'validate', 'confirm'],
+            'test': ['validate', 'verify', 'assess'],
+            'attempt': ['endeavor', 'seek', 'attempt to'],
+            'manage': ['oversee', 'coordinate', 'administer'],
+            'handle': ['manage', 'coordinate', 'administer'],
+            'deal with': ['address', 'manage', 'handle'],
+            'take care of': ['address', 'manage', 'resolve'],
+            'look into': ['investigate', 'examine', 'analyze'],
+            'work on': ['develop', 'improve', 'enhance'],
+            'think about': ['consider', 'evaluate', 'assess'],
+            'talk about': ['discuss', 'address', 'review'],
+            'write about': ['document', 'record', 'report'],
+            'read about': ['review', 'examine', 'study'],
+            'learn about': ['understand', 'comprehend', 'analyze'],
+            'teach': ['instruct', 'educate', 'train'],
+            'show': ['demonstrate', 'illustrate', 'present'],
+            'tell': ['inform', 'communicate', 'advise'],
+            'ask': ['inquire', 'request', 'seek'],
+            'answer': ['respond', 'reply', 'address'],
+            'explain': ['clarify', 'elucidate', 'detail'],
+            'describe': ['detail', 'outline', 'specify'],
+            'define': ['specify', 'outline', 'detail'],
+            'create': ['develop', 'generate', 'produce'],
+            'build': ['construct', 'develop', 'establish'],
+            'design': ['architect', 'plan', 'structure'],
+            'plan': ['strategize', 'organize', 'coordinate'],
+            'organize': ['coordinate', 'structure', 'manage'],
+            'coordinate': ['manage', 'oversee', 'facilitate'],
+            'control': ['govern', 'regulate', 'manage'],
+            'monitor': ['observe', 'track', 'supervise'],
+            'watch': ['monitor', 'observe', 'supervise'],
+            'observe': ['monitor', 'track', 'supervise'],
+            'track': ['monitor', 'observe', 'supervise'],
+            'follow': ['monitor', 'track', 'observe'],
+            'verify': ['validate', 'confirm', 'authenticate'],
+            'validate': ['verify', 'confirm', 'authenticate'],
+            'confirm': ['validate', 'verify', 'authenticate'],
+            'approve': ['authorize', 'sanction', 'ratify'],
+            'authorize': ['approve', 'sanction', 'ratify'],
+            'reject': ['deny', 'refuse', 'decline'],
+            'deny': ['reject', 'refuse', 'decline'],
+            'refuse': ['reject', 'deny', 'decline'],
+            'accept': ['approve', 'authorize', 'sanction'],
+            'agree': ['consent', 'approve', 'authorize'],
+            'disagree': ['object', 'reject', 'refuse'],
+            'like': ['prefer', 'favor', 'appreciate'],
+            'love': ['value', 'appreciate', 'favor'],
+            'hate': ['dislike', 'object to', 'reject'],
+            'dislike': ['object to', 'reject', 'disapprove of'],
+            'enjoy': ['appreciate', 'value', 'favor'],
+            'prefer': ['favor', 'appreciate', 'value'],
+            'wish': ['desire', 'hope', 'aspire'],
+            'expect': ['anticipate', 'foresee', 'predict'],
+            'believe': ['consider', 'assume', 'presume'],
+            'understand': ['comprehend', 'recognize', 'appreciate'],
+            'comprehend': ['understand', 'recognize', 'appreciate'],
+            'recognize': ['understand', 'comprehend', 'appreciate'],
+            'remember': ['recall', 'recollect', 'remember'],
+            'forget': ['overlook', 'neglect', 'fail to recall'],
+            'recall': ['remember', 'recollect', 'remember'],
+            'recollect': ['remember', 'recall', 'remember'],
+            'imagine': ['envision', 'visualize', 'conceptualize'],
+            'envision': ['imagine', 'visualize', 'conceptualize'],
+            'visualize': ['imagine', 'envision', 'conceptualize'],
+            'conceptualize': ['envision', 'visualize', 'imagine'],
+            'dream': ['envision', 'aspire', 'hope'],
+            'aspire': ['hope', 'wish', 'desire'],
+            'intend': ['plan', 'aim', 'seek'],
+            'aim': ['plan', 'intend', 'seek'],
+            'seek': ['aim', 'intend', 'plan'],
+            'strive': ['endeavor', 'attempt', 'try'],
+            'labor': ['work', 'toil', 'exert'],
+            'toil': ['work', 'labor', 'exert'],
+            'exert': ['work', 'labor', 'toil'],
+            'struggle': ['endeavor', 'strive', 'work hard'],
+            'fight': ['struggle', 'battle', 'endeavor'],
+            'battle': ['fight', 'struggle', 'endeavor'],
+            'compete': ['contend', 'vie', 'compete with'],
+            'contend': ['compete', 'vie', 'struggle'],
+            'vie': ['compete', 'contend', 'struggle'],
+            'win': ['succeed', 'triumph', 'prevail'],
+            'lose': ['fail', 'defeat', 'fall short'],
+            'succeed': ['win', 'triumph', 'prevail'],
+            'triumph': ['win', 'succeed', 'prevail'],
+            'prevail': ['win', 'succeed', 'triumph'],
+            'defeat': ['beat', 'overcome', 'defeat'],
+            'beat': ['defeat', 'overcome', 'beat'],
+            'overcome': ['defeat', 'beat', 'overcome'],
+            'conquer': ['overcome', 'defeat', 'beat'],
+            'achieve': ['accomplish', 'attain', 'achieve'],
+            'accomplish': ['achieve', 'attain', 'accomplish'],
+            'attain': ['achieve', 'accomplish', 'attain'],
+            'acquire': ['obtain', 'receive', 'acquire'],
+            'receive': ['obtain', 'acquire', 'receive'],
+            'give': ['provide', 'supply', 'offer'],
+            'provide': ['give', 'supply', 'offer'],
+            'supply': ['provide', 'give', 'offer'],
+            'offer': ['provide', 'supply', 'give'],
+            'send': ['transmit', 'dispatch', 'send'],
+            'transmit': ['send', 'dispatch', 'transmit'],
+            'dispatch': ['send', 'transmit', 'dispatch'],
+            'sign': ['execute', 'sign', 'execute'],
+            'execute': ['sign', 'implement', 'execute'],
+            'implement': ['execute', 'implement', 'execute'],
+            'launch': ['start', 'begin', 'initiate'],
+            'establish': ['create', 'establish', 'establish'],
+            'construct': ['build', 'construct', 'build'],
+            'develop': ['develop', 'create', 'develop'],
+            'design': ['design', 'plan', 'design'],
+            'organize': ['coordinate', 'organize', 'coordinate'],
+            'oversee': ['manage', 'oversee', 'manage'],
+            'govern': ['control', 'govern', 'control'],
+            'regulate': ['control', 'govern', 'control'],
+            'investigate': ['investigate', 'examine', 'investigate'],
+            'research': ['research', 'study', 'research'],
+            'study': ['research', 'study', 'research'],
+            'learn': ['study', 'learn', 'study'],
+            'instruct': ['teach', 'instruct', 'teach'],
+            'train': ['train', 'educate', 'train'],
+            'educate': ['train', 'educate', 'train'],
+            'communicate': ['inform', 'communicate', 'inform'],
+            'advise': ['advise', 'recommend', 'advise'],
+            'recommend': ['advise', 'recommend', 'advise'],
+            'suggest': ['recommend', 'suggest', 'recommend'],
+            'propose': ['suggest', 'propose', 'suggest'],
+            'present': ['present', 'show', 'present'],
+            'display': ['show', 'display', 'show'],
+            'demonstrate': ['show', 'demonstrate', 'show'],
+            'illustrate': ['show', 'illustrate', 'show'],
+            'clarify': ['explain', 'clarify', 'explain'],
+            'elucidate': ['explain', 'elucidate', 'explain'],
+            'detail': ['explain', 'detail', 'explain'],
+            'outline': ['describe', 'outline', 'describe'],
+            'specify': ['describe', 'specify', 'describe'],
+            'identify': ['identify', 'recognize', 'identify'],
+            'acknowledge': ['recognize', 'acknowledge', 'recognize'],
+            'admit': ['acknowledge', 'admit', 'acknowledge'],
+            'confess': ['admit', 'confess', 'admit'],
+            'reveal': ['disclose', 'reveal', 'disclose'],
+            'disclose': ['reveal', 'disclose', 'reveal'],
+            'expose': ['disclose', 'expose', 'disclose'],
+            'uncover': ['expose', 'uncover', 'expose'],
+            'discover': ['uncover', 'discover', 'uncover'],
+            'locate': ['find', 'locate', 'find'],
+            'search': ['search', 'seek', 'search'],
+            'look': ['search', 'look', 'search'],
+            'determine': ['find out', 'determine', 'find out'],
+            'ascertain': ['find out', 'ascertain', 'find out'],
+            'establish': ['determine', 'establish', 'determine'],
+            'prove': ['establish', 'prove', 'establish'],
+            'inspect': ['examine', 'inspect', 'examine'],
+            'review': ['inspect', 'review', 'inspect'],
+            'assess': ['review', 'assess', 'review'],
+            'evaluate': ['assess', 'evaluate', 'assess'],
+            'investigate': ['analyze', 'investigate', 'analyze'],
+            'research': ['investigate', 'research', 'investigate'],
+            'learn': ['study', 'learn', 'study'],
+            'comprehend': ['understand', 'comprehend', 'understand'],
+            'appreciate': ['recognize', 'appreciate', 'recognize'],
+            'value': ['appreciate', 'value', 'appreciate'],
+            'treasure': ['value', 'treasure', 'value'],
+            'cherish': ['treasure', 'cherish', 'treasure'],
+            'choose': ['favor', 'choose', 'favor'],
+            'select': ['choose', 'select', 'choose'],
+            'pick': ['select', 'pick', 'select'],
+            'decide': ['pick', 'decide', 'pick'],
+            'resolve': ['determine', 'resolve', 'determine'],
+            'conclude': ['resolve', 'conclude', 'resolve'],
+            'finish': ['conclude', 'finish', 'conclude'],
+            'complete': ['finish', 'complete', 'finish'],
+            'accomplish': ['complete', 'accomplish', 'complete'],
+            'attain': ['achieve', 'attain', 'achieve'],
+            'obtain': ['attain', 'obtain', 'attain'],
+            'grab': ['take', 'grab', 'take'],
+            'seize': ['grab', 'seize', 'grab'],
+            'capture': ['seize', 'capture', 'seize'],
+            'catch': ['capture', 'catch', 'capture'],
+            'hold': ['catch', 'hold', 'catch'],
+            'keep': ['hold', 'keep', 'hold'],
+            'maintain': ['keep', 'maintain', 'keep'],
+            'preserve': ['maintain', 'preserve', 'maintain'],
+            'protect': ['preserve', 'protect', 'preserve'],
+            'defend': ['protect', 'defend', 'protect'],
+            'guard': ['defend', 'guard', 'defend'],
+            'shield': ['guard', 'shield', 'guard'],
+            'hide': ['cover', 'hide', 'cover'],
+            'conceal': ['hide', 'conceal', 'hide'],
+            'disguise': ['conceal', 'disguise', 'conceal'],
+            'mask': ['disguise', 'mask', 'disguise'],
+            'camouflage': ['mask', 'camouflage', 'mask'],
+            'blend': ['camouflage', 'blend', 'camouflage'],
+            'merge': ['blend', 'merge', 'blend'],
+            'combine': ['merge', 'combine', 'merge'],
+            'unite': ['combine', 'unite', 'combine'],
+            'join': ['unite', 'join', 'unite'],
+            'connect': ['join', 'connect', 'join'],
+            'link': ['connect', 'link', 'connect'],
+            'attach': ['link', 'attach', 'link'],
+            'fasten': ['attach', 'fasten', 'attach'],
+            'tie': ['fasten', 'tie', 'fasten'],
+            'bind': ['tie', 'bind', 'tie'],
+            'wrap': ['bind', 'wrap', 'bind'],
+            'enclose': ['cover', 'enclose', 'cover'],
+            'surround': ['enclose', 'surround', 'enclose'],
+            'encircle': ['surround', 'encircle', 'surround'],
+            'encompass': ['encircle', 'encompass', 'encircle'],
+            'include': ['encompass', 'include', 'encompass'],
+            'contain': ['include', 'contain', 'include'],
+            'comprise': ['contain', 'comprise', 'contain'],
+            'consist': ['comprise', 'consist', 'comprise'],
+            'involve': ['consist', 'involve', 'consist'],
+            'require': ['involve', 'require', 'involve'],
+            'necessitate': ['require', 'necessitate', 'require'],
+            'demand': ['necessitate', 'demand', 'necessitate'],
+            'desire': ['want', 'desire', 'want'],
+            'hope': ['wish', 'hope', 'wish'],
+            'anticipate': ['expect', 'anticipate', 'expect'],
+            'foresee': ['anticipate', 'foresee', 'anticipate'],
+            'predict': ['foresee', 'predict', 'foresee'],
+            'forecast': ['predict', 'forecast', 'predict'],
+            'estimate': ['forecast', 'estimate', 'forecast'],
+            'calculate': ['estimate', 'calculate', 'estimate'],
+            'compute': ['calculate', 'compute', 'calculate'],
+            'measure': ['compute', 'measure', 'compute'],
+            'quantify': ['measure', 'quantify', 'measure'],
+            'assess': ['quantify', 'assess', 'quantify'],
+            'analyze': ['evaluate', 'analyze', 'evaluate'],
+            'examine': ['analyze', 'examine', 'analyze'],
+            'verify': ['check', 'verify', 'check'],
+            'authenticate': ['validate', 'authenticate', 'validate'],
+            'certify': ['authenticate', 'certify', 'authenticate'],
+            'approve': ['certify', 'approve', 'certify'],
+            'authorize': ['approve', 'authorize', 'approve'],
+            'sanction': ['authorize', 'sanction', 'authorize'],
+            'ratify': ['sanction', 'ratify', 'sanction'],
+            'endorse': ['ratify', 'endorse', 'ratify'],
+            'support': ['endorse', 'support', 'endorse'],
+            'back': ['support', 'back', 'support'],
+            'advocate': ['back', 'advocate', 'back'],
+            'promote': ['advocate', 'promote', 'advocate'],
+            'encourage': ['promote', 'encourage', 'promote'],
+            'motivate': ['encourage', 'motivate', 'encourage'],
+            'inspire': ['motivate', 'inspire', 'motivate'],
+            'urge': ['encourage', 'urge', 'encourage'],
+            'persuade': ['urge', 'persuade', 'urge'],
+            'convince': ['persuade', 'convince', 'persuade'],
+            'influence': ['convince', 'influence', 'convince'],
+            'affect': ['influence', 'affect', 'influence'],
+            'impact': ['affect', 'impact', 'affect'],
+            'change': ['impact', 'change', 'impact'],
+            'alter': ['change', 'alter', 'change'],
+            'modify': ['alter', 'modify', 'alter'],
+            'adjust': ['modify', 'adjust', 'modify'],
+            'adapt': ['adjust', 'adapt', 'adjust'],
+            'transform': ['adapt', 'transform', 'adapt'],
+            'convert': ['transform', 'convert', 'transform'],
+            'turn': ['convert', 'turn', 'convert'],
+            'become': ['turn', 'become', 'turn'],
+            'grow': ['become', 'grow', 'become'],
+            'develop': ['grow', 'develop', 'grow'],
+            'evolve': ['develop', 'evolve', 'develop'],
+            'progress': ['evolve', 'progress', 'evolve'],
+            'advance': ['progress', 'advance', 'progress'],
+            'improve': ['advance', 'improve', 'advance'],
+            'enhance': ['improve', 'enhance', 'improve'],
+            'strengthen': ['enhance', 'strengthen', 'enhance'],
+            'reinforce': ['strengthen', 'reinforce', 'strengthen'],
+            'sustain': ['support', 'sustain', 'support'],
+            'preserve': ['maintain', 'preserve', 'maintain'],
+            'defend': ['protect', 'defend', 'protect'],
+            'cover': ['shield', 'cover', 'shield'],
+            'camouflage': ['mask', 'camouflage', 'mask'],
+            'encompass': ['encircle', 'encompass', 'encircle'],
+            'comprise': ['contain', 'comprise', 'contain'],
+            'necessitate': ['require', 'necessitate', 'require'],
+            'foresee': ['anticipate', 'foresee', 'anticipate'],
+            'compute': ['calculate', 'compute', 'calculate'],
+            'quantify': ['measure', 'quantify', 'measure'],
+            'certify': ['authenticate', 'certify', 'authenticate'],
+            'sanction': ['authorize', 'sanction', 'authorize'],
+            'advocate': ['back', 'advocate', 'back'],
+            'inspire': ['motivate', 'inspire', 'motivate'],
+            'influence': ['convince', 'influence', 'convince'],
+            'transform': ['adapt', 'transform', 'adapt'],
+            'reinforce': ['strengthen', 'reinforce', 'strengthen'],
+            'sustain': ['support', 'sustain', 'support'],
+            'camouflage': ['mask', 'camouflage', 'mask']
+        };
+
+        // Corporate phrases for bingo
+        const corporateBingoPhrases = [
+            'synergy', 'leverage', 'bandwidth', 'touch base', 'circle back',
+            'move the needle', 'low hanging fruit', 'think outside the box',
+            'disruptive innovation', 'paradigm shift', 'value proposition',
+            'scalable solution', 'best practices', 'key performance indicators',
+            'stakeholder alignment', 'operational excellence', 'core competency',
+            'strategic initiative', 'competitive advantage', 'growth hacking'
+        ];
+
+        // DOM elements
+        const incidentForm = document.getElementById('incidentForm');
+        const incidentTitle = document.getElementById('incidentTitle');
+        const incidentDate = document.getElementById('incidentDate');
+        const whatHappened = document.getElementById('whatHappened');
+        const impact = document.getElementById('impact');
+        const resolution = document.getElementById('resolution');
+        const rootCause = document.getElementById('rootCause');
+        const outputSection = document.getElementById('outputSection');
+        const corporateText = document.getElementById('corporateText');
+        const outputCode = document.getElementById('outputCode');
+        const bingoGrid = document.getElementById('bingoGrid');
+        const copyBtn = document.getElementById('copyBtn');
+        const downloadPdfBtn = document.getElementById('downloadPdfBtn');
+        const downloadTxtBtn = document.getElementById('downloadTxtBtn');
+        const loadingIcon = document.getElementById('loadingIcon');
+        const toast = document.getElementById('toast');
+
+        // Initialize
+        function init() {
+            // Set default date to today
+            const today = new Date().toISOString().split('T')[0];
+            incidentDate.value = today;
+            
+            // Event listeners
+            incidentForm.addEventListener('submit', handleFormSubmit);
+            copyBtn.addEventListener('click', copyToClipboard);
+            downloadPdfBtn.addEventListener('click', downloadPDF);
+            downloadTxtBtn.addEventListener('click', downloadText);
+        }
+
+        // Handle form submission
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            const title = incidentTitle.value.trim();
+            const date = incidentDate.value;
+            const what = whatHappened.value.trim();
+            const impactText = impact.value.trim();
+            const resolutionText = resolution.value.trim();
+            const rootCauseText = rootCause.value.trim();
+
+            if (!title || !date || !what || !impactText || !resolutionText) {
+                showToast('Please fill in all required fields.', true);
+                return;
+            }
+
+            // Show loading
+            loadingIcon.classList.add('active');
+            loadingIcon.textContent = 'Generating...';
+
+            // Process with delay to show loading
+            setTimeout(() => {
+                const report = generateCorporateReport(title, date, what, impactText, resolutionText, rootCauseText);
+                displayReport(report);
+                loadingIcon.classList.remove('active');
+                loadingIcon.textContent = '';
+            }, 1000);
+        }
+
+        // Generate corporate report
+        function generateCorporateReport(title, date, what, impact, resolution, rootCause) {
+            const dateObj = new Date(date);
+            const formattedDate = dateObj.toLocaleDateString('en-US', { 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric' 
+            });
+
+            // Transform text using corporate dictionary
+            const whatCorporate = transformToCorporate(what);
+            const impactCorporate = transformToCorporate(impact);
+            const resolutionCorporate = transformToCorporate(resolution);
+            const rootCauseCorporate = rootCause ? transformToCorporate(rootCause) : '';
+
+            // Generate report
+            const report = {
+                title: title,
+                date: formattedDate,
+                whatHappened: whatCorporate,
+                impact: impactCorporate,
+                resolution: resolutionCorporate,
+                rootCause: rootCauseCorporate,
+                fullReport: generateFullReport(title, formattedDate, whatCorporate, impactCorporate, resolutionCorporate, rootCauseCorporate)
+            };
+
+            return report;
+        }
+
+        // Transform text to corporate speak
+        function transformToCorporate(text) {
+            let result = text.toLowerCase();
+            const usedPhrases = new Set();
+
+            // Apply transformations
+            Object.keys(corporateDictionary).forEach(key => {
+                const variations = corporateDictionary[key];
+                if (result.includes(key)) {
+                    const replacement = variations[Math.floor(Math.random() * variations.length)];
+                    result = result.replace(new RegExp(key, 'gi'), replacement);
+                    usedPhrases.add(replacement);
+                }
+            });
+
+            // Capitalize first letter
+            result = result.charAt(0).toUpperCase() + result.slice(1);
+
+            // Add some corporate buzzwords randomly
+            if (Math.random() > 0.5) {
+                const buzzwords = ['synergy', 'leverage', 'bandwidth', 'value-added', 'scalable'];
+                const buzzword = buzzwords[Math.floor(Math.random() * buzzwords.length)];
+                if (!result.includes(buzzword)) {
+                    result += ` This situation required ${buzzword} to ensure optimal outcomes.`;
+                }
+            }
+
+            return result;
+        }
+
+        // Generate full report
+        function generateFullReport(title, date, what, impact, resolution, rootCause) {
+            let report = `INCIDENT REPORT\n`;
+            report += `===============\n\n`;
+            report += `Title: ${title}\n`;
+            report += `Date: ${date}\n\n`;
+            report += `EXECUTIVE SUMMARY\n`;
+            report += `------------------\n`;
+            report += `${what}\n\n`;
+            report += `BUSINESS IMPACT ASSESSMENT\n`;
+            report += `---------------------------\n`;
+            report += `${impact}\n\n`;
+            report += `RESOLUTION AND REMEDIATION\n`;
+            report += `---------------------------\n`;
+            report += `${resolution}\n\n`;
+
+            if (rootCause) {
+                report += `ROOT CAUSE ANALYSIS\n`;
+                report += `--------------------\n`;
+                report += `${rootCause}\n\n`;
+            }
+
+            report += `LESSONS LEARNED AND PREVENTIVE MEASURES\n`;
+            report += `------------------------------------------\n`;
+            report += `This incident has provided valuable insights into our operational processes. `;
+            report += `We are implementing enhanced monitoring protocols and improved configuration `;
+            report += `management procedures to prevent similar occurrences in the future. Regular `;
+            report += `training sessions will be conducted to ensure team preparedness for analogous scenarios.\n\n`;
+            report += `Report generated by Pragmatic Sysadmin Corporate Translator\n`;
+
+            return report;
+        }
+
+        // Display report
+        function displayReport(report) {
+            // Show output section
+            outputSection.style.display = 'block';
+
+            // Update corporate preview
+            corporateText.innerHTML = `
+                <p><strong>${report.title}</strong></p>
+                <p><em>${report.date}</em></p>
+                <p>${report.whatHappened}</p>
+                <p><strong>Impact:</strong> ${report.impact}</p>
+                <p><strong>Resolution:</strong> ${report.resolution}</p>
+                ${report.rootCause ? `<p><strong>Root Cause:</strong> ${report.rootCause}</p>` : ''}
+            `;
+
+            // Update full report
+            outputCode.textContent = report.fullReport;
+
+            // Generate bingo card
+            generateBingoCard(report.fullReport);
+
+            // Scroll to output
+            outputSection.scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // Generate bingo card
+        function generateBingoCard(text) {
+            bingoGrid.innerHTML = '';
+            const foundPhrases = [];
+
+            corporateBingoPhrases.forEach(phrase => {
+                if (text.toLowerCase().includes(phrase.toLowerCase())) {
+                    foundPhrases.push(phrase);
+                }
+            });
+
+            if (foundPhrases.length > 0) {
+                foundPhrases.forEach(phrase => {
+                    const item = document.createElement('div');
+                    item.className = 'bingo-item';
+                    item.innerHTML = `<span>✓ ${phrase}</span> - Found in your report!`;
+                    bingoGrid.appendChild(item);
+                });
+            } else {
+                const item = document.createElement('div');
+                item.className = 'bingo-item';
+                item.innerHTML = `<span>💡 Tip:</span> Add more corporate buzzwords to your input for better results!`;
+                bingoGrid.appendChild(item);
+            }
+        }
+
+        // Copy to clipboard
+        function copyToClipboard() {
+            const text = outputCode.textContent;
+            navigator.clipboard.writeText(text).then(() => {
+                showToast('Report copied to clipboard!');
+            }).catch(err => {
+                console.error('Copy failed:', err);
+                showToast('Copy failed. Please try again.', true);
+            });
+        }
+
+        // Download PDF
+        function downloadPDF() {
+            const { jsPDF } = window.jspdf;
+            const doc = new jsPDF();
+            
+            const text = outputCode.textContent;
+            const lines = doc.splitTextToSize(text, 180);
+            
+            doc.setFontSize(12);
+            doc.text(lines, 15, 20);
+            
+            const filename = `${incidentTitle.value.trim().replace(/\s+/g, '_')}_Corporate_Report.pdf`;
+            doc.save(filename);
+            
+            showToast('PDF downloaded successfully!');
+        }
+
+        // Download text
+        function downloadText() {
+            const text = outputCode.textContent;
+            const blob = new Blob([text], { type: 'text/plain' });
+            const url = URL.createObjectURL(blob);
+            const a = document.createElement('a');
+            a.href = url;
+            const filename = `${incidentTitle.value.trim().replace(/\s+/g, '_')}_Corporate_Report.txt`;
+            a.download = filename;
+            document.body.appendChild(a);
+            a.click();
+            document.body.removeChild(a);
+            URL.revokeObjectURL(url);
+            
+            showToast('Text file downloaded successfully!');
+        }
+
+        // Fill example
+        function fillExample() {
+            incidentTitle.value = 'Database Connectivity Issue';
+            whatHappened.value = 'I forgot to save the config before rebooting the server. The database went down and users could not access the application.';
+            impact.value = 'Site was down for 2 hours during peak business hours. Approximately 500 users were unable to complete transactions.';
+            resolution.value = 'I restored the configuration from the backup server and restarted the database services. All systems are now operational.';
+            rootCause.value = 'Configuration management process gap and insufficient change control procedures.';
+            
+            showToast('Example filled in!');
+        }
+
+        // Clear form
+        function clearForm() {
+            incidentForm.reset();
+            const today = new Date().toISOString().split('T')[0];
+            incidentDate.value = today;
+            outputSection.style.display = 'none';
+            showToast('Form cleared!');
+        }
+
+        // Show toast
+        function showToast(message, isError = false) {
+            toast.textContent = message;
+            toast.style.background = isError ? '#ef4444' : '#10b981';
+            toast.classList.add('show');
+            
+            setTimeout(() => {
+                toast.classList.remove('show');
+            }, 3000);
+        }
+
+        // Initialize on load
+        document.addEventListener('DOMContentLoaded', init);
+    </script>
+</body>
+>>>>>>> b96e2153a8965a98a1309b6041b5caf5e652018c
 </html>

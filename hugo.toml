@@ -27,6 +27,9 @@ enableRobotsTXT = true
   # Disable home info which is causing the error
   homeInfoParams = false
   
+  # Author information (FIX for RSS template error)
+  author = "Pragmatic Sysadmin"
+  
   # SEO & Social
   images = ["og-default.png"]
   keywords = ["sysadmin", "devops", "kubernetes", "home lab", "zero trust", "automation", "system administration", "cloud computing"]

@@ -1,5 +1,5 @@
 ---
-title: "How I Built This Blog: Hugo + Firebase + AWeber in 30 Minutes"
+title: "How I Built This Blog: Hugo + Firebase + Buttondown in 30 Minutes"
 date: 2025-08-16
 draft: false
 description: "Building a blazing-fast, nearly-free blog with modern static site tools. Here's exactly how I did it."
@@ -21,7 +21,7 @@ Here's exactly how I built this site in under 30 minutes.
 - **Hugo**: Static site generator (like Jekyll, but faster)
 - **PaperMod**: Clean, minimal Hugo theme
 - **Firebase Hosting**: Google's CDN with free SSL
-- **AWeber**: Newsletter forms that actually work
+- **Buttondown**: Simple, elegant newsletter platform
 - **Google Analytics**: Track what people read
 
 ## Step-by-Step Build Process
@@ -64,7 +64,7 @@ enableRobotsTXT = true
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
-      unsafe = true  # Allows AWeber forms
+      unsafe = true  # Allows HTML in markdown
 
 [params]
   description = "Funny, practical home networking and de-mystified cloud."
@@ -102,7 +102,7 @@ Firebase setup answers:
 - Single-page app: `No`  
 - GitHub deploys: `No`
 
-### 7. Add AWeber Newsletter
+### 7. Add Buttondown Newsletter
 
 Created newsletter page with embedded form:
 
@@ -110,9 +110,10 @@ Created newsletter page with embedded form:
 ## Join the newsletter
 Short, practical tips. No spam, just sysadmin sanity.
 
-<div class="aweber-form">
-  <!-- AWeber JavaScript form code -->
-</div>
+<form action="https://buttondown.com/api/emails/subscribe-jonne" method="post">
+  <input type="email" name="email" placeholder="you@example.com" required>
+  <button type="submit">Subscribe</button>
+</form>
 ```
 
 ### 8. Connect Custom Domain
