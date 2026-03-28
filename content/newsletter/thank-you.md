@@ -12,11 +12,7 @@ You can view past issues and manage your subscription at [buttondown.com/jonne](
 
 ## Download your free cheat sheets
 
-<<<<<<< HEAD
 <a href="/cheat-sheet.pdf" target="_blank" style="display:inline-block;padding:1em 2em;background:#ffdd00;color:#222;font-weight:bold;border-radius:8px;font-size:1.2em;text-decoration:none;box-shadow:0 2px 8px #eee;">⬇️ Download Cheat Sheets (PDF)</a>
-=======
-<a href="/cheat-sheet.html" target="_blank" style="display:inline-block;padding:1em 2em;background:#ffdd00;color:#222;font-weight:bold;border-radius:8px;font-size:1.2em;text-decoration:none;box-shadow:0 2px 8px #eee;">⬇️ Download Cheat Sheets (PDF)</a>
->>>>>>> b96e2153a8965a98a1309b6041b5caf5e652018c
 
 ---
 

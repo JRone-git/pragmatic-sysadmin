@@ -12,92 +12,14 @@ description: "Join the Pragmatic Sysadmin newsletter for practical tips and insi
     <p style="color: #555; font-size: 1.1em; margin-top: 0;">Short, practical tips. No spam, just sysadmin sanity.</p>
   </div>
 
-<<<<<<< HEAD
-<form action="https://buttondown.email/api/subscribe/embed" method="post" target="_popup" style="margin:2em 0;padding:1.5em;background:#f7f7f7;border-radius:8px;border:1px solid #e0e0e0;">
-  <input type="hidden" name="account" value="jonne">
+<form action="https://buttondown.com/api/emails/embed-subscribe/jonne" method="post" class="embeddable-buttondown-form" target="_top" style="margin:2em 0;padding:1.5em;background:#f7f7f7;border-radius:8px;border:1px solid #e0e0e0;">
   <label for="bd-email" style="display:block;margin-bottom:0.5em;font-weight:bold;">Enter your email:</label>
   <div style="display:flex;gap:0.5em;flex-wrap:wrap;">
-    <input type="email" name="email" id="bd-email" placeholder="you@example.com" required style="flex:1;padding:0.7em 1em;border:1px solid #ccc;border-radius:6px;font-size:1em;">
+    <input type="email" name="email" id="bd-email" placeholder="you@example.com" required style="flex:1;min-width:200px;padding:0.7em 1em;border:1px solid #ccc;border-radius:6px;font-size:1em;">
     <button type="submit" style="padding:0.7em 1.5em;background:#2563eb;color:#fff;font-weight:bold;border:none;border-radius:6px;cursor:pointer;font-size:1em;">Subscribe</button>
   </div>
+  <input type="hidden" name="embed" value="1">
 </form>
-
-<div style="margin:1.5em 0;padding:1em 1.5em;background:#f7f7f7;border-radius:8px;border:1px solid #e0e0e0;">
-<b>🎁 Subscribe and get instant access to free cheat sheets:</b><br>
-• <strong>Linux Commands</strong> - Essential commands every sysadmin needs<br>
-• <strong>Networking</strong> - Troubleshooting commands and diagnostics<br>
-• <strong>Security Hardening</strong> - Quick security checklist for servers<br>
-<a href="/cheat-sheet.pdf" target="_blank">Download all three cheat sheets (PDF)</a>
-</div>
-
-Get weekly insights on:
-- Home networking security
-- Cloud infrastructure tips  
-- Practical automation tricks
-- Tool recommendations
-
-<div style="text-align:center;margin:2em 0;">
-  <a href="https://buymeacoffee.com/pragmaticadmin" target="_blank" rel="noopener" style="display:inline-block;padding:0.7em 2em;background:#ffdd00;color:#222;font-weight:bold;border-radius:8px;font-size:1.3em;box-shadow:0 2px 8px #eee;text-decoration:none;">
-    ☕ Buy Me a Coffee
-  </a>
-  <div style="margin-top:0.5em;color:#888;font-size:1em;">Support the newsletter and get more free resources!</div>
-</div>
-
-
-=======
-  <!-- ✅ Official Buttondown embed form structure - ALL URLs cleaned -->
-<form
-  action="https://buttondown.com/api/emails/embed-subscribe/jonne"
-  method="post"
-  class="embeddable-buttondown-form"
-  target="_top"
->
-  <label for="bd-email" style="display:block; margin-bottom:0.5em; font-weight:500;">Enter your email</label>
-  <div style="display: flex; gap: 10px; flex-wrap: wrap;">
-    <input 
-      type="email" 
-      name="email" 
-      id="bd-email" 
-      placeholder="you@example.com" 
-      required
-      style="flex: 1; min-width: 200px; padding: 14px; border: 1px solid #ccc; border-radius: 8px; font-size: 1em;"
-    >
-    <input 
-      type="submit" 
-      value="Subscribe" 
-      style="padding: 14px 24px; background: #007bff; color: white; border: none; border-radius: 8px; font-size: 1em; font-weight: bold; cursor: pointer; transition: background 0.3s;"
-    >
-  </div>
-  
-  <!-- Required hidden field for embed detection -->
-  <input type="hidden" name="embed" value="1" />
-  
-  <!-- Optional: redirect after successful subscription -->
-  <input type="hidden" name="redirect" value="https://pragmaticsysadmin.help/newsletter/?subscribed=true" />
-  
-  <p style="text-align: center; margin-top: 15px; font-size: 0.85em; color: #888;">
-    <a href="https://buttondown.com/refer/jonne" target="_blank" style="color: #aaa; text-decoration: none;">Powered by Buttondown.</a>
-  </p>
-</form>
-
-  <!-- SUCCESS MESSAGE (Hidden by default) -->
-  <div id="newsletter-thankyou" style="display: none; background: #e8f5e9; padding: 2em; border-radius: 12px; text-align: center; border: 1px solid #c8e6c9; margin-bottom: 2em;">
-    <h3 style="margin-top: 0; color: #2e7d32;">✅ You're subscribed!</h3>
-    <p style="margin-bottom: 0.5em;">Check your inbox to confirm your subscription.</p>
-    <p style="margin-bottom: 0;"><b>🎁 <a href="/cheat-sheet.html" style="color: #2e7d32; font-weight: bold;">Click here to access your Cheat Sheets</a></b></p>
-  </div>
-
-  <!-- FREEBIES SECTION -->
-  <div style="background: #f8f9fa; padding: 1.5em; border-radius: 12px; margin-bottom: 2em; border-left: 5px solid #007bff;">
-    <h3 style="margin-top: 0; margin-bottom: 0.5em; font-size: 1.2em;">🎁 Instant Access for Subscribers</h3>
-    <p style="margin-bottom: 1em; color: #444;">Get immediate access to my library of cheat sheets:</p>
-    <ul style="padding-left: 20px; margin-bottom: 1em; color: #333; line-height: 1.6;">
-      <li><strong>Linux Commands</strong> - Essentials every sysadmin needs</li>
-      <li><strong>Networking</strong> - Troubleshooting & diagnostics</li>
-      <li><strong>Security Hardening</strong> - Server security checklist</li>
-    </ul>
-    <a href="/cheat-sheet.html" style="display: inline-block; padding: 10px 20px; background: #007bff; color: white; text-decoration: none; border-radius: 6px; font-weight: bold; font-size: 0.9em;">Access Resources</a>
-  </div>
 
   <!-- WHAT TO EXPECT -->
   <div style="margin-bottom: 2.5em; color: #333;">

@@ -6,7 +6,7 @@
 import React, { useState, useEffect } from 'react';
 import { motion, AnimatePresence } from 'motion/react';
 import { Shield, AlertTriangle, CheckCircle, RefreshCw, Terminal, ArrowRight, Lock, Smartphone, Mail, Cloud, Info } from 'lucide-react';
-import { getResilienceAdvice } from './services/geminiService';
+import { calculateResilience } from './services/resilienceService';
 
 type Scenario = {
   id: string;
@@ -114,15 +114,14 @@ export default function App() {
     }
   };
 
-  const generateResult = async (finalAnswers: Record<string, string>) => {
-    setLoading(true);
+  const generateResult = (finalAnswers: Record<string, string>) => {
     setStep('result');
-    const result = await getResilienceAdvice(selectedScenario?.title || '', finalAnswers);
-    if (result && result.score !== undefined) {
+    // Small delay for UX - feels more like "analyzing"
+    setTimeout(() => {
+      const result = calculateResilience(selectedScenario?.title || '', finalAnswers);
       saveToHistory(result.score, selectedScenario?.title || '');
-    }
-    setAdvice(result);
-    setLoading(false);
+      setAdvice(result);
+    }, 800);
   };
 
   const reset = () => {
@@ -141,7 +140,7 @@ export default function App() {
           <h1 className="font-mono font-bold text-xl tracking-tighter uppercase">Pragmatic Pulse</h1>
         </div>
         <div className="text-[10px] font-mono opacity-50 uppercase tracking-widest hidden sm:block">
-          System Status: Operational // v1.0.4
+          System Status: Offline Mode // v1.0.5
         </div>
       </header>
 
@@ -271,26 +270,24 @@ export default function App() {
               animate={{ opacity: 1 }}
               className="space-y-8"
             >
-              {loading ? (
+              {!advice ? (
                 <div className="flex flex-col items-center justify-center py-24 space-y-6">
                   <RefreshCw className="w-12 h-12 text-accent animate-spin" />
                   <div className="text-center space-y-2">
                     <p className="font-mono text-sm uppercase tracking-widest animate-pulse">Analyzing Vulnerabilities...</p>
-                    <p className="text-xs opacity-50">Consulting the Pragmatic Sysadmin Knowledge Base</p>
+                    <p className="text-xs opacity-50">Calculating your resilience score</p>
                   </div>
                 </div>
-              ) : advice ? (
+              ) : (
                 <div className="space-y-12">
                   <div className="flex flex-col md:flex-row gap-8 items-start md:items-center justify-between border-b border-line pb-8">
                     <div className="space-y-2">
                       <h2 className="text-5xl font-bold tracking-tighter uppercase">Audit <span className="text-accent">Complete</span></h2>
                       <p className="opacity-60 font-mono text-xs uppercase tracking-widest">Scenario: {selectedScenario?.title}</p>
                     </div>
-                    <div className="flex items-center gap-4">
-                      <div className="text-right">
-                        <p className="text-[10px] font-mono uppercase opacity-50">Resilience Score</p>
-                        <p className="text-6xl font-bold tracking-tighter text-accent">{advice.score}<span className="text-2xl opacity-30">/100</span></p>
-                      </div>
+                    <div className="text-right">
+                      <p className="text-[10px] font-mono uppercase opacity-50">Resilience Score</p>
+                      <p className="text-6xl font-bold tracking-tighter text-accent">{advice.score}<span className="text-2xl opacity-30">/100</span></p>
                     </div>
                   </div>
 
@@ -310,13 +307,13 @@ export default function App() {
                       </div>
                     </div>
 
-                      <div className="space-y-6">
+                    <div className="space-y-6">
                       <h3 className="col-header">Pragmatic Action Plan</h3>
                       <div className="space-y-4">
-                        {advice.steps.map((step: string, i: number) => (
+                        {advice.steps.map((stepText: string, i: number) => (
                           <div key={i} className="flex gap-4 p-4 border border-line/20 hover:border-accent transition-colors">
                             <div className="font-mono text-accent font-bold">0{i + 1}</div>
-                            <p className="text-sm">{step}</p>
+                            <p className="text-sm">{stepText}</p>
                           </div>
                         ))}
                       </div>
@@ -339,12 +336,6 @@ export default function App() {
                       </div>
                     </div>
                   </div>
-                </div>
-              ) : (
-                <div className="text-center py-24 space-y-6">
-                  <AlertTriangle className="w-12 h-12 text-accent mx-auto" />
-                  <p>Analysis failed. The system encountered an unexpected error.</p>
-                  <button onClick={reset} className="underline font-mono text-sm">Return to Base</button>
                 </div>
               )}
             </motion.div>
