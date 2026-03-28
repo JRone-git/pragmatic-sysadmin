@@ -1,7 +1,7 @@
 ---
 title: "Building Your Own Linux from Scratch (And Testing It in a Container)"
 date: 2026-03-28
-draft: true
+draft: false
 description: "Ever wondered what actually happens when Linux boots? Build your own minimal Linux system from scratch and test it instantly using containers - no VMs required."
 tags: ["linux", "homelab", "containers", "docker", "sysadmin", "DIY"]
 ---
