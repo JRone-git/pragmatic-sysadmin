@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>AI Prompt Builder for Sysadmins</title>
+  <style>
+    body { font-family: Arial, sans-serif; margin: 2em; }
+    label { display: block; margin-top: 1em; }
+    textarea, input[type=text] { width: 100%; padding: 0.5em; }
+    button { margin-top: 1em; padding: 0.5em 1em; }
+    .output { margin-top: 2em; background: #f4f4f4; padding: 1em; border-radius: 5px; }
+  </style>
+</head>
+<body>
+  <h1>AI Prompt Builder for Sysadmins</h1>
+  <form id="promptForm">
+    <label for="problem">Describe your IT problem or task:</label>
+    <input type="text" id="problem" required>
+    <label for="context">System Context (OS, app, environment):</label>
+    <input type="text" id="context">
+    <label for="goal">Desired Outcome:</label>
+    <input type="text" id="goal">
+    <label for="experience">Your Experience Level:</label>
+    <select id="experience">
+      <option value="basic">Basic</option>
+      <option value="intermediate">Intermediate</option>
+      <option value="advanced">Advanced</option>
+    </select>
+    <button type="submit">Generate AI Prompt</button>
+  </form>
+  <div class="output" id="output"></div>
+  <script>
+    document.getElementById('promptForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      const problem = document.getElementById('problem').value;
+      const context = document.getElementById('context').value;
+      const goal = document.getElementById('goal').value;
+      const experience = document.getElementById('experience').value;
+      let prompt = `Problem: ${problem}\n`;
+      if (context) prompt += `Context: ${context}\n`;
+      if (goal) prompt += `Goal: ${goal}\n`;
+      prompt += `Experience Level: ${experience}\n`;
+      prompt += `Request: Please provide a step-by-step solution, and explain any commands or concepts for my experience level.`;
+      document.getElementById('output').innerHTML = `<pre>${prompt}</pre>`;
+    });
+  </script>
+</body>
+</html>
