@@ -252,7 +252,7 @@ What I am doing:
 
 ## The Source Code
 
-NEXUS-BREACH is on GitHub: [https://github.com/JRone-git/nexus-breach](https://github.com/JRone-git/nexus-breach)
+NEXUS-BREACH is on GitHub: [[https://github.com/JRone-git/nexus-breach](https://github.com/JRone-git/nexus-breach)](https://github.com/JRone-git/pragmatic-sysadmin/tree/3e43b468293c5bdbfa10cf3d4f052a1f468a86ea/nexus-breach)
 
 The Dolphin integration and environment connector aren't in the main branch yet — they're still experimental. But the core simulation is there, it works, and you can run it right now without any LLM or external environment.
 
