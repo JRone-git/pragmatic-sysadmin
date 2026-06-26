@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="theme-color" content="#0F766E">
+  <title data-i18n-meta="title">Buddy — Your Everyday Helper</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%230F766E'/%3E%3Ctext x='50' y='68' font-size='60' text-anchor='middle' fill='white' font-family='Arial'%3EB%3C/text%3E%3C/svg%3E">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <main id="app">
+
+    <!-- ============ HOME ============ -->
+    <section class="screen active" data-screen="home">
+      <header class="topbar">
+        <button class="lang-btn" id="lang-btn" aria-label="Language">
+          <span class="lang-globe">🌐</span>
+          <span id="lang-current">English</span>
+        </button>
+        <div class="brand-mark">B</div>
+        <h1 data-i18n="app.greeting" data-i18n-params='{"name":"Buddy"}'>Hi, I'm Buddy</h1>
+        <p class="brand-line" data-i18n="app.brandLine">Your Everyday Helper</p>
+        <p class="greeting" id="greeting"></p>
+        <p class="date" id="today-date"></p>
+      </header>
+
+      <button class="checkin-card" id="checkin-card" data-go="meds">
+        <div class="checkin-left">
+          <div class="checkin-icon">☀️</div>
+          <div>
+            <div class="checkin-title" data-i18n="checkin.title">Today's Check-in</div>
+            <div class="checkin-status" id="checkin-status">Loading…</div>
+          </div>
+        </div>
+        <div class="checkin-arrow">→</div>
+      </button>
+
+      <div class="grid">
+        <button class="tile" data-go="people">
+          <span class="icon">👥</span>
+          <span class="label" data-i18n="tiles.people.label">My People</span>
+          <span class="sub" data-i18n="tiles.people.sub">Family &amp; friends</span>
+        </button>
+        <button class="tile" data-go="meds">
+          <span class="icon">💊</span>
+          <span class="label" data-i18n="tiles.meds.label">Medicines</span>
+          <span class="sub" data-i18n="tiles.meds.sub">Reminders &amp; check-off</span>
+        </button>
+        <button class="tile" data-go="safety">
+          <span class="icon">🛡️</span>
+          <span class="label" data-i18n="tiles.safety.label">Stay Safe</span>
+          <span class="sub" data-i18n="tiles.safety.sub">Scam check, trusted calls</span>
+        </button>
+        <button class="tile" data-go="help">
+          <span class="icon">💡</span>
+          <span class="label" data-i18n="tiles.help.label">How-To</span>
+          <span class="sub" data-i18n="tiles.help.sub">Step-by-step guides</span>
+        </button>
+      </div>
+
+      <a class="emergency" href="tel:911" data-emergency>
+        <span class="em-icon">🚨</span>
+        <span class="em-text" data-i18n="emergency">Emergency — Tap to Call 911</span>
+      </a>
+
+      <aside class="upgrade" id="upgrade-banner">
+        <div class="upgrade-text">
+          <strong data-i18n="upgrade.title">Buddy Plus</strong>
+          <span data-i18n="upgrade.text">— unlimited contacts, scam check, family dashboard</span>
+        </div>
+        <button class="upgrade-btn" id="upgrade-btn" data-i18n="upgrade.button">$7/month</button>
+      </aside>
+
+      <footer class="foot">
+        <p><span data-i18n="app.madeWith">Made with care by</span> <a href="https://pragmaticsysadmin.help" target="_blank" rel="noopener">Pragmatic Sysadmin Help</a></p>
+      </footer>
+    </section>
+
+    <!-- ============ PEOPLE ============ -->
+    <section class="screen" data-screen="people">
+      <button class="back" data-back data-i18n="nav.backHome">← Back to Home</button>
+      <h2 data-i18n="people.title">My People</h2>
+      <p class="hint" data-i18n="people.hint">Tap **Call** to ring someone right away.</p>
+      <ul class="list" id="people-list"></ul>
+      <button class="add" id="add-person" data-i18n="people.add">+ Add a Person</button>
+    </section>
+
+    <!-- ============ MEDS ============ -->
+    <section class="screen" data-screen="meds">
+      <button class="back" data-back data-i18n="nav.backHome">← Back to Home</button>
+      <h2 data-i18n="meds.title">My Medicines</h2>
+      <p class="hint" data-i18n="meds.hint">Tap the green circle when you take a medicine. It resets every day.</p>
+      <div class="progress" id="meds-progress"></div>
+      <ul class="list" id="meds-list"></ul>
+      <button class="add" id="add-med" data-i18n="meds.add">+ Add a Medicine</button>
+    </section>
+
+    <!-- ============ SAFETY ============ -->
+    <section class="screen" data-screen="safety">
+      <button class="back" data-back data-i18n="nav.backHome">← Back to Home</button>
+      <h2 data-i18n="safety.title">Stay Safe</h2>
+
+      <div class="card">
+        <h3 data-i18n="safety.checkTitle">Is this message a scam?</h3>
+        <p class="hint" data-i18n="safety.checkHint">Got a weird text, email, or voicemail? Paste it here and Buddy will look for the warning signs.</p>
+        <textarea id="scam-input" data-i18n-attr="placeholder:safety.placeholder" placeholder="Paste the message here…"></textarea>
+        <button class="primary block" id="check-scam" data-i18n="safety.checkButton">Check This Message</button>
+        <div class="result" id="scam-result"></div>
+      </div>
+
+      <div class="card">
+        <h3 data-i18n="safety.trustedTitle">Trusted Numbers</h3>
+        <p class="hint" data-i18n="safety.trustedHint">These are the people you trust. If they ask for money or info, double-check by calling them back on a number you know is theirs.</p>
+        <ul class="list compact" id="safety-list"></ul>
+        <a class="primary block" href="tel:911" style="background: var(--warn);" data-i18n="safety.call911" data-emergency>🚨 Call 911</a>
+      </div>
+    </section>
+
+    <!-- ============ HELP ============ -->
+    <section class="screen" data-screen="help">
+      <button class="back" data-back data-i18n="nav.backHome">← Back to Home</button>
+      <h2 data-i18n="help.title">How Can I Help?</h2>
+      <p class="hint" data-i18n="help.hint">Step-by-step guides for common phone tasks.</p>
+      <div class="topics" id="topics"></div>
+    </section>
+
+    <!-- ============ TOPIC DETAIL ============ -->
+    <section class="screen" data-screen="topic">
+      <button class="back" data-back data-i18n="nav.backHelp">← Back to How-To</button>
+      <div id="topic-content"></div>
+    </section>
+
+  </main>
+
+  <!-- ============ ADD MODAL ============ -->
+  <div class="modal" id="modal">
+    <div class="modal-content">
+      <h3 id="modal-title">Add</h3>
+      <div id="modal-body"></div>
+      <div class="modal-actions">
+        <button class="secondary" id="modal-cancel" data-i18n="form.cancel">Cancel</button>
+        <button class="primary" id="modal-save" data-i18n="form.save">Save</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ UPGRADE MODAL ============ -->
+  <div class="modal" id="upgrade-modal">
+    <div class="modal-content">
+      <h3 data-i18n="upgrade.comingSoon">Buddy Plus is coming soon</h3>
+      <p data-i18n="upgrade.modalBody">Leave your email and we'll let you know when it launches.</p>
+      <label class="modal-label" data-i18n="upgrade.emailLabel">Email</label>
+      <input type="email" id="upgrade-email" data-i18n-attr="placeholder:form.placeholderEmail" placeholder="you@example.com" />
+      <div class="modal-actions">
+        <button class="secondary" id="upgrade-cancel" data-i18n="upgrade.notNow">Not now</button>
+        <button class="primary" id="upgrade-save" data-i18n="upgrade.notify">Notify Me</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ LANGUAGE MODAL ============ -->
+  <div class="modal" id="lang-modal">
+    <div class="modal-content">
+      <h3 data-i18n="nav.language">Language</h3>
+      <div class="lang-list" id="lang-list"></div>
+    </div>
+  </div>
+
+  <!-- ============ FEEDBACK MODAL ============ -->
+  <div class="modal" id="feedback-modal">
+    <div class="modal-content">
+      <h3 data-i18n="feedback.prompt">How is Buddy working for you?</h3>
+      <div class="feedback-buttons">
+        <button class="big-emoji" id="fb-easy" data-i18n="feedback.easy">Easy 👍</button>
+        <button class="big-emoji" id="fb-hard" data-i18n="feedback.hard">Hard 👎</button>
+      </div>
+      <div id="feedback-detail" style="display:none;">
+        <label class="modal-label" data-i18n="feedback.hardSorry">Sorry about that. What was hard?</label>
+        <textarea id="feedback-text" data-i18n-attr="placeholder:feedback.placeholder" placeholder="What was confusing? (optional)"></textarea>
+        <div class="modal-actions">
+          <button class="secondary" id="fb-skip" data-i18n="feedback.skip">Skip</button>
+          <button class="primary" id="fb-send" data-i18n="feedback.send">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="i18n.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
