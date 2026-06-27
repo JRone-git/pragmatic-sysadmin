@@ -3,9 +3,16 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="theme-color" content="#0F766E">
+  <meta name="theme-color" content="#2D6A4F">
+  <meta name="description" content="Buddy — a free, simple companion app for older adults. One-tap calls to family, daily medicine reminders, scam message checker, and step-by-step guides. No account required. 7 languages.">
   <title data-i18n-meta="title">Buddy — Your Everyday Helper</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='50' r='45' fill='%230F766E'/%3E%3Ctext x='50' y='68' font-size='60' text-anchor='middle' fill='white' font-family='Arial'%3EB%3C/text%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='52' r='42' fill='%232D6A4F'/%3E%3Ccircle cx='40' cy='48' r='4' fill='%23FBF6EE'/%3E%3Ccircle cx='60' cy='48' r='4' fill='%23FBF6EE'/%3E%3Cpath d='M 36 62 Q 50 72 64 62' stroke='%23FBF6EE' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+
+  <!-- Lora serif for warm, professional headlines -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
+
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
@@ -18,7 +25,38 @@
           <span class="lang-globe">🌐</span>
           <span id="lang-current">English</span>
         </button>
-        <div class="brand-mark">B</div>
+
+        <div class="brand-mark" aria-hidden="true">
+          <!-- Buddy mascot: friendly sage character with rosy cheeks -->
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+            <defs>
+              <radialGradient id="mascotBody" cx="35%" cy="30%" r="80%">
+                <stop offset="0%" stop-color="#4FA67D"/>
+                <stop offset="60%" stop-color="#2D6A4F"/>
+                <stop offset="100%" stop-color="#1F4A36"/>
+              </radialGradient>
+            </defs>
+            <!-- Body -->
+            <circle cx="50" cy="52" r="40" fill="url(#mascotBody)"/>
+            <!-- Top highlight -->
+            <ellipse cx="38" cy="32" rx="14" ry="9" fill="rgba(255,255,255,0.12)"/>
+            <!-- Eyes (whites) -->
+            <circle cx="40" cy="48" r="5" fill="#FBF6EE"/>
+            <circle cx="60" cy="48" r="5" fill="#FBF6EE"/>
+            <!-- Pupils -->
+            <circle cx="41" cy="49" r="2.5" fill="#2A2520"/>
+            <circle cx="61" cy="49" r="2.5" fill="#2A2520"/>
+            <!-- Eye shines -->
+            <circle cx="42.5" cy="47" r="0.9" fill="#FBF6EE"/>
+            <circle cx="62.5" cy="47" r="0.9" fill="#FBF6EE"/>
+            <!-- Warm smile -->
+            <path d="M 36 62 Q 50 73 64 62" stroke="#FBF6EE" stroke-width="3.8" fill="none" stroke-linecap="round"/>
+            <!-- Rosy cheeks -->
+            <circle cx="26" cy="62" r="5" fill="#D97757" opacity="0.4"/>
+            <circle cx="74" cy="62" r="5" fill="#D97757" opacity="0.4"/>
+          </svg>
+        </div>
+
         <h1 data-i18n="app.greeting" data-i18n-params='{"name":"Buddy"}'>Hi, I'm Buddy</h1>
         <p class="brand-line" data-i18n="app.brandLine">Your Everyday Helper</p>
         <p class="greeting" id="greeting"></p>
@@ -149,7 +187,7 @@
   <div class="modal" id="upgrade-modal">
     <div class="modal-content">
       <h3 data-i18n="upgrade.comingSoon">Buddy Plus is coming soon</h3>
-      <p data-i18n="upgrade.modalBody">Leave your email and we'll let you know when it launches.</p>
+      <p data-i18n="upgrade.modalBody">Leave your email and we'll let you know when it launches. We'll also send you a free guide: "5 Conversations to Have with Your Aging Parent About Online Safety."</p>
       <label class="modal-label" data-i18n="upgrade.emailLabel">Email</label>
       <input type="email" id="upgrade-email" data-i18n-attr="placeholder:form.placeholderEmail" placeholder="you@example.com" />
       <div class="modal-actions">
