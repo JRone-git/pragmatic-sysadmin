@@ -140,8 +140,8 @@ You'll get:
   <h3 style="margin-bottom:0.5rem;">Ready to buy?</h3>
   <p style="margin-bottom:1.5rem;">Pay $9 via Ko-fi, get the zip instantly. No account needed.</p>
 
-  <!-- REPLACE THIS LINK WITH YOUR KO-FI SHOP URL AFTER SETUP -->
-  <a href="https://ko-fi.com/pragmatic_sysadmin/shop" style="display:inline-block;background:#FF5E5B;color:white;padding:1.125rem 2.5rem;border-radius:999px;font-weight:700;font-size:1.1875rem;text-decoration:none;box-shadow:0 4px 14px rgba(255,94,91,0.25);">☕ Buy on Ko-fi — $9</a>
+  <!-- Ko-fi shop URL — live as of 2026-06-29 -->
+  <a href="https://ko-fi.com/s/5157a41780" style="display:inline-block;background:#FF5E5B;color:white;padding:1.125rem 2.5rem;border-radius:999px;font-weight:700;font-size:1.1875rem;text-decoration:none;box-shadow:0 4px 14px rgba(255,94,91,0.25);">☕ Buy on Ko-fi — $9</a>
 
   <p style="margin-top:1.5rem;font-size:0.9375rem;">Or tip what you want: <a href="https://ko-fi.com/pragmatic_sysadmin">ko-fi.com/pragmatic_sysadmin</a></p>
 </div>
