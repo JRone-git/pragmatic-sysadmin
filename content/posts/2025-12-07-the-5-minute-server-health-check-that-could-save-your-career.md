@@ -56,3 +56,23 @@ systemctl is-active mariadb
 ## Conclusion
 
 A simple health check script can be your first line of defense against system issues. Run it regularly, log the results, and you'll significantly improve your uptime track record.
+
+---
+
+## Want the full toolkit?
+
+The post above gives you the philosophy. If you want a **production-ready implementation** — three runnable bash scripts, a printable weekly checklist, and a decision tree for every warning those scripts can throw — I packaged it as a $9 digital toolkit.
+
+**What's in the box:**
+
+- ✅ `quick-health-check.sh` — color-coded output, JSON mode for monitoring, exit codes for alerting
+- ✅ `disk-analyzer.sh` — finds what's eating your disk when it fills up
+- ✅ `log-watcher.sh` — alerts on error pattern spikes (Slack/Discord/email webhooks)
+- ✅ `weekly-checklist.md` — printable one-page checklist for Monday mornings
+- ✅ `what-to-do-when-red.md` — decision tree for every red flag
+
+MIT licensed. No dependencies. No SaaS subscription. You own the scripts forever.
+
+→ **[Get the 5-Minute Server Health Check Toolkit — $9 on Ko-fi](https://ko-fi.com/s/5157a41780)**
+
+Already using it? [Drop me a testimonial](mailto:pragmatic@pragmaticsysadmin.help) and I'll feature it on the sales page.
