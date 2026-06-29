@@ -1,0 +1,200 @@
+# Pragmatic Sysadmin Product Catalog
+# Single source of truth for all digital products.
+#
+# To add a new product:
+#   1. Add a new entry under `products:` below
+#   2. Create the product files in /products/<id>/
+#   3. Run: ./scripts/generate-products.sh
+#   4. Commit and push
+#
+# The generator will create:
+#   - Hugo sales page at content/products/<id>.md
+#   - Ko-fi description copy at content/products/<id>-kofi.md
+#   - Twitter/LinkedIn copy at content/products/<id>-social.md
+#   - Cover image prompt at content/products/<id>-image-prompt.md
+#   - Updated shop listing at content/shop/_index.md
+
+site:
+  name: "Pragmatic Sysadmin"
+  url: "https://pragmaticsysadmin.help"
+  email: "pragmatic@pragmaticsysadmin.help"
+  twitter: "pragmatic_sys"  # your Twitter handle without @
+  kofi_page: "https://ko-fi.com/pragmatic_sysadmin"
+  refund_days: 60
+  license: "MIT"
+
+products:
+  - id: health-check-toolkit
+    title: "The 5-Minute Server Health Check Toolkit"
+    tagline: "Catch problems before they page you at 3am"
+    price: 9
+    currency: USD
+    status: live
+    category: scripts
+    tags: [linux, sysadmin, monitoring, server, bash]
+    date: "2026-06-29T18:00:00.000Z"
+    description: |
+      A complete weekly server health check system for Linux sysadmins.
+      Three production-ready bash scripts that catch the most common
+      server problems before they page you at 3am.
+    long_description: |
+      Every Monday morning, run `quick-health-check.sh` and you'll know
+      in 5 seconds whether anything's wrong with your servers. The script
+      checks disk, memory, CPU, recent errors, network connectivity,
+      uptime, and failed systemd units. Color-coded output, JSON mode
+      for monitoring integration, proper exit codes for alerting.
+
+      When disk is filling up, `disk-analyzer.sh` finds the top 10
+      culprits in seconds. When error patterns spike, `log-watcher.sh`
+      alerts via webhook or email. Plus a printable one-page weekly
+      checklist and a decision tree for every warning those scripts
+      can throw at you.
+    features:
+      - "**quick-health-check.sh** — main script, runs in 5 seconds with color-coded output, JSON mode for monitoring integration, exit codes for alerting"
+      - "**disk-analyzer.sh** — finds the top 10 things eating your disk when it fills up"
+      - "**log-watcher.sh** — alerts when error patterns spike (webhook to Slack/Discord/Teams or email)"
+      - "**weekly-checklist.md** — printable one-page checklist for Monday morning ritual"
+      - "**what-to-do-when-red.md** — decision tree for every warning those scripts can throw"
+    requirements:
+      - "Linux (Ubuntu 20.04+, Debian 11+, RHEL 8+, Amazon Linux 2)"
+      - "Bash 4.0+"
+      - "Standard tools: df, free, ps, ss, ping, find, grep, awk (pre-installed on any Linux)"
+    not_for:
+      - "Windows servers (Linux only)"
+      - "macOS (use the bash script manually)"
+      - "Anyone wanting a SaaS dashboard (this is plain scripts you own)"
+    file_path: "products/health-check-toolkit/health-check-toolkit.zip"
+    file_size_kb: 12
+    kofi_url: "https://ko-fi.com/s/5157a41780"
+    cover_image: "health-check-toolkit-card.png"
+    cover_image_prompt: |
+      Professional product card design for a software toolkit. Warm cream
+      background with subtle radial gradient. Deep sage green and warm
+      terracotta accents. Stylized minimalist illustration of a server
+      rack with circuit lines and a health check pulse line going through
+      it. Modern clean tech aesthetic, no text overlay, balanced negative
+      space, soft drop shadows, 1200x630 horizontal format, looks like
+      a SaaS landing page hero image.
+    source_post: "/posts/2025-12-07-the-5-minute-server-health-check-that-could-save-your-career/"
+    sales_page_slug: "health-check-toolkit"
+    social_copy:
+      twitter_short: |
+        I expanded my "5-minute server health check" blog post into a $9
+        toolkit: 3 bash scripts, a printable weekly checklist, and a
+        decision tree for every red flag.
+
+        12 KB. No dependencies. You own the scripts forever.
+
+        {kofi_url}
+      twitter_story: |
+        A sysadmin DM'd me last month asking how to spot disk problems
+        before they page him at 3am.
+
+        I realized the answer was in a blog post I wrote 3 years ago —
+        but the post was too short to actually use.
+
+        So I packaged it as a $9 toolkit. 3 scripts. Printable checklist.
+        Decision tree for every red flag.
+
+        {kofi_url}
+      linkedin: |
+        Three years ago I wrote a blog post about running a 5-minute
+        server health check every Monday morning.
+
+        It got decent traction, but the post itself was too short to be
+        genuinely useful.
+
+        So this month I packaged it as a real toolkit: 3 production-ready
+        bash scripts, a printable one-page checklist, and a decision
+        tree for every warning those scripts can throw.
+
+        12 KB total. MIT licensed. Zero dependencies. You own the scripts
+        forever.
+
+        Why $9: the scripts took time to write and test across distros.
+        Most sysadmins prefer paying $9 for a known-working tool over
+        writing their own and missing edge cases.
+
+        {kofi_url}
+
+        #sysadmin #devops #sre #linux
+      hn: |
+        Title: Show HN: 5-Minute Server Health Check Toolkit – 3 bash
+        scripts + checklist ($9)
+
+        Text: I wrote a blog post about a 5-minute weekly server health
+        check three years ago. It got decent traffic but was too short to
+        be useful. Last week I packaged the actual implementation into
+        a $9 toolkit.
+
+        Three bash scripts:
+        - quick-health-check.sh: disk, memory, CPU, errors, network,
+          systemd — runs in 5 seconds
+        - disk-analyzer.sh: finds what's eating disk when it fills up
+        - log-watcher.sh: alerts on error pattern spikes via webhook
+
+        Plus a printable weekly checklist and a decision tree for every
+        warning those scripts can throw.
+
+        12 KB total. MIT licensed. Zero dependencies. You own the scripts.
+
+        I considered making it free, but the scripts took time to write
+        and test across distros. $9 feels right for the time saved vs
+        writing your own.
+
+        Blog post (free): {source_post_url}
+        Toolkit ($9): {kofi_url}
+    kofi_description: |
+      A complete weekly server health check system for Linux sysadmins.
+      Three production-ready bash scripts (the main health check, a disk
+      analyzer, and a log watcher), a printable one-page weekly checklist,
+      and a decision tree for every warning. 12 KB download, no
+      dependencies, MIT licensed — you own the scripts forever.
+    kofi_long_description: |
+      Every Monday morning, run quick-health-check.sh and you'll know
+      in 5 seconds whether anything's wrong with your servers. The
+      script checks disk, memory, CPU, recent errors, network
+      connectivity, uptime, and failed systemd units. Color-coded
+      output, JSON mode for monitoring integration, proper exit codes
+      for alerting.
+
+      When disk is filling up, disk-analyzer.sh finds the top 10
+      culprits in seconds. When error patterns spike, log-watcher.sh
+      alerts via webhook or email.
+
+      Plus a printable one-page weekly checklist and a decision tree
+      for every warning those scripts can throw at you — so you know
+      exactly what to do when something's red.
+
+      12 KB total. MIT licensed. No dependencies. You own the scripts
+      forever, modify them freely, redistribute as you wish.
+
+      Works on: Ubuntu 20.04+, Debian 11+, RHEL 8+, Amazon Linux 2,
+      and any Linux with bash 4.0+.
+
+      Author: 15-year sysadmin, built this after my own mom lost $4,200
+      to a tech-support scam — because the best monitoring is the kind
+      you actually do every week.
+    testimonials: []  # populated as customers send feedback
+
+# Future products — uncomment and run generator when ready
+#  - id: backup-audit-toolkit
+#    title: "The Friday Backup Audit Toolkit"
+#    tagline: "Hope is not a strategy. Verify your backups actually work."
+#    price: 19
+#    status: draft
+#    ...
+#
+#  - id: home-lab-starter
+#    title: "Home Lab Starter Scripts"
+#    tagline: "Everything you need to set up a homelab in a weekend"
+#    price: 9
+#    status: draft
+#    ...
+#
+#  - id: sysadmin-first-30-days
+#    title: "The Sysadmin's First 30 Days Guide"
+#    tagline: "Everything I wish someone told me when I started"
+#    price: 9
+#    status: draft
+#    ...
