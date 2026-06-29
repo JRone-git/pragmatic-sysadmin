@@ -28,6 +28,8 @@ author: "Pragmatic Sysadmin"
 
 **Catch problems before they page you at 3am. $9, one-time, you own it forever.**
 
+![Server Health Check Toolkit](/images/health-check-toolkit-card.png)
+
 A complete weekly health check system for Linux servers. Three production-ready bash scripts, a printable weekly checklist, and a decision tree for every warning the scripts can throw at you.
 
 Based on the popular blog post [The 5-Minute Server Health Check That Could Save Your Career](https://pragmaticsysadmin.help/posts/the-5-minute-server-health-check-that-could-save-your-career/), expanded into a tool you can actually use every Monday.
