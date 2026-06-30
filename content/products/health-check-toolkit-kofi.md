@@ -1,6 +1,6 @@
 # Ko-fi product copy for: The 5-Minute Server Health Check Toolkit
 
-## Short description (for Ko-fi product page, ~200 chars)
+## Short description (~200 chars)
 
 A complete weekly server health check system for Linux sysadmins.
 Three production-ready bash scripts (the main health check, a disk
@@ -10,7 +10,7 @@ dependencies, MIT licensed — you own the scripts forever.
 
 ---
 
-## Long description (for Ko-fi product page, ~1000 chars)
+## Long description (~1000 chars)
 
 Every Monday morning, run quick-health-check.sh and you'll know
 in 5 seconds whether anything's wrong with your servers. The
@@ -47,6 +47,6 @@ you actually do every week.
 - **File**: products/health-check-toolkit/health-check-toolkit.zip
 - **File size**: 12 KB
 
-## Tags (for Ko-fi)
+## Tags
 
 linux, sysadmin, monitoring, server, bash

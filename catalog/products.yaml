@@ -1,27 +1,140 @@
 # Pragmatic Sysadmin Product Catalog
-# Single source of truth for all digital products.
+# Single source of truth for all products (free + paid).
 #
-# To add a new product:
-#   1. Add a new entry under `products:` below
+# To add a new free tool:
+#   1. Add entry under `free_tools:`
+#   2. Create the script in /products/free/<id>.sh
+#   3. Run: ./scripts/generate-products.sh
+#
+# To add a new paid product:
+#   1. Add entry under `products:`
 #   2. Create the product files in /products/<id>/
 #   3. Run: ./scripts/generate-products.sh
-#   4. Commit and push
+#   4. Add to Ko-fi shop and update kofi_url
 #
-# The generator will create:
-#   - Hugo sales page at content/products/<id>.md
-#   - Ko-fi description copy at content/products/<id>-kofi.md
-#   - Twitter/LinkedIn copy at content/products/<id>-social.md
-#   - Cover image prompt at content/products/<id>-image-prompt.md
-#   - Updated shop listing at content/shop/_index.md
+# The generator creates Hugo pages + Ko-fi copy + social copy
+# + image prompt + updated shop listing.
 
 site:
   name: "Pragmatic Sysadmin"
   url: "https://pragmaticsysadmin.help"
   email: "pragmatic@pragmaticsysadmin.help"
-  twitter: "pragmatic_sys"  # your Twitter handle without @
+  twitter: "pragmatic_sys"
   kofi_page: "https://ko-fi.com/pragmatic_sysadmin"
+  kofi_shop_url: "https://ko-fi.com/s/5157a41780"
   refund_days: 60
   license: "MIT"
+
+# Free tools — pulled to the front of the shop page to drive traffic
+free_tools:
+  - id: ssl-cert-checker
+    title: "SSL Certificate Expiry Checker"
+    tagline: "Find certificates about to expire before they break your site"
+    icon: "🔒"
+    file_path: "free/ssl-cert-checker.sh"
+    status: live
+    description: |
+      A simple bash script that checks SSL certificate expiry dates for
+      one or more domains and alerts you if they're expiring soon.
+      Exit codes make it perfect for cron + monitoring integration.
+    features:
+      - "Check one or many domains at once"
+      - "Configurable warning (default 30 days) and critical (default 7 days) thresholds"
+      - "Exit codes for monitoring integration (0=OK, 1=warning, 2=critical)"
+      - "Reads domains from args, file, or stdin"
+      - "Color output when run interactively"
+    usage: |
+      ./ssl-cert-checker.sh prag mati csysadmin.help github.com google.com
+      ./ssl-cert-checker.sh -f domains.txt
+    size_lines: 80
+
+  - id: log-tail-search
+    title: "Log Pattern Search with Context"
+    tagline: "Find errors across multiple log files in seconds"
+    icon: "🔍"
+    file_path: "free/log-tail-search.sh"
+    status: live
+    description: |
+      Search multiple log files for patterns with surrounding context lines.
+      Smart time-range filtering, case-insensitive option, and color output
+      make debugging much faster than grep + manual context-finding.
+    features:
+      - "Search across multiple log files in one go"
+      - "Configurable context lines before/after each match"
+      - "Time-range filter (-s 1h, -s 24h, -s 7d)"
+      - "Case-insensitive search"
+      - "Color-coded output, grouped by file"
+    usage: |
+      ./log-tail-search.sh -p "Out of memory" -d /var/log
+      ./log-tail-search.sh -p "Failed password" -s 24h -i
+      ./log-tail-search.sh -p "error" -f syslog,messages -n 5
+    size_lines: 85
+
+  - id: ssh-key-auditor
+    title: "SSH Key Security Auditor"
+    tagline: "Find weak keys, suspicious restrictions, and bad permissions"
+    icon: "🔑"
+    file_path: "free/ssh-key-auditor.sh"
+    status: live
+    description: |
+      Audit SSH keys across all user accounts. Reports every authorized
+      key with type and length, flags weak DSA/short RSA keys, finds
+      private keys with world-readable permissions.
+    features:
+      - "Scans /home and /root/.ssh automatically"
+      - "Reports key types (ed25519, RSA, DSA, ECDSA)"
+      - "Flags weak keys (DSA, short RSA)"
+      - "Detects restricted keys (command=, from=, no-pty)"
+      - "Finds private keys with bad permissions (not 600/400)"
+      - "Reports known_hosts entry counts"
+    usage: |
+      ./ssh-key-auditor.sh
+      sudo ./ssh-key-auditor.sh      # includes /root
+      ./ssh-key-auditor.sh -u alice,bob
+    size_lines: 90
+
+  - id: disk-quota-checker
+    title: "Disk Quota Checker"
+    tagline: "Find who's using the most disk on shared systems"
+    icon: "📊"
+    file_path: "free/disk-quota-checker.sh"
+    status: live
+    description: |
+      Find top disk space users on shared /home or any other directory.
+      Auto-flags users over 10GB as cleanup candidates. Useful for
+      finding runaway logs, large Docker workloads, or old data.
+    features:
+      - "Top N biggest directories with sizes"
+      - "Auto-flag any user over 10GB"
+      - "Breakdown of the largest directory"
+      - "Suggested cleanup actions"
+      - "Works without root for current user's data"
+    usage: |
+      ./disk-quota-checker.sh
+      sudo ./disk-quota-checker.sh -d /var/www -n 20
+    size_lines: 75
+
+  - id: service-restart-tamer
+    title: "Safe Service Restart"
+    tagline: "Restart services with pre-checks and rollback guidance"
+    icon: "🔄"
+    file_path: "free/service-restart-tamer.sh"
+    status: live
+    description: |
+      Restart a systemd service safely. Records state before restart,
+      runs your custom health check before and after, waits for the
+      service to come back up, and prints recent logs if something fails.
+    features:
+      - "Pre-check and post-check with custom commands"
+      - "Configurable wait time for service to become active"
+      - "Auto-shows journalctl logs if restart fails"
+      - "Records PID + uptime before restart for audit trail"
+      - "Color-coded step-by-step output"
+    usage: |
+      ./service-restart-tamer.sh nginx
+      ./service-restart-tamer.sh postgresql --wait 30
+      ./service-restart-tamer.sh my-app --pre-check "curl -s http://localhost:8080/health" --post-check "curl -f http://localhost:8080/health"
+    size_lines: 110
 
 products:
   - id: health-check-toolkit
@@ -49,6 +162,9 @@ products:
       alerts via webhook or email. Plus a printable one-page weekly
       checklist and a decision tree for every warning those scripts
       can throw at you.
+
+      This is the "do everything" toolkit — the free scripts above are
+      great for one-off tasks, but this one is your Monday morning ritual.
     features:
       - "**quick-health-check.sh** — main script, runs in 5 seconds with color-coded output, JSON mode for monitoring integration, exit codes for alerting"
       - "**disk-analyzer.sh** — finds the top 10 things eating your disk when it fills up"
@@ -175,26 +291,4 @@ products:
       Author: 15-year sysadmin, built this after my own mom lost $4,200
       to a tech-support scam — because the best monitoring is the kind
       you actually do every week.
-    testimonials: []  # populated as customers send feedback
-
-# Future products — uncomment and run generator when ready
-#  - id: backup-audit-toolkit
-#    title: "The Friday Backup Audit Toolkit"
-#    tagline: "Hope is not a strategy. Verify your backups actually work."
-#    price: 19
-#    status: draft
-#    ...
-#
-#  - id: home-lab-starter
-#    title: "Home Lab Starter Scripts"
-#    tagline: "Everything you need to set up a homelab in a weekend"
-#    price: 9
-#    status: draft
-#    ...
-#
-#  - id: sysadmin-first-30-days
-#    title: "The Sysadmin's First 30 Days Guide"
-#    tagline: "Everything I wish someone told me when I started"
-#    price: 9
-#    status: draft
-#    ...
+    testimonials: []

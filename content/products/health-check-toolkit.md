@@ -46,6 +46,9 @@ alerts via webhook or email. Plus a printable one-page weekly
 checklist and a decision tree for every warning those scripts
 can throw at you.
 
+This is the "do everything" toolkit — the free scripts above are
+great for one-off tasks, but this one is your Monday morning ritual.
+
 ## What's in the box
 
 - ✅ **quick-health-check.sh** — main script, runs in 5 seconds with color-coded output, JSON mode for monitoring integration, exit codes for alerting

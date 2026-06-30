@@ -80,7 +80,3 @@ writing your own.
 Blog post (free): https://pragmaticsysadmin.help/posts/2025-12-07-the-5-minute-server-health-check-that-could-save-your-career/
 Toolkit ($9): https://ko-fi.com/s/5157a41780
 
-
-## Image alt-text
-Product card for the The 5-Minute Server Health Check Toolkit. Warm cream background with sage green
-accents. Server health check illustration.
