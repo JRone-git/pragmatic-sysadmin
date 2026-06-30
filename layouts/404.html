@@ -1,0 +1,31 @@
+{{ define "main" }}
+<div style="max-width: 640px; margin: 4rem auto; padding: 0 1.5rem; text-align: center;">
+
+  <p style="font-size: 6rem; font-weight: 700; margin: 0; line-height: 1; color: var(--primary);">404</p>
+  <h1 style="margin-top: 0.5rem;">That page is gone</h1>
+  <p style="font-size: 1.15rem; color: var(--secondary); margin-bottom: 2rem;">
+    Like a misconfigured DNS record at 3 AM, this URL doesn't resolve to anything.
+    No worries — let's get you back to something useful.
+  </p>
+
+  <div style="display: flex; flex-wrap: wrap; gap: 0.75rem; justify-content: center; margin-bottom: 3rem;">
+    <a href="/" style="padding: 0.7em 1.5em; background: var(--primary); color: var(--theme); border-radius: 6px; text-decoration: none; font-weight: 600;">← Back home</a>
+    <a href="/posts/" style="padding: 0.7em 1.5em; background: transparent; color: var(--primary); border: 1px solid var(--border); border-radius: 6px; text-decoration: none; font-weight: 600;">All articles</a>
+    <a href="/tools/" style="padding: 0.7em 1.5em; background: transparent; color: var(--primary); border: 1px solid var(--border); border-radius: 6px; text-decoration: none; font-weight: 600;">Free tools</a>
+    <a href="/shop/" style="padding: 0.7em 1.5em; background: transparent; color: var(--primary); border: 1px solid var(--border); border-radius: 6px; text-decoration: none; font-weight: 600;">Shop</a>
+  </div>
+
+  <h2 style="font-size: 1.1rem; margin-bottom: 0.5rem;">Or try one of the popular posts:</h2>
+  <ul style="list-style: none; padding: 0; line-height: 1.9;">
+    <li><a href="/posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/">Setting Up a Home Lab: A Beginner's Guide</a></li>
+    <li><a href="/posts/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/">The 5-Minute Server Health Check</a></li>
+    <li><a href="/posts/zero-trust-small-teams-2026/">Zero Trust for Small Teams</a></li>
+    <li><a href="/posts/2026-06-27-best-free-phone-apps-seniors/">Best Free Phone Apps for Seniors</a></li>
+  </ul>
+
+  <p style="margin-top: 3rem; font-size: 0.9rem; color: var(--secondary);">
+    Still stuck? Hit the <strong>💬 Ask Jonne</strong> button in the corner.
+  </p>
+
+</div>
+{{ end }}
