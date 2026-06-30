@@ -1,6 +1,6 @@
 ---
 title: "Privacy Policy"
-date: 2026-07-01
+date: 2026-06-30
 draft: false
 description: "How Pragmatic Sysadmin handles your data — what we collect, who we share it with, and your rights under GDPR."
 ---

@@ -2,7 +2,7 @@
 title: "Thank You for Subscribing!"
 description: "Download your free sysadmin cheat sheets."
 draft: false
-_build:
+build:
   list: false
   render: true
 ---
