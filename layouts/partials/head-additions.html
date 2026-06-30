@@ -107,10 +107,20 @@
 </div>
 
 <script>
-    // Show popup on homepage load
+    // Show Father's Day popup on homepage — but only during the Finnish
+    // Father's Day season (Nov 1-16). Finnish Father's Day is the second
+    // Sunday of November, so this window covers it without showing the
+    // popup out of season.
     window.addEventListener('DOMContentLoaded', function() {
         // Check if we're on the homepage
         if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
+            // Date guard: only show in the first half of November
+            var now = new Date();
+            var isFathersDaySeason = (now.getMonth() === 10 && now.getDate() >= 1 && now.getDate() <= 16);
+            if (!isFathersDaySeason) {
+                return;
+            }
+
             // Check if popup was already shown in this session
             const popupShown = sessionStorage.getItem('fathersdayPopupShown');
             if (!popupShown) {
@@ -141,3 +151,41 @@
         }
     });
 </script>
+
+{{/* BlogPosting JSON-LD schema for better SEO / rich results on articles.
+     Only emitted on single post pages. PaperMod only ships Organization
+     schema by default, so we add per-post structured data here. */}}
+{{- if and (eq .Type "posts") (not .IsSection) -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ .Permalink }}"
+  },
+  "headline": {{ .Title | safeHTML | plainify | truncate 110 | jsonify }},
+  "description": {{ with .Description }}{{ . | plainify | jsonify }}{{ else }}{{ .Summary | plainify | truncate 160 | jsonify }}{{ end }},
+  "image": {
+    "@type": "ImageObject",
+    "url": {{ (path.Join .Site.BaseURL "og-default.png") | jsonify }}
+  },
+  "author": {
+    "@type": "Person",
+    "name": {{ .Site.Params.author | default "Pragmatic Sysadmin" | jsonify }}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ .Site.Title | jsonify }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": {{ (path.Join .Site.BaseURL "favicon.ico") | jsonify }}
+    }
+  },
+  "datePublished": {{ .PublishDate.Format "2006-01-02T15:04:05Z07:00" | jsonify }},
+  "dateModified": {{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" | jsonify }},
+  "keywords": {{ with .Params.tags }}{{ . | jsonify }}{{ else }}[]{{ end }}
+}
+</script>
+{{- end -}}
+
