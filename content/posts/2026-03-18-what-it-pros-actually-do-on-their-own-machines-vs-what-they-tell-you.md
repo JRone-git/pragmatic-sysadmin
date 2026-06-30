@@ -6,17 +6,6 @@ categories:
 description: "There’s the advice IT gives everyone else. Then there’s what they actually do on their own machines. Here’s the honest version."
 ---
 
------
-
-## title: “What IT Pros Actually Do On Their Own Machines (vs What They Tell You)”
-date: 2026-03-17
-draft: false
-author: “Pragmatic Sysadmin”
-tags: [“productivity”, “security”, “tips”, “sysadmin”, “real-talk”]
-categories: [“insights”]
-description: “There’s the advice IT gives everyone else. Then there’s what they actually do on their own machines. Here’s the honest version.”
-slug: “what-it-pros-do-on-their-own-machines”
-
 # What IT Pros Actually Do On Their Own Machines (vs What They Tell You)
 
 There’s the advice IT hands out. The official line. The stuff in the company handbook.

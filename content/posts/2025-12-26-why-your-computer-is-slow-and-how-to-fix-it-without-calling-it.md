@@ -6,15 +6,6 @@ categories:
 description: "Your computer doesn't need to be slow. Simple fixes anyone can do, plus essential security tips for small business owners who can't afford a full-time IT person."
 ---
 
----
-title: "Why Your Computer is Slow (And How to Fix It Without Calling IT)"
-date: 2025-12-07T16:00:00Z
-draft: false
-tags: ["beginners", "troubleshooting", "small-business", "security"]
-categories: ["For Everyone", "Small Business"]
-description: "Your computer doesn't need to be slow. Simple fixes anyone can do, plus essential security tips for small business owners who can't afford a full-time IT person."
----
-
 ## Your Computer Shouldn't Take Forever
 
 You know that feeling when you click something and then... wait. And wait. And your coffee gets cold while Windows decides whether or not it wants to open Excel today.
