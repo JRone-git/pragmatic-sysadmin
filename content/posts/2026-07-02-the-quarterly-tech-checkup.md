@@ -13,6 +13,7 @@ tags:
   - parent phone emergency
   - senior tech maintenance
   - iPhone troubleshooting elderly
+slug: the-quarterly-tech-checkup
 description: "A step-by-step quarterly checkup routine for your aging parent's phone. What to check, what to clean up, what to fix — in 20 minutes per visit. Plus an emergency playbook for when something goes wrong between visits."
 author: "Pragmatic Sysadmin"
 ---
