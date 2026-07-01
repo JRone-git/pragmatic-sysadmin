@@ -31,7 +31,7 @@ jobs:
           extended: true
 
       - name: Build
-        run: hugo --minify --environment production --cleanDestinationDir --gc
+        run: hugo --minify --buildFuture --environment production --cleanDestinationDir --gc
 
       - name: Add .nojekyll file
         run: touch ./public/.nojekyll
