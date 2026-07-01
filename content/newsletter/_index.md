@@ -39,12 +39,12 @@ description: "Join the Pragmatic Sysadmin newsletter for practical tips and insi
   </div>
 
   <!-- SUPPORT SECTION -->
-  <div style="text-align: center; padding: 1.5em; background: #fffce6; border-radius: 12px; border: 1px solid #ffeeba;">
-    <a href="https://buymeacoffee.com/pragmaticadmin" target="_blank" rel="noopener"
-       style="display: inline-block; padding: 0.8em 2em; background: #ffdd00; color: #222; font-weight: bold; border-radius: 8px; font-size: 1.2em; text-decoration: none; box-shadow: 0 2px 5px rgba(0,0,0,0.1);">
-      ☕ Buy Me a Coffee
+  <div style="text-align: center; padding: 1.5em; background: #fff5f5; border-radius: 12px; border: 1px solid #ffd5d5;">
+    <a href="https://ko-fi.com/sysadmin_dad" target="_blank" rel="noopener"
+       style="display: inline-block; padding: 0.8em 2em; background: #FF5E5B; color: #fff; font-weight: bold; border-radius: 8px; font-size: 1.2em; text-decoration: none; box-shadow: 0 2px 5px rgba(255,94,91,0.3);">
+      ☕ Tip on Ko-fi
     </a>
-    <div style="margin-top: 0.5em; color: #888; font-size: 0.9em;">Support the newsletter and get more free resources!</div>
+    <div style="margin-top: 0.5em; color: #888; font-size: 0.9em;">Support the newsletter and get access to free cheat sheets + toolkits.</div>
   </div>
 
 </div>

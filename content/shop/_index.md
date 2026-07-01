@@ -16,7 +16,7 @@ author: "Pragmatic Sysadmin"
 </p>
 
 <a href="https://ko-fi.com/s/5157a41780" style="display:inline-block;background:#FF5E5B;color:white;padding:0.875rem 2rem;border-radius:999px;font-weight:700;font-size:1rem;text-decoration:none;margin:0.25rem;">🛒 Visit Ko-fi Shop</a>
-<a href="https://ko-fi.com/pragmatic_sysadmin" style="display:inline-block;background:transparent;color:#FF5E5B;border:2px solid #FF5E5B;padding:0.75rem 1.75rem;border-radius:999px;font-weight:700;font-size:1rem;text-decoration:none;margin:0.25rem;">☕ Tip Jar</a>
+<a href="https://ko-fi.com/sysadmin_dad" style="display:inline-block;background:transparent;color:#FF5E5B;border:2px solid #FF5E5B;padding:0.75rem 1.75rem;border-radius:999px;font-weight:700;font-size:1rem;text-decoration:none;margin:0.25rem;">☕ Tip Jar</a>
 
 </div>
 
@@ -162,4 +162,4 @@ You own what you buy. Modify it. Redistribute it. Use it in your team. It's your
 
 Email [pragmatic@pragmaticsysadmin.help](mailto:pragmatic@pragmaticsysadmin.help)
 
-Or tip what you want at [https://ko-fi.com/pragmatic_sysadmin](https://ko-fi.com/pragmatic_sysadmin) if you find the free content useful.
+Or tip what you want at [https://ko-fi.com/sysadmin_dad](https://ko-fi.com/sysadmin_dad) if you find the free content useful.
