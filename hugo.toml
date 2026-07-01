@@ -10,6 +10,9 @@ theme = "PaperMod"
   pagerSize = 10
 enableRobotsTXT = true
 
+# Build settings
+buildFuture = true  # Include future-dated posts (needed for same-day publishing across timezones)
+
 # Sitemap priorities — tells search engines which pages matter most
 [sitemap]
   changefreq = "weekly"
