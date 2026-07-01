@@ -7,6 +7,12 @@ theme = "PaperMod"
   pagerSize = 10
 enableRobotsTXT = true
 
+# Sitemap priorities — tells search engines which pages matter most
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+  filename = "sitemap.xml"
+
 [markup]
   [markup.goldmark]
     [markup.goldmark.renderer]
