@@ -9,7 +9,7 @@ build:
 
 # Thank You for Subscribing!
 
-Your subscription to the Pragmatic Sysadmin newsletter is confirmed. 🎉
+Your subscription to the Pragmatic Tech newsletter is confirmed. 🎉
 
 You can view past issues and manage your subscription at [buttondown.com/jonne](https://buttondown.com/jonne).
 

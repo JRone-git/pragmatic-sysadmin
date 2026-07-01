@@ -1,6 +1,6 @@
 baseURL = "https://pragmaticsysadmin.help/"
 canonifyURLs = true
-title = "Pragmatic Sysadmin"
+title = "Pragmatic Tech"
 theme = "PaperMod"
 
 [pagination]
@@ -25,15 +25,19 @@ enableRobotsTXT = true
     weight = 1
 
 [params]
-  description = "Practical sysadmin tutorials and DevOps guides. Learn home lab setup, Kubernetes, zero trust security, and automation with hands-on examples for system administrators."
+  description = "Practical sysadmin guides, senior tech help for aging parents, and kids' learning games — without the buzzwords. By Jonne, a Finnish sysadmin."
   defaultTheme = "auto"
   ShowReadingTime = true
   ShowPostNavLinks = true
   ShowShareButtons = true
-  # Disable home info which is causing the error
-  homeInfoParams = false
+  # Homepage hero block (PaperMod built-in)
+  [params.homeInfoParams]
+    Title = "Pragmatic Tech"
+    Content = "Practical sysadmin guides, senior tech help for aging parents, and kids' learning games — without the buzzwords. By Jonne, a Finnish sysadmin."
   
-  # Author information (FIX for RSS template error)
+  # Author information — kept as 'Pragmatic Sysadmin' because that's
+  # accurate for the author (Jonne is a sysadmin). The site brand is
+  # 'Pragmatic Tech' but the author identity stays the same.
   author = "Pragmatic Sysadmin"
   
   # SEO & Social

@@ -115,7 +115,7 @@ def parse_front_matter(path):
     return fm, slug
 
 
-def render_image(title, description, slug, site_name="Pragmatic Sysadmin"):
+def render_image(title, description, slug, site_name="Pragmatic Tech"):
     """Render one OG image and save to OUTPUT_DIR/<slug>.png."""
     img = Image.new("RGB", (WIDTH, HEIGHT), BG_TOP)
     draw = ImageDraw.Draw(img)

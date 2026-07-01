@@ -2,7 +2,7 @@
 title: "Newsletter"
 date: 2025-08-16
 draft: false
-description: "Join the Pragmatic Sysadmin newsletter for practical tips and insights."
+description: "Join the Pragmatic Tech newsletter for practical sysadmin tips, senior tech advice, and the occasional kids' game update. No spam."
 ---
 
 <div style="max-width: 600px; margin: 0 auto; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen-Sans, Ubuntu, Cantarell, 'Helvetica Neue', sans-serif;">

@@ -2,12 +2,12 @@
 title: "Privacy Policy"
 date: 2026-06-30
 draft: false
-description: "How Pragmatic Sysadmin handles your data — what we collect, who we share it with, and your rights under GDPR."
+description: "How Pragmatic Tech handles your data — what we collect, who we share it with, and your rights under GDPR."
 ---
 
 _Last updated: July 1, 2026_
 
-This page explains what happens to your data when you visit [pragmaticsysadmin.help](https://pragmaticsysadmin.help/) or interact with me by email, chat, or newsletter. I aim to be plain about it — no buried clauses, no surprise trackers. If anything here is unclear, the chat widget in the bottom-right corner is the fastest way to ask.
+This page explains what happens to your data when you visit [pragmaticsysadmin.help](https://pragmaticsysadmin.help/) (the home of **Pragmatic Tech**) or interact with me by email, chat, or newsletter. I aim to be plain about it — no buried clauses, no surprise trackers. If anything here is unclear, the chat widget in the bottom-right corner is the fastest way to ask.
 
 ## What I collect and why
 

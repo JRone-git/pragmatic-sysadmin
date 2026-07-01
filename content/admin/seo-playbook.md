@@ -8,13 +8,11 @@ _build:
   render: false
 ---
 
-{{< note >}}
-This page is **draft** and excluded from the build (`render: false`).
-It exists only as a reference for the site owner. To view it locally,
-run `hugo server -D` and visit `/admin/seo-playbook/`.
-{{< /note >}}
-
 # SEO & Search Console Playbook
+
+> This page is **draft** and excluded from the build (`render: false`).
+> It exists only as a reference for the site owner. To view it locally,
+> run `hugo server -D` and visit `/admin/seo-playbook/`.
 
 This is the internal playbook for managing search visibility on pragmaticsysadmin.help. It's a draft page so it never goes live — keep it that way.
 

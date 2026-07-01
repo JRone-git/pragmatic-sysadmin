@@ -173,9 +173,10 @@
 <meta name="twitter:image:alt" content="{{ .Title | plainify | default (site.Title) }}">
 
 {{/* BlogPosting JSON-LD schema for better SEO / rich results on articles.
-     Only emitted on single post pages. PaperMod only ships Organization
-     schema by default, so we add per-post structured data here. */}}
-{{- if and (eq .Type "posts") (not .IsSection) -}}
+     Only emitted on single post pages (not homepage, not section listings).
+     PaperMod only ships Organization schema by default, so we add per-post
+     structured data here. */}}
+{{- if and (eq .Type "posts") .IsPage (not .IsHome) -}}
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
