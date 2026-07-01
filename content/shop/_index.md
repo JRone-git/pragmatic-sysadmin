@@ -15,7 +15,7 @@ author: "Pragmatic Sysadmin"
   ☕ <strong>All paid products sold via Ko-fi</strong> — instant download, no account needed
 </p>
 
-<a href="https://ko-fi.com/s/5157a41780" style="display:inline-block;background:#FF5E5B;color:white;padding:0.875rem 2rem;border-radius:999px;font-weight:700;font-size:1rem;text-decoration:none;margin:0.25rem;">🛒 Visit Ko-fi Shop</a>
+<a href="https://ko-fi.com/sysadmin_dad/shop" style="display:inline-block;background:#FF5E5B;color:white;padding:0.875rem 2rem;border-radius:999px;font-weight:700;font-size:1rem;text-decoration:none;margin:0.25rem;">🛒 Visit Ko-fi Shop</a>
 <a href="https://ko-fi.com/sysadmin_dad" style="display:inline-block;background:transparent;color:#FF5E5B;border:2px solid #FF5E5B;padding:0.75rem 1.75rem;border-radius:999px;font-weight:700;font-size:1rem;text-decoration:none;margin:0.25rem;">☕ Tip Jar</a>
 
 </div>
@@ -140,7 +140,7 @@ What's inside:
 - Part 4: Fridge quick-reference card (cut out and laminate)
 - Part 5: Checkup calendar and note-taking template
 
-[Read the free blog series →](/posts/the-quarterly-tech-checkup/) · [Buy the printable PDF on Ko-fi →](https://ko-fi.com/s/c26d7c8a0c)
+[Read the free blog series →](/posts/the-quarterly-tech-checkup/) · [Buy the printable PDF on Ko-fi →](https://ko-fi.com/s/a567718347)
 
 ---
 
