@@ -3,7 +3,7 @@ title: "SEO & Search Console Playbook"
 date: 2026-06-30
 draft: true
 description: "Internal playbook for managing Google Search Console, sitemaps, and SEO for pragmaticsysadmin.help."
-_build:
+build:
   list: false
   render: false
 ---

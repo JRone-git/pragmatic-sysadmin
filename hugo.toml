@@ -3,6 +3,9 @@ canonifyURLs = true
 title = "Pragmatic Tech"
 theme = "PaperMod"
 
+[author]
+  name = "Pragmatic Sysadmin"
+
 [pagination]
   pagerSize = 10
 enableRobotsTXT = true
@@ -22,6 +25,7 @@ enableRobotsTXT = true
 [languages]
   [languages.en]
     languageName = "English"
+    label = "English"
     weight = 1
 
 [params]
