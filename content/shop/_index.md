@@ -1,13 +1,13 @@
 ---
-title: "Shop — Sysadmin Tools & Scripts"
+title: "Shop — Tools, Scripts & Guides"
 date: 2026-06-30T10:00:00.000Z
-description: "Free scripts and paid toolkits for sysadmins. All MIT licensed, all owned by you forever. Tools for server monitoring, SSL checking, backup verification, home labs, and more."
+description: "Free scripts, paid toolkits, and printable guides for sysadmins and families. All MIT licensed, all owned by you forever. No subscriptions, no accounts needed."
 author: "Pragmatic Sysadmin"
 ---
 
 # Shop
 
-**Production-ready tools for sysadmins.** All MIT licensed, all owned by you forever. No subscriptions, no SaaS, no telemetry. Just scripts and guides you can actually use.
+**Production-ready tools for sysadmins and families.** All MIT licensed, all owned by you forever. No subscriptions, no SaaS, no telemetry. Just scripts and guides you can actually use.
 
 <div style="background:linear-gradient(135deg, #FBF6EE 0%, #FDFAF4 100%);border:2px solid #B7D4BE;border-radius:18px;padding:1.5rem;margin:1.5rem 0;text-align:center;">
 
@@ -111,9 +111,9 @@ service to come back up, and prints recent logs if something fails.
 
 
 <a id="paid-toolkits"></a>
-## 💎 Paid Toolkits — The Full Solutions
+## 💎 Paid Toolkits &amp; Guides
 
-**For when you need more than one script.** Each toolkit bundles multiple scripts + documentation + decision trees, all from a real-world-tested workflow.
+**For when you need more than a free script.** Toolkits bundle scripts + docs + decision trees. Guides give you printable checklists you can hand to someone or stick on a fridge.
 
 ### [The 5-Minute Server Health Check Toolkit](/products/health-check-toolkit/) — **$9**
 
@@ -121,9 +121,26 @@ service to come back up, and prints recent logs if something fails.
 
 **Catch problems before they page you at 3am**
 
-linux, sysadmin, monitoring, server
+A complete server health check toolkit: multiple scripts, documentation, and decision trees from a real-world-tested workflow. For sysadmins, by a sysadmin.
 
 [Read full description →](/products/health-check-toolkit/) · [Buy on Ko-fi →](https://ko-fi.com/s/5157a41780)
+
+---
+
+### 🧡 [Senior Phone Setup &amp; Maintenance Checklist](/posts/the-quarterly-tech-checkup/) — **$5**
+
+**The printable checklist that keeps your aging parent's phone working — quarter after quarter**
+
+A 10-page PDF covering initial phone setup, the 20-minute quarterly checkup routine, and a complete emergency playbook (frozen phone, scam calls, lost phone, forgotten passcode). Includes a laminatable fridge quick-reference card. Based on the [senior-tech article series](/posts/the-quarterly-tech-checkup/) — tested by a real 78-year-old mom.
+
+What's inside:
+- Part 1: Initial 30-minute phone setup (checklist format)
+- Part 2: Quarterly tech checkup (7-step, 20-minute routine)
+- Part 3: Emergency playbook (5 scenarios with step-by-step fixes)
+- Part 4: Fridge quick-reference card (cut out and laminate)
+- Part 5: Checkup calendar and note-taking template
+
+[Read the free blog series →](/posts/the-quarterly-tech-checkup/) · [Buy the printable PDF on Ko-fi →](https://ko-fi.com/s/c26d7c8a0c)
 
 ---
 
