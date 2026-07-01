@@ -31,8 +31,10 @@ enableRobotsTXT = true
   author = "Pragmatic Sysadmin"
   
   # SEO & Social
-  images = ["og-default.png"]
-  keywords = ["sysadmin", "devops", "kubernetes", "home lab", "zero trust", "automation", "system administration", "cloud computing"]
+  # NOTE: site-wide OG image is set in layouts/partials/extend_head.html
+  # so per-post OG images take precedence. Do NOT set `images` here or
+  # PaperMod's opengraph partial will emit a duplicate og:image tag.
+  keywords = ["sysadmin", "devops", "kubernetes", "home lab", "zero trust", "automation", "system administration", "cloud computing", "senior tech", "family tech"]
   
   # OpenGraph/Twitter Cards
   twitterCards = true
