@@ -50,6 +50,12 @@ enableRobotsTXT = true
   weight = 10
 
 [[menu.main]]
+  identifier = "start-here"
+  name = "Start Here"
+  url = "/start-here/"
+  weight = 15
+
+[[menu.main]]
   identifier = "about"
   name = "About"
   url = "/about/"
