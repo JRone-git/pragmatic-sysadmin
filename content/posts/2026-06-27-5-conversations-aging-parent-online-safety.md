@@ -34,7 +34,7 @@ author: "Pragmatic Sysadmin"
   "dateModified": "2026-06-27",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://pragmaticsysadmin.help/posts/5-conversations-aging-parent-online-safety/"
+    "@id": "https://pragmaticsysadmin.help/posts/2026-06-27-5-conversations-aging-parent-online-safety/"
   },
   "image": {
     "@type": "ImageObject",

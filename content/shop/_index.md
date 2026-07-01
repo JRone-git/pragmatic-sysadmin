@@ -127,11 +127,11 @@ A complete server health check toolkit: multiple scripts, documentation, and dec
 
 ---
 
-### 🧡 [Senior Phone Setup &amp; Maintenance Checklist](/posts/the-quarterly-tech-checkup/) — **$5**
+### 🧡 [Senior Phone Setup &amp; Maintenance Checklist](/posts/2026-07-02-the-quarterly-tech-checkup/) — **$5**
 
 **The printable checklist that keeps your aging parent's phone working — quarter after quarter**
 
-A 10-page PDF covering initial phone setup, the 20-minute quarterly checkup routine, and a complete emergency playbook (frozen phone, scam calls, lost phone, forgotten passcode). Includes a laminatable fridge quick-reference card. Based on the [senior-tech article series](/posts/the-quarterly-tech-checkup/) — tested by a real 78-year-old mom.
+A 10-page PDF covering initial phone setup, the 20-minute quarterly checkup routine, and a complete emergency playbook (frozen phone, scam calls, lost phone, forgotten passcode). Includes a laminatable fridge quick-reference card. Based on the [senior-tech article series](/posts/2026-07-02-the-quarterly-tech-checkup/) — tested by a real 78-year-old mom.
 
 What's inside:
 - Part 1: Initial 30-minute phone setup (checklist format)
@@ -140,7 +140,7 @@ What's inside:
 - Part 4: Fridge quick-reference card (cut out and laminate)
 - Part 5: Checkup calendar and note-taking template
 
-[Read the free blog series →](/posts/the-quarterly-tech-checkup/) · [Buy the printable PDF on Ko-fi →](https://ko-fi.com/s/a567718347)
+[Read the free blog series →](/posts/2026-07-02-the-quarterly-tech-checkup/) · [Buy the printable PDF on Ko-fi →](https://ko-fi.com/s/a567718347)
 
 ---
 

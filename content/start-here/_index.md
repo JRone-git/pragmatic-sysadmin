@@ -89,7 +89,7 @@ A four-part series born from setting up my own mom's tech.
 1. **[5 Conversations to Have with Your Aging Parent About Online Safety](/posts/2026-06-27-5-conversations-aging-parent-online-safety/)** — start here. The conversations that actually work, in the order to have them.
 2. **[How to Set Up an iPhone for an Elderly Parent](/posts/2026-06-27-setup-iphone-elderly-parent/)** — the 30-minute setup that prevents 90% of support calls.
 3. **[The Best Free Phone Apps for Seniors in 2026](/posts/2026-06-27-best-free-phone-apps-seniors/)** — tested by my 78-year-old mom for six months. What stayed, what got deleted.
-4. **[The Quarterly Tech Checkup](/posts/the-quarterly-tech-checkup/)** — the 20-minute maintenance routine that keeps everything working, plus an emergency playbook.
+4. **[The Quarterly Tech Checkup](/posts/2026-07-02-the-quarterly-tech-checkup/)** — the 20-minute maintenance routine that keeps everything working, plus an emergency playbook.
 
 **Printable version:** [Senior Phone Setup & Maintenance Checklist](https://ko-fi.com/s/a567718347) — all four posts in one laminatable PDF ($5).
 
@@ -119,7 +119,7 @@ The most-read posts across all three audiences:
 1. **[Setting Up a Home Lab](/posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)** — the homelab post that started it all.
 2. **[The 5-Minute Server Health Check](/posts/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/)** — the one people tell their coworkers about.
 3. **[The Best Free Phone Apps for Seniors](/posts/2026-06-27-best-free-phone-apps-seniors/)** — the mom-tested list.
-4. **[The Quarterly Tech Checkup](/posts/the-quarterly-tech-checkup/)** — the maintenance routine + emergency playbook for your parent's phone.
+4. **[The Quarterly Tech Checkup](/posts/2026-07-02-the-quarterly-tech-checkup/)** — the maintenance routine + emergency playbook for your parent's phone.
 5. **[Your OS Has Been Hiding Things From You](/posts/2026-03-11-your-os-has-been-hiding-things-from-you-windows-linux-edition/)** — Windows and Linux hidden features side-by-side.
 
 ---
