@@ -3,18 +3,8 @@ title: "Your OS Has Been Hiding Things From You (Windows & Linux Edition)"
 date: 2026-03-11T06:06:00.000Z
 categories:
   - General
+description: "Both Windows and Linux are packed with powerful hidden features most users never touch. Here's a side-by-side breakdown of the best ones — for sysadmins who use both."
 ---
-
------
-
-## title: “Your OS Has Been Hiding Things From You (Windows & Linux Edition)”
-date: 2026-03-10
-draft: false
-author: “Pragmatic Sysadmin”
-tags: [“windows”, “linux”, “productivity”, “tips”, “automation”]
-categories: [“tutorials”]
-description: “Both Windows and Linux are packed with powerful hidden features most users never touch. Here’s a side-by-side breakdown of the best ones.”
-slug: “windows-linux-hidden-tricks”
 
 # Your OS Has Been Hiding Things From You (Windows & Linux Edition)
 

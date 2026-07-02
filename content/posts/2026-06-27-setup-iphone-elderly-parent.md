@@ -35,7 +35,7 @@ author: "Pragmatic Sysadmin"
   "dateModified": "2026-06-27",
   "mainEntityOfPage": {
     "@type": "WebPage",
-    "@id": "https://pragmaticsysadmin.help/posts/setup-iphone-elderly-parent/"
+    "@id": "https://pragmaticsysadmin.help/posts/2026-06-27-setup-iphone-elderly-parent/"
   },
   "image": {
     "@type": "ImageObject",
@@ -230,4 +230,4 @@ The fridge card matters more than you think. When they're stressed, they don't r
 
 *Setting up a phone for an aging parent? Try [Buddy](https://pragmaticsysadmin.help/buddy/) — it's the only app that goes on the home screen. Free, accessible, designed specifically for non-techies.*
 
-*Read next: [5 Conversations to Have with Your Aging Parent About Online Safety](/posts/5-conversations-aging-parent-online-safety/)*
+*Read next: [5 Conversations to Have with Your Aging Parent About Online Safety](/posts/2026-06-27-5-conversations-aging-parent-online-safety/)*

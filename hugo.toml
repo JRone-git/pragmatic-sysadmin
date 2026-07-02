@@ -1,11 +1,20 @@
 baseURL = "https://pragmaticsysadmin.help/"
 canonifyURLs = true
-title = "Pragmatic Sysadmin"
+title = "Pragmatic Tech"
 theme = "PaperMod"
+
+[author]
+  name = "Pragmatic Sysadmin"
 
 [pagination]
   pagerSize = 10
 enableRobotsTXT = true
+
+# Sitemap priorities — tells search engines which pages matter most
+[sitemap]
+  changefreq = "weekly"
+  priority = 0.5
+  filename = "sitemap.xml"
 
 [markup]
   [markup.goldmark]
@@ -16,23 +25,30 @@ enableRobotsTXT = true
 [languages]
   [languages.en]
     languageName = "English"
+    label = "English"
     weight = 1
 
 [params]
-  description = "Practical sysadmin tutorials and DevOps guides. Learn home lab setup, Kubernetes, zero trust security, and automation with hands-on examples for system administrators."
+  description = "Practical sysadmin guides, senior tech help for aging parents, and kids' learning games — without the buzzwords. By Jonne, a Finnish sysadmin."
   defaultTheme = "auto"
   ShowReadingTime = true
   ShowPostNavLinks = true
   ShowShareButtons = true
-  # Disable home info which is causing the error
-  homeInfoParams = false
+  # Homepage hero block (PaperMod built-in)
+  [params.homeInfoParams]
+    Title = "Pragmatic Tech"
+    Content = "Practical sysadmin guides, senior tech help for aging parents, and kids' learning games — without the buzzwords. By Jonne, a Finnish sysadmin."
   
-  # Author information (FIX for RSS template error)
+  # Author information — kept as 'Pragmatic Sysadmin' because that's
+  # accurate for the author (Jonne is a sysadmin). The site brand is
+  # 'Pragmatic Tech' but the author identity stays the same.
   author = "Pragmatic Sysadmin"
   
   # SEO & Social
-  images = ["og-default.png"]
-  keywords = ["sysadmin", "devops", "kubernetes", "home lab", "zero trust", "automation", "system administration", "cloud computing"]
+  # NOTE: site-wide OG image is set in layouts/partials/extend_head.html
+  # so per-post OG images take precedence. Do NOT set `images` here or
+  # PaperMod's opengraph partial will emit a duplicate og:image tag.
+  keywords = ["sysadmin", "devops", "kubernetes", "home lab", "zero trust", "automation", "system administration", "cloud computing", "senior tech", "family tech"]
   
   # OpenGraph/Twitter Cards
   twitterCards = true
@@ -48,6 +64,12 @@ enableRobotsTXT = true
   name = "Home"
   url = "/"
   weight = 10
+
+[[menu.main]]
+  identifier = "start-here"
+  name = "Start Here"
+  url = "/start-here/"
+  weight = 15
 
 [[menu.main]]
   identifier = "about"

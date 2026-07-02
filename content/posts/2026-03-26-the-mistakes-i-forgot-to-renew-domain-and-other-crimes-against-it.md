@@ -6,15 +6,6 @@ categories:
 description: "I've locked myself out of servers, forgotten more domains than you've heard of, and once deleted a production database on a Friday. Here's the mistakes that taught me more than any certification."
 ---
 
-title: "The Mistakes I Made (And Why They Led Me to Build My Own Password Manager)"
-date: 2026-03-26
-draft: false
-author: "Pragmatic Sysadmin"
-tags: ["mistakes", "security", "passwords", "learning", "story"]
-categories: ["stories", "security"]
-description: "I've locked myself out of servers, forgotten more domains than you've heard of, and once deleted a production database on a Friday. Here's the mistakes that taught me more than any certification."
-slug: "mistakes-that-taught-me-password-manager"
-
 # The Mistakes I Made (And Why They Led Me to Build My Own Password Manager)
 
 Every IT professional has a graveyard of mistakes behind them. Most of us just don't talk about them until we're several drinks in at a conference, or until we're writing a blog post that we hope will save someone else the same pain.

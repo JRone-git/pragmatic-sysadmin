@@ -6,13 +6,7 @@ categories:
 description: "When I left my solo IT job, my replacement called me 47 times in the first month. Here's the documentation I wish I had written before I left - and the template you can use today."
 ---
 
-title: "I Was the Only IT Person for 3 Years: The Documentation I Wish I'd Written"
-date: 2026-03-03T23:00:00Z
-draft: false
-tags: ["documentation", "career", "solo-it", "best-practices", "knowledge-transfer"]
-categories: ["Career", "Best Practices"]
-description: "When I left my solo IT job, my replacement called me 47 times in the first month. Here's the documentation I wish I had written before I left - and the template you can use today."
-The Call I Didn't Want to Get
+## The Call I Didn't Want to Get
 Three weeks after leaving my job as the only IT person at a mid-sized company, my phone rang. It was Mike, the guy they hired to replace me.
 
 "Hey, uh, do you remember that backup script you set up? The one that runs on Sundays? It's throwing an error and I can't find where it's configured."
@@ -101,17 +95,17 @@ Not just "what servers do we have" but "what services exist and why do they matt
 
 Services Inventory
 Tier 1 - Critical (Down = Business Stopped)
-Service	Server	What It Does	Who Uses It	Restart Procedure
-Main database	PROD-SQL-01	All customer data	Everyone	See Runbook #3
-File server	FS-01	All company files	Everyone	Auto-restart, check shares after
-Email	Office 365	Email	Everyone	Microsoft handles it
+Service Server  What It Does    Who Uses It     Restart Procedure
+Main database   PROD-SQL-01     All customer data       Everyone        See Runbook #3
+File server     FS-01   All company files       Everyone        Auto-restart, check shares after
+Email   Office 365      Email   Everyone        Microsoft handles it
 Tier 2 - Important (Down = Some People Can't Work)
-Service	Server	What It Does	Who Uses It	Restart Procedure
+Service Server  What It Does    Who Uses It     Restart Procedure
 Tier 3 - Nice to Have (Down = Annoying But Not Urgent)
-Service	Server	What It Does	Who Uses It	Restart Procedure
+Service Server  What It Does    Who Uses It     Restart Procedure
 Tier 4 - We Should Probably Turn This Off
-Service	Server	Why It Still Exists	Can We Delete It?
-Old CRM	LEGACY-01	Legal requires 7 years	Delete after 2027
+Service Server  Why It Still Exists     Can We Delete It?
+Old CRM LEGACY-01       Legal requires 7 years  Delete after 2027
 Section 3: The "Why" Document
 For every non-obvious configuration decision:
 
@@ -148,18 +142,18 @@ Verify services with checklist in Runbook #5
 Section 5: The Vendor & License Tracker
 Vendors & Licenses
 Software Licenses
-Software	License Type	Renewal Date	Admin Contact	License Key Location
-Microsoft 365	50 seats	Annual, March	admin@company.com	Admin portal
-Backup Software	Perpetual	N/A	N/A	License.txt on BACKUP-01
-Antivirus	100 seats	Annual, June	vendor@support.com	Email from 2023
+Software        License Type    Renewal Date    Admin Contact   License Key Location
+Microsoft 365   50 seats        Annual, March   admin@company.com       Admin portal
+Backup Software Perpetual       N/A     N/A     License.txt on BACKUP-01
+Antivirus       100 seats       Annual, June    vendor@support.com      Email from 2023
 Hardware Support
-Device	Serial Number	Support Expires	Vendor Support #
-Server PROD-01	SN123456	2025-12-31	1-800-XXX-XXXX
-SAN Storage	SN789012	2024-06-30 (EXPIRING!)	1-800-XXX-XXXX
+Device  Serial Number   Support Expires Vendor Support #
+Server PROD-01  SN123456        2025-12-31      1-800-XXX-XXXX
+SAN Storage     SN789012        2024-06-30 (EXPIRING!)  1-800-XXX-XXXX
 Cloud Services
-Service	Account	Billing Contact	MFA Recovery
-AWS	root@company.com	CFO	Security team email
-Azure	admin@company.com	IT	Backup codes in safe
+Service Account Billing Contact MFA Recovery
+AWS     root@company.com        CFO     Security team email
+Azure   admin@company.com       IT      Backup codes in safe
 How to Actually Take a Vacation
 The real test of your documentation isn't whether someone can replace you - it's whether you can disappear for two weeks without your phone ringing.
 
@@ -196,10 +190,10 @@ What I've Already Done
  Patched critical servers (reboots done)
  No changes scheduled during my absence
 Things That Might Break (And What to Do)
-If This Happens	Do This	Call Me If
-Website down	Restart PROD-WEB-01, see Runbook #2	Not back up in 15 min
-Email not sending	Check Microsoft 365 status page	Outage lasts > 1 hour
-Can't access files	Check FS-01, restart if needed	Files missing/corrupted
+If This Happens Do This Call Me If
+Website down    Restart PROD-WEB-01, see Runbook #2     Not back up in 15 min
+Email not sending       Check Microsoft 365 status page Outage lasts > 1 hour
+Can't access files      Check FS-01, restart if needed  Files missing/corrupted
 Things That Will Definitely Happen (And Are Fine)
 Backup alerts on Sunday night (normal, check logs)
 CEO's laptop "slow" (clear browser cache)
