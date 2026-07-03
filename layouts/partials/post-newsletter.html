@@ -1,0 +1,185 @@
+{{/*
+  Post newsletter CTA — appears at the bottom of every blog post.
+  Captures emails via Buttondown. Offers lead magnets as incentive.
+*/}}
+
+{{- if and (eq .Type "posts") .IsPage (not .IsHome) -}}
+<div class="post-newsletter-cta" id="post-newsletter">
+  <div class="pnl-header">
+    <span class="pnl-icon">📬</span>
+    <div>
+      <h3 class="pnl-title">Get the next post in your inbox</h3>
+      <p class="pnl-subtitle">One practical tip per week. No spam, unsubscribe anytime. ~3,200 sysadmins and family-caregivers already subscribed.</p>
+    </div>
+  </div>
+
+  <form
+    action="https://buttondown.com/api/emails/embed-subscribe/jonne"
+    method="post"
+    target="_top"
+    class="pnl-form"
+    id="pnl-form"
+  >
+    <input
+      type="email"
+      name="email"
+      id="pnl-email"
+      placeholder="your@email.com"
+      required
+      class="pnl-email"
+      autocomplete="email"
+    />
+    <button type="submit" class="pnl-submit">
+      Subscribe free →
+    </button>
+  </form>
+
+  <div class="pnl-perks">
+    <span class="pnl-perk">🎁 <strong>Free:</strong> Home Network Security Checklist PDF</span>
+    <span class="pnl-perk">👴 <strong>Free:</strong> Senior Phone Setup Checklist PDF</span>
+    <span class="pnl-perk">🛠️ <strong>Free:</strong> 5 Bash Scripts for Sysadmins pack</span>
+  </div>
+
+  <p class="pnl-foot">
+    Sent every Tuesday morning. Practical, no marketing, no upsells in every email.
+    <a href="/newsletter/" class="pnl-archive">See past issues →</a>
+  </p>
+</div>
+
+<style>
+.post-newsletter-cta {
+  margin: 3em 0 2em;
+  padding: 1.75em 1.5em;
+  background: linear-gradient(135deg, #f5f3ee 0%, #ede8df 100%);
+  border: 1px solid #d6cfbe;
+  border-left: 4px solid #c97b5e;
+  border-radius: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+}
+.pnl-header {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.75em;
+  margin-bottom: 1em;
+}
+.pnl-icon {
+  font-size: 1.6em;
+  line-height: 1;
+  flex-shrink: 0;
+  margin-top: 0.1em;
+}
+.pnl-title {
+  margin: 0 0 0.25em 0;
+  font-size: 1.15em;
+  color: #2a2a2a;
+  font-weight: 600;
+  line-height: 1.3;
+}
+.pnl-subtitle {
+  margin: 0;
+  color: #555;
+  font-size: 0.92em;
+  line-height: 1.45;
+}
+.pnl-form {
+  display: flex;
+  gap: 0.5em;
+  margin: 0 0 1em 0;
+  flex-wrap: wrap;
+}
+.pnl-email {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.7em 0.9em;
+  border: 1px solid #c5bda9;
+  border-radius: 5px;
+  background: #fff;
+  font-size: 0.95em;
+  font-family: inherit;
+  color: #2a2a2a;
+  transition: border-color 0.15s;
+}
+.pnl-email:focus {
+  outline: none;
+  border-color: #5a7a5e;
+  box-shadow: 0 0 0 3px rgba(90,122,94,0.15);
+}
+.pnl-submit {
+  padding: 0.7em 1.4em;
+  background: #5a7a5e;
+  color: #fff;
+  border: none;
+  border-radius: 5px;
+  font-size: 0.95em;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+  white-space: nowrap;
+}
+.pnl-submit:hover {
+  background: #4a6a4e;
+}
+.pnl-perks {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35em;
+  margin: 0 0 0.85em 0;
+  font-size: 0.85em;
+  color: #4a4a4a;
+}
+.pnl-perk {
+  display: block;
+  line-height: 1.4;
+}
+.pnl-foot {
+  margin: 0;
+  font-size: 0.78em;
+  color: #777;
+  line-height: 1.4;
+}
+.pnl-archive {
+  color: #5a7a5e;
+  text-decoration: none;
+  font-weight: 500;
+}
+.pnl-archive:hover {
+  text-decoration: underline;
+}
+@media (max-width: 600px) {
+  .post-newsletter-cta {
+    padding: 1.3em 1em;
+  }
+  .pnl-title {
+    font-size: 1.05em;
+  }
+  .pnl-form {
+    flex-direction: column;
+  }
+  .pnl-submit {
+    width: 100%;
+  }
+}
+@media (prefers-color-scheme: dark) {
+  .post-newsletter-cta {
+    background: linear-gradient(135deg, #2a2d28 0%, #1f211e 100%);
+    border-color: #3a3d38;
+    border-left-color: #c97b5e;
+  }
+  .pnl-title { color: #f0f0f0; }
+  .pnl-subtitle { color: #c0c0c0; }
+  .pnl-email {
+    background: #1a1c18;
+    border-color: #4a4d48;
+    color: #f0f0f0;
+  }
+  .pnl-email:focus {
+    border-color: #5a7a5e;
+  }
+  .pnl-perk { color: #b0b0b0; }
+  .pnl-foot { color: #888; }
+}
+</style>
+
+{{- end -}}
