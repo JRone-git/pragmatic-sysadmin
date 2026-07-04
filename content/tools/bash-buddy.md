@@ -412,7 +412,7 @@ Output ONLY the raw bash script. No text before or after.`;
             'Authorization': `Bearer ${key.trim()}`
           },
           body: JSON.stringify({
-            model: 'llama-3.1-70b-versatile',
+            model: 'llama-3.3-70b-versatile',
             messages: [
               { role: 'system', content: sysPrompt },
               { role: 'user', content: `User request: ${prompt}` }
