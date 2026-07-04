@@ -1,6 +1,6 @@
 {{/*
   Bash Buddy — AI bash script generator.
-  Runs in the browser. Uses Google Gemini API (free tier).
+  Runs in the browser. Uses Groq API (free tier, OpenAI-compatible).
   API key stored in localStorage; never sent to a backend.
 */}}
 <div class="bash-buddy" id="bash-buddy">
@@ -12,19 +12,20 @@
   <details class="bb-settings" id="bb-settings">
     <summary>⚙️ API key (one-time setup, free)</summary>
     <div class="bb-settings-body">
-      <p>Get a free key from <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a> (no credit card, 1,500 requests/day free).</p>
+      <p>Get a free key from <a href="https://console.groq.com/keys" target="_blank" rel="noopener">Groq Cloud</a> (no credit card, free tier, fast inference, available worldwide).</p>
       <ol>
-        <li>Go to <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">aistudio.google.com/app/apikey</a></li>
+        <li>Go to <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a></li>
+        <li>Sign in (Google / GitHub / email — all fine)</li>
         <li>Click <strong>Create API key</strong></li>
-        <li>Copy the key (starts with <code>AIza</code>)</li>
+        <li>Copy the key (starts with <code>gsk_</code>)</li>
         <li>Paste it here:</li>
       </ol>
       <div class="bb-key-input">
-        <input type="password" id="bb-api-key" placeholder="AIzaSy..." autocomplete="off" />
+        <input type="password" id="bb-api-key" placeholder="gsk_..." autocomplete="off" />
         <button type="button" id="bb-save-key">Save key</button>
       </div>
       <p class="bb-key-status" id="bb-key-status"></p>
-      <p class="bb-privacy"><small>🔒 Your key stays in your browser. Nothing is sent to our server. Queries go directly from your browser to Google's API.</small></p>
+      <p class="bb-privacy"><small>🔒 Your key stays in your browser. Nothing is sent to our server. Queries go directly from your browser to Groq's API.</small></p>
     </div>
   </details>
 
@@ -154,8 +155,8 @@
 
   $('bb-save-key')?.addEventListener('click', () => {
     const key = $('bb-api-key').value.trim();
-    if (!key.startsWith('AIza')) {
-      $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">⚠ Key should start with "AIza". Double-check the copy.</span>';
+    if (!key.startsWith('gsk_')) {
+      $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">⚠ Key should start with "gsk_". Double-check the copy.</span>';
       return;
     }
     localStorage.setItem(STORAGE_KEY, key);
@@ -203,7 +204,7 @@
     $('bb-generate').disabled = true;
 
     try {
-      const script = await callGemini(key, prompt);
+      const script = await callGroq(key, prompt);
       $('bb-script').textContent = script;
       $('bb-output-section').hidden = false;
       recordUse();
@@ -218,7 +219,7 @@
     }
   }
 
-  async function callGemini(key, prompt) {
+  async function callGroq(key, prompt) {
     const sysPrompt = `You are Bash Buddy, an expert bash script generator. Generate a single, complete, safe bash script.
 
 Strict requirements:
@@ -237,26 +238,34 @@ Strict requirements:
 Output ONLY the raw bash script. No text before or after.`;
 
     const response = await fetch(
-      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${encodeURIComponent(key)}`,
+      `https://api.groq.com/openai/v1/chat/completions`,
       {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
+        headers: {
+          'Content-Type': 'application/json',
+          'Authorization': `Bearer ${key}`
+        },
         body: JSON.stringify({
-          systemInstruction: { parts: [{ text: sysPrompt }] },
-          contents: [{ parts: [{ text: `User request: ${prompt}` }] }],
-          generationConfig: { temperature: 0.3, maxOutputTokens: 2048 }
+          model: 'llama-3.3-70b-versatile',
+          messages: [
+            { role: 'system', content: sysPrompt },
+            { role: 'user', content: `User request: ${prompt}` }
+          ],
+          temperature: 0.3,
+          max_tokens: 2048
         })
       }
     );
 
     if (!response.ok) {
       const err = await response.json().catch(() => ({}));
-      throw new Error(err?.error?.message || `HTTP ${response.status}`);
+      throw new Error(err?.error?.message || err?.error?.code || `HTTP ${response.status}`);
     }
 
     const data = await response.json();
-    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    const text = data?.choices?.[0]?.message?.content;
     if (!text) throw new Error('Empty response from API');
+    // strip markdown fences if the model added them anyway
     return text.replace(/^```bash\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/, '').trim();
   }
 

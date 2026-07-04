@@ -34,7 +34,7 @@ ShowReadingTime: false
 
 Bash Buddy generates production-ready bash scripts from natural-language descriptions. Every script starts with `set -euo pipefail`, has inline comments, error handling, and confirmation prompts for anything destructive.
 
-It's free, runs in your browser, and uses your own Google AI Studio API key. Your scripts and key never touch our server.
+It's free, runs in your browser, and uses your own Groq API key. Your scripts and key never touch our server.
 
 → [**Skip to the tool**](#the-tool) ↓
 
@@ -49,10 +49,11 @@ It's free, runs in your browser, and uses your own Google AI Studio API key. You
 | **Your API key stays in your browser** | ✅ | n/a | varies |
 | **One-click copy, save, share** | ✅ | ❌ | ❌ |
 | **No login required** | ✅ | ❌ | varies |
+| **Available worldwide** (no geo-blocking) | ✅ | mostly | varies |
 
 ## How to use it (60 seconds)
 
-1. Get a free API key from [Google AI Studio](https://aistudio.google.com/app/apikey) (no credit card, 1,500 requests/day free)
+1. Get a free API key from [Groq Cloud](https://console.groq.com/keys) (no credit card, fast inference, available worldwide including EU)
 2. Paste it into the API key section in the tool (it's saved in your browser only)
 3. Describe what you need ("A script that finds duplicate files...")
 4. Click Generate
@@ -107,11 +108,15 @@ If you can describe it, it can write it.
 
 ## How it works (the technical bits)
 
-1. Your description goes directly from your browser to Google's Gemini API
-2. Google's Gemini model generates the script with strict system prompt requirements (always safe, always commented)
+1. Your description goes directly from your browser to Groq's API
+2. Groq's Llama 3.3 70B model generates the script with strict system prompt requirements (always safe, always commented)
 3. The script comes back as raw text (no markdown, no explanation)
 4. You can copy, save as `.sh`, or share via a URL
 5. Nothing is stored on a server — usage limit is in your browser's localStorage
+
+**Why Groq:**
+
+Groq runs Llama 3.3 70B on custom hardware. Inference is ridiculously fast (often under 2 seconds for a full bash script). Free tier is generous. Available worldwide (Google AI Studio is geo-restricted, Groq isn't). Models are excellent at code generation.
 
 **Why use a system prompt for safe scripts:**
 
@@ -130,10 +135,10 @@ So you can trust the output without reading every line (though you should still 
 ## Privacy & limitations
 
 - **Your API key** is stored in `localStorage` in your browser. Never sent to a server.
-- **Your prompts** go directly from your browser to Google. We never see them.
+- **Your prompts** go directly from your browser to Groq. We never see them.
 - **No analytics** on what scripts you generate.
-- **Rate limit:** 1,500 requests/day via Google's free tier. More than enough for personal use.
-- **Cost to you:** $0 (Google's free tier).
+- **Rate limit:** generous free tier on Groq (typically thousands of requests/day).
+- **Cost to you:** $0 (Groq's free tier).
 - **Cost to us:** $0 (we don't run any backend).
 
 We have no infrastructure to maintain. The whole tool is one HTML file.
@@ -159,19 +164,19 @@ If you want a script that's *similar* to one of those but different, use Bash Bu
 ## FAQ
 
 **Q: Is the AI any good?**
-A: Yes — it's Gemini 2.0 Flash, which is essentially Google's free tier of GPT-4 quality. Script generation is one of the easier tasks for LLMs.
+A: Yes — it's Llama 3.3 70B running on Groq's LPU hardware. Script generation is one of the easier tasks for LLMs and 70B is more than capable. It's free, fast, and available worldwide (the original Google AI Studio version was geo-blocked in Finland, hence the switch).
 
 **Q: Will it generate scripts that don't work?**
 A: Sometimes, yes. Always test a generated script in a non-production environment first. The strict system prompt helps a lot, but LLMs can still hallucinate.
 
-**Q: What if I don't want to use Google?**
-A: Bash Buddy is built for the Gemini API. If you want OpenAI/Anthropic support, you'd need a small code change (swap the API call). I can add that if there's demand.
+**Q: What about other AI providers — can I use OpenAI or Anthropic?**
+A: Bash Buddy is built for the Groq API. If you want OpenAI or Anthropic support, you'd need a small code change (swap the API call). I can add that if there's demand. Groq is the default because it's free + fast + no geo-blocking.
 
 **Q: Can I save my favorite scripts?**
 A: Not in the tool itself, but you can use the **Save .sh** button to download the script to your computer. Or paste it into your dotfiles repo.
 
-**Q: Will my prompt be used to train Google's AI?**
-A: Google's free tier says prompts may be used for product improvement unless you opt out (in your account settings). Don't paste anything sensitive.
+**Q: Will my prompt be used to train Groq's AI?**
+A: No — Groq doesn't train on your prompts by default. Your data is yours. Don't paste anything sensitive into any AI tool, but Groq is more privacy-friendly than most.
 
 **Q: Can I share a script I generated?**
 A: Yes. Click **Share** in the output section. It copies a URL with your prompt pre-filled. Anyone visiting that URL gets Bash Buddy with your request ready to go.
@@ -226,4 +231,4 @@ The free tool gives you 3 generations per day, browser-local. For unlimited:
 If Bash Buddy saved you 30 minutes, <a href="https://ko-fi.com/pragmatic_sysadmin" target="_blank" rel="noopener">drop me a coffee</a> or <a href="mailto:pragmatic@pragmaticsysadmin.help">tell me what to build next</a>.
 </div>
 
-*Last updated: July 2026. Tool version: 1.0.*
+*Last updated: July 2026. Tool version: 2.0 (Groq backend).*
