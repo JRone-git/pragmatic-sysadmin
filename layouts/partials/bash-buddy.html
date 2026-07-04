@@ -99,8 +99,6 @@
   var MAX_FREE_PER_DAY = 3;
   var DAILY_LIMIT_MS = 24 * 60 * 60 * 1000;
 
-  // Preference order for selecting a model from the available list.
-  // We try each predicate against every model ID and pick the first match.
   var MODEL_PREFERENCES = [
     function(id) { return /llama.*70b/.test(id); },
     function(id) { return /llama.*scout/.test(id); },
@@ -114,8 +112,6 @@
 
   var $ = function(id) { return document.getElementById(id); };
 
-  // ---- Model discovery ----
-
   function pickBestModel(modelIds) {
     for (var i = 0; i < MODEL_PREFERENCES.length; i++) {
       for (var j = 0; j < modelIds.length; j++) {
@@ -123,6 +119,12 @@
       }
     }
     return modelIds[0] || null;
+  }
+
+  function pickNextModel(modelIds, triedModels) {
+    var remaining = modelIds.filter(function(id) { return triedModels.indexOf(id) === -1; });
+    if (remaining.length === 0) return null;
+    return pickBestModel(remaining);
   }
 
   async function fetchAvailableModels(key) {
@@ -155,6 +157,36 @@
     try { localStorage.removeItem(MODEL_KEY); } catch (e) {}
   }
 
+  async function validateKeyAndGetModels(key) {
+    var ids;
+    try {
+      ids = await fetchAvailableModels(key);
+    } catch (err) {
+      var msg = err.message || '';
+      if (msg.indexOf('401') !== -1) {
+        throw new Error(
+          'Your Groq API key is invalid or has been revoked.\n\n' +
+          'To fix:\n' +
+          '1. Go to console.groq.com/keys\n' +
+          '2. Revoke ALL existing keys\n' +
+          '3. Create a new key\n' +
+          '4. Open the gear icon above, paste the new key, click "Save key"'
+        );
+      }
+      if (msg.indexOf('429') !== -1) {
+        throw new Error('Rate limited by Groq. Wait 60 seconds and try again.');
+      }
+      throw err;
+    }
+    if (!ids || ids.length === 0) {
+      throw new Error(
+        'Your Groq account has no models available. This can happen if your account is new or restricted.\n\n' +
+        'Check your account at console.groq.com.'
+      );
+    }
+    return ids;
+  }
+
   async function getModel(key) {
     var cached = getCachedModel();
     if (cached) return cached;
@@ -164,8 +196,6 @@
     setCachedModel(model);
     return model;
   }
-
-  // ---- Daily use tracking ----
 
   function getUsesToday() {
     try {
@@ -204,8 +234,6 @@
       el.textContent = remaining + ' free generation' + (remaining === 1 ? '' : 's') + ' remaining today';
     }
   }
-
-  // ---- API key management ----
 
   function getKey() { return localStorage.getItem(STORAGE_KEY) || ''; }
 
@@ -284,25 +312,26 @@
       var ids = await fetchAvailableModels(key);
       var model = pickBestModel(ids);
       if (!model) {
-        $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">&#10007; Key works but no models found on your account.</span>';
+        $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">&#10007; Key works but no models found.</span>';
       } else {
         setCachedModel(model);
-        $('bb-key-status').innerHTML = '<span style="color:#5a7a5e;">&#10003; Key works! Auto-selected model: <strong>' + model + '</strong></span>' +
-          '<br><small style="color:#888;">Ready to generate. (' + ids.length + ' models available on your account.)</small>';
+        $('bb-key-status').innerHTML = '<span style="color:#5a7a5e;">&#10003; Key works! Model: <strong>' + model + '</strong></span>' +
+          '<br><small style="color:#888;">Ready to generate. (' + ids.length + ' models available.)</small>';
       }
     } catch (err) {
       var msg = err.message || 'Unknown error';
       if (msg.indexOf('401') !== -1 || msg.indexOf('Unauthorized') !== -1 || msg.indexOf('authentication') !== -1) {
         $('bb-key-status').innerHTML =
-          '<span style="color:#c97b5e;">&#10007; 401 Unauthorized</span><br>' +
-          '<small style="color:#888;">' + msg + '<br><br>' +
-          '<strong>Fix:</strong><br>' +
+          '<span style="color:#c97b5e;">&#10007; Key rejected (401)</span><br>' +
+          '<small style="color:#888;">' +
+          '<strong>Your API key is invalid or revoked.</strong><br><br>' +
+          'Fix:<br>' +
           '1. Go to <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a><br>' +
           '2. Revoke ALL existing keys<br>' +
           '3. Create one fresh key<br>' +
-          '4. Click "Clear key" above, paste the new one, then "Test key" again</small>';
+          '4. Click "Clear key", paste the new one, then "Test key" again</small>';
       } else if (msg.indexOf('429') !== -1 || msg.indexOf('rate') !== -1) {
-        $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">&#9888; 429 Rate limit. Wait a minute.</span>';
+        $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">&#9888; Rate limited. Wait 60 seconds.</span>';
       } else {
         $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">&#10007; ' + msg + '</span>';
       }
@@ -312,16 +341,12 @@
     }
   });
 
-  // ---- Quick prompts ----
-
   document.querySelectorAll('.bb-quick').forEach(function(btn) {
     btn.addEventListener('click', function() {
       $('bb-prompt').value = btn.dataset.prompt;
       $('bb-prompt').focus();
     });
   });
-
-  // ---- Generate ----
 
   $('bb-generate')?.addEventListener('click', generate);
   $('bb-prompt')?.addEventListener('keydown', function(e) {
@@ -385,11 +410,20 @@
       '- Don\'t use external dependencies unless absolutely necessary\n\n' +
       'Output ONLY the raw bash script. No text before or after.';
 
-    // Get or auto-discover a model
-    var model = await getModel(key);
+    // PRE-FLIGHT: Validate key via /models BEFORE trying chat completions.
+    // This catches invalid keys early with a clear message.
+    var allModelIds = await validateKeyAndGetModels(key);
 
-    // Try up to 2 times: first with cached model, then re-discover on model_not_found
-    for (var attempt = 0; attempt < 2; attempt++) {
+    var model = pickBestModel(allModelIds);
+    setCachedModel(model);
+
+    var triedModels = [];
+    var maxAttempts = Math.min(3, allModelIds.length);
+
+    for (var attempt = 0; attempt < maxAttempts; attempt++) {
+      if (!model) break;
+      triedModels.push(model);
+
       var response;
       try {
         response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
@@ -427,25 +461,43 @@
           if (rawText) errMsg = rawText.slice(0, 200);
         }
 
-        // Auth error -- don't retry
+        // 401 from chat — key worked for /models, so try next model.
+        // Some models may require a paid tier.
         if (response.status === 401) {
-          throw new Error('Authentication failed: ' + errMsg + '. Check your key at console.groq.com/keys');
+          var nextModel = pickNextModel(allModelIds, triedModels);
+          if (nextModel && attempt < maxAttempts - 1) {
+            console.warn('Bash Buddy: 401 with model "' + model + '", trying "' + nextModel + '"...');
+            model = nextModel;
+            continue;
+          }
+          throw new Error(
+            'Your API key was rejected when generating.\n\n' +
+            'This usually means the key is invalid or revoked.\n\n' +
+            'Fix:\n' +
+            '1. Go to console.groq.com/keys\n' +
+            '2. Revoke ALL keys\n' +
+            '3. Create a fresh key\n' +
+            '4. Open the gear icon above, click "Clear key", paste the new key, click "Save key"'
+          );
         }
 
-        // Rate limit -- don't retry
+        // Rate limit
         if (response.status === 429) {
-          throw new Error('Rate limited by Groq. Wait a minute and try again.');
+          throw new Error('Rate limited by Groq. Wait 60 seconds and try again.');
         }
 
-        // Model not found -- clear cache, re-discover, and retry once
-        if ((response.status === 404 || errCode === 'model_not_found' || /model.*not.*(exist|found|available)/i.test(errMsg)) && attempt === 0) {
-          console.warn('Bash Buddy: model "' + model + '" not found, re-discovering...');
-          clearCachedModel();
-          model = await getModel(key);
-          continue;
+        // Model not found — try next model
+        if (response.status === 404 || errCode === 'model_not_found' || /model.*not.*(exist|found|available)/i.test(errMsg)) {
+          var nextModel2 = pickNextModel(allModelIds, triedModels);
+          if (nextModel2 && attempt < maxAttempts - 1) {
+            console.warn('Bash Buddy: model "' + model + '" not found, trying "' + nextModel2 + '"...');
+            model = nextModel2;
+            continue;
+          }
+          throw new Error('All available models failed. Groq may be having issues. Try again in a few minutes.');
         }
 
-        // Server error -- don't retry
+        // Server error
         if (response.status >= 500) {
           throw new Error('Groq server error (' + response.status + '). Try again in a minute.');
         }
@@ -453,7 +505,7 @@
         throw new Error(errMsg + ' (HTTP ' + response.status + ')');
       }
 
-      // Success -- parse response
+      // Success
       var data;
       try {
         data = JSON.parse(rawText);
@@ -468,9 +520,9 @@
       }
       return text.replace(/^```bash\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/, '').trim();
     }
-  }
 
-  // ---- Actions ----
+    throw new Error('Could not generate. All available models failed. Try again later.');
+  }
 
   $('bb-copy')?.addEventListener('click', async function() {
     var text = $('bb-script').textContent;
@@ -515,8 +567,6 @@
     $('bb-gate').scrollIntoView({ behavior: 'smooth' });
   });
 
-  // ---- Email gate ----
-
   $('bb-gate-form')?.addEventListener('submit', async function(e) {
     e.preventDefault();
     var email = $('bb-gate-email').value.trim();
@@ -551,8 +601,6 @@
     }
   });
 
-  // ---- URL param prefill (shared links) ----
-
   function initFromURL() {
     var params = new URLSearchParams(window.location.search);
     var sharedPrompt = params.get('bb_prompt');
@@ -562,8 +610,6 @@
     }
   }
 
-  // ---- Helpers ----
-
   function showError(msg) {
     $('bb-error').hidden = false;
     $('bb-error').textContent = msg;
@@ -572,13 +618,10 @@
     $('bb-error').hidden = true;
   }
 
-  // ---- Init ----
-
   initKeyUI();
   initFromURL();
   updateUsesDisplay();
-})();
-</script>
+})();</script>
 
 <style>
 .bash-buddy {
