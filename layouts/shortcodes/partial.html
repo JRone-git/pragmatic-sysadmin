@@ -1,0 +1,18 @@
+{{/* Shortcode wrapper around Hugo's partial() template function.
+     Lets you call a partial from inside Markdown content.
+
+     Usage in a .md file:
+       {{< partial "my-partial.html" >}}
+       {{< partial "my-partial.html" . >}}
+
+     The partial HTML is rendered AS-IS — no Markdown processing
+     on the partial's output. */}}
+{{- $name := "" -}}
+{{- if .IsNamedParams -}}
+  {{- $name = .Get "name" -}}
+{{- else -}}
+  {{- $name = .Get 0 -}}
+{{- end -}}
+{{- if $name -}}
+  {{- partial $name . -}}
+{{- end -}}
