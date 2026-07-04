@@ -45,8 +45,11 @@
       <div class="bb-key-input">
         <input type="password" id="bb-api-key" placeholder="gsk_..." autocomplete="off" />
         <button type="button" id="bb-save-key">Save key</button>
+        <button type="button" id="bb-test-key" class="bb-test-key">Test key</button>
+        <button type="button" id="bb-clear-key" class="bb-clear-key">Clear key</button>
       </div>
       <p class="bb-key-status" id="bb-key-status"></p>
+      <p class="bb-key-preview" id="bb-key-preview"></p>
       <p class="bb-privacy"><small>🔒 Your key stays in your browser. Nothing is sent to our server. Queries go directly from your browser to Groq's API.</small></p>
     </div>
   </details>
@@ -170,20 +173,106 @@
     if (key) {
       $('bb-api-key').value = key;
       $('bb-key-status').innerHTML = '<span style="color:#5a7a5e;">✓ Key saved (works for this browser only)</span>';
+      showKeyPreview(key);
     } else {
       $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">⚠ No key set yet</span>';
+      $('bb-key-preview').textContent = '';
     }
+  }
+
+  function showKeyPreview(key) {
+    const el = $('bb-key-preview');
+    if (!key) { el.textContent = ''; return; }
+    const masked = key.length > 12
+      ? `${key.slice(0, 7)}…${key.slice(-4)} (${key.length} chars)`
+      : `${key.length} chars (short)`;
+    el.textContent = `Stored key: ${masked}`;
   }
 
   $('bb-save-key')?.addEventListener('click', () => {
     const key = $('bb-api-key').value.trim();
     if (!key.startsWith('gsk_')) {
-      $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">⚠ Key should start with "gsk_". Double-check the copy.</span>';
+      $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">⚠ Key should start with "gsk_". Double-check the copy from <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a> (revoke any old ones and create a fresh key).</span>';
+      return;
+    }
+    if (key.length < 20) {
+      $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">⚠ Key looks too short. Should be ~56 characters starting with gsk_.</span>';
       return;
     }
     localStorage.setItem(STORAGE_KEY, key);
-    $('bb-key-status').innerHTML = '<span style="color:#5a7a5e;">✓ Key saved! Click Generate to try it.</span>';
+    $('bb-key-status').innerHTML = '<span style="color:#5a7a5e;">✓ Key saved! Click "Test key" to verify, then Generate.</span>';
+    showKeyPreview(key);
     $('bb-prompt').focus();
+  });
+
+  $('bb-clear-key')?.addEventListener('click', () => {
+    localStorage.removeItem(STORAGE_KEY);
+    $('bb-api-key').value = '';
+    $('bb-key-status').innerHTML = '<span style="color:#888;">✓ Cleared. Paste a fresh key from <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a>.</span>';
+    showKeyPreview('');
+  });
+
+  $('bb-test-key')?.addEventListener('click', async () => {
+    const inputKey = $('bb-api-key').value.trim();
+    const storedKey = getKey().trim();
+    const key = inputKey || storedKey;
+    if (!key) {
+      $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">⚠ No key. Paste one above first.</span>';
+      return;
+    }
+    if (!key.startsWith('gsk_')) {
+      $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">⚠ Key doesn\'t start with gsk_. Wrong provider?</span>';
+      return;
+    }
+    // Save it (if changed) so subsequent Generate calls use this key
+    if (key !== storedKey) {
+      localStorage.setItem(STORAGE_KEY, key);
+      showKeyPreview(key);
+    }
+
+    const btn = $('bb-test-key');
+    const origText = btn.textContent;
+    btn.disabled = true;
+    btn.textContent = 'Testing...';
+    $('bb-key-status').innerHTML = '<span style="color:#888;">Contacting api.groq.com...</span>';
+
+    try {
+      const r = await fetch('https://api.groq.com/openai/v1/models', {
+        headers: { 'Authorization': `Bearer ${key}` }
+      });
+      if (r.ok) {
+        $('bb-key-status').innerHTML = `
+          <span style="color:#5a7a5e;">✓ Key works. Groq accepted it.</span><br>
+          <small style="color:#888;">Now click "Generate script" to use it. If you also see 401 there, you have multiple keys in Groq console — revoke ALL old ones and create just one fresh key.</small>
+        `;
+      } else {
+        const txt = await r.text();
+        let reason = txt;
+        try { const j = JSON.parse(txt); reason = j?.error?.message || txt; } catch {}
+        if (r.status === 401) {
+          $('bb-key-status').innerHTML = `
+            <span style="color:#c97b5e;">✗ 401 Unauthorized</span><br>
+            <small style="color:#888;">Groq says: "<strong>${reason}</strong>"<br><br>
+            <strong>Fix:</strong><br>
+            1. Go to <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a><br>
+            2. Click the trash icon next to ALL your existing keys (revoke them)<br>
+            3. Click "Create API key"<br>
+            4. Copy the new key (starts with gsk_)<br>
+            5. Click "Clear key" above, then paste the new one here<br>
+            6. Click "Test key" again</small>
+          `;
+        } else if (r.status === 429) {
+          $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">⚠ 429 Rate limit. Wait a minute or upgrade.</span>';
+        } else {
+          $('bb-key-status').innerHTML = `<span style="color:#c97b5e;">✗ ${r.status}: ${reason}</span>`;
+        }
+      }
+    } catch (err) {
+      $('bb-key-status').innerHTML = `<span style="color:#c97b5e;">✗ Network error: ${err.message}. Try a different browser or check internet.</span>`;
+    } finally {
+      btn.disabled = false;
+      btn.textContent = origText;
+    }
   });
 
   // --- Quick prompts ---
