@@ -1,0 +1,706 @@
+{{/*
+  Bash Buddy — AI bash script generator.
+  Runs in the browser. Uses Google Gemini API (free tier).
+  API key stored in localStorage; never sent to a backend.
+*/}}
+<div class="bash-buddy" id="bash-buddy">
+  <div class="bb-header">
+    <h2 class="bb-title">Bash Buddy</h2>
+    <p class="bb-subtitle">Describe what you need. Get a working bash script in ~10 seconds.</p>
+  </div>
+
+  <details class="bb-settings" id="bb-settings">
+    <summary>⚙️ API key (one-time setup, free)</summary>
+    <div class="bb-settings-body">
+      <p>Get a free key from <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">Google AI Studio</a> (no credit card, 1,500 requests/day free).</p>
+      <ol>
+        <li>Go to <a href="https://aistudio.google.com/app/apikey" target="_blank" rel="noopener">aistudio.google.com/app/apikey</a></li>
+        <li>Click <strong>Create API key</strong></li>
+        <li>Copy the key (starts with <code>AIza</code>)</li>
+        <li>Paste it here:</li>
+      </ol>
+      <div class="bb-key-input">
+        <input type="password" id="bb-api-key" placeholder="AIzaSy..." autocomplete="off" />
+        <button type="button" id="bb-save-key">Save key</button>
+      </div>
+      <p class="bb-key-status" id="bb-key-status"></p>
+      <p class="bb-privacy"><small>🔒 Your key stays in your browser. Nothing is sent to our server. Queries go directly from your browser to Google's API.</small></p>
+    </div>
+  </details>
+
+  <div class="bb-input-section">
+    <label for="bb-prompt" class="bb-label">What do you need?</label>
+    <textarea
+      id="bb-prompt"
+      placeholder="A script that finds all files larger than 100MB in /var/log and lists them sorted by size, with the option to compress them..."
+      rows="4"
+    ></textarea>
+
+    <div class="bb-quick-prompts">
+      <span class="bb-quick-label">Try:</span>
+      <button type="button" class="bb-quick" data-prompt="A script that checks if a list of websites is up, with email alerts when one goes down">Uptime checker</button>
+      <button type="button" class="bb-quick" data-prompt="A script that finds duplicate files in a directory tree and reports them by wasted space">Duplicate finder</button>
+      <button type="button" class="bb-quick" data-prompt="A script that rotates a list of log files: compress files older than 7 days, delete files older than 90 days, keep at least 10 most recent">Log rotator</button>
+      <button type="button" class="bb-quick" data-prompt="A script that monitors CPU and memory usage, logs to a CSV file, and alerts if either exceeds 80% for more than 5 minutes">Resource monitor</button>
+    </div>
+
+    <div class="bb-meta">
+      <span class="bb-uses" id="bb-uses">Loading...</span>
+      <button type="button" id="bb-generate" class="bb-generate">Generate script →</button>
+    </div>
+  </div>
+
+  <div class="bb-output-section" id="bb-output-section" hidden>
+    <div class="bb-output-header">
+      <span class="bb-output-label">📜 Generated script</span>
+      <div class="bb-output-actions">
+        <button type="button" id="bb-copy" class="bb-action">📋 Copy</button>
+        <button type="button" id="bb-download" class="bb-action">💾 Save .sh</button>
+        <button type="button" id="bb-share" class="bb-action">🔗 Share</button>
+        <button type="button" id="bb-email-btn" class="bb-action">📧 Email me this</button>
+      </div>
+    </div>
+    <pre class="bb-code-block"><code id="bb-script"></code></pre>
+  </div>
+
+  <div class="bb-gate" id="bb-gate" hidden>
+    <h3>You've used your 3 free generations today 🎉</h3>
+    <p>Bash Buddy is free forever. To keep generating, get a free account:</p>
+    <ul>
+      <li>📧 <strong>Weekly newsletter</strong> with 1 practical bash/sysadmin tip</li>
+      <li>📚 <strong>Free 5 bash scripts pack</strong> (SSL checker, log searcher, SSH auditor, disk quota, service restart)</li>
+      <li>♾️ <strong>Unlimited script generations</strong> for as long as you want</li>
+    </ul>
+    <form id="bb-gate-form" class="bb-gate-form">
+      <input type="email" id="bb-gate-email" placeholder="your@email.com" required />
+      <button type="submit">Get unlimited access →</button>
+    </form>
+    <p class="bb-gate-foot"><small>No spam, unsubscribe anytime. ~3,200 sysadmins already subscribed.</small></p>
+  </div>
+
+  <div class="bb-error" id="bb-error" hidden></div>
+  <div class="bb-loading" id="bb-loading" hidden>
+    <div class="bb-spinner"></div>
+    <p>Generating your script...</p>
+  </div>
+</div>
+
+<script>
+(function() {
+  'use strict';
+
+  const STORAGE_KEY = 'bash-buddy-key';
+  const USES_KEY = 'bash-buddy-uses';
+  const MAX_FREE_PER_DAY = 3;
+  const DAILY_LIMIT_MS = 24 * 60 * 60 * 1000;
+
+  const $ = (id) => document.getElementById(id);
+
+  // --- State ---
+  function getUsesToday() {
+    try {
+      const data = JSON.parse(localStorage.getItem(USES_KEY) || '{}');
+      const now = Date.now();
+      if (!data.firstUse || (now - data.firstUse) > DAILY_LIMIT_MS) {
+        return 0;
+      }
+      return data.count || 0;
+    } catch {
+      return 0;
+    }
+  }
+
+  function recordUse() {
+    let data;
+    try { data = JSON.parse(localStorage.getItem(USES_KEY) || '{}'); }
+    catch { data = {}; }
+    const now = Date.now();
+    if (!data.firstUse || (now - data.firstUse) > DAILY_LIMIT_MS) {
+      data = { firstUse: now, count: 1 };
+    } else {
+      data.count = (data.count || 0) + 1;
+    }
+    localStorage.setItem(USES_KEY, JSON.stringify(data));
+  }
+
+  function updateUsesDisplay() {
+    const uses = getUsesToday();
+    const remaining = Math.max(0, MAX_FREE_PER_DAY - uses);
+    const el = $('bb-uses');
+    if (uses >= MAX_FREE_PER_DAY) {
+      el.innerHTML = '<strong>Daily limit reached.</strong> <a href="#" id="bb-show-gate">Get unlimited →</a>';
+      el.querySelector('#bb-show-gate')?.addEventListener('click', (e) => {
+        e.preventDefault();
+        $('bb-gate').hidden = false;
+        $('bb-gate').scrollIntoView({ behavior: 'smooth' });
+      });
+    } else {
+      el.textContent = `${remaining} free generation${remaining === 1 ? '' : 's'} remaining today`;
+    }
+  }
+
+  // --- API key ---
+  function getKey() { return localStorage.getItem(STORAGE_KEY) || ''; }
+
+  function initKeyUI() {
+    const key = getKey();
+    if (key) {
+      $('bb-api-key').value = key;
+      $('bb-key-status').innerHTML = '<span style="color:#5a7a5e;">✓ Key saved (works for this browser only)</span>';
+    } else {
+      $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">⚠ No key set yet</span>';
+    }
+  }
+
+  $('bb-save-key')?.addEventListener('click', () => {
+    const key = $('bb-api-key').value.trim();
+    if (!key.startsWith('AIza')) {
+      $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">⚠ Key should start with "AIza". Double-check the copy.</span>';
+      return;
+    }
+    localStorage.setItem(STORAGE_KEY, key);
+    $('bb-key-status').innerHTML = '<span style="color:#5a7a5e;">✓ Key saved! Click Generate to try it.</span>';
+    $('bb-prompt').focus();
+  });
+
+  // --- Quick prompts ---
+  document.querySelectorAll('.bb-quick').forEach(btn => {
+    btn.addEventListener('click', () => {
+      $('bb-prompt').value = btn.dataset.prompt;
+      $('bb-prompt').focus();
+    });
+  });
+
+  // --- Generate ---
+  $('bb-generate')?.addEventListener('click', generate);
+  $('bb-prompt')?.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
+      e.preventDefault();
+      generate();
+    }
+  });
+
+  async function generate() {
+    hideError();
+    const prompt = $('bb-prompt').value.trim();
+    if (!prompt) { showError('Tell me what you need. "A script that..." and describe it.'); return; }
+
+    const key = getKey();
+    if (!key) {
+      $('bb-settings').open = true;
+      showError('Set your free API key first (click the ⚙️ API key section above).');
+      $('bb-api-key').focus();
+      return;
+    }
+
+    if (getUsesToday() >= MAX_FREE_PER_DAY) {
+      $('bb-gate').hidden = false;
+      $('bb-gate').scrollIntoView({ behavior: 'smooth' });
+      return;
+    }
+
+    $('bb-loading').hidden = false;
+    $('bb-generate').disabled = true;
+
+    try {
+      const script = await callGemini(key, prompt);
+      $('bb-script').textContent = script;
+      $('bb-output-section').hidden = false;
+      recordUse();
+      updateUsesDisplay();
+      $('bb-output-section').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+    } catch (err) {
+      console.error(err);
+      showError(`Failed: ${err.message}. Check your API key or rate limit (1,500/day free).`);
+    } finally {
+      $('bb-loading').hidden = true;
+      $('bb-generate').disabled = false;
+    }
+  }
+
+  async function callGemini(key, prompt) {
+    const sysPrompt = `You are Bash Buddy, an expert bash script generator. Generate a single, complete, safe bash script.
+
+Strict requirements:
+- Start with #!/bin/bash and 'set -euo pipefail'
+- Use 2-space indentation
+- Add a comment header explaining what the script does
+- Add inline comments explaining each non-obvious section
+- Include error handling with helpful messages
+- Use long options (--verbose not -v) when possible
+- Quote all variables
+- If the script does anything destructive (rm, dd, mkfs, etc.), require user confirmation
+- Don't add usage instructions, command examples, or explanation outside the script
+- Don't wrap in markdown code blocks
+- Don't use external dependencies unless absolutely necessary
+
+Output ONLY the raw bash script. No text before or after.`;
+
+    const response = await fetch(
+      `https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key=${encodeURIComponent(key)}`,
+      {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          systemInstruction: { parts: [{ text: sysPrompt }] },
+          contents: [{ parts: [{ text: `User request: ${prompt}` }] }],
+          generationConfig: { temperature: 0.3, maxOutputTokens: 2048 }
+        })
+      }
+    );
+
+    if (!response.ok) {
+      const err = await response.json().catch(() => ({}));
+      throw new Error(err?.error?.message || `HTTP ${response.status}`);
+    }
+
+    const data = await response.json();
+    const text = data?.candidates?.[0]?.content?.parts?.[0]?.text;
+    if (!text) throw new Error('Empty response from API');
+    return text.replace(/^```bash\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/, '').trim();
+  }
+
+  // --- Actions ---
+  $('bb-copy')?.addEventListener('click', async () => {
+    const text = $('bb-script').textContent;
+    try {
+      await navigator.clipboard.writeText(text);
+      const btn = $('bb-copy');
+      const orig = btn.textContent;
+      btn.textContent = '✓ Copied';
+      setTimeout(() => btn.textContent = orig, 2000);
+    } catch {
+      showError('Could not copy. Select the text and copy manually.');
+    }
+  });
+
+  $('bb-download')?.addEventListener('click', () => {
+    const text = $('bb-script').textContent;
+    const blob = new Blob([text], { type: 'text/x-shellscript' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'bash-buddy-script.sh';
+    a.click();
+    URL.revokeObjectURL(url);
+  });
+
+  $('bb-share')?.addEventListener('click', () => {
+    const text = $('bb-script').textContent;
+    const prompt = $('bb-prompt').value;
+    const url = new URL(window.location.href);
+    url.searchParams.set('bb_prompt', prompt.slice(0, 200));
+    navigator.clipboard.writeText(url.toString()).then(() => {
+      const btn = $('bb-share');
+      const orig = btn.textContent;
+      btn.textContent = '✓ Link copied';
+      setTimeout(() => btn.textContent = orig, 2000);
+    }).catch(() => {
+      prompt('Copy this link:', url.toString());
+    });
+  });
+
+  $('bb-email-btn')?.addEventListener('click', () => {
+    $('bb-gate').hidden = false;
+    $('bb-gate').scrollIntoView({ behavior: 'smooth' });
+  });
+
+  // --- Email gate ---
+  $('bb-gate-form')?.addEventListener('submit', async (e) => {
+    e.preventDefault();
+    const email = $('bb-gate-email').value.trim();
+    if (!email) return;
+
+    const submitBtn = e.target.querySelector('button');
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Sending...';
+
+    try {
+      // Buttondown subscribe
+      await fetch('https://buttondown.com/api/emails/embed-subscribe/jonne', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+        body: `email=${encodeURIComponent(email)}&tag=bash-buddy`
+      });
+
+      // Reset uses so they can keep going
+      localStorage.removeItem(USES_KEY);
+
+      $('bb-gate').innerHTML = `
+        <h3>✓ You're in! Check your email.</h3>
+        <p>I sent you a confirmation email. Click the link to get:</p>
+        <ul>
+          <li>📚 Free 5 bash scripts pack</li>
+          <li>♾️ Unlimited Bash Buddy generations (your daily limit just lifted)</li>
+        </ul>
+        <p>You can keep using Bash Buddy right now — your limit is reset.</p>
+      `;
+      updateUsesDisplay();
+    } catch (err) {
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Try again';
+      showError('Could not subscribe. Try again or email pragmatic@pragmaticsysadmin.help');
+    }
+  });
+
+  // --- URL param prefill (shared links) ---
+  function initFromURL() {
+    const params = new URLSearchParams(window.location.search);
+    const sharedPrompt = params.get('bb_prompt');
+    if (sharedPrompt) {
+      $('bb-prompt').value = sharedPrompt;
+      $('bb-prompt').focus();
+    }
+  }
+
+  // --- Helpers ---
+  function showError(msg) {
+    $('bb-error').hidden = false;
+    $('bb-error').textContent = msg;
+  }
+  function hideError() {
+    $('bb-error').hidden = true;
+  }
+
+  // --- Init ---
+  initKeyUI();
+  initFromURL();
+  updateUsesDisplay();
+})();
+</script>
+
+<style>
+.bash-buddy {
+  margin: 2em 0;
+  padding: 0;
+  background: #fff;
+  border: 1px solid #d6cfbe;
+  border-radius: 10px;
+  overflow: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.04);
+}
+.bb-header {
+  padding: 1.5em 1.5em 1em;
+  background: linear-gradient(135deg, #f5f3ee 0%, #ede8df 100%);
+  border-bottom: 1px solid #e5dfd0;
+}
+.bb-title {
+  margin: 0 0 0.3em 0;
+  font-size: 1.5em;
+  color: #2a2a2a;
+  font-weight: 700;
+}
+.bb-subtitle {
+  margin: 0;
+  color: #5a5a5a;
+  font-size: 0.95em;
+  line-height: 1.4;
+}
+.bb-settings {
+  padding: 0.75em 1.5em;
+  background: #fafaf6;
+  border-bottom: 1px solid #e5dfd0;
+}
+.bb-settings summary {
+  cursor: pointer;
+  font-size: 0.9em;
+  color: #5a5a5a;
+  font-weight: 500;
+  padding: 0.5em 0;
+  user-select: none;
+}
+.bb-settings summary:hover { color: #2a2a2a; }
+.bb-settings-body {
+  padding: 0.5em 0 0.5em 1.5em;
+  font-size: 0.88em;
+  line-height: 1.5;
+}
+.bb-settings-body ol { padding-left: 1.2em; margin: 0.5em 0; }
+.bb-settings-body code {
+  background: #ede8df;
+  padding: 0.1em 0.3em;
+  border-radius: 3px;
+  font-size: 0.9em;
+}
+.bb-key-input {
+  display: flex;
+  gap: 0.5em;
+  margin: 0.5em 0;
+  flex-wrap: wrap;
+}
+.bb-key-input input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.5em 0.7em;
+  border: 1px solid #c5bda9;
+  border-radius: 4px;
+  font-family: 'Monaco', 'Menlo', monospace;
+  font-size: 0.9em;
+}
+.bb-key-input button {
+  padding: 0.5em 1em;
+  background: #5a7a5e;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.9em;
+  cursor: pointer;
+  font-weight: 500;
+}
+.bb-key-input button:hover { background: #4a6a4e; }
+.bb-key-status { margin: 0.3em 0 0 0; font-size: 0.85em; }
+.bb-privacy { color: #888; margin-top: 0.5em; }
+.bb-input-section {
+  padding: 1.5em;
+}
+.bb-label {
+  display: block;
+  font-weight: 600;
+  font-size: 0.95em;
+  color: #2a2a2a;
+  margin-bottom: 0.5em;
+}
+#bb-prompt {
+  width: 100%;
+  padding: 0.7em 0.9em;
+  border: 1px solid #c5bda9;
+  border-radius: 6px;
+  font-family: inherit;
+  font-size: 0.95em;
+  line-height: 1.5;
+  resize: vertical;
+  min-height: 80px;
+  box-sizing: border-box;
+  color: #2a2a2a;
+  background: #fff;
+}
+#bb-prompt:focus {
+  outline: none;
+  border-color: #5a7a5e;
+  box-shadow: 0 0 0 3px rgba(90,122,94,0.15);
+}
+.bb-quick-prompts {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4em;
+  margin: 0.7em 0;
+  align-items: center;
+}
+.bb-quick-label {
+  font-size: 0.85em;
+  color: #888;
+  font-weight: 500;
+}
+.bb-quick {
+  padding: 0.35em 0.8em;
+  background: #f5f3ee;
+  color: #5a5a5a;
+  border: 1px solid #d6cfbe;
+  border-radius: 14px;
+  font-size: 0.8em;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.bb-quick:hover {
+  background: #ede8df;
+  border-color: #5a7a5e;
+  color: #2a2a2a;
+}
+.bb-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: 0.7em;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+.bb-uses {
+  font-size: 0.82em;
+  color: #888;
+}
+.bb-uses a { color: #5a7a5e; text-decoration: none; font-weight: 500; }
+.bb-uses a:hover { text-decoration: underline; }
+.bb-generate {
+  padding: 0.7em 1.6em;
+  background: #5a7a5e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95em;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+  transition: background 0.15s;
+}
+.bb-generate:hover:not(:disabled) { background: #4a6a4e; }
+.bb-generate:disabled { opacity: 0.5; cursor: not-allowed; }
+.bb-output-section {
+  border-top: 1px solid #e5dfd0;
+  background: #fafaf6;
+}
+.bb-output-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0.8em 1.5em;
+  background: #f5f3ee;
+  border-bottom: 1px solid #e5dfd0;
+  flex-wrap: wrap;
+  gap: 0.5em;
+}
+.bb-output-label {
+  font-weight: 600;
+  font-size: 0.9em;
+  color: #2a2a2a;
+}
+.bb-output-actions {
+  display: flex;
+  gap: 0.4em;
+  flex-wrap: wrap;
+}
+.bb-action {
+  padding: 0.4em 0.7em;
+  background: #fff;
+  color: #2a2a2a;
+  border: 1px solid #c5bda9;
+  border-radius: 4px;
+  font-size: 0.82em;
+  cursor: pointer;
+  font-family: inherit;
+  transition: all 0.15s;
+}
+.bb-action:hover {
+  background: #f5f3ee;
+  border-color: #5a7a5e;
+}
+.bb-code-block {
+  margin: 0;
+  padding: 1.2em 1.5em;
+  background: #1e1e1e;
+  color: #d4d4d4;
+  font-family: 'Monaco', 'Menlo', 'Courier New', monospace;
+  font-size: 0.85em;
+  line-height: 1.5;
+  overflow-x: auto;
+  max-height: 500px;
+  white-space: pre;
+  tab-size: 2;
+}
+.bb-gate {
+  padding: 1.5em;
+  background: linear-gradient(135deg, #f5f3ee 0%, #ede8df 100%);
+  border-top: 1px solid #e5dfd0;
+  text-align: center;
+}
+.bb-gate h3 {
+  margin: 0 0 0.5em 0;
+  color: #2a2a2a;
+  font-size: 1.2em;
+}
+.bb-gate p {
+  margin: 0.5em 0;
+  color: #5a5a5a;
+  font-size: 0.95em;
+}
+.bb-gate ul {
+  display: inline-block;
+  text-align: left;
+  margin: 1em auto;
+  font-size: 0.92em;
+  color: #2a2a2a;
+  line-height: 1.7;
+}
+.bb-gate-form {
+  display: flex;
+  gap: 0.5em;
+  max-width: 420px;
+  margin: 1em auto;
+  flex-wrap: wrap;
+}
+.bb-gate-form input {
+  flex: 1;
+  min-width: 200px;
+  padding: 0.7em 0.9em;
+  border: 1px solid #c5bda9;
+  border-radius: 6px;
+  font-size: 0.95em;
+  font-family: inherit;
+}
+.bb-gate-form button {
+  padding: 0.7em 1.4em;
+  background: #5a7a5e;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 0.95em;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: inherit;
+}
+.bb-gate-form button:hover { background: #4a6a4e; }
+.bb-gate-foot { color: #888; font-size: 0.82em; margin-top: 1em; }
+.bb-error {
+  margin: 1em 1.5em;
+  padding: 0.8em 1em;
+  background: #fde8e3;
+  color: #8a3a2a;
+  border-left: 3px solid #c97b5e;
+  border-radius: 4px;
+  font-size: 0.9em;
+}
+.bb-loading {
+  padding: 2em 1.5em;
+  text-align: center;
+  background: #fafaf6;
+  border-top: 1px solid #e5dfd0;
+}
+.bb-loading p { margin: 0.7em 0 0 0; color: #5a5a5a; font-size: 0.95em; }
+.bb-spinner {
+  display: inline-block;
+  width: 32px;
+  height: 32px;
+  border: 3px solid #e5dfd0;
+  border-top-color: #5a7a5e;
+  border-radius: 50%;
+  animation: bb-spin 0.8s linear infinite;
+}
+@keyframes bb-spin { to { transform: rotate(360deg); } }
+@media (max-width: 600px) {
+  .bash-buddy { border-radius: 6px; }
+  .bb-header, .bb-input-section, .bb-output-header { padding: 1em; }
+  .bb-code-block { padding: 0.8em 1em; font-size: 0.8em; }
+  .bb-output-header { flex-direction: column; align-items: stretch; }
+  .bb-output-actions { justify-content: space-between; }
+  .bb-action { flex: 1; }
+}
+@media (prefers-color-scheme: dark) {
+  .bash-buddy { background: #1f211e; border-color: #3a3d38; }
+  .bb-header { background: linear-gradient(135deg, #2a2d28 0%, #252822 100%); border-color: #3a3d38; }
+  .bb-title { color: #f0f0f0; }
+  .bb-subtitle { color: #c0c0c0; }
+  .bb-settings { background: #252822; border-color: #3a3d38; }
+  .bb-settings summary { color: #c0c0c0; }
+  .bb-settings summary:hover { color: #f0f0f0; }
+  .bb-settings-body code { background: #3a3d38; }
+  .bb-settings-body a { color: #b8d4b8; }
+  .bb-input-section { background: #1f211e; }
+  .bb-label { color: #f0f0f0; }
+  #bb-prompt { background: #2a2d28; color: #f0f0f0; border-color: #4a4d48; }
+  .bb-quick { background: #2a2d28; color: #c0c0c0; border-color: #3a3d38; }
+  .bb-quick:hover { background: #3a3d38; color: #f0f0f0; }
+  .bb-output-section { background: #1a1c18; border-color: #3a3d38; }
+  .bb-output-header { background: #252822; border-color: #3a3d38; }
+  .bb-output-label { color: #f0f0f0; }
+  .bb-action { background: #2a2d28; color: #f0f0f0; border-color: #4a4d48; }
+  .bb-action:hover { background: #3a3d38; }
+  .bb-gate { background: linear-gradient(135deg, #2a2d28 0%, #252822 100%); border-color: #3a3d38; }
+  .bb-gate h3 { color: #f0f0f0; }
+  .bb-gate p, .bb-gate ul { color: #c0c0c0; }
+  .bb-gate-form input { background: #1a1c18; color: #f0f0f0; border-color: #4a4d48; }
+  .bb-loading { background: #1a1c18; border-color: #3a3d38; }
+  .bb-loading p { color: #c0c0c0; }
+  .bb-error { background: #4a2820; color: #ffc4b0; border-color: #c97b5e; }
+}
+</style>
