@@ -93,32 +93,93 @@
 (function() {
   'use strict';
 
-  const STORAGE_KEY = 'bash-buddy-key';
-  const USES_KEY = 'bash-buddy-uses';
-  const MAX_FREE_PER_DAY = 3;
-  const DAILY_LIMIT_MS = 24 * 60 * 60 * 1000;
+  var STORAGE_KEY = 'bash-buddy-key';
+  var USES_KEY = 'bash-buddy-uses';
+  var MODEL_KEY = 'bash-buddy-model';
+  var MAX_FREE_PER_DAY = 3;
+  var DAILY_LIMIT_MS = 24 * 60 * 60 * 1000;
 
-  const $ = (id) => document.getElementById(id);
+  // Preference order for selecting a model from the available list.
+  // We try each predicate against every model ID and pick the first match.
+  var MODEL_PREFERENCES = [
+    function(id) { return /llama.*70b/.test(id); },
+    function(id) { return /llama.*scout/.test(id); },
+    function(id) { return /gpt-oss/.test(id) && /120/.test(id); },
+    function(id) { return /qwen/.test(id) && /32/.test(id); },
+    function(id) { return /gpt-oss/.test(id); },
+    function(id) { return /llama.*8b/.test(id); },
+    function(id) { return /gemma/.test(id); },
+    function(id) { return /instruct|versatile/.test(id); },
+  ];
 
-  // --- State ---
+  var $ = function(id) { return document.getElementById(id); };
+
+  // ---- Model discovery ----
+
+  function pickBestModel(modelIds) {
+    for (var i = 0; i < MODEL_PREFERENCES.length; i++) {
+      for (var j = 0; j < modelIds.length; j++) {
+        if (MODEL_PREFERENCES[i](modelIds[j])) return modelIds[j];
+      }
+    }
+    return modelIds[0] || null;
+  }
+
+  async function fetchAvailableModels(key) {
+    var r = await fetch('https://api.groq.com/openai/v1/models', {
+      headers: { 'Authorization': 'Bearer ' + key.trim() }
+    });
+    if (!r.ok) {
+      var txt = await r.text().catch(function() { return ''; });
+      throw new Error('Cannot list models (HTTP ' + r.status + '): ' + txt.slice(0, 120));
+    }
+    var data = await r.json();
+    return (data.data || []).map(function(m) { return m.id; });
+  }
+
+  function getCachedModel() {
+    try {
+      var c = JSON.parse(localStorage.getItem(MODEL_KEY) || '{}');
+      if (c.model && (Date.now() - (c.ts || 0)) < 24 * 60 * 60 * 1000) return c.model;
+    } catch (e) {}
+    return null;
+  }
+
+  function setCachedModel(model) {
+    try {
+      localStorage.setItem(MODEL_KEY, JSON.stringify({ model: model, ts: Date.now() }));
+    } catch (e) {}
+  }
+
+  function clearCachedModel() {
+    try { localStorage.removeItem(MODEL_KEY); } catch (e) {}
+  }
+
+  async function getModel(key) {
+    var cached = getCachedModel();
+    if (cached) return cached;
+    var ids = await fetchAvailableModels(key);
+    var model = pickBestModel(ids);
+    if (!model) throw new Error('No models found on your Groq account. Check console.groq.com.');
+    setCachedModel(model);
+    return model;
+  }
+
+  // ---- Daily use tracking ----
+
   function getUsesToday() {
     try {
-      const data = JSON.parse(localStorage.getItem(USES_KEY) || '{}');
-      const now = Date.now();
-      if (!data.firstUse || (now - data.firstUse) > DAILY_LIMIT_MS) {
-        return 0;
-      }
+      var data = JSON.parse(localStorage.getItem(USES_KEY) || '{}');
+      var now = Date.now();
+      if (!data.firstUse || (now - data.firstUse) > DAILY_LIMIT_MS) return 0;
       return data.count || 0;
-    } catch {
-      return 0;
-    }
+    } catch (e) { return 0; }
   }
 
   function recordUse() {
-    let data;
-    try { data = JSON.parse(localStorage.getItem(USES_KEY) || '{}'); }
-    catch { data = {}; }
-    const now = Date.now();
+    var data;
+    try { data = JSON.parse(localStorage.getItem(USES_KEY) || '{}'); } catch (e) { data = {}; }
+    var now = Date.now();
     if (!data.firstUse || (now - data.firstUse) > DAILY_LIMIT_MS) {
       data = { firstUse: now, count: 1 };
     } else {
@@ -128,142 +189,142 @@
   }
 
   function updateUsesDisplay() {
-    const uses = getUsesToday();
-    const remaining = Math.max(0, MAX_FREE_PER_DAY - uses);
-    const el = $('bb-uses');
+    var uses = getUsesToday();
+    var remaining = Math.max(0, MAX_FREE_PER_DAY - uses);
+    var el = $('bb-uses');
     if (uses >= MAX_FREE_PER_DAY) {
-      el.innerHTML = '<strong>Daily limit reached.</strong> <a href="#" id="bb-show-gate">Get unlimited →</a>';
-      el.querySelector('#bb-show-gate')?.addEventListener('click', (e) => {
+      el.innerHTML = '<strong>Daily limit reached.</strong> <a href="#" id="bb-show-gate">Get unlimited &rarr;</a>';
+      var gateLink = el.querySelector('#bb-show-gate');
+      if (gateLink) gateLink.addEventListener('click', function(e) {
         e.preventDefault();
         $('bb-gate').hidden = false;
         $('bb-gate').scrollIntoView({ behavior: 'smooth' });
       });
     } else {
-      el.textContent = `${remaining} free generation${remaining === 1 ? '' : 's'} remaining today`;
+      el.textContent = remaining + ' free generation' + (remaining === 1 ? '' : 's') + ' remaining today';
     }
   }
 
-  // --- API key ---
+  // ---- API key management ----
+
   function getKey() { return localStorage.getItem(STORAGE_KEY) || ''; }
 
   function initKeyUI() {
-    const key = getKey();
+    var key = getKey();
     if (key) {
       $('bb-api-key').value = key;
-      $('bb-key-status').innerHTML = '<span style="color:#5a7a5e;">✓ Key saved (works for this browser only)</span>';
+      var cached = getCachedModel();
+      var modelInfo = cached ? ' | model: <code style="font-size:0.85em;">' + cached + '</code>' : '';
+      $('bb-key-status').innerHTML = '<span style="color:#5a7a5e;">&#10003; Key saved' + modelInfo + '</span>';
       showKeyPreview(key);
     } else {
-      $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">⚠ No key set yet</span>';
+      $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">&#9888; No key set yet</span>';
       $('bb-key-preview').textContent = '';
     }
   }
 
   function showKeyPreview(key) {
-    const el = $('bb-key-preview');
+    var el = $('bb-key-preview');
     if (!key) { el.textContent = ''; return; }
-    const masked = key.length > 12
-      ? `${key.slice(0, 7)}…${key.slice(-4)} (${key.length} chars)`
-      : `${key.length} chars (short)`;
-    el.textContent = `Stored key: ${masked}`;
+    var masked = key.length > 12
+      ? key.slice(0, 7) + '\u2026' + key.slice(-4) + ' (' + key.length + ' chars)'
+      : key.length + ' chars (short)';
+    el.textContent = 'Stored key: ' + masked;
   }
 
-  $('bb-save-key')?.addEventListener('click', () => {
-    const key = $('bb-api-key').value.trim();
+  $('bb-save-key')?.addEventListener('click', function() {
+    var key = $('bb-api-key').value.trim();
     if (!key.startsWith('gsk_')) {
-      $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">⚠ Key should start with "gsk_". Double-check the copy from <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a> (revoke any old ones and create a fresh key).</span>';
+      $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">&#9888; Key should start with "gsk_". Get one from <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>.</span>';
       return;
     }
     if (key.length < 20) {
-      $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">⚠ Key looks too short. Should be ~56 characters starting with gsk_.</span>';
+      $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">&#9888; Key looks too short. Should be ~56 characters starting with gsk_.</span>';
       return;
     }
     localStorage.setItem(STORAGE_KEY, key);
-    $('bb-key-status').innerHTML = '<span style="color:#5a7a5e;">✓ Key saved! Click "Test key" to verify, then Generate.</span>';
+    clearCachedModel();
+    $('bb-key-status').innerHTML = '<span style="color:#5a7a5e;">&#10003; Key saved! Click "Test key" to verify and auto-detect a model.</span>';
     showKeyPreview(key);
     $('bb-prompt').focus();
   });
 
-  $('bb-clear-key')?.addEventListener('click', () => {
+  $('bb-clear-key')?.addEventListener('click', function() {
     localStorage.removeItem(STORAGE_KEY);
+    clearCachedModel();
     $('bb-api-key').value = '';
-    $('bb-key-status').innerHTML = '<span style="color:#888;">✓ Cleared. Paste a fresh key from <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a>.</span>';
+    $('bb-key-status').innerHTML = '<span style="color:#888;">&#10003; Cleared. Paste a fresh key from <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a>.</span>';
     showKeyPreview('');
   });
 
-  $('bb-test-key')?.addEventListener('click', async () => {
-    const inputKey = $('bb-api-key').value.trim();
-    const storedKey = getKey().trim();
-    const key = inputKey || storedKey;
+  $('bb-test-key')?.addEventListener('click', async function() {
+    var inputKey = $('bb-api-key').value.trim();
+    var storedKey = getKey().trim();
+    var key = inputKey || storedKey;
     if (!key) {
-      $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">⚠ No key. Paste one above first.</span>';
+      $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">&#9888; No key. Paste one above first.</span>';
       return;
     }
     if (!key.startsWith('gsk_')) {
-      $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">⚠ Key doesn\'t start with gsk_. Wrong provider?</span>';
+      $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">&#9888; Key doesn\'t start with gsk_. Wrong provider?</span>';
       return;
     }
-    // Save it (if changed) so subsequent Generate calls use this key
     if (key !== storedKey) {
       localStorage.setItem(STORAGE_KEY, key);
       showKeyPreview(key);
     }
 
-    const btn = $('bb-test-key');
-    const origText = btn.textContent;
+    var btn = $('bb-test-key');
+    var origText = btn.textContent;
     btn.disabled = true;
     btn.textContent = 'Testing...';
-    $('bb-key-status').innerHTML = '<span style="color:#888;">Contacting api.groq.com...</span>';
+    $('bb-key-status').innerHTML = '<span style="color:#888;">Connecting to Groq...</span>';
 
     try {
-      const r = await fetch('https://api.groq.com/openai/v1/models', {
-        headers: { 'Authorization': `Bearer ${key}` }
-      });
-      if (r.ok) {
-        $('bb-key-status').innerHTML = `
-          <span style="color:#5a7a5e;">✓ Key works. Groq accepted it.</span><br>
-          <small style="color:#888;">Now click "Generate script" to use it. If you also see 401 there, you have multiple keys in Groq console — revoke ALL old ones and create just one fresh key.</small>
-        `;
+      var ids = await fetchAvailableModels(key);
+      var model = pickBestModel(ids);
+      if (!model) {
+        $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">&#10007; Key works but no models found on your account.</span>';
       } else {
-        const txt = await r.text();
-        let reason = txt;
-        try { const j = JSON.parse(txt); reason = j?.error?.message || txt; } catch {}
-        if (r.status === 401) {
-          $('bb-key-status').innerHTML = `
-            <span style="color:#c97b5e;">✗ 401 Unauthorized</span><br>
-            <small style="color:#888;">Groq says: "<strong>${reason}</strong>"<br><br>
-            <strong>Fix:</strong><br>
-            1. Go to <a href="https://console.groq.com/keys" target="_blank">console.groq.com/keys</a><br>
-            2. Click the trash icon next to ALL your existing keys (revoke them)<br>
-            3. Click "Create API key"<br>
-            4. Copy the new key (starts with gsk_)<br>
-            5. Click "Clear key" above, then paste the new one here<br>
-            6. Click "Test key" again</small>
-          `;
-        } else if (r.status === 429) {
-          $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">⚠ 429 Rate limit. Wait a minute or upgrade.</span>';
-        } else {
-          $('bb-key-status').innerHTML = `<span style="color:#c97b5e;">✗ ${r.status}: ${reason}</span>`;
-        }
+        setCachedModel(model);
+        $('bb-key-status').innerHTML = '<span style="color:#5a7a5e;">&#10003; Key works! Auto-selected model: <strong>' + model + '</strong></span>' +
+          '<br><small style="color:#888;">Ready to generate. (' + ids.length + ' models available on your account.)</small>';
       }
     } catch (err) {
-      $('bb-key-status').innerHTML = `<span style="color:#c97b5e;">✗ Network error: ${err.message}. Try a different browser or check internet.</span>`;
+      var msg = err.message || 'Unknown error';
+      if (msg.indexOf('401') !== -1 || msg.indexOf('Unauthorized') !== -1 || msg.indexOf('authentication') !== -1) {
+        $('bb-key-status').innerHTML =
+          '<span style="color:#c97b5e;">&#10007; 401 Unauthorized</span><br>' +
+          '<small style="color:#888;">' + msg + '<br><br>' +
+          '<strong>Fix:</strong><br>' +
+          '1. Go to <a href="https://console.groq.com/keys" target="_blank" rel="noopener">console.groq.com/keys</a><br>' +
+          '2. Revoke ALL existing keys<br>' +
+          '3. Create one fresh key<br>' +
+          '4. Click "Clear key" above, paste the new one, then "Test key" again</small>';
+      } else if (msg.indexOf('429') !== -1 || msg.indexOf('rate') !== -1) {
+        $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">&#9888; 429 Rate limit. Wait a minute.</span>';
+      } else {
+        $('bb-key-status').innerHTML = '<span style="color:#c97b5e;">&#10007; ' + msg + '</span>';
+      }
     } finally {
       btn.disabled = false;
       btn.textContent = origText;
     }
   });
 
-  // --- Quick prompts ---
-  document.querySelectorAll('.bb-quick').forEach(btn => {
-    btn.addEventListener('click', () => {
+  // ---- Quick prompts ----
+
+  document.querySelectorAll('.bb-quick').forEach(function(btn) {
+    btn.addEventListener('click', function() {
       $('bb-prompt').value = btn.dataset.prompt;
       $('bb-prompt').focus();
     });
   });
 
-  // --- Generate ---
+  // ---- Generate ----
+
   $('bb-generate')?.addEventListener('click', generate);
-  $('bb-prompt')?.addEventListener('keydown', (e) => {
+  $('bb-prompt')?.addEventListener('keydown', function(e) {
     if (e.key === 'Enter' && (e.metaKey || e.ctrlKey)) {
       e.preventDefault();
       generate();
@@ -272,13 +333,13 @@
 
   async function generate() {
     hideError();
-    const prompt = $('bb-prompt').value.trim();
-    if (!prompt) { showError('Tell me what you need. "A script that..." and describe it.'); return; }
+    var prompt = $('bb-prompt').value.trim();
+    if (!prompt) { showError('Describe what you need. e.g. "A script that..."'); return; }
 
-    const key = getKey();
+    var key = getKey();
     if (!key) {
       $('bb-settings').open = true;
-      showError('Set your free API key first (click the ⚙️ API key section above).');
+      showError('Set your free Groq API key first (click the \u2699\uFE0F section above).');
       $('bb-api-key').focus();
       return;
     }
@@ -293,7 +354,7 @@
     $('bb-generate').disabled = true;
 
     try {
-      const script = await callGroq(key, prompt);
+      var script = await callGroq(key, prompt);
       $('bb-script').textContent = script;
       $('bb-output-section').hidden = false;
       recordUse();
@@ -301,16 +362,7 @@
       $('bb-output-section').scrollIntoView({ behavior: 'smooth', block: 'nearest' });
     } catch (err) {
       console.error('Bash Buddy error:', err);
-      const friendly = (
-        err.message.includes('Invalid') || err.message.includes('API Key')
-          ? '🔑 API key problem. Generate a fresh key at console.groq.com/keys (revoke the old one first).'
-          : err.message.includes('rate') || err.message.includes('429')
-          ? '⏱️ Rate limit hit. Wait a minute or upgrade your Groq plan.'
-          : err.message.includes('Network')
-          ? '🌐 Network/CORS issue. Try a different browser.'
-          : `❌ ${err.message}`
-      );
-      showError(friendly);
+      showError('\u274C ' + (err.message || 'Unknown error'));
     } finally {
       $('bb-loading').hidden = true;
       $('bb-generate').disabled = false;
@@ -318,168 +370,179 @@
   }
 
   async function callGroq(key, prompt) {
-    const sysPrompt = `You are Bash Buddy, an expert bash script generator. Generate a single, complete, safe bash script.
+    var sysPrompt = 'You are Bash Buddy, an expert bash script generator. Generate a single, complete, safe bash script.\n\n' +
+      'Strict requirements:\n' +
+      '- Start with #!/bin/bash and \'set -euo pipefail\'\n' +
+      '- Use 2-space indentation\n' +
+      '- Add a comment header explaining what the script does\n' +
+      '- Add inline comments explaining each non-obvious section\n' +
+      '- Include error handling with helpful messages\n' +
+      '- Use long options (--verbose not -v) when possible\n' +
+      '- Quote all variables\n' +
+      '- If the script does anything destructive (rm, dd, mkfs, etc.), require user confirmation\n' +
+      '- Don\'t add usage instructions, command examples, or explanation outside the script\n' +
+      '- Don\'t wrap in markdown code blocks\n' +
+      '- Don\'t use external dependencies unless absolutely necessary\n\n' +
+      'Output ONLY the raw bash script. No text before or after.';
 
-Strict requirements:
-- Start with #!/bin/bash and 'set -euo pipefail'
-- Use 2-space indentation
-- Add a comment header explaining what the script does
-- Add inline comments explaining each non-obvious section
-- Include error handling with helpful messages
-- Use long options (--verbose not -v) when possible
-- Quote all variables
-- If the script does anything destructive (rm, dd, mkfs, etc.), require user confirmation
-- Don't add usage instructions, command examples, or explanation outside the script
-- Don't wrap in markdown code blocks
-- Don't use external dependencies unless absolutely necessary
+    // Get or auto-discover a model
+    var model = await getModel(key);
 
-Output ONLY the raw bash script. No text before or after.`;
-
-    let response;
-    try {
-      response = await fetch(
-        `https://api.groq.com/openai/v1/chat/completions`,
-        {
+    // Try up to 2 times: first with cached model, then re-discover on model_not_found
+    for (var attempt = 0; attempt < 2; attempt++) {
+      var response;
+      try {
+        response = await fetch('https://api.groq.com/openai/v1/chat/completions', {
           method: 'POST',
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${key.trim()}`
+            'Authorization': 'Bearer ' + key.trim()
           },
           body: JSON.stringify({
-            model: 'llama-3.3-70b-versatile',
+            model: model,
             messages: [
               { role: 'system', content: sysPrompt },
-              { role: 'user', content: `User request: ${prompt}` }
+              { role: 'user', content: 'User request: ' + prompt }
             ],
             temperature: 0.3,
             max_tokens: 2048
           })
+        });
+      } catch (networkErr) {
+        throw new Error('Network error: ' + networkErr.message + '. Check your internet connection or try a different browser.');
+      }
+
+      var rawText = await response.text();
+
+      if (!response.ok) {
+        var errMsg = 'HTTP ' + response.status;
+        var errCode = '';
+        try {
+          var errJson = JSON.parse(rawText);
+          if (errJson && errJson.error) {
+            errMsg = errJson.error.message || errMsg;
+            errCode = errJson.error.code || '';
+          }
+        } catch (e) {
+          if (rawText) errMsg = rawText.slice(0, 200);
         }
-      );
-    } catch (networkErr) {
-      throw new Error(`Network error: ${networkErr.message}. (CORS or connectivity issue — try a different browser or check your internet.)`);
-    }
 
-    // Read raw text first so we can show it in errors
-    const rawText = await response.text();
+        // Auth error -- don't retry
+        if (response.status === 401) {
+          throw new Error('Authentication failed: ' + errMsg + '. Check your key at console.groq.com/keys');
+        }
 
-    if (!response.ok) {
-      let msg = `HTTP ${response.status}`;
+        // Rate limit -- don't retry
+        if (response.status === 429) {
+          throw new Error('Rate limited by Groq. Wait a minute and try again.');
+        }
+
+        // Model not found -- clear cache, re-discover, and retry once
+        if ((response.status === 404 || errCode === 'model_not_found' || /model.*not.*(exist|found|available)/i.test(errMsg)) && attempt === 0) {
+          console.warn('Bash Buddy: model "' + model + '" not found, re-discovering...');
+          clearCachedModel();
+          model = await getModel(key);
+          continue;
+        }
+
+        // Server error -- don't retry
+        if (response.status >= 500) {
+          throw new Error('Groq server error (' + response.status + '). Try again in a minute.');
+        }
+
+        throw new Error(errMsg + ' (HTTP ' + response.status + ')');
+      }
+
+      // Success -- parse response
+      var data;
       try {
-        const errJson = JSON.parse(rawText);
-        if (errJson?.error?.message) {
-          msg = `${errJson.error.message}`;
-          if (errJson.error.code) msg += ` (code: ${errJson.error.code})`;
-        }
-      } catch {
-        if (rawText) msg = rawText.slice(0, 200);
+        data = JSON.parse(rawText);
+      } catch (e) {
+        throw new Error('Response was not valid JSON. Check browser console.');
       }
 
-      // Friendly guidance for the most common mistakes
-      let hint = '';
-      if (response.status === 401) {
-        hint = ' → Key is wrong, revoked, or from a different provider. Generate a fresh one at https://console.groq.com/keys';
-      } else if (response.status === 429) {
-        hint = ' → Free-tier rate limit. Wait a minute or upgrade at https://console.groq.com';
-      } else if (response.status === 404) {
-        hint = ' → Model unavailable on your account. Try a different model.';
-      } else if (response.status >= 500) {
-        hint = ' → Groq service issue. Try again in a minute.';
+      var text = data && data.choices && data.choices[0] && data.choices[0].message && data.choices[0].message.content;
+      if (!text) {
+        console.error('Empty/unexpected response:', data);
+        throw new Error('Empty response from Groq. Check browser console for details.');
       }
-
-      throw new Error(msg + hint);
+      return text.replace(/^```bash\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/, '').trim();
     }
-
-    let data;
-    try {
-      data = JSON.parse(rawText);
-    } catch {
-      throw new Error(`Response not JSON: ${rawText.slice(0, 100)}`);
-    }
-
-    const text = data?.choices?.[0]?.message?.content;
-    if (!text) {
-      console.error('Empty/unexpected response:', data);
-      throw new Error(`Empty response from Groq. Check the browser console for details.`);
-    }
-    return text.replace(/^```bash\s*/i, '').replace(/^```\s*/i, '').replace(/```\s*$/, '').trim();
   }
 
-  // --- Actions ---
-  $('bb-copy')?.addEventListener('click', async () => {
-    const text = $('bb-script').textContent;
+  // ---- Actions ----
+
+  $('bb-copy')?.addEventListener('click', async function() {
+    var text = $('bb-script').textContent;
     try {
       await navigator.clipboard.writeText(text);
-      const btn = $('bb-copy');
-      const orig = btn.textContent;
-      btn.textContent = '✓ Copied';
-      setTimeout(() => btn.textContent = orig, 2000);
-    } catch {
+      var btn = $('bb-copy');
+      var orig = btn.textContent;
+      btn.textContent = '\u2713 Copied';
+      setTimeout(function() { btn.textContent = orig; }, 2000);
+    } catch (e) {
       showError('Could not copy. Select the text and copy manually.');
     }
   });
 
-  $('bb-download')?.addEventListener('click', () => {
-    const text = $('bb-script').textContent;
-    const blob = new Blob([text], { type: 'text/x-shellscript' });
-    const url = URL.createObjectURL(blob);
-    const a = document.createElement('a');
+  $('bb-download')?.addEventListener('click', function() {
+    var text = $('bb-script').textContent;
+    var blob = new Blob([text], { type: 'text/x-shellscript' });
+    var url = URL.createObjectURL(blob);
+    var a = document.createElement('a');
     a.href = url;
     a.download = 'bash-buddy-script.sh';
     a.click();
     URL.revokeObjectURL(url);
   });
 
-  $('bb-share')?.addEventListener('click', () => {
-    const text = $('bb-script').textContent;
-    const prompt = $('bb-prompt').value;
-    const url = new URL(window.location.href);
+  $('bb-share')?.addEventListener('click', function() {
+    var prompt = $('bb-prompt').value;
+    var url = new URL(window.location.href);
     url.searchParams.set('bb_prompt', prompt.slice(0, 200));
-    navigator.clipboard.writeText(url.toString()).then(() => {
-      const btn = $('bb-share');
-      const orig = btn.textContent;
-      btn.textContent = '✓ Link copied';
-      setTimeout(() => btn.textContent = orig, 2000);
-    }).catch(() => {
+    navigator.clipboard.writeText(url.toString()).then(function() {
+      var btn = $('bb-share');
+      var orig = btn.textContent;
+      btn.textContent = '\u2713 Link copied';
+      setTimeout(function() { btn.textContent = orig; }, 2000);
+    }).catch(function() {
       prompt('Copy this link:', url.toString());
     });
   });
 
-  $('bb-email-btn')?.addEventListener('click', () => {
+  $('bb-email-btn')?.addEventListener('click', function() {
     $('bb-gate').hidden = false;
     $('bb-gate').scrollIntoView({ behavior: 'smooth' });
   });
 
-  // --- Email gate ---
-  $('bb-gate-form')?.addEventListener('submit', async (e) => {
+  // ---- Email gate ----
+
+  $('bb-gate-form')?.addEventListener('submit', async function(e) {
     e.preventDefault();
-    const email = $('bb-gate-email').value.trim();
+    var email = $('bb-gate-email').value.trim();
     if (!email) return;
 
-    const submitBtn = e.target.querySelector('button');
+    var submitBtn = e.target.querySelector('button');
     submitBtn.disabled = true;
     submitBtn.textContent = 'Sending...';
 
     try {
-      // Buttondown subscribe
       await fetch('https://buttondown.com/api/emails/embed-subscribe/jonne', {
         method: 'POST',
         headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-        body: `email=${encodeURIComponent(email)}&tag=bash-buddy`
+        body: 'email=' + encodeURIComponent(email) + '&tag=bash-buddy'
       });
 
-      // Reset uses so they can keep going
       localStorage.removeItem(USES_KEY);
 
-      $('bb-gate').innerHTML = `
-        <h3>✓ You're in! Check your email.</h3>
-        <p>I sent you a confirmation email. Click the link to get:</p>
-        <ul>
-          <li>📚 Free 5 bash scripts pack</li>
-          <li>♾️ Unlimited Bash Buddy generations (your daily limit just lifted)</li>
-        </ul>
-        <p>You can keep using Bash Buddy right now — your limit is reset.</p>
-      `;
+      $('bb-gate').innerHTML =
+        '<h3>&#10003; You\'re in! Check your email.</h3>' +
+        '<p>I sent you a confirmation email. Click the link to get:</p>' +
+        '<ul>' +
+        '<li>Free 5 bash scripts pack</li>' +
+        '<li>Unlimited Bash Buddy generations (your daily limit just lifted)</li>' +
+        '</ul>' +
+        '<p>You can keep using Bash Buddy right now &mdash; your limit is reset.</p>';
       updateUsesDisplay();
     } catch (err) {
       submitBtn.disabled = false;
@@ -488,17 +551,19 @@ Output ONLY the raw bash script. No text before or after.`;
     }
   });
 
-  // --- URL param prefill (shared links) ---
+  // ---- URL param prefill (shared links) ----
+
   function initFromURL() {
-    const params = new URLSearchParams(window.location.search);
-    const sharedPrompt = params.get('bb_prompt');
+    var params = new URLSearchParams(window.location.search);
+    var sharedPrompt = params.get('bb_prompt');
     if (sharedPrompt) {
       $('bb-prompt').value = sharedPrompt;
       $('bb-prompt').focus();
     }
   }
 
-  // --- Helpers ---
+  // ---- Helpers ----
+
   function showError(msg) {
     $('bb-error').hidden = false;
     $('bb-error').textContent = msg;
@@ -507,7 +572,8 @@ Output ONLY the raw bash script. No text before or after.`;
     $('bb-error').hidden = true;
   }
 
-  // --- Init ---
+  // ---- Init ----
+
   initKeyUI();
   initFromURL();
   updateUsesDisplay();
