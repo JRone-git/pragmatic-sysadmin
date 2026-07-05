@@ -3,6 +3,11 @@ title: "I Was the Only IT Person for 3 Years: The Documentation I Wish I'd Writt
 date: 2026-03-04T07:10:00.000Z
 categories:
   - General
+tags:
+  - documentation
+  - sysadmin
+  - career
+  - knowledge-management
 description: "When I left my solo IT job, my replacement called me 47 times in the first month. Here's the documentation I wish I had written before I left - and the template you can use today."
 ---
 

@@ -3,6 +3,11 @@ title: "Why Your Computer is Slow (And How to Fix It Without Calling IT)"
 date: 2025-12-26T11:52:00.000Z
 categories:
   - General
+tags:
+  - performance
+  - windows
+  - security
+  - small-business
 description: "Your computer doesn't need to be slow. Simple fixes anyone can do, plus essential security tips for small business owners who can't afford a full-time IT person."
 ---
 

@@ -3,6 +3,11 @@ title: "The 5-Minute Server Health Check That Could Save Your Career"
 date: 2025-12-09T11:22:00.000Z
 categories:
   - General
+tags:
+  - sysadmin
+  - monitoring
+  - automation
+  - bash
 description: "A simple daily ritual that every sysadmin should master to catch problems before they become emergencies."
 ---
 

@@ -3,6 +3,11 @@ title: "The Mistakes I Made (And Why They Led Me to Build My Own Password Manage
 date: 2026-03-26T12:00:00.000Z
 categories:
   - General
+tags:
+  - mistakes
+  - lessons
+  - sysadmin
+  - career
 description: "I've locked myself out of servers, forgotten more domains than you've heard of, and once deleted a production database on a Friday. Here's the mistakes that taught me more than any certification."
 ---
 
