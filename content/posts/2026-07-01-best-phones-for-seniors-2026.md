@@ -17,40 +17,6 @@ tags:
 description: "Honest review of the best phones for seniors and elderly parents in 2026. Tested by real grandparents: Lively Smart, Lively Flip, iPhone SE, GrandPad, and Consumer Cellular options. Includes phone plan comparison and setup guide."
 author: "Pragmatic Sysadmin"
 ---
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Best Phones for Seniors in 2026 (Tested by Real Grandparents)",
-  "description": "Honest review of the best phones for seniors and elderly parents in 2026. Tested by real grandparents: Lively Smart, Lively Flip, iPhone SE, GrandPad, and Consumer Cellular options.",
-  "author": {
-    "@type": "Person",
-    "name": "Pragmatic Sysadmin"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Pragmatic Sysadmin",
-    "url": "https://pragmaticsysadmin.help"
-  },
-  "datePublished": "2026-07-01",
-  "dateModified": "2026-07-01",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://pragmaticsysadmin.help/posts/best-phones-for-seniors-2026/"
-  },
-  "image": {
-    "@type": "ImageObject",
-    "url": "https://pragmaticsysadmin.help/images/best-phones-for-seniors-2026-card.png",
-    "width": 1200,
-    "height": 630
-  },
-  "articleSection": "Senior Tech",
-  "keywords": ["best phones for seniors 2026", "phones for elderly parents", "Lively phone review", "Jitterbug senior phone", "Consumer Cellular seniors", "senior-friendly phones", "phones for aging parents", "GrandPad review", "senior cell phone"],
-  "wordCount": "2400"
-}
-</script>
-
 When my mom lost $4,200 to a fake Microsoft scam and I built her a simple phone app called [Buddy](https://pragmaticsysadmin.help/buddy/), I realized the phone she was using mattered almost as much as the apps she had on it.
 
 A $1,200 flagship phone with a complicated interface is useless to a 78-year-old. A $200 simple phone with the right features is gold.
@@ -376,9 +342,9 @@ Whatever you choose, take 30 minutes on a Saturday to set it up properly. The ph
 *This guide is updated quarterly. Last reviewed: July 2026. Found a phone we missed? [Email me](mailto:pragmatic@pragmaticsysadmin.help).*
 
 *Related reads:*
-- *[How to Set Up an iPhone for an Elderly Parent](/posts/setup-iphone-elderly-parent/)*
-- *[5 Conversations to Have with Your Aging Parent About Online Safety](/posts/5-conversations-aging-parent-online-safety/)*
-- *[Best Free Phone Apps for Seniors](/posts/best-free-phone-apps-seniors/)*
+- *[How to Set Up an iPhone for an Elderly Parent](/posts/2026-06-27-setup-iphone-elderly-parent/)*
+- *[5 Conversations to Have with Your Aging Parent About Online Safety](/posts/2026-06-27-5-conversations-aging-parent-online-safety/)*
+- *[Best Free Phone Apps for Seniors](/posts/2026-06-27-best-free-phone-apps-seniors/)*
 - *[Buddy — Free companion app for elderly parents](/buddy/)*
 
 *Affiliate disclosure: links to Lively, Consumer Cellular, and Amazon are affiliate links. I earn a small commission at no extra cost to you if you buy through them. This doesn't change my recommendations — every phone above was tested by a real grandparent. See the [Resources page](/resources/) for full disclosure.*

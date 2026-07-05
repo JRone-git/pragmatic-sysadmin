@@ -16,40 +16,6 @@ tags:
 description: "A step-by-step quarterly checkup routine for your aging parent's phone. What to check, what to clean up, what to fix — in 20 minutes per visit. Plus an emergency playbook for when something goes wrong between visits."
 author: "Pragmatic Sysadmin"
 ---
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "The Quarterly Tech Checkup: What to Do When You Visit Your Aging Parent's Phone",
-  "description": "A step-by-step quarterly checkup routine for your aging parent's phone. What to check, what to clean up, what to fix — in 20 minutes per visit. Plus an emergency playbook for when something goes wrong between visits.",
-  "author": {
-    "@type": "Person",
-    "name": "Pragmatic Sysadmin"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Pragmatic Tech",
-    "url": "https://pragmaticsysadmin.help"
-  },
-  "datePublished": "2026-07-02",
-  "dateModified": "2026-07-02",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://pragmaticsysadmin.help/posts/2026-07-02-the-quarterly-tech-checkup/"
-  },
-  "image": {
-    "@type": "ImageObject",
-    "url": "https://pragmaticsysadmin.help/images/quarterly-tech-checkup.jpg",
-    "width": 1200,
-    "height": 630
-  },
-  "articleSection": "Family Tech",
-  "keywords": ["senior phone maintenance", "aging parent tech checkup", "elderly phone check", "quarterly tech check", "parent phone emergency", "senior tech maintenance", "iPhone troubleshooting elderly", "helping parents with phone", "senior phone cleanup", "preventive tech care"],
-  "wordCount": "2200"
-}
-</script>
-
 You set up your mom's phone. You installed the right apps, hid the confusing ones, configured the accessibility settings. You walked her through the emergency gestures and laminated a cheat sheet for her fridge. You did everything right.
 
 Then three months later you visit, and her phone has 47 unread notifications, Location Services is off somehow, the storage is full, and she's been typing her Apple ID password into a phishing site because "it looked like Apple was asking me to verify."

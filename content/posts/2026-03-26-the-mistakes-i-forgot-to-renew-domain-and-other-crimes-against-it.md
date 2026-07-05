@@ -246,3 +246,8 @@ Some mistakes you only make once.
 -----
 
 *What about you? Any disasters you'd be willing to share in the comments? I'm convinced every IT person has at least one story like this. Let's normalize talking about them.*
+
+*Related reads:*
+- *[I Was the Only IT Person for 3 Years: The Documentation I Wish I'd Written](/posts/2026-03-04-i-was-the-only-it-person-for-3-years-the-documentation-i-wish-i-d-written/)*
+- *[The Friday Backup Audit: Because Hope Is Not a Strategy](/posts/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy/)*
+- *[Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius](/posts/stop-doing-things-manually/)*

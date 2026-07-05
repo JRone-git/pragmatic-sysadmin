@@ -15,40 +15,6 @@ tags:
 description: "Step-by-step iPhone setup for elderly parents. Disable confusing features, make text bigger, configure emergency shortcuts, and pre-install the right apps. 30 minutes, prevents months of support calls."
 author: "Pragmatic Sysadmin"
 ---
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "How to Set Up an iPhone for an Elderly Parent (The 30-Minute Setup That Prevents 90% of Support Calls)",
-  "description": "Step-by-step iPhone setup for elderly parents. Disable confusing features, make text bigger, configure emergency shortcuts, and pre-install the right apps. 30 minutes, prevents months of support calls.",
-  "author": {
-    "@type": "Person",
-    "name": "Pragmatic Sysadmin"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Pragmatic Sysadmin",
-    "url": "https://pragmaticsysadmin.help"
-  },
-  "datePublished": "2026-06-27",
-  "dateModified": "2026-06-27",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://pragmaticsysadmin.help/posts/2026-06-27-setup-iphone-elderly-parent/"
-  },
-  "image": {
-    "@type": "ImageObject",
-    "url": "https://pragmaticsysadmin.help/images/iphone-elderly-setup.jpg",
-    "width": 1200,
-    "height": 630
-  },
-  "articleSection": "Family Tech",
-  "keywords": ["iPhone for elderly parent", "iPhone setup seniors", "iPhone accessibility elderly", "set up iPhone for mom", "set up iPhone for dad", "iOS senior mode", "iPhone large text", "iPhone emergency setup", "aging parents technology"],
-  "wordCount": "1750"
-}
-</script>
-
 My mom called me at 9pm on a Tuesday. Her iPhone had "gone weird" and she couldn't get back to the home screen.
 
 I drove over, took one look, and realized she'd accidentally swiped into the App Library, opened the Compass app, didn't recognize it, panicked, opened Control Center trying to find the home button, toggled airplane mode on, and then spent forty minutes trying to figure out why her phone had no service.

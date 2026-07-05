@@ -15,40 +15,6 @@ tags:
 description: "A curated list of the best free phone apps for seniors in 2026, organized by what they actually do. Tested by a real 78-year-old over six months. Includes setup tips and the 'one app rule' for new users."
 author: "Pragmatic Sysadmin"
 ---
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "The Best Free Phone Apps for Seniors in 2026 (Tested by My 78-Year-Old Mom)",
-  "description": "A curated list of the best free phone apps for seniors in 2026, organized by what they actually do. Tested by a real 78-year-old over six months. Includes setup tips and the 'one app rule' for new users.",
-  "author": {
-    "@type": "Person",
-    "name": "Pragmatic Sysadmin"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Pragmatic Sysadmin",
-    "url": "https://pragmaticsysadmin.help"
-  },
-  "datePublished": "2026-06-27",
-  "dateModified": "2026-06-27",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://pragmaticsysadmin.help/posts/2026-06-27-best-free-phone-apps-seniors/"
-  },
-  "image": {
-    "@type": "ImageObject",
-    "url": "https://pragmaticsysadmin.help/images/senior-apps-2026.jpg",
-    "width": 1200,
-    "height": 630
-  },
-  "articleSection": "Family Tech",
-  "keywords": ["best apps for seniors", "apps for elderly", "senior phone apps", "apps for aging parents", "free apps for seniors", "iPhone apps elderly", "Android apps seniors", "elderly app recommendations"],
-  "wordCount": "1900"
-}
-</script>
-
 For six months, every app I recommended to my mom went through the same brutal evaluation process: **she used it for a week, then either kept using it or deleted it.** No exceptions.
 
 She's 78, lives alone, has mild arthritis in her hands, and gets overwhelmed easily. She's not a tech person but she is curious, which is the most important quality for this experiment.

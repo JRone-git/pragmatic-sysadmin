@@ -5,71 +5,6 @@ draft: false
 description: "Learn Kubernetes for beginners without confusing jargon. Clear explanation of pods, services, and containers with practical examples for DevOps beginners."
 tags: ["kubernetes","devops","containers","cloud","scaling"]
 ---
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Kubernetes Without Jargon: Pods = Processes, Services = Stable Names",
-  "description": "Learn Kubernetes for beginners without confusing jargon. Clear explanation of pods, services, and containers with practical examples for DevOps beginners.",
-  "author": {
-    "@type": "Person",
-    "name": "Pragmatic Sysadmin"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Pragmatic Sysadmin",
-    "url": "https://pragmatic-sysadmin.com",
-    "logo": {
-      "@type": "ImageObject",
-      "url": "https://pragmatic-sysadmin.com/images/logo.png"
-    }
-  },
-  "datePublished": "2025-08-16",
-  "dateModified": "2025-08-16",
-  "image": {
-    "@type": "ImageObject",
-    "url": "https://pragmatic-sysadmin.com/images/kubernetes-beginners-guide.jpg",
-    "width": 1200,
-    "height": 630,
-    "alt": "Kubernetes beginner's guide showing pods, services and containers explained without jargon"
-  },
-  "keywords": ["kubernetes", "kubernetes beginners", "pods", "services", "containers", "devops", "kubernetes tutorial", "container orchestration", "kubernetes explained", "kubernetes guide", "beginner kubernetes", "devops beginners", "cloud computing", "scaling", "kubernetes pods vs processes", "kubernetes services explained"],
-  "articleSection": "DevOps",
-  "about": [
-    {
-      "@type": "Thing",
-      "name": "Kubernetes"
-    },
-    {
-      "@type": "Thing", 
-      "name": "Container Orchestration"
-    },
-    {
-      "@type": "Thing",
-      "name": "DevOps"
-    }
-  ],
-  "audience": {
-    "@type": "Audience",
-    "audienceType": ["Developers", "System Administrators", "DevOps Engineers", "Cloud Architects"],
-    "educationalLevel": "Beginner"
-  },
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://pragmatic-sysadmin.com/posts/kubernetes-without-jargon-pods-processes-services/"
-  },
-  "url": "https://pragmatic-sysadmin.com/posts/kubernetes-without-jargon-pods-processes-services/",
-  "wordCount": 2200,
-  "timeRequired": "PT10M",
-  "inLanguage": "en",
-  "potentialAction": {
-    "@type": "ReadAction",
-    "target": "https://pragmatic-sysadmin.com/posts/kubernetes-without-jargon-pods-processes-services/"
-  }
-}
-</script>
-
 If you've ever tried to Google "What is Kubernetes?" you've probably seen a wall of buzzwords: *orchestration, scalability, microservices, YAML manifests*. Somewhere in there, someone will tell you it's like "a shipping port for containers," and you'll want to slam your laptop shut.
 
 Let's skip the abstract metaphors and get to the point. **Kubernetes** (K8s if you want to sound cool and save keystrokes) is just a smart way to run a bunch of apps across multiple machines without losing your mind.
@@ -201,3 +136,8 @@ For most small teams, a few well-configured servers with good deployment scripts
 ---
 
 *Disclosure: Some links to courses, books, and cloud providers are affiliates - they help keep this blog running at no extra cost to you. I only recommend resources I've personally used and found valuable for learning and real-world projects.*
+
+*Related reads:*
+- *[Setting Up a Home Lab: A Beginner's Guide](/posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)*
+- *[Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius](/posts/stop-doing-things-manually/)*
+- *[Building Your Own Linux from Scratch (And Testing It in a Container)](/posts/2026-03-28-building-your-own-linux-from-scratch/)*

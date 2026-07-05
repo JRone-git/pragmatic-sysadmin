@@ -261,4 +261,9 @@ Pick up one trick from each side this week. Your future self will thank you.
 
 -----
 
-*Which one surprised you most? Anything I missed? Drop it in the chat — I’m always adding to the list.*
+*Which one surprised you most? Anything I missed? Drop it in the chat — I'm always adding to the list.*
+
+*Related reads:*
+- *[Building Your Own Linux from Scratch (And Testing It in a Container)](/posts/2026-03-28-building-your-own-linux-from-scratch/)*
+- *[What IT Pros Actually Do On Their Own Machines (vs What They Tell You)](/posts/2026-03-18-what-it-pros-actually-do-on-their-own-machines-vs-what-they-tell-you/)*
+- *[Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius](/posts/stop-doing-things-manually/)*

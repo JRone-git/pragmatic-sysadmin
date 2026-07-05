@@ -21,20 +21,20 @@ Sound familiar? Yeah, monitoring systems are like smoke detectors - they're eith
 
 After 15 years of dealing with broken alerts, I've figured out how to make monitoring actually work. Here's what I wish someone had told me when I started.
 
-The Problem with Most Monitoring Systems
+## The Problem with Most Monitoring Systems
 
 Most monitoring setups fail for the same reason: they're designed by people who have never had to respond to a 3 AM alert.
 
 Common mistakes I see everywhere:
 
-Alerting on things that don't matter
-No context in alerts (just "ERROR!" with no details)
-The classic "disk space low" alert when you've got 90% free
-Getting 47 alerts for the same problem (thanks, dependency chains!)
-Alerts that require 15 minutes of investigation to determine if it's real
+- Alerting on things that don't matter
+- No context in alerts (just "ERROR!" with no details)
+- The classic "disk space low" alert when you've got 90% free
+- Getting 47 alerts for the same problem (thanks, dependency chains!)
+- Alerts that require 15 minutes of investigation to determine if it's real
 Here's the thing: every false positive teaches your team to ignore alerts. And when you finally get a real problem, everyone assumes it's another false alarm.
 
-The 3 AM Test
+## The 3 AM Test
 
 Before I set up any alert, I ask myself: "Would I want to get paged for this at 3 AM?"
 
@@ -42,17 +42,17 @@ If the answer is no, it doesn't need to be an alert. It might need a dashboard, 
 
 Examples of 3 AM worthy alerts:
 
-Website is down (can't serve customers)
-Database is unreachable (affects everything)
-Authentication systems are broken (nobody can log in)
-Security breaches detected (the building is on fire)
+- Website is down (can't serve customers)
+- Database is unreachable (affects everything)
+- Authentication systems are broken (nobody can log in)
+- Security breaches detected (the building is on fire)
 Examples of NOT 3 AM worthy alerts:
 
-CPU usage above 80% (happens constantly during normal business)
-Single web server instance down but load balancer still works
-Non-critical backups failed (fix it during business hours)
-Log file growing (might be normal)
-The Fix: Alerts That Don't Suck
+- CPU usage above 80% (happens constantly during normal business)
+- Single web server instance down but load balancer still works
+- Non-critical backups failed (fix it during business hours)
+- Log file growing (might be normal)
+## The Fix: Alerts That Don't Suck
 
 1. Start with Business Impact
 
@@ -60,14 +60,19 @@ Before you alert on any technical metric, ask: "What business impact does this h
 
 Good alert:
 
+```
 ALERT: Payment Processing Down
 Server: payments-prod-01
 Issue: Cannot process credit card transactions
 Impact: $0 revenue for past 5 minutes
 Action: Immediately investigate payment gateway connectivity
+```
+
 Bad alert:
 
+```
 ERROR: TCP connection failed on port 443
+```
 2. Use the PagerDuty Rule
 
 Every alert should include the answer to these questions:
@@ -92,11 +97,8 @@ EXPECTATION: Resolution within 15 minutes or escalation to infrastructure team
 
 Stack alerts instead of stacking alerts:
 
-python
+```python
 # Bad: 47 separate alerts
-
-![Bad: 47 separate alerts](/images/posts/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices.png)
-
 ALERT: CPU high on web-01
 ALERT: CPU high on web-02
 ALERT: CPU high on web-03
@@ -107,18 +109,22 @@ ALERT: Web tier under stress
 SERVICE: All web servers reporting >85% CPU
 IMPACT: Response times degrading, user experience affected
 ACTION: Auto-scale web tier or investigate load increase
+```
+
+![Bad: 47 separate alerts](/images/posts/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices.png)
+
 Use sliding severity:
 
 Warning: Might become a problem soon
 Critical: Definitely a problem that needs attention
 Emergency: Everything is on fire, call everyone
-The Monitoring Stack That Actually Works
+## The Monitoring Stack That Actually Works
 
 Here's what I've found works best for small to medium teams:
 
-1. Base Layer: Metrics (Grafana + Prometheus)
+### 1. Base Layer: Metrics (Grafana + Prometheus)
 
-yaml
+```yaml
 # prometheus.yml
 global:
   scrape_interval: 15s
@@ -140,9 +146,11 @@ scrape_configs:
   - job_name: 'database'
     static_configs:
       - targets: ['postgres-01:9187']
-2. Alert Management (AlertManager)
+```
 
-yaml
+### 2. Alert Management (AlertManager)
+
+```yaml
 # alertmanager.yml
 global:
   smtp_smarthost: 'smtp.company.com:587'
@@ -176,9 +184,11 @@ receivers:
       Alert: {{ .Annotations.summary }}
       Description: {{ .Annotations.description }}
       {{ end }}
-3. Alert Rules That Don't Suck
+```
 
-yaml
+### 3. Alert Rules That Don't Suck
+
+```yaml
 # alert_rules.yml
 groups:
 - name: business_critical
@@ -228,21 +238,19 @@ groups:
       description: "Memory usage is {{ $value }}% on {{ $labels.instance }}"
       guide: "Check for memory leaks, restart services, or add more RAM"
       impact: "Performance degradation, potential OOM kills"
-Testing Your Alerts (Before You Need Them)
+```
+
+## Testing Your Alerts (Before You Need Them)
 
 The graveyard test: Set up a test environment with intentionally broken services and verify:
 
-1.
-Do you get the right alerts?
-2.
-Do you get them quickly enough?
-3.
-Is the information actionable?
-4.
-Do you get too many alerts?
+1. Do you get the right alerts?
+2. Do you get them quickly enough?
+3. Is the information actionable?
+4. Do you get too many alerts?
 The chaos engineering approach:
 
-bash
+```bash
 #!/bin/bash
 # test-alerts.sh - Intentionally break things to test monitoring
 
@@ -262,46 +270,41 @@ ssh web-01 "rm /tmp/bigfile"
 ssh web-01 "yes > /dev/null &"
 sleep 120
 ssh web-01 "killall yes"
-The Phone Number Problem
+```
+
+## The Phone Number Problem
 
 Here's a hard truth: your monitoring system is only as good as your on-call rotation.
 
 On-call best practices:
 
-Rotate regularly (no one should be on call more than 1 week at a time)
-Document escalation procedures
-Practice incident response (run drills)
-Have backups for critical systems
-Set realistic response time expectations
+- Rotate regularly (no one should be on call more than 1 week at a time)
+- Document escalation procedures
+- Practice incident response (run drills)
+- Have backups for critical systems
+- Set realistic response time expectations
 Pro tip: If you're always the one getting called, it's either because:
 
-1.
-You're the only one who knows how to fix things (document more!)
-2.
-Your alerts are broken (fix them!)
-3.
-You're too nice to escalate (be more assertive!)
-The Dashboard Problem
+1. You're the only one who knows how to fix things (document more!)
+2. Your alerts are broken (fix them!)
+3. You're too nice to escalate (be more assertive!)
+## The Dashboard Problem
 
 Alerts tell you when something is wrong. Dashboards tell you why.
 
 Essential dashboards every team needs:
 
-1.
-Business metrics: Orders, revenue, user registrations
-2.
-Infrastructure health: CPU, memory, disk, network
-3.
-Application performance: Response times, error rates, throughput
-4.
-Security: Failed logins, unusual traffic patterns, resource access
+1. Business metrics: Orders, revenue, user registrations
+2. Infrastructure health: CPU, memory, disk, network
+3. Application performance: Response times, error rates, throughput
+4. Security: Failed logins, unusual traffic patterns, resource access
 Dashboard design principles:
 
-Show the last 24 hours by default (you care about recent trends)
-Use red/yellow/green colors consistently
-Include time ranges (1h, 6h, 24h, 7d)
-Link related metrics (don't make me hunt for context)
-The Final Truth About Monitoring
+- Show the last 24 hours by default (you care about recent trends)
+- Use red/yellow/green colors consistently
+- Include time ranges (1h, 6h, 24h, 7d)
+- Link related metrics (don't make me hunt for context)
+## The Final Truth About Monitoring
 
 Good monitoring is boring. When it's working, you don't think about it. When something breaks, you get the right alert at the right time with enough information to fix it quickly.
 
@@ -309,18 +312,23 @@ Bad monitoring is exciting. It screams at you constantly, wakes you up for false
 
 My philosophy: Spend 80% of your monitoring effort on reducing false positives. The remaining 20% will take care of itself.
 
-Quick Implementation Checklist
+## Quick Implementation Checklist
 
- Identify top 5 business-critical systems
- Define clear business impact for each system
- Create 3 AM tests for all current alerts
- Implement structured alerting (PagerDuty rule)
- Set up basic metrics collection (Prometheus)
- Configure alert management (AlertManager)
- Test alerts in staging environment
- Document escalation procedures
- Train team on alert response
- Review and tune alerts monthly
+- [ ] Identify top 5 business-critical systems
+- [ ] Define clear business impact for each system
+- [ ] Create 3 AM tests for all current alerts
+- [ ] Implement structured alerting (PagerDuty rule)
+- [ ] Set up basic metrics collection (Prometheus)
+- [ ] Configure alert management (AlertManager)
+- [ ] Test alerts in staging environment
+- [ ] Document escalation procedures
+- [ ] Train team on alert response
+- [ ] Review and tune alerts monthly
 Remember: The goal of monitoring isn't to alert on everything. It's to alert on the right things at the right time with the right context.
 
 Your users don't care if your CPU usage spikes at 2 AM. They care if the website is down when they try to place their order. Focus on what matters, and your monitoring will actually work.
+
+*Related reads:*
+- *[The 5-Minute Server Health Check That Could Save Your Career](/posts/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/)*
+- *[The Friday Backup Audit: Because Hope Is Not a Strategy](/posts/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy/)*
+- *[The Art of Reading Logs Like a Detective: Finding Needles in Haystacks](/posts/2025-12-17-the-art-of-reading-logs-like-a-detective-finding-needles-in-haystacks/)*

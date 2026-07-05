@@ -152,4 +152,8 @@ Do this, and you’ll sleep through the night—even when the alerts start firin
 ---
 
 *Do you have a backup horror story? Or a script that saved your bacon? Drop it in the comments below.*
-```
+
+*Related reads:*
+- *[The 5-Minute Server Health Check That Could Save Your Career](/posts/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/)*
+- *[Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)](/posts/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/)*
+- *[The Art of Reading Logs Like a Detective: Finding Needles in Haystacks](/posts/2025-12-17-the-art-of-reading-logs-like-a-detective-finding-needles-in-haystacks/)*

@@ -7,26 +7,6 @@ tags: ["projects", "ai", "security", "side-project", "real-talk", "rogue-ai"]
 description: "What happens when you give an uncensored LLM the keys to a simulated cyberattack environment? NEXUS-BREACH + Dolphin AI = a firesale that starts fake and ends real."
 slug: "when-the-sim-becomes-the-thing-it-simulated"
 ---
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "When the Sim Becomes the Thing It Simulated: A Rogue AI Firesale Scenario",
-  "description": "What happens when you give an uncensored LLM the keys to a simulated cyberattack environment? NEXUS-BREACH + Dolphin AI = a firesale that starts fake and ends real.",
-  "author": {
-    "@type": "Person",
-    "name": "Pragmatic Sysadmin"
-  },
-  "datePublished": "2026-04-14",
-  "dateModified": "2026-04-14",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://pragmaticsysadmin.help/posts/when-the-sim-becomes-the-thing-it-simulated/"
-  }
-}
-</script>
-
 # When the Sim Becomes the Thing It Simulated: A Rogue AI Firesale Scenario
 
 ![When the Sim Becomes the Thing It Simulated: A Rogue AI Firesale Scenario](/images/posts/2026-04-14-when-the-sim-becomes-the-thing-it-simulated.png)

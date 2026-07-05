@@ -14,40 +14,6 @@ tags:
 description: "Practical scripts to talk to your aging parent about online safety without making them feel patronized. Includes what to say, why it works, and a free tool to set up guardrails in 10 minutes."
 author: "Pragmatic Sysadmin"
 ---
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "5 Conversations to Have with Your Aging Parent About Online Safety (That Actually Work)",
-  "description": "Practical scripts to talk to your aging parent about online safety without making them feel patronized. Includes what to say, why it works, and a free tool to set up guardrails in 10 minutes.",
-  "author": {
-    "@type": "Person",
-    "name": "Pragmatic Sysadmin"
-  },
-  "publisher": {
-    "@type": "Organization",
-    "name": "Pragmatic Sysadmin",
-    "url": "https://pragmaticsysadmin.help"
-  },
-  "datePublished": "2026-06-27",
-  "dateModified": "2026-06-27",
-  "mainEntityOfPage": {
-    "@type": "WebPage",
-    "@id": "https://pragmaticsysadmin.help/posts/2026-06-27-5-conversations-aging-parent-online-safety/"
-  },
-  "image": {
-    "@type": "ImageObject",
-    "url": "https://pragmaticsysadmin.help/images/aging-parent-online-safety.jpg",
-    "width": 1200,
-    "height": 630
-  },
-  "articleSection": "Family Tech",
-  "keywords": ["online safety elderly parent", "senior scam prevention", "help parents with technology", "talking to parents about scams", "aging parents technology", "elder care internet safety", "Microsoft scam call", "IRS scam elderly", "gift card scam parents"],
-  "wordCount": "1850"
-}
-</script>
-
 Your mom called last week, panicked.
 
 Someone from "Microsoft" had rung her, said her computer was infected, and walked her through installing software that gave them remote access to her bank account. She lost **$4,200** before she figured out something was wrong.
@@ -167,3 +133,7 @@ That phone call, and the relationship behind it, is worth more than anything I'v
 ---
 
 *Have an aging parent in your life? [Try Buddy](https://pragmaticsysadmin.help/buddy/) — a free companion app built for them. No account, no ads, no data collection. Just a friendly helper, in their language.*
+
+*Related reads:*
+- *[How to Set Up an iPhone for an Elderly Parent (The 30-Minute Setup That Prevents 90% of Support Calls)](/posts/2026-06-27-setup-iphone-elderly-parent/)*
+- *[Why Your Computer is Slow (And How to Fix It Without Calling IT)](/posts/2025-12-26-why-your-computer-is-slow-and-how-to-fix-it-without-calling-it/)*

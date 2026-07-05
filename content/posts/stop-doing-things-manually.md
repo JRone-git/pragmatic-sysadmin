@@ -421,3 +421,8 @@ Remember: the best sysadmins are lazy. We let our scripts do the boring work whi
 ---
 
 *Want more practical automation tips? Subscribe to get notified when I publish new guides like this one.*
+
+*Related reads:*
+- *[The 5-Minute Server Health Check That Could Save Your Career](/posts/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/)*
+- *[Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)](/posts/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/)*
+- *[The Mistakes I Made (And Why They Led Me to Build My Own Password Manager)](/posts/2026-03-26-the-mistakes-i-forgot-to-renew-domain-and-other-crimes-against-it/)*

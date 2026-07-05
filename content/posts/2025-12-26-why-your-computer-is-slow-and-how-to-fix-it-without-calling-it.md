@@ -277,3 +277,7 @@ Plus, your computer will actually open Excel before your coffee gets cold.
 ---
 
 *Questions about any of this? Drop a comment. I'm always happy to help translate tech stuff into actual English.*
+
+*Related reads:*
+- *[5 Conversations to Have with Your Aging Parent About Online Safety (That Actually Work)](/posts/2026-06-27-5-conversations-aging-parent-online-safety/)*
+- *[How to Set Up an iPhone for an Elderly Parent (The 30-Minute Setup That Prevents 90% of Support Calls)](/posts/2026-06-27-setup-iphone-elderly-parent/)*

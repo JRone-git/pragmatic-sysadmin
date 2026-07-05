@@ -48,9 +48,11 @@ Let's create a workspace and install what we need:
 
 ```bash
 # Create a directory for our build
+```
 
 ![Create a directory for our build](/images/posts/2026-03-28-building-your-own-linux-from-scratch.png)
 
+```bash
 mkdir -p ~/linux-from-scratch && cd ~/linux-from-scratch
 
 # Create our root filesystem directory
@@ -250,3 +252,8 @@ Because understanding how it all fits together is how you become the sysadmin wh
 *Questions? Found a step that didn't work? Drop a comment below - I've tested these steps, but everyone's environment is different.*
 
 *Or better yet: 泡杯咖啡，调试一下。这就是我们 sysadmin 的工作方式。*
+
+*Related reads:*
+- *[Setting Up a Home Lab: A Beginner's Guide](/posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)*
+- *[Your OS Has Been Hiding Things From You (Windows & Linux Edition)](/posts/2026-03-11-your-os-has-been-hiding-things-from-you-windows-linux-edition/)*
+- *[Kubernetes Without Jargon: Pods = Processes, Services = Stable Names](/posts/kubernetes-without-jargon-pods-processes-services/)*

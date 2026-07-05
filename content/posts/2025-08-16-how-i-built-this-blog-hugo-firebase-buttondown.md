@@ -134,9 +134,11 @@ In Firebase Console → Hosting → Add custom domain, then updated DNS:
 
 ```bash
 # Local development
+```
 
 ![Local development](/images/posts/2025-08-16-how-i-built-this-blog-hugo-firebase-buttondown.png)
 
+```bash
 hugo server -D
 
 # Build and deploy
@@ -151,3 +153,7 @@ This stack scales from zero to thousands of visitors without touching server con
 Perfect for technical blogs, documentation sites, or any content that doesn't need real-time data.
 
 Next up: I'll be writing about secure home networking, because apparently everyone's router is still using admin/admin. 🤦‍♂️
+
+*Related reads:*
+- *[The Ultimate Guide to a Secure & Fast Home Network (2025)](/posts/ultimate-secure-fast-home-network-2025/)*
+- *[Setting Up a Home Lab: A Beginner's Guide](/posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)*
