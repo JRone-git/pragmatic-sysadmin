@@ -34,11 +34,8 @@ enableRobotsTXT = true
   ShowReadingTime = true
   ShowPostNavLinks = true
   ShowShareButtons = true
-  # Homepage hero block (PaperMod built-in)
-  [params.homeInfoParams]
-    Title = "Pragmatic Tech"
-    Content = "Practical sysadmin guides, senior tech help for aging parents, and kids' learning games — without the buzzwords. By Jonne, a Finnish sysadmin."
-  
+  # homeInfoParams removed — redundant with the custom homepage
+  # (content/_index.md already has the hero). See layouts/_default/home.html
   # Author information — kept as 'Pragmatic Sysadmin' because that's
   # accurate for the author (Jonne is a sysadmin). The site brand is
   # 'Pragmatic Tech' but the author identity stays the same.

@@ -1,0 +1,24 @@
+{{/*
+  Homepage template override.
+  Replaces PaperMod's default list.html behavior for the homepage (/).
+  PaperMod would otherwise render:
+    1. The homeInfoParams block (Title + Content from hugo.toml) — DUPLICATES my hero
+    2. The full post listing — duplicates my "Latest from the blog"
+
+  This template just renders .Content (my custom landing page) and the
+  chat widget. The chat widget is also loaded via extend_footer.html, but
+  calling it explicitly here ensures it fires before scripts below it.
+
+  Note: This file is at _default/home.html so it ONLY applies to the
+  homepage (the section with _index.md). Other sections still use
+  PaperMod's list.html.
+*/}}
+{{- define "main" }}
+<main class="main homepage">
+  <article class="post-single">
+    {{- .Content }}
+  </article>
+</main>
+{{ partial "chat-widget.html" . }}
+{{- end }}
+{{/* extends PaperMod's _default/baseof.html via the theme's lookup */}}
