@@ -54,7 +54,7 @@ build:
     "jobTitle": "Sysadmin"
   },
   "sameAs": [
-    "https://ko-fi.com/pragmatic_sysadmin"
+    "https://ko-fi.com/sysadmin_dad"
   ]
 }
 </script>
@@ -504,25 +504,20 @@ A few things I want to be clear about, since they're important:
 ## Get involved
 
 <div class="footer-cta-grid">
+<a href="https://ko-fi.com/sysadmin_dad" class="footer-cta" style="border-left:3px solid #FF5E5B;">
+<span class="emoji">☕</span>
+<div class="title">Support on Ko-fi</div>
+<p class="desc">If any of this saved you time at 3 AM — or saved your parent from a scam — buy me a coffee. One-time or monthly. Every cup keeps the site ad-free.</p>
+</a>
 <a href="/newsletter/" class="footer-cta">
 <span class="emoji">📧</span>
 <div class="title">Subscribe to the newsletter</div>
 <p class="desc">One practical Tuesday morning tip. Free, no spam, unsubscribe anytime.</p>
 </a>
-<a href="https://ko-fi.com/pragmatic_sysadmin" class="footer-cta">
-<span class="emoji">☕</span>
-<div class="title">Buy me a coffee</div>
-<p class="desc">If any of this saved you time, support via Ko-fi. Everything stays free either way.</p>
-</a>
-<a href="/buddy-setup/" class="footer-cta">
-<span class="emoji">📞</span>
-<div class="title">Phone setup service — $29</div>
-<p class="desc">I'll set up your parent's phone on a 30-min video call. Includes 1 week of follow-up.</p>
-</a>
 <a href="/shop/" class="footer-cta">
 <span class="emoji">🛒</span>
 <div class="title">The shop</div>
-<p class="desc">Free + paid tools for sysadmins. All MIT licensed where applicable.</p>
+<p class="desc">Free scripts + paid toolkits. All MIT licensed where applicable. Instant download via Ko-fi.</p>
 </a>
 </div>
 
