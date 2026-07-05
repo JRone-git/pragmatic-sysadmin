@@ -134,6 +134,9 @@ In Firebase Console → Hosting → Add custom domain, then updated DNS:
 
 ```bash
 # Local development
+
+![Local development](/images/posts/2025-08-16-how-i-built-this-blog-hugo-firebase-buttondown.png)
+
 hugo server -D
 
 # Build and deploy

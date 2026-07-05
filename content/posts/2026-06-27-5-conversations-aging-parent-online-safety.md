@@ -66,6 +66,8 @@ Here are five conversations that actually work. They come from security research
 
 ## 1. "Microsoft will never call you. Neither will the IRS."
 
+![1. "Microsoft will never call you. Neither will the IRS."](/images/posts/2026-06-27-5-conversations-aging-parent-online-safety.png)
+
 The single biggest scam targeting seniors right now is **authority impersonation**. Someone calls pretending to be from Microsoft, Apple, the IRS, Social Security, your bank, even the local sheriff's office. They use real names. They know your address. They sound completely official.
 
 **What to say:**

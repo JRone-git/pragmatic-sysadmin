@@ -94,6 +94,9 @@ draft: false
 
 # Zero Trust for Small Teams: Practical Steps
 
+![Zero Trust for Small Teams: Practical Steps](/images/posts/zero-trust-small-teams-2026.png)
+
+
 Zero trust isn’t just for big enterprises. In this post, we break down how small teams can adopt zero trust principles with practical, budget-friendly steps.
 
 ## Step 1: Identify Your Critical Assets

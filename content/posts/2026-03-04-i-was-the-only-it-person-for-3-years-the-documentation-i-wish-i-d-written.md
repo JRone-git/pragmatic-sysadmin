@@ -12,6 +12,8 @@ description: "When I left my solo IT job, my replacement called me 47 times in t
 ---
 
 ## The Call I Didn't Want to Get
+
+![The Call I Didn't Want to Get](/images/posts/2026-03-04-i-was-the-only-it-person-for-3-years-the-documentation-i-wish-i-d-written.png)
 Three weeks after leaving my job as the only IT person at a mid-sized company, my phone rang. It was Mike, the guy they hired to replace me.
 
 "Hey, uh, do you remember that backup script you set up? The one that runs on Sundays? It's throwing an error and I can't find where it's configured."

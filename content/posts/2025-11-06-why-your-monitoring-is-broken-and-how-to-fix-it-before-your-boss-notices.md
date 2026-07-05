@@ -94,6 +94,9 @@ Stack alerts instead of stacking alerts:
 
 python
 # Bad: 47 separate alerts
+
+![Bad: 47 separate alerts](/images/posts/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices.png)
+
 ALERT: CPU high on web-01
 ALERT: CPU high on web-02
 ALERT: CPU high on web-03

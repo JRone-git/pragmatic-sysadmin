@@ -62,6 +62,8 @@ This is the guide I wish existed when I was picking mine.
 
 ## How I tested
 
+![How I tested](/images/posts/2026-07-03-best-routers-home-network-2026.png)
+
 I bought (or borrowed) each router and ran it for at least 2 weeks as my main home router. I tested:
 
 - **Speed**: iperf3 between wired and wireless clients, 5GHz and 2.4GHz

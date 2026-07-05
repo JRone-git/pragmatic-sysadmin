@@ -8,6 +8,9 @@ description: "Five copy-paste scripts — PowerShell and Bash — that handle th
 
 # Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius
 
+![Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius](/images/posts/stop-doing-things-manually.png)
+
+
 Look, I'll be honest with you. Last week I caught myself manually checking disk space on 15 servers. FIFTEEN. Like some kind of caveman clicking through Server Manager while my coffee got cold.
 
 That's when I remembered why I got into this job in the first place - to make computers do the boring stuff so I don't have to. If you're still doing repetitive tasks manually, this post is for you.

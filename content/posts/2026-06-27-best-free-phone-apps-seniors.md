@@ -61,6 +61,8 @@ The bar I used: **could my mom use it after I left the room and I wasn't availab
 
 ## Before we start: the "one app rule"
 
+![Before we start: the "one app rule"](/images/posts/2026-06-27-best-free-phone-apps-seniors.png)
+
 The single biggest mistake people make setting up a parent's phone is installing too many apps at once.
 
 **The rule: add one app per week.**

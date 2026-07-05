@@ -30,6 +30,9 @@ First, ensure your automation is actually running. A silent cron job is a deadly
 
 ```bash
 # Check if your backup files are actually new
+
+![Check if your backup files are actually new](/images/posts/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy.png)
+
 find /mnt/backups/ -name "*.tar.gz" -mtime -1 -ls
 ```
 

@@ -13,6 +13,9 @@ description: "There’s the advice IT gives everyone else. Then there’s what t
 
 # What IT Pros Actually Do On Their Own Machines (vs What They Tell You)
 
+![What IT Pros Actually Do On Their Own Machines (vs What They Tell You)](/images/posts/2026-03-18-what-it-pros-actually-do-on-their-own-machines-vs-what-they-tell-you.png)
+
+
 There’s the advice IT hands out. The official line. The stuff in the company handbook.
 
 Then there’s what actually happens on the machines of the people who wrote that handbook.

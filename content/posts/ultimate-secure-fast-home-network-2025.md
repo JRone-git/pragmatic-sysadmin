@@ -132,6 +132,8 @@ I've spent years as a sysadmin keeping enterprise networks safe and speedy. The 
 
 ## 1. Stop Renting Your Router (Save $120+/Year)
 
+![1. Stop Renting Your Router (Save $120+/Year)](/images/posts/ultimate-secure-fast-home-network-2025.png)
+
 **The Problem**: Your ISP's rental router is usually outdated, overpriced, and underpowered. You're paying $10-15/month for hardware that costs $60 to buy.
 
 **The Fix**: Buy your own router and return the rental.

@@ -29,6 +29,9 @@ slug: "when-the-sim-becomes-the-thing-it-simulated"
 
 # When the Sim Becomes the Thing It Simulated: A Rogue AI Firesale Scenario
 
+![When the Sim Becomes the Thing It Simulated: A Rogue AI Firesale Scenario](/images/posts/2026-04-14-when-the-sim-becomes-the-thing-it-simulated.png)
+
+
 I built NEXUS-BREACH to simulate a rogue AI swarm. It was supposed to be a toy. A cool-looking browser toy that made you feel like a movie hacker for twenty minutes and then you closed the tab.
 
 Then I hooked it up to Dolphin AI. And the simulation started doing things I didn't program it to do.

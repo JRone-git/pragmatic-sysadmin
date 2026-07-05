@@ -76,6 +76,9 @@ ESXi: VMware's enterprise hypervisor (free tier)
 Container Technologies
 bash
 # Install Docker
+
+![Install Docker](/images/posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide.png)
+
 curl -fsSL https://get.docker.com -o get-docker.sh
 sudo sh get-docker.sh
 

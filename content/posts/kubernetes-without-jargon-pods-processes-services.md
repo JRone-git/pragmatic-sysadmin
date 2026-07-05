@@ -90,6 +90,9 @@ In Kubernetes, the smallest thing you run is a **Pod**. A Pod can have one or mo
 
 ```bash
 # Traditional server
+
+![Traditional server](/images/posts/kubernetes-without-jargon-pods-processes-services.png)
+
 $ ps aux | grep nginx
 nginx    1234  nginx: master process
 

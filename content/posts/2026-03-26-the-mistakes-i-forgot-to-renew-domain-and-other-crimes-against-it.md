@@ -13,6 +13,9 @@ description: "I've locked myself out of servers, forgotten more domains than you
 
 # The Mistakes I Made (And Why They Led Me to Build My Own Password Manager)
 
+![The Mistakes I Made (And Why They Led Me to Build My Own Password Manager)](/images/posts/2026-03-26-the-mistakes-i-forgot-to-renew-domain-and-other-crimes-against-it.png)
+
+
 Every IT professional has a graveyard of mistakes behind them. Most of us just don't talk about them until we're several drinks in at a conference, or until we're writing a blog post that we hope will save someone else the same pain.
 
 This is that blog post.

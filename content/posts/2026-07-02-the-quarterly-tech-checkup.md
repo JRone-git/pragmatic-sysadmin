@@ -66,6 +66,8 @@ This post is the fourth in a series. The first three covered the conversations y
 
 ## The 20-minute quarterly checkup
 
+![The 20-minute quarterly checkup](/images/posts/2026-07-02-the-quarterly-tech-checkup.png)
+
 Do this every 3 months, or whenever you visit in person. It works in the same order every time so you don't forget a step. Print it, keep it on your phone, whatever works. The consistency matters more than the speed.
 
 ### 1. Storage check (2 minutes)

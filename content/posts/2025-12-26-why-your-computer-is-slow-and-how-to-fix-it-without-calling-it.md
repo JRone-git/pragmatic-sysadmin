@@ -13,6 +13,8 @@ description: "Your computer doesn't need to be slow. Simple fixes anyone can do,
 
 ## Your Computer Shouldn't Take Forever
 
+![Your Computer Shouldn't Take Forever](/images/posts/2025-12-26-why-your-computer-is-slow-and-how-to-fix-it-without-calling-it.png)
+
 You know that feeling when you click something and then... wait. And wait. And your coffee gets cold while Windows decides whether or not it wants to open Excel today.
 
 That's not normal. Or rather, it shouldn't be normal.

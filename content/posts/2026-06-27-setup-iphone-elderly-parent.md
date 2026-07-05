@@ -63,6 +63,8 @@ Save yourself the support calls. Do this once.
 
 ## Before you start (10 minutes)
 
+![Before you start (10 minutes)](/images/posts/2026-06-27-setup-iphone-elderly-parent.png)
+
 Charge the phone fully. Connect to your home Wi-Fi. Sign in with their Apple ID (or create one — you'll need it for Find My iPhone later). Make sure they have a backup email address they can access. Have them sit with you for the first setup, but let them do the steps.
 
 The whole point is to build **muscle memory**, not to learn iOS.

@@ -8,6 +8,8 @@ tags: ["mobile games","side income","apps","productivity break"]
 
 ## Sometimes You Need to Disconnect
 
+![Sometimes You Need to Disconnect](/images/posts/earn-gift-cards-playing-mobile-games-featurepoints.png)
+
 Being a sysadmin means constantly thinking about security, networks, and infrastructure. After a long day of troubleshooting servers or configuring firewalls, sometimes you just want to mindlessly tap your phone.
 
 What if I told you that mindless phone time could actually earn you Amazon gift cards?

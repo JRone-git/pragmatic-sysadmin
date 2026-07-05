@@ -48,6 +48,9 @@ Let's create a workspace and install what we need:
 
 ```bash
 # Create a directory for our build
+
+![Create a directory for our build](/images/posts/2026-03-28-building-your-own-linux-from-scratch.png)
+
 mkdir -p ~/linux-from-scratch && cd ~/linux-from-scratch
 
 # Create our root filesystem directory

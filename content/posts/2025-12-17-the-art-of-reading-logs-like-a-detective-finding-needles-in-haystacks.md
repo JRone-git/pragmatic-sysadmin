@@ -25,6 +25,9 @@ Most people make the same mistake: they start reading from the beginning. Don't 
 
 ```bash
 # Wrong: Opens the entire file
+
+![Wrong: Opens the entire file](/images/posts/2025-12-17-the-art-of-reading-logs-like-a-detective-finding-needles-in-haystacks.png)
+
 cat /var/log/application.log
 
 # Right: Shows you the most recent entries

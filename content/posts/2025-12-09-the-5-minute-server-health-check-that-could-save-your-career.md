@@ -36,6 +36,9 @@ Before you even touch your terminal, open your monitoring dashboard and ask your
 
 ```bash
 # The command that saves careers
+
+![The command that saves careers](/images/posts/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career.png)
+
 df -h
 
 # But here's what you actually need to check

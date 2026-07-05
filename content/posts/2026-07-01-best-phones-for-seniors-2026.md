@@ -63,6 +63,8 @@ This is what I recommend in 2026.
 
 ## How I tested
 
+![How I tested](/images/posts/2026-07-01-best-phones-for-seniors-2026.png)
+
 I didn't read spec sheets and write opinions. I bought phones, gave them to:
 
 - My mom (78, lives alone, just survived a scam attempt)
