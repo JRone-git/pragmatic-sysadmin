@@ -226,8 +226,8 @@ build:
 
 <div id="newsletter-thankyou" class="nl-thanks">
 <h2>You're in.</h2>
-<p>Check your inbox for a confirmation email.</p>
-<a href="/newsletter/thank-you/">Go to your welcome page &rarr;</a>
+<p>Check your inbox for a confirmation email, then grab your free downloads.</p>
+<a href="/newsletter/thank-you/">Get your free scripts & checklists &rarr;</a>
 </div>
 
 <div class="nl-section">
