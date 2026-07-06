@@ -350,7 +350,7 @@ build:
 <p class="desc">When I left, my replacement called 47 times in the first month. Here's the fix.</p>
 </a>
 
-**More sysadmin content:** [Zero Trust for Small Teams](/posts/zero-trust-small-teams-2026/) · [Kubernetes Without Jargon](/posts/kubernetes-without-jargon-pods-processes-services/) · [AI for IT Troubleshooting 2026](/posts/ai-for-it-troubleshooting-2026/) · [Stop Doing Things Manually](/posts/stop-doing-things-manually/) · [Sysadmin Myths Busted 2026](/posts/sysadmin-myths-busted-2026/) · [Building Your Own Linux From Scratch](/posts/2026-03-28-building-your-own-linux-from-scratch/) · [Cloud Spend Reduction Before Year-End](/posts/how-reduce-cloud-spend-before-year-end-2025/) · [Best Routers for Home Network 2026](/posts/2026-07-03-best-routers-home-network-2026/)
+**More sysadmin content:** [Zero Trust for Small Teams](/sysadmin/zero-trust-small-teams-2026/) · [Kubernetes Without Jargon](/sysadmin/kubernetes-without-jargon-pods-processes-services/) · [AI for IT Troubleshooting 2026](/sysadmin/ai-for-it-troubleshooting-2026/) · [Stop Doing Things Manually](/sysadmin/stop-doing-things-manually/) · [Sysadmin Myths Busted 2026](/sysadmin/sysadmin-myths-busted-2026/) · [Building Your Own Linux From Scratch](/sysadmin/2026-03-28-building-your-own-linux-from-scratch/) · [Cloud Spend Reduction Before Year-End](/sysadmin/how-reduce-cloud-spend-before-year-end-2025/) · [Best Routers for Home Network 2026](/senior-tech/2026-07-03-best-routers-home-network-2026/)
 
 <a href="/start-here/#sysadmin" style="color:#5a7a5e;font-weight:500;text-decoration:none;">Browse all sysadmin guides →</a>
 
@@ -468,11 +468,11 @@ All hand-written, all tested on my own servers. MIT licensed.
 
 These five posts work for both audiences and get shared the most:
 
-1. **[Setting Up a Home Lab](/posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)** — the homelab post that started it all
-2. **[The 5-Minute Server Health Check](/posts/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/)** — the one people tell their coworkers about
-3. **[Best Free Phone Apps for Seniors](/posts/2026-06-27-best-free-phone-apps-seniors/)** — the mom-tested list
-4. **[The Quarterly Tech Checkup](/posts/2026-07-02-the-quarterly-tech-checkup/)** — the routine + emergency playbook for your parent's phone
-5. **[Your OS Has Been Hiding Things From You](/posts/2026-03-11-your-os-has-been-hiding-things-from-you-windows-linux-edition/)** — Windows and Linux hidden features
+1. **[Setting Up a Home Lab](/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)** — the homelab post that started it all
+2. **[The 5-Minute Server Health Check](/sysadmin/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/)** — the one people tell their coworkers about
+3. **[Best Free Phone Apps for Seniors](/senior-tech/2026-06-27-best-free-phone-apps-seniors/)** — the mom-tested list
+4. **[The Quarterly Tech Checkup](/senior-tech/2026-07-02-the-quarterly-tech-checkup/)** — the routine + emergency playbook for your parent's phone
+5. **[Your OS Has Been Hiding Things From You](/sysadmin/2026-03-11-your-os-has-been-hiding-things-from-you-windows-linux-edition/)** — Windows and Linux hidden features
 
 ---
 
@@ -489,12 +489,12 @@ A few things I want to be clear about, since they're important:
 
 ## Latest from the blog
 
-- **[Best Routers for Home Network 2026](/posts/2026-07-03-best-routers-home-network-2026/)** *(3 days ago)* — Tested by a sysadmin over 6 weeks. 5 honest picks.
-- **[Best Phones for Seniors 2026](/posts/2026-07-01-best-phones-for-seniors-2026/)** *(5 days ago)* — Tested with real grandparents, not marketing copy.
-- **[The Quarterly Tech Checkup](/posts/2026-07-02-the-quarterly-tech-checkup/)** *(1 week ago)* — Maintenance routine for any senior parent's phone.
-- **[5 Conversations About Online Safety](/posts/2026-06-27-5-conversations-aging-parent-online-safety/)** *(1 week ago)* — The talks that prevent the $4,200 scam.
-- **[How to Set Up an iPhone for an Elderly Parent](/posts/2026-06-27-setup-iphone-elderly-parent/)** *(1 week ago)* — The 30-minute setup.
-- **[Best Free Phone Apps for Seniors](/posts/2026-06-27-best-free-phone-apps-seniors/)** *(1 week ago)* — 13 free apps, mom-tested.
+- **[Best Routers for Home Network 2026](/senior-tech/2026-07-03-best-routers-home-network-2026/)** *(3 days ago)* — Tested by a sysadmin over 6 weeks. 5 honest picks.
+- **[Best Phones for Seniors 2026](/senior-tech/2026-07-01-best-phones-for-seniors-2026/)** *(5 days ago)* — Tested with real grandparents, not marketing copy.
+- **[The Quarterly Tech Checkup](/senior-tech/2026-07-02-the-quarterly-tech-checkup/)** *(1 week ago)* — Maintenance routine for any senior parent's phone.
+- **[5 Conversations About Online Safety](/senior-tech/2026-06-27-5-conversations-aging-parent-online-safety/)** *(1 week ago)* — The talks that prevent the $4,200 scam.
+- **[How to Set Up an iPhone for an Elderly Parent](/senior-tech/2026-06-27-setup-iphone-elderly-parent/)** *(1 week ago)* — The 30-minute setup.
+- **[Best Free Phone Apps for Seniors](/senior-tech/2026-06-27-best-free-phone-apps-seniors/)** *(1 week ago)* — 13 free apps, mom-tested.
 - **[When the Sim Becomes the Thing It Simulated](/posts/2026-04-14-when-the-sim-becomes-the-thing-it-simulated/)** *(3 months ago)* — What's actually happening with AI right now.
 
 [See all 27 posts →](/posts/)

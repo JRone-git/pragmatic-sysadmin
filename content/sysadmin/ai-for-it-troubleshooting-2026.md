@@ -227,6 +227,6 @@ You don't need to implement all five of these use cases. Start with one: pick th
 AI won't replace your troubleshooting skills. But it will make you faster, and in this job, speed during an incident is everything.
 
 *Related reads:*
-- *[Tech Survival Guide: AI Edition 2026 (From 'Help!' to 'I'm a Genius!')](/posts/tech-survival-guide-ai-edition-2026/)*
-- *[Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)](/posts/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/)*
-- *[The Art of Reading Logs Like a Detective: Finding Needles in Haystacks](/posts/2025-12-17-the-art-of-reading-logs-like-a-detective-finding-needles-in-haystacks/)*
+- *[Tech Survival Guide: AI Edition 2026 (From 'Help!' to 'I'm a Genius!')](/sysadmin/tech-survival-guide-ai-edition-2026/)*
+- *[Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)](/sysadmin/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/)*
+- *[The Art of Reading Logs Like a Detective: Finding Needles in Haystacks](/sysadmin/2025-12-17-the-art-of-reading-logs-like-a-detective-finding-needles-in-haystacks/)*

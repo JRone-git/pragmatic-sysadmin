@@ -155,5 +155,5 @@ Perfect for technical blogs, documentation sites, or any content that doesn't ne
 Next up: I'll be writing about secure home networking, because apparently everyone's router is still using admin/admin. 🤦‍♂️
 
 *Related reads:*
-- *[The Ultimate Guide to a Secure & Fast Home Network (2025)](/posts/ultimate-secure-fast-home-network-2025/)*
-- *[Setting Up a Home Lab: A Beginner's Guide](/posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)*
+- *[The Ultimate Guide to a Secure & Fast Home Network (2025)](/senior-tech/ultimate-secure-fast-home-network-2025/)*
+- *[Setting Up a Home Lab: A Beginner's Guide](/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)*

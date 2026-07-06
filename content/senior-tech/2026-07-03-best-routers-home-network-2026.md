@@ -223,7 +223,7 @@ That's it. Don't overthink it.
 
 **Eero, Google Nest WiFi, Apple AirPort successors:** Easy to use but limited configurability. Fine for non-technical users but you lose the ability to actually run your network. I prefer TP-Link or ASUS.
 
-**Ubiquiti UniFi (Dream Machine, etc.):** Excellent but requires the UniFi controller and significant setup. More business-grade. Worth it for homelabbers, overkill for most homes. If interested, see [my homelab guide](/posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/).
+**Ubiquiti UniFi (Dream Machine, etc.):** Excellent but requires the UniFi controller and significant setup. More business-grade. Worth it for homelabbers, overkill for most homes. If interested, see [my homelab guide](/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/).
 
 **WiFi 6E "premium" routers (Netgear Nighthawk RAXE500, etc.):** Now obsolete. WiFi 7 prices have come down enough that there's no reason to buy WiFi 6E in 2026.
 
@@ -312,9 +312,9 @@ See the [Resources page](/resources/) for the full list of tools I use and recom
 *Last updated: July 2026. Next review: October 2026.*
 
 *Related reads:*
-- *[The Ultimate Guide to a Secure & Fast Home Network](/posts/ultimate-secure-fast-home-network-2025/)* *(home network security deep dive)*
+- *[The Ultimate Guide to a Secure & Fast Home Network](/senior-tech/ultimate-secure-fast-home-network-2025/)* *(home network security deep dive)*
 - *[5 Bash Scripts Every Sysadmin Needs (free pack)](/shop/#free-tools)*
 - *[Buddy — Free companion app for elderly parents](/buddy/)*
-- *[The 5-Minute Server Health Check](/posts/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/)*
+- *[The 5-Minute Server Health Check](/sysadmin/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/)*
 
 📥 **[Download the Home Network Security Checklist PDF (free)](/downloads/home-network-security-checklist.pdf)**

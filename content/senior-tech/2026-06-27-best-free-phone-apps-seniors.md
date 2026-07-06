@@ -78,7 +78,7 @@ If your family group is already on WhatsApp, install it. If not, skip it. WhatsA
 
 ### Built-in Phone — make it less scary
 
-**Settings → Phone → turn on "Silence Unknown Callers"** (already covered in [the iPhone setup guide](/posts/2026-06-27-setup-iphone-elderly-parent/)). This single setting prevents 80% of scam calls from ever ringing.
+**Settings → Phone → turn on "Silence Unknown Callers"** (already covered in [the iPhone setup guide](/senior-tech/2026-06-27-setup-iphone-elderly-parent/)). This single setting prevents 80% of scam calls from ever ringing.
 
 ---
 
@@ -213,7 +213,7 @@ This sounds trivial. It's not. For seniors experiencing early memory issues, bei
 
 Based on what worked for my mom and three of her friends who did this with me:
 
-- **Week 1:** Install Buddy. Set up Face ID. Configure emergency settings and Medical ID. (See the [full iPhone setup guide](/posts/2026-06-27-setup-iphone-elderly-parent/) for details.)
+- **Week 1:** Install Buddy. Set up Face ID. Configure emergency settings and Medical ID. (See the [full iPhone setup guide](/senior-tech/2026-06-27-setup-iphone-elderly-parent/) for details.)
 - **Week 2:** Install Medisafe. Set up their medication schedule. Show them how to mark a dose as taken.
 - **Week 3:** Install Truecaller. Set up their Apple ID for the App Store (if not done already).
 - **Week 4:** Install Libby. Add their library card. Pre-load 3-4 audiobooks they might enjoy.
@@ -242,6 +242,6 @@ For comparison, a single tech-support house call costs $75-150. One prevented sc
 
 ---
 
-*Setting up a phone for an aging parent? Start with [Buddy](https://pragmaticsysadmin.help/buddy/) — it's the only app that goes on the home screen. Then follow the [complete iPhone setup guide](/posts/2026-06-27-setup-iphone-elderly-parent/). Then read [5 conversations to have with your aging parent about online safety](/posts/2026-06-27-5-conversations-aging-parent-online-safety/).*
+*Setting up a phone for an aging parent? Start with [Buddy](https://pragmaticsysadmin.help/buddy/) — it's the only app that goes on the home screen. Then follow the [complete iPhone setup guide](/senior-tech/2026-06-27-setup-iphone-elderly-parent/). Then read [5 conversations to have with your aging parent about online safety](/senior-tech/2026-06-27-5-conversations-aging-parent-online-safety/).*
 
 *Together, those three pieces — the app, the setup, and the conversation — prevent 90% of the support calls and most of the heartbreak.*

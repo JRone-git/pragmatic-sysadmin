@@ -234,9 +234,9 @@ The quarterly checkup only works if you actually do it. Here's how to make it a 
 
 This post is part four of a series on helping aging parents with technology. If you haven't read the others, start at the beginning:
 
-1. **[5 Conversations to Have with Your Aging Parent About Online Safety](/posts/2026-06-27-5-conversations-aging-parent-online-safety/)** — the conversations that prevent scams before they happen.
-2. **[How to Set Up an iPhone for an Elderly Parent](/posts/2026-06-27-setup-iphone-elderly-parent/)** — the 30-minute setup that prevents 90% of support calls.
-3. **[The Best Free Phone Apps for Seniors in 2026](/posts/2026-06-27-best-free-phone-apps-seniors/)** — the mom-tested list of apps worth installing.
+1. **[5 Conversations to Have with Your Aging Parent About Online Safety](/senior-tech/2026-06-27-5-conversations-aging-parent-online-safety/)** — the conversations that prevent scams before they happen.
+2. **[How to Set Up an iPhone for an Elderly Parent](/senior-tech/2026-06-27-setup-iphone-elderly-parent/)** — the 30-minute setup that prevents 90% of support calls.
+3. **[The Best Free Phone Apps for Seniors in 2026](/senior-tech/2026-06-27-best-free-phone-apps-seniors/)** — the mom-tested list of apps worth installing.
 4. **The Quarterly Tech Checkup** — this post. The maintenance routine that keeps everything working.
 
 **Want a printable version?** I made a [Senior Phone Setup & Maintenance Checklist](https://ko-fi.com/s/a567718347) that covers all four posts in one place — initial setup, quarterly checkup steps, and the emergency playbook. Laminate it, keep it in your bag, and you'll never forget a step.
@@ -245,4 +245,4 @@ This post is part four of a series on helping aging parents with technology. If 
 
 *Setting up a phone for an aging parent? [Try Buddy](https://pragmaticsysadmin.help/buddy/) — it's the only app that goes on the home screen. Free, accessible, designed specifically for non-techies.*
 
-*Read next: [5 Conversations to Have with Your Aging Parent About Online Safety](/posts/2026-06-27-5-conversations-aging-parent-online-safety/)*
+*Read next: [5 Conversations to Have with Your Aging Parent About Online Safety](/senior-tech/2026-06-27-5-conversations-aging-parent-online-safety/)*

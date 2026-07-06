@@ -174,6 +174,6 @@ Next time something breaks (and it will), you'll be ready. Not just to fix it, b
 Remember: Every tech crisis is an opportunity to build a better system. Now go forth and automate!
 
 *Related reads:*
-- *[AI for IT Troubleshooting: Real-World Use Cases](/posts/ai-for-it-troubleshooting-2026/)*
-- *[Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius](/posts/stop-doing-things-manually/)*
-- *[Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)](/posts/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/)*
+- *[AI for IT Troubleshooting: Real-World Use Cases](/sysadmin/ai-for-it-troubleshooting-2026/)*
+- *[Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius](/sysadmin/stop-doing-things-manually/)*
+- *[Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)](/sysadmin/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/)*

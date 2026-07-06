@@ -135,5 +135,5 @@ That phone call, and the relationship behind it, is worth more than anything I'v
 *Have an aging parent in your life? [Try Buddy](https://pragmaticsysadmin.help/buddy/) — a free companion app built for them. No account, no ads, no data collection. Just a friendly helper, in their language.*
 
 *Related reads:*
-- *[How to Set Up an iPhone for an Elderly Parent (The 30-Minute Setup That Prevents 90% of Support Calls)](/posts/2026-06-27-setup-iphone-elderly-parent/)*
-- *[Why Your Computer is Slow (And How to Fix It Without Calling IT)](/posts/2025-12-26-why-your-computer-is-slow-and-how-to-fix-it-without-calling-it/)*
+- *[How to Set Up an iPhone for an Elderly Parent (The 30-Minute Setup That Prevents 90% of Support Calls)](/senior-tech/2026-06-27-setup-iphone-elderly-parent/)*
+- *[Why Your Computer is Slow (And How to Fix It Without Calling IT)](/senior-tech/2025-12-26-why-your-computer-is-slow-and-how-to-fix-it-without-calling-it/)*

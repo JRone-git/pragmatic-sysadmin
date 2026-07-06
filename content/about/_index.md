@@ -36,7 +36,7 @@ This blog lives in the sweet spot: **practical solutions for real-world problems
 
 ## About the author
 
-I'm Jonne 👋 — a Finnish system administrator who's been doing this long enough to have made every mistake in the [mistakes post](/posts/2026-03-26-the-mistakes-i-forgot-to-renew-domain-and-other-crimes-against-it/). I believe in:
+I'm Jonne 👋 — a Finnish system administrator who's been doing this long enough to have made every mistake in the [mistakes post](/sysadmin/2026-03-26-the-mistakes-i-forgot-to-renew-domain-and-other-crimes-against-it/). I believe in:
 
 - Security that doesn't break usability
 - Automation that's worth the setup time

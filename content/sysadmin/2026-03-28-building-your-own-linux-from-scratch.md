@@ -254,6 +254,6 @@ Because understanding how it all fits together is how you become the sysadmin wh
 *Or better yet: 泡杯咖啡，调试一下。这就是我们 sysadmin 的工作方式。*
 
 *Related reads:*
-- *[Setting Up a Home Lab: A Beginner's Guide](/posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)*
-- *[Your OS Has Been Hiding Things From You (Windows & Linux Edition)](/posts/2026-03-11-your-os-has-been-hiding-things-from-you-windows-linux-edition/)*
-- *[Kubernetes Without Jargon: Pods = Processes, Services = Stable Names](/posts/kubernetes-without-jargon-pods-processes-services/)*
+- *[Setting Up a Home Lab: A Beginner's Guide](/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)*
+- *[Your OS Has Been Hiding Things From You (Windows & Linux Edition)](/sysadmin/2026-03-11-your-os-has-been-hiding-things-from-you-windows-linux-edition/)*
+- *[Kubernetes Without Jargon: Pods = Processes, Services = Stable Names](/sysadmin/kubernetes-without-jargon-pods-processes-services/)*

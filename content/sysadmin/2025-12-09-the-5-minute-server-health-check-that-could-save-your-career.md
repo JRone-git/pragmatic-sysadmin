@@ -160,6 +160,6 @@ Remember: the best time to find problems is when you're not in crisis mode. This
 *What are your daily health check routines? Share your favorite commands or scripts in the comments below. Let's build a community of proactive sysadmins.*
 
 *Related reads:*
-- *[Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)](/posts/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/)*
-- *[The Friday Backup Audit: Because Hope Is Not a Strategy](/posts/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy/)*
-- *[Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius](/posts/stop-doing-things-manually/)*
+- *[Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)](/sysadmin/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/)*
+- *[The Friday Backup Audit: Because Hope Is Not a Strategy](/sysadmin/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy/)*
+- *[Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius](/sysadmin/stop-doing-things-manually/)*

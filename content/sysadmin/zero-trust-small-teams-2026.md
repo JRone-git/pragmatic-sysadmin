@@ -191,6 +191,6 @@ Zero trust for a small team isn't about deploying a complete zero trust architec
 None of these steps require a massive budget or a dedicated security team. They require a willingness to question the assumption that "inside = safe" and a commitment to continuous improvement. That's it.
 
 *Related reads:*
-- *[The Ultimate Guide to a Secure & Fast Home Network (2025)](/posts/ultimate-secure-fast-home-network-2025/)*
-- *[Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)](/posts/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/)*
-- *[Sysadmin Myths Busted: What Actually Works in 2026](/posts/sysadmin-myths-busted-2026/)*
+- *[The Ultimate Guide to a Secure & Fast Home Network (2025)](/senior-tech/ultimate-secure-fast-home-network-2025/)*
+- *[Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)](/sysadmin/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/)*
+- *[Sysadmin Myths Busted: What Actually Works in 2026](/sysadmin/sysadmin-myths-busted-2026/)*

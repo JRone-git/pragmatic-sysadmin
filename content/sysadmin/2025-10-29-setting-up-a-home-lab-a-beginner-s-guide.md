@@ -212,6 +212,6 @@ Remember: the goal isn't just to build a lab—it's to use it as a learning plat
 Have you set up your home lab? Share your experiences and tips in the comments below!
 
 *Related reads:*
-- *[The Ultimate Guide to a Secure & Fast Home Network (2025)](/posts/ultimate-secure-fast-home-network-2025/)*
-- *[Kubernetes Without Jargon: Pods = Processes, Services = Stable Names](/posts/kubernetes-without-jargon-pods-processes-services/)*
-- *[Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius](/posts/stop-doing-things-manually/)*
+- *[The Ultimate Guide to a Secure & Fast Home Network (2025)](/senior-tech/ultimate-secure-fast-home-network-2025/)*
+- *[Kubernetes Without Jargon: Pods = Processes, Services = Stable Names](/sysadmin/kubernetes-without-jargon-pods-processes-services/)*
+- *[Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius](/sysadmin/stop-doing-things-manually/)*

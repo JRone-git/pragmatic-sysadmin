@@ -209,6 +209,6 @@ No spam, just practical tips that actually work.
 *Some product links are affiliates - they help support this blog at no extra cost to you. I only recommend gear I've personally tested and would buy myself.*
 
 *Related reads:*
-- *[Setting Up a Home Lab: A Beginner's Guide](/posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)*
-- *[Zero Trust for Small Teams: Practical Steps](/posts/zero-trust-small-teams-2026/)*
-- *[Your OS Has Been Hiding Things From You (Windows & Linux Edition)](/posts/2026-03-11-your-os-has-been-hiding-things-from-you-windows-linux-edition/)*
+- *[Setting Up a Home Lab: A Beginner's Guide](/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)*
+- *[Zero Trust for Small Teams: Practical Steps](/sysadmin/zero-trust-small-teams-2026/)*
+- *[Your OS Has Been Hiding Things From You (Windows & Linux Edition)](/sysadmin/2026-03-11-your-os-has-been-hiding-things-from-you-windows-linux-edition/)*

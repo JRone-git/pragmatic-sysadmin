@@ -329,6 +329,6 @@ Remember: The goal of monitoring isn't to alert on everything. It's to alert on 
 Your users don't care if your CPU usage spikes at 2 AM. They care if the website is down when they try to place their order. Focus on what matters, and your monitoring will actually work.
 
 *Related reads:*
-- *[The 5-Minute Server Health Check That Could Save Your Career](/posts/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/)*
-- *[The Friday Backup Audit: Because Hope Is Not a Strategy](/posts/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy/)*
-- *[The Art of Reading Logs Like a Detective: Finding Needles in Haystacks](/posts/2025-12-17-the-art-of-reading-logs-like-a-detective-finding-needles-in-haystacks/)*
+- *[The 5-Minute Server Health Check That Could Save Your Career](/sysadmin/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/)*
+- *[The Friday Backup Audit: Because Hope Is Not a Strategy](/sysadmin/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy/)*
+- *[The Art of Reading Logs Like a Detective: Finding Needles in Haystacks](/sysadmin/2025-12-17-the-art-of-reading-logs-like-a-detective-finding-needles-in-haystacks/)*

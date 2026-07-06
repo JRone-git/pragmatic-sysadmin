@@ -57,23 +57,23 @@ The posts I'd hand to a new junior admin on day one.
 
 ### The fundamentals
 
-- **[Setting Up a Home Lab: A Beginner's Guide](/posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)** — what to buy, what to install, what to skip. The post I wish I'd had at 22.
-- **[The 5-Minute Server Health Check That Could Save Your Career](/posts/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/)** — the 5-minute check that catches 80% of problems before they page you.
-- **[The Art of Reading Logs Like a Detective](/posts/2025-12-17-the-art-of-reading-logs-like-a-detective-finding-needles-in-haystacks/)** — stop drowning in logs. Start at the end. Filter ruthlessly.
-- **[The Friday Backup Audit: Because Hope Is Not a Strategy](/posts/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy/)** — the 20-minute weekly ritual that prevents Monday-morning disasters.
+- **[Setting Up a Home Lab: A Beginner's Guide](/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)** — what to buy, what to install, what to skip. The post I wish I'd had at 22.
+- **[The 5-Minute Server Health Check That Could Save Your Career](/sysadmin/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/)** — the 5-minute check that catches 80% of problems before they page you.
+- **[The Art of Reading Logs Like a Detective](/sysadmin/2025-12-17-the-art-of-reading-logs-like-a-detective-finding-needles-in-haystacks/)** — stop drowning in logs. Start at the end. Filter ruthlessly.
+- **[The Friday Backup Audit: Because Hope Is Not a Strategy](/sysadmin/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy/)** — the 20-minute weekly ritual that prevents Monday-morning disasters.
 
 ### Level up
 
-- **[Why Your Monitoring is Broken](/posts/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/)** — most monitoring is alert noise. Here's how to fix it.
-- **[Zero Trust for Small Teams](/posts/zero-trust-small-teams-2026/)** — practical steps for teams too small for a "Zero Trust Initiative".
-- **[Kubernetes Without Jargon](/posts/kubernetes-without-jargon-pods-processes-services/)** — pods are processes, services are stable names. That's it.
-- **[Stop Doing Things Manually: 5 Scripts](/posts/stop-doing-things-manually/)** — five copy-paste scripts (PowerShell + Bash) that handle the boring 5-minute tasks.
+- **[Why Your Monitoring is Broken](/sysadmin/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/)** — most monitoring is alert noise. Here's how to fix it.
+- **[Zero Trust for Small Teams](/sysadmin/zero-trust-small-teams-2026/)** — practical steps for teams too small for a "Zero Trust Initiative".
+- **[Kubernetes Without Jargon](/sysadmin/kubernetes-without-jargon-pods-processes-services/)** — pods are processes, services are stable names. That's it.
+- **[Stop Doing Things Manually: 5 Scripts](/sysadmin/stop-doing-things-manually/)** — five copy-paste scripts (PowerShell + Bash) that handle the boring 5-minute tasks.
 
 ### Career & real talk
 
-- **[I Was the Only IT Person for 3 Years](/posts/2026-03-04-i-was-the-only-it-person-for-3-years-the-documentation-i-wish-i-d-written/)** — the documentation I wish I'd written. Includes a template.
-- **[What IT Pros Actually Do On Their Own Machines](/posts/2026-03-18-what-it-pros-actually-do-on-their-own-machines-vs-what-they-tell-you/)** — the honest version.
-- **[The Mistakes I Made (And Why They Led Me to Build My Own Password Manager)](/posts/2026-03-26-the-mistakes-i-forgot-to-renew-domain-and-other-crimes-against-it/)** — my graveyard of mistakes, so you can avoid them.
+- **[I Was the Only IT Person for 3 Years](/sysadmin/2026-03-04-i-was-the-only-it-person-for-3-years-the-documentation-i-wish-i-d-written/)** — the documentation I wish I'd written. Includes a template.
+- **[What IT Pros Actually Do On Their Own Machines](/sysadmin/2026-03-18-what-it-pros-actually-do-on-their-own-machines-vs-what-they-tell-you/)** — the honest version.
+- **[The Mistakes I Made (And Why They Led Me to Build My Own Password Manager)](/sysadmin/2026-03-26-the-mistakes-i-forgot-to-renew-domain-and-other-crimes-against-it/)** — my graveyard of mistakes, so you can avoid them.
 
 ### Free tools
 
@@ -86,14 +86,14 @@ Grab them on the [Tools page](/tools/) — SSL expiry checker, SSH key auditor, 
 
 A four-part series born from setting up my own mom's tech.
 
-1. **[5 Conversations to Have with Your Aging Parent About Online Safety](/posts/2026-06-27-5-conversations-aging-parent-online-safety/)** — start here. The conversations that actually work, in the order to have them.
-2. **[How to Set Up an iPhone for an Elderly Parent](/posts/2026-06-27-setup-iphone-elderly-parent/)** — the 30-minute setup that prevents 90% of support calls.
-3. **[The Best Free Phone Apps for Seniors in 2026](/posts/2026-06-27-best-free-phone-apps-seniors/)** — tested by my 78-year-old mom for six months. What stayed, what got deleted.
-4. **[The Quarterly Tech Checkup](/posts/2026-07-02-the-quarterly-tech-checkup/)** — the 20-minute maintenance routine that keeps everything working, plus an emergency playbook.
+1. **[5 Conversations to Have with Your Aging Parent About Online Safety](/senior-tech/2026-06-27-5-conversations-aging-parent-online-safety/)** — start here. The conversations that actually work, in the order to have them.
+2. **[How to Set Up an iPhone for an Elderly Parent](/senior-tech/2026-06-27-setup-iphone-elderly-parent/)** — the 30-minute setup that prevents 90% of support calls.
+3. **[The Best Free Phone Apps for Seniors in 2026](/senior-tech/2026-06-27-best-free-phone-apps-seniors/)** — tested by my 78-year-old mom for six months. What stayed, what got deleted.
+4. **[The Quarterly Tech Checkup](/senior-tech/2026-07-02-the-quarterly-tech-checkup/)** — the 20-minute maintenance routine that keeps everything working, plus an emergency playbook.
 
 **Printable version:** [Senior Phone Setup & Maintenance Checklist](https://ko-fi.com/s/a567718347) — all four posts in one laminatable PDF ($5).
 
-**Related:** [Why Your Computer is Slow (And How to Fix It Without Calling IT)](/posts/2025-12-26-why-your-computer-is-slow-and-how-to-fix-it-without-calling-it/) — for the parent who keeps calling you about their slow laptop.
+**Related:** [Why Your Computer is Slow (And How to Fix It Without Calling IT)](/senior-tech/2025-12-26-why-your-computer-is-slow-and-how-to-fix-it-without-calling-it/) — for the parent who keeps calling you about their slow laptop.
 
 ---
 
@@ -116,11 +116,11 @@ All games work on tablets and phones. Privacy details on the [Privacy Policy](/p
 
 The most-read posts across all three audiences:
 
-1. **[Setting Up a Home Lab](/posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)** — the homelab post that started it all.
-2. **[The 5-Minute Server Health Check](/posts/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/)** — the one people tell their coworkers about.
-3. **[The Best Free Phone Apps for Seniors](/posts/2026-06-27-best-free-phone-apps-seniors/)** — the mom-tested list.
-4. **[The Quarterly Tech Checkup](/posts/2026-07-02-the-quarterly-tech-checkup/)** — the maintenance routine + emergency playbook for your parent's phone.
-5. **[Your OS Has Been Hiding Things From You](/posts/2026-03-11-your-os-has-been-hiding-things-from-you-windows-linux-edition/)** — Windows and Linux hidden features side-by-side.
+1. **[Setting Up a Home Lab](/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)** — the homelab post that started it all.
+2. **[The 5-Minute Server Health Check](/sysadmin/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/)** — the one people tell their coworkers about.
+3. **[The Best Free Phone Apps for Seniors](/senior-tech/2026-06-27-best-free-phone-apps-seniors/)** — the mom-tested list.
+4. **[The Quarterly Tech Checkup](/senior-tech/2026-07-02-the-quarterly-tech-checkup/)** — the maintenance routine + emergency playbook for your parent's phone.
+5. **[Your OS Has Been Hiding Things From You](/sysadmin/2026-03-11-your-os-has-been-hiding-things-from-you-windows-linux-edition/)** — Windows and Linux hidden features side-by-side.
 
 ---
 

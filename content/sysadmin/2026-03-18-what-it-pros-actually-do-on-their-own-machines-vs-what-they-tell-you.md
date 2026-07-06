@@ -217,6 +217,6 @@ Pick one item from this list. Do it today. Come back for the next one next week.
 *Which of these surprised you most? Or — IT people — what did I leave off the list? Drop it in the comments.*
 
 *Related reads:*
-- *[Your OS Has Been Hiding Things From You (Windows & Linux Edition)](/posts/2026-03-11-your-os-has-been-hiding-things-from-you-windows-linux-edition/)*
-- *[Zero Trust for Small Teams: Practical Steps](/posts/zero-trust-small-teams-2026/)*
-- *[The Ultimate Guide to a Secure & Fast Home Network (2025)](/posts/ultimate-secure-fast-home-network-2025/)*
+- *[Your OS Has Been Hiding Things From You (Windows & Linux Edition)](/sysadmin/2026-03-11-your-os-has-been-hiding-things-from-you-windows-linux-edition/)*
+- *[Zero Trust for Small Teams: Practical Steps](/sysadmin/zero-trust-small-teams-2026/)*
+- *[The Ultimate Guide to a Secure & Fast Home Network (2025)](/senior-tech/ultimate-secure-fast-home-network-2025/)*

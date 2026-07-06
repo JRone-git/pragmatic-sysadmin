@@ -327,9 +327,9 @@ Whatever you choose, take 30 minutes on a Saturday to set it up properly. The ph
 *This guide is updated quarterly. Last reviewed: July 2026. Found a phone we missed? [Email me](mailto:pragmatic@pragmaticsysadmin.help).*
 
 *Related reads:*
-- *[How to Set Up an iPhone for an Elderly Parent](/posts/2026-06-27-setup-iphone-elderly-parent/)*
-- *[5 Conversations to Have with Your Aging Parent About Online Safety](/posts/2026-06-27-5-conversations-aging-parent-online-safety/)*
-- *[Best Free Phone Apps for Seniors](/posts/2026-06-27-best-free-phone-apps-seniors/)*
+- *[How to Set Up an iPhone for an Elderly Parent](/senior-tech/2026-06-27-setup-iphone-elderly-parent/)*
+- *[5 Conversations to Have with Your Aging Parent About Online Safety](/senior-tech/2026-06-27-5-conversations-aging-parent-online-safety/)*
+- *[Best Free Phone Apps for Seniors](/senior-tech/2026-06-27-best-free-phone-apps-seniors/)*
 - *[Buddy — Free companion app for elderly parents](/buddy/)*
 
 *Affiliate disclosure: links to Lively, Consumer Cellular, and Amazon are affiliate links. I earn a small commission at no extra cost to you if you buy through them. This doesn't change my recommendations — every phone above was tested by a real grandparent. See the [Resources page](/resources/) for full disclosure.*

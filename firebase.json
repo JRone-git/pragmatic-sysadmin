@@ -11,6 +11,258 @@
         "source": "**",
         "destination": "/index.html"
       }
+    ],
+    "redirects": [
+      {
+        "source": "/posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide",
+        "destination": "/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide",
+        "type": 301
+      },
+      {
+        "source": "/posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/",
+        "destination": "/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/",
+        "type": 301
+      },
+      {
+        "source": "/posts/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices",
+        "destination": "/sysadmin/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices",
+        "type": 301
+      },
+      {
+        "source": "/posts/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/",
+        "destination": "/sysadmin/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/",
+        "type": 301
+      },
+      {
+        "source": "/posts/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career",
+        "destination": "/sysadmin/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career",
+        "type": 301
+      },
+      {
+        "source": "/posts/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/",
+        "destination": "/sysadmin/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/",
+        "type": 301
+      },
+      {
+        "source": "/posts/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy",
+        "destination": "/sysadmin/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy",
+        "type": 301
+      },
+      {
+        "source": "/posts/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy/",
+        "destination": "/sysadmin/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy/",
+        "type": 301
+      },
+      {
+        "source": "/posts/2025-12-17-the-art-of-reading-logs-like-a-detective-finding-needles-in-haystacks",
+        "destination": "/sysadmin/2025-12-17-the-art-of-reading-logs-like-a-detective-finding-needles-in-haystacks",
+        "type": 301
+      },
+      {
+        "source": "/posts/2025-12-17-the-art-of-reading-logs-like-a-detective-finding-needles-in-haystacks/",
+        "destination": "/sysadmin/2025-12-17-the-art-of-reading-logs-like-a-detective-finding-needles-in-haystacks/",
+        "type": 301
+      },
+      {
+        "source": "/posts/2025-12-26-why-your-computer-is-slow-and-how-to-fix-it-without-calling-it",
+        "destination": "/senior-tech/2025-12-26-why-your-computer-is-slow-and-how-to-fix-it-without-calling-it",
+        "type": 301
+      },
+      {
+        "source": "/posts/2025-12-26-why-your-computer-is-slow-and-how-to-fix-it-without-calling-it/",
+        "destination": "/senior-tech/2025-12-26-why-your-computer-is-slow-and-how-to-fix-it-without-calling-it/",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-03-04-i-was-the-only-it-person-for-3-years-the-documentation-i-wish-i-d-written",
+        "destination": "/sysadmin/2026-03-04-i-was-the-only-it-person-for-3-years-the-documentation-i-wish-i-d-written",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-03-04-i-was-the-only-it-person-for-3-years-the-documentation-i-wish-i-d-written/",
+        "destination": "/sysadmin/2026-03-04-i-was-the-only-it-person-for-3-years-the-documentation-i-wish-i-d-written/",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-03-11-your-os-has-been-hiding-things-from-you-windows-linux-edition",
+        "destination": "/sysadmin/2026-03-11-your-os-has-been-hiding-things-from-you-windows-linux-edition",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-03-11-your-os-has-been-hiding-things-from-you-windows-linux-edition/",
+        "destination": "/sysadmin/2026-03-11-your-os-has-been-hiding-things-from-you-windows-linux-edition/",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-03-18-what-it-pros-actually-do-on-their-own-machines-vs-what-they-tell-you",
+        "destination": "/sysadmin/2026-03-18-what-it-pros-actually-do-on-their-own-machines-vs-what-they-tell-you",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-03-18-what-it-pros-actually-do-on-their-own-machines-vs-what-they-tell-you/",
+        "destination": "/sysadmin/2026-03-18-what-it-pros-actually-do-on-their-own-machines-vs-what-they-tell-you/",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-03-26-the-mistakes-i-forgot-to-renew-domain-and-other-crimes-against-it",
+        "destination": "/sysadmin/2026-03-26-the-mistakes-i-forgot-to-renew-domain-and-other-crimes-against-it",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-03-26-the-mistakes-i-forgot-to-renew-domain-and-other-crimes-against-it/",
+        "destination": "/sysadmin/2026-03-26-the-mistakes-i-forgot-to-renew-domain-and-other-crimes-against-it/",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-03-28-building-your-own-linux-from-scratch",
+        "destination": "/sysadmin/2026-03-28-building-your-own-linux-from-scratch",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-03-28-building-your-own-linux-from-scratch/",
+        "destination": "/sysadmin/2026-03-28-building-your-own-linux-from-scratch/",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-06-27-5-conversations-aging-parent-online-safety",
+        "destination": "/senior-tech/2026-06-27-5-conversations-aging-parent-online-safety",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-06-27-5-conversations-aging-parent-online-safety/",
+        "destination": "/senior-tech/2026-06-27-5-conversations-aging-parent-online-safety/",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-06-27-best-free-phone-apps-seniors",
+        "destination": "/senior-tech/2026-06-27-best-free-phone-apps-seniors",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-06-27-best-free-phone-apps-seniors/",
+        "destination": "/senior-tech/2026-06-27-best-free-phone-apps-seniors/",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-06-27-setup-iphone-elderly-parent",
+        "destination": "/senior-tech/2026-06-27-setup-iphone-elderly-parent",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-06-27-setup-iphone-elderly-parent/",
+        "destination": "/senior-tech/2026-06-27-setup-iphone-elderly-parent/",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-07-01-best-phones-for-seniors-2026",
+        "destination": "/senior-tech/2026-07-01-best-phones-for-seniors-2026",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-07-01-best-phones-for-seniors-2026/",
+        "destination": "/senior-tech/2026-07-01-best-phones-for-seniors-2026/",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-07-02-the-quarterly-tech-checkup",
+        "destination": "/senior-tech/2026-07-02-the-quarterly-tech-checkup",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-07-02-the-quarterly-tech-checkup/",
+        "destination": "/senior-tech/2026-07-02-the-quarterly-tech-checkup/",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-07-03-best-routers-home-network-2026",
+        "destination": "/senior-tech/2026-07-03-best-routers-home-network-2026",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-07-03-best-routers-home-network-2026/",
+        "destination": "/senior-tech/2026-07-03-best-routers-home-network-2026/",
+        "type": 301
+      },
+      {
+        "source": "/posts/ai-for-it-troubleshooting-2026",
+        "destination": "/sysadmin/ai-for-it-troubleshooting-2026",
+        "type": 301
+      },
+      {
+        "source": "/posts/ai-for-it-troubleshooting-2026/",
+        "destination": "/sysadmin/ai-for-it-troubleshooting-2026/",
+        "type": 301
+      },
+      {
+        "source": "/posts/how-reduce-cloud-spend-before-year-end-2025",
+        "destination": "/sysadmin/how-reduce-cloud-spend-before-year-end-2025",
+        "type": 301
+      },
+      {
+        "source": "/posts/how-reduce-cloud-spend-before-year-end-2025/",
+        "destination": "/sysadmin/how-reduce-cloud-spend-before-year-end-2025/",
+        "type": 301
+      },
+      {
+        "source": "/posts/kubernetes-without-jargon-pods-processes-services",
+        "destination": "/sysadmin/kubernetes-without-jargon-pods-processes-services",
+        "type": 301
+      },
+      {
+        "source": "/posts/kubernetes-without-jargon-pods-processes-services/",
+        "destination": "/sysadmin/kubernetes-without-jargon-pods-processes-services/",
+        "type": 301
+      },
+      {
+        "source": "/posts/stop-doing-things-manually",
+        "destination": "/sysadmin/stop-doing-things-manually",
+        "type": 301
+      },
+      {
+        "source": "/posts/stop-doing-things-manually/",
+        "destination": "/sysadmin/stop-doing-things-manually/",
+        "type": 301
+      },
+      {
+        "source": "/posts/sysadmin-myths-busted-2026",
+        "destination": "/sysadmin/sysadmin-myths-busted-2026",
+        "type": 301
+      },
+      {
+        "source": "/posts/sysadmin-myths-busted-2026/",
+        "destination": "/sysadmin/sysadmin-myths-busted-2026/",
+        "type": 301
+      },
+      {
+        "source": "/posts/tech-survival-guide-ai-edition-2026",
+        "destination": "/sysadmin/tech-survival-guide-ai-edition-2026",
+        "type": 301
+      },
+      {
+        "source": "/posts/tech-survival-guide-ai-edition-2026/",
+        "destination": "/sysadmin/tech-survival-guide-ai-edition-2026/",
+        "type": 301
+      },
+      {
+        "source": "/posts/ultimate-secure-fast-home-network-2025",
+        "destination": "/senior-tech/ultimate-secure-fast-home-network-2025",
+        "type": 301
+      },
+      {
+        "source": "/posts/ultimate-secure-fast-home-network-2025/",
+        "destination": "/senior-tech/ultimate-secure-fast-home-network-2025/",
+        "type": 301
+      },
+      {
+        "source": "/posts/zero-trust-small-teams-2026",
+        "destination": "/sysadmin/zero-trust-small-teams-2026",
+        "type": 301
+      },
+      {
+        "source": "/posts/zero-trust-small-teams-2026/",
+        "destination": "/sysadmin/zero-trust-small-teams-2026/",
+        "type": 301
+      }
     ]
   }
 }

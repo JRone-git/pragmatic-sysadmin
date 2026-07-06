@@ -230,6 +230,6 @@ Your future self will thank you. And the next person in your role? They'll thank
 Pro tip: If you want to practice documentation before the pressure is on, check out the Incident Report Generator - it turns your raw notes into professional documentation. Because sometimes you need corporate language to get management to actually pay attention.
 
 *Related reads:*
-- *[The Mistakes I Made (And Why They Led Me to Build My Own Password Manager)](/posts/2026-03-26-the-mistakes-i-forgot-to-renew-domain-and-other-crimes-against-it/)*
-- *[Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius](/posts/stop-doing-things-manually/)*
-- *[The 5-Minute Server Health Check That Could Save Your Career](/posts/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/)*
+- *[The Mistakes I Made (And Why They Led Me to Build My Own Password Manager)](/sysadmin/2026-03-26-the-mistakes-i-forgot-to-renew-domain-and-other-crimes-against-it/)*
+- *[Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius](/sysadmin/stop-doing-things-manually/)*
+- *[The 5-Minute Server Health Check That Could Save Your Career](/sysadmin/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/)*

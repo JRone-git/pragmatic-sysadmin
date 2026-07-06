@@ -118,6 +118,6 @@ Myths persist because they're comfortable. They save you from having to think cr
 The sysadmins who thrive in 2026 won't be the ones clinging to how things were done in 2015. They'll be the ones who adapt, question, and improve — one practical step at a time.
 
 *Related reads:*
-- *[Zero Trust for Small Teams: Practical Steps](/posts/zero-trust-small-teams-2026/)*
-- *[Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius](/posts/stop-doing-things-manually/)*
-- *[Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)](/posts/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/)*
+- *[Zero Trust for Small Teams: Practical Steps](/sysadmin/zero-trust-small-teams-2026/)*
+- *[Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius](/sysadmin/stop-doing-things-manually/)*
+- *[Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)](/sysadmin/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/)*

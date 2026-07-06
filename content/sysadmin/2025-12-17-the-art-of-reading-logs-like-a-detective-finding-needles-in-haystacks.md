@@ -300,6 +300,6 @@ Because that's what good log reading is: looking like magic when it's really jus
 *What's your go-to command for log analysis? Any tricks I missed? Let me know - I'm always looking to add more tools to my debugging toolkit.*
 
 *Related reads:*
-- *[Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)](/posts/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/)*
-- *[The 5-Minute Server Health Check That Could Save Your Career](/posts/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/)*
-- *[AI for IT Troubleshooting: Real-World Use Cases](/posts/ai-for-it-troubleshooting-2026/)*
+- *[Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)](/sysadmin/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/)*
+- *[The 5-Minute Server Health Check That Could Save Your Career](/sysadmin/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/)*
+- *[AI for IT Troubleshooting: Real-World Use Cases](/sysadmin/ai-for-it-troubleshooting-2026/)*

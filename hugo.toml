@@ -63,6 +63,18 @@ enableRobotsTXT = true
   weight = 10
 
 [[menu.main]]
+  identifier = "senior-tech"
+  name = "Senior Tech"
+  url = "/senior-tech/"
+  weight = 12
+
+[[menu.main]]
+  identifier = "sysadmin"
+  name = "Sysadmin Guides"
+  url = "/sysadmin/"
+  weight = 14
+
+[[menu.main]]
   identifier = "start-here"
   name = "Start Here"
   url = "/start-here/"

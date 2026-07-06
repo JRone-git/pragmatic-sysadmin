@@ -138,6 +138,6 @@ For most small teams, a few well-configured servers with good deployment scripts
 *Disclosure: Some links to courses, books, and cloud providers are affiliates - they help keep this blog running at no extra cost to you. I only recommend resources I've personally used and found valuable for learning and real-world projects.*
 
 *Related reads:*
-- *[Setting Up a Home Lab: A Beginner's Guide](/posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)*
-- *[Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius](/posts/stop-doing-things-manually/)*
-- *[Building Your Own Linux from Scratch (And Testing It in a Container)](/posts/2026-03-28-building-your-own-linux-from-scratch/)*
+- *[Setting Up a Home Lab: A Beginner's Guide](/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)*
+- *[Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius](/sysadmin/stop-doing-things-manually/)*
+- *[Building Your Own Linux from Scratch (And Testing It in a Container)](/sysadmin/2026-03-28-building-your-own-linux-from-scratch/)*
