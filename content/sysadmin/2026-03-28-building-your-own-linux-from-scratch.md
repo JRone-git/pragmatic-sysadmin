@@ -243,7 +243,7 @@ Every "mystery" in Linux is just layers you haven't looked under yet.
 
 ## What's Next
 
-In the next post, we'll **compile our own kernel** from source, configure only what we need, and trim it down to under 10MB. We'll also add **systemd** as our init system and get a real service running.
+In [Part 2](/sysadmin/2026-07-07-compile-linux-kernel-systemd-part-2/), we'll **compile our own kernel** from source, configure only what we need, and trim it down to under 10MB. We'll also add **systemd** as our init system and get a real service running.
 
 Because understanding how it all fits together is how you become the sysadmin who knows what's actually broken - not just the one who reboots things until they work.
 
