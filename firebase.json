@@ -14,6 +14,16 @@
     ],
     "redirects": [
       {
+        "source": "/start-here",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/start-here/",
+        "destination": "/",
+        "type": 301
+      },
+      {
         "source": "/posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide",
         "destination": "/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide",
         "type": 301

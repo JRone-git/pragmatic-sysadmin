@@ -19,9 +19,9 @@ It's an unusual combo. But if you've ever been the family IT person, you'll reco
 
 ## What you'll find here
 
-- **[Sysadmin guides](/start-here/#sysadmin)** — home labs, monitoring, zero trust, Kubernetes without jargon, free scripts.
-- **[Senior tech help](/start-here/#senior-tech)** — the 30-minute iPhone setup, the apps my 78-year-old mom actually kept, the conversations that work.
-- **[Kids' games](/start-here/#kids)** — Finnish reading, maths, music. No ads, no logins, no data collection.
+- **[Sysadmin guides](/sysadmin/)** — home labs, monitoring, zero trust, Kubernetes without jargon, free scripts.
+- **[Senior tech help](/senior-tech/)** — the 30-minute iPhone setup, the apps my 78-year-old mom actually kept, the conversations that work.
+- **[Kids' games](/kids/)** — Finnish reading, maths, music. No ads, no logins, no data collection.
 - **[A shop](/shop/)** — free scripts and paid toolkits, all MIT licensed.
 - **[A newsletter](/newsletter/)** — weekly practical tips, no spam.
 

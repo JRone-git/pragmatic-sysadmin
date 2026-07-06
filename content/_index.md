@@ -293,10 +293,10 @@ build:
 <p>5 tested sysadmin scripts (SSL checker, log searcher, SSH auditor, disk quota checker, safe service restart). MIT licensed, copy-paste ready.</p>
 </a>
 
-<a href="/start-here/" class="audience-card">
+<a href="#favourites" class="audience-card">
 <span class="emoji">🌱</span>
 <h3>I'm new and just browsing</h3>
-<p>Start with the reader favourites — the posts people come back to most, organised by what you're trying to do.</p>
+<p>Scroll down to the reader favourites — the posts people come back to most.</p>
 </a>
 
 <div class="newsletter-strip">
@@ -352,7 +352,7 @@ build:
 
 **More sysadmin content:** [Zero Trust for Small Teams](/sysadmin/zero-trust-small-teams-2026/) · [Kubernetes Without Jargon](/sysadmin/kubernetes-without-jargon-pods-processes-services/) · [AI for IT Troubleshooting 2026](/sysadmin/ai-for-it-troubleshooting-2026/) · [Stop Doing Things Manually](/sysadmin/stop-doing-things-manually/) · [Sysadmin Myths Busted 2026](/sysadmin/sysadmin-myths-busted-2026/) · [Building Your Own Linux From Scratch](/sysadmin/2026-03-28-building-your-own-linux-from-scratch/) · [Cloud Spend Reduction Before Year-End](/sysadmin/how-reduce-cloud-spend-before-year-end-2025/) · [Best Routers for Home Network 2026](/senior-tech/2026-07-03-best-routers-home-network-2026/)
 
-<a href="/start-here/#sysadmin" style="color:#5a7a5e;font-weight:500;text-decoration:none;">Browse all sysadmin guides →</a>
+<a href="/sysadmin/" style="color:#5a7a5e;font-weight:500;text-decoration:none;">Browse all sysadmin guides →</a>
 
 ---
 
@@ -401,7 +401,7 @@ I help people quietly handle this every day — including my own mother, who los
 
 **Free downloads:** [Senior Phone Setup Checklist (PDF)](/downloads/senior-phone-setup-checklist.pdf) · [Home Network Security Checklist (PDF)](/downloads/home-network-security-checklist.pdf)
 
-<a href="/start-here/#senior-tech" style="color:#5a7a5e;font-weight:500;text-decoration:none;">Browse all family tech content →</a>
+<a href="/senior-tech/" style="color:#5a7a5e;font-weight:500;text-decoration:none;">Browse all family tech content →</a>
 
 ---
 
@@ -464,7 +464,8 @@ All hand-written, all tested on my own servers. MIT licensed.
 
 ---
 
-## Reader favourites (start here)
+<a id="favourites"></a>
+## Reader favourites
 
 These five posts work for both audiences and get shared the most:
 
