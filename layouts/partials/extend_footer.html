@@ -1,8 +1,17 @@
-{{/* PaperMod extend_footer hook */}}
-<div style="margin-top: 1.5em; font-size: 0.85em; opacity: 0.7;">
-  <a href="https://ko-fi.com/sysadmin_dad" target="_blank" rel="noopener" style="text-decoration: underline;">☕ Support on Ko-fi</a>
+{{/* PaperMod extend_footer hook.
+     Renders on every page. Ko-fi link is the donation CTA — kept
+     prominent (not dimmed) so visitors can support without friction. */}}
+<div style="margin-top: 1.5em; padding: 1em 1.2em; background: linear-gradient(135deg, #f5f3ee 0%, #ede8df 100%); border: 1px solid #d6cfbe; border-left: 3px solid #c97b5e; border-radius: 6px; font-size: 0.92em;">
+  <strong style="color: #2a2a2a;">☕ Like the free content?</strong><br/>
+  <span style="color: #5a5a5a;">
+    One-tap tip on Ko-fi — no signup needed, just PayPal or card.
+  </span>
   &nbsp;·&nbsp;
-  <a href="/privacy/" style="text-decoration: underline;">Privacy</a>
+  <a href="https://ko-fi.com/sysadmin_dad" target="_blank" rel="noopener" style="display: inline-block; padding: 0.35em 0.85em; background: #5a7a5e; color: #fff; border-radius: 4px; text-decoration: none; font-weight: 600; font-size: 0.92em;">
+    Support on Ko-fi →
+  </a>
+  &nbsp;·&nbsp;
+  <a href="/privacy/" style="color: #888; text-decoration: none; font-size: 0.85em;">Privacy</a>
 </div>
 
 {{/* Chat widget - fixed position, loaded on all pages */}}

@@ -308,21 +308,6 @@ A: Lively is the new name. Jitterbug was acquired and rebranded. Same phones, sa
 
 ---
 
-## The complete setup + setup service
-
-If you've decided on a phone but don't want to spend your Saturday configuring it, **[I'll set it up for you](/buddy-setup/)** on a 30-minute video call for $29.
-
-What's included:
-- Configure any phone (iPhone, Android, Lively)
-- Set up medical ID, emergency SOS, favorites
-- Add [Buddy](https://pragmaticsysadmin.help/buddy/) for medicine reminders and scam protection
-- 1 week of email follow-up
-- Money-back guarantee
-
-→ [Book a 30-min setup call — $29](/buddy-setup/)
-
----
-
 ## Final recommendations
 
 Based on actual senior usage over 6 months:

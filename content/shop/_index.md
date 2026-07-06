@@ -179,4 +179,4 @@ You own what you buy. Modify it. Redistribute it. Use it in your team. It's your
 
 Email [pragmatic@pragmaticsysadmin.help](mailto:pragmatic@pragmaticsysadmin.help)
 
-Or tip what you want at [https://ko-fi.com/sysadmin_dad](https://ko-fi.com/sysadmin_dad) if you find the free content useful.
+Or tip what you want at [Buy me a coffee on Ko-fi](https://ko-fi.com/sysadmin_dad) if you find the free content useful.
