@@ -501,6 +501,30 @@ A few things I want to be clear about, since they're important:
 
 ---
 
+## ☕ Support this work
+
+Every post here is free. No paywall, no popups, no tracking. The site runs on my evenings and weekends.
+
+If anything here saved you time, kept your parents safe, or helped you ship faster — a small tip keeps the lights on and the coffee flowing.
+
+<div style="text-align:center;margin:1.5em 0;">
+<a href="https://ko-fi.com/sysadmin_dad" target="_blank" rel="noopener" style="display:inline-block;padding:0.85em 1.8em;background:#5a7a5e;color:#fff;border-radius:6px;text-decoration:none;font-weight:700;font-size:1.05em;box-shadow:0 2px 6px rgba(0,0,0,0.08);">
+☕ Buy me a coffee on Ko-fi
+</a>
+</div>
+
+<p style="text-align:center;color:#666;font-size:0.9em;margin:0.5em 0 0;">
+One-tap tip via PayPal or card — no signup, no subscription, just a thank-you. <a href="https://ko-fi.com/sysadmin_dad" target="_blank" rel="noopener" style="color:#5a7a5e;">Or visit my Ko-fi page</a> to pick your own amount.
+</p>
+
+**What your support covers:**
+- 📚 Free content (200+ hours of research & writing so far)
+- 🛠️ Free bash scripts and the weekly newsletter
+- 🌐 Hosting + domain (about €100/year)
+- ☕ The actual coffee
+
+---
+
 ## Get involved
 
 <div class="footer-cta-grid">
