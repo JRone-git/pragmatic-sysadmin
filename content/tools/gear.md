@@ -48,7 +48,7 @@ ELK stack for centralized logging. Start with single-node deployment.
 
 ## 🛡️ Security Tools
 
-### [NordVPN](https://nordvpn.com) - $3-6/month
+### [NordVPN](https://go.nordvpn.net/aff_c?offer_id=15&aff_id=143264&url_id=902) - $3-6/month
 Secure remote access for home lab management. No logs, fast speeds.
 
 ### [pfSense](https://pfsense.org) - Free
