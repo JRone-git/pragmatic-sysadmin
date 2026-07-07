@@ -314,37 +314,37 @@ build:
 
 ## 🛠️ The sysadmin posts people bookmark
 
-<a href="/posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/" class="featured-card">
+<a href="/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/" class="featured-card">
 <div class="label">Most popular</div>
 <div class="title">Setting Up a Home Lab: A Beginner's Guide</div>
 <p class="desc">What to buy, what to install, what to skip. The post I wish I had at 22.</p>
 </a>
 
-<a href="/posts/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/" class="featured-card">
+<a href="/sysadmin/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/" class="featured-card">
 <div class="label">Daily ritual</div>
 <div class="title">The 5-Minute Server Health Check That Could Save Your Career</div>
 <p class="desc">Catches 80% of problems before they page you. The Monday morning ritual.</p>
 </a>
 
-<a href="/posts/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy/" class="featured-card">
+<a href="/sysadmin/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy/" class="featured-card">
 <div class="label">Friday ritual</div>
 <div class="title">The Friday Backup Audit: Because Hope Is Not a Strategy</div>
 <p class="desc">20 minutes that prevent Monday-morning disasters. Includes the test restore script.</p>
 </a>
 
-<a href="/posts/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/" class="featured-card">
+<a href="/sysadmin/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/" class="featured-card">
 <div class="label">Career saver</div>
 <div class="title">Why Your Monitoring Is Broken (And How To Fix It Before Your Boss Notices)</div>
 <p class="desc">Most monitoring is alert noise. Here's how to make it actually useful.</p>
 </a>
 
-<a href="/posts/2025-12-17-the-art-of-reading-logs-like-a-detective-finding-needles-in-haystacks/" class="featured-card">
+<a href="/sysadmin/2025-12-17-the-art-of-reading-logs-like-a-detective-finding-needles-in-haystacks/" class="featured-card">
 <div class="label">Skill builder</div>
 <div class="title">The Art of Reading Logs Like a Detective</div>
 <p class="desc">Stop drowning in logs. Start at the end. Filter ruthlessly. Find the needle.</p>
 </a>
 
-<a href="/posts/2026-03-04-i-was-the-only-it-person-for-3-years-the-documentation-i-wish-i-d-written/" class="featured-card">
+<a href="/sysadmin/2026-03-04-i-was-the-only-it-person-for-3-years-the-documentation-i-wish-i-d-written/" class="featured-card">
 <div class="label">Career story</div>
 <div class="title">I Was the Only IT Person for 3 Years — The Documentation I Wish I'd Written</div>
 <p class="desc">When I left, my replacement called 47 times in the first month. Here's the fix.</p>
@@ -363,37 +363,37 @@ build:
 
 I help people quietly handle this every day — including my own mother, who lost $4,200 to a fake Microsoft scam. That incident is why I built [Buddy](/buddy/), a free companion app for elderly parents.
 
-<a href="/posts/2026-07-01-best-phones-for-seniors-2026/" class="featured-card">
+<a href="/senior-tech/2026-07-01-best-phones-for-seniors-2026/" class="featured-card">
 <div class="label">Highest-traffic</div>
 <div class="title">Best Phones for Seniors in 2026 (Tested by Real Grandparents)</div>
 <p class="desc">Lively, Consumer Cellular, iPhone SE, GrandPad — 5 tested picks with honest pros/cons.</p>
 </a>
 
-<a href="/posts/2026-06-27-best-free-phone-apps-seniors/" class="featured-card">
+<a href="/senior-tech/2026-06-27-best-free-phone-apps-seniors/" class="featured-card">
 <div class="label">Top resource</div>
 <div class="title">Best Free Phone Apps for Seniors</div>
 <p class="desc">The mom-tested app list. 13 apps, all free, all senior-friendly.</p>
 </a>
 
-<a href="/posts/2026-06-27-setup-iphone-elderly-parent/" class="featured-card">
+<a href="/senior-tech/2026-06-27-setup-iphone-elderly-parent/" class="featured-card">
 <div class="label">Hands-on guide</div>
 <div class="title">How to Set Up an iPhone for an Elderly Parent</div>
 <p class="desc">30-minute setup. Plus the 5 conversations you need to have first.</p>
 </a>
 
-<a href="/posts/2026-06-27-5-conversations-aging-parent-online-safety/" class="featured-card">
+<a href="/senior-tech/2026-06-27-5-conversations-aging-parent-online-safety/" class="featured-card">
 <div class="label">The talks</div>
 <div class="title">5 Conversations to Have About Online Safety</div>
 <p class="desc">The conversations that actually prevent scams, not the ones that spark arguments.</p>
 </a>
 
-<a href="/posts/2026-07-02-the-quarterly-tech-checkup/" class="featured-card">
+<a href="/senior-tech/2026-07-02-the-quarterly-tech-checkup/" class="featured-card">
 <div class="label">Routine</div>
 <div class="title">The Quarterly Tech Checkup</div>
 <p class="desc">Walk through their phone every 3 months. Catches issues before they become crises.</p>
 </a>
 
-<a href="/posts/2026-03-18-what-it-pros-actually-do-on-their-own-machines-vs-what-they-tell-you/" class="featured-card">
+<a href="/senior-tech/2026-03-18-what-it-pros-actually-do-on-their-own-machines-vs-what-they-tell-you/" class="featured-card">
 <div class="label">Honest read</div>
 <div class="title">What IT Pros Actually Do On Their Own Machines</div>
 <p class="desc">The advice we give everyone else, vs what we actually do. Useful when setting up for parents.</p>
@@ -428,7 +428,7 @@ All hand-written, all tested on my own servers. MIT licensed.
 <div class="title">Tools I Actually Use Daily</div>
 <p class="desc">Honest recommendations for hosting, security, monitoring, and senior tech. No sponsorships.</p>
 </a>
-<a href="/posts/2026-07-03-best-routers-home-network-2026/" class="footer-cta">
+<a href="/senior-tech/2026-07-03-best-routers-home-network-2026/" class="footer-cta">
 <span class="emoji">📡</span>
 <div class="title">Best Routers 2026</div>
 <p class="desc">5 tested picks covering WiFi 7, mesh, budget, and security-nerd use cases.</p>

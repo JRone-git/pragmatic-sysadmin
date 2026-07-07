@@ -75,6 +75,12 @@ enableRobotsTXT = true
   weight = 14
 
 [[menu.main]]
+  identifier = "meta"
+  name = "Meta"
+  url = "/meta/"
+  weight = 16
+
+[[menu.main]]
   identifier = "about"
   name = "About"
   url = "/about/"

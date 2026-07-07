@@ -272,6 +272,46 @@
         "source": "/posts/zero-trust-small-teams-2026/",
         "destination": "/sysadmin/zero-trust-small-teams-2026/",
         "type": 301
+      },
+      {
+        "source": "/posts/2025-08-16-how-i-built-this-blog-hugo-firebase-buttondown",
+        "destination": "/meta/2025-08-16-how-i-built-this-blog-hugo-firebase-buttondown/",
+        "type": 301
+      },
+      {
+        "source": "/posts/2025-08-16-how-i-built-this-blog-hugo-firebase-buttondown/",
+        "destination": "/meta/2025-08-16-how-i-built-this-blog-hugo-firebase-buttondown/",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-04-14-when-the-sim-becomes-the-thing-it-simulated",
+        "destination": "/meta/2026-04-14-when-the-sim-becomes-the-thing-it-simulated/",
+        "type": 301
+      },
+      {
+        "source": "/posts/2026-04-14-when-the-sim-becomes-the-thing-it-simulated/",
+        "destination": "/meta/2026-04-14-when-the-sim-becomes-the-thing-it-simulated/",
+        "type": 301
+      },
+      {
+        "source": "/posts/earn-gift-cards-playing-mobile-games-featurepoints",
+        "destination": "/meta/",
+        "type": 301
+      },
+      {
+        "source": "/posts/earn-gift-cards-playing-mobile-games-featurepoints/",
+        "destination": "/meta/",
+        "type": 301
+      },
+      {
+        "source": "/posts",
+        "destination": "/meta/",
+        "type": 301
+      },
+      {
+        "source": "/posts/",
+        "destination": "/meta/",
+        "type": 301
       }
     ]
   }
