@@ -7,21 +7,21 @@ tags:
   - sysadmin tools
   - devops tools
   - productivity
-description: "A curated list of tools and services I use daily as a system administrator. Includes Amazon affiliate links for easy purchasing."
+description: "A curated list of tools and services I use daily as a system administrator. Includes affiliate links for easy purchasing."
 ---
 
 # Tools I Use as a Sysadmin
 
-**Disclosure**: *This page contains Amazon affiliate links. I only recommend tools I genuinely use and find valuable in my daily work as a sysadmin.*
+**Disclosure**: *This page contains affiliate links. I only recommend tools I genuinely use and find valuable in my daily work as a sysadmin.*
 
 After years of sysadmin and DevOps work, I've tested countless tools. Here are the ones that consistently deliver value and save time.
 
 ## 🏠 Home Lab & Infrastructure
 
-### [Dell OptiPlex 7080 Mini](https://amazon.com/dp/B08BJPMBX4) - $450
+### [Dell OptiPlex 7080 Mini](https://www.newegg.com/dell-optiplex-7080-business-desktops-workstations/p/1VK-0001-6GXW5) - $450
 Perfect for homelab virtualization. 16GB RAM, 512GB SSD, plenty of USB ports.
 
-### [TP-Link Archer Router](https://amazon.com/dp/B07PN5NCBP) - $180
+### [TP-Link Archer Router](https://www.newegg.com/tp-link-archer-be550-6-ghz-5760-mbps-5-ghz-2880-mbps-2-4-ghz-574-mbps/p/N82E16833704711) - $180
 Excellent router with VLAN support. Great for network segmentation and home lab isolation.
 
 ### [Ubuntu Server LTS](https://ubuntu.com/download/server) - Free
@@ -59,13 +59,13 @@ Network protocol analyzer. Essential for troubleshooting connectivity issues.
 
 ## 💻 Development Hardware
 
-### [Mechanical Keyboard](https://amazon.com/dp/B08LXLBMXV) - $120
+### [Mechanical Keyboard](https://www.newegg.com/Gaming-Keyboard/SubCategory/ID-3523) - $120
 MX Brown switches, backlit. Perfect for long coding sessions.
 
-### [Good USB Hub](https://amazon.com/dp/B07SLTLY2T) - $25
+### [Good USB Hub](https://www.newegg.com/Hub/SubCategory/ID-26) - $25
 12-port powered hub for connecting lab equipment, drives, network gear.
 
-### [24" Monitor](https://amazon.com/dp/B07TM26GFF) - $180
+### [24" Monitor](https://www.newegg.com/p/3D4-007C-00016) - $180
 IPS panel, 1080p resolution. Adequate for sysadmin work without breaking the bank.
 
 ## 📚 Learning & Documentation
@@ -114,10 +114,10 @@ Budget tracking and cost optimization for Azure.
 
 ## 🎮 Testing & Learning
 
-### [Mini PC Clusters](https://amazon.com/dp/B09QGNSQZJ) - $299 each
+### [Mini PC Clusters](https://www.newegg.com/p/3C6-02VD-03BN7) - $299 each
 Perfect for Kubernetes learning. 4GB RAM, runs Docker containers fine.
 
-### [Network Switch (Managed)](https://amazon.com/dp/B07VH28W18) - $89
+### [Network Switch (Managed)](https://www.newegg.com/Switches/SubCategory/ID-30) - $89
 8-port managed switch with VLAN support. Essential for network learning.
 
 ## 📱 Mobile Apps
@@ -130,10 +130,10 @@ Terminal emulator for Android. Run scripts on mobile devices.
 
 ## ⚡ Power Tools
 
-### [APC UPS](https://amazon.com/dp/B01MZ0P5HA) - $150
+### [APC UPS](https://www.newegg.com/apc-bx1500m-5-x-nema-5-15r-5-x-nema-5-15r/p/N82E16842301561) - $150
 Uninterruptible power supply. Essential for home lab protection.
 
-### [Cable Management](https://amazon.com/dp/B0874RZKKG) - $20
+### [Cable Management](https://www.newegg.com/adiven-updated-252-pcs-cable-management-kit/p/38Y-0559-00005) - $20
 Velcro ties and cable management. Keep your lab neat and organized.
 
 ## 🎓 Recommended Learning

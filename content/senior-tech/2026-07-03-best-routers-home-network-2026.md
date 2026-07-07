@@ -83,7 +83,7 @@ Let me explain why, with the actual tradeoffs.
 
 **Best for:** Most people with gigabit or slower internet who want a future-proof router that "just works."
 
-→ [Check current TP-Link Archer BE550 price](https://www.amazon.com/) *(affiliate)*
+→ [Check current TP-Link Archer BE550 price](https://www.newegg.com/tp-link-archer-be550-6-ghz-5760-mbps-5-ghz-2880-mbps-2-4-ghz-574-mbps/p/N82E16833704711) *(affiliate)*
 
 ---
 
@@ -110,7 +110,7 @@ Let me explain why, with the actual tradeoffs.
 
 **Best for:** Homes with dead spots, multi-floor homes, anyone who wants "no thinking required."
 
-→ [Check current Deco XE75 Pro price](https://www.amazon.com/) *(affiliate)*
+→ [Check current Deco XE75 Pro price](https://www.newegg.com/tp-link-deco-xe75-pro-mesh-wifi-system/p/N82E16833704668) *(affiliate)*
 
 ---
 
@@ -137,7 +137,7 @@ Let me explain why, with the actual tradeoffs.
 
 **Best for:** Anyone with <1 Gbps internet who wants a cheap, reliable router. Most people.
 
-→ [Check current Archer AX55 price](https://www.amazon.com/) *(affiliate)*
+→ [Check current Archer AX55 price](https://www.newegg.com/tp-link-archer-ax55/p/N82E16833704603) *(affiliate)*
 
 ---
 
@@ -165,7 +165,7 @@ Let me explain why, with the actual tradeoffs.
 
 **Best for:** Sysadmins, security professionals, anyone who actually wants to configure their network.
 
-→ [Check current ASUS RT-AX86U Pro price](https://www.amazon.com/) *(affiliate)*
+→ [Check current ASUS RT-AX86U Pro price](https://www.newegg.com/asus-rt-ax86u-pro/p/N82E16833320549) *(affiliate)*
 
 ---
 
@@ -193,7 +193,7 @@ Let me explain why, with the actual tradeoffs.
 
 **Best for:** Large homes (3,000+ sq ft), multi-floor homes with concrete/steel, anyone who wants the absolute best and will pay for it.
 
-→ [Check current Orbi 970 price](https://www.amazon.com/) *(affiliate)*
+→ [Check current Orbi 970 price](https://www.newegg.com/netgear-orbi-970-mesh-wifi-system/p/N82E16833222329) *(affiliate)*
 
 ---
 
@@ -303,7 +303,7 @@ It's overkill for most people. But I'm a sysadmin, so.
 
 ## Affiliate disclosure
 
-Links to TP-Link, ASUS, and Netgear products on Amazon are affiliate links. I earn a small commission (1-4%) at no extra cost to you. Doesn't change my recommendations — every router above was tested by me for 2+ weeks.
+Links to TP-Link, ASUS, and Netgear products on Newegg are affiliate links. I earn a small commission (1-4%) at no extra cost to you. Doesn't change my recommendations — every router above was tested by me for 2+ weeks.
 
 See the [Resources page](/resources/) for the full list of tools I use and recommend.
 

@@ -50,8 +50,8 @@ The reviews below reflect their actual experience, not marketing claims.
 
 - 🏆 **Best overall: [Lively Smart](https://www.lively.com/)** — smartphone designed for seniors, with built-in medical alert
 - **Best flip phone: [Lively Flip](https://www.lively.com/)** — simple, with one-push emergency button
-- **Best mainstream phone for tech-comfortable seniors: [iPhone SE](https://www.amazon.com/)** + [Buddy app](https://pragmaticsysadmin.help/buddy/)
-- **Best tablet for video calling: [GrandPad](https://www.amazon.com/)**
+- **Best mainstream phone for tech-comfortable seniors: [iPhone SE](https://www.newegg.com/apple-iphone-se-6-1-3g-4g-lte-black/p/23M-0003-01X57)** + [Buddy app](https://pragmaticsysadmin.help/buddy/)
+- **Best tablet for video calling: [GrandPad](https://www.newegg.com/p/pl?d=grandpad)**
 - **Best budget option: Consumer Cellular phones** + their senior plans
 
 Let me explain why, with the actual tradeoffs.
@@ -141,7 +141,7 @@ She went from calling me once a day for help to calling me once a week. That's t
 
 **Best for:** Tech-comfortable seniors who already use or are willing to learn iPhones. Seniors whose adult children use iPhones and can help remotely.
 
-→ [Check current iPhone SE pricing](https://www.amazon.com/) *(affiliate — pricing varies)*
+→ [Check current iPhone SE pricing](https://www.newegg.com/apple-iphone-se-6-1-3g-4g-lte-black/p/23M-0003-01X57) *(affiliate — pricing varies)*
 
 **Pair with:** [Buddy app](https://pragmaticsysadmin.help/buddy/) for one-tap calling, medicine reminders, and scam protection. The Buddy app turns the iPhone into a senior-friendly phone. Add it during setup.
 
@@ -172,7 +172,7 @@ She went from calling me once a day for help to calling me once a week. That's t
 
 **Best for:** Grandparents whose main need is video calling grandchildren. Seniors who refuse to learn smartphones. Families willing to pay for the service for peace of mind.
 
-→ [Check GrandPad on Amazon](https://www.amazon.com/) *(reviews vary by year/model)*
+→ [Check GrandPad on Newegg](https://www.newegg.com/p/pl?d=grandpad) *(reviews vary by year/model)*
 
 ---
 
@@ -332,4 +332,4 @@ Whatever you choose, take 30 minutes on a Saturday to set it up properly. The ph
 - *[Best Free Phone Apps for Seniors](/senior-tech/2026-06-27-best-free-phone-apps-seniors/)*
 - *[Buddy — Free companion app for elderly parents](/buddy/)*
 
-*Affiliate disclosure: links to Lively, Consumer Cellular, and Amazon are affiliate links. I earn a small commission at no extra cost to you if you buy through them. This doesn't change my recommendations — every phone above was tested by a real grandparent. See the [Resources page](/resources/) for full disclosure.*
+*Affiliate disclosure: links to Lively, Consumer Cellular, and Newegg are affiliate links. I earn a small commission at no extra cost to you if you buy through them. This doesn't change my recommendations — every phone above was tested by a real grandparent. See the [Resources page](/resources/) for full disclosure.*

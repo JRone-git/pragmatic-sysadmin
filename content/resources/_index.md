@@ -140,7 +140,7 @@ The single best device for tech-shy seniors. Video calls work without touching a
 - **Why I recommend it:** My dad uses this daily. Zero learning curve after the initial setup.
 - **Use case:** Parents who live alone and need simple video calling + reminders
 
-→ [Echo Show on Amazon](https://www.amazon.com/echo-show-8)
+→ [Echo Show 8 on Newegg](https://www.newegg.com/p/2E3-010D-00308)
 
 ### Audiobooks — Audible
 
@@ -202,7 +202,7 @@ I update this list quarterly. Tools get added when they prove themselves over mo
 This page contains affiliate links to the following programs:
 - DigitalOcean (referral program, ~$25/signup commission)
 - 1Password (affiliate program, ~$5-10/sale commission)
-- Amazon Associates (1-4% commission on Amazon purchases)
+- Newegg / Rakuten Advertising (commission on Newegg purchases)
 - Lively (affiliate program, $15-25/activation commission)
 - Consumer Cellular (affiliate program, $5-15/activation commission)
 - Bay Alarm Medical (affiliate program, recurring commission)
