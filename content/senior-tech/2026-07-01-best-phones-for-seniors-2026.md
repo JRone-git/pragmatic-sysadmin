@@ -248,7 +248,7 @@ Whichever phone you buy, the setup is the same:
 6. **Test the medical alert button** (Lively) or setup a daily check-in call (everyone else).
 7. **Schedule a 30-day check-in** to see what's working and what isn't.
 
-For the full setup guide with specific menu paths, see [How to Set Up an iPhone for an Elderly Parent](/posts/setup-iphone-elderly-parent/).
+For the full setup guide with specific menu paths, see [How to Set Up an iPhone for an Elderly Parent](/senior-tech/2026-06-27-setup-iphone-elderly-parent/).
 
 ---
 

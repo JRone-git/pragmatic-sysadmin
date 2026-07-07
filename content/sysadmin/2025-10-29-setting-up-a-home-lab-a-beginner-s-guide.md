@@ -24,17 +24,29 @@ Cost-Effective Training: Learn expensive technologies for free
 Portfolio Building: Showcase real-world projects to potential employers
 Hands-On Experience: Practice automation, monitoring, and troubleshooting
 Hardware Requirements
+
 Minimum Specifications
+
 CPU: 4 cores (Intel i5/AMD Ryzen 5 or better)
 RAM: 16GB (32GB recommended for multiple VMs)
 Storage: 500GB SSD (1TB+ recommended)
 Network: Gigabit Ethernet
+
+Don't underestimate the RAM requirement. Virtualization is memory-hungry. Each VM typically needs 2-4 GB, and container orchestration systems like Kubernetes need even more. I started with 16 GB and upgraded to 32 GB within two months. If you're buying hardware, get 32 GB from the start — the upgrade cost is minimal compared to the time you'll save.
+
+For storage, prioritize SSDs over HDDs. A $60 NVMe SSD will make your VMs feel snappy compared to even a fast spinning disk. If you need bulk storage (for media servers, backups), add a large HDD as a secondary drive — but put your OS and VMs on the SSD.
+
+Network is non-negotiable: use wired Ethernet, not Wi-Fi. A [Cat6a ethernet cable](https://www.newegg.com/p/3C6-02B0-001B3) costs about $15 and gives you reliable 10 Gbps-capable connectivity. Wi-Fi adds latency and jitter that will drive you crazy when debugging network issues.
+
 Recommended Setup
+
 For a beginner-friendly lab, consider:
 
 Budget Option: [Raspberry Pi 4 (8GB)](https://www.newegg.com/p/3D0-0001-00014) + external drives
 Mid-Range: Refurbished [Dell OptiPlex](https://www.newegg.com/dell-optiplex-7080-business-desktops-workstations/p/1VK-0001-6GXW5) / HP Elitedesk
 High-End: Custom build with virtualization support
+
+I strongly recommend the mid-range option for most people. A refurbished Dell OptiPlex 7080 Mini costs around $450, comes with 16 GB RAM and a 512 GB SSD, and is small enough to sit on your desk. It draws about 15-30 watts under load, so leaving it running 24/7 adds maybe $3-5 to your monthly electricity bill. Compare that to cloud VMs at $20-50/month for equivalent specs.
 ## Recommended Hardware on Newegg
 
 Need the parts? Here's where I'd buy them:
@@ -50,10 +62,17 @@ Need the parts? Here's where I'd buy them:
 ---
 
 ## Essential Software Stack
+
 Base Operating System
-Ubuntu Server 22.04 LTS: Most beginner-friendly
-Proxmox VE: Powerful virtualization platform
-ESXi: VMware's enterprise hypervisor (free tier)
+
+Your choice of base OS matters less than you think. All of them can run Docker, all of them can be automated with Ansible, and all of them have the same core tools available. Here's when to pick which:
+
+- **Ubuntu Server 22.04 LTS**: Most beginner-friendly. Every tutorial on the internet assumes Ubuntu. If you're stuck, `apt install` will have the package you need. The LTS release means no forced upgrades for 5 years.
+- **Proxmox VE**: Powerful virtualization platform. If your primary goal is running VMs, Proxmox gives you a web UI for creating, snapshotting, and managing VMs. It's like having a mini VMware in your closet.
+- **Debian 12**: If you want the stability of Ubuntu LTS without the Canonical ecosystem. Slightly more minimal, slightly faster, slightly fewer tutorials available.
+
+**My recommendation**: Start with Ubuntu Server 22.04 LTS on bare metal, then install Docker and Proxmox as needed. You can always switch later — the skills transfer.
+
 Container Technologies
 bash
 # Install Docker
@@ -183,14 +202,26 @@ mkdir -p $BACKUP_DIR
 sudo tar -czf $BACKUP_DIR/configs.tar.gz /etc /home
 sudo docker run --rm -v lab-data:/data -v $BACKUP_DIR:/backup alpine tar -czf /backup/data.tar.gz /data
 Getting Started Checklist
- Hardware assembled and powered on
- Base OS installed and updated
- Network configured with VLANs
- Docker/Podman installed
- First container running
- Monitoring stack deployed
- Backup system configured
- Security hardening completed
+
+- [ ] Hardware assembled and powered on
+- [ ] Base OS installed and updated
+- [ ] Network configured with VLANs
+- [ ] Docker/Podman installed
+- [ ] First container running
+- [ ] Monitoring stack deployed
+- [ ] Backup system configured
+- [ ] Security hardening completed
+
+### Common First-Timer Mistakes I Made (So You Don't Have To)
+
+**Mistake 1: Buying too much hardware upfront.** I bought 3 mini PCs on day one. Two of them sat unused for 4 months while I learned Docker on the first one. Start with one machine, learn the basics, then expand when you actually need more capacity.
+
+**Mistake 2: Skipping documentation.** Three months in, I couldn’t remember how I’d configured the network. I spent a weekend reverse-engineering my own setup. Now I keep a simple `README.md` in each VM with its purpose, IP address, and key configuration details.
+
+**Mistake 3: Not setting up backups immediately.** “It’s just a lab, I can rebuild it” is what I told myself. Then I spent two weeks rebuilding a Kubernetes cluster I’d spent three weeks configuring. Use [restic](https://restic.net/) — it’s free, encrypted, and works with Backblaze B2 for off-site storage. Set it up on day one.
+
+**Mistake 4: Using your lab for everything.** Mixing production-like services (DNS, monitoring) with experimental projects (“what happens if I run this random Docker image”) on the same machine is how you lose your monitoring when an experiment goes wrong. Use separate VMs or at minimum separate Docker networks.
+
 Next Steps
 Once your basic lab is running:
 

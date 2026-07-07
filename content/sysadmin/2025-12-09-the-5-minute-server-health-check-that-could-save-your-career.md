@@ -47,13 +47,14 @@ df -h
 df -h | grep -E '9[0-9]%'
 ```
 
-If anything shows 90% or higher, you've got a problem brewing. 95%+ means you need to act *today*, not tomorrow.
+If anything shows 90% or higher, you've got a problem brewing. 95%+ means you need to act *today*, not tomorrow. I've seen entire production databases crash because a log file filled the only remaining 2% of disk, and the application couldn't write its temp files. It's embarrassing when it happens, and it's completely preventable.
 
-**Common culprits:**
-- Log files growing uncontrollably
-- Temporary files never cleaned up
-- Someone's home directory full of movies
-- That "temporary" test database that's been running for 6 months
+**Common culprits I see in production:**
+
+- **Log files growing uncontrollably** — Set up `logrotate` or configure your application's log manager. Nginx, for instance, can rotate logs weekly with `access_log /var/log/nginx/access.log combined;` plus a cron job. If you're running Docker, container logs can silently eat gigabytes — set `--log-opt max-size=10m --log-opt max-file=3` on your containers.
+- **Temporary files never cleaned up** — `/tmp` and `/var/tmp` are black holes. Add a weekly cron: `find /tmp -type f -atime +7 -delete`. Be careful with `/tmp` if you have long-running jobs that rely on temp files, but for most web servers this is safe.
+- **Someone's home directory full of movies** — It happens more than you'd think. Set disk quotas per user with `edquota` if you're on Linux. It takes 5 minutes to configure and saves you from the "developer downloaded 50GB of training data to /home" scenario.
+- **That "temporary" test database that's been running for 6 months** — Tag your test resources. I use a convention where any test database, VM, or container has `TEST-` in the name and an automated cleanup script runs monthly. If something needs to persist, it gets explicitly excluded.
 
 ### Step 3: The Process Health Scan (1 minute)
 
@@ -64,9 +65,10 @@ ps aux --sort=-%cpu | head -10
 ```
 
 Look for:
-- Processes consuming abnormal amounts of CPU or memory
-- Zombie processes (they never fix themselves)
-- Processes that should have stopped but didn't
+
+- **Processes consuming abnormal amounts of CPU or memory** — If a web server is suddenly eating 90% CPU, it's either handling a traffic spike (check your monitoring dashboard) or stuck in a loop (restart it and check the logs). For memory, remember that Linux uses free RAM for disk caching — the `available` column in `free -h` is more useful than `free`.
+- **Zombie processes** — Processes marked with a `Z` in the `STAT` column of `ps aux`. They're already dead but their parent process hasn't acknowledged the death. A few zombies are normal; dozens usually mean a poorly-written application. Find the parent with `ps -o ppid= -p <zombie_pid>` and restart it.
+- **Processes that should have stopped but didn't** — Maybe you killed a deployment script but the underlying build process kept running. Or a cron job spawned a child process that outlived the cron. These orphaned processes eat resources silently.
 
 ### Step 4: The Log Pattern Check (1 minute)
 
@@ -79,9 +81,10 @@ tail -100 /var/log/syslog | grep ERROR
 ```
 
 **What to look for:**
-- Repeated error patterns (indicates systemic issues)
-- Permission denied errors (usually means a service broke)
-- Connection timeouts (network or service issues)
+
+- **Repeated error patterns** (indicates systemic issues) — If you see the same error 50 times in an hour, it's not a fluke. Something changed. A config file got overwritten, a dependency updated, or a disk is failing. Find the first occurrence with `journalctl --since "1 hour ago" | grep -i error | head -1` and work forward from there.
+- **Permission denied errors** (usually means a service broke) — A deployment probably ran as the wrong user, or a file got moved and lost its permissions. Quick fix: `sudo -u <service_user> cat /path/to/file` to verify the service user can actually read it.
+- **Connection timeouts** (network or service issues) — If a service can't reach its database, check three things in order: is the database process running (`systemctl status mysql`), is the network reachable (`nc -zv db-host 3306`), and is the DNS resolving (`dig db-host`). I've wasted hours chasing "network issues" that were just a typo in a config file.
 
 ### Step 5: The Service Status Reality (1 minute)
 
@@ -92,6 +95,33 @@ systemctl list-failed
 # Or for older systems
 service --status-all 2>&1 | grep -E "(FAIL|STOP)"
 ```
+
+## What About Remote Servers?
+
+If you manage more than 2-3 servers, logging into each one manually defeats the purpose. Here's how to scale this:
+
+### The SSH One-Liner Approach
+
+```bash
+# Check disk + failed services across 5 servers in 10 seconds
+for host in web1 web2 db1 db2 cache1; do
+  echo "=== $host ==="
+  ssh $host "df -h | grep -E '9[0-9]%'; systemctl list-failed --no-pager"
+done
+```
+
+Set this up with SSH keys (not passwords) and a `~/.ssh/config` file with host aliases. If you're managing more than 10 servers, use Ansible — a simple `ansible all -m command -a "df -h"` does the same thing across your entire fleet in parallel.
+
+### The Cron Approach
+
+For a daily automated report that hits your inbox at 8:55 AM:
+
+```bash
+# /etc/cron.d/daily-health-check
+55 8 * * * root /opt/scripts/health-check.sh | mail -s "Daily Server Health" you@yourdomain.com
+```
+
+This way, problems are waiting in your inbox when you sit down with your coffee. No logging in required.
 
 ## Making This Actionable
 

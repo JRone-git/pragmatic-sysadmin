@@ -36,9 +36,9 @@ First, ensure your automation is actually running. A silent cron job is a deadly
 find /mnt/backups/ -name "*.tar.gz" -mtime -1 -ls
 ```
 
-If that returns nothing, your backup script died yesterday. If it returns files from 2024, you've been flying blind for a year.
+If that returns nothing, your backup script died yesterday. If it returns files from 2024, you've been flying blind for a year. I once discovered that a backup cron job had been silently failing for 8 months because the backup server's SSH key had been rotated and nobody updated the authorized_keys file on the other end. The backup script ran every night, created a zero-byte file, and exited with a success code. Nobody noticed until we needed the backup.
 
-**Pro tip:** Don't trust the filename (e.g., `backup-2025-12-14.tar.gz`). Trust the filesystem timestamp. Scripts can name empty files with today's date easily.
+**Pro tip:** Don't trust the filename (e.g., `backup-2025-12-14.tar.gz`). Trust the filesystem timestamp. Scripts can name empty files with today's date easily. I've seen backup scripts that do `touch backup-$(date +%F).tar.gz` as a "placeholder" before the actual backup runs — and then the actual backup fails. You're left with a zero-byte file named with today's date. Always check `ls -la`, not just `ls`.
 
 ### Step 2: The Size Deviation Scan (2 minutes)
 
@@ -50,9 +50,10 @@ ls -lhSr /mnt/backups/db-prod-*.sql.gz | tail -5
 ```
 
 **Red Flags:**
-- A sudden drop in file size (did the table lock fail?)
-- A file size of exactly 0 bytes or 4kb (empty header)
-- A size that hasn't changed by a single byte in weeks (is it backing up a stale staging copy?)
+
+- **A sudden drop in file size** (did the table lock fail?) — If your database dump goes from 2.1 GB to 800 MB overnight, something went wrong. Maybe `mysqldump` hit a lock timeout and only dumped half the tables. Maybe a table was dropped. Either way, investigate before you need this backup.
+- **A file size of exactly 0 bytes or 4kb** (empty header) — This means the backup process started but produced nothing. The most common cause: the source directory was empty (maybe a mount point didn't mount), or the backup command failed silently.
+- **A size that hasn't changed by a single byte in weeks** (is it backing up a stale staging copy?) — If your production data is growing but your backups aren't, you might be backing up the wrong volume. This happened to me once: the production database moved to a new volume, but the backup script was still pointing at the old mount path. The old volume had been frozen for weeks.
 
 ### Step 3: The Integrity Test (2 minutes)
 
@@ -77,7 +78,7 @@ This is my favorite trick. Don't just check the container; check the data. Grep 
 zgrep "2025-12" /mnt/backups/db-dump.sql.gz | head -5
 ```
 
-If your "daily" backup only contains dates from 2023, you're backing up an old volume.
+If your "daily" backup only contains dates from 2023, you're backing up an old volume. I caught exactly this problem once — a backup script was pointed at a snapshot volume that hadn't been updated since a server migration six months earlier. The backups ran every night, the files grew at the expected rate, and the integrity checks passed. The only thing wrong was that none of the data was current. The golden sample grep was the only check that would have caught it.
 
 ## Automating the Paranoia
 
@@ -131,12 +132,25 @@ echo "SUCCESS: Backup appears healthy."
 
 There is one final step that scripts can't do: **The Full Restore.**
 
-Once a month, take your backup and actually restore it to a virtual machine or a test container. 
+Once a month, take your backup and actually restore it to a virtual machine or a test container. Not a "selective extract" — a full, from-scratch restore. This is the only test that actually proves your backup works end-to-end.
+
 *   Does the app start?
 *   Can you log in?
 *   Is the data from yesterday there?
+*   Are the file permissions correct?
+*   Did the database credentials get restored properly (if they were in config files)?
 
-Documentation is great, but muscle memory is better. When production is down, you don't want to be reading `man tar` for the first time in years.
+Documentation is great, but muscle memory is better. When production is down, you don't want to be reading `man tar` for the first time in years. I keep a one-page "restore runbook" for every critical system — the exact commands, in order, to go from backup file to running application. It's saved me during two actual outages.
+
+### The 3-2-1 Rule (Because It Actually Matters)
+
+You've probably heard this before, but are you actually doing it?
+
+- **3 copies** of your data (production + primary backup + secondary backup)
+- **2 different storage types** (local disk + cloud/object storage)
+- **1 copy off-site** (different building, different provider, different region)
+
+I use [Backblaze B2](https://www.backblaze.com/b2/) for the off-site copy. It's $6/TB/month, which means my 50 GB of critical backups cost about $0.30/month. There's no excuse for not having an off-site copy in 2026. The upload can be automated with `restic` or `rclone` on a cron schedule. Set it up once, check it monthly, and forget about it.
 
 ## Summary
 
@@ -145,9 +159,16 @@ Backups are a promise to your future self. Keep that promise.
 1.  **Check timestamps** (ensure it ran).
 2.  **Check sizes** (ensure it grabbed data).
 3.  **Check integrity** (ensure it's not corrupt).
-4.  **Practice the restore** (ensure you know how).
+4.  **Check content** (ensure the data inside is actually recent — the golden sample grep).
+5.  **Practice the restore** (ensure you know how).
 
-Do this, and you’ll sleep through the night—even when the alerts start firing.
+Do this every Friday. It takes 10 minutes. That 10 minutes has saved me from two potentially career-ending restore failures. One where the backup file was corrupt (gzip CRC error, caught by Step 3), and one where the backup was pulling from a stale volume that hadn’t been updated in weeks (caught by Step 4’s golden sample grep).
+
+The ugly truth about backups is that most organizations only discover their backups are broken when they actually need them. By then, it’s too late. The Friday audit is how you find out on a quiet Tuesday afternoon, when there’s still time to fix it.
+
+If you only do one thing from this post, set up the verification script and wire it to send you an email when it fails. That single step moves you from “hoping” to “knowing.”
+
+Do this, and you’ll sleep through the night — even when the alerts start firing.
 
 ---
 

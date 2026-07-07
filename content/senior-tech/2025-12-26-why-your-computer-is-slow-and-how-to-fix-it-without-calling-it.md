@@ -92,6 +92,9 @@ Computers get slow when they're running out of space. Like really slow. If your 
 - Check all the boxes
 - Click OK and wait
 
+**5. If you're still full after cleaning, add an SSD**
+The single biggest speed upgrade for any older computer is replacing a spinning hard drive with an SSD. A [1TB NVMe SSD](https://www.newegg.com/p/pl?d=1tb+nvme+ssd) costs around $60 and makes an old laptop feel brand new. Boot times drop from 3 minutes to 15 seconds. Programs open instantly. It's the one upgrade I recommend to everyone, regardless of technical skill.
+
 **For small business owners:** If you're storing years of old files, consider moving them to an external hard drive or cloud storage. You probably don't need every invoice from 2017 on your computer.
 
 ## The #3 Issue: Browser Tabs Are Eating Your Memory
@@ -152,7 +155,7 @@ Not "I should do this." Do it TODAY.
 If your computer dies tomorrow, can you keep running your business? If the answer is "no," you need backups.
 
 **The simple way:**
-- Buy an external hard drive (256GB+ for most small businesses)
+- Buy an [external hard drive](https://www.newegg.com/p/pl?d=external+hard+drive) (256GB+ for most small businesses)
 - Plug it in
 - Windows: Settings → System → Storage → "Configure Backup"
 - Mac: Time Machine does this automatically when you plug in a drive

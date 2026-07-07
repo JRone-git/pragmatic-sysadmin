@@ -496,9 +496,9 @@ A few things I want to be clear about, since they're important:
 - **[5 Conversations About Online Safety](/senior-tech/2026-06-27-5-conversations-aging-parent-online-safety/)** *(1 week ago)* — The talks that prevent the $4,200 scam.
 - **[How to Set Up an iPhone for an Elderly Parent](/senior-tech/2026-06-27-setup-iphone-elderly-parent/)** *(1 week ago)* — The 30-minute setup.
 - **[Best Free Phone Apps for Seniors](/senior-tech/2026-06-27-best-free-phone-apps-seniors/)** *(1 week ago)* — 13 free apps, mom-tested.
-- **[When the Sim Becomes the Thing It Simulated](/posts/2026-04-14-when-the-sim-becomes-the-thing-it-simulated/)** *(3 months ago)* — What's actually happening with AI right now.
+- **[When the Sim Becomes the Thing It Simulated](/meta/2026-04-14-when-the-sim-becomes-the-thing-it-simulated/)** *(3 months ago)* — What's actually happening with AI right now.
 
-[See all 27 posts →](/posts/)
+[See all sysadmin posts →](/sysadmin/) · [See all senior tech posts →](/senior-tech/)
 
 ---
 
