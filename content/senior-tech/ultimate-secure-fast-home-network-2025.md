@@ -20,12 +20,12 @@ I've spent years as a sysadmin keeping enterprise networks safe and speedy. The 
 ### What to Buy
 
 **For most homes**: Wi-Fi 6 router with at least 4 streams
-- **Budget pick**: [TP-Link Archer AX55](https://amzn.to/4lxaO5o) - Solid performance, easy setup
-- **Power user**: [ASUS RT-AX86U](https://amzn.to/4mQgnNz) - Gaming features, enterprise-grade security
+- **Budget pick**: [TP-Link Archer AX55](https://www.newegg.com/tp-link-archer-ax55/p/N82E16833704603) - Solid performance, easy setup
+- **Power user**: [ASUS RT-AX86U Pro](https://www.newegg.com/asus-rt-ax86u-pro/p/N82E16833320549) - Gaming features, enterprise-grade security
 
 **For large homes (3000+ sq ft)**: Mesh system beats single router
-- **TP-Link Deco X55** - Consistent coverage, simple management
-- **ASUS ZenWiFi AX6600** - Advanced features, better wired backhaul
+- [TP-Link Deco X55](https://www.newegg.com/tp-link-deco-x55-mesh-wifi-system/p/N82E16833704626) - Consistent coverage, simple management
+- [ASUS ZenWiFi AX6600](https://www.newegg.com/p/pl?d=asus+zenwifi+ax6600) - Advanced features, better wired backhaul
 
 ### Why Wi-Fi 6 Matters
 
@@ -206,7 +206,7 @@ No spam, just practical tips that actually work.
 
 ---
 
-*Some product links are affiliates - they help support this blog at no extra cost to you. I only recommend gear I've personally tested and would buy myself.*
+*Some product links are affiliates through Newegg / Rakuten Advertising - they help support this blog at no extra cost to you. I only recommend gear I've personally tested and would buy myself.*
 
 *Related reads:*
 - *[Setting Up a Home Lab: A Beginner's Guide](/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)*

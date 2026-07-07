@@ -102,8 +102,8 @@ At scale, that's the difference between *"We're down, boss"* and *"Oh, that? It 
 - [Kubernetes the Hard Way](https://github.com/kelseyhightower/kubernetes-the-hard-way) - Free, teaches fundamentals
 
 **Books worth reading**:
-- [Kubernetes in Action](https://amzn.to/4mRY2jf) - Best practical guide
-- [Kubernetes Up & Running](https://amzn.to/3HAzg80) - Great for beginners
+- [Kubernetes in Action](https://www.manning.com/books/kubernetes-in-action) - Best practical guide
+- [Kubernetes Up & Running](https://www.oreilly.com/library/view/kubernetes-up-and/9781098132073/) - Great for beginners
 
 **Free practice**:
 - [Play with Kubernetes](https://labs.play-with-k8s.com/) - Browser-based lab

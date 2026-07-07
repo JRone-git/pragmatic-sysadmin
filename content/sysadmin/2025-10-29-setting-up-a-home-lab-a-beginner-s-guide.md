@@ -32,10 +32,24 @@ Network: Gigabit Ethernet
 Recommended Setup
 For a beginner-friendly lab, consider:
 
-Budget Option: Raspberry Pi 4 (8GB) + external drives
-Mid-Range: Refurbished Dell OptiPlex/HP Elitedesk
+Budget Option: [Raspberry Pi 4 (8GB)](https://www.newegg.com/p/3D0-0001-00014) + external drives
+Mid-Range: Refurbished [Dell OptiPlex](https://www.newegg.com/dell-optiplex-7080-business-desktops-workstations/p/1VK-0001-6GXW5) / HP Elitedesk
 High-End: Custom build with virtualization support
-Essential Software Stack
+## Recommended Hardware on Newegg
+
+Need the parts? Here's where I'd buy them:
+
+- [Raspberry Pi 4 (8GB)](https://www.newegg.com/p/3D0-0001-00014) - Budget lab starter (~$75)
+- [Dell OptiPlex 7080 Mini](https://www.newegg.com/dell-optiplex-7080-business-desktops-workstations/p/1VK-0001-6GXW5) - Best value mini PC for labs (~$450)
+- [1TB NVMe SSD](https://www.newegg.com/p/pl?d=1tb+nvme+ssd) - Fast storage for VMs (~$60)
+- [Managed Network Switch](https://www.newegg.com/Switches/SubCategory/ID-30) - For VLAN segmentation (~$89)
+- [Cat6a Ethernet Cable](https://www.newegg.com/p/3C6-02B0-001B3) - Don't cheap out on cables (~$15)
+
+*(Affiliate links through Newegg / Rakuten Advertising — supports the blog at no cost to you)*
+
+---
+
+## Essential Software Stack
 Base Operating System
 Ubuntu Server 22.04 LTS: Most beginner-friendly
 Proxmox VE: Powerful virtualization platform
@@ -135,7 +149,7 @@ Security Best Practices
 Network Security
 VLANs: Isolate different network segments
 Firewall Rules: Restrict unnecessary access
-VPN: Secure remote access
+VPN: Secure remote access — I use [NordVPN](https://go.nordvpn.net/aff_c?offer_id=15&aff_id=143264&url_id=902)
 Updates: Regular system and application updates
 Access Control
 bash
