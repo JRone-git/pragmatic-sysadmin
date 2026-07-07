@@ -51,6 +51,9 @@ ELK stack for centralized logging. Start with single-node deployment.
 ### [NordVPN](https://go.nordvpn.net/aff_c?offer_id=15&aff_id=143264&url_id=902) - $3-6/month
 Secure remote access for home lab management. No logs, fast speeds.
 
+### [NordPass](https://go.nordpass.io/aff_c?offer_id=488&aff_id=143264&url_id=9356) - Free/$2-4/month
+Password manager from the Nord team. Cross-platform, breach monitoring, and secure sharing. Good alternative if you want VPN + password manager from one ecosystem.
+
 ### [pfSense](https://pfsense.org) - Free
 Open-source firewall and router. Perfect for home lab networking.
 
