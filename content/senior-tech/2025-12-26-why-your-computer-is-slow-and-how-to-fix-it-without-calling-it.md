@@ -107,6 +107,8 @@ Close tabs you're not using. Right now. Yes, all of them.
 
 **Better solution:** Bookmark important pages instead of keeping tabs open.
 
+**If you're genuinely running out of RAM** (check: Task Manager → Performance → Memory — if it's consistently above 85%), adding more RAM is cheap and easy. A [16GB DDR4 RAM kit](https://www.newegg.com/p/pl?d=16gb+ddr4+ram) costs around $35-50 and snaps into your computer in about 2 minutes. Most laptops have a panel on the bottom you can remove. Desktops are even easier. If your computer has 4GB or 8GB and you're running Windows 11, upgrading to 16GB will feel like getting a new machine.
+
 **Windows:**
 - Press **Ctrl + D** to bookmark the current page
 

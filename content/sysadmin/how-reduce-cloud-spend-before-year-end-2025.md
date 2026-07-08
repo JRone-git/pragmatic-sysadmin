@@ -228,6 +228,6 @@ aws cloudwatch put-metric-alarm \
 
 ---
 
-**Ready to dive deeper?** Check out my guide on [Kubernetes Without Jargon](https://pragmaticsysadmin.help/posts/kubernetes-without-jargon-pods-processes-services/) for container optimization strategies that also reduce costs.
+**Ready to dive deeper?** Check out my guide on [Kubernetes Without Jargon](https://pragmaticsysadmin.help/sysadmin/kubernetes-without-jargon-pods-processes-services/) for container optimization strategies that also reduce costs.
 
 *What cloud cost challenges are you facing? Share your experiences in the comments below.*

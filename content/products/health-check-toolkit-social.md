@@ -77,6 +77,6 @@ I considered making it free, but the scripts took time to write
 and test across distros. $9 feels right for the time saved vs
 writing your own.
 
-Blog post (free): https://pragmaticsysadmin.help/posts/2025-12-07-the-5-minute-server-health-check-that-could-save-your-career/
+Blog post (free): https://pragmaticsysadmin.help/sysadmin/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/
 Toolkit ($9): https://ko-fi.com/s/5157a41780
 

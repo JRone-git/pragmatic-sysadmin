@@ -142,7 +142,57 @@ Once a month, take your backup and actually restore it to a virtual machine or a
 
 Documentation is great, but muscle memory is better. When production is down, you don't want to be reading `man tar` for the first time in years. I keep a one-page "restore runbook" for every critical system — the exact commands, in order, to go from backup file to running application. It's saved me during two actual outages.
 
-### The 3-2-1 Rule (Because It Actually Matters)
+### Real Disaster Stories (From My Career)
+
+I promised I'd share, so here are two real situations where backups either saved the day or nearly ended careers. Names changed to protect the embarrassed.
+
+**The $50,000 Database That Wasn't Backing Up**
+
+A client ran an e-commerce platform on a managed database service. They assumed the managed service provider handled backups because the dashboard showed "backups enabled." Turns out, that toggle only enabled *manual* snapshots — not automatic ones. Nobody had clicked "create snapshot" in 14 months.
+
+When a developer ran an `UPDATE` without a `WHERE` clause and wiped the `orders` table, we went to restore. The most recent snapshot was 14 months old. They lost every order from the past year. The cost of re-entering those orders (customer service time, lost records, GDPR implications) was estimated at over €50,000. All because someone saw a green toggle and assumed it meant "automated daily backups."
+
+After that incident, I added a specific check to my Friday audit: log into every managed service dashboard once a month and verify that automatic backups are actually scheduled, not just "enabled."
+
+**The Backup That Restored Perfectly — Into the Wrong Database**
+
+This one's almost comical. A PostgreSQL backup was running perfectly every night, integrity checks passed, golden sample grep showed current data. Everything looked great. Then during a restore test, we realized the backup script was dumping the *staging* database instead of *production*. Both were on the same server, and the script had been pointing at the wrong database name since a migration three months earlier.
+
+The staging database was a static copy that didn't change, so the backups looked fine — same size every day, always passed integrity, always had the right dates in the data. But it wasn't production. We only caught this because we did a full restore test and compared the record counts to the live production database.
+
+Lesson: your golden sample should include something that changes frequently — a record count comparison, a checksum of a known-changing table, or at minimum a `SELECT COUNT(*) FROM <frequently_updated_table>` compared against the live database.
+
+## Backup Tools Compared: rsync vs Borg vs Restic
+
+If you're building a backup system, you'll eventually need to pick a tool. Here's my honest comparison based on years of using all three in production and at home:
+
+**rsync** — The Old Reliable
+
+rsync has been around since 1996 and it's installed on virtually every Linux system. It does incremental file-level transfers and not much else.
+
+Strengths: Zero learning curve, already installed everywhere, great for simple directory mirroring. If you just need to copy files from A to B, rsync is perfect.
+Weaknesses: No built-in encryption, no deduplication, no compression of the backup archive. You need to layer these features yourself. No snapshot management — you're responsible for rotation and retention. If you want point-in-time recovery, you need to maintain multiple full copies.
+Best for: Simple directory syncs, mirroring files between servers, copying data to an NFS mount.
+
+**BorgBackup** — The Sweet Spot
+
+Borg adds deduplication, compression, encryption, and efficient storage to the rsync concept. It's what I used for years before switching to restic.
+
+Strengths: Excellent deduplication (backups are fast and small), built-in encryption (AES-256), automatic compression, easy to set up with a simple CLI. The `borg list` and `borg diff` commands make it easy to browse and compare backups. Active community, well-documented.
+Weaknesses: The server side requires Borg to be installed on the remote machine — you can't back up to arbitrary SFTP servers or cloud storage without workarounds. Repository format changed between versions (though migrations are handled automatically). Requires a dedicated "repository" directory structure.
+Best for: Backing up to a Linux server you control, especially over SSH. Great for home labs and small-to-medium production setups.
+
+**Restic** — The Modern Choice
+
+Restic was designed from the start to support multiple storage backends (S3, B2, SFTP, local disk, etc.) while keeping Borg's strengths.
+
+Strengths: Supports cloud storage natively — Backblaze B2, AWS S3, Wasabi, MinIO all work out of the box. Built-in encryption and deduplication. The `restic check` command is thorough and fast. Clean, consistent CLI. No server-side software needed for most backends. Can back up directly to S3-compatible storage without SSH.
+Weaknesses: Slightly slower than Borg for local-to-local backups (the overhead of the abstraction layer). The `restic forget --prune` command for retention management can be confusing at first. Less mature ecosystem than Borg (fewer GUI tools, though you probably don't need one).
+Best for: Backing up to cloud storage, any environment where you want to push to S3/B2, heterogeneous backup targets.
+
+My current setup: I use restic for everything. The ability to back up directly to Backblaze B2 without needing a Borg server on the other end was the deciding factor. For a Friday audit, restic makes it easy — `restic check` verifies repository integrity, and `restic ls latest | head -20` shows you what's in the most recent snapshot.
+
+## The 3-2-1 Rule (Because It Actually Matters)
 
 You've probably heard this before, but are you actually doing it?
 

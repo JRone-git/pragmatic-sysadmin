@@ -172,6 +172,8 @@ You can't secure what you can't see.
 - **Split tunneling**: Local traffic stays fast, sensitive traffic goes through VPN
 - **Kill switch**: Blocks internet if VPN disconnects
 
+For most homes, the easiest approach is a VPN app on each device. I use and recommend [NordVPN](https://go.nordvpn.net/aff_c?offer_id=15&aff_id=143264&url_id=902) — it has good speeds, a kill switch, and works on iOS, Android, Windows, and Mac. If your router supports it, you can install the VPN at the router level to protect every device on your network without installing anything on them individually.
+
 ## Common Mistakes to Avoid
 
 ❌ **Using ISP rental router long-term**  

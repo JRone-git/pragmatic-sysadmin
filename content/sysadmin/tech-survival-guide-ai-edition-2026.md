@@ -166,6 +166,50 @@ Style: [How you work]
 Goal: [What you're trying to achieve]
 ```
 
+### Which AI Tools Should You Actually Use?
+
+I've tested most of the major AI tools for sysadmin work over the past two years. Here's my honest assessment of what works for technical troubleshooting, not just creative writing:
+
+**ChatGPT (GPT-4o / GPT-o1)**
+Best for: General troubleshooting, script generation, explaining concepts
+Strengths: Widest knowledge base, good at following multi-step instructions, decent at code
+Weaknesses: Can hallucinate package names and command flags — always test before running on production. The web search feature sometimes pulls outdated information from old forum posts.
+My use: Day-to-day troubleshooting and script generation. It's my first stop for most problems.
+
+**Claude (Anthropic)**
+Best for: Long, complex analysis tasks, reading documentation, writing detailed runbooks
+Strengths: Handles long context windows better than most — you can paste an entire config file and ask "what's wrong with this." Less prone to confident-sounding hallucinations. Better at nuanced technical explanations.
+Weaknesses: Sometimes overly cautious, won't help with anything it perceives as "hacking" even when it's legitimate sysadmin work (like writing an Nmap scanning script for your own network).
+My use: Analyzing config files, reviewing infrastructure code, writing documentation.
+
+**Perplexity AI**
+Best for: Researching current solutions, comparing tools, finding documentation
+Strengths: Actually searches the web and cites sources. This is the big differentiator — when you ask "what's the current best practice for X in 2026," it searches recent articles and gives you sourced answers instead of training data from 2023.
+Weaknesses: Less good at generating code. The free tier has limited deep research queries.
+My use: When I need to research a tool or find current documentation. I use it alongside ChatGPT, not instead of it.
+
+**GitHub Copilot / Cursor**
+Best for: In-editor code generation while writing scripts, Terraform, or Kubernetes manifests
+Strengths: Context-aware — it knows what file you're editing and what's in your project. Great for boilerplate and repetitive configuration.
+Weaknesses: Only works in your editor. Not useful for open-ended troubleshooting questions. Can suggest things that don't match your project's patterns.
+My use: Writing Ansible playbooks, Terraform configs, and Docker Compose files. The tab-completion-style suggestions save real time once you learn to accept/reject quickly.
+
+The reality is that no single tool is best for everything. I use ChatGPT for quick questions and scripts, Claude for deep analysis, and Perplexity for research. Don't get attached to one — use whichever gives you the best answer for the specific problem in front of you.
+
+## What AI Can't Do (Yet)
+
+I don't want to paint an overly rosy picture. Here's where AI falls flat for sysadmins, and where you still need actual expertise:
+
+**It can't access your systems.** AI can't SSH into your servers, check your monitoring dashboard, or read your actual log files. You still need to gather the information and bring it to the AI. I've seen people waste 20 minutes trying to get AI to debug a problem when a 30-second `journalctl` would have given them the answer.
+
+**It can't make judgment calls about your environment.** "Should I upgrade PostgreSQL from 14 to 16?" is a question AI can help research, but the final call depends on your specific application compatibility, change management windows, and risk tolerance. AI doesn't know your org's politics or constraints.
+
+**It hallucinates confidently.** I once had ChatGPT confidently recommend a `--fix-everything` flag for `fsck` that doesn't exist. If I'd run it as root without checking, nothing bad would have happened (the flag would just be ignored), but it could have been worse. Always verify commands against documentation before running them, especially anything with `sudo`.
+
+**It doesn't learn from your environment over time.** Unless you're using a tool with persistent memory (like Claude Projects or ChatGPT's memory feature), each conversation starts from scratch. That's why the context template I mentioned earlier is so important — it's your way of giving AI the background it would otherwise lack.
+
+**It can't replace on-call experience.** AI can help you debug a problem at 3 AM, but the muscle memory of "I've seen this exact error before, it's always the certificate" only comes from experience. Use AI to accelerate learning, not skip it.
+
 ## Conclusion: From Reactive to Proactive
 
 The real game-changer isn't just fixing problems or even preventing them - it's building a system where:

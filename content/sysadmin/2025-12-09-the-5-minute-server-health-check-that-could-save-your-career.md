@@ -179,6 +179,62 @@ This 5-minute check won't catch everything, and that's not its purpose. It's des
 
 For the remaining 20%, you'll need proper monitoring, alerting, and incident response procedures. But start with this—it's the foundation everything else builds on.
 
+## What to Do When You Find Something Wrong
+
+So you've run your 5-minute check and something looks off. Now what? Here's the decision framework I use:
+
+**Disk at 90%+**: First, identify what's eating space. `du -sh /var/log/* | sort -rh | head -10` gives you the top 10 directories. Don't just delete things — understand what they are. If it's a log file, rotate it or configure logrotate properly. If it's a backup, check whether old backups can be pruned. If it's application data (uploads, caches), talk to the application team before touching it. I once deleted what I thought was a cache directory only to find out it was the application's working directory for active jobs. Learn from my mistakes.
+
+**High CPU on a process**: Before killing it, check what it's actually doing. `strace -p <PID> -c -f` for 10 seconds will show you what system calls the process is making. If it's making thousands of `read()` calls on a file, it might be stuck in a loop. If it's doing heavy `write()` to a log, you've found your culprit. If you're not comfortable with strace, at minimum check `ls -la /proc/<PID>/fd/` to see what files the process has open — that alone tells you a lot.
+
+**Memory steadily climbing**: This one is tricky because Linux uses free RAM for disk caching and that's normal. Look at the `available` column in `free -h`, not `free`. If `available` is under 1 GB and swap is being used, you have a real memory issue. Check for memory leaks with `ps aux --sort=-%mem | head -10` and compare to yesterday's output (you are keeping notes, right?). If a process is using 2 GB today and was using 500 MB last week, that's a leak — restart the process and open a ticket with the application team.
+
+**Failed service at boot**: Run `systemctl status <service>` and scroll to the bottom for the actual error message. Most of the time it's either a dependency that didn't start in time (fix: add `After=` and `Wants=` to the unit file) or a config file error introduced in the last deployment (fix: check git history for recent changes). For recurring boot failures, look at `journalctl -b -u <service>` to see the full boot-time log.
+
+The key principle: don't just fix the symptom. If you keep restarting a service that keeps crashing, you're playing whack-a-mole. Spend 10 extra minutes finding the root cause, and you'll save yourself the same 3 AM page next week.
+
+## The Weekend Deep-Dive: A 30-Minute Version
+
+The 5-minute check is for every day. But once a week — I do this on Saturday mornings with coffee — run a more thorough version that catches slower-burning issues:
+
+```bash
+#!/bin/bash
+# weekly-deep-check.sh
+# Run this once a week, not every day
+
+echo "=== Weekly Deep Check: $(date) ==="
+
+echo "--- Disk Inodes (you checked space, but inodes can run out too) ---"
+df -i | grep -E '9[0-9]%'
+
+echo "--- Listening Ports (anything unexpected?) ---"
+ss -tlnp | sort -t: -k2 -n
+
+echo "--- Scheduled Cron Jobs (anything new?) ---"
+for user in root $(cut -f1 -d: /etc/passwd); do
+  crontab -l -u $user 2>/dev/null
+done | grep -v '^#' | grep -v '^$'
+
+echo "--- SUID Files (potential privilege escalation) ---"
+find / -perm -4000 -type f 2>/dev/null | head -20
+
+echo "--- SSL Certificate Expiry (next 30 days) ---"
+for cert in /etc/ssl/certs/*.pem; do
+  echo -n "$cert: "
+  openssl x509 -enddate -noout -in "$cert" 2>/dev/null | cut -d= -f2
+done
+
+echo "--- Last Logins (any unusual access?) ---"
+last -20
+
+echo "--- Kernel Messages (hardware warnings) ---"
+dmesg -T | grep -iE 'error|warn|fail' | tail -10
+```
+
+This catches things the daily check misses: SUID binaries that appeared out of nowhere (sign of a compromise or an overeager installer), SSL certificates about to expire (nothing like an expired cert on Monday morning), unexpected listening ports (did someone install something?), and hardware warnings in dmesg (a disk reporting SMART errors won't show up in `df` until it actually dies).
+
+The listening ports check alone has saved me twice. Once I found a Redis instance that a developer had exposed on 0.0.0.0 during testing and forgotten about. It was accessible from the internet for two weeks. Another time I found a process listening on port 4444 that turned out to be a penetration test — but I didn't know about the pen test, so I flagged it immediately. Better to flag something legitimate than miss something malicious.
+
 ## Make It Part of Your Morning Routine
 
 Pick a consistent time, make it non-negotiable, and do it every single day. Your future self (and your sleep schedule) will thank you.

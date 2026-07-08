@@ -136,6 +136,31 @@ People underestimate the operational cost of Kubernetes. Here's what you're sign
 
 For comparison, a well-written Ansible playbook + a few Docker Compose files can manage 10 servers with a fraction of the complexity. I've seen teams spend 6 months migrating to Kubernetes, only to realize they could have solved their actual problem (automated deployments) with a $50/month CI/CD pipeline.
 
+### Kubernetes vs Docker Compose: When to Use What
+
+This is the question I get most often from people learning containers, so let me give you a clear, practical comparison:
+
+**Docker Compose** is for defining multi-container applications on a single host. You write a `docker-compose.yml` file listing your containers, their connections, and their volumes. Run `docker compose up` and everything starts. That's it.
+
+**Kubernetes** is for running containerized applications across multiple hosts with automatic failover, scaling, and rolling updates. You write YAML manifests (plural — usually several per application), apply them with `kubectl`, and the cluster handles the rest.
+
+Here's how they compare on the things that actually matter:
+
+| Concern | Docker Compose | Kubernetes |
+|---------|---------------|------------|
+| **Setup time** | 5 minutes | Hours to days |
+| **Multi-host** | No (single machine) | Yes (its whole purpose) |
+| **Auto-restart on crash** | `restart: always` | Built-in, default behavior |
+| **Scaling** | `docker compose up --scale=5` | `kubectl scale deployment app --replicas=5` |
+| **Rolling updates** | No (stop all, start all) | Yes (zero downtime) |
+| **Load balancing** | Basic (single host) | Built-in Services |
+| **Learning curve** | Afternoon | Weeks to months |
+| **When to use** | Single server, simple apps | Multiple servers, production workloads |
+
+My honest recommendation: if you can solve your problem with Docker Compose, use Docker Compose. Don't let anyone pressure you into Kubernetes prematurely. I run Docker Compose for my home lab and personal projects — it's perfectly fine for a blog, a small API, or a handful of microservices on one VPS.
+
+The right time to switch from Docker Compose to Kubernetes is when you hit a wall that Compose can't climb over. For most people, that wall looks like one of these: your app needs to run on more than one server, you need automatic failover when a server dies, or you're deploying the same app across dev/staging/production environments and need consistency.
+
 ## Getting Started: The Practical Path
 
 **1. Learn Docker first**: Kubernetes runs containers, so understand containers
@@ -186,6 +211,72 @@ Now the magic:
 - A node (physical server) dies? Kubernetes reschedules all pods from that node onto healthy ones automatically.
 
 Each of these scenarios used to require manual intervention, custom scripts, or maintenance windows. Kubernetes handles them all with the same declarative configuration.
+
+## Your First Deployment: Walkthrough
+
+Let me show you exactly what deploying to Kubernetes looks like, step by step. This is what I wish someone had shown me when I was starting out — not theory, not diagrams, just the actual commands.
+
+**Step 1: Get a cluster.** For learning, install Minikube (`curl -LO https://storage.googleapis.com/minikube/releases/latest/minikube-linux-amd64 && sudo install minikube-linux-amd64 /usr/local/bin/minikube && minikube start`). For production, use a managed service like Vultr, GKE, or EKS. The `kubectl` commands are the same either way.
+
+**Step 2: Create a Deployment.** Save this as `nginx-deployment.yaml`:
+
+```yaml
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: my-nginx
+spec:
+  replicas: 2
+  selector:
+    matchLabels:
+      app: nginx
+  template:
+    metadata:
+      labels:
+        app: nginx
+    spec:
+      containers:
+      - name: nginx
+        image: nginx:1.25
+        ports:
+        - containerPort: 80
+```
+
+Apply it: `kubectl apply -f nginx-deployment.yaml`
+
+Check it: `kubectl get pods` — you should see 2 nginx Pods in Running state.
+
+**Step 3: Expose it with a Service.** Save this as `nginx-service.yaml`:
+
+```yaml
+apiVersion: v1
+kind: Service
+metadata:
+  name: nginx-service
+spec:
+  type: NodePort
+  selector:
+    app: nginx
+  ports:
+    - port: 80
+      targetPort: 80
+      nodePort: 30080
+```
+
+Apply it: `kubectl apply -f nginx-service.yaml`
+
+Now you can access Nginx at `http://<your-node-ip>:30080`. With Minikube, just run `minikube service nginx-service` and it opens in your browser.
+
+**Step 4: Watch it self-heal.** Delete a Pod and watch Kubernetes replace it:
+
+```bash
+kubectl delete pod <pod-name>
+# Wait 5 seconds
+kubectl get pods
+# A new pod with a different name is already Running
+```
+
+That's the core loop. Everything else in Kubernetes — ConfigMaps, Secrets, Ingress, PersistentVolumes — builds on these two concepts: Deployments (what to run) and Services (how to reach it). Don't try to learn everything at once. Get comfortable with Deployments and Services first, then add ConfigMaps when you need environment variables, Ingress when you need proper domain routing, and PersistentVolumes when you need data that survives pod restarts.
 
 ## Real Talk: When to Actually Use This
 

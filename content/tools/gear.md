@@ -165,6 +165,6 @@ I chose these tools based on:
 
 ---
 
-**Have questions about any of these tools?** Check out my [home lab guide](https://pragmaticsysadmin.help/posts/setting-up-a-home-lab-a-beginner-s-guide/) or leave a comment below.
+**Have questions about any of these tools?** Check out my [home lab guide](https://pragmaticsysadmin.help/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/) or leave a comment below.
 
 *Prices may fluctuate and I may earn commissions from affiliate links, but I only recommend tools I genuinely use and believe provide value.*

@@ -212,6 +212,28 @@ Getting Started Checklist
 - [ ] Backup system configured
 - [ ] Security hardening completed
 
+### What to Build First: Three Starter Projects
+
+Once your lab is up and running, the hardest part is deciding what to do with it. Here are three projects I'd recommend, in order of difficulty, that actually teach you useful skills:
+
+**Project 1: Network-Wide Ad Blocking with Pi-hole (Day 1)**
+
+This is the "hello world" of home labs, and it's genuinely useful from day one. Pi-hole acts as a DNS sinkhole — every device on your network uses it as its DNS server, and it blocks ad domains before they even load. Your phone, smart TV, and laptop all benefit without installing anything.
+
+Set it up as a Docker container, point your router's DNS to the Pi-hole IP, and within 10 minutes you'll see the stats rolling in. The real learning here is understanding how DNS works, which is foundational knowledge for any sysadmin. If you can explain why `pihole.local` resolves differently from `8.8.8.8`, you've learned something valuable.
+
+**Project 2: Self-Hosted Monitoring with Prometheus + Grafana (Week 1-2)**
+
+You've already deployed these in the setup guide above, but now take it further. Install the Node Exporter agent on your lab machine, point Prometheus at it, and build a Grafana dashboard that shows CPU, memory, disk, and network usage. Then add Docker container monitoring with cAdvisor.
+
+The reason this is a great second project: every production environment needs monitoring, and the Prometheus/Grafana stack is what most companies use. Learning it in your lab means you won't be fumbling with it when your boss asks you to set it up at work. Plus, watching your own resource graphs is weirdly satisfying.
+
+**Project 3: Automated Backup Server with Restic (Week 3-4)**
+
+Install restic, configure it to back up your Pi-hole config and Grafana data to a local repository, then set up a cron job that runs nightly. Once that works, extend it to back up to an off-site location (Backblaze B2 has a free tier that covers small labs). This teaches you backup automation, encryption, and cron scheduling — skills that translate directly to production environments.
+
+I'd rate these projects as beginner, beginner-intermediate, and intermediate respectively. By the time you finish all three, you'll have a lab that does something useful *and* you'll have picked up skills in DNS, monitoring, and backup automation. That's more practical knowledge than most certification courses cover.
+
 ### Common First-Timer Mistakes I Made (So You Don't Have To)
 
 **Mistake 1: Buying too much hardware upfront.** I bought 3 mini PCs on day one. Two of them sat unused for 4 months while I learned Docker on the first one. Start with one machine, learn the basics, then expand when you actually need more capacity.
@@ -222,7 +244,25 @@ Getting Started Checklist
 
 **Mistake 4: Using your lab for everything.** Mixing production-like services (DNS, monitoring) with experimental projects (“what happens if I run this random Docker image”) on the same machine is how you lose your monitoring when an experiment goes wrong. Use separate VMs or at minimum separate Docker networks.
 
-Next Steps
+### What's This Going to Cost Me Monthly?
+
+One of the things nobody talks about enough is the ongoing cost of running a home lab. Here's my actual monthly breakdown running a Dell OptiPlex 7080 Mini with 32 GB RAM, plus an external 4 TB HDD for backups:
+
+| Item | Monthly Cost | Notes |
+|------|-------------|-------|
+| Electricity (30W average) | €3-5 | Based on Finnish electricity rates (~€0.15-0.25/kWh) |
+| Off-site backup (Backblaze B2) | €0.30 | For ~50 GB of critical configs and data |
+| Dynamic DNS (if needed) | €0 | Use Cloudflare free tier or DuckDNS |
+| Domain name (optional) | €1-2 | Only if you want a custom domain for services |
+| **Total** | **€4-7/month** | |
+
+Compare that to cloud alternatives: a comparable DigitalOcean droplet (4 vCPUs, 8 GB RAM) runs $48/month, and that's just one machine. My lab runs 6-8 VMs and 20+ containers for the price of a cup of coffee per month.
+
+The electricity cost is the one that surprises people. Finland has relatively cheap electricity by European standards, but even at higher rates, a 30W mini PC running 24/7 is negligible. The real power drain comes when you add spinning hard drives and graphics cards — if you're running a home media server with a GPU for transcoding, budget accordingly. I measured mine with a cheap power meter (€15 from Verkkokauppa) and it was well worth the purchase to know the real numbers instead of guessing.
+
+If you're worried about power consumption, consider scheduling non-essential services. My test environments only run during work hours via a cron job that shuts them down at 8 PM and starts them at 7 AM. That alone cut my power draw by about 40%.
+
+## Next Steps
 Once your basic lab is running:
 
 1.
