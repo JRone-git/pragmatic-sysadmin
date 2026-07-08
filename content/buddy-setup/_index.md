@@ -56,7 +56,7 @@ Every setup call covers the same seven things. Most parents use Buddy within min
 
 **Step 1 — Book and pay**
 
-Click the button above. Tell me your parent's name, their relationship to you, what kind of phone they have (iPhone or Android), and a good time for a call. I'll send you a Stripe payment link for $29.
+Click the button above. Tell me your parent's name, their relationship to you, what kind of phone they have (iPhone or Android), and a good time to call. I'll personally email you back with a secure payment link (PayPal or card) and confirm the appointment.
 
 **Step 2 — Schedule the call**
 
@@ -110,7 +110,7 @@ This is the most common concern. A few things that help:
 2. **Show them the screen recording afterward.** Most reluctant parents become enthusiastic users once they see how simple it is.
 3. **Start with one feature.** If they only ever use the "Call my daughter" button, that's a huge win.
 
-If your parent outright refuses, the setup call isn't going to help. I'll refund the $29 if that's the case — no questions.
+If your parent outright refuses, the setup call isn't going to help. I'll refund the full amount if that's the case — no questions.
 
 ---
 
