@@ -18,17 +18,10 @@ After years of sysadmin and DevOps work, I've tested countless tools. Here are t
 
 ## 🏠 Home Lab & Infrastructure
 
-<<<<<<< HEAD
-### [Dell OptiPlex 7080 Mini](https://www.newegg.com/dell-optiplex-7080-business-desktops-workstations/p/1VK-0001-6GXW5) - $450
-Perfect for homelab virtualization. 16GB RAM, 512GB SSD, plenty of USB ports.
-
-### [TP-Link Archer Router](https://www.newegg.com/tp-link-archer-be550-6-ghz-5760-mbps-5-ghz-2880-mbps-2-4-ghz-574-mbps/p/N82E16833704711) - $180
-=======
 ### [Dell OptiPlex 7080 Mini](https://www.newegg.com/p/Desktop-Computers/48?keyword=Dell+OptiPlex+7080+Micro) - $450
 Perfect for homelab virtualization. 16GB RAM, 512GB SSD, plenty of USB ports.
 
 ### [TP-Link Archer Router](https://www.newegg.com/p/Networking-Wireless-Routers/36?keyword=TP-Link+Archer+A7) - $180
->>>>>>> 8a97228 (Integrate Rakuten Newegg affiliate: auto-tag outbound links)
 Excellent router with VLAN support. Great for network segmentation and home lab isolation.
 
 ### [Ubuntu Server LTS](https://ubuntu.com/download/server) - Free
@@ -69,15 +62,6 @@ Network protocol analyzer. Essential for troubleshooting connectivity issues.
 
 ## 💻 Development Hardware
 
-<<<<<<< HEAD
-### [Mechanical Keyboard](https://www.newegg.com/Gaming-Keyboard/SubCategory/ID-3523) - $120
-MX Brown switches, backlit. Perfect for long coding sessions.
-
-### [Good USB Hub](https://www.newegg.com/Hub/SubCategory/ID-26) - $25
-12-port powered hub for connecting lab equipment, drives, network gear.
-
-### [24" Monitor](https://www.newegg.com/p/3D4-007C-00016) - $180
-=======
 ### [Mechanical Keyboard](https://www.newegg.com/p/mechanical-keyboards/1?keyword=mechanical+keyboard) - $120
 MX Brown switches, backlit. Perfect for long coding sessions.
 
@@ -85,7 +69,6 @@ MX Brown switches, backlit. Perfect for long coding sessions.
 12-port powered hub for connecting lab equipment, drives, network gear.
 
 ### [24" Monitor](https://www.newegg.com/p/monitors/19?keyword=24+inch+monitor) - $180
->>>>>>> 8a97228 (Integrate Rakuten Newegg affiliate: auto-tag outbound links)
 IPS panel, 1080p resolution. Adequate for sysadmin work without breaking the bank.
 
 ## 📚 Learning & Documentation
@@ -134,17 +117,10 @@ Budget tracking and cost optimization for Azure.
 
 ## 🎮 Testing & Learning
 
-<<<<<<< HEAD
-### [Mini PC Clusters](https://www.newegg.com/p/3C6-02VD-03BN7) - $299 each
-Perfect for Kubernetes learning. 4GB RAM, runs Docker containers fine.
-
-### [Network Switch (Managed)](https://www.newegg.com/Switches/SubCategory/ID-30) - $89
-=======
 ### [Mini PC Clusters](https://www.newegg.com/p/Mini-PCs/494?keyword=Mini+PC+Cluster) - $299 each
 Perfect for Kubernetes learning. 4GB RAM, runs Docker containers fine.
 
 ### [Network Switch (Managed)](https://www.newegg.com/p/networking-switches/32?keyword=managed+switch) - $89
->>>>>>> 8a97228 (Integrate Rakuten Newegg affiliate: auto-tag outbound links)
 8-port managed switch with VLAN support. Essential for network learning.
 
 ## 📱 Mobile Apps
@@ -157,17 +133,10 @@ Terminal emulator for Android. Run scripts on mobile devices.
 
 ## ⚡ Power Tools
 
-<<<<<<< HEAD
-### [APC UPS](https://www.newegg.com/apc-bx1500m-5-x-nema-5-15r-5-x-nema-5-15r/p/N82E16842301561) - $150
-Uninterruptible power supply. Essential for home lab protection.
-
-### [Cable Management](https://www.newegg.com/adiven-updated-252-pcs-cable-management-kit/p/38Y-0559-00005) - $20
-=======
 ### [APC UPS](https://www.newegg.com/power-supply-ups/32?keyword=APC+UPS) - $150
 Uninterruptible power supply. Essential for home lab protection.
 
 ### [Cable Management](https://www.newegg.com/p/cable-management/1?keyword=cable+management) - $20
->>>>>>> 8a97228 (Integrate Rakuten Newegg affiliate: auto-tag outbound links)
 Velcro ties and cable management. Keep your lab neat and organized.
 
 ## 🎓 Recommended Learning
