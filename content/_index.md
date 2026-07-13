@@ -60,182 +60,69 @@ build:
 </script>
 
 <style>
-/* Homepage styles. Matches PaperMod + sage/terracotta brand. */
+/* ── Homepage v2 — clean, spacious, content-first ────────────────────── */
+.homepage {
+  max-width: 780px;
+  margin: 0 auto;
+}
+
+/* Hero */
 .hero {
-  text-align: left;
-  padding: 1.5rem 0 1.2rem;
+  padding: 2rem 0 1.5rem;
   border-bottom: 1px solid var(--border, #d6cfbe);
-  margin-bottom: 1.8rem;
+  margin-bottom: 2.5rem;
 }
 .hero h1 {
-  font-size: 2rem;
-  line-height: 1.2;
-  margin: 0 0 0.5rem 0;
+  font-size: 1.85rem;
+  line-height: 1.25;
+  margin: 0 0 0.6rem 0;
   color: var(--primary, #2a2a2a);
   font-weight: 700;
+  letter-spacing: -0.02em;
 }
-.hero .hero-sub {
-  font-size: 1.05rem;
+.hero-sub {
+  font-size: 1.02rem;
   color: var(--secondary, #5a5a5a);
-  line-height: 1.5;
-  margin: 0 0 1rem 0;
-  max-width: 720px;
-}
-.hero-badges {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.4rem;
-  font-size: 0.8rem;
-}
-.hero-badge {
-  display: inline-block;
-  padding: 0.2rem 0.6rem;
-  background: #f5f3ee;
-  color: #5a7a5e;
-  border: 1px solid #d6cfbe;
-  border-radius: 14px;
-  font-weight: 500;
-}
-.audience-card {
-  display: block;
-  padding: 1.2rem 1.4rem;
-  border-radius: 10px;
-  border: 1px solid var(--border, #d6cfbe);
-  background: var(--code-bg, #fafaf6);
-  color: var(--primary, #2a2a2a);
-  text-decoration: none;
-  margin-bottom: 0.7rem;
-  transition: transform .15s ease, border-color .15s ease, box-shadow .15s ease;
-}
-.audience-card:hover {
-  transform: translateY(-2px);
-  border-color: #5a7a5e;
-  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
-}
-.audience-card h3 {
-  margin: 0 0 0.3rem 0;
-  font-size: 1.1rem;
-  color: var(--primary, #2a2a2a);
-  font-weight: 600;
-}
-.audience-card p {
-  margin: 0;
-  font-size: 0.9rem;
-  color: var(--secondary, #5a5a5a);
-  line-height: 1.4;
-}
-.audience-card .emoji {
-  font-size: 1.4rem;
-  float: left;
-  margin-right: 0.8rem;
-  line-height: 1;
-}
-.newsletter-strip {
-  background: linear-gradient(135deg, #f5f3ee 0%, #ede8df 100%);
-  border: 1px solid #d6cfbe;
-  border-left: 4px solid #5a7a5e;
-  border-radius: 8px;
-  padding: 1.1rem 1.3rem;
-  margin: 1.5rem 0;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1rem;
-  flex-wrap: wrap;
-}
-.newsletter-strip .ns-text {
-  flex: 1;
-  min-width: 220px;
-}
-.newsletter-strip strong { color: #2a2a2a; }
-.newsletter-strip p { margin: 0.25rem 0 0; font-size: 0.85rem; color: #5a5a5a; }
-.newsletter-strip a.cta {
-  display: inline-block;
-  padding: 0.5rem 1rem;
-  background: #5a7a5e;
-  color: #fff;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: 600;
-  font-size: 0.88rem;
-  white-space: nowrap;
-}
-.newsletter-strip a.cta:hover { background: #4a6a4e; }
-.tools-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 0.75rem;
-  margin: 0.8rem 0 0;
-}
-.tool-chip {
-  display: block;
-  padding: 0.85rem 1rem;
-  border: 1px solid var(--border, #d6cfbe);
-  border-radius: 8px;
-  text-decoration: none;
-  color: var(--primary, #2a2a2a);
-  background: var(--code-bg, #fafaf6);
-  transition: border-color .15s ease;
-}
-.tool-chip:hover { border-color: #5a7a5e; }
-.tool-chip .emoji { font-size: 1.2rem; }
-.tool-chip .title { font-weight: 600; font-size: 0.92rem; margin: 0.3rem 0 0.15rem 0; }
-.tool-chip .desc { font-size: 0.82rem; color: var(--secondary, #5a5a5a); margin: 0; line-height: 1.35; }
-.support-line {
-  text-align: center;
-  padding: 1.5rem 0 0.5rem;
-  color: var(--secondary, #5a5a5a);
-  font-size: 0.9rem;
   line-height: 1.6;
+  margin: 0;
+  max-width: 640px;
 }
-.support-line a {
-  color: #5a7a5e;
-  font-weight: 600;
-  text-decoration: none;
-}
-.support-line a:hover { text-decoration: underline; }
 
-/* ── Latest Section ───────────────────────────────────────────────────────── */
+/* ── Latest / Featured Section ─────────────────────────────────────── */
 .latest-section {
-  margin: 2rem 0 0;
+  margin-bottom: 2.5rem;
 }
 .latest-section h2 {
-  font-size: 1.25rem;
-  font-weight: 700;
-  color: #2a2a2a;
-  margin: 0 0 0.8rem 0;
-  padding-bottom: 0.5rem;
-  border-bottom: 1px solid #d6cfbe;
-  letter-spacing: -0.01em;
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #999;
+  margin: 0 0 1rem 0;
 }
 .latest-card {
   display: flex;
   flex-direction: row;
   align-items: stretch;
-  gap: 0;
-  border: 1px solid #d6cfbe;
-  border-left: 1px solid #d6cfbe;
+  border: 1px solid #e8e3d9;
   border-radius: 10px;
   background: #fafaf6;
   text-decoration: none;
   color: inherit;
   overflow: hidden;
-  margin-bottom: 0.8rem;
-  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, border-left-color 0.2s ease;
+  margin-bottom: 0.85rem;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
 }
 .latest-card:last-child { margin-bottom: 0; }
 .latest-card:hover {
   transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.06);
-  border-color: #c97b5e;
-  border-left: 3px solid #c97b5e;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+  border-color: #c9c2b4;
 }
 .latest-card .card-image {
   flex-shrink: 0;
-  width: 220px;
-  min-height: 1px;
+  width: 200px;
   overflow: hidden;
-  border-radius: 10px 0 0 10px;
   background: #ede8df;
 }
 .latest-card .card-image img {
@@ -251,30 +138,29 @@ build:
   display: flex;
   flex-direction: column;
   justify-content: center;
-  padding: 0.9rem 1.2rem;
+  padding: 1rem 1.2rem;
   min-width: 0;
   overflow: hidden;
 }
 .latest-card .card-info .category {
   display: inline-block;
   align-self: flex-start;
-  padding: 0.15rem 0.55rem;
-  background: #f5f3ee;
+  padding: 0.12rem 0.5rem;
+  background: #f0ede6;
   color: #5a7a5e;
-  font-size: 0.7rem;
+  font-size: 0.68rem;
   font-weight: 600;
   text-transform: uppercase;
   letter-spacing: 0.5px;
   border-radius: 999px;
-  line-height: 1.4;
-  white-space: nowrap;
+  line-height: 1.5;
 }
 .latest-card .card-info .post-title {
-  font-size: 1.05rem;
+  font-size: 1.02rem;
   font-weight: 600;
   color: #2a2a2a;
-  line-height: 1.3;
-  margin: 0.4rem 0;
+  line-height: 1.35;
+  margin: 0.35rem 0 0.25rem;
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
@@ -282,146 +168,180 @@ build:
 }
 .latest-card:hover .post-title { color: #5a7a5e; }
 .latest-card .card-info .post-desc {
-  font-size: 0.85rem;
+  font-size: 0.84rem;
   color: #5a5a5a;
-  line-height: 1.4;
+  line-height: 1.45;
   margin: 0;
   display: -webkit-box;
   -webkit-line-clamp: 1;
   -webkit-box-orient: vertical;
   overflow: hidden;
-  text-overflow: ellipsis;
 }
-.latest-card .card-info .post-date {
+.latest-card .card-info .post-meta {
   display: inline-flex;
   align-items: center;
-  gap: 0.35rem;
-  margin-top: 0.45rem;
-  font-size: 0.75rem;
-  color: #999;
-  letter-spacing: 0.01em;
+  gap: 0.4rem;
+  margin-top: 0.5rem;
+  font-size: 0.73rem;
+  color: #aaa;
 }
-.latest-card .card-info .post-date .fresh-dot {
+.latest-card .card-info .post-meta .new-tag {
   display: inline-block;
-  width: 6px;
-  height: 6px;
-  background: #5a7a5e;
-  border-radius: 50%;
-  flex-shrink: 0;
-}
-.latest-card .card-info .post-date .new-tag {
-  display: inline-block;
-  padding: 0.05rem 0.35rem;
+  padding: 0.06rem 0.4rem;
   background: #c97b5e;
   color: #fff;
-  font-size: 0.6rem;
+  font-size: 0.58rem;
   font-weight: 700;
   text-transform: uppercase;
-  letter-spacing: 0.5px;
+  letter-spacing: 0.4px;
   border-radius: 3px;
-  line-height: 1.4;
+  line-height: 1.5;
 }
-
-/* ── Popular Guides Grid ──────────────────────────────────────────────────── */
-.popular-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 0.7rem;
-  margin: 0.8rem 0 0;
-}
-.popular-card {
-  display: block;
-  padding: 0.85rem 1rem;
-  border: 1px solid #d6cfbe;
+.latest-card.featured {
   border-left: 3px solid #5a7a5e;
-  border-radius: 8px;
+}
+.latest-card.featured .card-image { width: 240px; }
+
+/* ── Topic Navigation ──────────────────────────────────────────────── */
+.topics-section {
+  margin-bottom: 2.5rem;
+}
+.topics-section h2 {
+  font-size: 0.78rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: #999;
+  margin: 0 0 1rem 0;
+}
+.topics-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+.topic-card {
+  display: flex;
+  flex-direction: column;
+  padding: 1.2rem 1.1rem 1.1rem;
+  border: 1px solid #e8e3d9;
+  border-radius: 10px;
   background: #fafaf6;
   text-decoration: none;
   color: inherit;
   transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
 }
-.popular-card:hover {
-  transform: translateY(-1px);
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
-  border-left-color: #c97b5e;
+.topic-card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+  border-color: #c9c2b4;
 }
-.popular-card .post-title {
-  font-size: 0.95rem;
+.topic-card .topic-icon {
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+  line-height: 1;
+}
+.topic-card h3 {
+  margin: 0 0 0.3rem 0;
+  font-size: 0.98rem;
+  color: var(--primary, #2a2a2a);
   font-weight: 600;
-  color: #2a2a2a;
-  line-height: 1.35;
-  margin: 0 0 0.2rem 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
+  line-height: 1.3;
 }
-.popular-card:hover .post-title { color: #5a7a5e; }
-.popular-card .post-desc {
-  font-size: 0.82rem;
-  color: #5a5a5a;
-  line-height: 1.4;
+.topic-card p {
   margin: 0;
-  display: -webkit-box;
-  -webkit-line-clamp: 1;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: 0.84rem;
+  color: var(--secondary, #5a5a5a);
+  line-height: 1.45;
+}
+.topic-card .topic-arrow {
+  margin-top: auto;
+  padding-top: 0.7rem;
+  font-size: 0.8rem;
+  color: #5a7a5e;
+  font-weight: 500;
 }
 
-/* ── Compact Divider ──────────────────────────────────────────────────────── */
-.compact-divider {
-  border: none;
-  height: 1px;
-  background: #d6cfbe;
-  margin: 1.8rem 0 1.2rem;
+/* ── Newsletter Bar ────────────────────────────────────────────────── */
+.newsletter-bar {
+  background: linear-gradient(135deg, #f5f3ee 0%, #ede8df 100%);
+  border: 1px solid #d6cfbe;
+  border-left: 4px solid #5a7a5e;
+  border-radius: 8px;
+  padding: 1.1rem 1.3rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
 }
+.newsletter-bar .nb-text { flex: 1; min-width: 220px; }
+.newsletter-bar strong { color: #2a2a2a; font-size: 0.95rem; }
+.newsletter-bar p { margin: 0.2rem 0 0; font-size: 0.83rem; color: #5a5a5a; }
+.newsletter-bar a.cta {
+  display: inline-block;
+  padding: 0.5rem 1.1rem;
+  background: #5a7a5e;
+  color: #fff;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 0.85rem;
+  white-space: nowrap;
+}
+.newsletter-bar a.cta:hover { background: #4a6a4e; }
 
-/* ── Mobile ────────────────────────────────────────────────────────────────── */
+/* ── Footer Note ───────────────────────────────────────────────────── */
+.footer-note {
+  text-align: center;
+  padding: 0.5rem 0 1.5rem;
+  color: #aaa;
+  font-size: 0.82rem;
+  line-height: 1.6;
+}
+.footer-note a {
+  color: #5a7a5e;
+  font-weight: 500;
+  text-decoration: none;
+}
+.footer-note a:hover { text-decoration: underline; }
+
+/* ── Mobile ────────────────────────────────────────────────────────── */
 @media (max-width: 640px) {
-  .hero h1 { font-size: 1.55rem; }
-  .newsletter-strip { padding: 1rem; }
+  .hero h1 { font-size: 1.5rem; }
   .latest-card { flex-direction: column; }
   .latest-card .card-image {
     width: 100%;
-    max-height: 180px;
+    max-height: 170px;
     border-radius: 10px 10px 0 0;
   }
   .latest-card .card-image img {
     min-height: 0;
-    max-height: 180px;
+    max-height: 170px;
   }
-  .latest-card .card-info { padding: 0.85rem 1rem; }
-}
-@media (min-width: 860px) {
-  .popular-grid { grid-template-columns: repeat(3, 1fr); }
-}
-@media (max-width: 480px) {
-  .popular-grid { grid-template-columns: 1fr; }
+  .latest-card.featured .card-image { width: 100%; }
+  .topics-grid { grid-template-columns: 1fr; }
+  .newsletter-bar { padding: 1rem; }
 }
 </style>
+
+<div class="homepage">
 
 <section class="hero">
 <h1>Pragmatic, tested tech guides that work Monday at 3 AM</h1>
 <p class="hero-sub">I'm Jonne — a sysadmin in Finland. I write honest, tested guides for working sysadmins and adult children handling their aging parent's tech. No vendor pitches, no consultant-speak.</p>
-<div class="hero-badges">
-<span class="hero-badge">Tested in production</span>
-<span class="hero-badge">Same tools I use daily</span>
-<span class="hero-badge">No tracking, no ads</span>
-<span class="hero-badge">Free scripts you can copy</span>
-</div>
 </section>
 
 <div class="latest-section">
 <h2>Latest</h2>
 
-<a href="/senior-tech/2026-07-03-best-routers-home-network-2026/" class="latest-card">
+<a href="/senior-tech/2026-07-03-best-routers-home-network-2026/" class="latest-card featured">
 <div class="card-image"><img src="/og/2026-07-03-best-routers-home-network-2026.png" alt="Best Routers for Home Network 2026" loading="lazy"></div>
 <div class="card-info">
 <span class="category">Networking</span>
 <div class="post-title">Best Routers for Home Network in 2026 (Tested by a Sysadmin)</div>
 <p class="post-desc">WiFi 7 vs WiFi 6, mesh vs single, budget vs premium — 5 routers tested over 6 weeks.</p>
-<div class="post-date"><span class="new-tag">NEW</span> July 2026</div>
+<div class="post-meta"><span class="new-tag">NEW</span> July 2026</div>
 </div>
 </a>
 
@@ -431,7 +351,7 @@ build:
 <span class="category">Senior Tech</span>
 <div class="post-title">Best Phones for Seniors in 2026 (Tested by Real Grandparents)</div>
 <p class="post-desc">Lively, Consumer Cellular, iPhone SE, GrandPad — 5 tested picks with honest pros/cons.</p>
-<div class="post-date"><span class="fresh-dot"></span> July 2026</div>
+<div class="post-meta">July 2026</div>
 </div>
 </a>
 
@@ -441,108 +361,51 @@ build:
 <span class="category">Family Tech</span>
 <div class="post-title">The Quarterly Tech Checkup: What to Do When You Visit Your Aging Parent's Phone</div>
 <p class="post-desc">20-minute routine + emergency playbook. Catches issues before they become crises.</p>
-<div class="post-date"><span class="fresh-dot"></span> July 2026</div>
+<div class="post-meta">July 2026</div>
 </div>
 </a>
 
 </div>
 
-## What brings you here?
+<div class="topics-section">
+<h2>Browse by topic</h2>
+<div class="topics-grid">
 
-<a href="/sysadmin/" class="audience-card">
-<span class="emoji">🛠️</span>
-<h3>I'm a sysadmin / IT pro / homelabber</h3>
+<a href="/sysadmin/" class="topic-card">
+<span class="topic-icon">🛠️</span>
+<h3>Sysadmin &amp; Homelab</h3>
 <p>Servers, networks, Kubernetes, automation, monitoring, backups — practical guides that hold up at 3 AM.</p>
+<span class="topic-arrow">Browse guides →</span>
 </a>
 
-<a href="/senior-tech/" class="audience-card">
-<span class="emoji">👵</span>
-<h3>I'm helping an aging parent with tech</h3>
-<p>Phone setup, safe apps, scam prevention conversations. From someone who's been there.</p>
+<a href="/senior-tech/" class="topic-card">
+<span class="topic-icon">👵</span>
+<h3>Family Tech &amp; Seniors</h3>
+<p>Phone setup, safe apps, scam prevention. From someone who's been there with their own parents.</p>
+<span class="topic-arrow">Browse guides →</span>
 </a>
 
-<a href="/shop/#free-tools" class="audience-card">
-<span class="emoji">📦</span>
-<h3>I want the free bash scripts</h3>
-<p>5 tested scripts (SSL checker, log searcher, SSH auditor, disk quota checker, safe service restart).</p>
+<a href="/shop/#free-tools" class="topic-card">
+<span class="topic-icon">📦</span>
+<h3>Free Scripts &amp; Tools</h3>
+<p>5 tested bash scripts, checklists, and resources. Copy-paste ready, no sign-up wall.</p>
+<span class="topic-arrow">Get free tools →</span>
 </a>
 
-<div class="newsletter-strip">
-<div class="ns-text">
+</div>
+</div>
+
+<div class="newsletter-bar">
+<div class="nb-text">
 <strong>📬 One practical tip per Tuesday.</strong>
 <p>3,200+ readers. No spam, no marketing — just one thing you can use this week.</p>
 </div>
 <a class="cta" href="/newsletter/">Subscribe free →</a>
 </div>
 
-<hr class="compact-divider">
-
-## Popular guides
-
-<div class="popular-grid">
-
-<a href="/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/" class="popular-card">
-<div class="post-title">Setting Up a Home Lab: A Beginner's Guide</div>
-<p class="post-desc">What to buy, what to install, what to skip. The post I wish I had at 22.</p>
-</a>
-
-<a href="/sysadmin/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/" class="popular-card">
-<div class="post-title">The 5-Minute Server Health Check</div>
-<p class="post-desc">Catches 80% of problems before they page you. The Monday morning ritual.</p>
-</a>
-
-<a href="/sysadmin/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy/" class="popular-card">
-<div class="post-title">The Friday Backup Audit</div>
-<p class="post-desc">20 minutes that prevent Monday-morning disasters. Includes test restore script.</p>
-</a>
-
-<a href="/sysadmin/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/" class="popular-card">
-<div class="post-title">Why Your Monitoring Is Broken</div>
-<p class="post-desc">Most monitoring is alert noise. Here's how to make it actually useful.</p>
-</a>
-
-<a href="/senior-tech/2026-06-27-setup-iphone-elderly-parent/" class="popular-card">
-<div class="post-title">How to Set Up an iPhone for an Elderly Parent</div>
-<p class="post-desc">The 30-minute setup that prevents 90% of support calls.</p>
-</a>
-
-<a href="/senior-tech/2026-06-27-5-conversations-aging-parent-online-safety/" class="popular-card">
-<div class="post-title">5 Conversations About Online Safety</div>
-<p class="post-desc">The talks that actually prevent scams — not the ones that spark arguments.</p>
-</a>
-
+<div class="footer-note">
+Free, ad-free, tracking-free. If it helped you — <a href="https://ko-fi.com/sysadmin_dad" target="_blank" rel="noopener">buy me a coffee</a>.
+<br>By <a href="/about/">Jonne</a>. Everything written by hand, not AI. <a href="/resources/">Affiliate disclosure</a>.
 </div>
 
-[See all sysadmin guides →](/sysadmin/) · [See all family tech guides →](/senior-tech/) · [More sysadmin posts: Zero Trust](/sysadmin/zero-trust-small-teams-2026/) · [K8s Without Jargon](/sysadmin/kubernetes-without-jargon-pods-processes-services/) · [AI for IT](/sysadmin/ai-for-it-troubleshooting-2026/) · [Build Linux From Scratch](/sysadmin/2026-03-28-building-your-own-linux-from-scratch/)
-
-<hr class="compact-divider">
-
-## Free tools & resources
-
-<div class="tools-row">
-<a href="/shop/#free-tools" class="tool-chip">
-<span class="emoji">📦</span>
-<div class="title">Free 5 Bash Scripts</div>
-<p class="desc">SSL checker, log searcher, SSH auditor, disk quota checker, safe restart</p>
-</a>
-<a href="/shop/products/health-check-toolkit/" class="tool-chip">
-<span class="emoji">💰</span>
-<div class="title">$9 Health Check Toolkit</div>
-<p class="desc">The complete Monday morning ritual. 3 scripts + 2 guides.</p>
-</a>
-<a href="/resources/" class="tool-chip">
-<span class="emoji">📋</span>
-<div class="title">Tools I Use Daily</div>
-<p class="desc">Honest recommendations for hosting, security, monitoring. No sponsorships.</p>
-</a>
 </div>
-
-**Free downloads:** [Senior Phone Setup Checklist (PDF)](/downloads/senior-phone-setup-checklist.pdf) · [Home Network Security Checklist (PDF)](/downloads/home-network-security-checklist.pdf)
-
-<div class="support-line">
-This site is free, ad-free, and tracking-free. If it helped you — <a href="https://ko-fi.com/sysadmin_dad" target="_blank" rel="noopener">buy me a coffee on Ko-fi</a>. Or <a href="/newsletter/">subscribe to the newsletter</a> for a weekly tip.
-</div>
-
----
-
-*Hi, I'm [Jonne](/about/) — Finnish sysadmin by day, family tech support by night. Everything here is written by me, not AI. [Affiliate disclosure](/resources/) for the handful of links that earn a commission.*
