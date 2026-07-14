@@ -332,40 +332,7 @@ build:
 <p class="hero-sub">I'm Jonne — a sysadmin in Finland. I write honest, tested guides for working sysadmins and adult children handling their aging parent's tech. No vendor pitches, no consultant-speak.</p>
 </section>
 
-<div class="latest-section">
-<h2>Latest</h2>
-
-<a href="/senior-tech/2026-07-03-best-routers-home-network-2026/" class="latest-card featured">
-<div class="card-image"><img src="/og/2026-07-03-best-routers-home-network-2026.png" alt="Best Routers for Home Network 2026" loading="lazy"></div>
-<div class="card-info">
-<span class="category">Networking</span>
-<div class="post-title">Best Routers for Home Network in 2026 (Tested by a Sysadmin)</div>
-<p class="post-desc">WiFi 7 vs WiFi 6, mesh vs single, budget vs premium — 5 routers tested over 6 weeks.</p>
-<div class="post-meta"><span class="new-tag">NEW</span> July 2026</div>
-</div>
-</a>
-
-<a href="/senior-tech/2026-07-01-best-phones-for-seniors-2026/" class="latest-card">
-<div class="card-image"><img src="/og/2026-07-01-best-phones-for-seniors-2026.png" alt="Best Phones for Seniors 2026" loading="lazy"></div>
-<div class="card-info">
-<span class="category">Senior Tech</span>
-<div class="post-title">Best Phones for Seniors in 2026 (Tested by Real Grandparents)</div>
-<p class="post-desc">Lively, Consumer Cellular, iPhone SE, GrandPad — 5 tested picks with honest pros/cons.</p>
-<div class="post-meta">July 2026</div>
-</div>
-</a>
-
-<a href="/senior-tech/2026-07-02-the-quarterly-tech-checkup/" class="latest-card">
-<div class="card-image"><img src="/og/2026-07-02-the-quarterly-tech-checkup.png" alt="The Quarterly Tech Checkup" loading="lazy"></div>
-<div class="card-info">
-<span class="category">Family Tech</span>
-<div class="post-title">The Quarterly Tech Checkup: What to Do When You Visit Your Aging Parent's Phone</div>
-<p class="post-desc">20-minute routine + emergency playbook. Catches issues before they become crises.</p>
-<div class="post-meta">July 2026</div>
-</div>
-</a>
-
-</div>
+{{< latest-posts >}}
 
 <div class="topics-section">
 <h2>Browse by topic</h2>

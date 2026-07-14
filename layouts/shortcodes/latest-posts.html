@@ -1,0 +1,31 @@
+{{/* Dynamic "Latest posts" section for the homepage.
+     Pulls the 4 most recent posts across all content sections,
+     uses per-post OG images, marks the first as featured, and
+     shows a NEW tag on posts published within the last 14 days.
+
+     Called from content/_index.md via: {{< latest-posts >}} */}}
+{{- $latest := where .Site.RegularPages "Type" "in" (slice "posts" "sysadmin" "senior-tech") -}}
+{{- $latest = where $latest "Params.draft" "ne" true -}}
+{{- $latest = first 4 (sort $latest "Date" "desc") -}}
+<div class="latest-section">
+<h2>Latest</h2>
+{{- range $i, $post := $latest -}}
+{{- $isFeatured := eq $i 0 -}}
+{{- $daysSince := div (now.Sub $post.Date).Hours 24 -}}
+{{- $isNew := lt $daysSince 14 -}}
+{{- $ogFile := printf "og/%s.png" $post.File.ContentBaseName -}}
+{{- $hasOg := fileExists (printf "static/%s" $ogFile) -}}
+{{- $sectionLabel := "Article" -}}
+{{- if eq $post.Type "sysadmin" }}{{- $sectionLabel = "Sysadmin" -}}{{- end -}}
+{{- if eq $post.Type "senior-tech" }}{{- $sectionLabel = "Senior Tech" -}}{{- end -}}
+<a href="{{ $post.Permalink }}" class="latest-card{{ if $isFeatured }} featured{{ end }}">
+<div class="card-image">{{ if $hasOg }}<img src="{{ $ogFile | absURL }}" alt="{{ $post.Title | plainify }}" loading="lazy">{{ end }}</div>
+<div class="card-info">
+<span class="category">{{ $sectionLabel }}</span>
+<div class="post-title">{{ $post.Title | plainify }}</div>
+<p class="post-desc">{{ with $post.Description }}{{ . | plainify | truncate 100 }}{{ else }}{{ $post.Summary | plainify | truncate 100 }}{{ end }}</p>
+<div class="post-meta">{{ if $isNew }}<span class="new-tag">NEW</span>{{ end }}{{ $post.Date.Format "January 2006" }}</div>
+</div>
+</a>
+{{- end -}}
+</div>
