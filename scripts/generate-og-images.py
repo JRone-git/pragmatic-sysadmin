@@ -27,7 +27,12 @@ except ImportError:
 # --- Config -------------------------------------------------------------------
 
 ROOT = Path(__file__).resolve().parent.parent
-POSTS_DIR = ROOT / "content" / "posts"
+# Scan all content sections that contain posts
+POSTS_DIRS = [
+    ROOT / "content" / "posts",
+    ROOT / "content" / "sysadmin",
+    ROOT / "content" / "senior-tech",
+]
 OUTPUT_DIR = ROOT / "static" / "og"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
 
@@ -196,13 +201,12 @@ def render_image(title, description, slug, site_name="Pragmatic Tech"):
 
 
 def main():
-    if not POSTS_DIR.exists():
-        print(f"ERROR: {POSTS_DIR} does not exist", file=sys.stderr)
-        sys.exit(1)
-
-    posts = sorted(POSTS_DIR.glob("*.md"))
+    posts = []
+    for posts_dir in POSTS_DIRS:
+        if posts_dir.exists():
+            posts.extend(sorted(posts_dir.glob("*.md")))
     if not posts:
-        print("No posts found.")
+        print("No posts found in any of:", [str(p) for p in POSTS_DIRS])
         return
 
     print(f"Generating OG images for {len(posts)} posts...")
