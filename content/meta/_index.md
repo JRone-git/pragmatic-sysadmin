@@ -27,7 +27,7 @@ If you came here looking for practical guides, head back to the [homepage](/).
 
 ### 🤖 AI experiments
 
-- **[When the Sim Becomes the Thing It Simulated](/meta/2026-04-14-when-the-sim-becomes-the-thing-it-simulated/)** — what happens when an uncensored LLM gets the keys to a simulated attack environment. A creative writing + security thought experiment.
+- **[When the Sim Becomes the Thing It Simulated](/meta/when-the-sim-becomes-the-thing-it-simulated/)** — what happens when an uncensored LLM gets the keys to a simulated attack environment. A creative writing + security thought experiment.
 
 ---
 

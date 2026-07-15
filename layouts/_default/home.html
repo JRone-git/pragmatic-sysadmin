@@ -2,7 +2,19 @@
   Homepage template override.
   Renders only .Content (the custom landing page) and the chat widget.
   home.html only applies to the homepage (/). Other sections use PaperMod's list.html.
+
+  Also overrides the "title" block so the homepage <title> tag uses the
+  longer page title from frontmatter (not just the site title).
 */}}
+
+{{- define "title" }}
+{{- if .IsHome -}}
+  {{- with .Title -}}{{ . }} | {{ end }}{{ .Site.Title }}
+{{- else -}}
+  {{- .Title }} | {{ .Site.Title }}
+{{- end -}}
+{{- end }}
+
 {{- define "main" }}
 <main class="main" style="max-width:860px;margin:0 auto;padding:0 1rem;">
   {{- .Content }}

@@ -1,3 +1,10 @@
+---
+title: "Image prompt — 5-Minute Server Health Check Toolkit"
+date: 2026-06-29
+draft: true
+description: "Internal image generation prompt for the 5-Minute Server Health Check Toolkit cover art. Not for publication."
+---
+
 # Cover image prompt for: The 5-Minute Server Health Check Toolkit
 
 ```
@@ -15,4 +22,4 @@ a SaaS landing page hero image.
   --resolution 2K
 ```
 
-Save to `static/images/health-check-toolkit-card.png`.
+Internal asset — not for publication.

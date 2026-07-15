@@ -198,7 +198,7 @@ Five production-tested scripts I run daily. All MIT licensed. Grab the whole pac
 
 ## 💰 Paid toolkit
 
-- **[The 5-Minute Server Health Check Toolkit](/shop/products/health-check-toolkit/)** — $9. Everything from the free pack plus documentation templates, a Monday-morning ritual guide, and the 5-minute Slack-format status update template. Lives in `/shop/`.
+- **[The 5-Minute Server Health Check Toolkit](/products/health-check-toolkit/)** — $9. Everything from the free pack plus documentation templates, a Monday-morning ritual guide, and the 5-minute Slack-format status update template. Lives in `/products/`.
 
 ---
 

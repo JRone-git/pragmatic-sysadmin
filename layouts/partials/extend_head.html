@@ -1,3 +1,8 @@
+<!-- Tag and category pages: noindex to prevent SEO dilution from thin content -->
+{{- if or (eq .Kind "term") (eq .Kind "taxonomy") -}}
+<meta name="robots" content="noindex, follow">
+{{- end -}}
+
 <!-- Rakuten Automate starts here -->
 <script type="text/javascript">
   var _rakuten_automate = {

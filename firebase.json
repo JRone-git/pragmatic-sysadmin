@@ -312,6 +312,76 @@
         "source": "/posts/",
         "destination": "/meta/",
         "type": 301
+      },
+      {
+        "source": "/buddy-setup",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/buddy-setup/",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/admin",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/admin/",
+        "destination": "/",
+        "type": 301
+      },
+      {
+        "source": "/products/health-check-toolkit-image-prompt",
+        "destination": "/products/health-check-toolkit/",
+        "type": 301
+      },
+      {
+        "source": "/products/health-check-toolkit-image-prompt/",
+        "destination": "/products/health-check-toolkit/",
+        "type": 301
+      },
+      {
+        "source": "/products/health-check-toolkit-kofi",
+        "destination": "/products/health-check-toolkit/",
+        "type": 301
+      },
+      {
+        "source": "/products/health-check-toolkit-kofi/",
+        "destination": "/products/health-check-toolkit/",
+        "type": 301
+      },
+      {
+        "source": "/products/health-check-toolkit-social",
+        "destination": "/products/health-check-toolkit/",
+        "type": 301
+      },
+      {
+        "source": "/products/health-check-toolkit-social/",
+        "destination": "/products/health-check-toolkit/",
+        "type": 301
+      },
+      {
+        "source": "/shop/products/health-check-toolkit",
+        "destination": "/products/health-check-toolkit/",
+        "type": 301
+      },
+      {
+        "source": "/shop/products/health-check-toolkit/",
+        "destination": "/products/health-check-toolkit/",
+        "type": 301
+      },
+      {
+        "source": "/meta/2026-04-14-when-the-sim-becomes-the-thing-it-simulated",
+        "destination": "/meta/when-the-sim-becomes-the-thing-it-simulated/",
+        "type": 301
+      },
+      {
+        "source": "/meta/2026-04-14-when-the-sim-becomes-the-thing-it-simulated/",
+        "destination": "/meta/when-the-sim-becomes-the-thing-it-simulated/",
+        "type": 301
       }
     ]
   }
