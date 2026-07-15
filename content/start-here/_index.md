@@ -1,7 +1,7 @@
 ---
 title: "Start Here"
 date: 2026-06-30
-draft: true
+draft: false
 description: "New here? Start with the most useful posts grouped by what you're trying to do — sysadmin work, helping an aging parent with tech, or finding games for kids."
 build:
   list: false
