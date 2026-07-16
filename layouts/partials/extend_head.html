@@ -29,148 +29,64 @@
   gtag('config', 'G-EKQ0LBDH9Z');
 </script>
 
-<!-- Father's Day Card Popup -->
+{{/* Father's Day Card Popup — lazy-loaded via <template> tag.
+     The popup HTML lives inside a <template> element (parsed but not
+     rendered). The JS only clones it when the visitor's date is
+     Nov 1-16 (Finnish Father's Day season). For 11 months of the
+     year, the popup is never injected into the DOM. */}}
+<template id="fathersday-template">
+  <div id="fathersdayPopup" class="fathersdaypopup-overlay active">
+    <div class="fathersdaypopup-content">
+      <button class="fathersdaypopup-close" id="fathersdayClose">×</button>
+      <iframe class="fathersdaypopup-iframe" src="/isanpaiva.html"></iframe>
+    </div>
+  </div>
+</template>
+
 <style>
-    .fathersdaypopup-overlay {
-        display: none;
-        position: fixed;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: rgba(0, 0, 0, 0.8);
-        z-index: 9999;
-        justify-content: center;
-        align-items: center;
-        animation: fadeIn 0.3s ease-in;
-    }
-
-    .fathersdaypopup-overlay.active {
-        display: flex;
-    }
-
-    .fathersdaypopup-content {
-        position: relative;
-        width: 90%;
-        max-width: 900px;
-        height: 90vh;
-        max-height: 600px;
-        background: white;
-        border-radius: 20px;
-        overflow: hidden;
-        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.5);
-        animation: slideUp 0.4s ease-out;
-    }
-
-    .fathersdaypopup-close {
-        position: absolute;
-        top: 15px;
-        right: 15px;
-        width: 40px;
-        height: 40px;
-        background: rgba(255, 255, 255, 0.9);
-        border: none;
-        border-radius: 50%;
-        font-size: 24px;
-        font-weight: bold;
-        color: #333;
-        cursor: pointer;
-        z-index: 10;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        transition: all 0.3s ease;
-        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
-    }
-
-    .fathersdaypopup-close:hover {
-        background: #ff4444;
-        color: white;
-        transform: rotate(90deg);
-    }
-
-    .fathersdaypopup-iframe {
-        width: 100%;
-        height: 100%;
-        border: none;
-    }
-
-    @keyframes fadeIn {
-        from { opacity: 0; }
-        to { opacity: 1; }
-    }
-
-    @keyframes slideUp {
-        from {
-            transform: translateY(50px);
-            opacity: 0;
-        }
-        to {
-            transform: translateY(0);
-            opacity: 1;
-        }
-    }
-
-    @media (max-width: 768px) {
-        .fathersdaypopup-content {
-            width: 95%;
-            height: 95vh;
-            max-height: none;
-        }
-    }
+.fathersdaypopup-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:9999;justify-content:center;align-items:center;animation:fadeIn 0.3s ease-in}
+.fathersdaypopup-overlay.active{display:flex}
+.fathersdaypopup-content{position:relative;width:90%;max-width:900px;height:90vh;max-height:600px;background:white;border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);animation:slideUp 0.4s ease-out}
+.fathersdaypopup-close{position:absolute;top:15px;right:15px;width:40px;height:40px;background:rgba(255,255,255,0.9);border:none;border-radius:50%;font-size:24px;font-weight:bold;color:#333;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease;box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+.fathersdaypopup-close:hover{background:#ff4444;color:white;transform:rotate(90deg)}
+.fathersdaypopup-iframe{width:100%;height:100%;border:none}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+@media(max-width:768px){.fathersdaypopup-content{width:95%;height:95vh;max-height:none}}
 </style>
 
-<div id="fathersdayPopup" class="fathersdaypopup-overlay">
-    <div class="fathersdaypopup-content">
-        <button class="fathersdaypopup-close" onclick="closeFathersDayPopup()">×</button>
-        <iframe class="fathersdaypopup-iframe" src="/isanpaiva.html"></iframe>
-    </div>
-</div>
-
 <script>
-    // Show Father's Day popup on homepage — but only during the Finnish
-    // Father's Day season (Nov 1-16). Finnish Father's Day is the second
-    // Sunday of November, so this window covers it without showing the
-    // popup out of season.
-    window.addEventListener('DOMContentLoaded', function() {
-        // Check if we're on the homepage
-        if (window.location.pathname === '/' || window.location.pathname === '/index.html') {
-            // Date guard: only show in the first half of November
-            var now = new Date();
-            var isFathersDaySeason = (now.getMonth() === 10 && now.getDate() >= 1 && now.getDate() <= 16);
-            if (!isFathersDaySeason) {
-                return;
-            }
+(function(){
+  // Only run on homepage
+  if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') return;
 
-            // Check if popup was already shown in this session
-            const popupShown = sessionStorage.getItem('fathersdayPopupShown');
-            if (!popupShown) {
-                setTimeout(function() {
-                    document.getElementById('fathersdayPopup').classList.add('active');
-                    sessionStorage.setItem('fathersdayPopupShown', 'true');
-                }, 800); // Show after 800ms delay
-            }
-        }
-    });
+  // Only run in Finnish Father's Day season (Nov 1-16)
+  var now = new Date();
+  if (now.getMonth() !== 10 || now.getDate() < 1 || now.getDate() > 16) return;
 
-    function closeFathersDayPopup() {
-        document.getElementById('fathersdayPopup').classList.remove('active');
-    }
+  // Only show once per session
+  if (sessionStorage.getItem('fathersdayPopupShown')) return;
 
-    // Close popup when clicking outside
-    document.addEventListener('click', function(event) {
-        const popup = document.getElementById('fathersdayPopup');
-        if (event.target === popup) {
-            closeFathersDayPopup();
-        }
-    });
+  // Clone the template and inject after 800ms
+  window.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      var tpl = document.getElementById('fathersday-template');
+      if(!tpl) return;
 
-    // Close popup with Escape key
-    document.addEventListener('keydown', function(event) {
-        if (event.key === 'Escape') {
-            closeFathersDayPopup();
-        }
-    });
+      var clone = document.importNode(tpl.content, true);
+      document.body.appendChild(clone);
+
+      sessionStorage.setItem('fathersdayPopupShown', 'true');
+
+      // Close handlers
+      var closeBtn = document.getElementById('fathersdayClose');
+      var overlay = document.getElementById('fathersdayPopup');
+      if(closeBtn) closeBtn.addEventListener('click', function(){ overlay.classList.remove('active'); });
+      if(overlay) overlay.addEventListener('click', function(e){ if(e.target === overlay) overlay.classList.remove('active'); });
+      document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && overlay) overlay.classList.remove('active'); });
+    }, 800);
+  });
+})();
 </script>
 
 {{/* Open Graph image — per-post image when available, site default otherwise.

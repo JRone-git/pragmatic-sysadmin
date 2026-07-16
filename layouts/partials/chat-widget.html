@@ -1,41 +1,41 @@
-{{/* Chat Widget for PaperMod - AJAX/Formspree Free Tier Compatible */}}
+{{/* Chat Widget — lazy-loaded using <template> tag.
+     The chat window HTML lives inside a <template> element, which the
+     browser parses but does not render. The form event listener is
+     only attached when the user first clicks the toggle button.
+     This reduces initial JS execution without the minifier issues
+     that come with JS string concatenation. */}}
 {{- if not .Params.disableChat -}}
 <div id="chat-widget-container">
-  <button id="chat-toggle-btn" onclick="toggleChat()" aria-label="Open chat">💬 Ask Jonne</button>
+  <button id="chat-toggle-btn" aria-label="Open chat">💬 Ask Jonne</button>
+</div>
 
-  <div id="chat-window" class="hidden">
+<template id="chat-window-template">
+  <div id="chat-window">
     <div class="chat-header">
       <h3>💬 Quick Question?</h3>
-      <button class="chat-close" onclick="toggleChat()" aria-label="Close chat">×</button>
+      <button class="chat-close" id="chat-close-btn" aria-label="Close chat">×</button>
     </div>
-
     <div id="chat-messages">
       <div class="message bot">
         <p>Hi! I'm Jonne 👋<br>Ask about my sysadmin stack or tools. I'll reply via email within 24h.</p>
       </div>
     </div>
-
-    <!-- Formspree Form with AJAX -->
     <form id="chat-form" action="https://formspree.io/f/xnjgnqnw" method="POST" class="chat-form">
       <input type="hidden" name="_subject" value="Chat from pragmaticsysadmin.help">
-      <!-- Remove _next since free tier doesn't support it -->
       <input type="hidden" name="page" value="{{ .RelPermalink }}">
       <input type="hidden" name="title" value="{{ .Title }}">
-
       <input type="email" name="email" placeholder="Your email (for reply)" required class="chat-input">
       <textarea name="message" placeholder="Type your question..." rows="3" required class="chat-input chat-textarea"></textarea>
       <button type="submit" class="chat-send" id="chat-submit">Send →</button>
-
-      <!-- Success/Error Messages (hidden by default) -->
       <div id="form-success" class="form-message success hidden">✅ Sent! I'll reply within 24h.</div>
       <div id="form-error" class="form-message error hidden">❌ Something went wrong. Please try again in a moment.</div>
     </form>
     <div class="chat-footer"><small>🔒 No spam. GDPR compliant.</small></div>
   </div>
-</div>
+</template>
 
 <style>
-#chat-widget-container{position:fixed;bottom:20px;right:20px;z-index:9999;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif}
+#chat-widget-container{position:fixed;bottom:20px;right:20px;z-index:9999;font-family:inherit}
 #chat-toggle-btn{background:#2563eb;color:#fff;border:none;border-radius:50px;padding:14px 22px;font-size:15px;cursor:pointer;box-shadow:0 4px 14px rgba(37,99,235,.4);transition:background .15s ease}
 #chat-toggle-btn:hover{background:#1d4ed8}
 #chat-window{position:absolute;bottom:75px;right:0;width:340px;max-width:calc(100vw - 40px);max-height:480px;background:#fff;border-radius:12px;box-shadow:0 10px 40px rgba(0,0,0,.25);display:flex;flex-direction:column;overflow:hidden}
@@ -57,8 +57,6 @@
 .form-message.success{background:#dcfce7;color:#166534;border:1px solid #bbf7d0}
 .form-message.error{background:#fee2e2;color:#991b1b;border:1px solid #fecaca}
 .hidden{display:none}
-
-/* Dark mode — PaperMod adds .dark to <body> when user picks dark theme */
 body.dark #chat-window{background:#1e1e22;box-shadow:0 10px 40px rgba(0,0,0,.6)}
 body.dark #chat-messages{background:#18181b}
 body.dark .message.bot{background:#27272a;border-color:#3f3f46;color:#e4e4e7}
@@ -71,51 +69,75 @@ body.dark .form-message.error{background:#450a0a;color:#fca5a5;border-color:#991
 </style>
 
 <script>
-function toggleChat(){
-  const w=document.getElementById('chat-window');
-  w.classList.toggle('hidden');
-  if(!w.classList.contains('hidden'))document.querySelector('.chat-textarea')?.focus();
-}
+(function(){
+  var loaded = false;
+  var btn = document.getElementById('chat-toggle-btn');
+  if(!btn) return;
 
-// AJAX Form Submission (Formspree Free Tier Compatible)
-document.getElementById('chat-form')?.addEventListener('submit', async function(e) {
-  e.preventDefault();
-
-  const form = e.target;
-  const submitBtn = document.getElementById('chat-submit');
-  const successMsg = document.getElementById('form-success');
-  const errorMsg = document.getElementById('form-error');
-
-  // Disable button + show loading
-  submitBtn.disabled = true;
-  submitBtn.textContent = 'Sending...';
-
-  try {
-    const response = await fetch(form.action, {
-      method: 'POST',
-      body: new FormData(form),
-      headers: { 'Accept': 'application/json' }
-    });
-
-    if (response.ok) {
-      // Show success, hide form
-      successMsg.classList.remove('hidden');
-      errorMsg.classList.add('hidden');
-      form.reset();
-      form.style.display = 'none';
-    } else {
-      throw new Error('Form submission failed');
+  btn.addEventListener('click', function(){
+    if(!loaded){
+      // Clone the template content into the DOM
+      var tpl = document.getElementById('chat-window-template');
+      if(tpl){
+        var clone = document.importNode(tpl.content, true);
+        document.getElementById('chat-widget-container').appendChild(clone);
+        loaded = true;
+        attachHandlers();
+      }
     }
-  } catch (error) {
-    // Show error
-    errorMsg.classList.remove('hidden');
-    successMsg.classList.add('hidden');
-    console.error('Chat form error:', error);
-  } finally {
-    // Re-enable button
-    submitBtn.disabled = false;
-    submitBtn.textContent = 'Send →';
+    // Toggle visibility
+    var w = document.getElementById('chat-window');
+    if(w) w.classList.toggle('hidden');
+    if(w && !w.classList.contains('hidden')){
+      var ta = document.querySelector('.chat-textarea');
+      if(ta) ta.focus();
+    }
+  });
+
+  function attachHandlers(){
+    // Close button
+    var closeBtn = document.getElementById('chat-close-btn');
+    if(closeBtn){
+      closeBtn.addEventListener('click', function(){
+        var w = document.getElementById('chat-window');
+        if(w) w.classList.add('hidden');
+      });
+    }
+
+    // Form submission
+    var form = document.getElementById('chat-form');
+    if(form){
+      form.addEventListener('submit', async function(e) {
+        e.preventDefault();
+        var submitBtn = document.getElementById('chat-submit');
+        var successMsg = document.getElementById('form-success');
+        var errorMsg = document.getElementById('form-error');
+        submitBtn.disabled = true;
+        submitBtn.textContent = 'Sending...';
+        try {
+          var response = await fetch(form.action, {
+            method: 'POST',
+            body: new FormData(form),
+            headers: { 'Accept': 'application/json' }
+          });
+          if (response.ok) {
+            successMsg.classList.remove('hidden');
+            errorMsg.classList.add('hidden');
+            form.reset();
+            form.style.display = 'none';
+          } else {
+            throw new Error('Form submission failed');
+          }
+        } catch (error) {
+          errorMsg.classList.remove('hidden');
+          successMsg.classList.add('hidden');
+        } finally {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send →';
+        }
+      });
+    }
   }
-});
+})();
 </script>
 {{- end -}}
