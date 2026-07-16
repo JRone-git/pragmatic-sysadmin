@@ -29,6 +29,7 @@ const TRANSLATIONS = {
     tiles: {
       people: { label: "My People", sub: "Family & friends" },
       meds:  { label: "Medicines", sub: "Reminders & check-off" },
+      notes: { label: "My Notes", sub: "Reminders & notes" },
       safety:{ label: "Stay Safe", sub: "Scam check, trusted calls" },
       help:  { label: "How-To", sub: "Step-by-step guides" }
     },
@@ -74,7 +75,37 @@ const TRANSLATIONS = {
       add: "+ Add a Medicine",
       addTitle: "Add a Medicine",
       taken: "✓ Taken!",
-      removeConfirm: "Remove {name}?"
+      removeConfirm: "Remove {name}?",
+      alarm: "Alarm",
+      alarmNotify: "⏰ Time to take {name} ({time})"
+    },
+    notes: {
+      title: "My Notes",
+      hint: "Write down anything you want to remember. Notes with a bell will send you a reminder.",
+      empty: "No notes yet. Tap \"+ Add a Note\" below.",
+      add: "+ Add a Note",
+      addTitle: "Add a Note",
+      noteText: "What do you want to remember?",
+      placeholderNote: "e.g. Call the bank on Friday, pick up groceries…",
+      alarmTime: "Reminder time (optional)",
+      alarmHint: "Buddy will send you a notification at this time. Leave empty for no reminder.",
+      noAlarm: "No reminder",
+      alarmNotify: "⏰ Reminder: {text}… ({time})",
+      delete: "Delete note",
+      removeConfirm: "Delete this note?"
+    },
+    onboarding: {
+      welcomeTitle: "Welcome to Buddy!",
+      welcomeText: "Buddy is your simple everyday helper. Let me show you around — it only takes a moment.",
+      peopleTitle: "My People",
+      peopleText: "Add your family and friends here. Then you can call them with just one tap — no need to search your contacts.",
+      medsTitle: "Medicine Reminders",
+      medsText: "Add your medicines and tap the green circle when you take them. You can also turn on alarms — Buddy will notify you when it's time.",
+      safetyTitle: "You're All Set!",
+      safetyText: "If you ever get a suspicious message, use the Stay Safe checker. And the red emergency button is always there if you need it. Tap Done to start!",
+      skip: "Skip",
+      next: "Next",
+      done: "Done ✓"
     },
     safety: {
       title: "Stay Safe",
@@ -270,6 +301,7 @@ const TRANSLATIONS = {
     tiles: {
       people: { label: "Mis Personas", sub: "Familia y amigos" },
       meds:  { label: "Medicinas", sub: "Recordatorios y checks" },
+      notes: { label: "Mis Notas", sub: "Recordatorios y notas" },
       safety:{ label: "Seguridad", sub: "Detector de estafas" },
       help:  { label: "Cómo Hacer", sub: "Guías paso a paso" }
     },
@@ -315,7 +347,37 @@ const TRANSLATIONS = {
       add: "+ Agregar Medicina",
       addTitle: "Agregar Medicina",
       taken: "✓ ¡Tomada!",
-      removeConfirm: "¿Eliminar {name}?"
+      removeConfirm: "¿Eliminar {name}?",
+      alarm: "Alarma",
+      alarmNotify: "⏰ Hora de tomar {name} ({time})"
+    },
+    notes: {
+      title: "Mis Notas",
+      hint: "Escribe lo que quieras recordar. Las notas con campana te enviarán un recordatorio.",
+      empty: "Sin notas todavía. Toca \"+ Añadir nota\" abajo.",
+      add: "+ Añadir nota",
+      addTitle: "Añadir nota",
+      noteText: "¿Qué quieres recordar?",
+      placeholderNote: "ej. Llamar al banco el viernes, comprar comida…",
+      alarmTime: "Hora del recordatorio (opcional)",
+      alarmHint: "Buddy te enviará una notificación a esta hora. Déjalo vacío si no quieres recordatorio.",
+      noAlarm: "Sin recordatorio",
+      alarmNotify: "⏰ Recordatorio: {text}… ({time})",
+      delete: "Borrar nota",
+      removeConfirm: "¿Borrar esta nota?"
+    },
+    onboarding: {
+      welcomeTitle: "¡Bienvenido a Buddy!",
+      welcomeText: "Buddy es tu ayudante diario. Te lo muestro en un momento.",
+      peopleTitle: "Mi Gente",
+      peopleText: "Añade a tu familia y amigos aquí. Podrás llamarles con un solo toque.",
+      medsTitle: "Recordatorios de medicinas",
+      medsText: "Añade tus medicinas y toca el círculo verde al tomarlas. También puedes activar alarmas.",
+      safetyTitle: "¡Todo listo!",
+      safetyText: "Si recibes un mensaje sospechoso, usa el comprobador de seguridad. Y el botón rojo de emergencia siempre está ahí.",
+      skip: "Omitir",
+      next: "Siguiente",
+      done: "Listo ✓"
     },
     safety: {
       title: "Seguridad",
@@ -511,6 +573,7 @@ const TRANSLATIONS = {
     tiles: {
       people: { label: "Mes Proches", sub: "Famille et amis" },
       meds:  { label: "Médicaments", sub: "Rappels et suivi" },
+      notes: { label: "Mes Notes", sub: "Rappels et notes" },
       safety:{ label: "En Sécurité", sub: "Vérifier les arnaques" },
       help:  { label: "Comment Faire", sub: "Guides étape par étape" }
     },
@@ -556,7 +619,37 @@ const TRANSLATIONS = {
       add: "+ Ajouter un médicament",
       addTitle: "Ajouter un médicament",
       taken: "✓ Pris !",
-      removeConfirm: "Supprimer {name} ?"
+      removeConfirm: "Supprimer {name} ?",
+      alarm: "Alarme",
+      alarmNotify: "⏰ Il est temps de prendre {name} ({time})"
+    },
+    notes: {
+      title: "Mes Notes",
+      hint: "Écrivez ce que vous voulez retenir. Les notes avec une cloche enverront un rappel.",
+      empty: "Pas encore de notes. Appuyez sur \"+ Ajouter une note\" ci-dessous.",
+      add: "+ Ajouter une note",
+      addTitle: "Ajouter une note",
+      noteText: "Que voulez-vous retenir ?",
+      placeholderNote: "ex. Appeler la banque vendredi, faire les courses…",
+      alarmTime: "Heure du rappel (facultatif)",
+      alarmHint: "Buddy enverra une notification à cette heure. Laissez vide pour aucun rappel.",
+      noAlarm: "Pas de rappel",
+      alarmNotify: "⏰ Rappel : {text}… ({time})",
+      delete: "Supprimer la note",
+      removeConfirm: "Supprimer cette note ?"
+    },
+    onboarding: {
+      welcomeTitle: "Bienvenue sur Buddy !",
+      welcomeText: "Buddy est votre assistant quotidien simple. Laissez-moi vous montrer — ça ne prend qu'un moment.",
+      peopleTitle: "Mes Proches",
+      peopleText: "Ajoutez votre famille et vos amis ici. Vous pourrez les appeler en un seul tap.",
+      medsTitle: "Rappels de médicaments",
+      medsText: "Ajoutez vos médicaments et appuyez sur le cercle vert quand vous les prenez. Vous pouvez aussi activer les alarmes.",
+      safetyTitle: "Tout est prêt !",
+      safetyText: "Si vous recevez un message suspect, utilisez le vérificateur de sécurité. Et le bouton d'urgence rouge est toujours là.",
+      skip: "Passer",
+      next: "Suivant",
+      done: "C'est fait ✓"
     },
     safety: {
       title: "En Sécurité",
@@ -752,6 +845,7 @@ const TRANSLATIONS = {
     tiles: {
       people: { label: "Meine Leute", sub: "Familie & Freunde" },
       meds:  { label: "Medikamente", sub: "Erinnerungen" },
+      notes: { label: "Meine Notizen", sub: "Erinnerungen und Notizen" },
       safety:{ label: "Sicherheit", sub: "Betrugsprüfung" },
       help:  { label: "Anleitungen", sub: "Schritt für Schritt" }
     },
@@ -797,7 +891,37 @@ const TRANSLATIONS = {
       add: "+ Medikament hinzufügen",
       addTitle: "Medikament hinzufügen",
       taken: "✓ Eingenommen!",
-      removeConfirm: "{name} entfernen?"
+      removeConfirm: "{name} entfernen?",
+      alarm: "Erinnerung",
+      alarmNotify: "⏰ Zeit für {name} ({time})"
+    },
+    notes: {
+      title: "Meine Notizen",
+      hint: "Schreiben Sie auf, was Sie sich merken möchten. Notizen mit einer Glocke senden Ihnen eine Erinnerung.",
+      empty: "Noch keine Notizen. Tippen Sie auf \"+ Notiz hinzufügen\" unten.",
+      add: "+ Notiz hinzufügen",
+      addTitle: "Notiz hinzufügen",
+      noteText: "Was möchten Sie sich merken?",
+      placeholderNote: "z.B. Am Freitag die Bank anrufen, Einkaufen…",
+      alarmTime: "Erinnerungszeit (optional)",
+      alarmHint: "Buddy sendet Ihnen eine Benachrichtigung zu dieser Zeit. Leer lassen für keine Erinnerung.",
+      noAlarm: "Keine Erinnerung",
+      alarmNotify: "⏰ Erinnerung: {text}… ({time})",
+      delete: "Notiz löschen",
+      removeConfirm: "Diese Notiz löschen?"
+    },
+    onboarding: {
+      welcomeTitle: "Willkommen bei Buddy!",
+      welcomeText: "Buddy ist Ihr einfacher täglicher Helfer. Ich zeige Ihnen kurz alles.",
+      peopleTitle: "Meine Leute",
+      peopleText: "Fügen Sie Ihre Familie und Freunde hier hinzu. Dann können Sie sie mit einem Antippen anrufen.",
+      medsTitle: "Medikamenten-Erinnerungen",
+      medsText: "Fügen Sie Ihre Medikamente hinzu und tippen Sie auf den grünen Kreis. Sie können auch Alarme aktivieren.",
+      safetyTitle: "Alles fertig!",
+      safetyText: "Wenn Sie eine verdächtige Nachricht erhalten, nutzen Sie den Sicherheits-Checker. Der rote Notfall-Button ist immer da.",
+      skip: "Überspringen",
+      next: "Weiter",
+      done: "Fertig ✓"
     },
     safety: {
       title: "Sicherheit",
@@ -993,6 +1117,7 @@ const TRANSLATIONS = {
     tiles: {
       people: { label: "Minhas Pessoas", sub: "Família e amigos" },
       meds:  { label: "Remédios", sub: "Lembretes e checks" },
+      notes: { label: "Minhas Notas", sub: "Lembretes e anotações" },
       safety:{ label: "Segurança", sub: "Detector de golpes" },
       help:  { label: "Como Fazer", sub: "Guias passo a passo" }
     },
@@ -1038,7 +1163,37 @@ const TRANSLATIONS = {
       add: "+ Adicionar Remédio",
       addTitle: "Adicionar Remédio",
       taken: "✓ Tomado!",
-      removeConfirm: "Remover {name}?"
+      removeConfirm: "Remover {name}?",
+      alarm: "Alarme",
+      alarmNotify: "⏰ Hora de tomar {name} ({time})"
+    },
+    notes: {
+      title: "Minhas Notas",
+      hint: "Escreva o que quiser lembrar. Notas com sino enviarão um lembrete.",
+      empty: "Sem notas ainda. Toque em \"+ Adicionar nota\" abaixo.",
+      add: "+ Adicionar nota",
+      addTitle: "Adicionar nota",
+      noteText: "O que quer lembrar?",
+      placeholderNote: "ex. Ligar para o banco sexta, buscar compras…",
+      alarmTime: "Hora do lembrete (opcional)",
+      alarmHint: "Buddy enviará uma notificação neste horário. Deixe vazio para sem lembrete.",
+      noAlarm: "Sem lembrete",
+      alarmNotify: "⏰ Lembrete: {text}… ({time})",
+      delete: "Apagar nota",
+      removeConfirm: "Apagar esta nota?"
+    },
+    onboarding: {
+      welcomeTitle: "Bem-vindo ao Buddy!",
+      welcomeText: "Buddy é seu ajudante diário simples. Deixe-me mostrar — só leva um momento.",
+      peopleTitle: "Meus Contatos",
+      peopleText: "Adicione família e amigos aqui. Depois é só tocar para ligar.",
+      medsTitle: "Lembretes de remédios",
+      medsText: "Adicione seus remédios e toque no círculo verde ao tomar. Também pode ativar alarmes.",
+      safetyTitle: "Tudo pronto!",
+      safetyText: "Se receber uma mensagem suspeita, use o verificador de segurança. E o botão vermelho de emergência está sempre ali.",
+      skip: "Pular",
+      next: "Próximo",
+      done: "Pronto ✓"
     },
     safety: {
       title: "Segurança",
@@ -1234,6 +1389,7 @@ const TRANSLATIONS = {
     tiles: {
       people: { label: "我的家人", sub: "家人和朋友" },
       meds:  { label: "我的药品", sub: "提醒和打卡" },
+      notes: { label: "我的备忘", sub: "提醒和笔记" },
       safety:{ label: "安全中心", sub: "识别诈骗电话" },
       help:  { label: "使用教程", sub: "一步步教您" }
     },
@@ -1279,7 +1435,37 @@ const TRANSLATIONS = {
       add: "+ 添加药品",
       addTitle: "添加药品",
       taken: "✓ 已吃！",
-      removeConfirm: "删除 {name}？"
+      removeConfirm: "删除 {name}？",
+      alarm: "提醒",
+      alarmNotify: "⏰ 该吃{name}了（{time}）"
+    },
+    notes: {
+      title: "我的备忘",
+      hint: "写下任何想记住的事。带铃铛的备忘会发送提醒。",
+      empty: "还没有备忘。点击下方的\"+ 添加备忘\"。",
+      add: "+ 添加备忘",
+      addTitle: "添加备忘",
+      noteText: "想记住什么？",
+      placeholderNote: "例如：周五给银行打电话，去买菜…",
+      alarmTime: "提醒时间（可选）",
+      alarmHint: "Buddy会在这个时间发送通知。留空则不提醒。",
+      noAlarm: "无提醒",
+      alarmNotify: "⏰ 提醒：{text}…（{time}）",
+      delete: "删除备忘",
+      removeConfirm: "删除这条备忘吗？"
+    },
+    onboarding: {
+      welcomeTitle: "欢迎使用Buddy！",
+      welcomeText: "Buddy是您的简单日常助手。让我带您看看——只需一会儿。",
+      peopleTitle: "我的人",
+      peopleText: "在这里添加家人和朋友。然后只需点一下就能打电话。",
+      medsTitle: "药物提醒",
+      medsText: "添加您的药物，吃药时点击绿色圆圈。还可以开启提醒——Buddy会通知您。",
+      safetyTitle: "一切就绪！",
+      safetyText: "如果您收到可疑消息，请使用安全检查器。红色紧急按钮始终在那里。",
+      skip: "跳过",
+      next: "下一步",
+      done: "完成 ✓"
     },
     safety: {
       title: "安全中心",
@@ -1475,6 +1661,7 @@ const TRANSLATIONS = {
     tiles: {
       people: { label: "Läheiseni", sub: "Perhe ja ystävät" },
       meds:  { label: "Lääkkeet", sub: "Muistutukset ja merkinnät" },
+      notes: { label: "Muistiinpanot", sub: "Muistutukset ja viestit" },
       safety:{ label: "Turvassa", sub: "Huijauksen tunnistus" },
       help:  { label: "Ohjeet", sub: "Vaiheittaiset oppaat" }
     },
@@ -1520,7 +1707,37 @@ const TRANSLATIONS = {
       add: "+ Lisää lääke",
       addTitle: "Lisää lääke",
       taken: "✓ Otettu!",
-      removeConfirm: "Poistetaanko {name}?"
+      removeConfirm: "Poistetaanko {name}?",
+      alarm: "Hälytys",
+      alarmNotify: "⏰ On aika ottaa {name} ({time})"
+    },
+    notes: {
+      title: "Muistiinpanot",
+      hint: "Kirjoita ylös mitä tahansa. Muistiinpanoihin, joissa on kello, saat muistutuksen.",
+      empty: "Ei muistiinpanoja vielä. Paina \"+ Lisää muistiinpano\" alla.",
+      add: "+ Lisää muistiinpano",
+      addTitle: "Lisää muistiinpano",
+      noteText: "Mitä haluat muistaa?",
+      placeholderNote: "esim. Soita pankille perjantaina, nouda ruokaa…",
+      alarmTime: "Muistutusaika (valinnainen)",
+      alarmHint: "Buddy lähettää ilmoituksen tässä ajassa. Jätä tyhjäksi ilman muistutusta.",
+      noAlarm: "Ei muistutusta",
+      alarmNotify: "⏰ Muistutus: {text}… ({time})",
+      delete: "Poista muistiinpano",
+      removeConfirm: "Poistetaanko tämä muistiinpano?"
+    },
+    onboarding: {
+      welcomeTitle: "Tervetuloa Buddyyn!",
+      welcomeText: "Buddy on yksinkertainen päivittäinen apurisi. Käyn läpi asiat hetkessä.",
+      peopleTitle: "Läheiseni",
+      peopleText: "Lisää perheesi ja ystäväsi tänne. Sitten voit soittaa heille yhdellä painalluksella — ei tarvitse etsiä yhteystietoja.",
+      medsTitle: "Lääkemuisoitukset",
+      medsText: "Lisää lääkkeesi ja paina vihreää ympyrää kun otat ne. Voit myös laittaa hälytykset päälle — Buddy muistuttaa kun on aika.",
+      safetyTitle: "Kaikki valmista!",
+      safetyText: "Jos saat epäilyttävän viestin, käytä Turvassa-tarkistinta. Punainen hätäpainike on aina tarvittaessa. Paina Valmis aloittaaksesi!",
+      skip: "Ohita",
+      next: "Seuraava",
+      done: "Valmis ✓"
     },
     safety: {
       title: "Turvassa",

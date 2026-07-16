@@ -1,16 +1,19 @@
 /* ========== BUDDY APP ==========
  * i18n-aware, demand-validated, vanilla JS. State persists in localStorage.
  * Requires: i18n.js loaded before this file.
+ * v4: Notes, medicine alarm toggles, onboarding flow
  */
 
 const state = {
   people: [],
   meds: [],
   takenToday: {},      // { medId: 'Wed Jun 26 2026' }
+  notes: [],           // { id, text, alarm: bool, alarmTime: 'HH:MM'|'', created: ISO }
   emails: [],          // captured upgrade leads
   lang: null,          // null = auto-detect
   visits: [],          // array of date strings
-  feedback: []         // {date, rating: 'easy'|'hard', text}
+  feedback: [],        // {date, rating: 'easy'|'hard', text}
+  onboarded: false     // true = skip onboarding
 };
 
 // ========== i18n ==========
@@ -19,9 +22,7 @@ const FALLBACK = 'en';
 function getLang() {
   if (state.lang && TRANSLATIONS[state.lang]) return state.lang;
   const nav = (navigator.language || 'en').toLowerCase();
-  // Try exact match
   if (TRANSLATIONS[nav]) return nav;
-  // Try base language
   const base = nav.split('-')[0];
   if (TRANSLATIONS[base]) return base;
   return FALLBACK;
@@ -36,9 +37,8 @@ function t(key, params = {}) {
   let str = getNested(TRANSLATIONS[lang], key);
   if (str == null) str = getNested(TRANSLATIONS[FALLBACK], key);
   if (str == null) return key;
-  if (typeof str !== 'string') return str; // arrays, objects handled by callers
+  if (typeof str !== 'string') return str;
 
-  // Auto-substitute {number} with locale emergency number (911 US, 112 EU, etc.)
   if (str.includes('{number}')) {
     const num = TRANSLATIONS[lang].meta.emergencyNumber
              || TRANSLATIONS[FALLBACK].meta.emergencyNumber
@@ -46,11 +46,9 @@ function t(key, params = {}) {
     str = str.replace(/\{number\}/g, num);
   }
 
-  // Interpolate {key} with params
   return str.replace(/\{(\w+)\}/g, (_, k) => {
     if (params[k] === undefined) return `{${k}}`;
     let v = String(params[k]);
-    // Plural support: {s} → 's' or '' based on {n}
     if (k === 's' && params.n !== undefined) {
       v = params.n === 1 ? '' : 's';
     }
@@ -59,29 +57,20 @@ function t(key, params = {}) {
 }
 
 function applyI18n() {
-  // Text content
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
     const params = el.dataset.i18nParams ? safeParse(el.dataset.i18nParams) : {};
     el.textContent = t(key, params);
   });
-  // Attribute interpolation (e.g. placeholder)
   document.querySelectorAll('[data-i18n-attr]').forEach(el => {
     el.dataset.i18nAttr.split(';').forEach(pair => {
       const [attr, key] = pair.split(':');
       if (attr && key) el.setAttribute(attr.trim(), t(key));
     });
   });
-  // Document title
-  const titleEl = document.querySelector('[data-i18n-meta="title"]');
-  if (titleEl) {
-    const baseTitle = titleEl.textContent.replace(/^Buddy\s*—\s*/, '');
-    document.title = `Buddy — ${t('app.brandLine')}`;
-  }
-  // HTML lang attribute
+  document.title = `Buddy — ${t('app.brandLine')}`;
   const meta = TRANSLATIONS[getLang()].meta;
   document.documentElement.lang = meta.code;
-  // Update language button label
   const lc = document.getElementById('lang-current');
   if (lc) lc.textContent = meta.nativeName;
 }
@@ -91,7 +80,7 @@ function safeParse(json) {
 }
 
 // ========== STORAGE ==========
-const KEY = 'buddy-state-v2'; // bumped: schema now includes lang/visits/feedback
+const KEY = 'buddy-state-v3'; // v3: adds notes, onboarded, med alarms
 
 function load() {
   const saved = localStorage.getItem(KEY);
@@ -99,18 +88,21 @@ function load() {
     try {
       const data = JSON.parse(saved);
       Object.assign(state, data);
+      // Migrate v2 → v3: ensure notes/onboarded exist
+      if (!Array.isArray(state.notes)) state.notes = [];
+      if (state.meds) state.meds.forEach(m => { if (m.alarm === undefined) m.alarm = false; });
     } catch (e) { console.warn('Could not load saved data', e); }
   }
-  // First-time setup
-  if (state.people.length === 0 && state.meds.length === 0) {
+  // First-time setup (only if no state at all)
+  if (state.people.length === 0 && state.meds.length === 0 && !state.onboarded) {
     state.people = [
       { id: 'p1', name: 'Sarah (Daughter)', phone: '5551234567', relation: 'Family' },
       { id: 'p2', name: 'Dr. Williams', phone: '5559876543', relation: 'Doctor' }
     ];
     state.meds = [
-      { id: 'm1', name: 'Blood pressure pill', time: 'Morning', notes: 'Take with food' },
-      { id: 'm2', name: 'Vitamin D', time: 'Morning', notes: '' },
-      { id: 'm3', name: 'Cholesterol pill', time: 'Evening', notes: '' }
+      { id: 'm1', name: 'Blood pressure pill', time: 'Morning', notes: 'Take with food', alarm: true },
+      { id: 'm2', name: 'Vitamin D', time: 'Morning', notes: '', alarm: false },
+      { id: 'm3', name: 'Cholesterol pill', time: 'Evening', notes: '', alarm: true }
     ];
     save();
   }
@@ -132,11 +124,6 @@ function escapeHtml(s) {
   }[c]));
 }
 
-function mdBold(s) {
-  // Convert **text** to <strong>text</strong>
-  return escapeHtml(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
-}
-
 function toast(msg) {
   const el = $('#toast');
   el.textContent = msg;
@@ -151,6 +138,20 @@ function phoneFormat(p) {
   if (d.length === 10) return `(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
   if (d.length === 11 && d.startsWith('1')) return `(${d.slice(1,4)}) ${d.slice(4,7)}-${d.slice(7)}`;
   return p;
+}
+
+function timeToMinutes(timeStr) {
+  // Parse "08:30" → 510, "Morning" → 480, "Evening" → 1140, etc.
+  if (!timeStr) return -1;
+  const m = timeStr.match(/^(\d{1,2}):(\d{2})$/);
+  if (m) return parseInt(m[1]) * 60 + parseInt(m[2]);
+  const lower = timeStr.toLowerCase();
+  if (lower.includes('morning') || lower.includes('aamu')) return 480;
+  if (lower.includes('noon') || lower.includes('keskipäivä')) return 720;
+  if (lower.includes('afternoon') || lower.includes('iltapäivä')) return 840;
+  if (lower.includes('evening') || lower.includes('ilta')) return 1080;
+  if (lower.includes('night') || lower.includes('yö') || lower.includes('bedtime') || lower.includes('nukkumaan')) return 1320;
+  return -1;
 }
 
 // ========== NAV ==========
@@ -210,15 +211,10 @@ function renderPeople() {
         <div class="name">${escapeHtml(p.name)}</div>
         <div class="sub">${escapeHtml(p.relation || phoneFormat(p.phone))}</div>
       </div>
-      <a class="action" href="tel:${escapeHtml(p.phone)}">${escapeHtml(t('meds.taken').includes('Taken') ? 'Call' : t('form.save').replace('Guardar','Llamar'))}</a>
+      <a class="action" href="tel:${escapeHtml(p.phone)}">${escapeHtml(callLabel())}</a>
       <button class="delete" aria-label="${escapeHtml(t('people.delete'))} ${escapeHtml(p.name)}">×</button>
     </li>
   `).join('');
-
-  // Replace action labels properly with "Call" in the right language
-  $$('#people-list .action').forEach(a => {
-    a.textContent = callLabel();
-  });
 
   list.querySelectorAll('.delete').forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -237,12 +233,10 @@ function renderPeople() {
 }
 
 function callLabel() {
-  // Simple call label per language
   const map = { en: 'Call', es: 'Llamar', fr: 'Appeler', de: 'Anrufen', pt: 'Ligar', zh: '拨打', fi: 'Soita' };
   return map[getLang()] || 'Call';
 }
 
-// Update the tel: href on emergency buttons to match the locale's number
 function updateEmergencyLinks() {
   const num = TRANSLATIONS[getLang()].meta.emergencyNumber || '911';
   document.querySelectorAll('[data-emergency]').forEach(el => {
@@ -250,7 +244,7 @@ function updateEmergencyLinks() {
   });
 }
 
-// ========== MEDS ==========
+// ========== MEDS (with alarm toggles) ==========
 function renderMeds() {
   const td = today();
   const taken = state.meds.filter(m => state.takenToday[m.id] === td).length;
@@ -269,6 +263,7 @@ function renderMeds() {
   }
   list.innerHTML = state.meds.map(m => {
     const isTaken = state.takenToday[m.id] === td;
+    const alarmOn = m.alarm;
     return `
       <li class="list-item med-item ${isTaken ? 'taken' : ''}" data-id="${m.id}">
         <button class="check" aria-label="Mark ${escapeHtml(m.name)} as taken"></button>
@@ -276,11 +271,18 @@ function renderMeds() {
           <div class="name">${escapeHtml(m.name)}</div>
           <div class="sub">${escapeHtml(m.time)}${m.notes ? ' · ' + escapeHtml(m.notes) : ''}</div>
         </div>
+        <div class="alarm-toggle" data-med-id="${m.id}">
+          <span class="alarm-icon ${alarmOn ? '' : 'off'}">${alarmOn ? '🔔' : '🔕'}</span>
+          <div class="toggle-track ${alarmOn ? 'on' : ''}" role="switch" aria-checked="${alarmOn}" aria-label="${escapeHtml(t('meds.alarm'))}" tabindex="0">
+            <div class="toggle-thumb"></div>
+          </div>
+        </div>
         <button class="delete" aria-label="${escapeHtml(t('people.delete'))} ${escapeHtml(m.name)}">×</button>
       </li>
     `;
   }).join('');
 
+  // Check-off buttons
   list.querySelectorAll('.check').forEach(el => {
     el.addEventListener('click', (e) => {
       const id = e.target.closest('.list-item').dataset.id;
@@ -296,6 +298,24 @@ function renderMeds() {
     });
   });
 
+  // Alarm toggles
+  list.querySelectorAll('.toggle-track').forEach(el => {
+    function toggleAlarm() {
+      const id = el.closest('.alarm-toggle').dataset.medId;
+      const med = state.meds.find(m => m.id === id);
+      if (!med) return;
+      med.alarm = !med.alarm;
+      if (med.alarm) {
+        requestNotificationPermission();
+      }
+      save();
+      renderMeds();
+    }
+    el.addEventListener('click', toggleAlarm);
+    el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleAlarm(); } });
+  });
+
+  // Delete buttons
   list.querySelectorAll('.delete').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const id = e.target.closest('.list-item').dataset.id;
@@ -311,6 +331,49 @@ function renderMeds() {
     });
   });
 }
+
+// ========== NOTES ==========
+function renderNotes() {
+  const list = $('#notes-list');
+  if (state.notes.length === 0) {
+    list.innerHTML = `<li class="hint" style="padding:1rem 0;">${escapeHtml(t('notes.empty'))}</li>`;
+    return;
+  }
+  // Show newest first
+  const sorted = [...state.notes].reverse();
+  list.innerHTML = sorted.map(n => {
+    const date = new Date(n.created);
+    const locale = TRANSLATIONS[getLang()].meta.dateLocale;
+    const dateStr = date.toLocaleDateString(locale, { month: 'short', day: 'numeric' });
+    return `
+      <li class="list-item note-item" data-id="${n.id}">
+        <div class="note-body">
+          <div class="note-text">${escapeHtml(n.text)}</div>
+          <div class="note-meta">
+            <span class="note-time">${escapeHtml(dateStr)}</span>
+            ${n.alarm && n.alarmTime ? `<span class="note-alarm-badge">🔔 ${escapeHtml(n.alarmTime)}</span>` : ''}
+            ${!n.alarm ? `<span class="note-alarm-badge off">🔕 ${escapeHtml(t('notes.noAlarm'))}</span>` : ''}
+          </div>
+        </div>
+        <button class="delete" aria-label="${escapeHtml(t('notes.delete'))}">×</button>
+      </li>
+    `;
+  }).join('');
+
+  list.querySelectorAll('.delete').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const id = e.target.closest('.list-item').dataset.id;
+      if (confirm(t('notes.removeConfirm'))) {
+        state.notes = state.notes.filter(n => n.id !== id);
+        save();
+        renderNotes();
+        toast(t('toast.removed'));
+      }
+    });
+  });
+}
+
+$('#add-note').addEventListener('click', () => openModal('note'));
 
 // ========== SAFETY ==========
 function renderSafetyList() {
@@ -389,7 +452,7 @@ function renderTopics() {
             <span>${escapeHtml(s)}</span>
           </div>
         `).join('')}
-        <button class="primary block" data-go="help" style="margin-top:1.25rem;" data-i18n="nav.backToHelp">${escapeHtml(t('nav.backToHelp'))}</button>
+        <button class="primary block" data-go="help" style="margin-top:1.25rem;">${escapeHtml(t('nav.backToHelp'))}</button>
       `;
       show('topic');
     });
@@ -406,7 +469,7 @@ function topicEmoji(id) {
   return map[id] || '💡';
 }
 
-// ========== MODAL ==========
+// ========== MODAL (person / med / note) ==========
 let modalMode = null;
 
 $('#add-person').addEventListener('click', () => openModal('person'));
@@ -428,7 +491,7 @@ function openModal(mode) {
       <label class="modal-label">${escapeHtml(t('form.relation'))}</label>
       <input type="text" id="m-rel" placeholder="${escapeHtml(t('form.placeholderRelation'))}" />
     `;
-  } else {
+  } else if (mode === 'med') {
     title.textContent = t('meds.addTitle');
     body.innerHTML = `
       <label class="modal-label">${escapeHtml(t('form.name'))}</label>
@@ -438,9 +501,21 @@ function openModal(mode) {
       <label class="modal-label">${escapeHtml(t('form.notes'))}</label>
       <input type="text" id="m-rel" placeholder="${escapeHtml(t('form.placeholderNotes'))}" />
     `;
+  } else if (mode === 'note') {
+    title.textContent = t('notes.addTitle');
+    body.innerHTML = `
+      <label class="modal-label">${escapeHtml(t('notes.noteText'))}</label>
+      <textarea id="m-note-text" placeholder="${escapeHtml(t('notes.placeholderNote'))}" rows="3" style="min-height:80px;"></textarea>
+      <label class="modal-label">${escapeHtml(t('notes.alarmTime'))}</label>
+      <input type="time" id="m-alarm-time" style="max-width:200px;" />
+      <p style="font-size:0.85rem;color:var(--text-muted);margin:0.25rem 0 0;">${escapeHtml(t('notes.alarmHint'))}</p>
+    `;
   }
   $('#modal').classList.add('show');
-  setTimeout(() => $('#m-name').focus(), 50);
+  setTimeout(() => {
+    const first = $('#modal-content input, #modal-content textarea');
+    if (first) first.focus();
+  }, 50);
 }
 
 function closeModal() {
@@ -449,6 +524,30 @@ function closeModal() {
 }
 
 function saveModal() {
+  if (modalMode === 'note') {
+    const text = $('#m-note-text').value.trim();
+    if (!text) {
+      alert(t('form.needName'));
+      $('#m-note-text').focus();
+      return;
+    }
+    const alarmTime = $('#m-alarm-time').value; // "HH:MM" or ""
+    const hasAlarm = !!alarmTime;
+    if (hasAlarm) requestNotificationPermission();
+    state.notes.push({
+      id: 'n' + Date.now(),
+      text,
+      alarm: hasAlarm,
+      alarmTime,
+      created: new Date().toISOString()
+    });
+    save();
+    renderNotes();
+    toast(t('toast.added'));
+    closeModal();
+    return;
+  }
+
   const name = $('#m-name').value.trim();
   if (!name) {
     alert(t('form.needName'));
@@ -477,7 +576,8 @@ function saveModal() {
       id: 'm' + Date.now(),
       name,
       time: $('#m-time').value.trim() || 'Anytime',
-      notes: $('#m-rel').value.trim()
+      notes: $('#m-rel').value.trim(),
+      alarm: false
     });
     save();
     renderMeds();
@@ -485,6 +585,55 @@ function saveModal() {
     toast(t('toast.added'));
   }
   closeModal();
+}
+
+// ========== NOTIFICATION / ALARM SYSTEM ==========
+let alarmTimerId = null;
+let lastAlarmMinute = -1;
+
+function requestNotificationPermission() {
+  if ('Notification' in window && Notification.permission === 'default') {
+    Notification.requestPermission();
+  }
+}
+
+function checkAlarms() {
+  const now = new Date();
+  const currentMinutes = now.getHours() * 60 + now.getMinutes();
+  if (currentMinutes === lastAlarmMinute) return; // already fired this minute
+  lastAlarmMinute = currentMinutes;
+
+  const locale = TRANSLATIONS[getLang()].meta.dateLocale;
+  const timeStr = now.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
+
+  // Check medicine alarms
+  state.meds.forEach(m => {
+    if (!m.alarm) return;
+    const medMinutes = timeToMinutes(m.time);
+    if (medMinutes === currentMinutes) {
+      fireNotification(t('meds.alarmNotify', { name: m.name, time: timeStr }), m.name);
+    }
+  });
+
+  // Check note alarms
+  state.notes.forEach(n => {
+    if (!n.alarm || !n.alarmTime) return;
+    const [h, min] = n.alarmTime.split(':').map(Number);
+    if (h * 60 + min === currentMinutes) {
+      fireNotification(t('notes.alarmNotify', { text: n.text.substring(0, 60), time: timeStr }), n.text.substring(0, 30));
+    }
+  });
+}
+
+function fireNotification(body, tag) {
+  // Browser notification
+  if ('Notification' in window && Notification.permission === 'granted') {
+    try {
+      new Notification('Buddy', { body, icon: '/buddy/favicon.svg', tag: 'buddy-' + tag, requireInteraction: false });
+    } catch(e) { /* notification failed silently */ }
+  }
+  // Also show in-app toast
+  toast('🔔 ' + body);
 }
 
 // ========== SCAM CHECK HANDLER ==========
@@ -534,6 +683,7 @@ $('#lang-btn').addEventListener('click', () => {
       renderHome();
       renderPeople();
       renderMeds();
+      renderNotes();
       renderTopics();
       renderSafetyList();
       updateEmergencyLinks();
@@ -553,7 +703,6 @@ function trackVisit() {
   const td = today();
   if (!state.visits.includes(td)) {
     state.visits.push(td);
-    // Keep last 365 visits max
     if (state.visits.length > 365) state.visits = state.visits.slice(-365);
     save();
   }
@@ -561,13 +710,11 @@ function trackVisit() {
 
 function maybeShowFeedback() {
   const uniqueDays = state.visits.length;
-  // Show after 2+ unique-day visits, only once per 30 days
   if (uniqueDays < 2) return;
   const last = state.feedback.length ? state.feedback[state.feedback.length - 1].date : null;
   const lastDate = last ? new Date(last) : null;
   const daysSince = lastDate ? (Date.now() - lastDate.getTime()) / 86400000 : 999;
   if (daysSince < 30) return;
-
   $('#feedback-modal').classList.add('show');
 }
 
@@ -597,7 +744,7 @@ $('#fb-send').addEventListener('click', () => {
 });
 
 // Close modals on backdrop click
-['#modal', '#upgrade-modal', '#lang-modal', '#feedback-modal'].forEach(sel => {
+['#modal', '#upgrade-modal', '#lang-modal', '#feedback-modal', '#onboarding-modal'].forEach(sel => {
   const el = $(sel);
   if (el) {
     el.addEventListener('click', (e) => {
@@ -606,19 +753,93 @@ $('#fb-send').addEventListener('click', () => {
   }
 });
 
+// ========== ONBOARDING ==========
+const ONBOARDING_STEPS = [
+  { icon: '👋', getTitle: () => t('onboarding.welcomeTitle'), getText: () => t('onboarding.welcomeText') },
+  { icon: '👥', getTitle: () => t('onboarding.peopleTitle'), getText: () => t('onboarding.peopleText') },
+  { icon: '💊', getTitle: () => t('onboarding.medsTitle'), getText: () => t('onboarding.medsText') },
+  { icon: '🛡️', getTitle: () => t('onboarding.safetyTitle'), getText: () => t('onboarding.safetyText') }
+];
+
+let onboardingStep = 0;
+
+function maybeShowOnboarding() {
+  if (state.onboarded) return;
+  // Only show if there's no existing data (truly first visit)
+  if (state.people.length > 0 && state.visits.length > 1) {
+    state.onboarded = true;
+    save();
+    return;
+  }
+  renderOnboardingStep();
+  $('#onboarding-modal').classList.add('show');
+  requestNotificationPermission();
+}
+
+function renderOnboardingStep() {
+  const step = ONBOARDING_STEPS[onboardingStep];
+  const total = ONBOARDING_STEPS.length;
+  const isLast = onboardingStep === total - 1;
+
+  const stepsEl = $('#onboarding-steps');
+  stepsEl.innerHTML = `
+    <div class="onboarding-step active">
+      <div class="onboarding-icon">${step.icon}</div>
+      <h3>${escapeHtml(step.getTitle())}</h3>
+      <p>${escapeHtml(step.getText())}</p>
+    </div>
+  `;
+
+  // Dots
+  const dotsEl = $('#onboarding-dots');
+  dotsEl.innerHTML = ONBOARDING_STEPS.map((_, i) =>
+    `<div class="onboarding-dot ${i === onboardingStep ? 'active' : ''}"></div>`
+  ).join('');
+
+  // Button text
+  const nextBtn = $('#onboarding-next');
+  nextBtn.textContent = isLast ? t('onboarding.done') : t('onboarding.next');
+}
+
+$('#onboarding-next').addEventListener('click', () => {
+  onboardingStep++;
+  if (onboardingStep >= ONBOARDING_STEPS.length) {
+    state.onboarded = true;
+    save();
+    $('#onboarding-modal').classList.remove('show');
+    return;
+  }
+  renderOnboardingStep();
+});
+
+$('#onboarding-skip').addEventListener('click', () => {
+  state.onboarded = true;
+  save();
+  $('#onboarding-modal').classList.remove('show');
+});
+
 // ========== INIT ==========
 load();
 applyI18n();
 renderHome();
 renderPeople();
 renderMeds();
+renderNotes();
 renderTopics();
 renderSafetyList();
 updateEmergencyLinks();
 trackVisit();
 
+// Check alarms every 30 seconds
+alarmTimerId = setInterval(checkAlarms, 30000);
+// Also check once on load (in case an alarm was missed while tab was closed)
+setTimeout(checkAlarms, 2000);
+
 // Re-render check-in status periodically
 setInterval(renderHome, 60 * 1000);
 
-// Show feedback prompt after a beat (so first visit isn't interrupted)
+// Show onboarding for first-time users (delay so page renders first)
+setTimeout(maybeShowOnboarding, 800);
+
+// Show feedback prompt after a beat
 setTimeout(maybeShowFeedback, 5000);

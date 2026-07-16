@@ -219,6 +219,11 @@ input, textarea, select { font-family: inherit; font-size: 1rem; }
   gap: 1rem;
   margin: 1.5rem 0;
 }
+/* 5 tiles: 3 on top, 2 on bottom — or 2+3 on wider screens */
+@media (min-width: 380px) {
+  .grid { grid-template-columns: repeat(3, 1fr); }
+  .grid .tile:last-child:nth-child(3n-1) { grid-column-end: span 2; max-width: 280px; justify-self: center; width: 100%; }
+}
 
 .tile {
   background: var(--surface);
@@ -948,4 +953,128 @@ textarea:focus, input:focus {
 @media (min-width: 768px) {
   .grid { gap: 1.25rem; }
   #app { padding: 1.5rem 1.5rem 5rem; }
+}
+
+/* ============ ALARM TOGGLE ============ */
+.alarm-toggle {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  flex-shrink: 0;
+}
+.alarm-toggle .alarm-icon {
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: opacity 0.2s;
+}
+.alarm-toggle .alarm-icon.off { opacity: 0.35; }
+.toggle-track {
+  width: 48px;
+  height: 28px;
+  border-radius: 14px;
+  background: var(--border);
+  border: 2px solid var(--border-strong);
+  position: relative;
+  cursor: pointer;
+  transition: background 0.25s, border-color 0.25s;
+  flex-shrink: 0;
+}
+.toggle-track.on {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+.toggle-track .toggle-thumb {
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: white;
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 1px 3px rgba(0,0,0,0.15);
+}
+.toggle-track.on .toggle-thumb { transform: translateX(20px); }
+
+/* ============ NOTE ITEMS ============ */
+.note-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+.note-item .note-body {
+  flex: 1;
+}
+.note-item .note-text {
+  font-size: 1rem;
+  line-height: 1.5;
+  color: var(--text);
+  word-break: break-word;
+}
+.note-item .note-meta {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.25rem;
+}
+.note-item .note-time {
+  font-size: 0.8125rem;
+  color: var(--text-muted);
+}
+.note-item .note-alarm-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.25rem;
+  font-size: 0.8125rem;
+  color: var(--warm);
+  font-weight: 600;
+}
+.note-item .note-alarm-badge.off {
+  color: var(--text-muted);
+  font-weight: 400;
+}
+
+/* ============ ONBOARDING ============ */
+.onboarding-content {
+  text-align: center;
+  max-width: 420px;
+}
+.onboarding-step {
+  display: none;
+}
+.onboarding-step.active { display: block; }
+.onboarding-step .onboarding-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+  line-height: 1;
+}
+.onboarding-step h3 {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+.onboarding-step p {
+  font-size: 1rem;
+  color: var(--text-soft);
+  line-height: 1.6;
+  margin-bottom: 0.5rem;
+}
+.onboarding-footer {
+  margin-top: 1.5rem;
+}
+.onboarding-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+.onboarding-dot {
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background: var(--border);
+  transition: background 0.25s;
+}
+.onboarding-dot.active {
+  background: var(--accent);
 }

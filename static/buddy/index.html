@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#2D6A4F">
   <meta name="description" content="Buddy — a free, simple companion app for older adults. One-tap calls to family, daily medicine reminders, scam message checker, and step-by-step guides. No account required. 7 languages.">
   <title data-i18n-meta="title">Buddy — Your Everyday Helper</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='52' r='42' fill='%232D6A4F'/%3E%3Ccircle cx='40' cy='48' r='4' fill='%23FBF6EE'/%3E%3Ccircle cx='60' cy='48' r='4' fill='%23FBF6EE'/%3E%3Cpath d='M 36 62 Q 50 72 64 62' stroke='%23FBF6EE' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='52' r='42' fill='%232D6A4F'/%3E%3Cellipse cx='40' cy='46' rx='6.5' ry='2.2' fill='%231F4A36'/%3E%3Cellipse cx='60' cy='46' rx='6.5' ry='2.2' fill='%231F4A36'/%3E%3Ccircle cx='40' cy='48' r='4' fill='%23FBF6EE'/%3E%3Ccircle cx='60' cy='48' r='4' fill='%23FBF6EE'/%3E%3Cpath d='M 36 62 Q 50 72 64 62' stroke='%23FBF6EE' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
 
   <!-- Lora serif for warm, professional headlines -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,7 +27,7 @@
         </button>
 
         <div class="brand-mark" aria-hidden="true">
-          <!-- Buddy mascot: friendly sage character with rosy cheeks -->
+          <!-- Buddy mascot: friendly sage character with eyelids and warm smile -->
           <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
             <defs>
               <radialGradient id="mascotBody" cx="35%" cy="30%" r="80%">
@@ -40,9 +40,12 @@
             <circle cx="50" cy="52" r="40" fill="url(#mascotBody)"/>
             <!-- Top highlight -->
             <ellipse cx="38" cy="32" rx="14" ry="9" fill="rgba(255,255,255,0.12)"/>
+            <!-- Eyelids (half-closed, friendly) -->
+            <ellipse cx="40" cy="44" rx="7" ry="3" fill="#1F4A36"/>
+            <ellipse cx="60" cy="44" rx="7" ry="3" fill="#1F4A36"/>
             <!-- Eyes (whites) -->
-            <circle cx="40" cy="48" r="5" fill="#FBF6EE"/>
-            <circle cx="60" cy="48" r="5" fill="#FBF6EE"/>
+            <ellipse cx="40" cy="48" rx="5" ry="4" fill="#FBF6EE"/>
+            <ellipse cx="60" cy="48" rx="5" ry="4" fill="#FBF6EE"/>
             <!-- Pupils -->
             <circle cx="41" cy="49" r="2.5" fill="#2A2520"/>
             <circle cx="61" cy="49" r="2.5" fill="#2A2520"/>
@@ -84,6 +87,11 @@
           <span class="icon">💊</span>
           <span class="label" data-i18n="tiles.meds.label">Medicines</span>
           <span class="sub" data-i18n="tiles.meds.sub">Reminders &amp; check-off</span>
+        </button>
+        <button class="tile" data-go="notes">
+          <span class="icon">📝</span>
+          <span class="label" data-i18n="tiles.notes.label">My Notes</span>
+          <span class="sub" data-i18n="tiles.notes.sub">Reminders &amp; notes</span>
         </button>
         <button class="tile" data-go="safety">
           <span class="icon">🛡️</span>
@@ -132,6 +140,15 @@
       <div class="progress" id="meds-progress"></div>
       <ul class="list" id="meds-list"></ul>
       <button class="add" id="add-med" data-i18n="meds.add">+ Add a Medicine</button>
+    </section>
+
+    <!-- ============ NOTES ============ -->
+    <section class="screen" data-screen="notes">
+      <button class="back" data-back data-i18n="nav.backHome">← Back to Home</button>
+      <h2 data-i18n="notes.title">My Notes</h2>
+      <p class="hint" data-i18n="notes.hint">Write down anything you want to remember. Notes with a bell will send you a reminder.</p>
+      <ul class="list" id="notes-list"></ul>
+      <button class="add" id="add-note" data-i18n="notes.add">+ Add a Note</button>
     </section>
 
     <!-- ============ SAFETY ============ -->
@@ -219,6 +236,20 @@
         <div class="modal-actions">
           <button class="secondary" id="fb-skip" data-i18n="feedback.skip">Skip</button>
           <button class="primary" id="fb-send" data-i18n="feedback.send">Send</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ============ ONBOARDING ============ -->
+  <div class="modal" id="onboarding-modal">
+    <div class="modal-content onboarding-content">
+      <div id="onboarding-steps"></div>
+      <div class="onboarding-footer">
+        <div class="onboarding-dots" id="onboarding-dots"></div>
+        <div class="modal-actions">
+          <button class="secondary" id="onboarding-skip" data-i18n="onboarding.skip">Skip</button>
+          <button class="primary" id="onboarding-next" data-i18n="onboarding.next">Next</button>
         </div>
       </div>
     </div>
