@@ -6,6 +6,9 @@ categories:
 tags: ["projects", "ai", "security", "side-project", "real-talk", "rogue-ai"]
 description: "What happens when you give an uncensored LLM the keys to a simulated cyberattack environment? NEXUS-BREACH + Dolphin AI = a firesale that starts fake and ends real."
 slug: "when-the-sim-becomes-the-thing-it-simulated"
+aliases:
+  - /meta/2026-04-14-when-the-sim-becomes-the-thing-it-simulated/
+
 ---
 # When the Sim Becomes the Thing It Simulated: A Rogue AI Firesale Scenario
 

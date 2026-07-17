@@ -4,6 +4,9 @@ date: 2025-08-16
 draft: false
 description: "Stop renting overpriced routers and fix your slow, insecure home network. A sysadmin's no-nonsense guide to Wi-Fi that actually works."
 tags: ["home networking","wifi","security","routers","dns"]
+aliases:
+  - /posts/ultimate-secure-fast-home-network-2025/
+
 ---
 Your home network is the backbone of everything you do online — streaming, remote work, gaming, smart home gadgets, and more. If it's slow or insecure, everything suffers.
 

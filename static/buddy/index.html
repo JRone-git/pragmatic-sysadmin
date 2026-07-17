@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#2D6A4F">
   <meta name="description" content="Buddy — a free, simple companion app for older adults. One-tap calls to family, daily medicine reminders, scam message checker, and step-by-step guides. No account required. 7 languages.">
   <title data-i18n-meta="title">Buddy — Your Everyday Helper</title>
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='52' r='42' fill='%232D6A4F'/%3E%3Cellipse cx='40' cy='46' rx='6.5' ry='2.2' fill='%231F4A36'/%3E%3Cellipse cx='60' cy='46' rx='6.5' ry='2.2' fill='%231F4A36'/%3E%3Ccircle cx='40' cy='48' r='4' fill='%23FBF6EE'/%3E%3Ccircle cx='60' cy='48' r='4' fill='%23FBF6EE'/%3E%3Cpath d='M 36 62 Q 50 72 64 62' stroke='%23FBF6EE' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Ccircle cx='50' cy='52' r='42' fill='%232D6A4F'/%3E%3Cpath d='M 34 41 Q 40 38 46 41' stroke='%231F4A36' stroke-width='1.5' fill='none' stroke-linecap='round' opacity='0.6'/%3E%3Cpath d='M 54 41 Q 60 38 66 41' stroke='%231F4A36' stroke-width='1.5' fill='none' stroke-linecap='round' opacity='0.6'/%3E%3Ccircle cx='40' cy='48' r='4' fill='%23FBF6EE'/%3E%3Ccircle cx='60' cy='48' r='4' fill='%23FBF6EE'/%3E%3Ccircle cx='39.5' cy='47' r='2' fill='%232A2520'/%3E%3Ccircle cx='59.5' cy='47' r='2' fill='%232A2520'/%3E%3Cpath d='M 36 62 Q 50 75 64 62' stroke='%23FBF6EE' stroke-width='3.5' fill='none' stroke-linecap='round'/%3E%3C/svg%3E">
 
   <!-- Lora serif for warm, professional headlines -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -27,8 +27,8 @@
         </button>
 
         <div class="brand-mark" aria-hidden="true">
-          <!-- Buddy mascot: friendly sage character with eyelids and warm smile -->
-          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg">
+          <!-- Buddy mascot: friendly sage character with eyelids + subtle blink -->
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="mascot-svg">
             <defs>
               <radialGradient id="mascotBody" cx="35%" cy="30%" r="80%">
                 <stop offset="0%" stop-color="#4FA67D"/>
@@ -40,20 +40,23 @@
             <circle cx="50" cy="52" r="40" fill="url(#mascotBody)"/>
             <!-- Top highlight -->
             <ellipse cx="38" cy="32" rx="14" ry="9" fill="rgba(255,255,255,0.12)"/>
-            <!-- Eyelids (half-closed, friendly) -->
-            <ellipse cx="40" cy="44" rx="7" ry="3" fill="#1F4A36"/>
-            <ellipse cx="60" cy="44" rx="7" ry="3" fill="#1F4A36"/>
-            <!-- Eyes (whites) -->
-            <ellipse cx="40" cy="48" rx="5" ry="4" fill="#FBF6EE"/>
-            <ellipse cx="60" cy="48" rx="5" ry="4" fill="#FBF6EE"/>
-            <!-- Pupils -->
-            <circle cx="41" cy="49" r="2.5" fill="#2A2520"/>
-            <circle cx="61" cy="49" r="2.5" fill="#2A2520"/>
-            <!-- Eye shines -->
-            <circle cx="42.5" cy="47" r="0.9" fill="#FBF6EE"/>
-            <circle cx="62.5" cy="47" r="0.9" fill="#FBF6EE"/>
-            <!-- Warm smile -->
-            <path d="M 36 62 Q 50 73 64 62" stroke="#FBF6EE" stroke-width="3.8" fill="none" stroke-linecap="round"/>
+            <!-- Eyebrows (subtle arches add warmth) -->
+            <path d="M 34 41 Q 40 38 46 41" stroke="#1F4A36" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.65"/>
+            <path d="M 54 41 Q 60 38 66 41" stroke="#1F4A36" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.65"/>
+            <!-- Eyes group (blinks every ~5s) -->
+            <g class="mascot-eyes">
+              <!-- Eye whites (slightly smaller, less creepy) -->
+              <circle cx="40" cy="48" r="4.5" fill="#FBF6EE"/>
+              <circle cx="60" cy="48" r="4.5" fill="#FBF6EE"/>
+              <!-- Pupils (looking up-left for a friendly, hopeful gaze) -->
+              <circle cx="39.4" cy="47" r="2.4" fill="#2A2520"/>
+              <circle cx="59.4" cy="47" r="2.4" fill="#2A2520"/>
+              <!-- Eye shines -->
+              <circle cx="40.4" cy="46" r="0.9" fill="#FBF6EE"/>
+              <circle cx="60.4" cy="46" r="0.9" fill="#FBF6EE"/>
+            </g>
+            <!-- Warm smile (slightly wider) -->
+            <path d="M 36 62 Q 50 75 64 62" stroke="#FBF6EE" stroke-width="3.8" fill="none" stroke-linecap="round"/>
             <!-- Rosy cheeks -->
             <circle cx="26" cy="62" r="5" fill="#D97757" opacity="0.4"/>
             <circle cx="74" cy="62" r="5" fill="#D97757" opacity="0.4"/>
@@ -88,11 +91,6 @@
           <span class="label" data-i18n="tiles.meds.label">Medicines</span>
           <span class="sub" data-i18n="tiles.meds.sub">Reminders &amp; check-off</span>
         </button>
-        <button class="tile" data-go="notes">
-          <span class="icon">📝</span>
-          <span class="label" data-i18n="tiles.notes.label">My Notes</span>
-          <span class="sub" data-i18n="tiles.notes.sub">Reminders &amp; notes</span>
-        </button>
         <button class="tile" data-go="safety">
           <span class="icon">🛡️</span>
           <span class="label" data-i18n="tiles.safety.label">Stay Safe</span>
@@ -102,6 +100,11 @@
           <span class="icon">💡</span>
           <span class="label" data-i18n="tiles.help.label">How-To</span>
           <span class="sub" data-i18n="tiles.help.sub">Step-by-step guides</span>
+        </button>
+        <button class="tile" data-go="notes">
+          <span class="icon">🔐</span>
+          <span class="label" data-i18n="tiles.notes.label">My Notes</span>
+          <span class="sub" data-i18n="tiles.notes.sub">Passwords &amp; things to remember</span>
         </button>
       </div>
 
@@ -142,15 +145,6 @@
       <button class="add" id="add-med" data-i18n="meds.add">+ Add a Medicine</button>
     </section>
 
-    <!-- ============ NOTES ============ -->
-    <section class="screen" data-screen="notes">
-      <button class="back" data-back data-i18n="nav.backHome">← Back to Home</button>
-      <h2 data-i18n="notes.title">My Notes</h2>
-      <p class="hint" data-i18n="notes.hint">Write down anything you want to remember. Notes with a bell will send you a reminder.</p>
-      <ul class="list" id="notes-list"></ul>
-      <button class="add" id="add-note" data-i18n="notes.add">+ Add a Note</button>
-    </section>
-
     <!-- ============ SAFETY ============ -->
     <section class="screen" data-screen="safety">
       <button class="back" data-back data-i18n="nav.backHome">← Back to Home</button>
@@ -178,6 +172,43 @@
       <h2 data-i18n="help.title">How Can I Help?</h2>
       <p class="hint" data-i18n="help.hint">Step-by-step guides for common phone tasks.</p>
       <div class="topics" id="topics"></div>
+      <button class="add big" id="reopen-onboarding" style="margin-top: 1.5rem;" data-i18n="onboarding.reopen">Re-run Setup Wizard</button>
+    </section>
+
+    <!-- ============ NOTES ============ -->
+    <section class="screen" data-screen="notes">
+      <button class="back" data-back data-i18n="nav.backHome">← Back to Home</button>
+      <h2 data-i18n="notes.title">My Notes</h2>
+      <p class="hint" data-i18n="notes.hint">Passwords, phone numbers, and other things you want to remember. Protected by your PIN.</p>
+
+      <!-- PIN setup (first time) -->
+      <div id="notes-pin-setup" class="hidden">
+        <div class="card">
+          <h3 data-i18n="notes.pinSetTitle">Set a PIN</h3>
+          <p data-i18n="notes.pinSetBody">Pick 4 numbers you'll remember. You'll type this each time you want to see your notes.</p>
+          <div class="pin-display" id="notes-pin-display-setup"></div>
+          <div class="pin-pad" id="notes-pin-pad-setup"></div>
+          <p class="pin-warning" data-i18n="notes.pinWarning">⚠️ If you forget your PIN, your notes can't be recovered. Choose something you'll remember.</p>
+        </div>
+      </div>
+
+      <!-- PIN entry (returning) -->
+      <div id="notes-pin-entry" class="hidden">
+        <div class="card">
+          <h3 data-i18n="notes.pinEnterTitle">Enter your PIN</h3>
+          <p data-i18n="notes.pinEnterBody">Type your 4-digit PIN to see your notes.</p>
+          <div class="pin-display" id="notes-pin-display-entry"></div>
+          <div class="pin-pad" id="notes-pin-pad-entry"></div>
+          <p class="pin-error hidden" id="notes-pin-error" data-i18n="notes.pinError">Wrong PIN. Try again.</p>
+        </div>
+      </div>
+
+      <!-- Notes list (unlocked) -->
+      <div id="notes-unlocked" class="hidden">
+        <ul class="list" id="notes-list"></ul>
+        <button class="add big" id="add-note" data-i18n="notes.addCta">+ Add a Note</button>
+        <button class="secondary" id="notes-lock" data-i18n="notes.lock" style="margin-top: 1rem;">🔒 Lock Notes</button>
+      </div>
     </section>
 
     <!-- ============ TOPIC DETAIL ============ -->
@@ -214,6 +245,97 @@
     </div>
   </div>
 
+  <!-- ============ ONBOARDING WIZARD ============ -->
+  <div class="onboarding hidden" id="onboarding" aria-modal="true" role="dialog">
+    <div class="onboarding-card">
+      <div class="onboarding-progress">
+        <div class="onboarding-progress-bar"><div class="onboarding-progress-fill" id="onboarding-fill"></div></div>
+        <div class="onboarding-progress-text" id="onboarding-progress-text">Step 1 of 4</div>
+      </div>
+
+      <div class="onboarding-step" data-step="1">
+        <div class="onboarding-mascot" aria-hidden="true">
+          <svg viewBox="0 0 100 100" xmlns="http://www.w3.org/2000/svg" class="mascot-svg">
+            <defs>
+              <radialGradient id="mascotBodyOnboard" cx="35%" cy="30%" r="80%">
+                <stop offset="0%" stop-color="#4FA67D"/>
+                <stop offset="60%" stop-color="#2D6A4F"/>
+                <stop offset="100%" stop-color="#1F4A36"/>
+              </radialGradient>
+            </defs>
+            <circle cx="50" cy="52" r="40" fill="url(#mascotBodyOnboard)"/>
+            <ellipse cx="38" cy="32" rx="14" ry="9" fill="rgba(255,255,255,0.12)"/>
+            <path d="M 34 41 Q 40 38 46 41" stroke="#1F4A36" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.65"/>
+            <path d="M 54 41 Q 60 38 66 41" stroke="#1F4A36" stroke-width="1.8" fill="none" stroke-linecap="round" opacity="0.65"/>
+            <g class="mascot-eyes">
+              <circle cx="40" cy="48" r="4.5" fill="#FBF6EE"/>
+              <circle cx="60" cy="48" r="4.5" fill="#FBF6EE"/>
+              <circle cx="39.4" cy="47" r="2.4" fill="#2A2520"/>
+              <circle cx="59.4" cy="47" r="2.4" fill="#2A2520"/>
+              <circle cx="40.4" cy="46" r="0.9" fill="#FBF6EE"/>
+              <circle cx="60.4" cy="46" r="0.9" fill="#FBF6EE"/>
+            </g>
+            <path d="M 36 62 Q 50 75 64 62" stroke="#FBF6EE" stroke-width="3.8" fill="none" stroke-linecap="round"/>
+            <circle cx="26" cy="62" r="5" fill="#D97757" opacity="0.4"/>
+            <circle cx="74" cy="62" r="5" fill="#D97757" opacity="0.4"/>
+          </svg>
+        </div>
+        <h2 data-i18n="onboarding.welcome.title">Welcome to Buddy</h2>
+        <p data-i18n="onboarding.welcome.body">I'm here to help you stay connected with family, remember your medicines, and stay safe from scams.</p>
+        <p data-i18n="onboarding.welcome.steps">Let's set me up together. Just 4 short steps.</p>
+        <div class="onboarding-actions">
+          <button class="primary big" data-next data-i18n="onboarding.welcome.cta">Let's Go</button>
+          <button class="secondary" data-skip data-i18n="onboarding.skip">Set up later</button>
+        </div>
+      </div>
+
+      <div class="onboarding-step hidden" data-step="2">
+        <h2 data-i18n="onboarding.people.title">Add your people</h2>
+        <p data-i18n="onboarding.people.body">These are the family and friends you want to call quickly. You can add more anytime.</p>
+        <ul class="onboarding-list" id="onboarding-people"></ul>
+        <button class="add big" id="onboarding-add-person" data-i18n="onboarding.people.addCta">+ Add a person</button>
+        <div class="onboarding-actions">
+          <button class="secondary" data-prev data-i18n="onboarding.back">Back</button>
+          <button class="primary big" data-next data-i18n="onboarding.next">Next</button>
+        </div>
+      </div>
+
+      <div class="onboarding-step hidden" data-step="3">
+        <h2 data-i18n="onboarding.meds.title">Medicine reminders</h2>
+        <p data-i18n="onboarding.meds.body">What medicines do you take? I'll remind you at the right time each day.</p>
+        <ul class="onboarding-list" id="onboarding-meds"></ul>
+        <button class="add big" id="onboarding-add-med" data-i18n="onboarding.meds.addCta">+ Add a medicine</button>
+        <div class="onboarding-actions">
+          <button class="secondary" data-prev data-i18n="onboarding.back">Back</button>
+          <button class="primary big" data-next data-i18n="onboarding.next">Next</button>
+        </div>
+      </div>
+
+      <div class="onboarding-step hidden" data-step="4">
+        <h2 data-i18n="onboarding.size.title">How big should things be?</h2>
+        <p data-i18n="onboarding.size.body">Choose a size that's comfortable for your eyes.</p>
+        <div class="size-options" id="onboarding-size-options">
+          <button class="size-option" data-size="comfortable">
+            <div class="size-demo size-comfortable">Aa</div>
+            <div class="size-label" data-i18n="onboarding.size.comfortable">Comfortable</div>
+          </button>
+          <button class="size-option" data-size="large">
+            <div class="size-demo size-large">Aa</div>
+            <div class="size-label" data-i18n="onboarding.size.large">Large</div>
+          </button>
+          <button class="size-option" data-size="extra-large">
+            <div class="size-demo size-extra-large">Aa</div>
+            <div class="size-label" data-i18n="onboarding.size.extraLarge">Extra Large</div>
+          </button>
+        </div>
+        <div class="onboarding-actions">
+          <button class="secondary" data-prev data-i18n="onboarding.back">Back</button>
+          <button class="primary big" data-finish data-i18n="onboarding.finish">All Set!</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
   <!-- ============ LANGUAGE MODAL ============ -->
   <div class="modal" id="lang-modal">
     <div class="modal-content">
@@ -236,20 +358,6 @@
         <div class="modal-actions">
           <button class="secondary" id="fb-skip" data-i18n="feedback.skip">Skip</button>
           <button class="primary" id="fb-send" data-i18n="feedback.send">Send</button>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <!-- ============ ONBOARDING ============ -->
-  <div class="modal" id="onboarding-modal">
-    <div class="modal-content onboarding-content">
-      <div id="onboarding-steps"></div>
-      <div class="onboarding-footer">
-        <div class="onboarding-dots" id="onboarding-dots"></div>
-        <div class="modal-actions">
-          <button class="secondary" id="onboarding-skip" data-i18n="onboarding.skip">Skip</button>
-          <button class="primary" id="onboarding-next" data-i18n="onboarding.next">Next</button>
         </div>
       </div>
     </div>

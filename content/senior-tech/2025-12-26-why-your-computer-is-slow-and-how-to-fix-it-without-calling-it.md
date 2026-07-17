@@ -9,6 +9,9 @@ tags:
   - security
   - small-business
 description: "Your computer doesn't need to be slow. Simple fixes anyone can do, plus essential security tips for small business owners who can't afford a full-time IT person."
+aliases:
+  - /posts/2025-12-26-why-your-computer-is-slow-and-how-to-fix-it-without-calling-it/
+
 ---
 
 ## Your Computer Shouldn't Take Forever

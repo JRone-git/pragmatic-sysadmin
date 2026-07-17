@@ -28,6 +28,9 @@ keywords:
 author: "Pragmatic Sysadmin"
 ShowShareButtons: true
 ShowReadingTime: true
+aliases:
+  - /posts/2026-07-14-best-tablets-for-seniors-2026/
+
 ---
 
 <script type="application/ld+json">

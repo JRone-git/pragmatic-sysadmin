@@ -23,6 +23,9 @@ keywords:
 author: "Pragmatic Sysadmin"
 ShowShareButtons: true
 ShowReadingTime: true
+aliases:
+  - /posts/2026-07-14-git-things-easy-to-mess-up/
+
 ---
 
 <script type="application/ld+json">

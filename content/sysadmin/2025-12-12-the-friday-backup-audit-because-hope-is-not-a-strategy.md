@@ -5,6 +5,9 @@ draft: false
 tags: ["backups", "recovery", "bash", "disaster-recovery"]
 categories: ["Operations", "Safety Nets"]
 description: "Backups are useless if they don't restore. Here is the 10-minute audit to prevent the 'Schrödinger's Backup' scenario."
+aliases:
+  - /posts/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy/
+
 ---
 
 ## The Nightmare Scenario

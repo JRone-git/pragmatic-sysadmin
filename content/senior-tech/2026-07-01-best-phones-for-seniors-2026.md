@@ -16,6 +16,9 @@ tags:
   - senior cell phone
 description: "Honest review of the best phones for seniors and elderly parents in 2026. Tested by real grandparents: Lively Smart, Lively Flip, iPhone SE, GrandPad, and Consumer Cellular options. Includes phone plan comparison and setup guide."
 author: "Pragmatic Sysadmin"
+aliases:
+  - /posts/2026-07-01-best-phones-for-seniors-2026/
+
 ---
 When my mom lost $4,200 to a fake Microsoft scam and I built her a simple phone app called [Buddy](https://pragmaticsysadmin.help/buddy/), I realized the phone she was using mattered almost as much as the apps she had on it.
 

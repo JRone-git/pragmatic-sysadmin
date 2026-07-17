@@ -27,6 +27,9 @@ keywords:
 author: "Pragmatic Sysadmin"
 ShowShareButtons: true
 ShowReadingTime: true
+aliases:
+  - /posts/2026-07-13-linux-things-easy-to-miss/
+
 ---
 
 <script type="application/ld+json">

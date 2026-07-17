@@ -17,6 +17,9 @@ tags:
   - mesh router
 description: "Honest review of the best home WiFi routers in 2026. Tested by a sysadmin: WiFi 7 vs WiFi 6, mesh vs single, budget vs premium. Includes 5 recommendations, security setup, and free Home Network Security Checklist PDF."
 author: "Pragmatic Sysadmin"
+aliases:
+  - /posts/2026-07-03-best-routers-home-network-2026/
+
 ---
 I run 4 routers at home: a main one, a mesh node, a guest network AP, and a lab box. I've configured, broken, and replaced more consumer routers than I can count.
 

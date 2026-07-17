@@ -4,6 +4,9 @@ date: 2026-03-28
 draft: false
 description: "Ever wondered what actually happens when Linux boots? Build your own minimal Linux system from scratch and test it instantly using containers - no VMs required."
 tags: ["linux", "homelab", "containers", "docker", "sysadmin", "DIY"]
+aliases:
+  - /posts/2026-03-28-building-your-own-linux-from-scratch/
+
 ---
 
 If you've been administering Linux servers for a while, you've probably developed a love-hate relationship with it. You know how to configure services, debug networking issues, and keep systems running. But somewhere deep down, you've wondered: *what actually holds this thing together?*

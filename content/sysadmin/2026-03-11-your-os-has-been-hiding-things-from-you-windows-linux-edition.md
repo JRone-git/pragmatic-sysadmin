@@ -9,6 +9,9 @@ tags:
   - tips
   - productivity
 description: "Both Windows and Linux are packed with powerful hidden features most users never touch. Here's a side-by-side breakdown of the best ones — for sysadmins who use both."
+aliases:
+  - /posts/2026-03-11-your-os-has-been-hiding-things-from-you-windows-linux-edition/
+
 ---
 
 # Your OS Has Been Hiding Things From You (Windows & Linux Edition)

@@ -4,6 +4,9 @@ date: 2025-10-12
 draft: false
 description: "Stop struggling with tech problems AND AI tools. Learn how to solve tech issues like a pro using AI, with solutions from panic mode to automation master."
 tags: ["ai", "automation", "troubleshooting", "productivity", "life-hacks"]
+aliases:
+  - /posts/tech-survival-guide-ai-edition-2026/
+
 ---
 
 # Tech Survival Guide: AI Edition 2026

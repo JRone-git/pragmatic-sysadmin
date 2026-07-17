@@ -4,6 +4,9 @@ date: 2025-08-16
 draft: false
 description: "Building a blazing-fast, nearly-free blog with modern static site tools. Here's exactly how I did it."
 tags: ["hugo","firebase","blogging","static sites"]
+aliases:
+  - /posts/2025-08-16-how-i-built-this-blog-hugo-firebase-buttondown/
+
 ---
 
 ## Why This Stack?

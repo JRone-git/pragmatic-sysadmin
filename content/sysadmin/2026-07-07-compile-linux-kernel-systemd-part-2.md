@@ -4,6 +4,9 @@ date: 2026-07-07
 draft: false
 description: "In Part 1 we built a minimal Linux with BusyBox and a prebuilt kernel. Now we're going deeper: compile our own kernel from source, strip it under 10MB, replace the hand-rolled init with systemd, and run a real SSH service."
 tags: ["linux", "kernel", "systemd", "homelab", "sysadmin", "DIY", "compilation"]
+aliases:
+  - /posts/2026-07-07-compile-linux-kernel-systemd-part-2/
+
 ---
 
 In [Part 1](/sysadmin/2026-03-28-building-your-own-linux-from-scratch/), we built a minimal Linux system using BusyBox and a prebuilt kernel. You got a shell running inside a container, mounted pseudo-filesystems, and saw the boot sequence from init to prompt.

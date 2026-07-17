@@ -14,6 +14,9 @@ tags:
   - iOS setup guide
 description: "Step-by-step iPhone setup for elderly parents. Disable confusing features, make text bigger, configure emergency shortcuts, and pre-install the right apps. 30 minutes, prevents months of support calls."
 author: "Pragmatic Sysadmin"
+aliases:
+  - /posts/2026-06-27-setup-iphone-elderly-parent/
+
 ---
 My mom called me at 9pm on a Tuesday. Her iPhone had "gone weird" and she couldn't get back to the home screen.
 

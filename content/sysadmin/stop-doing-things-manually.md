@@ -4,6 +4,9 @@ date: 2025-01-27
 draft: false
 tags: ["automation", "powershell", "bash", "scripts", "sysadmin"]
 description: "Five copy-paste scripts — PowerShell and Bash — that handle the boring 5-minute tasks every sysadmin does on repeat. Less typing, fewer mistakes, more time for real work."
+aliases:
+  - /posts/stop-doing-things-manually/
+
 ---
 
 # Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius

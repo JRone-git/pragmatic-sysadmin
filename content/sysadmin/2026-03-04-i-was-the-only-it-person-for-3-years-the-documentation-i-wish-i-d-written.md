@@ -9,6 +9,9 @@ tags:
   - career
   - knowledge-management
 description: "When I left my solo IT job, my replacement called me 47 times in the first month. Here's the documentation I wish I had written before I left - and the template you can use today."
+aliases:
+  - /posts/2026-03-04-i-was-the-only-it-person-for-3-years-the-documentation-i-wish-i-d-written/
+
 ---
 
 ## The Call I Didn't Want to Get

@@ -6,6 +6,9 @@ categories:
 tags:
   - Home Lab
 description: "Learn how to build your first home lab for learning DevOps, containerization, and system administration. This practical guide covers hardware recommendations, essential software, and step-by-step setup instructions."
+aliases:
+  - /posts/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/
+
 ---
 Title: Setting Up a Home Lab: A Beginner's Guide
 Description

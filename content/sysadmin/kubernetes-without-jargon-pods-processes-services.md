@@ -4,6 +4,9 @@ date: 2025-08-16
 draft: false
 description: "Learn Kubernetes for beginners without confusing jargon. Clear explanation of pods, services, and containers with practical examples for DevOps beginners."
 tags: ["kubernetes","devops","containers","cloud","scaling"]
+aliases:
+  - /posts/kubernetes-without-jargon-pods-processes-services/
+
 ---
 If you've ever tried to Google "What is Kubernetes?" you've probably seen a wall of buzzwords: *orchestration, scalability, microservices, YAML manifests*. Somewhere in there, someone will tell you it's like "a shipping port for containers," and you'll want to slam your laptop shut.
 

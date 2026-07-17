@@ -5,6 +5,9 @@ date: "2025-11-02T00:00:00.000Z"
 description: "How AI is changing the way sysadmins solve problems, with practical examples you can use today."
 tags: ["ai", "troubleshooting", "sysadmin", "automation"]
 draft: false
+aliases:
+  - /posts/ai-for-it-troubleshooting-2026/
+
 ---
 # AI for IT Troubleshooting: Real-World Use Cases
 

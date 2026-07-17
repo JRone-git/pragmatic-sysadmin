@@ -15,6 +15,9 @@ tags:
   - iPhone troubleshooting elderly
 description: "A step-by-step quarterly checkup routine for your aging parent's phone. What to check, what to clean up, what to fix — in 20 minutes per visit. Plus an emergency playbook for when something goes wrong between visits."
 author: "Pragmatic Sysadmin"
+aliases:
+  - /posts/2026-07-02-the-quarterly-tech-checkup/
+
 ---
 You set up your mom's phone. You installed the right apps, hid the confusing ones, configured the accessibility settings. You walked her through the emergency gestures and laminated a cheat sheet for her fridge. You did everything right.
 

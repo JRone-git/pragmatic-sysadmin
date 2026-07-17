@@ -9,6 +9,9 @@ tags:
   - sysadmin
   - devops
 description: "Stop drowning in log files. Learn how to find the exact problem in millions of lines of logs without losing your mind."
+aliases:
+  - /posts/2025-12-17-the-art-of-reading-logs-like-a-detective-finding-needles-in-haystacks/
+
 ---
 
 ## The Log File Problem Nobody Talks About

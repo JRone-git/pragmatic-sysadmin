@@ -13,6 +13,9 @@ tags:
   - Scam Prevention
 description: "Practical scripts to talk to your aging parent about online safety without making them feel patronized. Includes what to say, why it works, and a free tool to set up guardrails in 10 minutes."
 author: "Pragmatic Sysadmin"
+aliases:
+  - /posts/2026-06-27-5-conversations-aging-parent-online-safety/
+
 ---
 Your mom called last week, panicked.
 

@@ -3,6 +3,12 @@ title: "The 5-Minute Server Health Check Toolkit — $9"
 date: 2026-06-29T18:00:00.000Z
 description: "Catch problems before they page you at 3am"
 author: "Pragmatic Sysadmin"
+aliases:
+  - /products/health-check-toolkit-image-prompt/
+  - /products/health-check-toolkit-kofi/
+  - /products/health-check-toolkit-social/
+  - /shop/products/health-check-toolkit/
+
 ---
 
 <script type="application/ld+json">

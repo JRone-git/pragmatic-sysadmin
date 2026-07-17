@@ -1,19 +1,21 @@
 /* ========== BUDDY APP ==========
  * i18n-aware, demand-validated, vanilla JS. State persists in localStorage.
  * Requires: i18n.js loaded before this file.
- * v4: Notes, medicine alarm toggles, onboarding flow
  */
 
 const state = {
   people: [],
   meds: [],
+  notes: [],           // [{id, title, content, category, createdAt}]
+  notesPin: null,      // hashed PIN for notes (XOR-based for MVP)
+  notesUnlocked: false, // session-only, not persisted
   takenToday: {},      // { medId: 'Wed Jun 26 2026' }
-  notes: [],           // { id, text, alarm: bool, alarmTime: 'HH:MM'|'', created: ISO }
   emails: [],          // captured upgrade leads
   lang: null,          // null = auto-detect
   visits: [],          // array of date strings
   feedback: [],        // {date, rating: 'easy'|'hard', text}
-  onboarded: false     // true = skip onboarding
+  onboardingComplete: false,
+  displaySize: 'comfortable'  // 'comfortable' | 'large' | 'extra-large'
 };
 
 // ========== i18n ==========
@@ -22,7 +24,9 @@ const FALLBACK = 'en';
 function getLang() {
   if (state.lang && TRANSLATIONS[state.lang]) return state.lang;
   const nav = (navigator.language || 'en').toLowerCase();
+  // Try exact match
   if (TRANSLATIONS[nav]) return nav;
+  // Try base language
   const base = nav.split('-')[0];
   if (TRANSLATIONS[base]) return base;
   return FALLBACK;
@@ -37,8 +41,9 @@ function t(key, params = {}) {
   let str = getNested(TRANSLATIONS[lang], key);
   if (str == null) str = getNested(TRANSLATIONS[FALLBACK], key);
   if (str == null) return key;
-  if (typeof str !== 'string') return str;
+  if (typeof str !== 'string') return str; // arrays, objects handled by callers
 
+  // Auto-substitute {number} with locale emergency number (911 US, 112 EU, etc.)
   if (str.includes('{number}')) {
     const num = TRANSLATIONS[lang].meta.emergencyNumber
              || TRANSLATIONS[FALLBACK].meta.emergencyNumber
@@ -46,9 +51,11 @@ function t(key, params = {}) {
     str = str.replace(/\{number\}/g, num);
   }
 
+  // Interpolate {key} with params
   return str.replace(/\{(\w+)\}/g, (_, k) => {
     if (params[k] === undefined) return `{${k}}`;
     let v = String(params[k]);
+    // Plural support: {s} → 's' or '' based on {n}
     if (k === 's' && params.n !== undefined) {
       v = params.n === 1 ? '' : 's';
     }
@@ -57,20 +64,29 @@ function t(key, params = {}) {
 }
 
 function applyI18n() {
+  // Text content
   document.querySelectorAll('[data-i18n]').forEach(el => {
     const key = el.dataset.i18n;
     const params = el.dataset.i18nParams ? safeParse(el.dataset.i18nParams) : {};
     el.textContent = t(key, params);
   });
+  // Attribute interpolation (e.g. placeholder)
   document.querySelectorAll('[data-i18n-attr]').forEach(el => {
     el.dataset.i18nAttr.split(';').forEach(pair => {
       const [attr, key] = pair.split(':');
       if (attr && key) el.setAttribute(attr.trim(), t(key));
     });
   });
-  document.title = `Buddy — ${t('app.brandLine')}`;
+  // Document title
+  const titleEl = document.querySelector('[data-i18n-meta="title"]');
+  if (titleEl) {
+    const baseTitle = titleEl.textContent.replace(/^Buddy\s*—\s*/, '');
+    document.title = `Buddy — ${t('app.brandLine')}`;
+  }
+  // HTML lang attribute
   const meta = TRANSLATIONS[getLang()].meta;
   document.documentElement.lang = meta.code;
+  // Update language button label
   const lc = document.getElementById('lang-current');
   if (lc) lc.textContent = meta.nativeName;
 }
@@ -80,7 +96,7 @@ function safeParse(json) {
 }
 
 // ========== STORAGE ==========
-const KEY = 'buddy-state-v3'; // v3: adds notes, onboarded, med alarms
+const KEY = 'buddy-state-v2'; // bumped: schema now includes lang/visits/feedback
 
 function load() {
   const saved = localStorage.getItem(KEY);
@@ -88,21 +104,20 @@ function load() {
     try {
       const data = JSON.parse(saved);
       Object.assign(state, data);
-      // Migrate v2 → v3: ensure notes/onboarded exist
-      if (!Array.isArray(state.notes)) state.notes = [];
-      if (state.meds) state.meds.forEach(m => { if (m.alarm === undefined) m.alarm = false; });
+      // Reset session-only flags
+      state.notesUnlocked = false;
     } catch (e) { console.warn('Could not load saved data', e); }
   }
-  // First-time setup (only if no state at all)
-  if (state.people.length === 0 && state.meds.length === 0 && !state.onboarded) {
+  // First-time demo data (only if no onboarding completed and no people/meds yet)
+  if (state.people.length === 0 && state.meds.length === 0 && !state.onboardingComplete) {
     state.people = [
       { id: 'p1', name: 'Sarah (Daughter)', phone: '5551234567', relation: 'Family' },
       { id: 'p2', name: 'Dr. Williams', phone: '5559876543', relation: 'Doctor' }
     ];
     state.meds = [
-      { id: 'm1', name: 'Blood pressure pill', time: 'Morning', notes: 'Take with food', alarm: true },
-      { id: 'm2', name: 'Vitamin D', time: 'Morning', notes: '', alarm: false },
-      { id: 'm3', name: 'Cholesterol pill', time: 'Evening', notes: '', alarm: true }
+      { id: 'm1', name: 'Blood pressure pill', time: 'Morning', notes: 'Take with food' },
+      { id: 'm2', name: 'Vitamin D', time: 'Morning', notes: '' },
+      { id: 'm3', name: 'Cholesterol pill', time: 'Evening', notes: '' }
     ];
     save();
   }
@@ -124,6 +139,11 @@ function escapeHtml(s) {
   }[c]));
 }
 
+function mdBold(s) {
+  // Convert **text** to <strong>text</strong>
+  return escapeHtml(s).replace(/\*\*(.+?)\*\*/g, '<strong>$1</strong>');
+}
+
 function toast(msg) {
   const el = $('#toast');
   el.textContent = msg;
@@ -138,20 +158,6 @@ function phoneFormat(p) {
   if (d.length === 10) return `(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
   if (d.length === 11 && d.startsWith('1')) return `(${d.slice(1,4)}) ${d.slice(4,7)}-${d.slice(7)}`;
   return p;
-}
-
-function timeToMinutes(timeStr) {
-  // Parse "08:30" → 510, "Morning" → 480, "Evening" → 1140, etc.
-  if (!timeStr) return -1;
-  const m = timeStr.match(/^(\d{1,2}):(\d{2})$/);
-  if (m) return parseInt(m[1]) * 60 + parseInt(m[2]);
-  const lower = timeStr.toLowerCase();
-  if (lower.includes('morning') || lower.includes('aamu')) return 480;
-  if (lower.includes('noon') || lower.includes('keskipäivä')) return 720;
-  if (lower.includes('afternoon') || lower.includes('iltapäivä')) return 840;
-  if (lower.includes('evening') || lower.includes('ilta')) return 1080;
-  if (lower.includes('night') || lower.includes('yö') || lower.includes('bedtime') || lower.includes('nukkumaan')) return 1320;
-  return -1;
 }
 
 // ========== NAV ==========
@@ -211,10 +217,15 @@ function renderPeople() {
         <div class="name">${escapeHtml(p.name)}</div>
         <div class="sub">${escapeHtml(p.relation || phoneFormat(p.phone))}</div>
       </div>
-      <a class="action" href="tel:${escapeHtml(p.phone)}">${escapeHtml(callLabel())}</a>
+      <a class="action" href="tel:${escapeHtml(p.phone)}">${escapeHtml(t('meds.taken').includes('Taken') ? 'Call' : t('form.save').replace('Guardar','Llamar'))}</a>
       <button class="delete" aria-label="${escapeHtml(t('people.delete'))} ${escapeHtml(p.name)}">×</button>
     </li>
   `).join('');
+
+  // Replace action labels properly with "Call" in the right language
+  $$('#people-list .action').forEach(a => {
+    a.textContent = callLabel();
+  });
 
   list.querySelectorAll('.delete').forEach(btn => {
     btn.addEventListener('click', (e) => {
@@ -226,6 +237,7 @@ function renderPeople() {
         save();
         renderPeople();
         renderSafetyList();
+        renderOnboardingLists();
         toast(t('toast.removed'));
       }
     });
@@ -233,10 +245,12 @@ function renderPeople() {
 }
 
 function callLabel() {
+  // Simple call label per language
   const map = { en: 'Call', es: 'Llamar', fr: 'Appeler', de: 'Anrufen', pt: 'Ligar', zh: '拨打', fi: 'Soita' };
   return map[getLang()] || 'Call';
 }
 
+// Update the tel: href on emergency buttons to match the locale's number
 function updateEmergencyLinks() {
   const num = TRANSLATIONS[getLang()].meta.emergencyNumber || '911';
   document.querySelectorAll('[data-emergency]').forEach(el => {
@@ -244,7 +258,7 @@ function updateEmergencyLinks() {
   });
 }
 
-// ========== MEDS (with alarm toggles) ==========
+// ========== MEDS ==========
 function renderMeds() {
   const td = today();
   const taken = state.meds.filter(m => state.takenToday[m.id] === td).length;
@@ -263,7 +277,6 @@ function renderMeds() {
   }
   list.innerHTML = state.meds.map(m => {
     const isTaken = state.takenToday[m.id] === td;
-    const alarmOn = m.alarm;
     return `
       <li class="list-item med-item ${isTaken ? 'taken' : ''}" data-id="${m.id}">
         <button class="check" aria-label="Mark ${escapeHtml(m.name)} as taken"></button>
@@ -271,18 +284,11 @@ function renderMeds() {
           <div class="name">${escapeHtml(m.name)}</div>
           <div class="sub">${escapeHtml(m.time)}${m.notes ? ' · ' + escapeHtml(m.notes) : ''}</div>
         </div>
-        <div class="alarm-toggle" data-med-id="${m.id}">
-          <span class="alarm-icon ${alarmOn ? '' : 'off'}">${alarmOn ? '🔔' : '🔕'}</span>
-          <div class="toggle-track ${alarmOn ? 'on' : ''}" role="switch" aria-checked="${alarmOn}" aria-label="${escapeHtml(t('meds.alarm'))}" tabindex="0">
-            <div class="toggle-thumb"></div>
-          </div>
-        </div>
         <button class="delete" aria-label="${escapeHtml(t('people.delete'))} ${escapeHtml(m.name)}">×</button>
       </li>
     `;
   }).join('');
 
-  // Check-off buttons
   list.querySelectorAll('.check').forEach(el => {
     el.addEventListener('click', (e) => {
       const id = e.target.closest('.list-item').dataset.id;
@@ -298,24 +304,6 @@ function renderMeds() {
     });
   });
 
-  // Alarm toggles
-  list.querySelectorAll('.toggle-track').forEach(el => {
-    function toggleAlarm() {
-      const id = el.closest('.alarm-toggle').dataset.medId;
-      const med = state.meds.find(m => m.id === id);
-      if (!med) return;
-      med.alarm = !med.alarm;
-      if (med.alarm) {
-        requestNotificationPermission();
-      }
-      save();
-      renderMeds();
-    }
-    el.addEventListener('click', toggleAlarm);
-    el.addEventListener('keydown', (e) => { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); toggleAlarm(); } });
-  });
-
-  // Delete buttons
   list.querySelectorAll('.delete').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const id = e.target.closest('.list-item').dataset.id;
@@ -331,49 +319,6 @@ function renderMeds() {
     });
   });
 }
-
-// ========== NOTES ==========
-function renderNotes() {
-  const list = $('#notes-list');
-  if (state.notes.length === 0) {
-    list.innerHTML = `<li class="hint" style="padding:1rem 0;">${escapeHtml(t('notes.empty'))}</li>`;
-    return;
-  }
-  // Show newest first
-  const sorted = [...state.notes].reverse();
-  list.innerHTML = sorted.map(n => {
-    const date = new Date(n.created);
-    const locale = TRANSLATIONS[getLang()].meta.dateLocale;
-    const dateStr = date.toLocaleDateString(locale, { month: 'short', day: 'numeric' });
-    return `
-      <li class="list-item note-item" data-id="${n.id}">
-        <div class="note-body">
-          <div class="note-text">${escapeHtml(n.text)}</div>
-          <div class="note-meta">
-            <span class="note-time">${escapeHtml(dateStr)}</span>
-            ${n.alarm && n.alarmTime ? `<span class="note-alarm-badge">🔔 ${escapeHtml(n.alarmTime)}</span>` : ''}
-            ${!n.alarm ? `<span class="note-alarm-badge off">🔕 ${escapeHtml(t('notes.noAlarm'))}</span>` : ''}
-          </div>
-        </div>
-        <button class="delete" aria-label="${escapeHtml(t('notes.delete'))}">×</button>
-      </li>
-    `;
-  }).join('');
-
-  list.querySelectorAll('.delete').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      const id = e.target.closest('.list-item').dataset.id;
-      if (confirm(t('notes.removeConfirm'))) {
-        state.notes = state.notes.filter(n => n.id !== id);
-        save();
-        renderNotes();
-        toast(t('toast.removed'));
-      }
-    });
-  });
-}
-
-$('#add-note').addEventListener('click', () => openModal('note'));
 
 // ========== SAFETY ==========
 function renderSafetyList() {
@@ -452,7 +397,7 @@ function renderTopics() {
             <span>${escapeHtml(s)}</span>
           </div>
         `).join('')}
-        <button class="primary block" data-go="help" style="margin-top:1.25rem;">${escapeHtml(t('nav.backToHelp'))}</button>
+        <button class="primary block" data-go="help" style="margin-top:1.25rem;" data-i18n="nav.backToHelp">${escapeHtml(t('nav.backToHelp'))}</button>
       `;
       show('topic');
     });
@@ -469,7 +414,7 @@ function topicEmoji(id) {
   return map[id] || '💡';
 }
 
-// ========== MODAL (person / med / note) ==========
+// ========== MODAL ==========
 let modalMode = null;
 
 $('#add-person').addEventListener('click', () => openModal('person'));
@@ -491,7 +436,7 @@ function openModal(mode) {
       <label class="modal-label">${escapeHtml(t('form.relation'))}</label>
       <input type="text" id="m-rel" placeholder="${escapeHtml(t('form.placeholderRelation'))}" />
     `;
-  } else if (mode === 'med') {
+  } else {
     title.textContent = t('meds.addTitle');
     body.innerHTML = `
       <label class="modal-label">${escapeHtml(t('form.name'))}</label>
@@ -501,21 +446,9 @@ function openModal(mode) {
       <label class="modal-label">${escapeHtml(t('form.notes'))}</label>
       <input type="text" id="m-rel" placeholder="${escapeHtml(t('form.placeholderNotes'))}" />
     `;
-  } else if (mode === 'note') {
-    title.textContent = t('notes.addTitle');
-    body.innerHTML = `
-      <label class="modal-label">${escapeHtml(t('notes.noteText'))}</label>
-      <textarea id="m-note-text" placeholder="${escapeHtml(t('notes.placeholderNote'))}" rows="3" style="min-height:80px;"></textarea>
-      <label class="modal-label">${escapeHtml(t('notes.alarmTime'))}</label>
-      <input type="time" id="m-alarm-time" style="max-width:200px;" />
-      <p style="font-size:0.85rem;color:var(--text-muted);margin:0.25rem 0 0;">${escapeHtml(t('notes.alarmHint'))}</p>
-    `;
   }
   $('#modal').classList.add('show');
-  setTimeout(() => {
-    const first = $('#modal-content input, #modal-content textarea');
-    if (first) first.focus();
-  }, 50);
+  setTimeout(() => $('#m-name').focus(), 50);
 }
 
 function closeModal() {
@@ -524,30 +457,6 @@ function closeModal() {
 }
 
 function saveModal() {
-  if (modalMode === 'note') {
-    const text = $('#m-note-text').value.trim();
-    if (!text) {
-      alert(t('form.needName'));
-      $('#m-note-text').focus();
-      return;
-    }
-    const alarmTime = $('#m-alarm-time').value; // "HH:MM" or ""
-    const hasAlarm = !!alarmTime;
-    if (hasAlarm) requestNotificationPermission();
-    state.notes.push({
-      id: 'n' + Date.now(),
-      text,
-      alarm: hasAlarm,
-      alarmTime,
-      created: new Date().toISOString()
-    });
-    save();
-    renderNotes();
-    toast(t('toast.added'));
-    closeModal();
-    return;
-  }
-
   const name = $('#m-name').value.trim();
   if (!name) {
     alert(t('form.needName'));
@@ -570,70 +479,49 @@ function saveModal() {
     save();
     renderPeople();
     renderSafetyList();
+    renderOnboardingLists();
     toast(t('toast.added'));
   } else if (modalMode === 'med') {
     state.meds.push({
       id: 'm' + Date.now(),
       name,
       time: $('#m-time').value.trim() || 'Anytime',
-      notes: $('#m-rel').value.trim(),
-      alarm: false
+      notes: $('#m-rel').value.trim()
     });
     save();
     renderMeds();
     renderHome();
+    renderOnboardingLists();
     toast(t('toast.added'));
+  } else if (modalMode === 'note') {
+    const content = $('#n-content').value.trim();
+    const title = $('#n-title').value.trim();
+    if (!content) {
+      alert(t('form.needContent'));
+      $('#n-content').focus();
+      return;
+    }
+    const selectedCat = body.querySelector('.category-option.selected');
+    const category = selectedCat ? selectedCat.dataset.cat : 'other';
+    if (modalEditing) {
+      modalEditing.title = title || content.substring(0, 30);
+      modalEditing.content = content;
+      modalEditing.category = category;
+    } else {
+      state.notes.push({
+        id: 'n' + Date.now(),
+        title: title || content.substring(0, 30),
+        content,
+        category,
+        createdAt: new Date().toISOString()
+      });
+    }
+    save();
+    renderNotesList();
+    modalEditing = null;
+    toast(t('toast.saved'));
   }
   closeModal();
-}
-
-// ========== NOTIFICATION / ALARM SYSTEM ==========
-let alarmTimerId = null;
-let lastAlarmMinute = -1;
-
-function requestNotificationPermission() {
-  if ('Notification' in window && Notification.permission === 'default') {
-    Notification.requestPermission();
-  }
-}
-
-function checkAlarms() {
-  const now = new Date();
-  const currentMinutes = now.getHours() * 60 + now.getMinutes();
-  if (currentMinutes === lastAlarmMinute) return; // already fired this minute
-  lastAlarmMinute = currentMinutes;
-
-  const locale = TRANSLATIONS[getLang()].meta.dateLocale;
-  const timeStr = now.toLocaleTimeString(locale, { hour: '2-digit', minute: '2-digit' });
-
-  // Check medicine alarms
-  state.meds.forEach(m => {
-    if (!m.alarm) return;
-    const medMinutes = timeToMinutes(m.time);
-    if (medMinutes === currentMinutes) {
-      fireNotification(t('meds.alarmNotify', { name: m.name, time: timeStr }), m.name);
-    }
-  });
-
-  // Check note alarms
-  state.notes.forEach(n => {
-    if (!n.alarm || !n.alarmTime) return;
-    const [h, min] = n.alarmTime.split(':').map(Number);
-    if (h * 60 + min === currentMinutes) {
-      fireNotification(t('notes.alarmNotify', { text: n.text.substring(0, 60), time: timeStr }), n.text.substring(0, 30));
-    }
-  });
-}
-
-function fireNotification(body, tag) {
-  // Browser notification
-  if ('Notification' in window && Notification.permission === 'granted') {
-    try {
-      new Notification('Buddy', { body, icon: '/buddy/favicon.svg', tag: 'buddy-' + tag, requireInteraction: false });
-    } catch(e) { /* notification failed silently */ }
-  }
-  // Also show in-app toast
-  toast('🔔 ' + body);
 }
 
 // ========== SCAM CHECK HANDLER ==========
@@ -683,7 +571,6 @@ $('#lang-btn').addEventListener('click', () => {
       renderHome();
       renderPeople();
       renderMeds();
-      renderNotes();
       renderTopics();
       renderSafetyList();
       updateEmergencyLinks();
@@ -703,6 +590,7 @@ function trackVisit() {
   const td = today();
   if (!state.visits.includes(td)) {
     state.visits.push(td);
+    // Keep last 365 visits max
     if (state.visits.length > 365) state.visits = state.visits.slice(-365);
     save();
   }
@@ -710,11 +598,13 @@ function trackVisit() {
 
 function maybeShowFeedback() {
   const uniqueDays = state.visits.length;
+  // Show after 2+ unique-day visits, only once per 30 days
   if (uniqueDays < 2) return;
   const last = state.feedback.length ? state.feedback[state.feedback.length - 1].date : null;
   const lastDate = last ? new Date(last) : null;
   const daysSince = lastDate ? (Date.now() - lastDate.getTime()) / 86400000 : 999;
   if (daysSince < 30) return;
+
   $('#feedback-modal').classList.add('show');
 }
 
@@ -744,7 +634,7 @@ $('#fb-send').addEventListener('click', () => {
 });
 
 // Close modals on backdrop click
-['#modal', '#upgrade-modal', '#lang-modal', '#feedback-modal', '#onboarding-modal'].forEach(sel => {
+['#modal', '#upgrade-modal', '#lang-modal', '#feedback-modal'].forEach(sel => {
   const el = $(sel);
   if (el) {
     el.addEventListener('click', (e) => {
@@ -753,93 +643,420 @@ $('#fb-send').addEventListener('click', () => {
   }
 });
 
-// ========== ONBOARDING ==========
-const ONBOARDING_STEPS = [
-  { icon: '👋', getTitle: () => t('onboarding.welcomeTitle'), getText: () => t('onboarding.welcomeText') },
-  { icon: '👥', getTitle: () => t('onboarding.peopleTitle'), getText: () => t('onboarding.peopleText') },
-  { icon: '💊', getTitle: () => t('onboarding.medsTitle'), getText: () => t('onboarding.medsText') },
-  { icon: '🛡️', getTitle: () => t('onboarding.safetyTitle'), getText: () => t('onboarding.safetyText') }
-];
-
-let onboardingStep = 0;
-
-function maybeShowOnboarding() {
-  if (state.onboarded) return;
-  // Only show if there's no existing data (truly first visit)
-  if (state.people.length > 0 && state.visits.length > 1) {
-    state.onboarded = true;
-    save();
-    return;
-  }
-  renderOnboardingStep();
-  $('#onboarding-modal').classList.add('show');
-  requestNotificationPermission();
+// ========== DISPLAY SIZE ==========
+function applyDisplaySize(size) {
+  const root = document.documentElement;
+  const sizes = { comfortable: 17, large: 19, 'extra-large': 22 };
+  root.style.setProperty('--base-font-size', (sizes[size] || 17) + 'px');
+  document.body.classList.remove('size-comfortable', 'size-large', 'size-extra-large');
+  document.body.classList.add('size-' + (size || 'comfortable'));
+  state.displaySize = size || 'comfortable';
 }
 
-function renderOnboardingStep() {
-  const step = ONBOARDING_STEPS[onboardingStep];
-  const total = ONBOARDING_STEPS.length;
-  const isLast = onboardingStep === total - 1;
+// ========== ONBOARDING WIZARD ==========
+let onboardingStep = 1;
+let onboardingChosenSize = null;
 
-  const stepsEl = $('#onboarding-steps');
-  stepsEl.innerHTML = `
-    <div class="onboarding-step active">
-      <div class="onboarding-icon">${step.icon}</div>
-      <h3>${escapeHtml(step.getTitle())}</h3>
-      <p>${escapeHtml(step.getText())}</p>
+function initOnboarding() {
+  if (!state.onboardingComplete) {
+    // Show wizard on first load
+    setTimeout(() => showOnboarding(), 600);
+  }
+  // Wire up wizard controls
+  $$('.onboarding [data-next]').forEach(btn => btn.addEventListener('click', onboardingNext));
+  $$('.onboarding [data-prev]').forEach(btn => btn.addEventListener('click', onboardingPrev));
+  $$('.onboarding [data-skip]').forEach(btn => btn.addEventListener('click', onboardingSkip));
+  $$('.onboarding [data-finish]').forEach(btn => btn.addEventListener('click', onboardingFinish));
+  // Add buttons inside wizard reuse existing modal flow
+  const addPersonBtn = $('#onboarding-add-person');
+  if (addPersonBtn) addPersonBtn.addEventListener('click', () => openModal('person'));
+  const addMedBtn = $('#onboarding-add-med');
+  if (addMedBtn) addMedBtn.addEventListener('click', () => openModal('med'));
+  // Size selection
+  $$('.size-option').forEach(opt => {
+    opt.addEventListener('click', () => {
+      $$('.size-option').forEach(o => o.classList.remove('selected'));
+      opt.classList.add('selected');
+      onboardingChosenSize = opt.dataset.size;
+    });
+  });
+  // Re-open button on help screen
+  const reopenBtn = $('#reopen-onboarding');
+  if (reopenBtn) reopenBtn.addEventListener('click', () => {
+    onboardingChosenSize = state.displaySize;
+    showOnboarding();
+  });
+}
+
+function showOnboarding() {
+  $('#onboarding').classList.remove('hidden');
+  setOnboardingStep(1);
+  renderOnboardingLists();
+  // Highlight current size if re-opening
+  if (onboardingChosenSize) {
+    const opt = $(`.size-option[data-size="${onboardingChosenSize}"]`);
+    if (opt) opt.classList.add('selected');
+  }
+}
+
+function hideOnboarding() {
+  $('#onboarding').classList.add('hidden');
+}
+
+function setOnboardingStep(n) {
+  onboardingStep = n;
+  $$('.onboarding-step').forEach(s => {
+    if (parseInt(s.dataset.step, 10) === n) s.classList.remove('hidden');
+    else s.classList.add('hidden');
+  });
+  const total = 4;
+  const pct = (n / total) * 100;
+  const fill = $('#onboarding-fill');
+  if (fill) fill.style.width = pct + '%';
+  const txt = $('#onboarding-progress-text');
+  if (txt) txt.textContent = `Step ${n} of ${total}`;
+  // Re-render lists for steps 2 & 3
+  if (n === 2 || n === 3) renderOnboardingLists();
+}
+
+function onboardingNext() {
+  if (onboardingStep < 4) setOnboardingStep(onboardingStep + 1);
+}
+function onboardingPrev() {
+  if (onboardingStep > 1) setOnboardingStep(onboardingStep - 1);
+}
+function onboardingSkip() {
+  state.onboardingComplete = true;
+  save();
+  hideOnboarding();
+  toast(t('onboarding.toastSkip'));
+}
+function onboardingFinish() {
+  const size = onboardingChosenSize || state.displaySize || 'comfortable';
+  applyDisplaySize(size);
+  state.displaySize = size;
+  state.onboardingComplete = true;
+  save();
+  hideOnboarding();
+  toast(t('onboarding.toastDone'));
+}
+
+function renderOnboardingLists() {
+  // People list
+  const peopleList = $('#onboarding-people');
+  if (peopleList) {
+    if (state.people.length === 0) {
+      peopleList.innerHTML = `<li class="empty">${escapeHtml(t('onboarding.people.empty'))}</li>`;
+    } else {
+      peopleList.innerHTML = state.people.map(p => `
+        <li>
+          <span><strong>${escapeHtml(p.name)}</strong>${p.relation ? ' <small>(' + escapeHtml(p.relation) + ')</small>' : ''}</span>
+        </li>
+      `).join('');
+    }
+  }
+  // Meds list
+  const medsList = $('#onboarding-meds');
+  if (medsList) {
+    if (state.meds.length === 0) {
+      medsList.innerHTML = `<li class="empty">${escapeHtml(t('onboarding.meds.empty'))}</li>`;
+    } else {
+      medsList.innerHTML = state.meds.map(m => `
+        <li>
+          <span><strong>${escapeHtml(m.name)}</strong> <small>— ${escapeHtml(m.time || 'Anytime')}</small></span>
+        </li>
+      `).join('');
+    }
+  }
+}
+
+// ========== NOTES (PIN-PROTECTED) ==========
+const NOTE_CATEGORIES = ['password', 'phone', 'address', 'other'];
+let notePinEntry = '';
+
+function initNotes() {
+  // Re-render notes when navigating to the screen
+  const notesScreen = $('[data-screen="notes"]');
+  if (notesScreen) {
+    const observer = new MutationObserver(() => {
+      if (notesScreen.classList.contains('active')) showNotesScreen();
+    });
+    observer.observe(notesScreen, { attributes: true, attributeFilter: ['class'] });
+  }
+  // Lock button
+  const lockBtn = $('#notes-lock');
+  if (lockBtn) lockBtn.addEventListener('click', lockNotes);
+  // Add note
+  const addNoteBtn = $('#add-note');
+  if (addNoteBtn) addNoteBtn.addEventListener('click', () => openNoteModal());
+}
+
+function showNotesScreen() {
+  const setup = $('#notes-pin-setup');
+  const entry = $('#notes-pin-entry');
+  const unlocked = $('#notes-unlocked');
+
+  // Hide all
+  setup.classList.add('hidden');
+  entry.classList.add('hidden');
+  unlocked.classList.add('hidden');
+
+  if (!state.notesPin) {
+    // First time — set up PIN
+    setup.classList.remove('hidden');
+    buildPinPad('setup');
+  } else if (!state.notesUnlocked) {
+    // Returning — enter PIN
+    entry.classList.remove('hidden');
+    buildPinPad('entry');
+    notePinEntry = '';
+    renderPinDots('entry', notePinEntry);
+    $('#notes-pin-error').classList.add('hidden');
+  } else {
+    // Unlocked — show notes
+    unlocked.classList.remove('hidden');
+    renderNotesList();
+  }
+}
+
+// Simple PIN hashing (XOR with static key — not crypto-secure, fine for MVP demo)
+const PIN_KEY = 'buddy-pin-2026';
+function hashPin(pin) {
+  let result = '';
+  for (let i = 0; i < pin.length; i++) {
+    result += String.fromCharCode(pin.charCodeAt(i) ^ PIN_KEY.charCodeAt(i % PIN_KEY.length));
+  }
+  return btoa(result);
+}
+function verifyPin(pin) {
+  return state.notesPin && hashPin(pin) === state.notesPin;
+}
+
+function buildPinPad(mode) {
+  const container = $(`#notes-pin-pad-${mode}`);
+  if (!container) return;
+  const keys = ['1','2','3','4','5','6','7','8','9','clear','0','del'];
+  container.innerHTML = keys.map(k => {
+    if (k === 'clear') return `<button class="pin-key action" data-action="clear" type="button">Clear</button>`;
+    if (k === 'del') return `<button class="pin-key action" data-action="del" type="button">⌫</button>`;
+    return `<button class="pin-key" data-digit="${k}" type="button">${k}</button>`;
+  }).join('');
+  container.onclick = (e) => {
+    const digit = e.target.dataset.digit;
+    const action = e.target.dataset.action;
+    if (digit !== undefined) pinKeyPress(digit, mode);
+    else if (action === 'del') pinKeyPress('del', mode);
+    else if (action === 'clear') pinKeyPress('clear', mode);
+  };
+}
+
+let setupPin = '';
+let setupPinConfirm = '';
+let setupStage = 'first'; // 'first' | 'confirm'
+
+function pinKeyPress(key, mode) {
+  if (mode === 'setup') {
+    if (key === 'del') { setupPin = setupPin.slice(0, -1); renderPinDots('setup', setupPin); return; }
+    if (key === 'clear') { setupPin = ''; renderPinDots('setup', setupPin); return; }
+    if (setupPin.length < 4) {
+      setupPin += key;
+      renderPinDots('setup', setupPin);
+      if (setupPin.length === 4) {
+        if (setupStage === 'first') {
+          // Move to confirm
+          setTimeout(() => {
+            setupStage = 'confirm';
+            setupPinConfirm = '';
+            // Update label
+            const lbl = $('#notes-pin-setup h3');
+            if (lbl) lbl.textContent = t('notes.pinConfirmTitle');
+            const body = $('#notes-pin-setup p');
+            if (body) body.textContent = t('notes.pinConfirmBody');
+            renderPinDots('setup', '');
+          }, 300);
+        } else {
+          // Verify match
+          if (setupPin === setupPinConfirm) {
+            state.notesPin = hashPin(setupPin);
+            save();
+            state.notesUnlocked = true;
+            toast(t('notes.pinSaved'));
+            showNotesScreen();
+            // Reset
+            setupPin = '';
+            setupPinConfirm = '';
+            setupStage = 'first';
+          } else {
+            toast(t('notes.pinMismatch'));
+            setupPin = '';
+            setupPinConfirm = '';
+            setupStage = 'first';
+            // Reset labels
+            const lbl = $('#notes-pin-setup h3');
+            if (lbl) lbl.textContent = t('notes.pinSetTitle');
+            const body = $('#notes-pin-setup p');
+            if (body) body.textContent = t('notes.pinSetBody');
+            renderPinDots('setup', '');
+          }
+        }
+      }
+    }
+  } else if (mode === 'entry') {
+    if (key === 'del') { notePinEntry = notePinEntry.slice(0, -1); renderPinDots('entry', notePinEntry); return; }
+    if (key === 'clear') { notePinEntry = ''; renderPinDots('entry', notePinEntry); return; }
+    if (notePinEntry.length < 4) {
+      notePinEntry += key;
+      renderPinDots('entry', notePinEntry);
+      if (notePinEntry.length === 4) {
+        if (verifyPin(notePinEntry)) {
+          state.notesUnlocked = true;
+          notePinEntry = '';
+          $('#notes-pin-error').classList.add('hidden');
+          showNotesScreen();
+        } else {
+          $('#notes-pin-error').classList.remove('hidden');
+          notePinEntry = '';
+          setTimeout(() => renderPinDots('entry', ''), 300);
+        }
+      }
+    }
+  }
+}
+
+function renderPinDots(mode, value) {
+  const container = $(`#notes-pin-display-${mode}`);
+  if (!container) return;
+  container.innerHTML = '';
+  for (let i = 0; i < 4; i++) {
+    const dot = document.createElement('div');
+    dot.className = 'pin-dot' + (i < value.length ? ' filled' : '');
+    container.appendChild(dot);
+  }
+}
+
+function lockNotes() {
+  state.notesUnlocked = false;
+  notePinEntry = '';
+  showNotesScreen();
+}
+
+function renderNotesList() {
+  const list = $('#notes-list');
+  if (!list) return;
+  if (!state.notes || state.notes.length === 0) {
+    list.innerHTML = `
+      <li class="notes-empty">
+        <div class="big-icon">📝</div>
+        <div>${escapeHtml(t('notes.empty'))}</div>
+      </li>
+    `;
+    return;
+  }
+  list.innerHTML = state.notes.map(n => {
+    const cat = NOTE_CATEGORIES.includes(n.category) ? n.category : 'other';
+    return `
+      <li class="list-item note-item" data-id="${n.id}">
+        <div>
+          <strong>${escapeHtml(n.title)}</strong>
+          <span class="note-category-tag note-category-${cat}">${escapeHtml(t('notes.cat.' + cat))}</span>
+          <div class="note-content">${escapeHtml(n.content)}</div>
+          <div class="note-actions">
+            <button class="copy" data-action="copy" data-id="${n.id}">📋 ${escapeHtml(t('notes.copy'))}</button>
+            <button data-action="edit" data-id="${n.id}">✏️ ${escapeHtml(t('notes.edit'))}</button>
+            <button class="delete" data-action="delete" data-id="${n.id}">🗑️ ${escapeHtml(t('notes.delete'))}</button>
+          </div>
+        </div>
+      </li>
+    `;
+  }).join('');
+  // Wire up note action buttons
+  list.querySelectorAll('button[data-action]').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const action = btn.dataset.action;
+      const id = btn.dataset.id;
+      const note = state.notes.find(n => n.id === id);
+      if (!note) return;
+      if (action === 'copy') {
+        try {
+          navigator.clipboard.writeText(note.content).then(() => {
+            toast(t('notes.copied'));
+          }).catch(() => {
+            // Fallback
+            const ta = document.createElement('textarea');
+            ta.value = note.content;
+            document.body.appendChild(ta);
+            ta.select();
+            try { document.execCommand('copy'); toast(t('notes.copied')); }
+            catch (e) { toast(t('notes.copyFailed')); }
+            document.body.removeChild(ta);
+          });
+        } catch (e) { toast(t('notes.copyFailed')); }
+      } else if (action === 'edit') {
+        openNoteModal(note);
+      } else if (action === 'delete') {
+        if (confirm(t('notes.confirmDelete'))) {
+          state.notes = state.notes.filter(n => n.id !== id);
+          save();
+          renderNotesList();
+          toast(t('notes.deleted'));
+        }
+      }
+    });
+  });
+}
+
+function openNoteModal(existing) {
+  const title = $('#modal-title');
+  const body = $('#modal-body');
+  const isEdit = !!existing;
+  title.textContent = isEdit ? t('notes.editTitle') : t('notes.addTitle');
+  const currentCat = existing ? existing.category : 'other';
+  body.innerHTML = `
+    <label class="modal-label">${escapeHtml(t('form.title'))}</label>
+    <input type="text" id="n-title" placeholder="${escapeHtml(t('form.placeholderNoteTitle'))}" value="${existing ? escapeHtml(existing.title) : ''}" autofocus />
+    <label class="modal-label">${escapeHtml(t('form.content'))}</label>
+    <textarea id="n-content" rows="3" placeholder="${escapeHtml(t('form.placeholderNoteContent'))}" style="width:100%;padding:.6rem;border:1.5px solid var(--border);border-radius:8px;font-family:inherit;font-size:1rem;">${existing ? escapeHtml(existing.content) : ''}</textarea>
+    <label class="modal-label">${escapeHtml(t('form.category'))}</label>
+    <div class="category-selector" id="n-category">
+      ${NOTE_CATEGORIES.map(c => `
+        <button type="button" class="category-option ${c === currentCat ? 'selected' : ''}" data-cat="${c}">
+          ${escapeHtml(t('notes.cat.' + c))}
+        </button>
+      `).join('')}
     </div>
   `;
-
-  // Dots
-  const dotsEl = $('#onboarding-dots');
-  dotsEl.innerHTML = ONBOARDING_STEPS.map((_, i) =>
-    `<div class="onboarding-dot ${i === onboardingStep ? 'active' : ''}"></div>`
-  ).join('');
-
-  // Button text
-  const nextBtn = $('#onboarding-next');
-  nextBtn.textContent = isLast ? t('onboarding.done') : t('onboarding.next');
+  // Wire category selection
+  body.querySelectorAll('.category-option').forEach(btn => {
+    btn.addEventListener('click', () => {
+      body.querySelectorAll('.category-option').forEach(b => b.classList.remove('selected'));
+      btn.classList.add('selected');
+    });
+  });
+  // Override save behavior for note mode
+  modalMode = 'note';
+  modalEditing = existing || null;
+  $('#modal').classList.add('show');
+  setTimeout(() => $('#n-title').focus(), 50);
 }
 
-$('#onboarding-next').addEventListener('click', () => {
-  onboardingStep++;
-  if (onboardingStep >= ONBOARDING_STEPS.length) {
-    state.onboarded = true;
-    save();
-    $('#onboarding-modal').classList.remove('show');
-    return;
-  }
-  renderOnboardingStep();
-});
-
-$('#onboarding-skip').addEventListener('click', () => {
-  state.onboarded = true;
-  save();
-  $('#onboarding-modal').classList.remove('show');
-});
+let modalEditing = null;
 
 // ========== INIT ==========
 load();
 applyI18n();
+applyDisplaySize(state.displaySize || 'comfortable');
 renderHome();
 renderPeople();
 renderMeds();
-renderNotes();
 renderTopics();
 renderSafetyList();
 updateEmergencyLinks();
 trackVisit();
-
-// Check alarms every 30 seconds
-alarmTimerId = setInterval(checkAlarms, 30000);
-// Also check once on load (in case an alarm was missed while tab was closed)
-setTimeout(checkAlarms, 2000);
+initOnboarding();
+initNotes();
 
 // Re-render check-in status periodically
 setInterval(renderHome, 60 * 1000);
 
-// Show onboarding for first-time users (delay so page renders first)
-setTimeout(maybeShowOnboarding, 800);
-
-// Show feedback prompt after a beat
+// Show feedback prompt after a beat (so first visit isn't interrupted)
 setTimeout(maybeShowFeedback, 5000);

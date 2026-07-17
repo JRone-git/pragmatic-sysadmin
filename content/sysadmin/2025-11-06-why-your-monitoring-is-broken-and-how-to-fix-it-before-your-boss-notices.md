@@ -11,6 +11,9 @@ tags:
   - Infrastructure
   - Automation
 description: "Practical guide to fixing broken monitoring systems. Learn how to set up effective alerts that actually work, reduce false positives, and catch problems before your users start complaining"
+aliases:
+  - /posts/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/
+
 ---
 
 Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)

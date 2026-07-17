@@ -14,6 +14,9 @@ tags:
   - free apps seniors
 description: "A curated list of the best free phone apps for seniors in 2026, organized by what they actually do. Tested by a real 78-year-old over six months. Includes setup tips and the 'one app rule' for new users."
 author: "Pragmatic Sysadmin"
+aliases:
+  - /posts/2026-06-27-best-free-phone-apps-seniors/
+
 ---
 For six months, every app I recommended to my mom went through the same brutal evaluation process: **she used it for a week, then either kept using it or deleted it.** No exceptions.
 

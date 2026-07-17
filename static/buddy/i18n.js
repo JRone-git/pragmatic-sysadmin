@@ -275,6 +275,83 @@ const TRANSLATIONS = {
       shareTitle: "Know someone who'd like Buddy?",
       shareBody: "I'm using Buddy — a simple app for older family members. One-tap calls to family, medicine reminders, scam checker. Free, no signup.",
       shareButton: "Share Buddy"
+    },
+    tiles: {
+      notes: { label: "My Notes", sub: "Passwords & things to remember" }
+    },
+    notes: {
+      title: "My Notes",
+      hint: "Passwords, phone numbers, and other things you want to remember. Protected by your PIN.",
+      pinSetTitle: "Set a PIN",
+      pinSetBody: "Pick 4 numbers you'll remember. You'll type this each time you want to see your notes.",
+      pinConfirmTitle: "Type it again",
+      pinConfirmBody: "Type the same 4 numbers one more time to make sure.",
+      pinEnterTitle: "Enter your PIN",
+      pinEnterBody: "Type your 4-digit PIN to see your notes.",
+      pinWarning: "⚠️ If you forget your PIN, your notes can't be recovered. Choose something you'll remember.",
+      pinError: "Wrong PIN. Try again.",
+      pinMismatch: "PINs didn't match. Try again.",
+      pinSaved: "✓ PIN set",
+      empty: "No notes yet. Tap below to add your first one.",
+      addCta: "+ Add a Note",
+      addTitle: "Add a Note",
+      editTitle: "Edit Note",
+      lock: "🔒 Lock Notes",
+      copy: "Copy",
+      edit: "Edit",
+      delete: "Delete",
+      copied: "✓ Copied to clipboard",
+      copyFailed: "Couldn't copy. Try selecting the text manually.",
+      deleted: "✓ Note deleted",
+      confirmDelete: "Delete this note? This can't be undone.",
+      cat: {
+        password: "Password",
+        phone: "Phone",
+        address: "Address",
+        other: "Other"
+      }
+    },
+    form: {
+      title: "Title",
+      content: "Content",
+      category: "Category",
+      placeholderNoteTitle: "e.g. WiFi password, Doctor's number",
+      placeholderNoteContent: "The actual thing you want to remember",
+      needContent: "Please write the thing you want to remember."
+    },
+    onboarding: {
+      welcome: {
+        title: "Welcome to Buddy",
+        body: "I'm here to help you stay connected with family, remember your medicines, and stay safe from scams.",
+        steps: "Let's set me up together. Just 4 short steps.",
+        cta: "Let's Go"
+      },
+      people: {
+        title: "Add your people",
+        body: "These are the family and friends you want to call quickly. You can add more anytime.",
+        addCta: "+ Add a person",
+        empty: "No people added yet. Tap below to add your first."
+      },
+      meds: {
+        title: "Medicine reminders",
+        body: "What medicines do you take? I'll remind you at the right time each day.",
+        addCta: "+ Add a medicine",
+        empty: "No medicines added yet. Tap below to add your first."
+      },
+      size: {
+        title: "How big should things be?",
+        body: "Choose a size that's comfortable for your eyes.",
+        comfortable: "Comfortable",
+        large: "Large",
+        extraLarge: "Extra Large"
+      },
+      back: "Back",
+      next: "Next",
+      skip: "Set up later",
+      finish: "All Set!",
+      reopen: "Re-run Setup Wizard",
+      toastSkip: "You can set me up anytime from the How-To screen.",
+      toastDone: "✓ You're all set! Welcome to Buddy."
     }
   },
 
