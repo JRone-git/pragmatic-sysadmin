@@ -15,7 +15,9 @@ const state = {
   visits: [],          // array of date strings
   feedback: [],        // {date, rating: 'easy'|'hard', text}
   onboardingComplete: false,
-  displaySize: 'comfortable'  // 'comfortable' | 'large' | 'extra-large'
+  displaySize: 'comfortable',  // 'comfortable' | 'large' | 'extra-large'
+  notificationsEnabled: false, // for med alarms
+  medAlarmTimers: {}           // { medId: timeoutId } — active alarm timers
 };
 
 // ========== i18n ==========
@@ -153,6 +155,14 @@ function toast(msg) {
 
 function today() { return new Date().toDateString(); }
 
+function formatTime12(hhmm) {
+  if (!hhmm) return '';
+  const [h, m] = hhmm.split(':').map(Number);
+  const period = h >= 12 ? 'PM' : 'AM';
+  const h12 = h === 0 ? 12 : (h > 12 ? h - 12 : h);
+  return `${h12}:${String(m).padStart(2, '0')} ${period}`;
+}
+
 function phoneFormat(p) {
   const d = String(p || '').replace(/\D/g, '');
   if (d.length === 10) return `(${d.slice(0,3)}) ${d.slice(3,6)}-${d.slice(6)}`;
@@ -277,13 +287,18 @@ function renderMeds() {
   }
   list.innerHTML = state.meds.map(m => {
     const isTaken = state.takenToday[m.id] === td;
+    const hasAlarm = !!m.alarmTime;
     return `
-      <li class="list-item med-item ${isTaken ? 'taken' : ''}" data-id="${m.id}">
+      <li class="list-item med-item ${isTaken ? 'taken' : ''} ${hasAlarm ? 'has-alarm' : ''}" data-id="${m.id}">
         <button class="check" aria-label="Mark ${escapeHtml(m.name)} as taken"></button>
         <div class="body">
           <div class="name">${escapeHtml(m.name)}</div>
           <div class="sub">${escapeHtml(m.time)}${m.notes ? ' · ' + escapeHtml(m.notes) : ''}</div>
+          ${hasAlarm ? `<div class="alarm-info">🔔 ${escapeHtml(formatTime12(m.alarmTime))}</div>` : ''}
         </div>
+        <button class="alarm-toggle" data-id="${m.id}" aria-label="${escapeHtml(t('meds.alarm'))}: ${escapeHtml(m.name)}">
+          ${hasAlarm ? '🔔' : '🔕'}
+        </button>
         <button class="delete" aria-label="${escapeHtml(t('people.delete'))} ${escapeHtml(m.name)}">×</button>
       </li>
     `;
@@ -304,11 +319,23 @@ function renderMeds() {
     });
   });
 
+  list.querySelectorAll('.alarm-toggle').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      const id = e.target.closest('.alarm-toggle').dataset.id;
+      openAlarmModal(id);
+    });
+  });
+
   list.querySelectorAll('.delete').forEach(btn => {
     btn.addEventListener('click', (e) => {
       const id = e.target.closest('.list-item').dataset.id;
       const med = state.meds.find(m => m.id === id);
       if (confirm(t('meds.removeConfirm', { name: med.name }))) {
+        // Clear alarm timer if any
+        if (state.medAlarmTimers[id]) {
+          clearTimeout(state.medAlarmTimers[id]);
+          delete state.medAlarmTimers[id];
+        }
         state.meds = state.meds.filter(m => m.id !== id);
         delete state.takenToday[id];
         save();
@@ -318,6 +345,121 @@ function renderMeds() {
       }
     });
   });
+}
+
+// ========== MEDICINE ALARMS (Web Notification API) ==========
+let pendingAlarmMedId = null;
+
+async function ensureNotificationPermission() {
+  if (!('Notification' in window)) {
+    toast(t('meds.alarmUnsupported'));
+    return false;
+  }
+  if (Notification.permission === 'granted') {
+    state.notificationsEnabled = true;
+    save();
+    return true;
+  }
+  if (Notification.permission === 'denied') {
+    toast(t('meds.alarmDenied'));
+    return false;
+  }
+  // 'default' — ask
+  try {
+    const perm = await Notification.requestPermission();
+    state.notificationsEnabled = (perm === 'granted');
+    save();
+    return perm === 'granted';
+  } catch (e) {
+    return false;
+  }
+}
+
+function scheduleMedAlarm(med) {
+  // Clear any existing timer for this med
+  if (state.medAlarmTimers[med.id]) {
+    clearTimeout(state.medAlarmTimers[med.id]);
+    delete state.medAlarmTimers[med.id];
+  }
+  if (!med.alarmTime) return;
+  if (!('Notification' in window)) return;
+  if (Notification.permission !== 'granted') return;
+
+  // Calculate next occurrence
+  const [h, m] = med.alarmTime.split(':').map(Number);
+  const now = new Date();
+  const next = new Date();
+  next.setHours(h, m, 0, 0);
+  if (next <= now) next.setDate(next.getDate() + 1);
+  const ms = next - now;
+
+  const timerId = setTimeout(() => {
+    // Check med still exists and isn't taken today
+    const live = state.meds.find(x => x.id === med.id);
+    if (!live) return;
+    if (state.takenToday[med.id] === today()) return; // already taken
+    try {
+      new Notification(t('meds.alarmNotify', { name: med.name, time: med.time }), {
+        body: med.notes || t('meds.alarmDefaultBody'),
+        tag: 'buddy-med-' + med.id,
+        requireInteraction: true,
+        icon: '/buddy/favicon.ico'
+      });
+    } catch (e) {
+      console.warn('Notification failed', e);
+    }
+    // Re-schedule for tomorrow
+    scheduleMedAlarm(live);
+  }, ms);
+  state.medAlarmTimers[med.id] = timerId;
+}
+
+function rescheduleAllMedAlarms() {
+  // Clear all existing timers
+  Object.values(state.medAlarmTimers).forEach(clearTimeout);
+  state.medAlarmTimers = {};
+  // Schedule each med with an alarm
+  state.meds.forEach(med => {
+    if (med.alarmTime) scheduleMedAlarm(med);
+  });
+}
+
+function openAlarmModal(medId) {
+  const med = state.meds.find(m => m.id === medId);
+  if (!med) return;
+  pendingAlarmMedId = medId;
+  const title = $('#modal-title');
+  const body = $('#modal-body');
+  title.textContent = t('meds.alarmTitle', { name: med.name });
+  const hasAlarm = !!med.alarmTime;
+  body.innerHTML = `
+    <p class="hint">${escapeHtml(t('meds.alarmHint'))}</p>
+    <label class="modal-label">${escapeHtml(t('meds.alarmTime'))}</label>
+    <input type="time" id="alarm-time" value="${escapeHtml(med.alarmTime || '08:00')}" />
+    <p class="hint" style="margin-top: 0.75rem;">${escapeHtml(t('meds.alarmNote'))}</p>
+    ${hasAlarm ? `<button type="button" class="secondary block" id="alarm-clear" style="margin-top:1rem;">${escapeHtml(t('meds.alarmClear'))}</button>` : ''}
+  `;
+  modalMode = 'alarm';
+  $('#modal').classList.add('show');
+  if (hasAlarm) {
+    const clearBtn = $('#alarm-clear');
+    if (clearBtn) {
+      clearBtn.addEventListener('click', () => {
+        const med = state.meds.find(m => m.id === pendingAlarmMedId);
+        if (med) {
+          med.alarmTime = null;
+          if (state.medAlarmTimers[med.id]) {
+            clearTimeout(state.medAlarmTimers[med.id]);
+            delete state.medAlarmTimers[med.id];
+          }
+          save();
+          renderMeds();
+          closeModal();
+          toast(t('meds.alarmCleared'));
+        }
+      });
+    }
+  }
 }
 
 // ========== SAFETY ==========
@@ -520,6 +662,26 @@ function saveModal() {
     renderNotesList();
     modalEditing = null;
     toast(t('toast.saved'));
+  } else if (modalMode === 'alarm') {
+    const time = $('#alarm-time').value;
+    if (!time) { alert(t('meds.alarmTimeRequired')); return; }
+    const med = state.meds.find(m => m.id === pendingAlarmMedId);
+    if (med) {
+      med.alarmTime = time;
+      save();
+      // Request permission + schedule
+      ensureNotificationPermission().then(granted => {
+        if (granted) {
+          scheduleMedAlarm(med);
+          renderMeds();
+          toast(t('meds.alarmSet', { time: formatTime12(time) }));
+        } else {
+          renderMeds();
+          toast(t('meds.alarmSetNoNotify', { time: formatTime12(time) }));
+        }
+      });
+      pendingAlarmMedId = null;
+    }
   }
   closeModal();
 }
@@ -829,7 +991,8 @@ function hashPin(pin) {
   return btoa(result);
 }
 function verifyPin(pin) {
-  return state.notesPin && hashPin(pin) === state.notesPin;
+  if (!state.notesPin) return false;
+  return hashPin(pin) === state.notesPin;
 }
 
 function buildPinPad(mode) {
@@ -1054,6 +1217,7 @@ updateEmergencyLinks();
 trackVisit();
 initOnboarding();
 initNotes();
+rescheduleAllMedAlarms();
 
 // Re-render check-in status periodically
 setInterval(renderHome, 60 * 1000);

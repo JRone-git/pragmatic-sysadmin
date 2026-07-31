@@ -55,8 +55,8 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
-html { font-size: 18px; -webkit-text-size-adjust: 100%; }
-@media (min-width: 768px) { html { font-size: 20px; } }
+html { font-size: var(--base-font-size, 18px); -webkit-text-size-adjust: 100%; }
+@media (min-width: 768px) { html { font-size: calc(var(--base-font-size, 18px) + 2px); } }
 
 body {
   font-family: var(--sans);
@@ -532,6 +532,61 @@ input, textarea, select { font-family: inherit; font-size: 1rem; }
   font-size: 1.0625rem;
 }
 
+/* ============ MEDS — alarm toggle ============ */
+.med-item.has-alarm {
+  background: #FFF8E1;
+  border-left: 4px solid #D4A437;
+}
+.alarm-toggle {
+  background: transparent;
+  border: 1.5px solid #D6CFBE;
+  border-radius: 50%;
+  width: 40px;
+  height: 40px;
+  font-size: 1.2rem;
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.15s, border-color 0.15s;
+  padding: 0;
+}
+.alarm-toggle:hover { background: #FFF8E1; border-color: #D4A437; }
+.med-item.has-alarm .alarm-toggle {
+  background: #D4A437;
+  border-color: #D4A437;
+}
+.alarm-info {
+  font-size: 0.85rem;
+  color: #876300;
+  margin-top: 0.2rem;
+  font-weight: 600;
+}
+button.secondary.block {
+  display: block;
+  width: 100%;
+  margin-top: 0.75rem;
+  padding: 0.6rem 1rem;
+  background: #F4EFE3;
+  border: 1.5px solid #D6CFBE;
+  border-radius: 8px;
+  color: #6B4A1A;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.95rem;
+}
+button.secondary.block:hover { background: #E5DECB; }
+input[type="time"] {
+  width: 100%;
+  padding: 0.6rem 0.8rem;
+  border: 1.5px solid var(--border);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 1.05rem;
+  background: #FBF6EE;
+}
+
 .med-item .check {
   width: 40px;
   height: 40px;
@@ -934,7 +989,7 @@ textarea:focus, input:focus {
 
 /* ============ RESPONSIVE ============ */
 @media (max-width: 480px) {
-  html { font-size: 17px; }
+  html { font-size: var(--base-font-size, 17px); }
   #app { padding: 0.75rem 0.75rem 4rem; }
   .tile { padding: 1.25rem 0.5rem; min-height: 130px; }
   .tile .icon { font-size: 2.25rem; }
