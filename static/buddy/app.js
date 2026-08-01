@@ -170,6 +170,46 @@ function phoneFormat(p) {
   return p;
 }
 
+// Resize + compress an image file to a small data URL (for localStorage)
+async function processImageFile(file, maxSize = 256, quality = 0.8) {
+  return new Promise((resolve, reject) => {
+    if (!file || !file.type.startsWith('image/')) {
+      reject(new Error('Not an image'));
+      return;
+    }
+    const reader = new FileReader();
+    reader.onerror = () => reject(reader.error);
+    reader.onload = e => {
+      const img = new Image();
+      img.onerror = () => reject(new Error('Image decode failed'));
+      img.onload = () => {
+        let { width, height } = img;
+        if (width > maxSize || height > maxSize) {
+          if (width > height) {
+            height = Math.round((height / width) * maxSize);
+            width = maxSize;
+          } else {
+            width = Math.round((width / height) * maxSize);
+            height = maxSize;
+          }
+        }
+        const canvas = document.createElement('canvas');
+        canvas.width = width;
+        canvas.height = height;
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0, width, height);
+        try {
+          resolve(canvas.toDataURL('image/jpeg', quality));
+        } catch (err) {
+          reject(err);
+        }
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
 // ========== NAV ==========
 function show(name) {
   $$('.screen').forEach(s => s.classList.remove('active'));
@@ -220,9 +260,13 @@ function renderPeople() {
     list.innerHTML = `<li class="hint" style="padding:1rem 0;">${escapeHtml(t('people.empty'))}</li>`;
     return;
   }
-  list.innerHTML = state.people.map(p => `
+  list.innerHTML = state.people.map(p => {
+    const avatar = p.photo
+      ? `<img class="avatar avatar-photo" src="${p.photo}" alt="${escapeHtml(p.name)}" />`
+      : `<div class="avatar">${escapeHtml(p.name.charAt(0).toUpperCase())}</div>`;
+    return `
     <li class="list-item" data-id="${p.id}">
-      <div class="avatar">${escapeHtml(p.name.charAt(0).toUpperCase())}</div>
+      ${avatar}
       <div class="body">
         <div class="name">${escapeHtml(p.name)}</div>
         <div class="sub">${escapeHtml(p.relation || phoneFormat(p.phone))}</div>
@@ -230,7 +274,8 @@ function renderPeople() {
       <a class="action" href="tel:${escapeHtml(p.phone)}">${escapeHtml(t('meds.taken').includes('Taken') ? 'Call' : t('form.save').replace('Guardar','Llamar'))}</a>
       <button class="delete" aria-label="${escapeHtml(t('people.delete'))} ${escapeHtml(p.name)}">×</button>
     </li>
-  `).join('');
+  `;
+  }).join('');
 
   // Replace action labels properly with "Call" in the right language
   $$('#people-list .action').forEach(a => {
@@ -571,6 +616,17 @@ function openModal(mode) {
   if (mode === 'person') {
     title.textContent = t('people.addTitle');
     body.innerHTML = `
+      <div class="photo-upload">
+        <div class="photo-preview" id="m-photo-preview" aria-hidden="true">
+          <span class="photo-placeholder">📷</span>
+        </div>
+        <label class="photo-button" for="m-photo-input">
+          <span class="photo-button-icon">📷</span>
+          <span>${escapeHtml(t('people.addPhoto'))}</span>
+        </label>
+        <input type="file" id="m-photo-input" accept="image/*" capture="environment" hidden />
+        <button type="button" class="photo-clear hidden" id="m-photo-clear">${escapeHtml(t('people.removePhoto'))}</button>
+      </div>
       <label class="modal-label">${escapeHtml(t('form.name'))}</label>
       <input type="text" id="m-name" placeholder="${escapeHtml(t('form.placeholderPersonName'))}" autofocus />
       <label class="modal-label">${escapeHtml(t('form.phone'))}</label>
@@ -591,11 +647,49 @@ function openModal(mode) {
   }
   $('#modal').classList.add('show');
   setTimeout(() => $('#m-name').focus(), 50);
+  // Wire up photo upload for person modal
+  if (mode === 'person') {
+    wirePersonPhotoUpload();
+  }
+}
+
+// Track photo being edited in current modal
+let _pendingPhoto = null;
+
+function wirePersonPhotoUpload() {
+  const input = $('#m-photo-input');
+  const preview = $('#m-photo-preview');
+  const clearBtn = $('#m-photo-clear');
+  if (!input) return;
+
+  input.addEventListener('change', async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    try {
+      const dataUrl = await processImageFile(file);
+      _pendingPhoto = dataUrl;
+      preview.innerHTML = `<img src="${dataUrl}" alt="" />`;
+      clearBtn?.classList.remove('hidden');
+    } catch (err) {
+      toast(t('people.photoError'));
+    }
+  });
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      _pendingPhoto = null;
+      preview.innerHTML = '<span class="photo-placeholder">📷</span>';
+      clearBtn.classList.add('hidden');
+      input.value = '';
+    });
+  }
 }
 
 function closeModal() {
   $('#modal').classList.remove('show');
   modalMode = null;
+  _pendingPhoto = null;
+  pendingAlarmMedId = null;
 }
 
 function saveModal() {
@@ -616,8 +710,10 @@ function saveModal() {
       id: 'p' + Date.now(),
       name,
       phone,
-      relation: $('#m-rel').value.trim()
+      relation: $('#m-rel').value.trim(),
+      photo: _pendingPhoto || null
     });
+    _pendingPhoto = null;
     save();
     renderPeople();
     renderSafetyList();

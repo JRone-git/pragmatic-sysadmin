@@ -1313,3 +1313,75 @@ button.add.big:hover { background: #1F4A36; }
   background: #E8F0E9;
   font-weight: 600;
 }
+
+/* ============ PHOTO CONTACTS ============ */
+.photo-upload {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 1rem;
+  background: var(--code-bg, #F4EFE3);
+  border-radius: 12px;
+  border: 1.5px dashed var(--border, #D6CFBE);
+}
+.photo-preview {
+  width: 96px;
+  height: 96px;
+  border-radius: 50%;
+  background: var(--bg, #FBF6EE);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 2px solid var(--border, #D6CFBE);
+}
+.photo-preview img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+.photo-placeholder {
+  font-size: 2.5rem;
+  opacity: 0.5;
+}
+.photo-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  padding: 0.6rem 1.2rem;
+  background: var(--accent, #2D6A4F);
+  color: #FBF6EE;
+  border-radius: 8px;
+  cursor: pointer;
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-align: center;
+  user-select: none;
+}
+.photo-button:hover { background: var(--primary, #1F4A36); }
+.photo-button-icon { font-size: 1.1rem; }
+.photo-clear {
+  background: transparent;
+  border: 1px solid var(--border, #C9C2B4);
+  border-radius: 6px;
+  padding: 0.4rem 0.8rem;
+  font-size: 0.85rem;
+  color: var(--secondary, #6B6B6B);
+  cursor: pointer;
+  font-family: inherit;
+}
+.photo-clear:hover { background: var(--code-bg, #E5DECB); }
+.photo-clear.hidden { display: none; }
+.avatar.avatar-photo {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  object-fit: cover;
+  display: block;
+  flex-shrink: 0;
+}
+

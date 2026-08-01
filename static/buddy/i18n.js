@@ -67,6 +67,9 @@ const TRANSLATIONS = {
       addTitle: "Add a Person",
       delete: "×",
       removeConfirm: "Remove {name}?"
+      addPhoto: "Add Photo",
+      removePhoto: "Remove Photo",
+      photoError: "Couldn't process the image. Try a different one.",
     },
     meds: {
       title: "My Medicines",
@@ -428,6 +431,9 @@ const TRANSLATIONS = {
       addTitle: "Agregar Persona",
       delete: "×",
       removeConfirm: "¿Eliminar a {name}?"
+      addPhoto: "Añadir Foto",
+      removePhoto: "Quitar Foto",
+      photoError: "No se pudo procesar la imagen. Prueba con otra."
     },
     meds: {
       title: "Mis Medicinas",
@@ -712,6 +718,9 @@ const TRANSLATIONS = {
       addTitle: "Ajouter une personne",
       delete: "×",
       removeConfirm: "Supprimer {name} ?"
+      addPhoto: "Ajouter une photo",
+      removePhoto: "Supprimer la photo",
+      photoError: "Impossible de traiter l'image. Essayez-en une autre."
     },
     meds: {
       title: "Mes Médicaments",
@@ -996,6 +1005,9 @@ const TRANSLATIONS = {
       addTitle: "Person hinzufügen",
       delete: "×",
       removeConfirm: "{name} entfernen?"
+      addPhoto: "Foto hinzufügen",
+      removePhoto: "Foto entfernen",
+      photoError: "Bild konnte nicht verarbeitet werden. Versuchen Sie ein anderes."
     },
     meds: {
       title: "Meine Medikamente",
@@ -1280,6 +1292,9 @@ const TRANSLATIONS = {
       addTitle: "Adicionar Pessoa",
       delete: "×",
       removeConfirm: "Remover {name}?"
+      addPhoto: "Adicionar Foto",
+      removePhoto: "Remover Foto",
+      photoError: "Não foi possível processar a imagem. Tente outra."
     },
     meds: {
       title: "Meus Remédios",
@@ -1564,6 +1579,9 @@ const TRANSLATIONS = {
       addTitle: "添加联系人",
       delete: "×",
       removeConfirm: "删除 {name}？"
+      addPhoto: "添加照片",
+      removePhoto: "移除照片",
+      photoError: "无法处理图片。请换一张试试。"
     },
     meds: {
       title: "我的药品",
