@@ -204,6 +204,12 @@ Five production-tested scripts I run daily. All MIT licensed. Grab the whole pac
 
 <div class="section-divider"></div>
 
+
+<a href="/tools/plain-english.html" class="tool-card">
+<div class="name">Plain English Explain</div>
+<p class="desc">Paste any bash command, error message, config file, or technical concept. Get a plain-language explanation tailored for sysadmins, family caregivers, or beginners.</p>
+<span class="tag">new · AI · explained</span>
+</a>
 ## 🛍️ Tools I use (gear guide)
 
 - **[Tools I Use as a Sysadmin](/tools/gear/)** — the gear I run daily (hardware, software, services). Honest recommendations with affiliate links where I use them.
