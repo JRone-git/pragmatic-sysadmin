@@ -1,0 +1,738 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Prism Engine — 3D Infrastructure Topology Visualizer | Pragmatic Sysadmin</title>
+    <meta name="description" content="Render your Docker Compose, Kubernetes config, or network diagram as a 3D topology. Click nodes to see risk analysis. Free tool for sysadmins.">
+    <meta name="robots" content="noindex">
+    <link rel="canonical" href="https://pragmaticsysadmin.help/tools/prism-engine.html">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🔷</text></svg>">
+
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Three.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/controls/OrbitControls.js"></script>
+
+    <style>
+        body {
+            margin: 0;
+            overflow: hidden;
+            background-color: #09090b;
+            font-family: 'Courier New', Courier, monospace;
+            color: #e4e4e7;
+        }
+        #canvas-container {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            z-index: 1;
+        }
+
+        /* UI Overlay */
+        #ui-overlay {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            height: 100vh;
+            display: flex;
+            pointer-events: none;
+        }
+        .panel {
+            pointer-events: auto;
+            background: rgba(10, 10, 12, 0.92);
+            backdrop-filter: blur(16px);
+            border-right: 1px solid #27272a;
+            padding: 1.75rem;
+            width: 420px;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+            overflow-y: auto;
+            height: 100vh;
+        }
+
+        .terminal-input {
+            background: #000;
+            color: #22c55e;
+            border: 1px solid #166534;
+            padding: 0.85rem;
+            flex-grow: 1;
+            min-height: 200px;
+            resize: none;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            border-radius: 6px;
+            line-height: 1.6;
+            box-sizing: border-box;
+        }
+        .terminal-input:focus {
+            outline: none;
+            border-color: #22c55e;
+            box-shadow: 0 0 18px rgba(34, 197, 94, 0.15);
+        }
+        .terminal-input::placeholder { color: #166534; }
+
+        .btn {
+            background: #16a34a;
+            color: #fff;
+            font-weight: bold;
+            padding: 0.7rem;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.2s;
+            border-radius: 6px;
+            border: none;
+            font-family: 'Courier New', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.8rem;
+        }
+        .btn:hover { background: #15803d; transform: translateY(-1px); box-shadow: 0 4px 12px rgba(22, 163, 74, 0.3); }
+        .btn:active { transform: translateY(0); }
+        .btn:disabled { background: #3f3f46; cursor: not-allowed; transform: none; box-shadow: none; }
+
+        .glow-text { text-shadow: 0 0 12px rgba(34, 197, 94, 0.6); }
+
+        /* Risk badge colors */
+        .risk-critical { color: #ef4444; border-color: #ef4444; }
+        .risk-high { color: #f97316; border-color: #f97316; }
+        .risk-medium { color: #eab308; border-color: #eab308; }
+        .risk-low { color: #22c55e; border-color: #22c55e; }
+
+        /* Node Info Popup */
+        .node-info {
+            position: absolute;
+            bottom: 24px; right: 24px;
+            background: rgba(0, 0, 0, 0.94);
+            padding: 1.5rem;
+            border: 1px solid #22c55e;
+            width: 360px;
+            pointer-events: auto;
+            border-radius: 8px;
+            box-shadow: 0 0 30px rgba(34, 197, 94, 0.25);
+        }
+        .node-info.hidden { display: none; }
+
+        /* Hint text */
+        .hint {
+            font-size: 0.72rem;
+            color: #52525b;
+            line-height: 1.5;
+        }
+
+        /* Legend */
+        .legend {
+            display: flex;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 0.35rem;
+            font-size: 0.72rem;
+            color: #71717a;
+        }
+        .legend-dot {
+            width: 10px; height: 10px;
+            border-radius: 50%;
+            flex-shrink: 0;
+        }
+
+        /* Footer bar */
+        .footer-bar {
+            margin-top: auto;
+            padding-top: 1rem;
+            border-top: 1px solid #18181b;
+            font-size: 0.7rem;
+            color: #3f3f46;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .footer-bar a { color: #52525b; text-decoration: none; }
+        .footer-bar a:hover { color: #22c55e; }
+    </style>
+</head>
+<body>
+    <!-- 3D Canvas Background -->
+    <div id="canvas-container"></div>
+
+    <!-- UI Overlay -->
+    <div id="ui-overlay">
+        <div class="panel">
+
+            <div>
+                <h1 class="text-2xl font-bold glow-text text-green-500 tracking-tight">PRISM ENGINE</h1>
+                <p class="text-xs text-zinc-600 mt-1">v0.1 MVP · 3D Infrastructure Topology Visualizer</p>
+            </div>
+
+            <div>
+                <label class="block text-sm font-medium text-zinc-400 mb-2">Configuration Input</label>
+                <textarea id="config-input" class="terminal-input" spellcheck="false" placeholder="Paste your Docker Compose, Kubernetes manifest,
+or describe your infrastructure:
+
+services:
+  web:
+    image: nginx
+    ports:
+      - '80:80'
+  db:
+    image: postgres
+    ports:
+      - '5432:5432'
+  cache:
+    image: redis"></textarea>
+            </div>
+
+            <div class="flex gap-2">
+                <button id="analyze-btn" class="btn flex-1">&#9654; Render Topology</button>
+                <button id="mock-btn" class="btn flex-1" style="background:#27272a;" title="Load demo topology to explore the 3D view">&#127881; Demo</button>
+            </div>
+
+            <!-- Legend -->
+            <div>
+                <p class="text-xs text-zinc-600 mb-2 font-medium">Node Risk Levels</p>
+                <div class="legend">
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:#ef4444;"></div>
+                        <span>Critical</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:#f97316;"></div>
+                        <span>High</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:#eab308;"></div>
+                        <span>Medium</span>
+                    </div>
+                    <div class="legend-item">
+                        <div class="legend-dot" style="background:#22c55e;"></div>
+                        <span>Low</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Tips -->
+            <div class="hint">
+                <strong class="text-zinc-500">Controls:</strong> Drag to rotate &middot; Scroll to zoom &middot; Click a node for details
+            </div>
+
+            <div id="status" class="text-xs text-zinc-600 pt-3 mt-auto">
+                System ready. Paste a config or click Demo to explore.
+            </div>
+
+            <div class="footer-bar">
+                <a href="/tools/">&#8592; All Tools</a>
+                <span>Built by <a href="/">Pragmatic Sysadmin</a></span>
+            </div>
+        </div>
+    </div>
+
+    <!-- Node Details Popup -->
+    <div id="node-info" class="node-info hidden">
+        <div class="flex justify-between items-start mb-3">
+            <h3 class="text-green-400 font-bold text-base" id="info-title">Node Details</h3>
+            <span class="text-xs px-2 py-0.5 rounded border" id="info-risk">LOW</span>
+        </div>
+        <p id="info-desc" class="text-sm text-zinc-300 leading-relaxed mb-3"></p>
+        <div id="info-recommend" class="text-xs text-zinc-500 border-t border-zinc-800 pt-2 mt-2"></div>
+        <button id="close-info" class="mt-3 text-xs text-zinc-500 hover:text-green-400 transition-colors">[ Close ]</button>
+    </div>
+
+    <script>
+        // ==========================================
+        // 1. THREE.JS SCENE SETUP
+        // ==========================================
+        const container = document.getElementById('canvas-container');
+        const scene = new THREE.Scene();
+        scene.fog = new THREE.Fog(0x09090b, 15, 60);
+
+        const camera = new THREE.PerspectiveCamera(72, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true });
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+        renderer.setClearColor(0x09090b);
+        container.appendChild(renderer.domElement);
+
+        const controls = new THREE.OrbitControls(camera, renderer.domElement);
+        controls.enableDamping = true;
+        controls.dampingFactor = 0.06;
+        controls.maxDistance = 50;
+        controls.minDistance = 3;
+        camera.position.set(0, 6, 18);
+
+        // Lighting
+        scene.add(new THREE.AmbientLight(0x202020, 1.5));
+        const pointLight = new THREE.PointLight(0x22c55e, 2.5, 60);
+        pointLight.position.set(5, 12, 5);
+        scene.add(pointLight);
+        const rimLight = new THREE.PointLight(0x166534, 1, 40);
+        rimLight.position.set(-8, -5, -8);
+        scene.add(rimLight);
+
+        // Grid
+        const grid = new THREE.GridHelper(60, 60, 0x111111, 0x0a0a0a);
+        grid.position.y = -4;
+        scene.add(grid);
+
+        let nodes = [], links = [];
+        let clock = new THREE.Clock();
+
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+
+        // ==========================================
+        // 2. DEMO TOPOLOGIES
+        // ==========================================
+        const DEMO_TOPOLOGIES = [
+            {
+                label: "Web App Stack",
+                nodes: [
+                    { id: 'cdn',    label: 'CDN / Cloudflare',         risk: 'low',       pos: {x: -9, y: 3,  z:  0} },
+                    { id: 'lb',     label: 'Load Balancer (Nginx)',   risk: 'low',       pos: {x: -4, y: 1,  z:  0} },
+                    { id: 'web1',   label: 'Web Server #1',            risk: 'medium',    pos: {x:  0, y: 3,  z: -2} },
+                    { id: 'web2',   label: 'Web Server #2',            risk: 'medium',    pos: {x:  0, y: 3,  z:  2} },
+                    { id: 'app',    label: 'App Server (Node)',         risk: 'medium',    pos: {x:  4, y: 0,  z:  0} },
+                    { id: 'db',     label: 'PostgreSQL',                risk: 'critical',  pos: {x:  8, y: -2, z:  0} },
+                    { id: 'cache',  label: 'Redis Cache',               risk: 'medium',    pos: {x:  8, y:  2, z:  3} },
+                    { id: 'queue',  label: 'Message Queue (RabbitMQ)',  risk: 'medium',    pos: {x:  4, y: -2, z:  4} },
+                    { id: 'worker', label: 'Background Worker',         risk: 'low',       pos: {x:  9, y:  0, z:  6} },
+                ],
+                links: [
+                    { from: 'cdn',  to: 'lb'     },
+                    { from: 'lb',   to: 'web1'   },
+                    { from: 'lb',   to: 'web2'   },
+                    { from: 'web1', to: 'app'    },
+                    { from: 'web2', to: 'app'    },
+                    { from: 'app',  to: 'db'     },
+                    { from: 'app',  to: 'cache'  },
+                    { from: 'app',  to: 'queue'  },
+                    { from: 'queue',to: 'worker'  },
+                    { from: 'worker',to:'db'      },
+                ]
+            },
+            {
+                label: "Microservices Mesh",
+                nodes: [
+                    { id: 'gw',    label: 'API Gateway',               risk: 'high',      pos: {x: -6, y: 0, z:  0} },
+                    { id: 'auth',  label: 'Auth Service',              risk: 'critical',  pos: {x: -2, y: 3, z: -3} },
+                    { id: 'users', label: 'User Service',               risk: 'medium',    pos: {x:  2, y: 3, z: -3} },
+                    { id: 'orders',label: 'Order Service',             risk: 'medium',    pos: {x:  2, y: 3, z:  3} },
+                    { id: 'pay',   label: 'Payment Service',           risk: 'critical',  pos: {x:  6, y: 0, z:  0} },
+                    { id: 'notif', label: 'Notification Service',       risk: 'low',       pos: {x: -2, y: -3,z: -3} },
+                    { id: 'email', label: 'Email Worker',              risk: 'low',       pos: {x:  0, y: -4,z:  0} },
+                ],
+                links: [
+                    { from: 'gw',   to: 'auth'   },
+                    { from: 'gw',   to: 'users'  },
+                    { from: 'gw',   to: 'orders' },
+                    { from: 'users',to: 'auth'   },
+                    { from: 'orders',to:'pay'    },
+                    { from: 'orders',to:'notif'  },
+                    { from: 'notif',to: 'email'  },
+                    { from: 'pay',  to: 'auth'   },
+                ]
+            }
+        ];
+
+        const RISK_COLORS = {
+            critical: 0xef4444,
+            high:      0xf97316,
+            medium:    0xeab308,
+            low:       0x22c55e,
+        };
+
+        const RISK_DESCRIPTIONS = {
+            critical: "This service handles sensitive data (auth credentials, payment info, PII). Exposure could be catastrophic. Firewall rules, mTLS, and least-privilege IAM are non-negotiable.",
+            high:     "This service is externally facing or handles business-critical logic. Ensure WAF rules, rate limiting, and access logging are configured. Assume it will be probed.",
+            medium:   "Standard internal or semi-exposed service. Follow baseline hardening: TLS, minimal ports exposed, regular updates. Not critical but worth monitoring.",
+            low:      "Internal-only service with no external attack surface. Still follow best practices — internal threats are real, and lateral movement is a thing.",
+        };
+
+        const RISK_RECOMMENDATIONS = {
+            critical: "&#9888; Firewall this immediately. No direct internet exposure. Use Vault/secrets manager. Enable audit logs. Consider network segmentation.",
+            high:     "&#9889; Apply WAF rules, rate limiting, and IP allowlisting where possible. Monitor failed auth attempts. Review access logs weekly.",
+            medium:   "&#8594; Ensure TLS everywhere, keep packages updated, enable access logs. Set up basic alerting on unusual traffic patterns.",
+            low:      "&#10004; Standard hardening applies: least privilege, regular updates, monitoring. No special concerns for this node type.",
+        };
+
+        // ==========================================
+        // 3. SCENE BUILDING
+        // ==========================================
+        function buildScene(data) {
+            nodes.forEach(n => { scene.remove(n.mesh); scene.remove(n.sprite); });
+            links.forEach(l => scene.remove(l.mesh));
+            nodes = []; links = [];
+            const nodeMap = {};
+
+            data.nodes.forEach(node => {
+                const color = RISK_COLORS[node.risk] || 0x22c55e;
+
+                // Main glowing sphere
+                const geometry = new THREE.SphereGeometry(0.7, 32, 32);
+                const material = new THREE.MeshStandardMaterial({
+                    color: color,
+                    emissive: color,
+                    emissiveIntensity: 0.7,
+                    roughness: 0.15,
+                    metalness: 0.9,
+                });
+                const sphere = new THREE.Mesh(geometry, material);
+                sphere.position.set(node.pos.x, node.pos.y, node.pos.z);
+                sphere.userData = node;
+                scene.add(sphere);
+
+                // Outer glow shell
+                const glowGeo = new THREE.SphereGeometry(0.95, 16, 16);
+                const glowMat = new THREE.MeshBasicMaterial({
+                    color: color,
+                    transparent: true,
+                    opacity: 0.08,
+                    side: THREE.BackSide,
+                });
+                const glow = new THREE.Mesh(glowGeo, glowMat);
+                glow.position.copy(sphere.position);
+                scene.add(glow);
+
+                // Label sprite
+                const canvas = document.createElement('canvas');
+                canvas.width = 512; canvas.height = 128;
+                const ctx = canvas.getContext('2d');
+                ctx.fillStyle = "rgba(0,0,0,0.7)";
+                roundRect(ctx, 4, 4, 504, 120, 8);
+                ctx.fill();
+                ctx.font = "bold 28px monospace";
+                ctx.fillStyle = "#" + color.toString(16).padStart(6, '0');
+                ctx.textAlign = "center";
+                ctx.fillText(truncate(node.label, 28), 256, 76);
+
+                const spriteMat = new THREE.SpriteMaterial({
+                    map: new THREE.CanvasTexture(canvas),
+                    transparent: true,
+                });
+                const sprite = new THREE.Sprite(spriteMat);
+                sprite.position.set(node.pos.x, node.pos.y + 1.7, node.pos.z);
+                sprite.scale.set(5, 1.25, 1);
+                scene.add(sprite);
+
+                nodes.push({ mesh: sphere, glow, sprite, data: node });
+                nodeMap[node.id] = sphere;
+            });
+
+            // Neon tube links
+            data.links.forEach(link => {
+                const from = nodeMap[link.from];
+                const to = nodeMap[link.to];
+                if (!from || !to) return;
+
+                const dir = new THREE.Vector3().subVectors(to.position, from.position);
+                const length = dir.length();
+                const midpoint = new THREE.Vector3().addVectors(from.position, to.position).multiplyScalar(0.5);
+
+                const geo = new THREE.CylinderGeometry(0.04, 0.04, length, 6);
+                const mat = new THREE.MeshBasicMaterial({
+                    color: 0x22c55e,
+                    transparent: true,
+                    opacity: 0.35,
+                });
+                const tube = new THREE.Mesh(geo, mat);
+
+                // Position and orient
+                tube.position.copy(midpoint);
+                tube.quaternion.setFromUnitVectors(
+                    new THREE.Vector3(0, 1, 0),
+                    dir.normalize()
+                );
+                scene.add(tube);
+                links.push({ mesh: tube });
+            });
+
+            // Camera focus
+            const allPositions = data.nodes.map(n => new THREE.Vector3(n.pos.x, n.pos.y, n.pos.z));
+            const box = new THREE.Box3().setFromPoints(allPositions);
+            const center = box.getCenter(new THREE.Vector3());
+            controls.target.copy(center);
+            camera.position.set(center.x, center.y + 8, center.z + 16);
+        }
+
+        function roundRect(ctx, x, y, w, h, r) {
+            ctx.beginPath();
+            ctx.moveTo(x + r, y);
+            ctx.lineTo(x + w - r, y);
+            ctx.quadraticCurveTo(x + w, y, x + w, y + r);
+            ctx.lineTo(x + w, y + h - r);
+            ctx.quadraticCurveTo(x + w, y + h, x + w - r, y + h);
+            ctx.lineTo(x + r, y + h);
+            ctx.quadraticCurveTo(x, y + h, x, y + h - r);
+            ctx.lineTo(x, y + r);
+            ctx.quadraticCurveTo(x, y, x + r, y);
+            ctx.closePath();
+        }
+
+        function truncate(str, max) {
+            return str.length > max ? str.slice(0, max - 1) + '…' : str;
+        }
+
+        // ==========================================
+        // 4. UI INTERACTIONS
+        // ==========================================
+        const analyzeBtn = document.getElementById('analyze-btn');
+        const mockBtn    = document.getElementById('mock-btn');
+        const statusEl  = document.getElementById('status');
+        const nodeInfo  = document.getElementById('node-info');
+
+        let demoIndex = 0;
+
+        async function runAnalysis() {
+            analyzeBtn.disabled = true;
+            mockBtn.disabled = true;
+            setStatus("&#9889; INITIALIZING PRISM ENGINE...", "text-yellow-500");
+            await delay(300);
+
+            const config = document.getElementById('config-input').value.trim();
+
+            try {
+                setStatus("&#128269; PARSING TOPOLOGY...", "text-yellow-500");
+                await delay(400);
+
+                // Parse the config into a topology
+                const topology = parseConfig(config);
+                buildScene(topology);
+
+                setStatus(
+                    `&#9989; RENDERED: ${topology.nodes.length} nodes, ${topology.links.length} connections`,
+                    "text-green-500"
+                );
+            } catch (err) {
+                setStatus("&#10060; PARSE ERROR: " + err.message, "text-red-500");
+            } finally {
+                analyzeBtn.disabled = false;
+                mockBtn.disabled = false;
+            }
+        }
+
+        function runDemo() {
+            const demo = DEMO_TOPOLOGIES[demoIndex % DEMO_TOPOLOGIES.length];
+            demoIndex++;
+            document.getElementById('config-input').value = `# Demo: ${demo.label} — click nodes to see risk analysis`;
+
+            analyzeBtn.disabled = true;
+            mockBtn.disabled = true;
+            setStatus("&#127881; LOADING DEMO TOPOLOGY...", "text-yellow-500");
+
+            setTimeout(() => {
+                buildScene(demo);
+                setStatus(
+                    `&#127881; DEMO: ${demo.label} — ${demo.nodes.length} nodes | Click a node to inspect`,
+                    "text-green-400"
+                );
+                analyzeBtn.disabled = false;
+                mockBtn.disabled = false;
+            }, 600);
+        }
+
+        // ==========================================
+        // 5. CONFIG PARSER (YAML-lite -> topology)
+        // ==========================================
+        function parseConfig(config) {
+            if (!config || config.trim().length < 5) {
+                throw new Error("Config is too short. Paste a Docker Compose, K8s manifest, or describe your infra.");
+            }
+
+            const lines = config.split('\n');
+            const nodes = [];
+            const links = [];
+            const serviceMap = {};
+            const services = [];
+            let currentService = null;
+
+            lines.forEach((line, i) => {
+                // Detect service definition
+                const serviceMatch = line.match(/^(\s*)([a-zA-Z0-9_-]+)\s*:/);
+                if (serviceMatch && !line.includes('#')) {
+                    currentService = serviceMatch[2];
+                    services.push(currentService);
+                }
+
+                // Detect image: line
+                if (currentService && line.match(/\s+image\s*:/)) {
+                    const imgMatch = line.match(/image\s*:\s*['"]?([^'"\s]+)['"]?/);
+                    if (imgMatch) {
+                        serviceMap[currentService] = imgMatch[1];
+                    }
+                }
+
+                // Detect port mappings (exposure indicator)
+                if (currentService && line.match(/\s+ports?/)) {
+                    serviceMap[currentService + '_exposed'] = true;
+                }
+
+                // Detect depends_on / links / depends-on (relationships)
+                const depMatch = line.match(/(?:depends_on|links|depends-on)\s*:/);
+                if (currentService && depMatch) {
+                    // Look ahead for the list
+                    const remaining = lines.slice(i).join('\n');
+                    const deps = remaining.match(/(?:-\s*)?([a-zA-Z0-9_-]+)/g);
+                    if (deps) {
+                        deps.slice(1).forEach(dep => {
+                            const depName = dep.replace(/^-\s*/, '').trim();
+                            if (depName && !depName.match(/^\d/)) {
+                                links.push({ from: currentService, to: depName });
+                            }
+                        });
+                    }
+                }
+            });
+
+            // Build node positions in a layered layout
+            const cols = Math.ceil(Math.sqrt(services.length));
+            const spacing = 4.5;
+            const offsetX = -((cols - 1) * spacing) / 2;
+
+            services.forEach((svc, i) => {
+                const img = serviceMap[svc] || svc;
+                const col = i % cols;
+                const row = Math.floor(i / cols);
+
+                // Infer risk from image and exposure
+                let risk = 'low';
+                const imgLower = img.toLowerCase();
+                const exposed = serviceMap[svc + '_exposed'];
+
+                if (/postgres|mysql|mariadb|mongodb|redis|cache|rabbit|elastic|kafka|db|database/.test(imgLower)) {
+                    risk = exposed ? 'critical' : 'medium';
+                } else if (/nginx|apache|traefik|proxy|gateway|load/.test(imgLower)) {
+                    risk = exposed ? 'high' : 'medium';
+                } else if (/auth|jwt|oauth|keycloak|secret|vault|payment|pay|stripe/.test(imgLower)) {
+                    risk = 'critical';
+                } else if (exposed) {
+                    risk = 'medium';
+                }
+
+                // Layer layout: web in back, db in front
+                let z = 0;
+                if (/db|database|postgres|mysql|mongo|redis|cache/.test(imgLower)) z = -2;
+                if (/worker|queue|background|celery/.test(imgLower)) z = 2;
+
+                nodes.push({
+                    id: svc,
+                    label: capitalize(svc),
+                    risk: risk,
+                    pos: {
+                        x: offsetX + col * spacing,
+                        y: 2 - row * spacing,
+                        z: z
+                    }
+                });
+            });
+
+            return { nodes, links };
+        }
+
+        function capitalize(s) {
+            return s.replace(/_/g, ' ').replace(/\b\w/g, c => c.toUpperCase());
+        }
+
+        function delay(ms) { return new Promise(r => setTimeout(r, ms)); }
+
+        function setStatus(html, colorClass) {
+            statusEl.innerHTML = html;
+            statusEl.className = `text-xs ${colorClass} pt-3 mt-auto`;
+        }
+
+        // ==========================================
+        // 6. RAYCASTING (click nodes)
+        // ==========================================
+        const raycaster = new THREE.Raycaster();
+        const mouse = new THREE.Vector2();
+
+        window.addEventListener('click', (e) => {
+            if (e.target.closest('.panel') || e.target.closest('.node-info')) return;
+
+            mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
+            mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
+            raycaster.setFromCamera(mouse, camera);
+
+            const hits = raycaster.intersectObjects(nodes.map(n => n.mesh));
+            if (hits.length > 0) {
+                const d = hits[0].object.userData;
+                showNodeInfo(d);
+            } else {
+                nodeInfo.classList.add('hidden');
+            }
+        });
+
+        function showNodeInfo(d) {
+            const riskColor = {
+                critical: '#ef4444',
+                high: '#f97316',
+                medium: '#eab308',
+                low: '#22c55e',
+            }[d.risk] || '#22c55e';
+
+            document.getElementById('info-title').innerText = d.label;
+
+            const riskEl = document.getElementById('info-risk');
+            riskEl.textContent = d.risk.toUpperCase();
+            riskEl.style.color = riskColor;
+            riskEl.style.borderColor = riskColor;
+
+            document.getElementById('info-desc').innerHTML =
+                `<span style="color:${riskColor};font-weight:700;">${d.risk.toUpperCase()} RISK</span> — ` +
+                (RISK_DESCRIPTIONS[d.risk] || "Standard service. Follow baseline hardening.");
+
+            document.getElementById('info-recommend').innerHTML =
+                RISK_RECOMMENDATIONS[d.risk] || "";
+
+            nodeInfo.classList.remove('hidden');
+        }
+
+        document.getElementById('close-info').addEventListener('click', () => {
+            nodeInfo.classList.add('hidden');
+        });
+
+        analyzeBtn.addEventListener('click', runAnalysis);
+        mockBtn.addEventListener('click', runDemo);
+
+        // ==========================================
+        // 7. ANIMATION LOOP
+        // ==========================================
+        function animate() {
+            requestAnimationFrame(animate);
+            const t = clock.getElapsedTime();
+
+            controls.update();
+
+            nodes.forEach(n => {
+                // Gentle breathing pulse
+                const pulse = 1 + Math.sin(t * 1.2 + n.data.pos.x * 0.5) * 0.04;
+                n.mesh.scale.setScalar(pulse);
+                n.glow.scale.setScalar(pulse * 1.35);
+
+                // Slight float
+                n.mesh.position.y = n.data.pos.y + Math.sin(t * 0.6 + n.data.pos.z) * 0.08;
+                n.sprite.position.y = n.data.pos.y + 1.7 + Math.sin(t * 0.6 + n.data.pos.z) * 0.08;
+            });
+
+            // Animate link opacity
+            links.forEach((l, i) => {
+                l.mesh.material.opacity = 0.2 + Math.sin(t * 0.8 + i * 0.7) * 0.15;
+            });
+
+            renderer.render(scene, camera);
+        }
+        animate();
+
+        // Load demo on first visit
+        setTimeout(runDemo, 800);
+    </script>
+</body>
+</html>

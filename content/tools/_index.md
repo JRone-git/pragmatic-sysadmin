@@ -205,12 +205,19 @@ Five production-tested scripts I run daily. All MIT licensed. Grab the whole pac
 <div class="section-divider"></div>
 
 
+
 <a href="/tools/plain-english.html" class="tool-card">
 <div class="name">Plain English Explain</div>
-<p class="desc">Paste any bash command, error message, config file, or technical concept. Get a plain-language explanation tailored for sysadmins, family caregivers, or beginners.</p>
-<span class="tag">new · AI · explained</span>
+<p class="desc">Paste any bash command, error message, config file, or concept. Get a plain-language explanation tailored for sysadmins, family caregivers, or beginners.</p>
+<span class="tag">AI · explained</span>
 </a>
-## 🛍️ Tools I use (gear guide)
+
+<a href="/tools/prism-engine.html" class="tool-card">
+<div class="name">Prism Engine</div>
+<p class="desc">Paste a Docker Compose or K8s config. See your infrastructure rendered as a 3D topology. Click nodes to see risk analysis. Demo loads on open.</p>
+<span class="tag">3D · infrastructure · new</span>
+</a>
+
 
 - **[Tools I Use as a Sysadmin](/tools/gear/)** — the gear I run daily (hardware, software, services). Honest recommendations with affiliate links where I use them.
 
