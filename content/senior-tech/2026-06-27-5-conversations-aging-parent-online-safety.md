@@ -1,5 +1,5 @@
 ---
-title: "5 Conversations to Have with Your Aging Parent About Online Safety (That Actually Work)"
+title: "Senior Scam Prevention: 5 Conversations That Actually Stop Fraud (2026)"
 date: 2026-06-27T10:00:00.000Z
 categories:
   - Family Tech
@@ -11,7 +11,7 @@ tags:
   - Family Tech
   - Elder Care
   - Scam Prevention
-description: "Practical scripts to talk to your aging parent about online safety without making them feel patronized. Includes what to say, why it works, and a free tool to set up guardrails in 10 minutes."
+description: "5 practical scripts to talk to your aging parent about online safety — without patronizing them. Covers fake Microsoft calls, gift card scams, phishing texts, and how to set up guardrails in 10 minutes."
 author: "Pragmatic Sysadmin"
 aliases:
   - /posts/2026-06-27-5-conversations-aging-parent-online-safety/
@@ -95,7 +95,8 @@ After the conversation, the most important step is making it easier to be safe t
 - **Enable built-in spam filtering** — both iPhone (Settings → Messages → Filter Unknown Senders) and Android have one. Turn it on.
 - **Add a contact card in their phone with photos** of family members so they can tell who's calling at a glance.
 - **Bookmark trusted numbers** — their doctor, you, a trusted neighbor — so they don't have to google phone numbers in a panic.
-- **Set up a password manager** (Apple Passwords, Google Password Manager, or Bitwarden) so they don't reuse passwords across sites.
+- **Set up a password manager** (Apple Passwords, Google Password Manager, or [Bitwarden/1Password](/senior-tech/2026-07-27-password-manager-for-elderly-parents/)) so they don't reuse passwords across sites.
+- **Check AI privacy settings** if they use ChatGPT or Gemini — [3 settings to flip in 10 minutes](/senior-tech/2026-07-27-is-chatgpt-reading-your-parents-data/) that stop their conversations from being used for AI training.
 
 ---
 

@@ -12,6 +12,7 @@ tags:
 description: "Practical cloud cost reduction strategies for sysadmins and DevOps teams. Learn how to identify waste, optimize resources, and negotiate better rates before year-end budget cycles."
 aliases:
   - /posts/how-reduce-cloud-spend-before-year-end-2025/
+robots: noindex, follow
 
 ---
 # How to Actually Reduce Your Cloud Spend Before Year-End 2025
