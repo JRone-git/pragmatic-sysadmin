@@ -649,26 +649,32 @@ services:
         }
 
         // ==========================================
-        // 6. RAYCASTING (click nodes)
+        // 6. INTERACTION — hover + click via screen-space projection
         // ==========================================
-        const raycaster = new THREE.Raycaster();
-        const mouse = new THREE.Vector2();
 
-        window.addEventListener('click', (e) => {
-            if (e.target.closest('.panel') || e.target.closest('.node-info')) return;
+        // Project 3D node positions to screen coords and find nearest
+        function screenDistance(x, y) {
+            if (nodes.length === 0) return Infinity;
+            let nearest = null;
+            let minDist = Infinity;
 
-            mouse.x = (e.clientX / window.innerWidth) * 2 - 1;
-            mouse.y = -(e.clientY / window.innerHeight) * 2 + 1;
-            raycaster.setFromCamera(mouse, camera);
+            const w = window.innerWidth;
+            const h = window.innerHeight;
 
-            const hits = raycaster.intersectObjects(nodes.map(n => n.mesh));
-            if (hits.length > 0) {
-                const d = hits[0].object.userData;
-                showNodeInfo(d);
-            } else {
-                nodeInfo.classList.add('hidden');
-            }
-        });
+            nodes.forEach(n => {
+                const pos = n.mesh.position.clone();
+                pos.project(camera);
+                const sx = (pos.x * 0.5 + 0.5) * w;
+                const sy = (-pos.y * 0.5 + 0.5) * h;
+                const dist = Math.hypot(x - sx, y - sy);
+                if (dist < minDist) {
+                    minDist = dist;
+                    nearest = n;
+                }
+            });
+
+            return { node: nearest, dist: minDist };
+        }
 
         function showNodeInfo(d) {
             const riskColor = {
@@ -694,6 +700,64 @@ services:
 
             nodeInfo.classList.remove('hidden');
         }
+
+        // Hover: change cursor and show highlight ring
+        let hoveredNode = null;
+
+        renderer.domElement.addEventListener('pointermove', (e) => {
+            // Skip if over the side panel
+            if (e.clientX < 440) {
+                renderer.domElement.style.cursor = 'default';
+                if (hoveredNode) {
+                    hoveredNode = null;
+                }
+                return;
+            }
+
+            const result = screenDistance(e.clientX, e.clientY);
+
+            if (result.dist < 80 && result.node) {
+                renderer.domElement.style.cursor = 'pointer';
+                if (hoveredNode !== result.node) {
+                    hoveredNode = result.node;
+                    // Brief flash on hover
+                    const orig = result.node.mesh.material.emissiveIntensity;
+                    result.node.mesh.material.emissiveIntensity = 1.2;
+                    setTimeout(() => {
+                        if (result.node && result.node.mesh) {
+                            result.node.mesh.material.emissiveIntensity = 0.7;
+                        }
+                    }, 200);
+                }
+            } else {
+                renderer.domElement.style.cursor = 'default';
+                hoveredNode = null;
+            }
+        });
+
+        // Click / tap: show node info
+        renderer.domElement.addEventListener('click', (e) => {
+            // Skip if in the side panel
+            if (e.clientX < 440) return;
+
+            const result = screenDistance(e.clientX, e.clientY);
+            if (result.dist < 90 && result.node) {
+                showNodeInfo(result.node.data);
+            } else {
+                nodeInfo.classList.add('hidden');
+            }
+        });
+
+        // Touch support
+        renderer.domElement.addEventListener('touchend', (e) => {
+            if (e.changedTouches.length === 0) return;
+            const t = e.changedTouches[0];
+            if (t.clientX < 440) return;
+            const result = screenDistance(t.clientX, t.clientY);
+            if (result.dist < 100 && result.node) {
+                showNodeInfo(result.node.data);
+            }
+        }, { passive: true });
 
         document.getElementById('close-info').addEventListener('click', () => {
             nodeInfo.classList.add('hidden');
