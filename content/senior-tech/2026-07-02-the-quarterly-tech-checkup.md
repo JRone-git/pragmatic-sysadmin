@@ -248,4 +248,7 @@ This post is part four of a series on helping aging parents with technology. If 
 
 *Setting up a phone for an aging parent? [Try Buddy](https://pragmaticsysadmin.help/buddy/) — it's the only app that goes on the home screen. Free, accessible, designed specifically for non-techies.*
 
-*Read next: [5 Conversations to Have with Your Aging Parent About Online Safety](/senior-tech/2026-06-27-5-conversations-aging-parent-online-safety/)*
+*Read next:*
+- *[5 Conversations to Have with Your Aging Parent About Online Safety](/senior-tech/2026-06-27-5-conversations-aging-parent-online-safety/)*
+- *[How to Set Up a Password Manager for Your Elderly Parents](/senior-tech/2026-07-27-password-manager-for-elderly-parents/)*
+- *[Is ChatGPT Reading Your Parents' Data?](/senior-tech/2026-07-27-is-chatgpt-reading-your-parents-data/)*
