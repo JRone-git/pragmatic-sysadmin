@@ -1,0 +1,1346 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Homelab Architect — Plan, Audit & Document Your Homelab | Pragmatic Sysadmin</title>
+    <meta name="description" content="Visualize your Docker Compose stack, audit for security issues, detect single points of failure, and generate a backup plan. Free browser tool for homelab builders.">
+    <meta name="robots" content="noindex">
+    <link rel="canonical" href="https://pragmaticsysadmin.help/tools/homelab-architect.html">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>🏠</text></svg>">
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        body { background: #0a0a0f; color: #e4e4e7; font-family: 'Inter', system-ui, sans-serif; }
+        .mono { font-family: 'Courier New', Courier, monospace; }
+        textarea { resize: none; }
+        ::-webkit-scrollbar { width: 6px; }
+        ::-webkit-scrollbar-track { background: #18181b; }
+        ::-webkit-scrollbar-thumb { background: #3f3f46; border-radius: 3px; }
+        .service-card { transition: all 0.2s; }
+        .service-card:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.4); }
+        .tab-active { border-bottom: 2px solid #60a5fa; color: #60a5fa; }
+        .risk-critical { border-left: 3px solid #ef4444; background: rgba(239,68,68,0.08); }
+        .risk-high { border-left: 3px solid #f97316; background: rgba(249,115,22,0.08); }
+        .risk-medium { border-left: 3px solid #eab308; background: rgba(234,179,8,0.08); }
+        .risk-low { border-left: 3px solid #22c55e; background: rgba(34,197,94,0.08); }
+        .badge-critical { background: #ef4444; }
+        .badge-high { background: #f97316; }
+        .badge-medium { background: #eab308; color: #000; }
+        .badge-low { background: #22c55e; }
+        .spof-badge { background: #7c3aed; }
+        .dep-line { stroke: #3b82f6; stroke-width: 1.5; fill: none; opacity: 0.5; }
+        .node circle { cursor: pointer; }
+        .tab-btn { transition: all 0.15s; }
+        .service-picker-item:hover { background: #1f1f23; }
+        .mermaid-export { background: #1a1a1a; border: 1px solid #2a2a2a; border-radius: 8px; padding: 1rem; font-family: 'Courier New', monospace; font-size: 13px; white-space: pre; overflow-x: auto; }
+        .toast {
+            position: fixed; bottom: 1.5rem; right: 1.5rem; z-index: 1000;
+            background: #18181b; border: 1px solid #3f3f46; border-radius: 10px;
+            padding: 0.75rem 1.25rem; font-size: 14px;
+            animation: slideUp 0.3s ease;
+        }
+        @keyframes slideUp { from { transform: translateY(20px); opacity: 0; } to { transform: translateY(0); opacity: 1; } }
+        @keyframes pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.5; } }
+        .animate-pulse-slow { animation: pulse 2s infinite; }
+    </style>
+</head>
+<body class="min-h-screen">
+
+<!-- Header -->
+<header class="border-b border-zinc-800 bg-zinc-950/80 backdrop-blur-sm sticky top-0 z-50">
+    <div class="max-w-7xl mx-auto px-6 py-4 flex items-center justify-between">
+        <div>
+            <h1 class="text-xl font-bold text-white flex items-center gap-2">
+                <span>🏠</span> Homelab Architect
+            </h1>
+            <p class="text-sm text-zinc-400 mt-0.5">Plan, audit, and document your homelab — free, no account</p>
+        </div>
+        <div class="flex gap-3">
+            <button onclick="saveProject()" class="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-sm transition">💾 Save Plan</button>
+            <button onclick="loadProject()" class="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-sm transition">📂 Load Plan</button>
+            <button onclick="clearAll()" class="px-4 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-sm transition">🗑️ Clear</button>
+        </div>
+    </div>
+</header>
+
+<!-- Main Layout -->
+<div class="max-w-7xl mx-auto px-6 py-6 grid grid-cols-1 lg:grid-cols-5 gap-6">
+
+    <!-- LEFT PANEL: Input -->
+    <div class="lg:col-span-2 flex flex-col gap-4">
+
+        <!-- Tabs -->
+        <div class="flex border-b border-zinc-800">
+            <button onclick="switchTab('import')" id="tab-import" class="tab-btn px-5 py-3 text-sm font-medium tab-active">📥 Import</button>
+            <button onclick="switchTab('builder')" id="tab-builder" class="tab-btn px-5 py-3 text-sm font-medium text-zinc-500 hover:text-zinc-300">🔧 Builder</button>
+        </div>
+
+        <!-- Import Tab -->
+        <div id="panel-import" class="flex flex-col gap-4">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
+                <div class="flex items-center justify-between mb-3">
+                    <label class="text-sm font-semibold text-zinc-300">Paste your docker-compose.yml</label>
+                    <button onclick="loadDemo()" class="text-xs text-blue-400 hover:text-blue-300 underline">Load demo</button>
+                </div>
+                <textarea id="docker-input" rows="12" placeholder="version: '3.8'&#10;services:&#10;  nginx:&#10;    image: nginx:latest&#10;    ports:&#10;      - '80:80'&#10;  app:&#10;    image: myapp:latest&#10;    depends_on:&#10;      - db&#10;  db:&#10;    image: postgres:15&#10;    volumes:&#10;      - pgdata:/var/lib/postgresql/data"
+                    class="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-3 mono text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-blue-500"></textarea>
+                <button onclick="analyzeDocker()" class="mt-3 w-full py-2.5 bg-blue-600 hover:bg-blue-500 rounded-lg text-sm font-semibold transition">🔍 Analyze Stack</button>
+            </div>
+
+            <!-- Quick Add -->
+            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
+                <label class="text-sm font-semibold text-zinc-300 block mb-3">Quick Add Common Services</label>
+                <div class="flex flex-wrap gap-2" id="quick-add-pills"></div>
+            </div>
+        </div>
+
+        <!-- Builder Tab -->
+        <div id="panel-builder" class="flex flex-col gap-4 hidden">
+            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
+                <label class="text-sm font-semibold text-zinc-300 block mb-3">Search services</label>
+                <input type="text" id="service-search" placeholder="Search... (nginx, plex, homeassistant...)" oninput="filterServices()"
+                    class="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-3 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-blue-500 mb-4">
+                <div class="flex items-center gap-2 mb-3">
+                    <span class="text-xs text-zinc-500">Categories:</span>
+                    <button onclick="filterByCategory('all')" class="cat-btn text-xs px-2 py-1 rounded bg-blue-600 text-white">All</button>
+                    <button onclick="filterByCategory('infra')" class="cat-btn text-xs px-2 py-1 rounded bg-zinc-700 text-zinc-300">Infra</button>
+                    <button onclick="filterByCategory('media')" class="cat-btn text-xs px-2 py-1 rounded bg-zinc-700 text-zinc-300">Media</button>
+                    <button onclick="filterByCategory('automation')" class="cat-btn text-xs px-2 py-1 rounded bg-zinc-700 text-zinc-300">Automation</button>
+                    <button onclick="filterByCategory('security')" class="cat-btn text-xs px-2 py-1 rounded bg-zinc-700 text-zinc-300">Security</button>
+                    <button onclick="filterByCategory('network')" class="cat-btn text-xs px-2 py-1 rounded bg-zinc-700 text-zinc-300">Network</button>
+                </div>
+                <div class="max-h-80 overflow-y-auto space-y-1" id="service-list"></div>
+            </div>
+
+            <!-- Custom Service -->
+            <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-5">
+                <label class="text-sm font-semibold text-zinc-300 block mb-3">Add Custom Service</label>
+                <div class="space-y-2">
+                    <input type="text" id="custom-name" placeholder="Service name (e.g. my-app)" class="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2.5 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-blue-500">
+                    <input type="text" id="custom-image" placeholder="Image (e.g. nginx:alpine)" class="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2.5 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-blue-500">
+                    <input type="text" id="custom-desc" placeholder="What does it do?" class="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2.5 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-blue-500">
+                    <div class="grid grid-cols-3 gap-2">
+                        <input type="number" id="custom-cpu" placeholder="CPU cores" min="0" step="0.1" class="bg-zinc-950 border border-zinc-700 rounded-lg p-2 text-sm text-zinc-200 focus:outline-none focus:border-blue-500">
+                        <input type="number" id="custom-ram" placeholder="RAM (MB)" min="0" class="bg-zinc-950 border border-zinc-700 rounded-lg p-2 text-sm text-zinc-200 focus:outline-none focus:border-blue-500">
+                        <input type="number" id="custom-disk" placeholder="Disk (MB)" min="0" class="bg-zinc-950 border border-zinc-700 rounded-lg p-2 text-sm text-zinc-200 focus:outline-none focus:border-blue-500">
+                    </div>
+                    <input type="text" id="custom-ports" placeholder="Ports (e.g. 8080:80, 443:443)" class="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2.5 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-blue-500">
+                    <input type="text" id="custom-deps" placeholder="Depends on (comma-separated service names)" class="w-full bg-zinc-950 border border-zinc-700 rounded-lg p-2.5 text-sm text-zinc-200 placeholder-zinc-600 focus:outline-none focus:border-blue-500">
+                    <button onclick="addCustomService()" class="w-full py-2 bg-zinc-700 hover:bg-zinc-600 rounded-lg text-sm font-medium transition">➕ Add Custom Service</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- RIGHT PANEL: Dashboard -->
+    <div class="lg:col-span-3 flex flex-col gap-4">
+
+        <!-- Summary Bar -->
+        <div id="summary-bar" class="hidden">
+            <div class="grid grid-cols-2 sm:grid-cols-4 gap-3">
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4 text-center">
+                    <div class="text-2xl font-bold text-white" id="stat-services">0</div>
+                    <div class="text-xs text-zinc-400 mt-1">Services</div>
+                </div>
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4 text-center">
+                    <div class="text-2xl font-bold text-blue-400" id="stat-cpu">0</div>
+                    <div class="text-xs text-zinc-400 mt-1">CPU cores needed</div>
+                </div>
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4 text-center">
+                    <div class="text-2xl font-bold text-purple-400" id="stat-ram">0 GB</div>
+                    <div class="text-xs text-zinc-400 mt-1">RAM recommended</div>
+                </div>
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4 text-center">
+                    <div class="text-2xl font-bold text-red-400" id="stat-issues">0</div>
+                    <div class="text-xs text-zinc-400 mt-1">Issues found</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Empty State -->
+        <div id="empty-state" class="flex-1 flex flex-col items-center justify-center text-center py-16">
+            <div class="text-6xl mb-4">🏗️</div>
+            <h2 class="text-xl font-bold text-zinc-300 mb-2">No homelab loaded yet</h2>
+            <p class="text-zinc-500 max-w-sm">Paste a docker-compose.yml on the left, or add services using the builder tab.</p>
+            <button onclick="loadDemo()" class="mt-4 px-5 py-2 bg-zinc-800 hover:bg-zinc-700 rounded-lg text-sm transition">Try the demo stack →</button>
+        </div>
+
+        <!-- Dashboard Content (hidden until services are added) -->
+        <div id="dashboard-content" class="hidden flex flex-col gap-4">
+
+            <!-- Issues -->
+            <div id="issues-panel"></div>
+
+            <!-- SPOF Warnings -->
+            <div id="spof-panel"></div>
+
+            <!-- Service Cards -->
+            <div>
+                <h3 class="text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <span>📦</span> Services
+                </h3>
+                <div id="service-cards" class="grid grid-cols-1 sm:grid-cols-2 gap-3"></div>
+            </div>
+
+            <!-- Dependency Map -->
+            <div>
+                <h3 class="text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <span>🔗</span> Dependency Map
+                </h3>
+                <div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4 overflow-x-auto">
+                    <div id="dep-map" class="flex flex-wrap gap-4 justify-center"></div>
+                </div>
+            </div>
+
+            <!-- Backup Recommendations -->
+            <div>
+                <h3 class="text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <span>💾</span> Backup Plan
+                </h3>
+                <div id="backup-panel" class="bg-zinc-900 border border-zinc-800 rounded-xl p-5 space-y-2"></div>
+            </div>
+
+            <!-- Export -->
+            <div>
+                <h3 class="text-sm font-semibold text-zinc-400 uppercase tracking-wider mb-3 flex items-center gap-2">
+                    <span>📤</span> Export
+                </h3>
+                <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+                    <button onclick="exportJSON()" class="bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-xl p-4 text-left transition">
+                        <div class="text-sm font-semibold text-zinc-300">📄 JSON — Save/Share Plan</div>
+                        <div class="text-xs text-zinc-500 mt-1">Download your homelab plan as JSON</div>
+                    </button>
+                    <button onclick="exportMermaid()" class="bg-zinc-900 border border-zinc-800 hover:border-zinc-700 rounded-xl p-4 text-left transition">
+                        <div class="text-sm font-semibold text-zinc-300">📊 Mermaid — Architecture Diagram</div>
+                        <div class="text-xs text-zinc-500 mt-1">Export dependency diagram for docs</div>
+                    </button>
+                </div>
+                <div id="mermaid-output" class="mt-3 hidden">
+                    <div class="flex justify-between items-center mb-2">
+                        <span class="text-xs text-zinc-500">Mermaid diagram source:</span>
+                        <button onclick="copyMermaid()" class="text-xs text-blue-400 hover:text-blue-300 underline">📋 Copy</button>
+                    </div>
+                    <pre id="mermaid-code" class="mermaid-export text-zinc-300"></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Hidden file input for loading -->
+<input type="file" id="file-input" accept=".json" class="hidden" onchange="handleFileLoad(event)">
+
+<script>
+// ─── Service Database ────────────────────────────────────────────────────────
+const SERVICE_DB = {
+    'nginx': {
+        name: 'Nginx', emoji: '🌐', category: 'infra', description: 'Reverse proxy & web server',
+        cpu: 0.2, ram: 64, disk: 100, ports: ['80:80', '443:443'], restart: 'unless-stopped',
+        backups: false, risk: 'medium',
+        security: { latest: true, user: true, healthcheck: false, exposed: '80,443' },
+        deps: [], alternatives: ['traefik', 'caddy']
+    },
+    'traefik': {
+        name: 'Traefik', emoji: '🚦', category: 'infra', description: 'Dynamic reverse proxy with automatic HTTPS',
+        cpu: 0.3, ram: 128, disk: 100, ports: ['80:80', '443:443'], restart: 'unless-stopped',
+        backups: false, risk: 'low',
+        security: { latest: false, user: true, healthcheck: true, exposed: '80,443' },
+        deps: [], alternatives: ['nginx', 'caddy']
+    },
+    'caddy': {
+        name: 'Caddy', emoji: '⚡', category: 'infra', description: 'Automatic HTTPS web server',
+        cpu: 0.2, ram: 96, disk: 100, ports: ['80:80', '443:443'], restart: 'unless-stopped',
+        backups: false, risk: 'low',
+        security: { latest: false, user: true, healthcheck: true, exposed: '80,443' },
+        deps: [], alternatives: ['nginx', 'traefik']
+    },
+    'postgres': {
+        name: 'PostgreSQL', emoji: '🐘', category: 'infra', description: 'Primary database for most apps',
+        cpu: 0.5, ram: 512, disk: 2000, ports: ['5432:5432'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Critical: /var/lib/postgresql/data', risk: 'critical',
+        security: { latest: false, user: true, healthcheck: true, exposed: '' },
+        deps: [], alternatives: ['mysql', 'mariadb']
+    },
+    'mysql': {
+        name: 'MySQL', emoji: '🐬', category: 'infra', description: 'MySQL/MariaDB database',
+        cpu: 0.5, ram: 512, disk: 2000, ports: ['3306:3306'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Critical: /var/lib/mysql', risk: 'critical',
+        security: { latest: false, user: true, healthcheck: true, exposed: '' },
+        deps: [], alternatives: ['postgres', 'mariadb']
+    },
+    'mariadb': {
+        name: 'MariaDB', emoji: '🐬', category: 'infra', description: 'Drop-in MySQL replacement',
+        cpu: 0.4, ram: 384, disk: 2000, ports: ['3306:3306'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Critical: /var/lib/mysql', risk: 'critical',
+        security: { latest: false, user: true, healthcheck: true, exposed: '' },
+        deps: [], alternatives: ['mysql', 'postgres']
+    },
+    'redis': {
+        name: 'Redis', emoji: '🔴', category: 'infra', description: 'In-memory cache & message queue',
+        cpu: 0.2, ram: 256, disk: 500, ports: ['6379:6379'], restart: 'unless-stopped',
+        backups: false, risk: 'medium',
+        security: { latest: false, user: true, healthcheck: true, exposed: '' },
+        deps: [], alternatives: []
+    },
+    'portainer': {
+        name: 'Portainer', emoji: '📦', category: 'infra', description: 'Docker container management GUI',
+        cpu: 0.3, ram: 256, disk: 500, ports: ['9000:9000'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Save /data config directory', risk: 'medium',
+        security: { latest: false, user: false, healthcheck: false, exposed: '9000' },
+        deps: ['docker'], alternatives: ['dokcerui']
+    },
+    'homeassistant': {
+        name: 'Home Assistant', emoji: '🏠', category: 'automation', description: 'Smart home hub & automation engine',
+        cpu: 1.0, ram: 2048, disk: 10000, ports: ['8123:8123'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Critical: /config + /share directories', risk: 'high',
+        security: { latest: false, user: false, healthcheck: false, exposed: '8123' },
+        deps: [], alternatives: ['openhab']
+    },
+    'home-assistant': {
+        name: 'Home Assistant', emoji: '🏠', category: 'automation', description: 'Smart home hub & automation engine',
+        cpu: 1.0, ram: 2048, disk: 10000, ports: ['8123:8123'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Critical: /config + /share directories', risk: 'high',
+        security: { latest: false, user: false, healthcheck: false, exposed: '8123' },
+        deps: [], alternatives: ['openhab']
+    },
+    'plex': {
+        name: 'Plex', emoji: '🎬', category: 'media', description: 'Media streaming server for movies, TV, music',
+        cpu: 2.0, ram: 2048, disk: 100000, ports: ['32400:32400'], restart: 'unless-stopped',
+        backups: false, risk: 'medium',
+        security: { latest: false, user: true, healthcheck: false, exposed: '32400' },
+        deps: [], alternatives: ['jellyfin', 'emby']
+    },
+    'jellyfin': {
+        name: 'Jellyfin', emoji: '🎞️', category: 'media', description: 'Free media streaming (Plex alternative)',
+        cpu: 1.5, ram: 2048, disk: 100000, ports: ['8096:8096'], restart: 'unless-stopped',
+        backups: false, risk: 'medium',
+        security: { latest: false, user: true, healthcheck: false, exposed: '8096' },
+        deps: [], alternatives: ['plex', 'emby']
+    },
+    'emby': {
+        name: 'Emby', emoji: '🎥', category: 'media', description: 'Media streaming with premium features',
+        cpu: 1.5, ram: 2048, disk: 100000, ports: ['8096:8096'], restart: 'unless-stopped',
+        backups: false, risk: 'medium',
+        security: { latest: false, user: true, healthcheck: false, exposed: '8096' },
+        deps: [], alternatives: ['plex', 'jellyfin']
+    },
+    'sonarr': {
+        name: 'Sonarr', emoji: '📺', category: 'media', description: 'TV show management & auto-downloading',
+        cpu: 0.2, ram: 256, disk: 500, ports: ['8989:8989'], restart: 'unless-stopped',
+        backups: false, risk: 'low',
+        security: { latest: false, user: true, healthcheck: false, exposed: '8989' },
+        deps: ['radarr'], alternatives: []
+    },
+    'radarr': {
+        name: 'Radarr', emoji: '🎬', category: 'media', description: 'Movie management & auto-downloading',
+        cpu: 0.2, ram: 256, disk: 500, ports: ['7878:7878'], restart: 'unless-stopped',
+        backups: false, risk: 'low',
+        security: { latest: false, user: true, healthcheck: false, exposed: '7878' },
+        deps: ['sonarr'], alternatives: []
+    },
+    'prowlarr': {
+        name: 'Prowlarr', emoji: '🔍', category: 'media', description: 'Indexer manager for *arr stack',
+        cpu: 0.2, ram: 256, disk: 200, ports: ['9696:9696'], restart: 'unless-stopped',
+        backups: false, risk: 'low',
+        security: { latest: false, user: true, healthcheck: false, exposed: '9696' },
+        deps: ['sonarr', 'radarr'], alternatives: []
+    },
+    'sabnzbd': {
+        name: 'SABnzbd', emoji: '⬇️', category: 'media', description: 'NZB download manager',
+        cpu: 0.3, ram: 256, disk: 5000, ports: ['8080:8080'], restart: 'unless-stopped',
+        backups: false, risk: 'low',
+        security: { latest: false, user: true, healthcheck: false, exposed: '8080' },
+        deps: [], alternatives: ['nzbget']
+    },
+    'nzbget': {
+        name: 'NZBGet', emoji: '⬇️', category: 'media', description: 'Lightweight NZB download manager',
+        cpu: 0.2, ram: 128, disk: 5000, ports: ['6789:6789'], restart: 'unless-stopped',
+        backups: false, risk: 'low',
+        security: { latest: false, user: true, healthcheck: false, exposed: '6789' },
+        deps: [], alternatives: ['sabnzbd']
+    },
+    'bazarr': {
+        name: 'Bazarr', emoji: '📝', category: 'media', description: 'Subtitle management for *arr stack',
+        cpu: 0.3, ram: 256, disk: 200, ports: ['6767:6767'], restart: 'unless-stopped',
+        backups: false, risk: 'low',
+        security: { latest: false, user: true, healthcheck: false, exposed: '6767' },
+        deps: ['sonarr', 'radarr'], alternatives: []
+    },
+    'pihole': {
+        name: 'Pi-hole', emoji: '🕳️', category: 'network', description: 'Network-wide ad blocking DNS server',
+        cpu: 0.2, ram: 256, disk: 500, ports: ['53:53', '80:80'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Important: /etc/pihole + /etc/dnsmasq.d', risk: 'low',
+        security: { latest: false, user: false, healthcheck: true, exposed: '53,80' },
+        deps: [], alternatives: ['adguard']
+    },
+    'adguard': {
+        name: 'AdGuard Home', emoji: '🛡️', category: 'network', description: 'Network-wide ads & trackers blocker',
+        cpu: 0.3, ram: 256, disk: 500, ports: ['53:53', '3000:3000'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Save config in AdGuard web UI', risk: 'low',
+        security: { latest: false, user: true, healthcheck: true, exposed: '53,3000' },
+        deps: [], alternatives: ['pihole']
+    },
+    'wireguard': {
+        name: 'WireGuard', emoji: '🔒', category: 'security', description: 'Fast, modern VPN tunnel',
+        cpu: 0.1, ram: 64, disk: 50, ports: ['51820:51820/udp'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Critical: /config/peer* files', risk: 'medium',
+        security: { latest: false, user: false, healthcheck: false, exposed: '51820/udp' },
+        deps: [], alternatives: ['openvpn']
+    },
+    'vaultwarden': {
+        name: 'Vaultwarden', emoji: '🔐', category: 'security', description: 'Self-hosted Bitwarden password manager',
+        cpu: 0.5, ram: 512, disk: 500, ports: ['8080:80'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Critical: /data directory', risk: 'high',
+        security: { latest: false, user: true, healthcheck: true, exposed: '' },
+        deps: [], alternatives: ['bitwarden']
+    },
+    'bitwarden': {
+        name: 'Bitwarden RS', emoji: '🔐', category: 'security', description: 'Full Bitwarden server (heavy)',
+        cpu: 1.5, ram: 2048, disk: 2000, ports: ['8080:80'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Critical: /data directory', risk: 'high',
+        security: { latest: false, user: true, healthcheck: true, exposed: '' },
+        deps: [], alternatives: ['vaultwarden']
+    },
+    'nextcloud': {
+        name: 'Nextcloud', emoji: '☁️', category: 'automation', description: 'Self-hosted cloud storage & collaboration',
+        cpu: 1.0, ram: 1024, disk: 10000, ports: ['80:80'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Critical: /data + database', risk: 'medium',
+        security: { latest: false, user: true, healthcheck: false, exposed: '80' },
+        deps: ['postgres'], alternatives: []
+    },
+    'gitea': {
+        name: 'Gitea', emoji: '🦀', category: 'automation', description: 'Self-hosted Git repository hosting',
+        cpu: 0.5, ram: 512, disk: 2000, ports: ['3000:3000'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Critical: /data + database', risk: 'medium',
+        security: { latest: false, user: true, healthcheck: false, exposed: '3000' },
+        deps: ['postgres'], alternatives: ['gitlab']
+    },
+    'prometheus': {
+        name: 'Prometheus', emoji: '📊', category: 'infra', description: 'Metrics collection & time-series DB',
+        cpu: 0.5, ram: 1024, disk: 10000, ports: ['9090:9090'], restart: 'unless-stopped',
+        backups: false, risk: 'low',
+        security: { latest: false, user: true, healthcheck: false, exposed: '9090' },
+        deps: [], alternatives: ['influxdb']
+    },
+    'grafana': {
+        name: 'Grafana', emoji: '📈', category: 'infra', description: 'Metrics dashboards & visualization',
+        cpu: 0.5, ram: 512, disk: 1000, ports: ['3000:3000'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Save /etc/grafana + dashboards', risk: 'low',
+        security: { latest: false, user: true, healthcheck: false, exposed: '3000' },
+        deps: ['prometheus'], alternatives: []
+    },
+    'grafana/grafana': {
+        name: 'Grafana', emoji: '📈', category: 'infra', description: 'Metrics dashboards & visualization',
+        cpu: 0.5, ram: 512, disk: 1000, ports: ['3000:3000'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Save /etc/grafana + dashboards', risk: 'low',
+        security: { latest: false, user: true, healthcheck: false, exposed: '3000' },
+        deps: ['prometheus'], alternatives: []
+    },
+    'unifi-controller': {
+        name: 'UniFi Controller', emoji: '📡', category: 'network', description: 'Ubiquiti network controller',
+        cpu: 1.0, ram: 1024, disk: 5000, ports: ['8080:8080'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Export config from UniFi web UI', risk: 'medium',
+        security: { latest: false, user: true, healthcheck: false, exposed: '8080' },
+        deps: [], alternatives: []
+    },
+    'node-red': {
+        name: 'Node-RED', emoji: '🔧', category: 'automation', description: 'Flow-based visual programming for IoT',
+        cpu: 0.3, ram: 256, disk: 200, ports: ['1880:1880'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Critical: /data directory', risk: 'low',
+        security: { latest: false, user: true, healthcheck: false, exposed: '1880' },
+        deps: [], alternatives: []
+    },
+    'mqtt': {
+        name: 'Mosquitto', emoji: '📨', category: 'automation', description: 'MQTT message broker for IoT',
+        cpu: 0.1, ram: 128, disk: 100, ports: ['1883:1883'], restart: 'unless-stopped',
+        backups: false, risk: 'low',
+        security: { latest: false, user: true, healthcheck: false, exposed: '' },
+        deps: [], alternatives: []
+    },
+    'docker': {
+        name: 'Docker Engine', emoji: '🐳', category: 'infra', description: 'Container runtime (host required)',
+        cpu: 0, ram: 0, disk: 0, ports: [], restart: '',
+        backups: false, risk: 'low', deps: [], alternatives: []
+    },
+    'code-server': {
+        name: 'code-server', emoji: '💻', category: 'automation', description: 'VS Code in your browser',
+        cpu: 1.0, ram: 1024, disk: 500, ports: ['8443:8443'], restart: 'unless-stopped',
+        backups: false, risk: 'medium',
+        security: { latest: false, user: true, healthcheck: false, exposed: '8443' },
+        deps: [], alternatives: []
+    },
+    'actualbudget': {
+        name: 'Actual Budget', emoji: '💰', category: 'automation', description: 'Self-hosted personal finance tracker',
+        cpu: 0.3, ram: 256, disk: 200, ports: ['5000:5000'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Save /data directory', risk: 'low',
+        security: { latest: false, user: true, healthcheck: false, exposed: '' },
+        deps: [], alternatives: []
+    },
+    'calibre-web': {
+        name: 'Calibre-Web', emoji: '📚', category: 'media', description: 'eBook management & reader',
+        cpu: 0.3, ram: 256, disk: 50000, ports: ['8083:8083'], restart: 'unless-stopped',
+        backups: false, risk: 'low',
+        security: { latest: false, user: true, healthcheck: false, exposed: '8083' },
+        deps: [], alternatives: []
+    },
+    'photoprism': {
+        name: 'PhotoPrism', emoji: '📷', category: 'media', description: 'AI-powered photo management',
+        cpu: 2.0, ram: 2048, disk: 100000, ports: ['2342:2342'], restart: 'unless-stopped',
+        backups: false, risk: 'low',
+        security: { latest: false, user: true, healthcheck: false, exposed: '2342' },
+        deps: [], alternatives: ['immich']
+    },
+    'immich': {
+        name: 'Immich', emoji: '📷', category: 'media', description: 'Self-hosted Google Photos alternative',
+        cpu: 2.0, ram: 4096, disk: 100000, ports: ['3001:3001'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Critical: /photos + /upload + database', risk: 'low',
+        security: { latest: false, user: true, healthcheck: false, exposed: '3001' },
+        deps: ['postgres'], alternatives: ['photoprism']
+    },
+    'uptime-kuma': {
+        name: 'Uptime Kuma', emoji: '⏱️', category: 'network', description: 'Self-hosted uptime monitoring & alerts',
+        cpu: 0.2, ram: 256, disk: 200, ports: ['3001:3001'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Save /app data directory', risk: 'low',
+        security: { latest: false, user: true, healthcheck: false, exposed: '3001' },
+        deps: [], alternatives: ['statping']
+    },
+    'statping': {
+        name: 'Statping', emoji: '📡', category: 'network', description: 'Status page & uptime monitor',
+        cpu: 0.2, ram: 256, disk: 200, ports: ['8080:8080'], restart: 'unless-stopped',
+        backups: false, risk: 'low',
+        security: { latest: false, user: true, healthcheck: false, exposed: '8080' },
+        deps: [], alternatives: ['uptime-kuma']
+    },
+    'watchtower': {
+        name: 'Watchtower', emoji: '🦠', category: 'infra', description: 'Auto-updates running Docker containers',
+        cpu: 0.1, ram: 128, disk: 50, ports: [], restart: 'unless-stopped',
+        backups: false, risk: 'medium',
+        security: { latest: false, user: false, healthcheck: false, exposed: '' },
+        deps: ['docker'], alternatives: []
+    },
+    'duplicati': {
+        name: 'Duplicati', emoji: '🔁', category: 'security', description: 'Backup to cloud/local storage',
+        cpu: 0.5, ram: 512, disk: 200, ports: ['8200:8200'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Critical: /config + /backups', risk: 'low',
+        security: { latest: false, user: true, healthcheck: false, exposed: '8200' },
+        deps: [], alternatives: ['restic', 'borg']
+    },
+    'vault': {
+        name: 'HashiCorp Vault', emoji: '🔏', category: 'security', description: 'Secrets management & encryption',
+        cpu: 0.5, ram: 512, disk: 1000, ports: ['8200:8200'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Critical: /vault/file + init keys', risk: 'high',
+        security: { latest: false, user: true, healthcheck: true, exposed: '' },
+        deps: [], alternatives: []
+    },
+    'frigate': {
+        name: 'Frigate', emoji: '📹', category: 'security', description: 'AI-powered NVR for security cameras',
+        cpu: 2.0, ram: 2048, disk: 100000, ports: ['5000:5000'], restart: 'unless-stopped',
+        backups: false, risk: 'medium',
+        security: { latest: false, user: true, healthcheck: false, exposed: '5000' },
+        deps: [], alternatives: ['scrypted', 'motioneye']
+    },
+    'zigbee2mqtt': {
+        name: 'Zigbee2MQTT', emoji: '📶', category: 'automation', description: 'Zigbee bridge to MQTT',
+        cpu: 0.2, ram: 256, disk: 200, ports: ['8080:8080'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Save /data directory', risk: 'low',
+        security: { latest: false, user: true, healthcheck: false, exposed: '' },
+        deps: ['mqtt'], alternatives: ['deconz']
+    },
+    'influxdb': {
+        name: 'InfluxDB', emoji: '📊', category: 'infra', description: 'Time-series database for sensor data',
+        cpu: 0.5, ram: 1024, disk: 10000, ports: ['8086:8086'], restart: 'unless-stopped',
+        backups: false, risk: 'low',
+        security: { latest: false, user: true, healthcheck: false, exposed: '' },
+        deps: [], alternatives: ['prometheus']
+    },
+    'minio': {
+        name: 'MinIO', emoji: '🪣', category: 'infra', description: 'S3-compatible object storage',
+        cpu: 0.5, ram: 1024, disk: 100000, ports: ['9000:9000'], restart: 'unless-stopped',
+        backups: false, risk: 'medium',
+        security: { latest: false, user: true, healthcheck: true, exposed: '9000' },
+        deps: [], alternatives: ['truenas', 'synology']
+    },
+    'authelia': {
+        name: 'Authelia', emoji: '🔑', category: 'security', description: 'Single sign-on & 2FA portal',
+        cpu: 0.3, ram: 256, disk: 200, ports: ['9090:9090'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Save /config directory', risk: 'medium',
+        security: { latest: false, user: true, healthcheck: true, exposed: '' },
+        deps: [], alternatives: [' Authentik']
+    },
+    'authentik': {
+        name: 'Authentik', emoji: '🔑', category: 'security', description: 'Identity provider & SSO',
+        cpu: 1.0, ram: 2048, disk: 2000, ports: ['9000:9000'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Save /data directory', risk: 'medium',
+        security: { latest: false, user: true, healthcheck: false, exposed: '' },
+        deps: ['postgres'], alternatives: ['authelia']
+    },
+    'mailcow': {
+        name: 'Mailcow', emoji: '📧', category: 'security', description: 'All-in-one mail server with SOGo webmail',
+        cpu: 2.0, ram: 4096, disk: 10000, ports: ['80:80', '443:443'], restart: 'unless-stopped',
+        backups: true, backupNote: 'Critical: /vmail + /mysql + SOGo data', risk: 'high',
+        security: { latest: false, user: false, healthcheck: false, exposed: '25,80,443' },
+        deps: [], alternatives: []
+    },
+    'db': {
+        name: 'Database', emoji: '💾', category: 'infra', description: 'Generic database service',
+        cpu: 0.5, ram: 512, disk: 2000, ports: [], restart: 'unless-stopped',
+        backups: true, backupNote: 'Critical: database files', risk: 'critical',
+        security: { latest: false, user: true, healthcheck: false, exposed: '' },
+        deps: [], alternatives: []
+    },
+    'app': {
+        name: 'Application', emoji: '🚀', category: 'infra', description: 'Generic application service',
+        cpu: 0.5, ram: 512, disk: 500, ports: [], restart: 'unless-stopped',
+        backups: false, risk: 'medium',
+        security: { latest: false, user: true, healthcheck: false, exposed: '' },
+        deps: [], alternatives: []
+    },
+    'web': {
+        name: 'Web App', emoji: '🌍', category: 'infra', description: 'Generic web application',
+        cpu: 0.5, ram: 512, disk: 500, ports: [], restart: 'unless-stopped',
+        backups: false, risk: 'medium',
+        security: { latest: false, user: true, healthcheck: false, exposed: '' },
+        deps: [], alternatives: []
+    },
+    'api': {
+        name: 'API Service', emoji: '🔌', category: 'infra', description: 'Generic API backend',
+        cpu: 0.5, ram: 512, disk: 500, ports: [], restart: 'unless-stopped',
+        backups: false, risk: 'medium',
+        security: { latest: false, user: true, healthcheck: false, exposed: '' },
+        deps: [], alternatives: []
+    }
+};
+
+// ─── State ────────────────────────────────────────────────────────────────────
+let services = []; // [{ id, name, image, description, cpu, ram, disk, ports, deps, restart, dbEntry }]
+let activeCategory = 'all';
+let activeSearch = '';
+
+// ─── YAML Parser ──────────────────────────────────────────────────────────────
+function parseDockerCompose(yaml) {
+    const services_out = [];
+
+    // Simple line-by-line parser for docker-compose format
+    const lines = yaml.split('\n');
+    let currentService = null;
+    let indent = 0;
+    let inServices = false;
+    let serviceIndent = 0;
+
+    for (let i = 0; i < lines.length; i++) {
+        let line = lines[i];
+        // Strip comments
+        const commentIdx = line.indexOf('#');
+        if (commentIdx >= 0) line = line.substring(0, commentIdx);
+        line = line.replace(/\t/g, '  ');
+        const lineIndent = line.search(/\S/);
+        if (lineIndent < 0) continue;
+
+        const content = line.trim();
+
+        // Detect services: block
+        if (content === 'services:' || content === 'services') {
+            inServices = true;
+            continue;
+        }
+
+        // Detect top-level version: or other top-level keys
+        if (!inServices && lineIndent === 0 && content.includes(':')) {
+            continue;
+        }
+
+        // Top-level key inside services
+        if (inServices && lineIndent === 2 && content.endsWith(':') && !content.startsWith('#')) {
+            const svcName = content.replace(':', '').trim();
+            currentService = { name: svcName, image: '', ports: [], volumes: [], deps: [], restart: '', ports_str: '' };
+            serviceIndent = 2;
+            services_out.push(currentService);
+        }
+
+        if (currentService && lineIndent > serviceIndent) {
+            if (content.startsWith('image:')) {
+                currentService.image = content.replace('image:', '').trim().replace(/['"]/g, '');
+            } else if (content.startsWith('ports:')) {
+                // Multi-line port list
+                for (let j = i + 1; j < lines.length; j++) {
+                    let pLine = lines[j].trim();
+                    const pIndent = lines[j].search(/\S/);
+                    if (pIndent <= lineIndent) break;
+                    if (pLine.startsWith('-')) {
+                        const p = pLine.replace(/^-\s*/, '').replace(/['"]/g, '');
+                        currentService.ports.push(p);
+                        if (currentService.ports_str) currentService.ports_str += ', ' + p;
+                        else currentService.ports_str = p;
+                    }
+                }
+            } else if (content.startsWith('depends_on:')) {
+                // Multi-line depends_on list
+                for (let j = i + 1; j < lines.length; j++) {
+                    let dLine = lines[j].trim();
+                    const dIndent = lines[j].search(/\S/);
+                    if (dIndent <= lineIndent) break;
+                    if (dLine.startsWith('-')) {
+                        currentService.deps.push(dLine.replace(/^-\s*/, '').replace(/['"]/g, '').replace(/-/g, '_'));
+                    }
+                }
+            } else if (content.startsWith('restart:')) {
+                currentService.restart = content.replace('restart:', '').trim().replace(/['"]/g, '');
+            } else if (content.startsWith('volumes:')) {
+                for (let j = i + 1; j < lines.length; j++) {
+                    let vLine = lines[j].trim();
+                    const vIndent = lines[j].search(/\S/);
+                    if (vIndent <= lineIndent) break;
+                    if (vLine.startsWith('-')) {
+                        currentService.volumes.push(vLine.replace(/^-\s*/, '').replace(/['"]/g, ''));
+                    }
+                }
+            }
+        }
+    }
+
+    return services_out;
+}
+
+// ─── Match image to DB ────────────────────────────────────────────────────────
+function matchService(image) {
+    if (!image) return null;
+    const img = image.toLowerCase().replace(/:.*$/, '').replace(/\//g, '_').replace(/-/g, '_');
+    // Try exact match first
+    if (SERVICE_DB[img]) return SERVICE_DB[img];
+    // Try without org prefix (e.g. linuxserver/plex → plex)
+    const parts = img.split('_');
+    for (let i = 1; i < parts.length; i++) {
+        const short = parts.slice(i).join('_');
+        if (SERVICE_DB[short]) return SERVICE_DB[short];
+    }
+    // Fuzzy match on partial keys
+    const keys = Object.keys(SERVICE_DB);
+    for (const k of keys) {
+        if (img.includes(k) || k.includes(img)) return SERVICE_DB[k];
+    }
+    return null;
+}
+
+// ─── Main Analyze ─────────────────────────────────────────────────────────────
+function analyzeDocker() {
+    const input = document.getElementById('docker-input').value.trim();
+    if (!input) { showToast('Paste a docker-compose.yml first'); return; }
+
+    let parsed;
+    try {
+        parsed = parseDockerCompose(input);
+    } catch(e) {
+        showToast('Could not parse YAML. Try the builder tab instead.');
+        return;
+    }
+
+    if (parsed.length === 0) { showToast('No services found in the compose file.'); return; }
+
+    services = [];
+    let idCounter = 0;
+
+    for (const p of parsed) {
+        const dbEntry = matchService(p.image);
+        const service = {
+            id: ++idCounter,
+            name: p.name,
+            image: p.image || 'custom',
+            description: dbEntry ? dbEntry.description : (p.image || 'Unknown service'),
+            emoji: dbEntry ? dbEntry.emoji : '⚙️',
+            cpu: dbEntry ? dbEntry.cpu : 0.5,
+            ram: dbEntry ? dbEntry.ram : 512,
+            disk: dbEntry ? dbEntry.disk : 500,
+            ports: p.ports,
+            ports_str: p.ports_str || '',
+            deps: p.deps,
+            restart: p.restart,
+            restartPolicy: dbEntry ? dbEntry.restart : '',
+            dbEntry: dbEntry,
+            custom: !dbEntry
+        };
+        services.push(service);
+    }
+
+    renderDashboard();
+    showToast(`Loaded ${services.length} service${services.length > 1 ? 's' : ''}`);
+}
+
+// ─── Service Management ───────────────────────────────────────────────────────
+function addServiceByKey(key) {
+    const db = SERVICE_DB[key];
+    if (!db) return;
+    if (services.find(s => s.name === key)) { showToast(`${db.name} already added`); return; }
+    services.push({
+        id: Date.now(),
+        name: key,
+        image: key,
+        description: db.description,
+        emoji: db.emoji,
+        cpu: db.cpu, ram: db.ram, disk: db.disk,
+        ports: db.ports || [],
+        ports_str: (db.ports || []).join(', '),
+        deps: [], restart: db.restart || '', restartPolicy: db.restart || '',
+        dbEntry: db, custom: false
+    });
+    renderDashboard();
+}
+
+function removeService(id) {
+    services = services.filter(s => s.id !== id);
+    renderDashboard();
+}
+
+function addCustomService() {
+    const name = document.getElementById('custom-name').value.trim();
+    const image = document.getElementById('custom-image').value.trim();
+    const desc = document.getElementById('custom-desc').value.trim();
+    const cpu = parseFloat(document.getElementById('custom-cpu').value) || 0.5;
+    const ram = parseInt(document.getElementById('custom-ram').value) || 512;
+    const disk = parseInt(document.getElementById('custom-disk').value) || 500;
+    const portsStr = document.getElementById('custom-ports').value.trim();
+    const depsStr = document.getElementById('custom-deps').value.trim();
+
+    if (!name) { showToast('Service name is required'); return; }
+
+    const ports = portsStr ? portsStr.split(',').map(p => p.trim()) : [];
+    const deps = depsStr ? depsStr.split(',').map(d => d.trim().replace(/\s+/g, '_')) : [];
+
+    services.push({
+        id: Date.now(),
+        name: name.replace(/\s+/g, '_'),
+        image: image || name,
+        description: desc || 'Custom service',
+        emoji: '⚙️',
+        cpu, ram, disk,
+        ports, ports_str: portsStr,
+        deps, restart: '', restartPolicy: '',
+        dbEntry: null, custom: true
+    });
+
+    // Clear inputs
+    ['custom-name','custom-image','custom-desc','custom-cpu','custom-ram','custom-disk','custom-ports','custom-deps'].forEach(id => document.getElementById(id).value = '');
+
+    renderDashboard();
+}
+
+// ─── Security Analysis ────────────────────────────────────────────────────────
+function analyzeSecurity() {
+    const issues = [];
+
+    for (const svc of services) {
+        const db = svc.dbEntry;
+        const ports = svc.ports.join(',') + svc.ports_str;
+        const hasRestart = svc.restart && svc.restart !== 'no';
+        const hasUser = !db || db.security.user;
+        const hasHealthcheck = !db || db.security.healthcheck;
+
+        // Latest tag
+        if (svc.image && svc.image.includes(':latest')) {
+            issues.push({ svc: svc.name, level: 'high', msg: 'Uses `:latest` tag — builds become unreproducible. Pin to a specific version (e.g. `:1.2.3`).' });
+        }
+
+        // Exposed ports
+        const exposed = ports.split(',').filter(p => {
+            const port = parseInt(p.replace(/.*:/, '').replace(/\/.*$/, ''));
+            return port && port < 10000 && !['80','443'].includes(String(port));
+        });
+        if (exposed.length > 0 && !svc.restart) {
+            issues.push({ svc: svc.name, level: 'medium', msg: `Exposed ports (${exposed.join(',')}) with no restart policy. Add `restart: unless-stopped` to keep it running.` });
+        } else if (exposed.length > 0) {
+            issues.push({ svc: svc.name, level: 'low', msg: `Exposed ports (${exposed.join(',')}). Make sure access is intentionally allowed through your firewall.` });
+        }
+
+        // No restart policy
+        if (!hasRestart && !svc.custom) {
+            issues.push({ svc: svc.name, level: 'medium', msg: 'No restart policy. Add `restart: unless-stopped` so it recovers after a reboot.' });
+        }
+
+        // Database without exposed ports
+        if (db && db.risk === 'critical' && !svc.restart) {
+            issues.push({ svc: svc.name, level: 'high', msg: 'Critical service (database) needs a restart policy to prevent data loss after crashes.' });
+        }
+    }
+
+    return issues;
+}
+
+// ─── SPOF Detection ───────────────────────────────────────────────────────────
+function detectSPOF() {
+    const spofs = [];
+
+    for (const svc of services) {
+        const hasBackup = svc.dbEntry && svc.dbEntry.backups;
+        const hasRestart = svc.restart && svc.restart !== 'no';
+        const isCritical = svc.dbEntry && svc.dbEntry.risk === 'critical';
+
+        // Service with no restart and no backup = SPOF
+        if (!hasRestart && !hasBackup && !svc.custom) {
+            spofs.push({ svc: svc.name, reason: 'No restart policy and no backup plan — if it crashes, data is lost.' });
+        }
+
+        // Critical service (database) without restart
+        if (isCritical && !hasRestart) {
+            spofs.push({ svc: svc.name, reason: 'Database without restart policy — will stay down after a crash without manual intervention.' });
+        }
+
+        // Services that others depend on, but have no restart/backup
+        const dependents = services.filter(s => s.deps.includes(svc.name));
+        if (dependents.length > 1 && !hasRestart) {
+            spofs.push({ svc: svc.name, reason: `${dependents.length} services depend on this, but there's no restart policy. A crash takes down ${dependents.length} other services.` });
+        }
+    }
+
+    return spofs;
+}
+
+// ─── Backup Recommendations ───────────────────────────────────────────────────
+function generateBackupPlan() {
+    const items = [];
+    const backedUp = new Set();
+    const needsBackup = new Set();
+
+    for (const svc of services) {
+        if (svc.dbEntry && svc.dbEntry.backups) {
+            needsBackup.add(svc.name);
+            items.push({
+                svc: svc.name,
+                emoji: svc.emoji,
+                priority: svc.dbEntry.risk === 'critical' ? 'critical' : 'important',
+                note: svc.dbEntry.backupNote || 'Save the service data directory',
+                strategy: svc.dbEntry.risk === 'critical'
+                    ? 'Daily snapshots + off-site backup (e.g. Duplicati, Restic, Borg)'
+                    : 'Weekly backups to local NAS or external drive'
+            });
+            backedUp.add(svc.name);
+        }
+    }
+
+    if (items.length === 0) {
+        items.push({ svc: 'No services detected', emoji: '⚠️', priority: 'low', note: 'Add services with data that matters — databases, file storage, config dirs', strategy: 'None needed yet' });
+    }
+
+    // Warn about non-backed-up services that should probably be backed up
+    for (const svc of services) {
+        if (!backedUp.has(svc.name) && svc.dbEntry && svc.dbEntry.risk !== 'low') {
+            items.push({
+                svc: svc.name,
+                emoji: svc.emoji,
+                priority: 'suggested',
+                note: `${svc.name} has non-trivial data but no backup noted in our database. Verify if its data is worth backing up.`,
+                strategy: 'Check the service docs for its data directory'
+            });
+        }
+    }
+
+    return items;
+}
+
+// ─── Render Dashboard ─────────────────────────────────────────────────────────
+function renderDashboard() {
+    const summaryBar = document.getElementById('summary-bar');
+    const emptyState = document.getElementById('empty-state');
+    const content = document.getElementById('dashboard-content');
+
+    if (services.length === 0) {
+        summaryBar.classList.add('hidden');
+        emptyState.classList.remove('hidden');
+        content.classList.add('hidden');
+        return;
+    }
+
+    summaryBar.classList.remove('hidden');
+    emptyState.classList.add('hidden');
+    content.classList.remove('hidden');
+
+    // Stats
+    const totalCpu = services.reduce((s, x) => s + (x.cpu || 0), 0);
+    const totalRam = services.reduce((s, x) => s + (x.ram || 0), 0);
+    const issues = analyzeSecurity();
+    const spofs = detectSPOF();
+
+    document.getElementById('stat-services').textContent = services.length;
+    document.getElementById('stat-cpu').textContent = totalCpu >= 1 ? `${totalCpu.toFixed(1)}` : `<${totalCpu.toFixed(1)}`;
+    document.getElementById('stat-ram').textContent = totalRam >= 1024 ? `${(totalRam / 1024).toFixed(1)} GB` : `${totalRam} MB`;
+    document.getElementById('stat-issues').textContent = issues.length;
+
+    // Issues
+    const issuesPanel = document.getElementById('issues-panel');
+    if (issues.length > 0) {
+        const byLevel = { critical: [], high: [], medium: [], low: [] };
+        issues.forEach(i => byLevel[i.level].push(i));
+
+        let html = `<div class="space-y-2">`;
+        const levelOrder = ['critical', 'high', 'medium', 'low'];
+        for (const level of levelOrder) {
+            if (!byLevel[level].length) continue;
+            html += `<div class="flex items-center gap-2 mb-1"><span class="badge-${level} text-white text-xs font-bold px-2 py-0.5 rounded uppercase">${level}</span><span class="text-xs text-zinc-400">${byLevel[level].length} issue${byLevel[level].length > 1 ? 's' : ''}</span></div>`;
+            for (const issue of byLevel[level]) {
+                html += `<div class="risk-${level} rounded-lg p-3 flex items-start gap-3">
+                    <span class="text-base mt-0.5">${getLevelEmoji(level)}</span>
+                    <div><span class="font-semibold text-sm text-zinc-200">${issue.svc}</span>: <span class="text-sm text-zinc-300">${issue.msg}</span></div>
+                </div>`;
+            }
+        }
+        html += `</div>`;
+        issuesPanel.innerHTML = html;
+    } else {
+        issuesPanel.innerHTML = `<div class="bg-zinc-900 border border-green-900 rounded-xl p-4 flex items-center gap-3">
+            <span class="text-green-400 text-xl">✅</span>
+            <span class="text-sm text-zinc-300">No security issues detected. Looking good!</span>
+        </div>`;
+    }
+
+    // SPOF
+    const spofPanel = document.getElementById('spof-panel');
+    if (spofs.length > 0) {
+        let html = `<div class="bg-purple-950 border border-purple-800 rounded-xl p-4">
+            <div class="flex items-center gap-2 mb-2">
+                <span class="spof-badge text-white text-xs font-bold px-2 py-0.5 rounded uppercase">SPOF</span>
+                <span class="text-xs text-purple-300">Single Points of Failure</span>
+            </div>`;
+        for (const spof of spofs) {
+            html += `<div class="bg-purple-900/30 rounded-lg p-3 mb-2 flex items-start gap-3">
+                <span class="text-purple-400 text-lg mt-0.5">⚠️</span>
+                <div><span class="font-semibold text-sm text-zinc-200">${spof.svc}</span>: <span class="text-sm text-zinc-300">${spof.reason}</span></div>
+            </div>`;
+        }
+        html += `</div>`;
+        spofPanel.innerHTML = html;
+    } else {
+        spofPanel.innerHTML = `<div class="bg-zinc-900 border border-zinc-800 rounded-xl p-4 flex items-center gap-3">
+            <span class="text-green-400 text-xl">✅</span>
+            <span class="text-sm text-zinc-300">No single points of failure detected.</span>
+        </div>`;
+    }
+
+    // Service Cards
+    const cardsEl = document.getElementById('service-cards');
+    cardsEl.innerHTML = services.map(svc => {
+        const db = svc.dbEntry;
+        const riskLevel = db ? db.risk : (svc.custom ? 'low' : 'medium');
+        const riskColors = { critical: 'border-red-800 bg-red-950/40', high: 'border-orange-800 bg-orange-950/40', medium: 'border-yellow-800 bg-yellow-950/40', low: 'border-zinc-700 bg-zinc-900' };
+        const hasDeps = svc.deps && svc.deps.length > 0;
+
+        return `<div class="service-card ${riskColors[riskLevel]} border rounded-xl p-4 relative">
+            <div class="flex items-start justify-between mb-2">
+                <div class="flex items-center gap-2">
+                    <span class="text-2xl">${svc.emoji}</span>
+                    <div>
+                        <div class="font-bold text-zinc-100">${svc.name}</div>
+                        <div class="text-xs text-zinc-500 mono">${svc.image}</div>
+                    </div>
+                </div>
+                <div class="flex gap-1">
+                    ${hasDeps ? `<span class="text-xs bg-blue-900 text-blue-200 px-1.5 py-0.5 rounded" title="Has dependencies">🔗</span>` : ''}
+                    ${svc.dbEntry && svc.dbEntry.backups ? `<span class="text-xs bg-green-900 text-green-200 px-1.5 py-0.5 rounded" title="Has backup recommendation">💾</span>` : ''}
+                    <button onclick="removeService(${svc.id})" class="text-zinc-600 hover:text-red-400 text-sm ml-1 transition" title="Remove">×</button>
+                </div>
+            </div>
+            <div class="text-xs text-zinc-400 mb-3">${svc.description}</div>
+            <div class="grid grid-cols-3 gap-2 text-center mb-3">
+                <div class="bg-zinc-800/50 rounded-lg p-2">
+                    <div class="text-sm font-bold text-blue-400">${svc.cpu || '?'}</div>
+                    <div class="text-xs text-zinc-500">CPU</div>
+                </div>
+                <div class="bg-zinc-800/50 rounded-lg p-2">
+                    <div class="text-sm font-bold text-purple-400">${svc.ram >= 1024 ? (svc.ram/1024).toFixed(0)+'G' : svc.ram+'M'}</div>
+                    <div class="text-xs text-zinc-500">RAM</div>
+                </div>
+                <div class="bg-zinc-800/50 rounded-lg p-2">
+                    <div class="text-sm font-bold text-zinc-300">${svc.disk >= 1024 ? (svc.disk/1024).toFixed(0)+'G' : svc.disk+'M'}</div>
+                    <div class="text-xs text-zinc-500">Disk</div>
+                </div>
+            </div>
+            ${svc.ports_str ? `<div class="text-xs text-zinc-500 mono mb-1"><span class="text-zinc-600">ports:</span> ${svc.ports_str}</div>` : ''}
+            ${hasDeps ? `<div class="text-xs text-zinc-500"><span class="text-zinc-600">depends on:</span> ${svc.deps.join(', ')}</div>` : ''}
+            ${svc.restart ? `<div class="text-xs text-zinc-500"><span class="text-zinc-600">restart:</span> ${svc.restart}</div>` : ''}
+        </div>`;
+    }).join('');
+
+    // Dependency Map
+    const depMap = document.getElementById('dep-map');
+    if (services.length <= 20) {
+        depMap.innerHTML = services.map(svc => {
+            const dependsOn = svc.deps.filter(d => services.find(s => s.name === d));
+            const dependedBy = services.filter(s => s.deps && s.deps.includes(svc.name));
+            return `<div class="bg-zinc-900 border border-zinc-800 rounded-xl p-3 text-center min-w-[120px] max-w-[160px]">
+                <div class="text-2xl mb-1">${svc.emoji}</div>
+                <div class="text-xs font-semibold text-zinc-200">${svc.name}</div>
+                ${dependsOn.length > 0 ? `<div class="text-xs text-blue-400 mt-1">↖ ${dependsOn.join(', ')}</div>` : ''}
+                ${dependedBy.length > 0 ? `<div class="text-xs text-green-400 mt-1">↙ ${dependedBy.map(s => s.name).join(', ')}</div>` : ''}
+                ${dependsOn.length === 0 && dependedBy.length === 0 ? `<div class="text-xs text-zinc-600 mt-1">standalone</div>` : ''}
+            </div>`;
+        }).join('');
+    } else {
+        depMap.innerHTML = `<div class="text-sm text-zinc-500 py-4">Too many services to render map cleanly. Use the Mermaid export for a full diagram.</div>`;
+    }
+
+    // Backup Plan
+    const backupPanel = document.getElementById('backup-panel');
+    const backupItems = generateBackupPlan();
+    backupPanel.innerHTML = backupItems.map(item => {
+        const colors = { critical: 'border-red-800 bg-red-950/30', important: 'border-yellow-800 bg-yellow-950/30', suggested: 'border-zinc-700 bg-zinc-900', low: 'border-zinc-700 bg-zinc-900' };
+        const labels = { critical: '🔴 Critical', important: '🟡 Important', suggested: '🔵 Suggested', low: '⚪ Optional' };
+        return `<div class="${colors[item.priority]} border rounded-lg p-3 flex items-start gap-3">
+            <div class="flex-1">
+                <div class="flex items-center gap-2 mb-1">
+                    ${labels[item.priority]}
+                    <span class="text-sm font-semibold text-zinc-200">${item.svc}</span>
+                    <span class="text-lg">${item.emoji}</span>
+                </div>
+                <div class="text-xs text-zinc-400 mb-1">${item.note}</div>
+                <div class="text-xs text-zinc-500">→ ${item.strategy}</div>
+            </div>
+        </div>`;
+    }).join('');
+
+    // Update quick-add pills
+    renderQuickAdd();
+}
+
+function getLevelEmoji(level) {
+    return { critical: '🔴', high: '🟠', medium: '🟡', low: '🟢' }[level] || '⚪';
+}
+
+// ─── Quick Add ────────────────────────────────────────────────────────────────
+const QUICK_ADD = ['nginx', 'postgres', 'pihole', 'portainer', 'homeassistant', 'plex', 'wireguard', 'vaultwarden', 'prometheus', 'grafana', 'nextcloud', 'jellyfin', 'gitea'];
+
+function renderQuickAdd() {
+    const el = document.getElementById('quick-add-pills');
+    el.innerHTML = QUICK_ADD.filter(key => {
+        const db = SERVICE_DB[key];
+        return db && !services.find(s => s.name === key);
+    }).map(key => {
+        const db = SERVICE_DB[key];
+        return `<button onclick="addServiceByKey('${key}')" class="text-xs px-3 py-1.5 bg-zinc-800 hover:bg-zinc-700 rounded-full border border-zinc-700 transition flex items-center gap-1.5">
+            <span>${db.emoji}</span> ${db.name}
+        </button>`;
+    }).join('');
+}
+
+// ─── Service List (Builder Tab) ──────────────────────────────────────────────
+function renderServiceList() {
+    const list = document.getElementById('service-list');
+    const search = activeSearch.toLowerCase();
+    const cats = ['infra', 'media', 'automation', 'security', 'network'];
+
+    const filtered = Object.entries(SERVICE_DB).filter(([key, db]) => {
+        const matchSearch = !search || key.includes(search) || db.name.toLowerCase().includes(search) || db.description.toLowerCase().includes(search);
+        const matchCat = activeCategory === 'all' || db.category === activeCategory;
+        const alreadyAdded = services.find(s => s.name === key);
+        return matchSearch && matchCat && !alreadyAdded;
+    });
+
+    if (filtered.length === 0) {
+        list.innerHTML = `<div class="text-center py-8 text-zinc-500 text-sm">No services found. Try a different search or add a custom service below.</div>`;
+        return;
+    }
+
+    // Group by category
+    const grouped = {};
+    for (const [key, db] of filtered) {
+        if (!grouped[db.category]) grouped[db.category] = [];
+        grouped[db.category].push([key, db]);
+    }
+
+    const catNames = { infra: '⚙️ Infrastructure', media: '🎬 Media', automation: '🤖 Automation', security: '🔒 Security', network: '🌐 Network' };
+    const catOrder = ['infra', 'network', 'security', 'media', 'automation'];
+
+    let html = '';
+    for (const cat of catOrder) {
+        if (!grouped[cat]) continue;
+        html += `<div class="text-xs text-zinc-500 uppercase tracking-wider mt-3 mb-1 first:mt-0">${catNames[cat] || cat}</div>`;
+        for (const [key, db] of grouped[cat]) {
+            html += `<div class="service-picker-item flex items-center gap-3 p-2 rounded-lg cursor-pointer transition" onclick="addServiceByKey('${key}')">
+                <span class="text-xl">${db.emoji}</span>
+                <div class="flex-1">
+                    <div class="text-sm font-medium text-zinc-200">${db.name}</div>
+                    <div class="text-xs text-zinc-500">${db.description}</div>
+                </div>
+                <div class="text-xs text-zinc-600 mono hidden sm:block">${key.substring(0, 18)}</div>
+            </div>`;
+        }
+    }
+    list.innerHTML = html;
+}
+
+function filterServices() {
+    activeSearch = document.getElementById('service-search').value.trim();
+    renderServiceList();
+}
+
+function filterByCategory(cat) {
+    activeCategory = cat;
+    document.querySelectorAll('.cat-btn').forEach(btn => {
+        btn.className = `cat-btn text-xs px-2 py-1 rounded ${cat === btn.textContent.toLowerCase() || (cat === 'all' && btn.textContent === 'All') ? 'bg-blue-600 text-white' : 'bg-zinc-700 text-zinc-300'}`;
+    });
+    renderServiceList();
+}
+
+// ─── Tabs ────────────────────────────────────────────────────────────────────
+function switchTab(tab) {
+    ['import', 'builder'].forEach(t => {
+        document.getElementById(`tab-${t}`).classList.toggle('tab-active', t === tab);
+        document.getElementById(`tab-${t}`).classList.toggle('text-zinc-500', t !== tab);
+        document.getElementById(`panel-${t}`).classList.toggle('hidden', t !== tab);
+    });
+    if (tab === 'builder') renderServiceList();
+}
+
+// ─── Demo ────────────────────────────────────────────────────────────────────
+const DEMO_YAML = `version: '3.8'
+services:
+  nginx:
+    image: nginx:latest
+    ports:
+      - '80:80'
+      - '443:443'
+    restart: unless-stopped
+
+  api:
+    image: myapp/api:latest
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
+  worker:
+    image: myapp/worker:latest
+    depends_on:
+      - db
+      - redis
+    restart: unless-stopped
+
+  db:
+    image: postgres:15
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    restart: unless-stopped
+
+  redis:
+    image: redis:alpine
+    restart: unless-stopped
+
+  prometheus:
+    image: prom/prometheus:latest
+    ports:
+      - '9090:9090'
+    depends_on:
+      - api
+    restart: unless-stopped
+
+  grafana:
+    image: grafana/grafana:latest
+    ports:
+      - '3000:3000'
+    depends_on:
+      - prometheus
+    restart: unless-stopped`;
+
+function loadDemo() {
+    document.getElementById('docker-input').value = DEMO_YAML;
+    switchTab('import');
+    analyzeDocker();
+}
+
+// ─── Save/Load ────────────────────────────────────────────────────────────────
+function saveProject() {
+    if (services.length === 0) { showToast('Nothing to save'); return; }
+    const data = JSON.stringify({ services, version: 1, savedAt: new Date().toISOString() }, null, 2);
+    const blob = new Blob([data], { type: 'application/json' });
+    const a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = `homelab-plan-${Date.now()}.json`;
+    a.click();
+    showToast('Plan saved!');
+}
+
+function loadProject() {
+    document.getElementById('file-input').click();
+}
+
+function handleFileLoad(event) {
+    const file = event.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+        try {
+            const data = JSON.parse(e.target.result);
+            if (data.services) {
+                services = data.services;
+                renderDashboard();
+                showToast(`Loaded ${services.length} services`);
+            }
+        } catch(err) {
+            showToast('Invalid file format');
+        }
+    };
+    reader.readAsText(file);
+    event.target.value = '';
+}
+
+function clearAll() {
+    if (services.length > 0 && !confirm('Clear all services?')) return;
+    services = [];
+    document.getElementById('docker-input').value = '';
+    renderDashboard();
+}
+
+// ─── Export ──────────────────────────────────────────────────────────────────
+function exportJSON() {
+    saveProject();
+}
+
+function exportMermaid() {
+    if (services.length === 0) { showToast('No services to export'); return; }
+
+    let diagram = 'graph LR\n';
+    diagram += '    subgraph homelab["🏠 My Homelab"]\n';
+
+    for (const svc of services) {
+        const label = `${svc.emoji} ${svc.name}`;
+        diagram += `        ${sanitize(svc.name)}((${label}))\n`;
+    }
+    diagram += '    end\n\n';
+
+    const drawnDeps = new Set();
+    for (const svc of services) {
+        if (!svc.deps) continue;
+        for (const dep of svc.deps) {
+            const key = `${dep}->${svc.name}`;
+            const rev = `${svc.name}->${dep}`;
+            if (drawnDeps.has(key) || drawnDeps.has(rev)) continue;
+            drawnDeps.add(key);
+            diagram += `    ${sanitize(dep)} --> ${sanitize(svc.name)}\n`;
+        }
+    }
+
+    document.getElementById('mermaid-code').textContent = diagram;
+    document.getElementById('mermaid-output').classList.remove('hidden');
+}
+
+function sanitize(str) {
+    return str.replace(/[^a-zA-Z0-9_]/g, '_');
+}
+
+function copyMermaid() {
+    const code = document.getElementById('mermaid-code').textContent;
+    navigator.clipboard.writeText(code).then(() => showToast('Copied!')).catch(() => showToast('Copy failed — select and copy manually'));
+}
+
+// ─── Toast ───────────────────────────────────────────────────────────────────
+function showToast(msg) {
+    const existing = document.querySelector('.toast');
+    if (existing) existing.remove();
+    const el = document.createElement('div');
+    el.className = 'toast';
+    el.textContent = msg;
+    document.body.appendChild(el);
+    setTimeout(() => el.remove(), 3000);
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+renderQuickAdd();
+</script>
+</body>
+</html>

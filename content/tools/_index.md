@@ -215,7 +215,13 @@ Five production-tested scripts I run daily. All MIT licensed. Grab the whole pac
 <a href="/tools/prism-engine.html" class="tool-card">
 <div class="name">Prism Engine</div>
 <p class="desc">Paste a Docker Compose or K8s config. See your infrastructure rendered as a 3D topology. Click nodes to see risk analysis. Demo loads on open.</p>
-<span class="tag">3D · infrastructure · new</span>
+<span class="tag">3D · infrastructure</span>
+</a>
+
+<a href="/tools/homelab-architect.html" class="tool-card">
+<div class="name">Homelab Architect</div>
+<p class="desc">Plan your homelab before you build it. Paste a docker-compose.yml or use the service picker. Get a resource dashboard, security audit, dependency map, SPOF detection, and backup plan.</p>
+<span class="tag">homelab · new</span>
 </a>
 
 
