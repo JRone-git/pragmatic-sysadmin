@@ -5,7 +5,7 @@ author: Pragmatic Sysadmin
 description: "Self-hosting costs money, time, and sanity. Here's the real math — what it actually costs, when it breaks even, and when you should just pay for the cloud service instead."
 draft: false
 tags: ["homelab", "self-hosted", "cost", "cloud", "linux", "honest-guide"]
-slug: self-hosting-isnt-free-honest-math-running-own-server
+slug: self-hosting-isnt-free-honest-cost-running-own-server
 topics: ["homelab", "self-hosted", "cost"]
 ---
 
