@@ -1,7 +1,8 @@
 ---
 title: "Terms of Service"
 date: 2026-09-11T20:55:00Z
-description: "Terms for using Pragmatic Sysadmin and its free guides, tools, newsletter, and recommendations."`nurl: "/terms/"
+description: "Terms for using Pragmatic Sysadmin and its free guides, tools, newsletter, and recommendations."
+url: "/terms/"
 ---
 
 # Terms of Service
