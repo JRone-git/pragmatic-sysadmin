@@ -1,0 +1,185 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>BlogForge Studio</title>
+  <link rel="stylesheet" href="/style.css">
+</head>
+<body>
+  <aside id="sidebar">
+    <div class="nav-tabs">
+      <button class="tab-btn active" onclick="switchSidebarTab('posts')">Posts (<span id="postCount">0</span>)</button>
+      <button class="tab-btn" onclick="switchSidebarTab('topics')">Ideas</button>
+      <button class="tab-btn" onclick="switchSidebarTab('schedule')">Schedule</button>
+    </div>
+    <div id="tabPosts" class="list-container">
+      <div id="postsList">Loading...</div>
+    </div>
+    <div id="tabTopics" class="list-container" style="display:none;">
+      <div style="padding: 8px 4px 12px;">
+        <button class="btn btn-secondary" style="width: 100%; font-size: 0.8rem;" onclick="loadTopics()">Refresh Gaps</button>
+      </div>
+      <div id="topicsList"></div>
+    </div>
+    <div id="tabSchedule" class="list-container" style="display:none;">
+      <div style="padding: 8px 4px 12px; display:flex; gap: 8px;">
+        <button class="btn btn-secondary" style="flex:1; font-size: 0.8rem;" onclick="openScheduleModal()">+ Job</button>
+        <button class="btn btn-secondary" style="font-size: 0.8rem;" id="toggleSchedBtn" onclick="toggleScheduler()">Daemon: Off</button>
+      </div>
+      <div id="scheduleList"></div>
+    </div>
+  </aside>
+  <main id="main">
+    <header>
+      <div class="brand"><span>⚡</span> BlogForge Studio</div>
+      <div class="git-badge" id="gitStatus">
+        <span id="gitBranch">Git: ...</span>
+        <button class="btn btn-secondary" style="padding: 4px 8px; font-size: 0.75rem;" onclick="openGitModal()">Commit & Push</button>
+      </div>
+      <div>
+        <button class="btn btn-primary" onclick="openGenerateModal()">+ New Post</button>
+      </div>
+    </header>
+    <div class="editor-layout">
+      <div class="editor-pane">
+        <div class="editor-header">
+          <span id="currentPostPath" style="font-family: var(--font-mono); font-size: 0.85rem; color: var(--text-muted);">No post selected</span>
+          <div style="display: flex; gap: 8px;">
+            <button class="btn btn-secondary" id="saveBtn" onclick="saveCurrentPost()" disabled>Save</button>
+            <button class="btn btn-secondary" id="reviewBtn" onclick="toggleReviewCurrentPost()" disabled>Reviewed</button>
+            <button class="btn btn-success" id="publishBtn" onclick="publishCurrentPost()" disabled>Publish</button>
+          </div>
+        </div>
+        <textarea id="postEditor" class="editor-textarea" placeholder="Select a post on the left or click '+ New Post'..." oninput="onEditorChange()"></textarea>
+      </div>
+      <div class="lint-pane">
+        <div class="score-card">
+          <div class="score-badge">
+            <span style="font-size: 0.9rem; font-weight: 600; color: var(--text-muted);">Style Match</span>
+  <!-- Generate Modal -->
+  <div class="modal-backdrop" id="generateModal">
+    <div class="modal-box">
+      <h2 class="modal-title">Draft a Post (Style-Matched)</h2>
+      <div class="form-group">
+        <label class="form-label">Topic / Title</label>
+        <input type="text" id="genTitle" class="form-input" placeholder="e.g. Setting up Prometheus alerts">
+      </div>
+      <div style="display: flex; gap: 12px;">
+        <div class="form-group" style="flex:1;">
+          <label class="form-label">Section</label>
+          <select id="genSection" class="form-select">
+            <option value="sysadmin">sysadmin</option>
+            <option value="senior-tech">senior-tech</option>
+            <option value="meta">meta</option>
+          </select>
+        </div>
+        <div class="form-group" style="flex:1;">
+          <label class="form-label">Provider</label>
+          <select id="genProvider" class="form-select">
+            <option value="auto">Auto (Local Ollama / Free)</option>
+            <option value="ollama">Ollama (Local)</option>
+            <option value="template">Template (Instant Outline)</option>
+            <option value="gemini">Gemini Free</option>
+            <option value="groq">Groq Free</option>
+            <option value="openrouter">OpenRouter Free</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Tags (comma-separated)</label>
+        <input type="text" id="genTags" class="form-input" placeholder="monitoring, linux, alerts">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Grounding Facts / Notes (optional)</label>
+        <textarea id="genFacts" class="form-textarea" rows="3" placeholder="Tested commands, versions, figures..."></textarea>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px;">
+  <!-- Git Modal -->
+  <div class="modal-backdrop" id="gitModal">
+    <div class="modal-box">
+      <h2 class="modal-title">Commit & Push to Remote</h2>
+      <div class="form-group">
+        <label class="form-label">Commit Message</label>
+        <input type="text" id="gitCommitMsg" class="form-input" value="Publish content updates via BlogForge Studio">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Changed / Untracked Files</label>
+        <pre id="gitDiffFiles" style="background:#0b0e14; padding:12px; border-radius:6px; font-family:var(--font-mono); font-size:0.8rem; max-height:160px; overflow-y:auto;"></pre>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px;">
+        <button class="btn btn-secondary" onclick="closeModal('gitModal')">Cancel</button>
+        <button class="btn btn-secondary" onclick="commitChanges()">Commit Only</button>
+        <button class="btn btn-primary" id="gitPushBtn" onclick="commitAndPush()">Commit & Push</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Schedule Modal -->
+  <div class="modal-backdrop" id="scheduleModal">
+    <div class="modal-box">
+      <h2 class="modal-title">Schedule Background Job</h2>
+      <div class="form-group">
+        <label class="form-label">Action</label>
+        <select id="schedAction" class="form-select" onchange="onSchedActionChange()">
+          <option value="generate">Generate Post Draft</option>
+          <option value="publish_due">Publish All Due & Reviewed Posts</option>
+        </select>
+      </div>
+      <div id="schedGenFields">
+        <div class="form-group">
+          <label class="form-label">Topic / Title</label>
+          <input type="text" id="schedTopic" class="form-input" placeholder="e.g. Weekly Homelab Diagnostic">
+        </div>
+        <div class="form-group">
+          <label class="form-label">Section</label>
+          <select id="schedSection" class="form-select">
+            <option value="sysadmin">sysadmin</option>
+            <option value="senior-tech">senior-tech</option>
+            <option value="meta">meta</option>
+          </select>
+        </div>
+      </div>
+      <div class="form-group">
+        <label class="form-label">Run At (YYYY-MM-DD HH:MM UTC)</label>
+        <input type="text" id="schedRunAt" class="form-input" placeholder="2026-09-26 10:00">
+      </div>
+      <div class="form-group">
+        <label class="form-label">Recurring</label>
+        <select id="schedRecurring" class="form-select">
+          <option value="">Once</option>
+          <option value="daily">Daily</option>
+          <option value="weekly">Weekly</option>
+        </select>
+      </div>
+      <div class="form-group" style="display: flex; align-items: center; gap: 8px;">
+        <input type="checkbox" id="schedAutoPush">
+        <label for="schedAutoPush" class="form-label" style="margin: 0; cursor: pointer;">Automatically push to Git remote on success</label>
+      </div>
+      <div style="display: flex; justify-content: flex-end; gap: 8px; margin-top: 20px;">
+        <button class="btn btn-secondary" onclick="closeModal('scheduleModal')">Cancel</button>
+        <button class="btn btn-primary" onclick="addScheduleJob()">Schedule</button>
+      </div>
+    </div>
+  </div>
+
+        <button class="btn btn-secondary" onclick="closeModal('generateModal')">Cancel</button>
+        <button class="btn btn-primary" id="startGenBtn" onclick="runGenerate()">Start Drafting</button>
+      </div>
+    </div>
+  </div>
+
+            <span id="lintScore" class="score-val score-high">--</span>
+          </div>
+          <p id="lintVerdict" style="font-size: 0.85rem; color: var(--text-muted);">Select or draft a post to inspect voice alignment.</p>
+        </div>
+        <h3 style="font-size: 0.9rem; font-weight: 700; margin-bottom: 12px; color: var(--text-muted); text-transform: uppercase;">Style Findings</h3>
+        <div id="lintFindings"><p style="font-size: 0.85rem; color: var(--text-muted);">No active findings.</p></div>
+      </div>
+    </div>
+  </main>
+  <!-- Modals placeholder -->
+  <div id="modalsMount"></div>
+  <script src="/app.js"></script>
+</body>
+</html>

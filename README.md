@@ -89,6 +89,21 @@ The generator outputs image prompts at `content/products/<id>-image-prompt.md`.
 Run them through your image generation tool of choice, save the result to
 `static/images/<cover_image>`, and the sales page will pick it up automatically.
 
+
+## ✍️ BlogForge (Blog Studio & Content Automation)
+
+The repository includes [BlogForge](docs/BLOGFORGE.md), a zero-dependency toolchain and web studio for style-calibrated drafting, live post linting, and scheduled content generation.
+
+Launch the local web studio:
+```bash
+python -m blogforge ui
+```
+Run validation suite:
+```bash
+python -m blogforge selftest
+```
+See [`docs/BLOGFORGE.md`](docs/BLOGFORGE.md) for full documentation.
+
 ## Adding a new language
 
 1. Add `[languages.<code>]` block to `hugo.toml`

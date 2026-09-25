@@ -1,0 +1,65 @@
+topics:
+  - id: ai-prompt-builder
+    title: What I learned building ai-prompt-builder
+    section: sysadmin
+    angle: Read static/tools/ai-prompt-builder.html and write the honest build log.
+    artifact: static/tools/ai-prompt-builder.html
+    status: idea
+    priority: 2
+    tags: "[]"
+  - id: battle-station-score
+    title: What I learned building battle-station-score
+    section: sysadmin
+    angle: Read static/tools/battle-station-score.html and write the honest build log.
+    artifact: static/tools/battle-station-score.html
+    status: idea
+    priority: 2
+    tags: "[]"
+  - id: cli-adventure
+    title: What I learned building cli-adventure
+    section: sysadmin
+    angle: Read static/tools/cli-adventure.html and write the honest build log.
+    artifact: static/tools/cli-adventure.html
+    status: idea
+    priority: 2
+    tags: "[]"
+  - id: command-simulator
+    title: What I learned building command-simulator
+    section: sysadmin
+    angle: Read static/tools/command-simulator.html and write the honest build log.
+    artifact: static/tools/command-simulator.html
+    status: idea
+    priority: 2
+    tags: "[]"
+  - id: corporate-translator
+    title: What I learned building corporate-translator
+    section: sysadmin
+    angle: Read static/tools/corporate-translator.html and write the honest build log.
+    artifact: static/tools/corporate-translator.html
+    status: idea
+    priority: 2
+    tags: "[]"
+  - id: password-checker
+    title: What I learned building password-checker
+    section: sysadmin
+    angle: Read static/tools/password-checker.html and write the honest build log.
+    artifact: static/tools/password-checker.html
+    status: idea
+    priority: 2
+    tags: "[]"
+  - id: pulse
+    title: What I learned building pulse
+    section: sysadmin
+    angle: Read static/tools/pulse.html and write the honest build log.
+    artifact: static/tools/pulse.html
+    status: idea
+    priority: 2
+    tags: "[]"
+  - id: script-generator
+    title: What I learned building script-generator
+    section: sysadmin
+    angle: Read static/tools/script-generator.html and write the honest build log.
+    artifact: static/tools/script-generator.html
+    status: idea
+    priority: 2
+    tags: "[]"
