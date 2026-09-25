@@ -1,0 +1,159 @@
+<!-- Tag and category pages: noindex to prevent SEO dilution from thin content -->
+{{- if or (eq .Kind "term") (eq .Kind "taxonomy") -}}
+<meta name="robots" content="noindex, follow">
+{{- end -}}
+
+<!-- Rakuten Automate starts here -->
+<script type="text/javascript">
+  var _rakuten_automate = {
+    u1: "",
+    snippetURL: "https://automate-frontend.linksynergy.com/minified_logic.js",
+    automateURL: "https://automate.linksynergy.com",
+    widgetKey: "7LPHGCV9BUkW9tlD8KQFcwkPMqUmzwsW",
+    aelJS: null,
+    useDefaultAEL: false,
+    loaded: false,
+    events: []
+  };
+  var ael=window.addEventListener;window.addEventListener=function(a,b,c,d){"click"!==a&&_rakuten_automate.useDefaultAEL?ael(a,b,c):_rakuten_automate.events.push({type:a,handler:b,capture:c,rakuten:d})};_rakuten_automate.links={};var httpRequest=new XMLHttpRequest;httpRequest.open("GET",_rakuten_automate.snippetURL,!0);httpRequest.timeout=5E3;httpRequest.ontimeout=function(){if(!_rakuten_automate.loaded){for(i=0;i<_rakuten_automate.events.length;i++){var a=_rakuten_automate.events[i];ael(a.type,a.handler,a.capture)}_rakuten_automate.useDefaultAEL=!0}};httpRequest.onreadystatechange=function(){httpRequest.readyState===XMLHttpRequest.DONE&&200===httpRequest.status&&(eval(httpRequest.responseText),_rakuten_automate.run(ael))};httpRequest.send(null);
+</script>
+<!-- Rakuten Automate ends here -->
+
+<!-- Google tag (gtag.js) -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=G-EKQ0LBDH9Z"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'G-EKQ0LBDH9Z');
+</script>
+
+{{/* Father's Day Card Popup — lazy-loaded via <template> tag.
+     The popup HTML lives inside a <template> element (parsed but not
+     rendered). The JS only clones it when the visitor's date is
+     Nov 1-16 (Finnish Father's Day season). For 11 months of the
+     year, the popup is never injected into the DOM. */}}
+<template id="fathersday-template">
+  <div id="fathersdayPopup" class="fathersdaypopup-overlay active">
+    <div class="fathersdaypopup-content">
+      <button class="fathersdaypopup-close" id="fathersdayClose">×</button>
+      <iframe class="fathersdaypopup-iframe" src="/isanpaiva.html"></iframe>
+    </div>
+  </div>
+</template>
+
+<style>
+.fathersdaypopup-overlay{display:none;position:fixed;top:0;left:0;width:100%;height:100%;background:rgba(0,0,0,0.8);z-index:9999;justify-content:center;align-items:center;animation:fadeIn 0.3s ease-in}
+.fathersdaypopup-overlay.active{display:flex}
+.fathersdaypopup-content{position:relative;width:90%;max-width:900px;height:90vh;max-height:600px;background:white;border-radius:20px;overflow:hidden;box-shadow:0 20px 60px rgba(0,0,0,0.5);animation:slideUp 0.4s ease-out}
+.fathersdaypopup-close{position:absolute;top:15px;right:15px;width:40px;height:40px;background:rgba(255,255,255,0.9);border:none;border-radius:50%;font-size:24px;font-weight:bold;color:#333;cursor:pointer;z-index:10;display:flex;align-items:center;justify-content:center;transition:all 0.3s ease;box-shadow:0 4px 12px rgba(0,0,0,0.2)}
+.fathersdaypopup-close:hover{background:#ff4444;color:white;transform:rotate(90deg)}
+.fathersdaypopup-iframe{width:100%;height:100%;border:none}
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{transform:translateY(50px);opacity:0}to{transform:translateY(0);opacity:1}}
+@media(max-width:768px){.fathersdaypopup-content{width:95%;height:95vh;max-height:none}}
+</style>
+
+<script>
+(function(){
+  // Only run on homepage
+  if (window.location.pathname !== '/' && window.location.pathname !== '/index.html') return;
+
+  // Only run in Finnish Father's Day season (Nov 1-16)
+  var now = new Date();
+  if (now.getMonth() !== 10 || now.getDate() < 1 || now.getDate() > 16) return;
+
+  // Only show once per session
+  if (sessionStorage.getItem('fathersdayPopupShown')) return;
+
+  // Clone the template and inject after 800ms
+  window.addEventListener('DOMContentLoaded', function() {
+    setTimeout(function() {
+      var tpl = document.getElementById('fathersday-template');
+      if(!tpl) return;
+
+      var clone = document.importNode(tpl.content, true);
+      document.body.appendChild(clone);
+
+      sessionStorage.setItem('fathersdayPopupShown', 'true');
+
+      // Close handlers
+      var closeBtn = document.getElementById('fathersdayClose');
+      var overlay = document.getElementById('fathersdayPopup');
+      if(closeBtn) closeBtn.addEventListener('click', function(){ overlay.classList.remove('active'); });
+      if(overlay) overlay.addEventListener('click', function(e){ if(e.target === overlay) overlay.classList.remove('active'); });
+      document.addEventListener('keydown', function(e){ if(e.key === 'Escape' && overlay) overlay.classList.remove('active'); });
+    }, 800);
+  });
+})();
+</script>
+
+{{/* Open Graph image — per-post image when available, site default otherwise.
+     Emitted on ALL pages so every share has a branded card.
+     Per-post images are generated by scripts/generate-og-images.py. */}}
+{{- $ogFile := "" -}}
+{{- if and (or (eq .Type "posts") (eq .Type "senior-tech") (eq .Type "sysadmin")) (not .IsSection) -}}
+{{- with .File -}}
+{{- $candidate := printf "og/%s.png" .ContentBaseName -}}
+{{- if fileExists (printf "static/%s" $candidate) -}}
+{{- $ogFile = $candidate -}}
+{{- end -}}
+{{- end -}}
+{{- end -}}
+{{- if not $ogFile -}}
+{{- $ogFile = "og-default.png" -}}
+{{- end -}}
+<meta property="og:image" content="{{ ($ogFile | absURL) }}">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="{{ .Title | plainify | default (site.Title) }}">
+<meta name="twitter:image" content="{{ ($ogFile | absURL) }}">
+<meta name="twitter:image:alt" content="{{ .Title | plainify | default (site.Title) }}">
+
+{{/* BlogPosting JSON-LD schema for better SEO / rich results on articles.
+     Only emitted on single post pages (not homepage, not section listings).
+     PaperMod only ships Organization schema by default, so we add per-post
+     structured data here. */}}
+{{- if and (in .Type (slice "posts" "senior-tech" "sysadmin")) .IsPage (not .IsHome) -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "mainEntityOfPage": {
+    "@type": "WebPage",
+    "@id": "{{ .Permalink }}"
+  },
+  "headline": {{ .Title | safeHTML | plainify | truncate 110 | jsonify }},
+  "description": {{ with .Description }}{{ . | plainify | jsonify }}{{ else }}{{ .Summary | plainify | truncate 160 | jsonify }}{{ end }},
+  "image": {
+    "@type": "ImageObject",
+    "url": {{- $postOg := "" -}}
+{{- with .File -}}
+{{- $postOg = printf "og/%s.png" .ContentBaseName -}}
+{{- end -}}
+{{- if fileExists (printf "static/%s" $postOg) -}}
+ {{ ($postOg | absURL) | jsonify }}
+{{- else -}}
+ {{ (path.Join .Site.BaseURL "og-default.png") | jsonify }}
+{{- end -}}
+  },
+  "author": {
+    "@type": "Person",
+    "name": {{ .Site.Params.author | default "Pragmatic Sysadmin" | jsonify }}
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": {{ .Site.Title | jsonify }},
+    "logo": {
+      "@type": "ImageObject",
+      "url": {{ (path.Join .Site.BaseURL "favicon.ico") | jsonify }}
+    }
+  },
+  "datePublished": {{ .PublishDate.Format "2006-01-02T15:04:05Z07:00" | jsonify }},
+  "dateModified": {{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" | jsonify }},
+  "keywords": {{ with .Params.tags }}{{ . | jsonify }}{{ else }}[]{{ end }}
+}
+</script>
+{{- end -}}
+

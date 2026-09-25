@@ -1,0 +1,8 @@
+{{/* Custom homepage for PaperMod - ensures chat widget loads */}}
+{{- define "main" }}
+{{/* Render the standard PaperMod homepage content */}}
+{{- .Content }}
+
+{{/* Explicitly load chat widget on homepage */}}
+{{ partial "chat-widget.html" . }}
+{{- end }}

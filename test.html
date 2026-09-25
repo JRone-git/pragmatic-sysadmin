@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test Page - Cache Check</title>
+</head>
+<body>
+    <h1>Tempo Test: YES - File Updated at 2025-10-31 00:42</h1>
+    <p>If you see this, GitHub Pages is serving updated files.</p>
+    
+    <div id="tempo-test" style="display: block; padding: 20px; background: lightgreen; margin: 20px 0;">
+        <h2>Tempo Slider Test Section</h2>
+        <input type="range" min="60" max="180" value="120" id="test-slider">
+        <p>Current Value: <span id="test-value">120</span> BPM</p>
+    </div>
+    
+    <script>
+        document.getElementById('test-slider').addEventListener('input', function() {
+            document.getElementById('test-value').textContent = this.value;
+        });
+    </script>
+</body>
+</html>

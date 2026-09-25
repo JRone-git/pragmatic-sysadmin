@@ -1,0 +1,30 @@
+# Home Network Security Checklist - Pragmatic Sysadmin
+
+## Router Security
+□ Replace ISP rental router with Wi-Fi 6 model
+□ Change default admin username/password  
+□ Enable WPA3 (or WPA2 minimum)
+□ Disable WPS (Wi-Fi Protected Setup)
+□ Update firmware monthly
+
+## Network Setup  
+□ Strong Wi-Fi password (15+ characters)
+□ Enable guest network for visitors/IoT
+□ Change DNS to Cloudflare (1.1.1.1) or Google (8.8.8.8)
+□ Create separate IoT network for smart devices
+□ Disable unnecessary services (Telnet, SSH if not used)
+
+## Monitoring
+□ Check connected devices monthly
+□ Monitor bandwidth usage
+□ Review security logs
+□ Test guest network isolation
+□ Verify firmware auto-update works
+
+## Emergency Plan
+□ Know how to factory reset router
+□ Keep backup of working configuration  
+□ Document network setup for family/roommates
+□ Have ISP support number handy
+
+Download the full guide at pragmaticsysadmin.help

@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tech Needs Advisor - Find Your Perfect Setup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0b;
+      --ink: #ffffff;
+      --line: #2a2a2e;
+      --accent: #00ff88;
+      --accent-dim: #00ff8833;
+      --text: #e0e0e0;
+      --purple: #a855f7;
+      --blue: #3b82f6;
+      --orange: #f97316;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 700px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    header {
+      text-align: center;
+      padding: 2rem 0 3rem;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 2rem;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--ink), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      color: var(--text);
+      opacity: 0.7;
+      font-size: 1rem;
+    }
+
+    .step {
+      display: none;
+      animation: fadeIn 0.4s ease;
+    }
+
+    .step.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .step-header {
+      margin-bottom: 1.5rem;
+    }
+
+    .step-number {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      color: var(--accent);
+      margin-bottom: 0.5rem;
+    }
+
+    .step-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+    }
+
+    .options-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .option-card {
+      padding: 1.25rem;
+      background: transparent;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition: all 0.3s ease;
+      text-align: left;
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+    }
+
+    .option-card:hover {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .option-card.selected {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .option-icon {
+      font-size: 1.75rem;
+      flex-shrink: 0;
+    }
+
+    .option-content h3 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    .option-content p {
+      font-size: 0.85rem;
+      color: var(--text);
+      opacity: 0.8;
+    }
+
+    .budget-options {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 1rem;
+    }
+
+    .budget-card {
+      padding: 1.5rem;
+      text-align: center;
+      background: transparent;
+      border: 1px solid var(--line);
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .budget-card:hover {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .budget-card.selected {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .budget-card h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.25rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+
+    .budget-card p {
+      font-size: 0.8rem;
+      color: var(--text);
+      opacity: 0.7;
+    }
+
+    .budget-card small {
+      display: block;
+      font-size: 0.7rem;
+      color: var(--accent);
+      margin-top: 0.5rem;
+    }
+
+    .nav-buttons {
+      display: flex;
+      gap: 1rem;
+      margin-top: 2rem;
+    }
+
+    .btn {
+      flex: 1;
+      padding: 1rem;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      border: none;
+    }
+
+    .btn-primary {
+      background: var(--accent);
+      color: var(--bg);
+    }
+
+    .btn-primary:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 20px rgba(0, 255, 136, 0.3);
+    }
+
+    .btn-primary:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .btn-secondary {
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--line);
+    }
+
+    .btn-secondary:hover {
+      border-color: var(--ink);
+      color: var(--ink);
+    }
+
+    /* Results */
+    .results {
+      display: none;
+    }
+
+    .results.show {
+      display: block;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .result-header {
+      text-align: center;
+      padding: 2rem 0;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 2rem;
+    }
+
+    .result-badge {
+      display: inline-block;
+      padding: 0.5rem 1rem;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+    }
+
+    .result-title {
+      font-size: 2rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .result-subtitle {
+      color: var(--text);
+      opacity: 0.7;
+    }
+
+    .result-section {
+      margin-bottom: 2rem;
+    }
+
+    .result-section h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      color: var(--accent);
+      margin-bottom: 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .spec-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.75rem 1rem;
+      border: 1px solid var(--line);
+      margin-bottom: 0.5rem;
+    }
+
+    .spec-label {
+      color: var(--text);
+      opacity: 0.8;
+    }
+
+    .spec-value {
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 600;
+    }
+
+    .recommendations {
+      background: var(--accent-dim);
+      border: 1px solid var(--accent);
+      padding: 1.5rem;
+    }
+
+    .recommendations ul {
+      list-style: none;
+    }
+
+    .recommendations li {
+      padding: 0.75rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      border-bottom: 1px solid var(--line);
+    }
+
+    .recommendations li:last-child {
+      border-bottom: none;
+    }
+
+    .recommendations li::before {
+      content: '>';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .tips-grid {
+      display: grid;
+      gap: 1rem;
+    }
+
+    .tip-card {
+      padding: 1rem;
+      border: 1px solid var(--line);
+    }
+
+    .tip-card h4 {
+      font-size: 0.9rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--accent);
+    }
+
+    .tip-card p {
+      font-size: 0.85rem;
+      color: var(--text);
+      opacity: 0.8;
+    }
+
+    .share-section {
+      text-align: center;
+      padding-top: 2rem;
+      border-top: 1px solid var(--line);
+      margin-top: 2rem;
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+      border-top: 1px solid var(--line);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      opacity: 0.5;
+    }
+
+    @media (max-width: 500px) {
+      .budget-options {
+        grid-template-columns: 1fr;
+      }
+      h1 { font-size: 1.75rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>TECH NEEDS ADVISOR</h1>
+      <p class="subtitle">Answer a few questions. Get perfect tech recommendations.</p>
+    </header>
+
+    <form id="advisorForm">
+      <!-- Step 1: Primary Use -->
+      <div class="step active" id="step1">
+        <div class="step-header">
+          <p class="step-number">Step 1 of 3</p>
+          <h2 class="step-title">What's your primary use case?</h2>
+        </div>
+        <div class="options-grid">
+          <button type="button" class="option-card" onclick="selectUse('gaming')">
+            <span class="option-icon">🎮</span>
+            <div class="option-content">
+              <h3>Gaming</h3>
+              <p>High FPS, latest titles, VR ready</p>
+            </div>
+          </button>
+          <button type="button" class="option-card" onclick="selectUse('work')">
+            <span class="option-icon">💼</span>
+            <div class="option-content">
+              <h3>Productivity & Work</h3>
+              <p>Office apps, multitasking, video calls</p>
+            </div>
+          </button>
+          <button type="button" class="option-card" onclick="selectUse('creative')">
+            <span class="option-icon">🎨</span>
+            <div class="option-content">
+              <h3>Content Creation</h3>
+              <p>Video editing, 3D rendering, streaming</p>
+            </div>
+          </button>
+          <button type="button" class="option-card" onclick="selectUse('development')">
+            <span class="option-icon">💻</span>
+            <div class="option-content">
+              <h3>Software Development</h3>
+              <p>Coding, VMs, compile times</p>
+            </div>
+          </button>
+          <button type="button" class="option-card" onclick="selectUse('student')">
+            <span class="option-icon">📚</span>
+            <div class="option-content">
+              <h3>Student / School</h3>
+              <p>Research, writing, light workloads</p>
+            </div>
+          </button>
+          <button type="button" class="option-card" onclick="selectUse('home')">
+            <span class="option-icon">🏠</span>
+            <div class="option-content">
+              <h3>Home & Entertainment</h3>
+              <p>Browsing, media, family use</p>
+            </div>
+          </button>
+        </div>
+        <div class="nav-buttons">
+          <button type="button" class="btn btn-primary" id="step1Next" disabled onclick="nextStep(1)">Next ></button>
+        </div>
+      </div>
+
+      <!-- Step 2: Budget -->
+      <div class="step" id="step2">
+        <div class="step-header">
+          <p class="step-number">Step 2 of 3</p>
+          <h2 class="step-title">What's your budget range?</h2>
+        </div>
+        <div class="budget-options">
+          <button type="button" class="budget-card" onclick="selectBudget('entry')">
+            <h3>$300-600</h3>
+            <p>Entry level</p>
+            <small>Basic tasks, light gaming</small>
+          </button>
+          <button type="button" class="budget-card" onclick="selectBudget('mid')">
+            <h3>$600-1200</h3>
+            <p>Mid-range</p>
+            <small>Solid performance</small>
+          </button>
+          <button type="button" class="budget-card" onclick="selectBudget('high')">
+            <h3>$1200-2000</h3>
+            <p>High-end</p>
+            <small>Excellent for most</small>
+          </button>
+          <button type="button" class="budget-card" onclick="selectBudget('enthusiast')">
+            <h3>$2000+</h3>
+            <p>Enthusiast</p>
+            <small>No compromises</small>
+          </button>
+        </div>
+        <div class="nav-buttons">
+          <button type="button" class="btn btn-secondary" onclick="prevStep(2)">< Back</button>
+          <button type="button" class="btn btn-primary" id="step2Next" disabled onclick="nextStep(2)">Next ></button>
+        </div>
+      </div>
+
+      <!-- Step 3: Form Factor -->
+      <div class="step" id="step3">
+        <div class="step-header">
+          <p class="step-number">Step 3 of 3</p>
+          <h2 class="step-title">Preferred form factor?</h2>
+        </div>
+        <div class="options-grid">
+          <button type="button" class="option-card" onclick="selectForm('desktop')">
+            <span class="option-icon">🖥️</span>
+            <div class="option-content">
+              <h3>Desktop PC</h3>
+              <p>Best performance, upgradeable, bigger</p>
+            </div>
+          </button>
+          <button type="button" class="option-card" onclick="selectForm('laptop')">
+            <span class="option-icon">💻</span>
+            <div class="option-content">
+              <h3>Laptop</h3>
+              <p>Portable, all-in-one, versatile</p>
+            </div>
+          </button>
+          <button type="button" class="option-card" onclick="selectForm('hybrid')">
+            <span class="option-icon">🔄</span>
+            <div class="option-content">
+              <h3>Hybrid Setup</h3>
+              <p>Desktop + budget laptop for travel</p>
+            </div>
+          </button>
+          <button type="button" class="option-card" onclick="selectForm('mac')">
+            <span class="option-icon">🍎</span>
+            <div class="option-content">
+              <h3>Mac Ecosystem</h3>
+              <p>MacBook, iMac, macOS integration</p>
+            </div>
+          </button>
+        </div>
+        <div class="nav-buttons">
+          <button type="button" class="btn btn-secondary" onclick="prevStep(3)">< Back</button>
+          <button type="button" class="btn btn-primary" id="step3Next" disabled onclick="showResults()">Get Recommendations</button>
+        </div>
+      </div>
+    </form>
+
+    <!-- Results -->
+    <div class="results" id="results">
+      <div class="result-header">
+        <span class="result-badge" id="resultBadge">Recommended Setup</span>
+        <h2 class="result-title" id="resultTitle">Your Perfect Tech Setup</h2>
+        <p class="result-subtitle" id="resultSubtitle">Based on your needs</p>
+      </div>
+
+      <div class="result-section">
+        <h3>⚡ Key Specifications</h3>
+        <div id="specsList"></div>
+      </div>
+
+      <div class="result-section">
+        <h3>✅ Recommended Components</h3>
+        <div class="recommendations">
+          <ul id="recommendationsList"></ul>
+        </div>
+      </div>
+
+      <div class="result-section">
+        <h3>💡 Pro Tips</h3>
+        <div class="tips-grid" id="tipsGrid"></div>
+      </div>
+
+      <div class="share-section">
+        <button class="btn btn-primary" onclick="shareResults()">📤 Share This Recommendation</button>
+        <button class="btn btn-secondary" onclick="resetForm()" style="margin-top: 1rem; display: block; width: 100%;">Start Over</button>
+      </div>
+    </div>
+
+    <footer>
+      TECH NEEDS ADVISOR // PRAGMATICSYSADMIN.HELP // FIND YOUR PERFECT SETUP
+    </footer>
+  </div>
+
+  <script>
+    let selections = {
+      use: null,
+      budget: null,
+      form: null
+    };
+
+    const recommendations = {
+      gaming: {
+        entry: {
+          title: "Budget Gaming Build",
+          specs: { cpu: "Ryzen 5 5600 / i5-12400F", gpu: "RTX 3060 / RX 6600", ram: "16GB DDR4", storage: "512GB NVMe SSD", monitor: "1080p 144Hz" },
+          recs: ["AMD Ryzen 5 5600 is excellent value", "RTX 3060 handles 1080p gaming well", "Consider used GPU for savings", "Don't cheap out on PSU"],
+          tips: [{ title: "Watch for sales", desc: "GPU prices fluctuate. Wait for deals on holidays." }, { title: "Used is viable", desc: "Last-gen GPUs are great value if you can find good condition." }]
+        },
+        mid: {
+          title: "1440p Gaming Powerhouse",
+          specs: { cpu: "Ryzen 7 5800X / i5-13600K", gpu: "RTX 4060 Ti / RX 7700 XT", ram: "32GB DDR5", storage: "1TB NVMe Gen4", monitor: "1440p 165Hz" },
+          recs: ["Intel 13th/14th gen is great for gaming", "DDR5 worth it at this budget", "Consider 1440p OLED for best experience", "Get at least 750W gold PSU"],
+          tips: [{ title: "Monitor matters", desc: "A good 1440p 165Hz IPS or OLED panel makes a huge difference." }, { title: "Future proof", desc: "32GB RAM is becoming standard for modern games." }]
+        },
+        high: {
+          title: "4K Gaming Beast",
+          specs: { cpu: "Ryzen 7 7800X3D / i7-14700K", gpu: "RTX 4080 Super / RX 7900 XT", ram: "32GB DDR5-6000", storage: "2TB Gen5 NVMe", monitor: "4K 144Hz / 1440p 360Hz" },
+          recs: ["7800X3D is king for gaming", "RTX 4080S handles 4K60 easily", "360Hz monitor if you're competitive", "Invest in good cooling"],
+          tips: [{ title: "The X3D advantage", desc: "3D V-Cache CPUs are 10-15% faster in games for same price." }, { title: "Don't forget peripherals", desc: "At this budget, a good mouse and headset matter more." }]
+        },
+        enthusiast: {
+          title: "No Compromises Build",
+          specs: { cpu: "Ryzen 9 7950X3D / i9-14900K", gpu: "RTX 4090 / RX 7900 XTX", ram: "64GB DDR5", storage: "4TB Gen5 NVMe", monitor: "4K OLED 240Hz" },
+          recs: ["RTX 4090 is the fastest consumer GPU", "Consider custom water cooling", "OLED monitor for HDR gaming", "Premium case with airflow"],
+          tips: [{ title: "VR ready", desc: "This build handles VR at max settings easily." }, { title: "Streaming setup", desc: "Consider capture card for console streaming." }]
+        }
+      },
+      work: {
+        entry: {
+          title: "Efficient Workstation",
+          specs: { cpu: "Ryzen 5 5600G / i5-12400", gpu: "Integrated OK", ram: "16GB DDR4", storage: "512GB SSD", extras: "1080p monitor, wireless keyboard/mouse" },
+          recs: ["Ryzen with Vega iGPU is surprisingly capable", "16GB minimum for productivity", "Consider dual monitor setup", "Mechanical keyboard helps typing comfort"],
+          tips: [{ title: "Ergonomics first", desc: "At this budget, prioritize a good chair and monitor height." }, { title: "Monitor matters", desc: "A 27\" 1440p IPS panel is worth the upgrade." }]
+        },
+        mid: {
+          title: "Productivity Power User",
+          specs: { cpu: "Ryzen 7 7700 / i7-13700", gpu: "RTX 3060 / RTX 4060", ram: "32GB DDR5", storage: "1TB NVMe + 2TB HDD", monitor: "27\" 1440p or 4K" },
+          recs: ["More cores = better multitasking", "Consider ultrawide for spreadsheet work", "External storage for backups", "UPS protects from data loss"],
+          tips: [{ title: "Multiple monitors", desc: "Two monitors at this budget level significantly boosts productivity." }, { title: "Backup strategy", desc: "External SSD for backups is cheap insurance." }]
+        },
+        high: {
+          title: "Executive Setup",
+          specs: { cpu: "Ryzen 9 7900X / i9-13900K", gpu: "RTX 4070 / M1/M2 Pro", ram: "64GB DDR5", storage: "2TB+ NVMe", monitor: "Studio display or 4K IPS" },
+          recs: ["Consider Mac for creative work", "Thunderbolt docks simplify connectivity", "High-res display reduces eye strain", "Premium peripherals last longer"],
+          tips: [{ title: "Workspace matters", desc: "Standing desk + premium chair is worth the investment." }, { title: "Docking station", desc: "Single cable to connect everything is a game changer." }]
+        },
+        enthusiast: {
+          title: "Ultimate Workstation",
+          specs: { cpu: "Threadripper / i9-14900K", gpu: "RTX 4090 / M2 Ultra", ram: "128GB+ ECC", storage: "8TB+ NVMe RAID", monitor: "6K or dual 4K" },
+          recs: ["Workstation CPUs for rendering/compression", "ECC RAM for data integrity", "Multiple fast monitors", "Professional grade peripherals"],
+          tips: [{ title: "Backup is critical", desc: "At this level, consider NAS or cloud backup service." }, { title: "Color accuracy", desc: "Calibrated display is essential for creative work." }]
+        }
+      },
+      creative: {
+        entry: {
+          title: "Creator Starter Build",
+          specs: { cpu: "Ryzen 7 5800 / i7-12700", gpu: "GTX 3060 / RTX 4060", ram: "32GB DDR4", storage: "1TB NVMe", monitor: "100% sRGB IPS" },
+          recs: ["More cores help with rendering", "32GB RAM for video editing", "Good color-accurate monitor essential", "Fast NVMe for video cache"],
+          tips: [{ title: "Color accuracy", desc: "Even budget IPS monitors vary. Check reviews for color coverage." }, { title: "Storage space", desc: "Video files eat storage fast. Plan for external drives." }]
+        },
+        mid: {
+          title: "Content Creator Pro",
+          specs: { cpu: "Ryzen 9 5900X / i7-13700K", gpu: "RTX 4070 / RTX 4070 Ti", ram: "64GB DDR5", storage: "2TB NVMe + NAS", monitor: "4K HDR or high-res Ultrawide" },
+          recs: ["Ryzen 9 for creator workloads", "RTX 4070 has NVENC for streaming", "Consider capture card for console", "Color-calibrated display is a must"],
+          tips: [{ title: "Streaming setup", desc: "OBS + RTX NVENC = professional streaming quality." }, { title: "Project files", desc: "Use fast external SSD for active projects." }]
+        },
+        high: {
+          title: "Studio Workstation",
+          specs: { cpu: "Ryzen 9 7950X / i9-13900K", gpu: "RTX 4080 / RTX 4090", ram: "64-128GB DDR5", storage: "4TB+ NVMe + RAID", monitor: "Pro display or OLED" },
+          recs: ["Workstation GPU for stability", "Pro Display XDR or equivalent", "Color calibration tool", "Dedicated recording drive"],
+          tips: [{ title: "Monitor calibration", desc: "Spyder or CalMAN calibration ensures accurate colors." }, { title: "Backup workflow", desc: "3-2-1 backup: 3 copies, 2 media types, 1 offsite." }]
+        },
+        enthusiast: {
+          title: "Dream Studio",
+          specs: { cpu: "Threadripper PRO / i9-14900K", gpu: "RTX 4090 + Quadro/RTX 6000", ram: "256GB+ ECC", storage: "16TB+ NVMe RAID", monitor: "Color-accurate 6K" },
+          recs: ["Threadripper for serious rendering", "Pro graphics for stability", "Multiple fast displays", "Rack-mount storage"],
+          tips: [{ title: "Professional color", desc: "For client work, calibrated reference monitors are essential." }, { title: "Network storage", desc: "NAS allows team collaboration and reliable backups." }]
+        }
+      },
+      development: {
+        entry: {
+          title: "Developer Starter",
+          specs: { cpu: "Ryzen 5 5600 / i5-12400", gpu: "Integrated OK", ram: "16GB DDR4", storage: "512GB SSD", extras: "Good keyboard, dual monitor capable" },
+          recs: ["16GB minimum for IDE + browsers", "Consider Linux for web dev", "Mechanical keyboard helps long sessions", "Extra monitor for code + output"],
+          tips: [{ title: "Linux is developer friendly", desc: "WSL2 on Windows works great for most dev work." }, { title: "Keyboard matters", desc: "A good mechanical keyboard is worth every penny." }]
+        },
+        mid: {
+          title: "Dev Power Machine",
+          specs: { cpu: "Ryzen 7 7700 / i7-13700", gpu: "RTX 3060 / RTX 4060", ram: "32GB DDR5", storage: "1TB NVMe", monitor: "27\" 4K or dual 1440p" },
+          recs: ["32GB for Docker + multiple IDEs", "Fast NVMe for VM images", "Consider AMD for more cores/budget", "Linux or Mac for native dev"],
+          tips: [{ title: "WSL2 is excellent", desc: "Linux development environment without dual boot." }, { title: "Remote development", desc: "Consider renting cloud dev machines for heavy workloads." }]
+        },
+        high: {
+          title: "Senior Dev Setup",
+          specs: { cpu: "Ryzen 9 7900X / i9-13900K", gpu: "RTX 4070", ram: "64GB DDR5", storage: "2TB NVMe + 4TB HDD", monitor: "Ultrawide or dual 4K" },
+          recs: ["64GB for running multiple VMs", "Ultrawide great for code + docs", "Consider MacBook for mobile dev", "Fast internet for cloud development"],
+          tips: [{ title: "IDE matters", desc: "VS Code + appropriate extensions beats heavy IDEs." }, { title: "Cloud dev", desc: "GitHub Codespaces or Gitpod for ephemeral environments." }]
+        },
+        enthusiast: {
+          title: "DevOps / Platform Engineer",
+          specs: { cpu: "Ryzen 9 7950X / i9-14900K", gpu: "RTX 4080", ram: "128GB DDR5", storage: "4TB+ NVMe", monitor: "Multi-monitor 4K setup" },
+          recs: ["Maximum cores for parallel builds", "Fast storage for large repos", "Consider multiple machines", "16+ core server for CI/CD"],
+          tips: [{ title: "CI/CD locally", desc: "Jenkins or GitLab runner for testing before push." }, { title: "Infrastructure as code", desc: "Local Kubernetes cluster (minikube) for testing." }]
+        }
+      },
+      student: {
+        entry: {
+          title: "Study Essential",
+          specs: { cpu: "Ryzen 5 5600G / i5-1235U", gpu: "Integrated", ram: "8-16GB", storage: "256-512GB SSD", extras: "Lightweight, long battery" },
+          recs: ["Chromebook for basic use", "Look for student discounts", "Consider tablet for notes", "12-14\" screen, light weight"],
+          tips: [{ title: "Check student discounts", desc: "Apple, Microsoft, and most PC makers offer 10-20% off." }, { title: "Used is smart", desc: "Last-gen laptops at campus bookstores are great deals." }]
+        },
+        mid: {
+          title: "Academic All-Rounder",
+          specs: { cpu: "Ryzen 7 5800U / i7-1260P", gpu: "RTX 3050 or strong iGPU", ram: "16GB", storage: "512GB-1TB SSD", monitor: "14-16\" 1080p+ IPS" },
+          recs: ["Dedicated GPU for any CAD/code", "Long battery life for campus", "16GB RAM recommended", "Consider ThinkPad or MacBook Air"],
+          tips: [{ title: "Backpack protection", desc: "A good laptop sleeve and backpack prevent damage." }, { title: "Cloud storage", desc: "OneDrive/Google Drive for auto-backup of assignments." }]
+        },
+        high: {
+          title: "Scholar's Powerhouse",
+          specs: { cpu: "M2 Pro / i7-13700H", gpu: "RTX 4060", ram: "32GB", storage: "1TB+ SSD", monitor: "14-16\" high-res" },
+          recs: ["MacBook Pro for Apple ecosystem", "Powerful enough for all majors", "Premium build quality", "Consider iPad + keyboard for notes"],
+          tips: [{ title: "All-day battery", desc: "MacBook Pro or Snapdragon PCs last 15+ hours." }, { title: "External storage", desc: "Portable SSD for large project files." }]
+        },
+        enthusiast: {
+          title: "Future-Proofed Setup",
+          specs: { cpu: "M3 Max / i9-14900HX", gpu: "RTX 4080/4090", ram: "64GB+", storage: "2TB+ SSD", monitor: "16\" XDR or 4K OLED" },
+          recs: ["Desktop replacement level power", "Handles any major + gaming", "Consider desktop + laptop combo", "Premium accessories complete the setup"],
+          tips: [{ title: "Desktop + Budget laptop", desc: "Powerful desktop for home + cheap laptop for classes = best of both." }, { title: "Insurance", desc: "At this price, campus insurance or AppleCare is worth it." }]
+        }
+      },
+      home: {
+        entry: {
+          title: "Family Home PC",
+          specs: { cpu: "Ryzen 5 5600G / i5-12400", gpu: "Integrated fine", ram: "8-16GB", storage: "512GB SSD", extras: "Easy to use, reliable" },
+          recs: ["AIO PC for simplicity", "Integrated graphics fine for most", "Consider extended warranty", "Simple interface for all ages"],
+          tips: [{ title: "Simplicity wins", desc: "Integrated graphics mean fewer things to break." }, { title: "Backup for family", desc: "Consider automated cloud backup for precious photos." }]
+        },
+        mid: {
+          title: "Entertainment Center",
+          specs: { cpu: "Ryzen 7 7700 / i7-13700", gpu: "RTX 3060 / RTX 4060", ram: "16-32GB", storage: "1TB+ NVMe", monitor: "Large 4K TV or monitor" },
+          recs: ["HTPC setup for media center", "Can double as casual gaming", "Quiet case preferred", "Consider streaming services"],
+          tips: [{ title: "Living room ready", desc: "Small form factor + wireless peripherals = clean living room PC." }, { title: "Media server", desc: "Consider Plex or Jellyfin for home media streaming." }]
+        },
+        high: {
+          title: "Smart Home Hub",
+          specs: { cpu: "Ryzen 9 / i9 or Mac Studio", gpu: "RTX 4070 / M2 Pro", ram: "32-64GB", storage: "2TB+ + NAS", monitor: "Large display or projector" },
+          recs: ["Home automation hub potential", "NAS for media + backups", "Consider smart home integration", "Premium audio setup"],
+          tips: [{ title: "Network matters", desc: "Good router and maybe wired connections for streaming." }, { title: "Central backup", desc: "NAS with redundancy protects everyone's data." }]
+        },
+        enthusiast: {
+          title: "Ultimate Home Setup",
+          specs: { cpu: "Threadripper / M2 Ultra", gpu: "RTX 4090 / M2 Max", ram: "128GB+", storage: "16TB+ RAID/NAS", monitor: "Dual 4K or projection" },
+          recs: ["Home server possibilities", "Professional-grade entertainment", "Consider home office integration", "Premium smart home ecosystem"],
+          tips: [{ title: "Home automation", desc: "Home Assistant + smart home hub = ultimate control." }, { title: "Server room", desc: "Dedicated space for rack-mounted NAS and equipment." }]
+        }
+      }
+    };
+
+    function selectUse(use) {
+      selections.use = use;
+      document.querySelectorAll('#step1 .option-card').forEach(c => c.classList.remove('selected'));
+      event.currentTarget.classList.add('selected');
+      document.getElementById('step1Next').disabled = false;
+    }
+
+    function selectBudget(budget) {
+      selections.budget = budget;
+      document.querySelectorAll('#step2 .budget-card').forEach(c => c.classList.remove('selected'));
+      event.currentTarget.classList.add('selected');
+      document.getElementById('step2Next').disabled = false;
+    }
+
+    function selectForm(form) {
+      selections.form = form;
+      document.querySelectorAll('#step3 .option-card').forEach(c => c.classList.remove('selected'));
+      event.currentTarget.classList.add('selected');
+      document.getElementById('step3Next').disabled = false;
+    }
+
+    function nextStep(current) {
+      document.getElementById('step' + current).classList.remove('active');
+      document.getElementById('step' + (current + 1)).classList.add('active');
+    }
+
+    function prevStep(current) {
+      document.getElementById('step' + current).classList.remove('active');
+      document.getElementById('step' + (current - 1)).classList.add('active');
+    }
+
+    function showResults() {
+      document.getElementById('advisorForm').style.display = 'none';
+      
+      const rec = recommendations[selections.use][selections.budget];
+      
+      document.getElementById('resultBadge').textContent = selections.form === 'mac' ? 'Mac Ecosystem' : 'Recommended Setup';
+      document.getElementById('resultTitle').textContent = rec.title;
+      document.getElementById('resultSubtitle').textContent = `${selections.use.charAt(0).toUpperCase() + selections.use.slice(1)} • ${selections.budget.charAt(0).toUpperCase() + selections.budget.slice(1)} Budget`;
+      
+      // Build specs
+      const specsList = document.getElementById('specsList');
+      specsList.innerHTML = '';
+      for (const [key, value] of Object.entries(rec.specs)) {
+        specsList.innerHTML += `
+          <div class="spec-item">
+            <span class="spec-label">${key.toUpperCase()}</span>
+            <span class="spec-value">${value}</span>
+          </div>
+        `;
+      }
+      
+      // Build recommendations
+      document.getElementById('recommendationsList').innerHTML = rec.recs.map(r => `<li>${r}</li>`).join('');
+      
+      // Build tips
+      document.getElementById('tipsGrid').innerHTML = rec.tips.map(t => `
+        <div class="tip-card">
+          <h4>${t.title}</h4>
+          <p>${t.desc}</p>
+        </div>
+      `).join('');
+      
+      document.getElementById('results').classList.add('show');
+    }
+
+    function resetForm() {
+      selections = { use: null, budget: null, form: null };
+      document.querySelectorAll('.option-card, .budget-card').forEach(c => c.classList.remove('selected'));
+      document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+      document.getElementById('step1').classList.add('active');
+      document.getElementById('advisorForm').style.display = 'block';
+      document.getElementById('results').classList.remove('show');
+      document.getElementById('step1Next').disabled = true;
+      document.getElementById('step2Next').disabled = true;
+      document.getElementById('step3Next').disabled = true;
+    }
+
+    function shareResults() {
+      const title = document.getElementById('resultTitle').textContent;
+      const text = `My Tech Needs Advisor result: ${title}\n\nFind your perfect setup at pragmaticsysadmin.help/tools/tech-needs-advisor.html`;
+      
+      if (navigator.share) {
+        navigator.share({ title: 'Tech Needs Advisor', text: text });
+      } else {
+        navigator.clipboard.writeText(text).then(() => alert('Copied to clipboard!'));
+      }
+    }
+  </script>
+</body>
+</html>

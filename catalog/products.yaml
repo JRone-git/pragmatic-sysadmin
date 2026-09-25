@@ -1,0 +1,294 @@
+# Pragmatic Sysadmin Product Catalog
+# Single source of truth for all products (free + paid).
+#
+# To add a new free tool:
+#   1. Add entry under `free_tools:`
+#   2. Create the script in /products/free/<id>.sh
+#   3. Run: ./scripts/generate-products.sh
+#
+# To add a new paid product:
+#   1. Add entry under `products:`
+#   2. Create the product files in /products/<id>/
+#   3. Run: ./scripts/generate-products.sh
+#   4. Add to Ko-fi shop and update kofi_url
+#
+# The generator creates Hugo pages + Ko-fi copy + social copy
+# + image prompt + updated shop listing.
+
+site:
+  name: "Pragmatic Sysadmin"
+  url: "https://pragmaticsysadmin.help"
+  email: "pragmatic@pragmaticsysadmin.help"
+  twitter: "pragmatic_sys"
+  kofi_page: "https://ko-fi.com/pragmatic_sysadmin"
+  kofi_shop_url: "https://ko-fi.com/s/5157a41780"
+  refund_days: 60
+  license: "MIT"
+
+# Free tools — pulled to the front of the shop page to drive traffic
+free_tools:
+  - id: ssl-cert-checker
+    title: "SSL Certificate Expiry Checker"
+    tagline: "Find certificates about to expire before they break your site"
+    icon: "🔒"
+    file_path: "free/ssl-cert-checker.sh"
+    status: live
+    description: |
+      A simple bash script that checks SSL certificate expiry dates for
+      one or more domains and alerts you if they're expiring soon.
+      Exit codes make it perfect for cron + monitoring integration.
+    features:
+      - "Check one or many domains at once"
+      - "Configurable warning (default 30 days) and critical (default 7 days) thresholds"
+      - "Exit codes for monitoring integration (0=OK, 1=warning, 2=critical)"
+      - "Reads domains from args, file, or stdin"
+      - "Color output when run interactively"
+    usage: |
+      ./ssl-cert-checker.sh prag mati csysadmin.help github.com google.com
+      ./ssl-cert-checker.sh -f domains.txt
+    size_lines: 80
+
+  - id: log-tail-search
+    title: "Log Pattern Search with Context"
+    tagline: "Find errors across multiple log files in seconds"
+    icon: "🔍"
+    file_path: "free/log-tail-search.sh"
+    status: live
+    description: |
+      Search multiple log files for patterns with surrounding context lines.
+      Smart time-range filtering, case-insensitive option, and color output
+      make debugging much faster than grep + manual context-finding.
+    features:
+      - "Search across multiple log files in one go"
+      - "Configurable context lines before/after each match"
+      - "Time-range filter (-s 1h, -s 24h, -s 7d)"
+      - "Case-insensitive search"
+      - "Color-coded output, grouped by file"
+    usage: |
+      ./log-tail-search.sh -p "Out of memory" -d /var/log
+      ./log-tail-search.sh -p "Failed password" -s 24h -i
+      ./log-tail-search.sh -p "error" -f syslog,messages -n 5
+    size_lines: 85
+
+  - id: ssh-key-auditor
+    title: "SSH Key Security Auditor"
+    tagline: "Find weak keys, suspicious restrictions, and bad permissions"
+    icon: "🔑"
+    file_path: "free/ssh-key-auditor.sh"
+    status: live
+    description: |
+      Audit SSH keys across all user accounts. Reports every authorized
+      key with type and length, flags weak DSA/short RSA keys, finds
+      private keys with world-readable permissions.
+    features:
+      - "Scans /home and /root/.ssh automatically"
+      - "Reports key types (ed25519, RSA, DSA, ECDSA)"
+      - "Flags weak keys (DSA, short RSA)"
+      - "Detects restricted keys (command=, from=, no-pty)"
+      - "Finds private keys with bad permissions (not 600/400)"
+      - "Reports known_hosts entry counts"
+    usage: |
+      ./ssh-key-auditor.sh
+      sudo ./ssh-key-auditor.sh      # includes /root
+      ./ssh-key-auditor.sh -u alice,bob
+    size_lines: 90
+
+  - id: disk-quota-checker
+    title: "Disk Quota Checker"
+    tagline: "Find who's using the most disk on shared systems"
+    icon: "📊"
+    file_path: "free/disk-quota-checker.sh"
+    status: live
+    description: |
+      Find top disk space users on shared /home or any other directory.
+      Auto-flags users over 10GB as cleanup candidates. Useful for
+      finding runaway logs, large Docker workloads, or old data.
+    features:
+      - "Top N biggest directories with sizes"
+      - "Auto-flag any user over 10GB"
+      - "Breakdown of the largest directory"
+      - "Suggested cleanup actions"
+      - "Works without root for current user's data"
+    usage: |
+      ./disk-quota-checker.sh
+      sudo ./disk-quota-checker.sh -d /var/www -n 20
+    size_lines: 75
+
+  - id: service-restart-tamer
+    title: "Safe Service Restart"
+    tagline: "Restart services with pre-checks and rollback guidance"
+    icon: "🔄"
+    file_path: "free/service-restart-tamer.sh"
+    status: live
+    description: |
+      Restart a systemd service safely. Records state before restart,
+      runs your custom health check before and after, waits for the
+      service to come back up, and prints recent logs if something fails.
+    features:
+      - "Pre-check and post-check with custom commands"
+      - "Configurable wait time for service to become active"
+      - "Auto-shows journalctl logs if restart fails"
+      - "Records PID + uptime before restart for audit trail"
+      - "Color-coded step-by-step output"
+    usage: |
+      ./service-restart-tamer.sh nginx
+      ./service-restart-tamer.sh postgresql --wait 30
+      ./service-restart-tamer.sh my-app --pre-check "curl -s http://localhost:8080/health" --post-check "curl -f http://localhost:8080/health"
+    size_lines: 110
+
+products:
+  - id: health-check-toolkit
+    title: "The 5-Minute Server Health Check Toolkit"
+    tagline: "Catch problems before they page you at 3am"
+    price: 9
+    currency: USD
+    status: live
+    category: scripts
+    tags: [linux, sysadmin, monitoring, server, bash]
+    date: "2026-06-29T18:00:00.000Z"
+    description: |
+      A complete weekly server health check system for Linux sysadmins.
+      Three production-ready bash scripts that catch the most common
+      server problems before they page you at 3am.
+    long_description: |
+      Every Monday morning, run `quick-health-check.sh` and you'll know
+      in 5 seconds whether anything's wrong with your servers. The script
+      checks disk, memory, CPU, recent errors, network connectivity,
+      uptime, and failed systemd units. Color-coded output, JSON mode
+      for monitoring integration, proper exit codes for alerting.
+
+      When disk is filling up, `disk-analyzer.sh` finds the top 10
+      culprits in seconds. When error patterns spike, `log-watcher.sh`
+      alerts via webhook or email. Plus a printable one-page weekly
+      checklist and a decision tree for every warning those scripts
+      can throw at you.
+
+      This is the "do everything" toolkit — the free scripts above are
+      great for one-off tasks, but this one is your Monday morning ritual.
+    features:
+      - "**quick-health-check.sh** — main script, runs in 5 seconds with color-coded output, JSON mode for monitoring integration, exit codes for alerting"
+      - "**disk-analyzer.sh** — finds the top 10 things eating your disk when it fills up"
+      - "**log-watcher.sh** — alerts when error patterns spike (webhook to Slack/Discord/Teams or email)"
+      - "**weekly-checklist.md** — printable one-page checklist for Monday morning ritual"
+      - "**what-to-do-when-red.md** — decision tree for every warning those scripts can throw"
+    requirements:
+      - "Linux (Ubuntu 20.04+, Debian 11+, RHEL 8+, Amazon Linux 2)"
+      - "Bash 4.0+"
+      - "Standard tools: df, free, ps, ss, ping, find, grep, awk (pre-installed on any Linux)"
+    not_for:
+      - "Windows servers (Linux only)"
+      - "macOS (use the bash script manually)"
+      - "Anyone wanting a SaaS dashboard (this is plain scripts you own)"
+    file_path: "products/health-check-toolkit/health-check-toolkit.zip"
+    file_size_kb: 12
+    kofi_url: "https://ko-fi.com/s/5157a41780"
+    cover_image: "health-check-toolkit-card.png"
+    cover_image_prompt: |
+      Professional product card design for a software toolkit. Warm cream
+      background with subtle radial gradient. Deep sage green and warm
+      terracotta accents. Stylized minimalist illustration of a server
+      rack with circuit lines and a health check pulse line going through
+      it. Modern clean tech aesthetic, no text overlay, balanced negative
+      space, soft drop shadows, 1200x630 horizontal format, looks like
+      a SaaS landing page hero image.
+    source_post: "/posts/2025-12-07-the-5-minute-server-health-check-that-could-save-your-career/"
+    sales_page_slug: "health-check-toolkit"
+    social_copy:
+      twitter_short: |
+        I expanded my "5-minute server health check" blog post into a $9
+        toolkit: 3 bash scripts, a printable weekly checklist, and a
+        decision tree for every red flag.
+
+        12 KB. No dependencies. You own the scripts forever.
+
+        {kofi_url}
+      twitter_story: |
+        A sysadmin DM'd me last month asking how to spot disk problems
+        before they page him at 3am.
+
+        I realized the answer was in a blog post I wrote 3 years ago —
+        but the post was too short to actually use.
+
+        So I packaged it as a $9 toolkit. 3 scripts. Printable checklist.
+        Decision tree for every red flag.
+
+        {kofi_url}
+      linkedin: |
+        Three years ago I wrote a blog post about running a 5-minute
+        server health check every Monday morning.
+
+        It got decent traction, but the post itself was too short to be
+        genuinely useful.
+
+        So this month I packaged it as a real toolkit: 3 production-ready
+        bash scripts, a printable one-page checklist, and a decision
+        tree for every warning those scripts can throw.
+
+        12 KB total. MIT licensed. Zero dependencies. You own the scripts
+        forever.
+
+        Why $9: the scripts took time to write and test across distros.
+        Most sysadmins prefer paying $9 for a known-working tool over
+        writing their own and missing edge cases.
+
+        {kofi_url}
+
+        #sysadmin #devops #sre #linux
+      hn: |
+        Title: Show HN: 5-Minute Server Health Check Toolkit – 3 bash
+        scripts + checklist ($9)
+
+        Text: I wrote a blog post about a 5-minute weekly server health
+        check three years ago. It got decent traffic but was too short to
+        be useful. Last week I packaged the actual implementation into
+        a $9 toolkit.
+
+        Three bash scripts:
+        - quick-health-check.sh: disk, memory, CPU, errors, network,
+          systemd — runs in 5 seconds
+        - disk-analyzer.sh: finds what's eating disk when it fills up
+        - log-watcher.sh: alerts on error pattern spikes via webhook
+
+        Plus a printable weekly checklist and a decision tree for every
+        warning those scripts can throw.
+
+        12 KB total. MIT licensed. Zero dependencies. You own the scripts.
+
+        I considered making it free, but the scripts took time to write
+        and test across distros. $9 feels right for the time saved vs
+        writing your own.
+
+        Blog post (free): {source_post_url}
+        Toolkit ($9): {kofi_url}
+    kofi_description: |
+      A complete weekly server health check system for Linux sysadmins.
+      Three production-ready bash scripts (the main health check, a disk
+      analyzer, and a log watcher), a printable one-page weekly checklist,
+      and a decision tree for every warning. 12 KB download, no
+      dependencies, MIT licensed — you own the scripts forever.
+    kofi_long_description: |
+      Every Monday morning, run quick-health-check.sh and you'll know
+      in 5 seconds whether anything's wrong with your servers. The
+      script checks disk, memory, CPU, recent errors, network
+      connectivity, uptime, and failed systemd units. Color-coded
+      output, JSON mode for monitoring integration, proper exit codes
+      for alerting.
+
+      When disk is filling up, disk-analyzer.sh finds the top 10
+      culprits in seconds. When error patterns spike, log-watcher.sh
+      alerts via webhook or email.
+
+      Plus a printable one-page weekly checklist and a decision tree
+      for every warning those scripts can throw at you — so you know
+      exactly what to do when something's red.
+
+      12 KB total. MIT licensed. No dependencies. You own the scripts
+      forever, modify them freely, redistribute as you wish.
+
+      Works on: Ubuntu 20.04+, Debian 11+, RHEL 8+, Amazon Linux 2,
+      and any Linux with bash 4.0+.
+
+      Author: 15-year sysadmin, built this after my own mom lost $4,200
+      to a tech-support scam — because the best monitoring is the kind
+      you actually do every week.
+    testimonials: []

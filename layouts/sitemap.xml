@@ -1,0 +1,18 @@
+{{/* Custom sitemap template — excludes /tags/ and /categories/ pages.
+     These pages are noindex,follow (correctly), but leaving them in the
+     sitemap wastes Google's crawl budget. 116 tag pages + 23 category
+     pages = 139 URLs Google has to crawl but won't index. Excluding
+     them keeps the sitemap focused on indexable content. */}}
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
+  xmlns:xhtml="http://www.w3.org/1999/xhtml">
+  {{- range .Data.Pages -}}
+  {{- if and (ne .Section "tags") (ne .Section "categories") -}}
+  <url>
+    <loc>{{ .Permalink }}</loc>
+    {{- if not .Lastmod.IsZero }}
+    <lastmod>{{ .Lastmod.Format "2006-01-02T15:04:05-07:00" }}</lastmod>
+    {{- end }}
+  </url>
+  {{- end -}}
+  {{- end -}}
+</urlset>

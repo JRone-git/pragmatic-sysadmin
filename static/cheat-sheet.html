@@ -1,0 +1,383 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sysadmin Cheat Sheets - Pragmatic Sysadmin</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body { font-family: 'Consolas', 'Monaco', monospace; font-size: 11px; line-height: 1.4; background: #fff; color: #1a1a1a; max-width: 210mm; margin: 0 auto; padding: 15mm; }
+        @media print { body { font-size: 10px; padding: 10mm; } .no-print { display: none; } }
+        h1 { font-size: 24px; margin-bottom: 5px; color: #2563eb; border-bottom: 2px solid #2563eb; padding-bottom: 5px; }
+        h2 { font-size: 16px; margin: 15px 0 8px 0; color: #1e40af; background: #eff6ff; padding: 5px 10px; border-left: 3px solid #2563eb; }
+        h3 { font-size: 12px; margin: 10px 0 5px 0; color: #374151; }
+        .header { text-align: center; margin-bottom: 20px; }
+        .header h1 { font-size: 28px; border: none; }
+        .header p { color: #6b7280; font-size: 12px; }
+        table { width: 100%; border-collapse: collapse; margin: 8px 0; }
+        th, td { padding: 4px 8px; text-align: left; border: 1px solid #e5e7eb; }
+        th { background: #f9fafb; font-weight: 600; }
+        code { background: #f3f4f6; padding: 1px 4px; border-radius: 3px; }
+        .cmd { color: #059669; font-weight: 600; }
+        .flag { color: #dc2626; }
+        .desc { color: #6b7280; }
+        .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .sheet { margin-bottom: 20px; page-break-inside: avoid; }
+        .footer { text-align: center; margin-top: 30px; padding-top: 10px; border-top: 1px solid #e5e7eb; color: #9ca3af; font-size: 10px; }
+    </style>
+</head>
+<body>
+
+<!-- CHEAT SHEET 1: LINUX COMMANDS -->
+<div class="sheet">
+    <div class="header">
+        <h1>🐧 Linux Commands Cheat Sheet</h1>
+        <p>Essential commands every sysadmin needs • PragmaticSysadmin.help</p>
+    </div>
+
+    <h2>File System Navigation</h2>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code class="cmd">pwd</code></td><td>Print working directory</td></tr>
+        <tr><td><code class="cmd">ls -la</code></td><td>List all files with details</td></tr>
+        <tr><td><code class="cmd">cd /path</code></td><td>Change directory</td></tr>
+        <tr><td><code class="cmd">cd ~</code></td><td>Go to home directory</td></tr>
+        <tr><td><code class="cmd">cd -</code></td><td>Go to previous directory</td></tr>
+        <tr><td><code class="cmd">tree -L 2</code></td><td>Show directory tree (2 levels)</td></tr>
+    </table>
+
+    <h2>File Operations</h2>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code class="cmd">cp -r src/ dest/</code></td><td>Copy directory recursively</td></tr>
+        <tr><td><code class="cmd">mv old new</code></td><td>Move/rename file</td></tr>
+        <tr><td><code class="cmd">rm -rf dir/</code></td><td>Remove directory forcefully</td></tr>
+        <tr><td><code class="cmd">mkdir -p a/b/c</code></td><td>Create nested directories</td></tr>
+        <tr><td><code class="cmd">touch file</code></td><td>Create empty file / update timestamp</td></tr>
+        <tr><td><code class="cmd">ln -s target link</code></td><td>Create symbolic link</td></tr>
+    </table>
+
+    <h2>File Viewing & Search</h2>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code class="cmd">cat file</code></td><td>Display file contents</td></tr>
+        <tr><td><code class="cmd">less file</code></td><td>View file with pagination</td></tr>
+        <tr><td><code class="cmd">head -n 20 file</code></td><td>First 20 lines</td></tr>
+        <tr><td><code class="cmd">tail -f file</code></td><td>Follow file updates (live)</td></tr>
+        <tr><td><code class="cmd">grep -r "pattern" .</code></td><td>Search recursively</td></tr>
+        <tr><td><code class="cmd">grep -i "pattern" file</code></td><td>Case-insensitive search</td></tr>
+        <tr><td><code class="cmd">find . -name "*.log"</code></td><td>Find files by name</td></tr>
+        <tr><td><code class="cmd">find . -size +100M</code></td><td>Find files larger than 100MB</td></tr>
+    </table>
+
+    <h2>Process Management</h2>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code class="cmd">ps aux</code></td><td>List all processes</td></tr>
+        <tr><td><code class="cmd">ps aux | grep java</code></td><td>Find specific process</td></tr>
+        <tr><td><code class="cmd">top</code></td><td>Interactive process viewer</td></tr>
+        <tr><td><code class="cmd">htop</code></td><td>Enhanced process viewer</td></tr>
+        <tr><td><code class="cmd">kill -9 PID</code></td><td>Force kill process</td></tr>
+        <tr><td><code class="cmd">killall nginx</code></td><td>Kill all nginx processes</td></tr>
+        <tr><td><code class="cmd">pgrep -f "node"</code></td><td>Find PIDs by pattern</td></tr>
+        <tr><td><code class="cmd">pkill -f "script"</code></td><td>Kill by pattern match</td></tr>
+    </table>
+
+    <h2>System Information</h2>
+    <div class="two-col">
+        <table>
+            <tr><th>Command</th><th>Description</th></tr>
+            <tr><td><code class="cmd">uname -a</code></td><td>Kernel info</td></tr>
+            <tr><td><code class="cmd">cat /etc/os-release</code></td><td>OS version</td></tr>
+            <tr><td><code class="cmd">uptime</code></td><td>System uptime & load</td></tr>
+            <tr><td><code class="cmd">hostname</code></td><td>System hostname</td></tr>
+            <tr><td><code class="cmd">free -h</code></td><td>Memory usage</td></tr>
+            <tr><td><code class="cmd">df -h</code></td><td>Disk space</td></tr>
+        </table>
+        <table>
+            <tr><th>Command</th><th>Description</th></tr>
+            <tr><td><code class="cmd">du -sh *</code></td><td>Directory sizes</td></tr>
+            <tr><td><code class="cmd">lscpu</code></td><td>CPU information</td></tr>
+            <tr><td><code class="cmd">nproc</code></td><td>Number of CPUs</td></tr>
+            <tr><td><code class="cmd">dmesg</code></td><td>Kernel messages</td></tr>
+            <tr><td><code class="cmd">journalctl -xe</code></td><td>System logs</td></tr>
+            <tr><td><code class="cmd">last</code></td><td>Login history</td></tr>
+        </table>
+    </div>
+
+    <h2>User & Permissions</h2>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code class="cmd">chmod 755 file</code></td><td>rwx for owner, rx for others</td></tr>
+        <tr><td><code class="cmd">chmod -R 644 dir/</code></td><td>Recursive permission change</td></tr>
+        <tr><td><code class="cmd">chown user:group file</code></td><td>Change ownership</td></tr>
+        <tr><td><code class="cmd">whoami</code></td><td>Current username</td></tr>
+        <tr><td><code class="cmd">id</code></td><td>User/group IDs</td></tr>
+        <tr><td><code class="cmd">sudo -u user cmd</code></td><td>Run as different user</td></tr>
+    </table>
+
+    <h2>Package Management</h2>
+    <div class="two-col">
+        <table>
+            <tr><th colspan="2">Debian/Ubuntu (apt)</th></tr>
+            <tr><td><code class="cmd">apt update</code></td><td>Update package list</td></tr>
+            <tr><td><code class="cmd">apt upgrade</code></td><td>Upgrade packages</td></tr>
+            <tr><td><code class="cmd">apt install pkg</code></td><td>Install package</td></tr>
+            <tr><td><code class="cmd">apt remove pkg</code></td><td>Remove package</td></tr>
+        </table>
+        <table>
+            <tr><th colspan="2">RHEL/CentOS (dnf/yum)</th></tr>
+            <tr><td><code class="cmd">dnf update</code></td><td>Update packages</td></tr>
+            <tr><td><code class="cmd">dnf install pkg</code></td><td>Install package</td></tr>
+            <tr><td><code class="cmd">dnf remove pkg</code></td><td>Remove package</td></tr>
+            <tr><td><code class="cmd">dnf search pkg</code></td><td>Search packages</td></tr>
+        </table>
+    </div>
+
+    <h2>Service Management (systemd)</h2>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code class="cmd">systemctl status nginx</code></td><td>Check service status</td></tr>
+        <tr><td><code class="cmd">systemctl start nginx</code></td><td>Start service</td></tr>
+        <tr><td><code class="cmd">systemctl stop nginx</code></td><td>Stop service</td></tr>
+        <tr><td><code class="cmd">systemctl restart nginx</code></td><td>Restart service</td></tr>
+        <tr><td><code class="cmd">systemctl enable nginx</code></td><td>Enable at boot</td></tr>
+        <tr><td><code class="cmd">systemctl disable nginx</code></td><td>Disable at boot</td></tr>
+        <tr><td><code class="cmd">systemctl list-units --type=service</code></td><td>List all services</td></tr>
+        <tr><td><code class="cmd">journalctl -u nginx -f</code></td><td>Follow service logs</td></tr>
+    </table>
+
+    <h2>Compression & Archives</h2>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code class="cmd">tar -czvf archive.tar.gz dir/</code></td><td>Create gzip archive</td></tr>
+        <tr><td><code class="cmd">tar -xzvf archive.tar.gz</code></td><td>Extract gzip archive</td></tr>
+        <tr><td><code class="cmd">zip -r archive.zip dir/</code></td><td>Create zip archive</td></tr>
+        <tr><td><code class="cmd">unzip archive.zip</code></td><td>Extract zip archive</td></tr>
+        <tr><td><code class="cmd">gzip file</code></td><td>Compress file</td></tr>
+        <tr><td><code class="cmd">gunzip file.gz</code></td><td>Decompress file</td></tr>
+    </table>
+</div>
+
+<!-- CHEAT SHEET 2: NETWORKING -->
+<div class="sheet">
+    <div class="header">
+        <h1>🌐 Networking Cheat Sheet</h1>
+        <p>Troubleshooting commands and diagnostics • PragmaticSysadmin.help</p>
+    </div>
+
+    <h2>Connectivity Testing</h2>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code class="cmd">ping -c 4 google.com</code></td><td>Ping 4 times (Linux)</td></tr>
+        <tr><td><code class="cmd">ping -n 4 google.com</code></td><td>Ping 4 times (Windows)</td></tr>
+        <tr><td><code class="cmd">ping -s 1000 host</code></td><td>Ping with packet size</td></tr>
+        <tr><td><code class="cmd">traceroute google.com</code></td><td>Trace route (Linux/macOS)</td></tr>
+        <tr><td><code class="cmd">tracert google.com</code></td><td>Trace route (Windows)</td></tr>
+        <tr><td><code class="cmd">mtr google.com</code></td><td>My traceroute (continuous)</td></tr>
+        <tr><td><code class="cmd">tracepath google.com</code></td><td>Trace path (simpler)</td></tr>
+    </table>
+
+    <h2>DNS Troubleshooting</h2>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code class="cmd">nslookup google.com</code></td><td>DNS lookup</td></tr>
+        <tr><td><code class="cmd">dig google.com</code></td><td>Detailed DNS query</td></tr>
+        <tr><td><code class="cmd">dig google.com +short</code></td><td>Just the IP</td></tr>
+        <tr><td><code class="cmd">dig @8.8.8.8 google.com</code></td><td>Query specific DNS</td></tr>
+        <tr><td><code class="cmd">dig -x 192.168.1.1</code></td><td>Reverse DNS lookup</td></tr>
+        <tr><td><code class="cmd">host google.com</code></td><td>Simple DNS lookup</td></tr>
+    </table>
+
+    <h2>Network Interfaces & IPs</h2>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code class="cmd">ip addr show</code></td><td>Show all interfaces</td></tr>
+        <tr><td><code class="cmd">ip addr show eth0</code></td><td>Show specific interface</td></tr>
+        <tr><td><code class="cmd">ip link set eth0 up</code></td><td>Bring interface up</td></tr>
+        <tr><td><code class="cmd">ip link set eth0 down</code></td><td>Bring interface down</td></tr>
+        <tr><td><code class="cmd">ip route</code></td><td>Show routing table</td></tr>
+        <tr><td><code class="cmd">ip route add default via 192.168.1.1</code></td><td>Add default gateway</td></tr>
+        <tr><td><code class="cmd">ifconfig</code></td><td>Legacy interface info</td></tr>
+        <tr><td><code class="cmd">ifconfig eth0</code></td><td>Specific interface info</td></tr>
+    </table>
+
+    <h2>Port & Connection Analysis</h2>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code class="cmd">netstat -tulpn</code></td><td>Listening ports & services</td></tr>
+        <tr><td><code class="cmd">netstat -an | grep ESTABLISHED</code></td><td>Active connections</td></tr>
+        <tr><td><code class="cmd">ss -tulpn</code></td><td>Socket statistics (modern)</td></tr>
+        <tr><td><code class="cmd">ss -s</code></td><td>Socket summary</td></tr>
+        <tr><td><code class="cmd">lsof -i :80</code></td><td>What's using port 80</td></tr>
+        <tr><td><code class="cmd">lsof -i -P</code></td><td>All open network files</td></tr>
+        <tr><td><code class="cmd">nc -zv host 22</code></td><td>Test if port is open</td></tr>
+        <tr><td><code class="cmd">nmap -sV host</code></td><td>Service version detection</td></tr>
+    </table>
+
+    <h2>Bandwidth & Traffic</h2>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code class="cmd">iftop</code></td><td>Real-time bandwidth usage</td></tr>
+        <tr><td><code class="cmd">nethogs</code></td><td>Per-process bandwidth</td></tr>
+        <tr><td><code class="cmd">vnstat -d</code></td><td>Daily network statistics</td></tr>
+        <tr><td><code class="cmd">ethtool eth0</code></td><td>Interface statistics</td></tr>
+        <tr><td><code class="cmd">tcpdump -i eth0</code></td><td>Capture packets</td></tr>
+        <tr><td><code class="cmd">tcpdump -i eth0 port 80</code></td><td>Capture specific port</td></tr>
+        <tr><td><code class="cmd">wireshark</code></td><td>GUI packet analysis</td></tr>
+    </table>
+
+    <h2>Firewall (iptables/ufw)</h2>
+    <div class="two-col">
+        <table>
+            <tr><th colspan="2">iptables</th></tr>
+            <tr><td><code class="cmd">iptables -L -n</code></td><td>List rules</td></tr>
+            <tr><td><code class="cmd">iptables -A INPUT -p tcp --dport 22 -j ACCEPT</code></td><td>Allow SSH</td></tr>
+            <tr><td><code class="cmd">iptables -A INPUT -j DROP</code></td><td>Drop all other</td></tr>
+            <tr><td><code class="cmd">iptables-save</code></td><td>Save rules</td></tr>
+        </table>
+        <table>
+            <tr><th colspan="2">ufw (Ubuntu)</th></tr>
+            <tr><td><code class="cmd">ufw status</code></td><td>Show status</td></tr>
+            <tr><td><code class="cmd">ufw allow 22</code></td><td>Allow port 22</td></tr>
+            <tr><td><code class="cmd">ufw enable</code></td><td>Enable firewall</td></tr>
+            <tr><td><code class="cmd">ufw deny 80</code></td><td>Block port 80</td></tr>
+        </table>
+    </div>
+
+    <h2>SSH & Remote Access</h2>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code class="cmd">ssh user@host</code></td><td>Connect to remote host</td></tr>
+        <tr><td><code class="cmd">ssh -p 2222 user@host</code></td><td>Connect on custom port</td></tr>
+        <tr><td><code class="cmd">ssh -i key.pem user@host</code></td><td>Connect with key file</td></tr>
+        <tr><td><code class="cmd">ssh -L 8080:localhost:80 host</code></td><td>Local port forwarding</td></tr>
+        <tr><td><code class="cmd">ssh -R 8080:localhost:80 host</code></td><td>Remote port forwarding</td></tr>
+        <tr><td><code class="cmd">scp file user@host:/path</code></td><td>Copy file to remote</td></tr>
+        <tr><td><code class="cmd">scp user@host:/path/file .</code></td><td>Copy file from remote</td></tr>
+        <tr><td><code class="cmd">rsync -avz src/ user@host:dest/</code></td><td>Sync directories</td></tr>
+    </table>
+</div>
+
+<!-- CHEAT SHEET 3: SECURITY HARDENING -->
+<div class="sheet">
+    <div class="header">
+        <h1>🔒 Security Hardening Cheat Sheet</h1>
+        <p>Quick security checklist for servers • PragmaticSysadmin.help</p>
+    </div>
+
+    <h2>User & Access Security</h2>
+    <table>
+        <tr><th>Command / Action</th><th>Description</th></tr>
+        <tr><td><code class="cmd">passwd -l username</code></td><td>Lock user account</td></tr>
+        <tr><td><code class="cmd">userdel -r username</code></td><td>Remove user & home dir</td></tr>
+        <tr><td><code class="cmd">awk -F: '$3 == 0 {print $1}' /etc/passwd</code></td><td>Find root users</td></tr>
+        <tr><td><code class="cmd">lastb | head</code></td><td>Failed login attempts</td></tr>
+        <tr><td><code class="cmd">faillock --user username --reset</code></td><td>Clear faillock for user</td></tr>
+    </table>
+
+    <h2>SSH Hardening</h2>
+    <table>
+        <tr><th>Setting</th><th>Recommendation</th></tr>
+        <tr><td><code class="flag">PermitRootLogin</code></td><td>Set to <code>no</code> in /etc/ssh/sshd_config</td></tr>
+        <tr><td><code class="flag">PasswordAuthentication</code></td><td>Set to <code>no</code> (use keys only)</td></tr>
+        <tr><td><code class="flag">Port</code></td><td>Change from default 22</td></tr>
+        <tr><td><code class="flag">MaxAuthTries</code></td><td>Set to <code>3</code></td></tr>
+        <tr><td><code class="flag">Protocol</code></td><td>Ensure only Protocol 2</td></tr>
+        <tr><td><code class="flag">AllowUsers</code></td><td>Restrict to specific users</td></tr>
+    </table>
+
+    <h2>File Permissions Audit</h2>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code class="cmd">find / -perm -4000 2>/dev/null</code></td><td>Find SUID files</td></tr>
+        <tr><td><code class="cmd">find / -perm -2000 2>/dev/null</code></td><td>Find SGID files</td></tr>
+        <tr><td><code class="cmd">find / -type f -perm 0777 2>/dev/null</code></td><td>Find world-writable files</td></tr>
+        <tr><td><code class="cmd">find /home -perm -0002 2>/dev/null</code></td><td>Find writable files in home</td></tr>
+        <tr><td><code class="cmd">ls -la /etc/passwd /etc/shadow</code></td><td>Check auth file perms</td></tr>
+    </table>
+
+    <h2>Service Hardening</h2>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code class="cmd">systemctl list-unit-files --state=enabled</code></td><td>List enabled services</td></tr>
+        <tr><td><code class="cmd">systemctl disable servicename</code></td><td>Disable unnecessary service</td></tr>
+        <tr><td><code class="cmd">ss -tulpn</code></td><td>Check listening ports</td></tr>
+        <tr><td><code class="cmd">netstat -tulpn | grep LISTEN</code></td><td>Alternative port check</td></tr>
+    </table>
+
+    <h2>Update & Patch Management</h2>
+    <div class="two-col">
+        <table>
+            <tr><th colspan="2">Debian/Ubuntu</th></tr>
+            <tr><td><code class="cmd">apt update</code></td><td>Refresh package list</td></tr>
+            <tr><td><code class="cmd">apt upgrade -y</code></td><td>Install updates</td></tr>
+            <tr><td><code class="cmd">apt autoremove</code></td><td>Remove unused packages</td></tr>
+            <tr><td><code class="cmd">unattended-upgrade</code></td><td>Auto security updates</td></tr>
+        </table>
+        <table>
+            <tr><th colspan="2">RHEL/CentOS</th></tr>
+            <tr><td><code class="cmd">dnf check-update</code></td><td>Check for updates</td></tr>
+            <tr><td><code class="cmd">dnf upgrade -y</code></td><td>Install updates</td></tr>
+            <tr><td><code class="cmd">dnf autoremove</code></td><td>Remove unused packages</td></tr>
+            <tr><td><code class="cmd">dnf updateinfo list</code></td><td>Security updates list</td></tr>
+        </table>
+    </div>
+
+    <h2>Log Monitoring</h2>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code class="cmd">journalctl -xe</code></td><td>Recent system logs</td></tr>
+        <tr><td><code class="cmd">journalctl -u sshd -f</code></td><td>Follow SSH logs</td></tr>
+        <tr><td><code class="cmd">tail -f /var/log/auth.log</code></td><td>Authentication logs (Debian)</td></tr>
+        <tr><td><code class="cmd">tail -f /var/log/secure</code></td><td>Authentication logs (RHEL)</td></tr>
+        <tr><td><code class="cmd">grep "Failed password" /var/log/auth.log</code></td><td>Failed login attempts</td></tr>
+    </table>
+
+    <h2>Network Security Checklist</h2>
+    <table>
+        <tr><th>Item</th><th>Check</th></tr>
+        <tr><td>Open ports</td><td>Only necessary ports open</td></tr>
+        <tr><td>Firewall</td><td>Configured and enabled</td></tr>
+        <tr><td>Unused services</td><td>Disabled or removed</td></tr>
+        <tr><td>SSH keys</td><td>Password auth disabled</td></tr>
+        <tr><td>Fail2Ban</td><td>Installed and configured</td></tr>
+        <tr><td>SSL/TLS</td><td>Certificates up to date</td></tr>
+    </table>
+
+    <h2>Quick Security Audit Commands</h2>
+    <table>
+        <tr><th>Command</th><th>Description</th></tr>
+        <tr><td><code class="cmd">cat /etc/passwd | grep -v nologin</code></td><td>List users with shells</td></tr>
+        <tr><td><code class="cmd">last | head -20</code></td><td>Recent logins</td></tr>
+        <tr><td><code class="cmd">w</code></td><td>Who is logged in now</td></tr>
+        <tr><td><code class="cmd">crontab -l</code></td><td>User cron jobs</td></tr>
+        <tr><td><code class="cmd">cat /etc/crontab</code></td><td>System cron jobs</td></tr>
+        <tr><td><code class="cmd">uptime</code></td><td>System uptime & load</td></tr>
+    </table>
+
+    <h2>Essential Security Tools</h2>
+    <div class="two-col">
+        <table>
+            <tr><th>Tool</th><th>Purpose</th></tr>
+            <tr><td><code class="cmd">lynis</code></td><td>Security auditing</td></tr>
+            <tr><td><code class="cmd">rkhunter</code></td><td>Rootkit scanner</td></tr>
+            <tr><td><code class="cmd">chkrootkit</code></td><td>Rootkit detection</td></tr>
+            <tr><td><code class="cmd">clamav</code></td><td>Antivirus scanner</td></tr>
+        </table>
+        <table>
+            <tr><th>Tool</th><th>Purpose</th></tr>
+            <tr><td><code class="cmd">fail2ban</code></td><td>Intrusion prevention</td></tr>
+            <tr><td><code class="cmd">aide</code></td><td>File integrity</td></tr>
+            <tr><td><code class="cmd">logwatch</code></td><td>Log analysis</td></tr>
+            <tr><td><code class="cmd">auditd</code></td><td>Audit daemon</td></tr>
+        </table>
+    </div>
+</div>
+
+<div class="footer">
+    <p>PragmaticSysadmin.help • Quick reference for sysadmins • Keep calm and check the logs</p>
+</div>
+
+</body>
+</html>

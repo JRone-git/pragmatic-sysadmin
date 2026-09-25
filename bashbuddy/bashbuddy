@@ -1,0 +1,470 @@
+#!/usr/bin/env bash
+# bashbuddy - Your terminal AI companion
+# License: MIT | https://github.com/pragmatic-sysadmin/bashbuddy
+#
+# Usage:
+#   bashbuddy [options] [prompt]        Interactive chat mode
+#   bashbuddy --setup                   First-run API key setup
+#   bashbuddy --explain "error here"    Explain an error
+#   bashbuddy --review script.sh         Review a bash script
+#   bashbuddy --translate "show disks"  Natural language -> bash
+#   bashbuddy --fix "rm -rf /"          Explain what is wrong
+#
+# Options:
+#   --model MODEL   Override model (default: from config)
+#   --no-stream     Disable streaming
+#   --help          Show help
+#   --version       Show version
+
+set -euo pipefail
+
+BASHBUDDY_VERSION="1.0.0"
+CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/bashbuddy"
+CONFIG_FILE="${BASHBUDDY_CONFIG:-$CONFIG_DIR/config}"
+HISTORY_FILE="${BASHBUDDY_HISTORY:-$CONFIG_DIR/history}"
+
+DEFAULT_MODEL="gpt-4o-mini"
+DEFAULT_BASE_URL="https://api.openai.com/v1"
+
+MODE="chat"
+STREAM="true"
+API_KEY=""
+BASE_URL="$DEFAULT_BASE_URL"
+MODEL="$DEFAULT_MODEL"
+SYSTEM_PROMPT=""
+EXTRA_CONTEXT=""
+ARGS=()
+
+# ANSI colors
+BOLD='\033[1m'; DIM='\033[2m'; CYAN='\033[36m'; GREEN='\033[32m'
+YELLOW='\033[33m'; RED='\033[31m'; RESET='\033[0m'
+
+log_info()  { echo -e "${CYAN}[bb]${RESET} $*"; }
+log_warn()  { echo -e "${YELLOW}[bb]${RESET} $*"; }
+log_err()   { echo -e "${RED}[bb]${RESET} $*" >&2; }
+log_ok()    { echo -e "${GREEN}[bb]${RESET} $*"; }
+err()       { log_err "$*"; exit 1; }
+
+load_config() {
+  if [[ ! -f "$CONFIG_FILE" ]]; then return 1; fi
+  # shellcheck disable=SC1090
+  source <(grep -v "^#" "$CONFIG_FILE" | grep -v "^$" | sed "s/^/export /")
+  API_KEY="${API_KEY:-}"; BASE_URL="${BASE_URL:-$DEFAULT_BASE_URL}"; MODEL="${MODEL:-$DEFAULT_MODEL}"
+}
+
+save_config() {
+  mkdir -p "$CONFIG_DIR"
+  cat > "$CONFIG_FILE" <<"EOFCONFIG"
+# bashbuddy config -- https://github.com/pragmatic-sysadmin/bashbuddy
+API_KEY="API_KEY_PH"
+BASE_URL="BASE_URL_PH"
+MODEL="MODEL_PH"
+EOFCONFIG
+  sed -i "s|API_KEY_PH|${API_KEY}|" "$CONFIG_FILE"
+  sed -i "s|BASE_URL_PH|${BASE_URL}|" "$CONFIG_FILE"
+  sed -i "s|MODEL_PH|${MODEL}|" "$CONFIG_FILE"
+  chmod 600 "$CONFIG_FILE"
+  log_ok "Config saved to $CONFIG_FILE"
+}
+
+check_deps() {
+  local m=()
+  command -v curl >/dev/null 2>&1 || m+=(curl)
+  command -v jq    >/dev/null 2>&1 || m+=(jq)
+  [[ ${#m[@]} -gt 0 ]] && err "Missing: ${m[*]} -- install: apt install curl jq"
+}
+
+prompt_api_key() {
+  echo ""
+  echo -e "${BOLD}bashbuddy setup${RESET}"
+  echo "  1) OpenRouter    openrouter.ai       (recommended, many models)"
+  echo "  2) OpenAI        openai.com          (direct, reliable)"
+  echo "  3) Groq          console.groq.com   (fast, free tier)"
+  echo "  4) LM Studio     localhost:1234      (run locally)"
+  echo "  5) Ollama        localhost:11434     (run locally)"
+  echo "  6) Custom URL    any OpenAI-compatible endpoint"
+  echo ""
+  read -rp "Choose backend [1]: " choice
+  choice="${choice:-1}"
+  case "$choice" in
+    1) read -rp "API Key (openrouter.ai/keys): " API_KEY
+       BASE_URL="https://openrouter.ai/api/v1"
+       MODEL="anthropic/claude-3.5-haiku"
+       read -rp "Model [anthropic/claude-3.5-haiku]: " m
+       MODEL="${m:-anthropic/claude-3.5-haiku}" ;;
+    2) read -rp "API Key (platform.openai.com/api-keys): " API_KEY
+       BASE_URL="https://api.openai.com/v1"
+       MODEL="gpt-4o-mini"
+       read -rp "Model [gpt-4o-mini]: " m
+       MODEL="${m:-gpt-4o-mini}" ;;
+    3) read -rp "API Key (console.groq.com/keys): " API_KEY
+       BASE_URL="https://api.groq.com/openai/v1"
+       MODEL="llama-3.1-8b-instant" ;;
+    4) read -rp "URL [http://localhost:1234/v1]: " url
+       BASE_URL="${url:-http://localhost:1234/v1}"
+       API_KEY="not-needed"
+       MODEL="$(curl -s "${BASE_URL}/models" 2>/dev/null | jq -r ".data[0].id" 2>/dev/null || echo "llama-3.2-3b-instruct")"
+       log_info "Detected model: $MODEL" ;;
+    5) BASE_URL="http://localhost:11434/v1"; API_KEY="not-needed"
+       MODEL="$(curl -s http://localhost:11434/api/tags 2>/dev/null | jq -r ".models[0].name" 2>/dev/null || echo "llama3.2")"
+       log_info "Detected model: $MODEL" ;;
+    6) read -rp "Base URL: " BASE_URL; read -rp "API Key: " API_KEY; read -rp "Model: " MODEL ;;
+    *) err "Invalid choice" ;;
+  esac
+  if [[ -z "$API_KEY" || "$API_KEY" == "not-needed" ]] && [[ ! "$BASE_URL" =~ localhost ]]; then
+    err "API key is required"
+  fi
+  save_config
+  log_ok "Setup complete! Run bashbuddy to start."
+  echo "Examples:"
+  echo "  bashbuddy explain why this failed"
+  echo "  bashbuddy --review my-script.sh"
+  echo '  bashbuddy "show disk usage sorted by size"'
+  exit 0
+}
+
+build_system_prompt() {
+  local os shell_type hostname
+  os="$(uname -srm 2>/dev/null)" || os="Unknown"
+  shell_type="bash ${BASH_VERSION:-0.0}"
+  hostname="${HOSTNAME:-$(hostname 2>/dev/null || echo unknown)}"
+
+  SYSTEM_PROMPT=$(cat <<"SYSEOF"
+You are bashbuddy -- a terminal AI companion for sysadmins and developers.
+Running on: RUNNING_OS | RUNNING_SHELL | host: RUNNING_HOSTNAME
+Working dir: RUNNING_PWD
+
+Your style:
+- Direct and practical. Give working solutions, not caveats.
+- Plain English. No jargon unless explained.
+- Catch dangerous commands and warn clearly.
+- Prefer short, correct answers over long theories.
+- Format code with backticks. Explain each part.
+
+COMMAND EXECUTION:
+- If asked to run a command, output ONLY the command in a code block, prefixed with $RUN:
+  $RUN: ls -lah ~
+- If dangerous, prefix with $WARN: and explain why
+- If you do not know, say so
+
+SCRIPT REVIEW:
+- Be specific: cite exact lines
+- Distinguish style preferences from actual bugs
+- Flag anything that could lose data, create security holes, or hang forever
+
+ERROR EXPLANATION:
+- One sentence: what went wrong
+- Brief: why it happened
+- Code block: the fix
+- Optionally: a safer alternative
+
+HONESTY: If a command could destroy data, warn clearly before suggesting it.
+SYSEOF
+)
+  SYSTEM_PROMPT="${SYSTEM_PROMPT//RUNNING_OS/$os}"
+  SYSTEM_PROMPT="${SYSTEM_PROMPT//RUNNING_SHELL/$shell_type}"
+  SYSTEM_PROMPT="${SYSTEM_PROMPT//RUNNING_HOSTNAME/$hostname}"
+  SYSTEM_PROMPT="${SYSTEM_PROMPT//RUNNING_PWD/$PWD}"
+}
+
+save_context() {
+  mkdir -p "$CONFIG_DIR"
+  echo "last_dir=$PWD" > "$CONFIG_FILE.context"
+  echo "last_run=$(date +%s)" >> "$CONFIG_FILE.context"
+}
+
+call_api() {
+  local payload="$1"
+  local tmp; tmp=$(mktemp)
+  local auth_header="Authorization: Bearer $API_KEY"
+  local -a extra_h=()
+  [[ "$BASE_URL" == *"openrouter"* ]] && extra_h=("-H" "HTTP-Referer: https://github.com/pragmatic-sysadmin/bashbuddy" "-H" "X-Title: bashbuddy")
+
+  local http_code
+  http_code=$(curl -sS -o "$tmp" -w "%{http_code}" \ 
+    -H "Content-Type: application/json" -H "$auth_header" \ 
+    "${extra_h[@]}" -d "$payload" --max-time 120 \ 
+    "$BASE_URL/chat/completions" 2>&1) || {
+    log_err "Network error: $*"
+    cat "$tmp" 2>/dev/null; rm -f "$tmp"; return 1
+  }
+
+  if [[ "$http_code" == "200" ]]; then
+    cat "$tmp"; rm -f "$tmp"; return 0
+  fi
+
+  local err_msg
+  err_msg=$(jq -r ".error.message // .error.code // .message // \"HTTP $http_code\"" "$tmp" 2>/dev/null || echo "HTTP $http_code")
+  log_err "API error: $err_msg"
+
+  if [[ "$err_msg" == *"api key"* ]] || [[ "$err_msg" == *"401"* ]]; then
+    log_err "Hint: run bashbuddy --setup to configure your API key"
+  elif [[ "$err_msg" == *"rate limit"* ]] || [[ "$err_msg" == *"429"* ]]; then
+    log_err "Hint: rate limited -- wait and retry"
+  elif [[ "$err_msg" == *"quota"* ]] || [[ "$err_msg" == *"402"* ]]; then
+    log_err "Hint: API quota exceeded -- check billing"
+  fi
+
+  rm -f "$tmp"; return 1
+}
+
+build_messages() {
+  local user_msg="$1"
+  local hist_file="${2:-$HISTORY_FILE}"
+  local -a msgs=()
+  msgs+=("$(jq -n --arg s "$SYSTEM_PROMPT" '{role:"system",content:$s}')")
+  if [[ -f "$hist_file" ]]; then
+    local prev_role=""
+    while IFS= read -r line; do
+      [[ -z "$line" ]] && continue
+      local role="${line%%|*}"
+      local content="${line#*|}"
+      [[ "$role" != "user" && "$role" != "assistant" ]] && continue
+      [[ -z "$content" ]] && continue
+      [[ "$role" == "$prev_role" ]] && continue
+      msgs+=("$(jq -n --arg r "$role" --arg v "$content" '{role:$r,content:$v}')")
+      prev_role="$role"
+    done < <(tail -n 40 "$hist_file" 2>/dev/null || true)
+  fi
+  msgs+=("$(jq -n --arg v "$user_msg" '{role:"user",content:$v}')")
+  local joined=""
+  for m in "${msgs[@]}"; do [[ -n "$joined" ]] && joined+=","; joined+="$m"; done
+  echo "[$joined]"
+}
+
+ask() {
+  local user_msg="$1"
+  local msgs_json; msgs_json=$(build_messages "$user_msg")
+  local payload; payload=$(jq -n \ 
+    --arg model "$MODEL" \ 
+    --argjson msgs "$msgs_json" \ 
+    '{model:$model,messages:$msgs}')
+  local resp; resp=$(call_api "$payload") || return 1
+  local content; content=$(echo "$resp" | jq -r '.choices[0].message.content // empty')
+  [[ -z "$content" ]] && { log_err "Empty response"; return 1; }
+  echo -e "$content"
+  echo ""
+  mkdir -p "$(dirname "$HISTORY_FILE")"
+  echo "user|$user_msg" >> "$HISTORY_FILE"
+  echo "assistant|$content" >> "$HISTORY_FILE"
+}
+
+ask_stream() {
+  local user_msg="$1"
+  local msgs_json; msgs_json=$(build_messages "$user_msg")
+  local payload; payload=$(jq -n \ 
+    --arg model "$MODEL" \ 
+    --argjson msgs "$msgs_json" \ 
+    '{model:$model,messages:$msgs,stream:true}')
+  local auth_header="Authorization: Bearer $API_KEY"
+  local -a extra_h=()
+  [[ "$BASE_URL" == *"openrouter"* ]] && extra_h=("-H" "HTTP-Referer: https://github.com/pragmatic-sysadmin/bashbuddy" "-H" "X-Title: bashbuddy")
+  local full=""
+  curl -sS -X POST \ 
+    -H "Content-Type: application/json" -H "$auth_header" \ 
+    "${extra_h[@]}" -d "$payload" --max-time 120 -N \ 
+    "$BASE_URL/chat/completions" | \ 
+    while IFS= read -r line; do
+      [[ ! "$line" =~ ^data: ]] && continue
+      local data="${line#data: }"
+      [[ "$data" == "[DONE]" ]] && break
+      local delta; delta=$(echo "$data" | jq -r '.choices[0].delta.content // empty' 2>/dev/null || true)
+      [[ -z "$delta" ]] && continue
+      printf "%s" "$delta"
+      full+="$delta"
+    done
+  echo ""
+  mkdir -p "$(dirname "$HISTORY_FILE")"
+  echo "user|$user_msg" >> "$HISTORY_FILE"
+  echo "assistant|$full" >> "$HISTORY_FILE"
+}
+
+repl() {
+  load_config || true
+  build_system_prompt
+
+  if [[ -z "$API_KEY" ]]; then
+    log_warn "No API key. Run: bashbuddy --setup"
+    echo ""
+  fi
+
+  echo ""
+  echo -e "  ${BOLD}bashbuddy${RESET}  ${DIM}v${BASHBUDDY_VERSION} | Ctrl+D or /exit to quit | /help for commands${RESET}"
+  echo -e "  ${DIM}Model: $MODEL | Backend: $(echo "$BASE_URL" | sed "s|https\?://||" | cut -d/ -f1)${RESET}"
+  echo ""
+  echo -e "  ${DIM}Tip: paste an error, ask to write a script, or just describe what you need.${RESET}"
+  echo -e "${CYAN}────────────────────────────────────────────${RESET}"
+  echo ""
+
+  local input
+  while true; do
+    echo -ne "${GREEN}bb > ${RESET}"
+    if ! IFS= read -r input; then
+      echo ""; save_context; echo -e "${DIM}Goodbye!${RESET}"; break
+    fi
+    input=$(echo "$input" | sed "s/^[[:space:]]*//;s/[[:space:]]*$//")
+    [[ -z "$input" ]] && continue
+
+    case "$input" in
+      /exit|/quit|/bye) save_context; echo -e "${DIM}Bye!${RESET}"; break ;;
+      /clear) > "$HISTORY_FILE" 2>/dev/null || true; echo -e "${DIM}History cleared.${RESET}"; continue ;;
+      /help)
+        echo ""; echo -e "${BOLD}Commands:${RESET}"
+        echo "  /explain <error>    Paste an error -> plain-English explanation"
+        echo "  /review <file>      Review a bash script for bugs"
+        echo "  /translate <text>   Natural language -> bash command"
+        echo "  /fix <command>     Paste a bad command -> explain + fix"
+        echo "  /model <name>       Switch model"
+        echo "  /setup              Re-run API key setup"
+        echo "  /clear              Clear conversation history"
+        echo "  /help               This message"
+        echo "  /exit               Quit"
+        echo ""; echo "  Or just type anything -- questions, code, errors all welcome."
+        echo ""; continue ;;
+      /setup) prompt_api_key ;;
+      /model)
+        read -rp "Model: " MODEL
+        echo -e "${DIM}Model: $MODEL${RESET}"; continue ;;
+      /explain*)
+        local arg="${input#/explain }"; arg=$(echo "$arg" | sed "s/^[[:space:]]*//")
+        [[ -z "$arg" ]] && read -rp "Enter error text: " arg
+        ask "Explain this error in plain English. What went wrong, why, and how to fix it:
+
+$arg"; echo ""; continue ;;
+      /review*)
+        local file="${input#/review }"; file=$(echo "$file" | sed "s/^[[:space:]]*//")
+        [[ -z "$file" ]] && read -rp "File to review: " file
+        [[ ! -f "$file" ]] && { log_err "File not found: $file"; continue; }
+        local content; content=$(cat "$file")
+        ask "Review this bash script. Be specific -- cite exact lines. Flag: bugs, security issues, data-loss risks, infinite loops. Rate: Production-ready / Needs Work / Dangerous.
+
+$content"; echo ""; continue ;;
+      /translate*)
+        local nl="${input#/translate }"; nl=$(echo "$nl" | sed "s/^[[:space:]]*//")
+        [[ -z "$nl" ]] && read -rp "What do you want to do? " nl
+        ask "Convert to a single safe bash command. If dangerous, warn clearly. If ambiguous, note your assumption.
+
+Request: $nl"; echo ""; continue ;;
+      /fix*)
+        local cmd="${input#/fix }"; cmd=$(echo "$cmd" | sed "s/^[[:space:]]*//")
+        [[ -z "$cmd" ]] && read -rp "Paste the command: " cmd
+        ask "This command failed or is dangerous. Explain what went wrong and show the correct version.
+
+$cmd"; echo ""; continue ;;
+      *)
+        if [[ "$STREAM" == "true" ]]; then
+          ask_stream "$input"
+        else
+          ask "$input"
+        fi
+        echo "" ;;
+    esac
+  done
+}
+
+do_explain() {
+  [[ -z "$EXTRA_CONTEXT" ]] && [[ ! -t 0 ]] && EXTRA_CONTEXT=$(cat)
+  [[ -z "$EXTRA_CONTEXT" ]] && { log_err "No input. Pipe an error: bashbuddy --explain < error.txt"; exit 1; }
+  load_config || err "Not configured. Run: bashbuddy --setup"
+  check_deps; build_system_prompt
+  ask "Explain this error in plain English. What went wrong, why, and how to fix it:
+
+$EXTRA_CONTEXT"
+}
+
+do_review() {
+  load_config || err "Not configured. Run: bashbuddy --setup"
+  check_deps; build_system_prompt
+  [[ ! -f "$EXTRA_CONTEXT" ]] && err "File not found: $EXTRA_CONTEXT"
+  local content; content=$(cat "$EXTRA_CONTEXT")
+  ask "Review this bash script. Be specific -- cite exact lines. Flag bugs, security issues, data-loss risks. Rate: Production-ready / Needs Work / Dangerous.
+
+$content"
+}
+
+do_translate() {
+  load_config || err "Not configured. Run: bashbuddy --setup"
+  check_deps; build_system_prompt
+  ask "Convert to a single safe bash command. If dangerous, warn clearly. If ambiguous, note your assumption.
+
+Request: $EXTRA_CONTEXT"
+}
+
+do_fix() {
+  load_config || err "Not configured. Run: bashbuddy --setup"
+  check_deps; build_system_prompt
+  ask "This command failed or is dangerous. Explain what went wrong and show the correct version.
+
+$EXTRA_CONTEXT"
+}
+
+parse_args() {
+  while [[ $# -gt 0 ]]; do
+    case "$1" in
+      --setup)    prompt_api_key ;;
+      --help|-h)  cat <<"HELPEOF"
+bashbuddy -- Your terminal AI companion
+
+Usage: bashbuddy [options] [prompt]
+
+Options:
+  --setup         First-run API key setup
+  --explain TEXT  Explain an error in plain English
+  --review FILE   Review a bash script for bugs
+  --translate TXT Natural language -> bash command
+  --fix CMD       Explain a bad command and fix it
+  --model NAME    Override model
+  --no-stream     Disable streaming output
+  --help          Show this message
+  --version       Show version
+
+Examples:
+  bashbuddy "show me disk space sorted by size"
+  bashbuddy --review deploy.sh
+  bashbuddy --explain < error.txt
+  bashbuddy "write a script to find large files"
+
+Get an API key:
+  OpenRouter: https://openrouter.ai/keys
+  OpenAI:     https://platform.openai.com/api-keys
+  Groq:       https://console.groq.com/keys
+HELPEOF
+      exit 0 ;;
+      --version)  echo "bashbuddy v${BASHBUDDY_VERSION}"; exit 0 ;;
+      --explain)  MODE="explain"; [[ $# -gt 1 ]] && { EXTRA_CONTEXT="$2"; shift; }; shift ;;
+      --review)   MODE="review";  [[ $# -gt 1 ]] && { EXTRA_CONTEXT="$2"; shift; }; shift ;;
+      --translate) MODE="translate"; [[ $# -gt 1 ]] && { EXTRA_CONTEXT="$2"; shift; }; shift ;;
+      --fix)      MODE="fix";    [[ $# -gt 1 ]] && { EXTRA_CONTEXT="$2"; shift; }; shift ;;
+      --model)    shift; MODEL="${1:-}"; shift ;;
+      --no-stream) STREAM="false"; shift ;;
+      -*)         err "Unknown option: $1" ;;
+      *)          ARGS+=("$1"); shift ;;
+    esac
+  done
+}
+
+main() {
+  parse_args "$@"
+
+  # Auto-detect piped stdin for explain mode
+  if [[ "$MODE" == "explain" && -z "$EXTRA_CONTEXT" ]] && [[ ! -t 0 ]]; then
+    EXTRA_CONTEXT=$(cat)
+  fi
+
+  case "$MODE" in
+    chat)
+      if [[ ${#ARGS[@]} -gt 0 ]]; then
+        load_config || err "Not configured. Run: bashbuddy --setup"
+        check_deps; build_system_prompt
+        ask " ${ARGS[*]}"
+      else
+        repl
+      fi ;;
+    explain)   do_explain ;;
+    review)    do_review ;;
+    translate) do_translate ;;
+    fix)       do_fix ;;
+  esac
+}
+
+main "$@"

@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Plain English — Explain Any Command or Error in Plain Language</title>
+  <meta name="description" content="Paste a bash command, error message, config, or concept. Get a plain-language explanation tailored for sysadmins, family caregivers, or beginners." />
+  <style>
+    /* ===== RESET & BASE ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #FBF6EE;
+      --surface: #FFFFFF;
+      --primary: #2D6A4F;
+      --primary-dark: #1F4A36;
+      --accent: #52B788;
+      --border: #D6CFBE;
+      --text: #2B2B2B;
+      --text-muted: #6B6B6B;
+      --code-bg: #F4EFE3;
+      --warning: #C0392B;
+      --warning-bg: #FDF2F2;
+    }
+
+    html { font-size: 18px; }
+    body {
+      font-family: 'Segoe UI', system-ui, -apple-system, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100dvh;
+    }
+
+    /* ===== HEADER ===== */
+    header {
+      background: var(--primary);
+      color: #fff;
+      padding: 1.5rem 1rem;
+      text-align: center;
+    }
+    header h1 {
+      font-size: 1.6rem;
+      font-weight: 700;
+      margin-bottom: 0.25rem;
+    }
+    header p {
+      opacity: 0.85;
+      font-size: 0.9rem;
+    }
+    .badge {
+      display: inline-block;
+      background: rgba(255,255,255,0.15);
+      border-radius: 20px;
+      padding: 0.15rem 0.7rem;
+      font-size: 0.75rem;
+      margin-top: 0.5rem;
+      font-weight: 600;
+      letter-spacing: 0.03em;
+      text-transform: uppercase;
+    }
+
+    /* ===== API KEY BANNER ===== */
+    .api-banner {
+      background: var(--warning-bg);
+      border-bottom: 1.5px solid #F5C6C6;
+      padding: 0.75rem 1rem;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      flex-wrap: wrap;
+    }
+    .api-banner.hidden { display: none; }
+    .api-banner-icon { font-size: 1.2rem; }
+    .api-banner p { font-size: 0.85rem; flex: 1; min-width: 200px; }
+    .api-banner input {
+      flex: 1;
+      min-width: 200px;
+      max-width: 340px;
+      padding: 0.4rem 0.7rem;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.8rem;
+      background: #fff;
+    }
+    .api-banner button {
+      padding: 0.4rem 1rem;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      font-size: 0.85rem;
+      font-weight: 600;
+      cursor: pointer;
+      white-space: nowrap;
+    }
+    .api-banner button:hover { background: var(--primary-dark); }
+    .api-banner .saved {
+      font-size: 0.8rem;
+      color: var(--primary);
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    /* ===== MAIN LAYOUT ===== */
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+    }
+
+    /* ===== AUDIENCE SELECTOR ===== */
+    .audience-section {
+      margin-bottom: 1.25rem;
+    }
+    .audience-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+      margin-bottom: 0.5rem;
+      display: block;
+    }
+    .audience-cards {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0.5rem;
+    }
+    .audience-card {
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      padding: 0.6rem 0.5rem;
+      text-align: center;
+      cursor: pointer;
+      transition: border-color 0.15s, background 0.15s;
+      user-select: none;
+    }
+    .audience-card:hover { border-color: var(--accent); }
+    .audience-card.selected {
+      border-color: var(--primary);
+      background: rgba(45, 106, 79, 0.06);
+    }
+    .audience-card .icon { font-size: 1.5rem; display: block; margin-bottom: 0.2rem; }
+    .audience-card .name { font-size: 0.78rem; font-weight: 700; color: var(--text); }
+    .audience-card .desc { font-size: 0.68rem; color: var(--text-muted); margin-top: 0.1rem; }
+    @media (max-width: 500px) {
+      .audience-cards { grid-template-columns: 1fr; }
+      .audience-card { display: flex; align-items: center; gap: 0.75rem; text-align: left; padding: 0.5rem 0.75rem; }
+      .audience-card .icon { font-size: 1.3rem; margin-bottom: 0; }
+    }
+
+    /* ===== INPUT AREA ===== */
+    .input-section { margin-bottom: 1.25rem; }
+    .input-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .input-label {
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-muted);
+    }
+    .type-tabs {
+      display: flex;
+      gap: 0.35rem;
+    }
+    .type-tab {
+      padding: 0.25rem 0.65rem;
+      border-radius: 20px;
+      border: 1.5px solid var(--border);
+      background: #fff;
+      font-size: 0.75rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.15s;
+    }
+    .type-tab.selected {
+      border-color: var(--primary);
+      background: var(--primary);
+      color: #fff;
+    }
+    .type-tab:hover:not(.selected) { border-color: var(--accent); }
+
+    textarea {
+      width: 100%;
+      min-height: 140px;
+      padding: 0.9rem;
+      border: 2px solid var(--border);
+      border-radius: 12px;
+      font-family: 'Courier New', Courier, monospace;
+      font-size: 0.88rem;
+      line-height: 1.5;
+      background: var(--surface);
+      color: var(--text);
+      resize: vertical;
+      transition: border-color 0.15s;
+    }
+    textarea:focus { outline: none; border-color: var(--primary); }
+    textarea::placeholder { color: #aaa; }
+
+    /* ===== EXPLAIN BUTTON ===== */
+    .btn-row { text-align: center; margin-bottom: 1.5rem; }
+    .btn-explain {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.85rem 2.5rem;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 50px;
+      font-size: 1.05rem;
+      font-weight: 700;
+      cursor: pointer;
+      box-shadow: 0 4px 12px rgba(45,106,79,0.3);
+      transition: transform 0.1s, box-shadow 0.1s, background 0.15s;
+    }
+    .btn-explain:hover { background: var(--primary-dark); transform: translateY(-1px); box-shadow: 0 6px 16px rgba(45,106,79,0.35); }
+    .btn-explain:active { transform: translateY(0); }
+    .btn-explain:disabled { opacity: 0.6; cursor: not-allowed; transform: none; }
+    .btn-explain .icon { font-size: 1.1rem; }
+
+    /* ===== EXAMPLE PROMPTS ===== */
+    .examples {
+      background: var(--code-bg);
+      border-radius: 12px;
+      padding: 0.75rem 1rem;
+      margin-bottom: 1.5rem;
+    }
+    .examples-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 0.5rem;
+    }
+    .examples-title { font-size: 0.8rem; font-weight: 700; color: var(--text-muted); }
+    .examples-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 0.4rem;
+    }
+    @media (max-width: 500px) { .examples-grid { grid-template-columns: 1fr; } }
+    .example-chip {
+      background: #fff;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.75rem;
+      color: var(--text);
+      cursor: pointer;
+      text-align: left;
+      line-height: 1.4;
+      transition: border-color 0.15s;
+      font-family: 'Courier New', monospace;
+    }
+    .example-chip:hover { border-color: var(--accent); background: rgba(82,183,136,0.05); }
+
+    /* ===== RESULT AREA ===== */
+    .result-area {
+      display: none;
+      background: var(--surface);
+      border: 2px solid var(--border);
+      border-radius: 16px;
+      overflow: hidden;
+    }
+    .result-area.show { display: block; }
+    .result-header {
+      background: var(--code-bg);
+      padding: 0.75rem 1.1rem;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      border-bottom: 1.5px solid var(--border);
+    }
+    .result-for {
+      font-size: 0.82rem;
+      font-weight: 700;
+      color: var(--primary);
+      display: flex;
+      align-items: center;
+      gap: 0.35rem;
+    }
+    .result-badge {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.15rem 0.5rem;
+      border-radius: 20px;
+      font-size: 0.72rem;
+      font-weight: 700;
+    }
+    .btn-copy {
+      background: none;
+      border: 1.5px solid var(--border);
+      border-radius: 8px;
+      padding: 0.25rem 0.7rem;
+      font-size: 0.78rem;
+      font-weight: 600;
+      cursor: pointer;
+      color: var(--text-muted);
+      transition: all 0.15s;
+    }
+    .btn-copy:hover { border-color: var(--primary); color: var(--primary); }
+    .result-body { padding: 1.25rem 1.1rem; }
+    .result-text { font-size: 0.97rem; line-height: 1.75; color: var(--text); white-space: pre-wrap; word-break: break-word; }
+    .result-text strong { color: var(--primary); font-weight: 700; }
+    .result-text em { color: var(--text-muted); font-style: italic; }
+    .result-text code {
+      background: var(--code-bg);
+      padding: 0.1em 0.4em;
+      border-radius: 4px;
+      font-family: 'Courier New', monospace;
+      font-size: 0.88em;
+      color: var(--warning);
+    }
+    .result-footer {
+      padding: 0.6rem 1.1rem;
+      border-top: 1px solid var(--border);
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      background: var(--code-bg);
+    }
+
+    /* ===== LOADING ===== */
+    .loading {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+    }
+    .loading.show { display: block; }
+    .spinner {
+      width: 36px; height: 36px;
+      border: 3px solid var(--border);
+      border-top-color: var(--primary);
+      border-radius: 50%;
+      animation: spin 0.7s linear infinite;
+      margin: 0 auto 0.75rem;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+    .loading p { font-size: 0.9rem; color: var(--text-muted); }
+
+    /* ===== ERROR ===== */
+    .error-msg {
+      display: none;
+      background: var(--warning-bg);
+      border: 1.5px solid #F5C6C6;
+      border-radius: 10px;
+      padding: 0.75rem 1rem;
+      font-size: 0.85rem;
+      color: var(--warning);
+      margin-top: 0.75rem;
+    }
+    .error-msg.show { display: block; }
+
+    /* ===== FOOTER ===== */
+    footer {
+      text-align: center;
+      padding: 1.5rem 1rem;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      border-top: 1px solid var(--border);
+      margin-top: 2rem;
+    }
+    footer a { color: var(--primary); text-decoration: none; }
+  </style>
+</head>
+<body>
+
+<header>
+  <h1>🗣️ Plain English</h1>
+  <p>Paste anything technical — get a plain-language explanation</p>
+  <span class="badge">Free · No Account · Uses Your Own API Key</span>
+</header>
+
+<div class="api-banner" id="apiBanner">
+  <span class="api-banner-icon">🔑</span>
+  <p id="apiBannerText">Enter your OpenRouter or OpenAI API key once. It stays in your browser, never sent anywhere except the AI.</p>
+  <input type="password" id="apiKeyInput" placeholder="sk-or-... or sk-..." autocomplete="off" />
+  <button onclick="saveApiKey()">Save</button>
+  <span class="saved hidden" id="apiSaved">✓ Saved</span>
+</div>
+
+<main>
+
+  <!-- Audience selector -->
+  <div class="audience-section">
+    <label class="audience-label">Explain it for...</label>
+    <div class="audience-cards" id="audienceCards">
+      <div class="audience-card selected" data-role="sysadmin" onclick="selectAudience(this)">
+        <span class="icon">🖥️</span>
+        <div>
+          <div class="name">Sysadmin / Dev</div>
+          <div class="desc">Precise, technical</div>
+        </div>
+      </div>
+      <div class="audience-card" data-role="family" onclick="selectAudience(this)">
+        <span class="icon">👨‍👩‍👧</span>
+        <div>
+          <div class="name">Family Member</div>
+          <div class="desc">Simple, caring</div>
+        </div>
+      </div>
+      <div class="audience-card" data-role="beginner" onclick="selectAudience(this)">
+        <span class="icon">🌱</span>
+        <div>
+          <div class="name">Total Beginner</div>
+          <div class="desc">Plainest language</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Type tabs -->
+  <div class="input-section">
+    <div class="input-header">
+      <span class="input-label">What do you want explained?</span>
+      <div class="type-tabs">
+        <button class="type-tab selected" data-type="command" onclick="selectType(this)">Command</button>
+        <button class="type-tab" data-type="error" onclick="selectType(this)">Error</button>
+        <button class="type-tab" data-type="config" onclick="selectType(this)">Config</button>
+        <button class="type-tab" data-type="concept" onclick="selectType(this)">Concept</button>
+      </div>
+    </div>
+    <textarea
+      id="inputText"
+      placeholder="Paste a command (e.g. find /var -name '*.log' -mtime +7 -exec rm {} \;)
+or an error message, config file, or technical concept..."
+      onkeydown="if(event.key==='Enter'&&(event.ctrlKey||event.metaKey)) document.getElementById('btnExplain').click()"
+    ></textarea>
+  </div>
+
+  <!-- Example prompts -->
+  <div class="examples">
+    <div class="examples-header">
+      <span class="examples-title">Try one of these</span>
+    </div>
+    <div class="examples-grid">
+      <button class="example-chip" onclick="loadExample(this)">chmod 777 /tmp</button>
+      <button class="example-chip" onclick="loadExample(this)">sudo rm -rf /var/cache</button>
+      <button class="example-chip" onclick="loadExample(this)">Permission denied (errno 13)</button>
+      <button class="example-chip" onclick="loadExample(this)">HTTP 502 Bad Gateway</button>
+      <button class="example-chip" onclick="loadExample(this)"># nginx reverse proxy config</button>
+      <button class="example-chip" onclick="loadExample(this)">What is a systemd service?</button>
+    </div>
+  </div>
+
+  <div class="btn-row">
+    <button class="btn-explain" id="btnExplain" onclick="explain()">
+      <span class="icon">✨</span>
+      Explain in Plain English
+    </button>
+  </div>
+
+  <!-- Loading -->
+  <div class="loading" id="loading">
+    <div class="spinner"></div>
+    <p>Asking the AI...</p>
+  </div>
+
+  <!-- Error -->
+  <div class="error-msg" id="errorMsg"></div>
+
+  <!-- Result -->
+  <div class="result-area" id="resultArea">
+    <div class="result-header">
+      <span class="result-for" id="resultFor"></span>
+      <button class="btn-copy" onclick="copyResult()">📋 Copy</button>
+    </div>
+    <div class="result-body">
+      <div class="result-text" id="resultText"></div>
+    </div>
+    <div class="result-footer" id="resultFooter"></div>
+  </div>
+
+</main>
+
+<footer>
+  Built by <a href="https://pragmaticsysadmin.help">Pragmatic Sysadmin</a> · <a href="https://github.com/JRone-git/pragmatic-sysadmin">Open Source</a> · Your API key never leaves your browser
+</footer>
+
+<script>
+  // ===== STATE =====
+  let selectedRole = 'sysadmin';
+  let selectedType = 'command';
+
+  const AUDIENCE_NAMES = {
+    sysadmin: '🖥️ Sysadmin / Dev',
+    family: '👨‍👩‍👧 Family Member',
+    beginner: '🌱 Total Beginner'
+  };
+
+  const ROLE_PROMPTS = {
+    sysadmin: `You are a senior systems administrator with 20 years of experience. Explain things with technical precision — cite actual error codes, explain the exact mechanism, suggest the actual fix. Use appropriate jargon. Be concise but complete.`,
+    family: `You are explaining something technical to a caring family member (not technically savvy) who is helping their elderly parent with technology. Be warm, reassuring, and use simple comparisons to everyday life. Don't talk down — be respectful but use plain language. Avoid jargon. End with something reassuring if things went wrong.`,
+    beginner: `You are explaining something technical to someone who has never used a computer before. Use the simplest possible language. Use everyday analogies. Assume zero prior knowledge. Be patient and kind.`
+  };
+
+  const TYPE_INSTRUCTIONS = {
+    command: `The user will paste a bash/Linux command. Explain:
+1. What the command does (one clear sentence)
+2. What each major part means (briefly)
+3. Whether it's safe, dangerous, or something to be careful with
+4. A plain-English one-line summary`,
+    error: `The user will paste an error message. Explain:
+1. What went wrong (one clear sentence)
+2. Why it happened
+3. How to fix it (if fixable)
+4. Whether to worry`,
+    config: `The user will paste a configuration file or snippet. Explain:
+1. What this config controls
+2. What each important setting means
+3. Any security concerns
+4. Whether it looks correct`,
+    concept: `The user will ask about a technical concept. Explain:
+1. What it is in one clear sentence
+2. Why it exists / why it matters
+3. How it works in plain terms
+4. A simple analogy if helpful`
+  };
+
+  const EXAMPLE_MAP = {
+    'chmod 777 /tmp': { type: 'command', text: 'chmod 777 /tmp' },
+    'sudo rm -rf /var/cache': { type: 'command', text: 'sudo rm -rf /var/cache' },
+    'Permission denied (errno 13)': { type: 'error', text: 'Error: Permission denied (errno 13)\nOperation not permitted' },
+    'HTTP 502 Bad Gateway': { type: 'error', text: 'HTTP 502 Bad Gateway' },
+    '# nginx reverse proxy config': { type: 'config', text: 'location / {\n  proxy_pass http://localhost:3000;\n  proxy_set_header Host $host;\n}' },
+    'What is a systemd service?': { type: 'concept', text: 'What is a systemd service in Linux?' }
+  };
+
+  // ===== INIT =====
+  (function init() {
+    const savedKey = localStorage.getItem('plain-english-api-key');
+    if (savedKey) {
+      document.getElementById('apiKeyInput').value = savedKey;
+      document.getElementById('apiBanner').classList.add('hidden');
+    }
+  })();
+
+  function saveApiKey() {
+    const key = document.getElementById('apiKeyInput').value.trim();
+    if (!key) {
+      showError('Please enter an API key.');
+      return;
+    }
+    localStorage.setItem('plain-english-api-key', key);
+    const saved = document.getElementById('apiSaved');
+    saved.classList.remove('hidden');
+    setTimeout(() => saved.classList.add('hidden'), 2500);
+    document.getElementById('apiBanner').classList.add('hidden');
+  }
+
+  function selectAudience(el) {
+    document.querySelectorAll('.audience-card').forEach(c => c.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedRole = el.dataset.role;
+  }
+
+  function selectType(el) {
+    document.querySelectorAll('.type-tab').forEach(t => t.classList.remove('selected'));
+    el.classList.add('selected');
+    selectedType = el.dataset.type;
+  }
+
+  function loadExample(el) {
+    const example = EXAMPLE_MAP[el.textContent.trim()];
+    if (!example) return;
+    document.getElementById('inputText').value = example.text;
+    // Set type tab
+    document.querySelectorAll('.type-tab').forEach(t => {
+      t.classList.toggle('selected', t.dataset.type === example.type);
+    });
+    selectedType = example.type;
+    document.getElementById('inputText').focus();
+  }
+
+  function showError(msg) {
+    const el = document.getElementById('errorMsg');
+    el.textContent = msg;
+    el.classList.add('show');
+    setTimeout(() => el.classList.remove('show'), 6000);
+  }
+
+  function setLoading(on) {
+    const btn = document.getElementById('btnExplain');
+    const loading = document.getElementById('loading');
+    btn.disabled = on;
+    loading.classList.toggle('show', on);
+    document.getElementById('resultArea').classList.remove('show');
+  }
+
+  function getApiKey() {
+    return localStorage.getItem('plain-english-api-key') || '';
+  }
+
+  async function explain() {
+    const text = document.getElementById('inputText').value.trim();
+    if (!text) {
+      showError('Please paste something to explain first.');
+      return;
+    }
+
+    const apiKey = getApiKey();
+    if (!apiKey) {
+      document.getElementById('apiBanner').classList.remove('hidden');
+      document.getElementById('apiKeyInput').focus();
+      showError('Please add your API key first. It stays in your browser — never sent anywhere except your AI provider.');
+      return;
+    }
+
+    setLoading(true);
+
+    try {
+      const messages = [
+        { role: 'system', content: `${ROLE_PROMPTS[selectedRole]}\n\n${TYPE_INSTRUCTIONS[selectedType]}\n\nBe direct. Be honest if something is dangerous. Format your response in plain paragraphs — not bullet lists. Use **bold** for key terms. Keep it to 3-4 paragraphs maximum.` },
+        { role: 'user', content: text }
+      ];
+
+      const response = await callApi(apiKey, messages);
+
+      setLoading(false);
+      showResult(response, selectedRole, text);
+    } catch (err) {
+      setLoading(false);
+      showError(err.message || 'Something went wrong. Please check your API key and try again.');
+    }
+  }
+
+  async function callApi(apiKey, messages) {
+    // Try OpenRouter first, fall back to OpenAI-compatible
+    const baseUrl = apiKey.startsWith('sk-or-')
+      ? 'https://openrouter.ai/api/v1'
+      : 'https://api.openai.com/v1';
+    const model = apiKey.startsWith('sk-or-')
+      ? 'anthropic/claude-3.5-haiku'
+      : 'gpt-4o-mini';
+
+    const headers = {
+      'Content-Type': 'application/json',
+      'Authorization': `Bearer ${apiKey}`
+    };
+    if (apiKey.startsWith('sk-or-')) {
+      headers['HTTP-Referer'] = 'https://pragmaticsysadmin.help';
+      headers['X-Title'] = 'Plain English';
+    }
+
+    const res = await fetch(`${baseUrl}/chat/completions`, {
+      method: 'POST',
+      headers,
+      body: JSON.stringify({ model, messages }),
+    });
+
+    if (!res.ok) {
+      const body = await res.json().catch(() => ({}));
+      const msg = body?.error?.message || body?.error?.code || `HTTP ${res.status}`;
+      throw new Error(msg);
+    }
+
+    const data = await res.json();
+    return data.choices?.[0]?.message?.content || '';
+  }
+
+  function showResult(content, role, original) {
+    const area = document.getElementById('resultArea');
+    const text = document.getElementById('resultText');
+    const footer = document.getElementById('resultFooter');
+
+    text.textContent = content;
+    footer.textContent = `Explained for: ${AUDIENCE_NAMES[role]} | Type: ${selectedType}`;
+
+    area.classList.add('show');
+    area.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+  }
+
+  function copyResult() {
+    const text = document.getElementById('resultText').textContent;
+    navigator.clipboard.writeText(text).then(() => {
+      const btn = document.querySelector('.btn-copy');
+      const orig = btn.textContent;
+      btn.textContent = '✓ Copied!';
+      setTimeout(() => { btn.textContent = orig; }, 1500);
+    });
+  }
+</script>
+
+</body>
+</html>

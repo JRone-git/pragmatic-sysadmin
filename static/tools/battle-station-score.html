@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Battle Station Score - Rate Your Setup</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #0a0a0b;
+      --ink: #ffffff;
+      --line: #2a2a2e;
+      --accent: #00ff88;
+      --accent-dim: #00ff8833;
+      --text: #e0e0e0;
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    header {
+      text-align: center;
+      padding: 3rem 0;
+      border-bottom: 1px solid var(--line);
+      margin-bottom: 3rem;
+    }
+
+    h1 {
+      font-size: 3rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+      background: linear-gradient(135deg, var(--ink), var(--accent));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+
+    .subtitle {
+      color: var(--text);
+      opacity: 0.7;
+      font-size: 1.1rem;
+    }
+
+    .setup-category {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+      transition: border-color 0.3s ease;
+    }
+
+    .setup-category:hover {
+      border-color: var(--accent);
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .category-icon {
+      font-size: 1.5rem;
+    }
+
+    .category-title {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    .category-score {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--accent);
+    }
+
+    .options {
+      display: grid;
+      gap: 0.5rem;
+    }
+
+    .option {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      padding: 0.75rem 1rem;
+      background: transparent;
+      border: 1px solid var(--line);
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.2s ease;
+      text-align: left;
+      font-size: 0.95rem;
+    }
+
+    .option:hover {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+    }
+
+    .option.selected {
+      border-color: var(--accent);
+      background: var(--accent-dim);
+      color: var(--ink);
+    }
+
+    .option-radio {
+      width: 18px;
+      height: 18px;
+      border: 2px solid var(--line);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+      transition: border-color 0.2s ease;
+    }
+
+    .option:hover .option-radio {
+      border-color: var(--accent);
+    }
+
+    .option.selected .option-radio {
+      border-color: var(--accent);
+    }
+
+    .option.selected .option-radio::after {
+      content: '';
+      width: 8px;
+      height: 8px;
+      background: var(--accent);
+      border-radius: 50%;
+    }
+
+    .option-points {
+      margin-left: auto;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      opacity: 0.5;
+    }
+
+    .option.selected .option-points {
+      opacity: 1;
+      color: var(--accent);
+    }
+
+    .calculate-btn {
+      width: 100%;
+      padding: 1.25rem;
+      background: var(--accent);
+      color: var(--bg);
+      border: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 1rem;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 2rem;
+    }
+
+    .calculate-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 10px 30px rgba(0, 255, 136, 0.3);
+    }
+
+    .calculate-btn:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+      transform: none;
+      box-shadow: none;
+    }
+
+    .result {
+      display: none;
+      text-align: center;
+      padding: 3rem 0;
+      animation: fadeIn 0.5s ease;
+    }
+
+    .result.show {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(20px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .score-display {
+      font-size: 6rem;
+      font-weight: 700;
+      font-family: 'JetBrains Mono', monospace;
+      background: linear-gradient(135deg, var(--accent), #00ccff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+      line-height: 1;
+    }
+
+    .score-label {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      text-transform: uppercase;
+      letter-spacing: 0.2em;
+      opacity: 0.7;
+      margin-bottom: 1rem;
+    }
+
+    .rank {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin: 1.5rem 0;
+      padding: 1rem 2rem;
+      display: inline-block;
+      border: 2px solid var(--accent);
+    }
+
+    .breakdown {
+      text-align: left;
+      margin: 2rem 0;
+      padding: 1.5rem;
+      border: 1px solid var(--line);
+    }
+
+    .breakdown h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      opacity: 0.7;
+    }
+
+    .breakdown-item {
+      display: flex;
+      justify-content: space-between;
+      padding: 0.5rem 0;
+      border-bottom: 1px solid var(--line);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.85rem;
+    }
+
+    .breakdown-item:last-child {
+      border-bottom: none;
+    }
+
+    .breakdown-score {
+      color: var(--accent);
+    }
+
+    .tips {
+      text-align: left;
+      margin: 2rem 0;
+      padding: 1.5rem;
+      background: var(--accent-dim);
+      border: 1px solid var(--accent);
+    }
+
+    .tips h3 {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      margin-bottom: 1rem;
+      color: var(--accent);
+    }
+
+    .tips ul {
+      list-style: none;
+      padding: 0;
+    }
+
+    .tips li {
+      padding: 0.5rem 0;
+      padding-left: 1.5rem;
+      position: relative;
+      font-size: 0.95rem;
+    }
+
+    .tips li::before {
+      content: '>';
+      position: absolute;
+      left: 0;
+      color: var(--accent);
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .share-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      background: var(--ink);
+      color: var(--bg);
+      border: none;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+    }
+
+    .share-btn:hover {
+      transform: scale(1.05);
+    }
+
+    .reset-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 1rem 2rem;
+      background: transparent;
+      color: var(--text);
+      border: 1px solid var(--line);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      margin-top: 1rem;
+      margin-left: 1rem;
+    }
+
+    .reset-btn:hover {
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    footer {
+      text-align: center;
+      padding: 2rem;
+      margin-top: 3rem;
+      border-top: 1px solid var(--line);
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      opacity: 0.5;
+    }
+
+    @media (max-width: 600px) {
+      h1 { font-size: 2rem; }
+      .score-display { font-size: 4rem; }
+      .container { padding: 1rem; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>BATTLE STATION SCORE</h1>
+      <p class="subtitle">Rate your setup. Flex your rig. No judgment.</p>
+    </header>
+
+    <form id="setupForm">
+      <!-- Display -->
+      <div class="setup-category" data-category="display">
+        <div class="category-header">
+          <span class="category-icon">🖥️</span>
+          <span class="category-title">Display Setup</span>
+          <span class="category-score" id="displayScore">0/30</span>
+        </div>
+        <div class="options">
+          <button type="button" class="option" data-points="5" onclick="selectOption(this, 'display')">
+            <span class="option-radio"></span>
+            <span>Single 1080p 60Hz monitor</span>
+            <span class="option-points">5 pts</span>
+          </button>
+          <button type="button" class="option" data-points="12" onclick="selectOption(this, 'display')">
+            <span class="option-radio"></span>
+            <span>Single 1440p 144Hz monitor</span>
+            <span class="option-points">12 pts</span>
+          </button>
+          <button type="button" class="option" data-points="18" onclick="selectOption(this, 'display')">
+            <span class="option-radio"></span>
+            <span>Dual monitors or 4K 60Hz</span>
+            <span class="option-points">18 pts</span>
+          </button>
+          <button type="button" class="option" data-points="25" onclick="selectOption(this, 'display')">
+            <span class="option-radio"></span>
+            <span>Ultrawide or 240Hz+ gaming</span>
+            <span class="option-points">25 pts</span>
+          </button>
+          <button type="button" class="option" data-points="30" onclick="selectOption(this, 'display')">
+            <span class="option-radio"></span>
+            <span>Dual ultrawides or 4K 144Hz+</span>
+            <span class="option-points">30 pts</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Input Devices -->
+      <div class="setup-category" data-category="input">
+        <div class="category-header">
+          <span class="category-icon">🎮</span>
+          <span class="category-title">Input Devices</span>
+          <span class="category-score" id="inputScore">0/20</span>
+        </div>
+        <div class="options">
+          <button type="button" class="option" data-points="5" onclick="selectOption(this, 'input')">
+            <span class="option-radio"></span>
+            <span>Basic keyboard + mouse combo</span>
+            <span class="option-points">5 pts</span>
+          </button>
+          <button type="button" class="option" data-points="10" onclick="selectOption(this, 'input')">
+            <span class="option-radio"></span>
+            <span>Gaming mouse + membrane keyboard</span>
+            <span class="option-points">10 pts</span>
+          </button>
+          <button type="button" class="option" data-points="15" onclick="selectOption(this, 'input')">
+            <span class="option-radio"></span>
+            <span>Mechanical keyboard + gaming mouse</span>
+            <span class="option-points">15 pts</span>
+          </button>
+          <button type="button" class="option" data-points="20" onclick="selectOption(this, 'input')">
+            <span class="option-radio"></span>
+            <span>Custom/keeb + premium mouse + gamepad</span>
+            <span class="option-points">20 pts</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Audio -->
+      <div class="setup-category" data-category="audio">
+        <div class="category-header">
+          <span class="category-icon">🔊</span>
+          <span class="category-title">Audio Setup</span>
+          <span class="category-score" id="audioScore">0/15</span>
+        </div>
+        <div class="options">
+          <button type="button" class="option" data-points="3" onclick="selectOption(this, 'audio')">
+            <span class="option-radio"></span>
+            <span>Monitor speakers or basic earbuds</span>
+            <span class="option-points">3 pts</span>
+          </button>
+          <button type="button" class="option" data-points="7" onclick="selectOption(this, 'audio')">
+            <span class="option-radio"></span>
+            <span>Gaming headset</span>
+            <span class="option-points">7 pts</span>
+          </button>
+          <button type="button" class="option" data-points="11" onclick="selectOption(this, 'audio')">
+            <span class="option-radio"></span>
+            <span>Studio headphones + microphone</span>
+            <span class="option-points">11 pts</span>
+          </button>
+          <button type="button" class="option" data-points="15" onclick="selectOption(this, 'audio')">
+            <span class="option-radio"></span>
+            <span>Desktop speakers + DAC + streaming setup</span>
+            <span class="option-points">15 pts</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Desk & Ergonomics -->
+      <div class="setup-category" data-category="desk">
+        <div class="category-header">
+          <span class="category-icon">🪑</span>
+          <span class="category-title">Desk & Ergonomics</span>
+          <span class="category-score" id="deskScore">0/15</span>
+        </div>
+        <div class="options">
+          <button type="button" class="option" data-points="3" onclick="selectOption(this, 'desk')">
+            <span class="option-radio"></span>
+            <span>Couch or bed desk</span>
+            <span class="option-points">3 pts</span>
+          </button>
+          <button type="button" class="option" data-points="7" onclick="selectOption(this, 'desk')">
+            <span class="option-radio"></span>
+            <span>Basic desk + chair</span>
+            <span class="option-points">7 pts</span>
+          </button>
+          <button type="button" class="option" data-points="11" onclick="selectOption(this, 'desk')">
+            <span class="option-radio"></span>
+            <span>Gaming desk + ergonomic chair</span>
+            <span class="option-points">11 pts</span>
+          </button>
+          <button type="button" class="option" data-points="15" onclick="selectOption(this, 'desk')">
+            <span class="option-radio"></span>
+            <span>Standing desk + premium chair + monitor arm</span>
+            <span class="option-points">15 pts</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Aesthetics & RGB -->
+      <div class="setup-category" data-category="rgb">
+        <div class="category-header">
+          <span class="category-icon">💡</span>
+          <span class="category-title">Aesthetics & RGB</span>
+          <span class="category-score" id="rgbScore">0/10</span>
+        </div>
+        <div class="options">
+          <button type="button" class="option" data-points="2" onclick="selectOption(this, 'rgb')">
+            <span class="option-radio"></span>
+            <span>No RGB, cables everywhere</span>
+            <span class="option-points">2 pts</span>
+          </button>
+          <button type="button" class="option" data-points="5" onclick="selectOption(this, 'rgb')">
+            <span class="option-radio"></span>
+            <span>Some RGB on peripherals</span>
+            <span class="option-points">5 pts</span>
+          </button>
+          <button type="button" class="option" data-points="8" onclick="selectOption(this, 'rgb')">
+            <span class="option-radio"></span>
+            <span>Coordinated RGB throughout</span>
+            <span class="option-points">8 pts</span>
+          </button>
+          <button type="button" class="option" data-points="10" onclick="selectOption(this, 'rgb')">
+            <span class="option-radio"></span>
+            <span>Full sync RGB + LED strips + custom mods</span>
+            <span class="option-points">10 pts</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- Cable Management -->
+      <div class="setup-category" data-category="cables">
+        <div class="category-header">
+          <span class="category-icon">🔗</span>
+          <span class="category-title">Cable Management</span>
+          <span class="category-score" id="cablesScore">0/10</span>
+        </div>
+        <div class="options">
+          <button type="button" class="option" data-points="2" onclick="selectOption(this, 'cables')">
+            <span class="option-radio"></span>
+            <span>Cables everywhere, chaos mode</span>
+            <span class="option-points">2 pts</span>
+          </button>
+          <button type="button" class="option" data-points="5" onclick="selectOption(this, 'cables')">
+            <span class="option-radio"></span>
+            <span>Basic cable routing</span>
+            <span class="option-points">5 pts</span>
+          </button>
+          <button type="button" class="option" data-points="8" onclick="selectOption(this, 'cables')">
+            <span class="option-radio"></span>
+            <span>Clean routing with velcro straps</span>
+            <span class="option-points">8 pts</span>
+          </button>
+          <button type="button" class="option" data-points="10" onclick="selectOption(this, 'cables')">
+            <span class="option-radio"></span>
+            <span>Behind-desk routing + cable sleeves + magnets</span>
+            <span class="option-points">10 pts</span>
+          </button>
+        </div>
+      </div>
+
+      <button type="button" class="calculate-btn" id="calculateBtn" onclick="calculateScore()" disabled>
+        CALCULATE BATTLE STATION SCORE
+      </button>
+    </form>
+
+    <div class="result" id="result">
+      <p class="score-label">Your Battle Station Score</p>
+      <p class="score-display" id="finalScore">0</p>
+      <p class="rank" id="rank">RANK: NOVICE</p>
+      
+      <div class="breakdown" id="breakdown">
+        <h3>Score Breakdown</h3>
+      </div>
+
+      <div class="tips" id="tips">
+        <h3>Upgrade Suggestions</h3>
+        <ul id="tipsList"></ul>
+      </div>
+
+      <button class="share-btn" onclick="shareScore()">
+        <span>📤</span> SHARE YOUR SCORE
+      </button>
+      <button class="reset-btn" onclick="resetForm()">
+        <span>↺</span> TRY AGAIN
+      </button>
+    </div>
+
+    <footer>
+      BATTLE STATION SCORE // PRAGMATICSYSADMIN.HELP // NO JUDGMENT ZONE
+    </footer>
+  </div>
+
+  <script>
+    const scores = {
+      display: 0,
+      input: 0,
+      audio: 0,
+      desk: 0,
+      rgb: 0,
+      cables: 0
+    };
+
+    const maxScores = {
+      display: 30,
+      input: 20,
+      audio: 15,
+      desk: 15,
+      rgb: 10,
+      cables: 10
+    };
+
+    const categoryNames = {
+      display: 'Display',
+      input: 'Input',
+      audio: 'Audio',
+      desk: 'Desk & Ergonomics',
+      rgb: 'Aesthetics',
+      cables: 'Cable Management'
+    };
+
+    function selectOption(button, category) {
+      // Remove selection from siblings
+      const options = button.parentElement.querySelectorAll('.option');
+      options.forEach(opt => opt.classList.remove('selected'));
+      
+      // Select this option
+      button.classList.add('selected');
+      
+      // Update score
+      scores[category] = parseInt(button.dataset.points);
+      
+      // Update category display
+      const scoreEl = document.getElementById(category + 'Score');
+      scoreEl.textContent = scores[category] + '/' + maxScores[category];
+      
+      // Check if all categories are filled
+      checkComplete();
+    }
+
+    function checkComplete() {
+      const allFilled = Object.values(scores).every(s => s > 0);
+      document.getElementById('calculateBtn').disabled = !allFilled;
+    }
+
+    function calculateScore() {
+      const total = Object.values(scores).reduce((a, b) => a + b, 0);
+      const max = Object.values(maxScores).reduce((a, b) => a + b, 0);
+      const percentage = Math.round((total / max) * 100);
+      
+      // Hide form, show result
+      document.getElementById('setupForm').style.display = 'none';
+      document.getElementById('result').classList.add('show');
+      
+      // Animate score
+      let current = 0;
+      const interval = setInterval(() => {
+        current += 2;
+        if (current >= total) {
+          current = total;
+          clearInterval(interval);
+        }
+        document.getElementById('finalScore').textContent = current;
+      }, 20);
+      
+      // Set rank
+      let rank, rankColor;
+      if (percentage >= 90) {
+        rank = 'ELITE OVERLORD';
+      } else if (percentage >= 75) {
+        rank = 'PC MASTER RACE';
+      } else if (percentage >= 60) {
+        rank = 'DEDICATED GAMER';
+      } else if (percentage >= 40) {
+        rank = 'BUDDING ENTHUSIAST';
+      } else {
+        rank = 'CASUAL USER';
+      }
+      
+      const rankEl = document.getElementById('rank');
+      rankEl.textContent = 'RANK: ' + rank;
+      
+      // Build breakdown
+      const breakdown = document.getElementById('breakdown');
+      breakdown.innerHTML = '<h3>Score Breakdown</h3>';
+      for (const [cat, score] of Object.entries(scores)) {
+        breakdown.innerHTML += `
+          <div class="breakdown-item">
+            <span>${categoryNames[cat]}</span>
+            <span class="breakdown-score">${score}/${maxScores[cat]}</span>
+          </div>
+        `;
+      }
+      
+      // Build tips
+      const tips = [];
+      if (scores.display < 20) tips.push('Consider upgrading to a higher refresh rate or adding a second monitor');
+      if (scores.input < 15) tips.push('A mechanical keyboard is a game-changer for both gaming and typing');
+      if (scores.audio < 10) tips.push('Good audio makes everything better - even basic studio headphones help');
+      if (scores.desk < 12) tips.push('An ergonomic chair prevents back pain during long sessions');
+      if (scores.rgb < 7) tips.push('RGB may not matter to everyone, but coordinated lighting looks clean');
+      if (scores.cables < 7) tips.push('Velcro straps and cable sleeves cost almost nothing and make a big difference');
+      
+      const tipsList = document.getElementById('tipsList');
+      tipsList.innerHTML = tips.map(tip => `<li>${tip}</li>`).join('');
+      
+      if (tips.length === 0) {
+        tipsList.innerHTML = '<li>Your setup is looking solid! Keep enjoying your battlestation.</li>';
+      }
+    }
+
+    function shareScore() {
+      const total = Object.values(scores).reduce((a, b) => a + b, 0);
+      const text = `🖥️ My Battle Station Score: ${total}/100\n\n${document.getElementById('rank').textContent.replace('RANK: ', '')}\n\nCalculate yours at pragmaticsysadmin.help/tools/battle-station-score.html`;
+      
+      if (navigator.share) {
+        navigator.share({
+          title: 'Battle Station Score',
+          text: text
+        });
+      } else {
+        navigator.clipboard.writeText(text).then(() => {
+          alert('Score copied to clipboard!');
+        });
+      }
+    }
+
+    function resetForm() {
+      // Reset all selections
+      document.querySelectorAll('.option').forEach(opt => opt.classList.remove('selected'));
+      document.querySelectorAll('.category-score').forEach(el => el.textContent = '0');
+      
+      // Reset scores
+      Object.keys(scores).forEach(k => scores[k] = 0);
+      
+      // Show form, hide result
+      document.getElementById('setupForm').style.display = 'block';
+      document.getElementById('result').classList.remove('show');
+      document.getElementById('calculateBtn').disabled = true;
+    }
+  </script>
+</body>
+</html>
