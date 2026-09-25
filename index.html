@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Cluster Panic: 99.99%</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="text-gray-200">
+    <div id="game-container" class="container mx-auto px-4 py-8 max-w-6xl">
+        <header class="text-center mb-8">
+            <h1 class="text-5xl font-bold text-green-400 mb-2">CLUSTER PANIC</h1>
+            <p class="text-xl text-gray-400">99.99% UPTIME CHALLENGE</p>
+        </header>
+
+        <div id="stats-bar" class="bg-gray-900/80 backdrop-blur border border-gray-700 rounded-lg p-4 mb-6">
+            <div class="grid grid-cols-2 md:grid-cols-4 gap-4 text-center">
+                <div><p class="text-xs text-gray-500 uppercase">Uptime</p><p id="uptime-score" class="text-2xl text-green-400">100.00%</p></div>
+                <div><p class="text-xs text-gray-500 uppercase">Days Survived</p><p id="days-survived" class="text-2xl text-cyan-400">0.00</p></div>
+                <div><p class="text-xs text-gray-500 uppercase">Best Rank</p><p id="best-rank" class="text-2xl text-yellow-400">Novice</p></div>
+                <div><p class="text-xs text-gray-500 uppercase">Incidents</p><p id="incident-count" class="text-2xl text-purple-400">0</p></div>
+            </div>
+        </div>
+
+        <div id="server-rack" class="bg-gray-900/80 backdrop-blur border border-gray-700 rounded-lg p-6 mb-6">
+            <h2 class="text-xl text-center mb-4 text-green-400">SERVER RACK</h2>
+            <div id="servers-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4"></div>
+        </div>
+
+        <div id="controls-panel" class="bg-gray-900/80 backdrop-blur border border-gray-700 rounded-lg p-6 mb-6">
+            <h2 class="text-xl text-center mb-4 text-green-400">CONTROLS</h2>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+                <div class="bg-gray-800 rounded-lg p-4">
+                    <p class="text-sm text-gray-400 mb-2">KEYBOARD SHORTCUTS</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2"><span class="bg-gray-700 px-2 py-1 rounded text-xs">1-4</span><span>Select Server</span></div>
+                        <div class="flex items-center gap-2"><span class="bg-gray-700 px-2 py-1 rounded text-xs">Space</span><span>Boost Fans (Hold)</span></div>
+                        <div class="flex items-center gap-2"><span class="bg-gray-700 px-2 py-1 rounded text-xs">R</span><span>Restart Selected Server</span></div>
+                    </div>
+                </div>
+                <div class="bg-gray-800 rounded-lg p-4">
+                    <p class="text-sm text-gray-400 mb-2">INCIDENT TYPES</p>
+                    <div class="space-y-2">
+                        <div class="flex items-center gap-2"><span class="bg-red-900/50 px-2 py-1 rounded text-xs text-red-300">🔴 Disk Full</span><span>Purge /tmp</span></div>
+                        <div class="flex items-center gap-2"><span class="bg-yellow-900/50 px-2 py-1 rounded text-xs text-yellow-300">🟡 SYN Flood</span><span>Enable Firewall</span></div>
+                        <div class="flex items-center gap-2"><span class="bg-blue-900/50 px-2 py-1 rounded text-xs text-blue-300">🟣 Memory Leak</span><span>Restart Pod</span></div>
+                        <div class="flex items-center gap-2"><span class="bg-orange-900/50 px-2 py-1 rounded text-xs text-orange-300">🔥 Overheating</span><span>Boost Fan</span></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div id="message-area" class="text-center mb-6 h-12">
+            <p id="game-message" class="text-xl text-cyan-400 blink">Welcome to Cluster Panic! Keep all servers running.</p>
+        </div>
+
+        <div id="start-screen" class="fixed inset-0 bg-black/95 z-50 flex items-center justify-center p-4">
+            <div class="text-center max-w-md">
+                <h1 class="text-6xl text-green-400 mb-6">CLUSTER PANIC</h1>
+                <p class="text-xl text-gray-300 mb-8">Keep 4 server nodes running as long as possible!</p>
+                <div class="bg-gray-900 rounded-lg p-6 mb-8 text-left space-y-4">
+                    <div class="flex items-start gap-3"><span class="text-red-400 font-bold">🔴</span><div><strong class="text-gray-200">Disk Full:</strong> Click "Purge /tmp" or press 1-4</div></div>
+                    <div class="flex items-start gap-3"><span class="text-yellow-400 font-bold">🟡</span><div><strong class="text-gray-200">SYN Flood:</strong> Toggle "Enable Firewall"</div></div>
+                    <div class="flex items-start gap-3"><span class="text-blue-400 font-bold">🟣</span><div><strong class="text-gray-200">Memory Leak:</strong> Click "Restart Pod" (2s downtime!)</div></div>
+                    <div class="flex items-start gap-3"><span class="text-orange-400 font-bold">🔥</span><div><strong class="text-gray-200">Overheating:</strong> Hold "Boost Fan" (Spacebar)</div></div>
+                </div>
+                <button id="start-game-btn" class="bg-green-600 hover:bg-green-500 text-white font-bold py-4 px-12 rounded-lg text-xl">INITIALIZE SYSTEM</button>
+            </div>
+        </div>
+
+        <footer class="text-center mt-8 text-gray-500 text-sm">
+            <p>Cluster Panic: 99.99% &copy; 2026 | Keep the servers running!</p>
+        </footer>
+    </div>
+
+    <audio id="click-sound" preload="auto"></audio>
+    <audio id="alarm-sound" preload="auto"></audio>
+    <audio id="victory-sound" preload="auto"></audio>
+    <audio id="crash-sound" preload="auto"></audio>
+
+    <script src="game.js"></script>
+</body>
+</html>
