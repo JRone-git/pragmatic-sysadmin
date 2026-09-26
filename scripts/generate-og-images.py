@@ -51,14 +51,18 @@ TITLE_FONT_SIZE = 64
 DESC_FONT_SIZE = 26
 SITE_FONT_SIZE = 24
 
-# Fonts (Liberation Sans is installed; falls back to DejaVu)
+# Fonts (Liberation Sans is installed on Linux; falls back to Windows system fonts)
 FONT_PATHS = [
     "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
     "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+    "C:/Windows/Fonts/arialbd.ttf",
+    "C:/Windows/Fonts/segoeuib.ttf",
 ]
 BODY_FONT_PATHS = [
     "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
     "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+    "C:/Windows/Fonts/arial.ttf",
+    "C:/Windows/Fonts/segoeui.ttf",
 ]
 
 
@@ -218,9 +222,9 @@ def main():
             description = fm.get("description", "")
             out = render_image(title, description, slug)
             generated += 1
-            print(f"  ✓ {slug}.png")
+            print(f"  [OK] {slug}.png")
         except Exception as e:
-            print(f"  ✗ {p.name}: {e}", file=sys.stderr)
+            print(f"  [ERR] {p.name}: {e}", file=sys.stderr)
             failed += 1
 
     print(f"\nDone. {generated} generated, {failed} failed.")
