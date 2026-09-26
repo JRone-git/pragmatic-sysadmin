@@ -107,25 +107,6 @@ class BlogForgeRequestHandler(http.server.SimpleHTTPRequestHandler):
                 posts.sort(key=lambda x: str(x.get("date") or ""), reverse=True)
                 self._send_json({"posts": posts})
 
-            elif path == "/api/posts":
-                posts = []
-                for p in corpus.iter_posts():
-                    meta = dict(p.metadata)
-                    # Normalize string paths for web
-                    rel_path = str(p.path.relative_to(site.ROOT)).replace("\\", "/")
-                    posts.append({
-                        "path": rel_path,
-                        "title": p.title,
-                        "section": p.section,
-                        "date": p.date,
-                        "draft": meta.get("draft", False),
-                        "reviewed": meta.get("reviewed", False),
-                        "aiAssisted": meta.get("aiAssisted", False),
-                        "words": len(p.body.split()),
-                    })
-                posts.sort(key=lambda x: str(x.get("date") or ""), reverse=True)
-                self._send_json({"posts": posts})
-
             elif path == "/api/post":
                 rel = query.get("path", [""])[0]
                 full_path = (site.ROOT / rel).resolve()
@@ -151,25 +132,6 @@ class BlogForgeRequestHandler(http.server.SimpleHTTPRequestHandler):
                 data = topics.load()
                 posts = corpus.iter_posts()
                 ranked = topics.rank(data, posts, limit=20)
-                self._send_json({"topics": ranked})
-
-            elif path == "/api/topics":
-                data = topics.load(site.TOPICS_FILE)
-                posts = corpus.iter_posts()
-                ranked = topics.rank(data, posts, limit=20)
-                self._send_json({"topics": ranked})
-
-                self._send_json({
-                    "path": rel,
-                    "metadata": post.metadata,
-                    "body": post.body,
-                    "content": full_path.read_text(encoding="utf-8"),
-                    "linter": report.as_dict(),
-                })
-
-            elif path == "/api/topics":
-                data = topics.load(site.TOPICS_FILE)
-                ranked = topics.rank_topics(data)
                 self._send_json({"topics": ranked})
 
             elif path == "/api/schedule":
@@ -229,10 +191,6 @@ class BlogForgeRequestHandler(http.server.SimpleHTTPRequestHandler):
                 self._handle_api_post_extended(path, body)
         except Exception as exc:  # noqa: BLE001
             self._send_json({"error": str(exc)}, status=500)
-
-
-
-
 
     def _handle_api_post_extended(self, path: str, body: dict[str, Any]) -> None:
         if path == "/api/generate":
@@ -317,6 +275,7 @@ class BlogForgeRequestHandler(http.server.SimpleHTTPRequestHandler):
         else:
             self._send_json({"error": "Endpoint not found"}, status=404)
 
+
 def start_server(host: str = "127.0.0.1", port: int = 8765, daemon: bool = True, open_browser: bool = True) -> None:
     """Start the BlogForge local web server and background scheduler daemon."""
     import webbrowser
@@ -342,26 +301,5 @@ def start_server(host: str = "127.0.0.1", port: int = 8765, daemon: bool = True,
                 scheduler_daemon.stop()
 
 run_server = start_server
-
-def run_server(port: int = 8765, daemon: bool = True) -> None:
-    """Start the BlogForge local web server and background scheduler daemon."""
-    if daemon:
-        scheduler_daemon = scheduler.SchedulerDaemon()
-        scheduler_daemon.start()
-
-    STATIC_DIR.mkdir(parents=True, exist_ok=True)
-    server_address = ("", port)
-    
-    # Enable address reuse
-    socketserver.TCPServer.allow_reuse_address = True
-    with socketserver.TCPServer(server_address, BlogForgeRequestHandler) as httpd:
-        print(f"BlogForge UX running at http://localhost:{port}/")
-        print("Press Ctrl+C to stop.")
-        try:
-            httpd.serve_forever()
-        except KeyboardInterrupt:
-            print("\nShutting down BlogForge server...")
-            if daemon:
-                scheduler_daemon.stop()
 
 

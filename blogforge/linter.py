@@ -473,7 +473,7 @@ def _check_structure(post: Post, metrics: dict, section: str) -> list[Finding]:
             )
         )
 
-    if post.ai_assisted and post.front.get("draft") is not True:
+    if post.ai_assisted and not post.reviewed and post.front.get("draft") is not True:
         findings.append(
             Finding(
                 rule="unreviewed-publish",

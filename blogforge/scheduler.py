@@ -13,7 +13,7 @@ import time
 from pathlib import Path
 from typing import Any, Callable
 
-from . import corpus, generator, gitops, linter, site, topics, yamlmini
+from . import generator, gitops, site, topics, yamlmini
 
 SCHEDULE_FILE = site.CATALOG_DIR / "schedule.yaml"
 
@@ -23,7 +23,7 @@ def load_schedule() -> dict[str, Any]:
     if not SCHEDULE_FILE.exists():
         return {"enabled": False, "interval_minutes": 60, "last_run": None, "jobs": []}
     try:
-        raw = yamlmini.parse(SCHEDULE_FILE.read_text(encoding="utf-8"))
+        raw = yamlmini.loads(SCHEDULE_FILE.read_text(encoding="utf-8"))
         if not isinstance(raw, dict):
             return {"enabled": False, "interval_minutes": 60, "last_run": None, "jobs": []}
         raw.setdefault("enabled", False)
@@ -37,8 +37,9 @@ def load_schedule() -> dict[str, Any]:
 def save_schedule(data: dict[str, Any]) -> None:
     """Save schedule configuration."""
     SCHEDULE_FILE.parent.mkdir(parents=True, exist_ok=True)
-    text = yamlmini.dump(data)
+    text = yamlmini.dumps(data)
     SCHEDULE_FILE.write_text(text, encoding="utf-8")
+
 
 def add_job(
     action: str,
@@ -134,28 +135,6 @@ def run_job(job: dict[str, Any], emit_log: Callable[[str], None] | None = None) 
                 gitops.stage_and_commit(f"Publish due posts: {len(published_paths)} published")
                 gitops.push_to_remote()
 
-        elif action == "publish_due":
-            _log("Publishing reviewed posts due today...")
-            today = datetime.date.today().isoformat()
-            published_paths = []
-            for post in corpus.iter_posts():
-                meta = post.metadata
-                post_date = str(meta.get("date", ""))
-                is_draft = meta.get("draft") is True
-                is_reviewed = meta.get("reviewed") is True
-                if is_draft and is_reviewed and post_date <= today:
-                    corpus.edit_post(post.path, {"draft": False})
-                    published_paths.append(str(post.path))
-            
-            job["status"] = "completed"
-            job["log"] = f"Published {len(published_paths)} posts"
-            _log(job["log"])
-
-            if job.get("auto_push") and published_paths:
-                _log("Auto-pushing published posts to git remote...")
-                gitops.stage_and_commit(f"Publish due posts: {len(published_paths)} published")
-                gitops.push_to_remote()
-
         else:
             job["status"] = "failed"
             job["log"] = f"Unknown action: {action}"
@@ -166,6 +145,8 @@ def run_job(job: dict[str, Any], emit_log: Callable[[str], None] | None = None) 
         _log(job["log"])
 
     return job
+
+
 class SchedulerDaemon:
     """Lightweight in-process background runner for checking pending jobs."""
 

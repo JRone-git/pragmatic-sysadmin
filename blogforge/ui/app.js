@@ -53,6 +53,12 @@ async function loadStatus() {
     } else {
       schedBtn.innerText = 'Daemon: Off';
       schedBtn.style.color = 'var(--text-muted)';
+    }
+  } catch (err) {
+    console.error('loadStatus error:', err);
+  }
+}
+
 async function loadPosts() {
   const listEl = document.getElementById('postsList');
   listEl.innerHTML = '<div style="color:var(--text-muted); padding:10px;">Loading posts...</div>';
@@ -137,6 +143,9 @@ function updateLintDisplay(report) {
       <div class="finding-title">${f.severity === 'fail' ? '❌' : '⚠️'} ${escapeHtml(f.message)}</div>
       ${f.fix ? `<div class="finding-fix">💡 ${escapeHtml(f.fix)}</div>` : ''}
     </div>
+  `).join('');
+}
+
 async function saveCurrentPost() {
   if (!currentPost) return;
   const content = document.getElementById('postEditor').value;
@@ -247,6 +256,15 @@ async function commitAndPush() {
       loadStatus();
     } else {
       alert('Push failed: ' + pRes.error);
+    }
+  } catch (err) {
+    alert('Git push error: ' + err.message);
+  } finally {
+    btn.disabled = false;
+    btn.innerText = 'Commit & Push';
+  }
+}
+
 // Topics Tab
 async function loadTopics() {
   const listEl = document.getElementById('topicsList');
@@ -372,20 +390,3 @@ function escapeHtml(str) {
     .replace(/'/g, '&#39;');
 }
 
-    }
-  } catch (err) {
-    alert('Git push error: ' + err.message);
-  } finally {
-    btn.disabled = false;
-    btn.innerText = 'Commit & Push';
-  }
-}
-
-  `).join('');
-}
-
-    }
-  } catch (err) {
-    console.error('loadStatus error:', err);
-  }
-}
