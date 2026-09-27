@@ -110,7 +110,6 @@ The generator outputs image prompts at `content/products/<id>-image-prompt.md`.
 Run them through your image generation tool of choice, save the result to
 `static/images/<cover_image>`, and the sales page will pick it up automatically.
 
-
 ## ✍️ BlogForge (Blog Studio & Content Automation)
 
 The repository includes [BlogForge](docs/BLOGFORGE.md), a zero-dependency toolchain and web studio for style-calibrated drafting, live post linting, and scheduled content generation.
@@ -124,6 +123,63 @@ Run validation suite:
 python -m blogforge selftest
 ```
 See [`docs/BLOGFORGE.md`](docs/BLOGFORGE.md) for full documentation.
+
+### Generate a blog post draft for free
+
+The post generator uses [Ollama](https://ollama.com/) locally by default, so it
+needs no API key and has no per-post cost. Install Ollama, download a model, and
+run:
+
+```bash
+python3 scripts/generate-post.py \
+  --section sysadmin \
+  --topic "How to verify that your backups can actually be restored"
+```
+
+The default model is `qwen3.5-cline:latest`. Use `OLLAMA_MODEL` to select another
+installed model, for example `qwen3.5:9b`. Use `--section senior-tech` or
+`--section meta` for those content areas. OpenAI-compatible providers are
+also supported with `--provider openai-compatible` and `OPENAI_API_KEY`.
+Use `--dry-run` to inspect the prompt without making an API request. Generated
+posts are drafts until you review them; add `--publish` only deliberately.
+
+#### Browser interface
+
+1. Make sure Ollama is running. Check that your model is installed:
+
+```powershell
+ollama list
+```
+
+2. Start the local interface from the repository folder:
+
+```powershell
+cd C:\Users\jr\ClusterPanicGame
+python scripts/post-generator-ui.py
+```
+
+3. Open [http://127.0.0.1:8765/](http://127.0.0.1:8765/) in your browser.
+
+4. Enter what the article should answer, choose `Sysadmin`, `Senior Tech`, or
+`Meta`, and optionally provide a working title.
+
+5. Click **Generate draft**. The post is saved locally with `draft: true` in
+the selected `content/` folder. Read and fact-check it before publishing.
+
+6. To publish from the interface, check **Publish and push to main** before
+clicking **Generate draft**. This creates `draft: false`, commits only the new
+post, and runs `git push origin main`. GitHub Actions then builds and deploys
+the site.
+
+The interface is local-only: it talks to Ollama on your computer and does not
+expose the model or repository to the internet. Press `Ctrl+C` in the terminal
+to stop it. If port `8765` is busy, start it on another port:
+
+```powershell
+python scripts/post-generator-ui.py --port 8766
+```
+
+Then open `http://127.0.0.1:8766/`.
 
 ## Adding a new language
 
