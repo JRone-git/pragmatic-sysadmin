@@ -1,0 +1,12 @@
+{{/*
+  PaperMod `extend_post_content.html` hook.
+
+  The theme's single.html calls this partial between the post body and the
+  post footer (tags, prev/next links, share buttons), which is exactly where
+  the newsletter signup belongs. Overriding this one stub keeps PaperMod's
+  core templates untouched.
+
+  The partial itself decides which pages get the CTA — see
+  layouts/partials/post-newsletter.html.
+*/}}
+{{- partial "post-newsletter.html" . -}}

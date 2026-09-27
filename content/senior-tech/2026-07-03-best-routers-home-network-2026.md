@@ -19,7 +19,23 @@ description: "Honest review of the best home WiFi routers in 2026. Tested by a s
 author: "Pragmatic Sysadmin"
 aliases:
   - /posts/2026-07-03-best-routers-home-network-2026/
-
+faq:
+  - question: "Do I really need WiFi 7?"
+    answer: "No. WiFi 6 is fine for most homes. WiFi 7 is future-proofing for 3-5 years out. If your router is 3+ years old, the upgrade is worth it. If it's <2 years old, wait."
+  - question: "Mesh vs single router?"
+    answer: "Mesh is for covering large areas or multi-floor homes. A single router is better for performance and cost in smaller spaces. Mesh adds latency and complexity."
+  - question: "Can I just use the router from my ISP?"
+    answer: "You can, but most ISP routers are 2-3 generations behind. Swapping to a current router usually gives you 30-50% better WiFi performance and better security."
+  - question: "Do I need a separate access point?"
+    answer: "If you have a single router covering your whole home well, no. If you have dead spots, yes — get a mesh system or add a dedicated AP."
+  - question: "What's the deal with WiFi 6E?"
+    answer: "Adds the 6 GHz band. Useful for VR/AR and very dense WiFi environments. For most homes, the 6 GHz range is shorter than 5 GHz, so you don't get the benefit. Skip WiFi 6E in 2026 — go straight to WiFi 7."
+  - question: "Are these affiliate links?"
+    answer: "Yes. I earn a small commission if you buy through them. Doesn't change my recommendations."
+  - question: "What if my router is already pretty new?"
+    answer: "Keep it. Routers don't need to be replaced yearly. Replace when: it's >5 years old, doesn't support WPA3, has security issues, or doesn't cover your home."
+  - question: "Can I install custom firmware like OpenWrt?"
+    answer: "On some ASUS, Linksys, and Netgear models, yes. ASUS RT-AX86U Pro has excellent OpenWrt support. OpenWrt gives you more control but requires sysadmin-level knowledge. Worth it for nerds, overkill for most. ---"
 ---
 I run 4 routers at home: a main one, a mesh node, a guest network AP, and a lab box. I've configured, broken, and replaced more consumer routers than I can count.
 

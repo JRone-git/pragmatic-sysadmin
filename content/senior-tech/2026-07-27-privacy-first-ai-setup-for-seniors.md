@@ -11,6 +11,17 @@ canonicalUrl: "https://pragmaticsysadmin.help/senior-tech/2026-07-27-privacy-fir
 seo:
   title: "Privacy-First AI Setup for Seniors (2026): Apple Intelligence vs Claude vs Local LLMs"
   description: "How to set up privacy-preserving AI for elderly parents — Apple Intelligence, Claude with no training, or locally-hosted Ollama. 10-minute setup, compared."
+faq:
+  - question: "Is Apple Intelligence really more private than ChatGPT?"
+    answer: "Yes, for three reasons. First, most requests are processed on-device, meaning the data never leaves the phone. Second, the requests that do go to Apple's cloud are processed on dedicated Apple silicon servers that do not store inputs and are cryptographically attested. Third, Apple contractually commits to not training on personal data. ChatGPT's free tier trains on conversations by default; Apple Intelligence does not train at all."
+  - question: "Will my parents notice a difference between Claude and ChatGPT?"
+    answer: "For everyday tasks — summarization, drafting, simple Q&A — no. Claude and ChatGPT are comparable in quality for the kinds of things elderly users actually do. The main visible difference is Claude's stricter rate limit on the free tier. If your parents hit the limit regularly, consider a Claude Pro subscription ($20/month) or move them to Apple Intelligence if they have the hardware."
+  - question: "Can I run Ollama on an old laptop?"
+    answer: "Technically yes, but the experience will be poor. Models like Llama 3.2 (3B parameter) will run on a 2018-era laptop with integrated graphics, but responses will be slow — 2 to 5 tokens per second, meaning a paragraph reply takes 30+ seconds. For a usable experience, you want a Mac with an M1 chip or later, or a PC with an NVIDIA RTX 3060 or better. If you do not have suitable hardware, use Option 1 or Option 2 instead."
+  - question: "What about Samsung Galaxy AI or Google Gemini Nano on Android?"
+    answer: "Both Samsung's Galaxy AI (on recent Galaxy S-series phones) and Google's Gemini Nano (on Pixel 8 and later) offer on-device AI processing similar in spirit to Apple Intelligence. The privacy posture is decent but not as thoroughly attested as Apple's. If your parents have a recent Galaxy or Pixel, enable the on-device AI features in their phone's settings — it is a meaningful improvement over cloud-only AI. Treat this as a bonus layer on top of the Claude setup described above."
+  - question: "Should I worry about Apple Intelligence \"hallucinating\" wrong answers for my parents?"
+    answer: "Yes, but the same concern applies to every AI tool, including ChatGPT and Claude. Apple Intelligence is somewhat more conservative — it tends to refuse tasks it cannot do well rather than fabricate answers — but it can still produce wrong information, especially in notification summaries. The defense is the same as for any AI: never let your parents rely on AI output for medical, legal, or financial decisions without verifying against an authoritative source. AI is a research assistant, not an oracle. "
 ---
 
 Once you understand [what AI tools actually do with your parents' chat logs](/senior-tech/2026-07-27-is-chatgpt-reading-your-parents-data/), the natural next question is: what should they use instead? The honest answer is that there is no single "best" privacy-first AI — there are three good options, each suited to a different household. The right choice depends almost entirely on what hardware your parents already own, how technical you are willing to get, and what they actually want to do with AI in the first place.
@@ -100,54 +111,7 @@ Both Samsung's Galaxy AI (on recent Galaxy S-series phones) and Google's Gemini 
 
 Yes, but the same concern applies to every AI tool, including ChatGPT and Claude. Apple Intelligence is somewhat more conservative — it tends to refuse tasks it cannot do well rather than fabricate answers — but it can still produce wrong information, especially in notification summaries. The defense is the same as for any AI: never let your parents rely on AI output for medical, legal, or financial decisions without verifying against an authoritative source. AI is a research assistant, not an oracle.
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Is Apple Intelligence really more private than ChatGPT?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, for three reasons. Most requests are processed on-device, meaning the data never leaves the phone. The requests that do go to Apple's cloud are processed on dedicated Apple silicon servers that do not store inputs and are cryptographically attested. Apple contractually commits to not training on personal data. ChatGPT's free tier trains on conversations by default; Apple Intelligence does not train at all."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Will my parents notice a difference between Claude and ChatGPT?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "For everyday tasks — summarization, drafting, simple Q&A — no. Claude and ChatGPT are comparable in quality for the kinds of things elderly users actually do. The main visible difference is Claude's stricter rate limit on the free tier. If your parents hit the limit regularly, consider a Claude Pro subscription at $20/month or move them to Apple Intelligence if they have the hardware."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I run Ollama on an old laptop?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Technically yes, but the experience will be poor. Models like Llama 3.2 (3B parameter) will run on a 2018-era laptop with integrated graphics, but responses will be slow — 2 to 5 tokens per second, meaning a paragraph reply takes 30+ seconds. For a usable experience, you want a Mac with an M1 chip or later, or a PC with an NVIDIA RTX 3060 or better."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What about Samsung Galaxy AI or Google Gemini Nano on Android?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Both Samsung's Galaxy AI on recent Galaxy S-series phones and Google's Gemini Nano on Pixel 8 and later offer on-device AI processing similar in spirit to Apple Intelligence. The privacy posture is decent but not as thoroughly attested as Apple's. If your parents have a recent Galaxy or Pixel, enable the on-device AI features in their phone's settings — it is a meaningful improvement over cloud-only AI."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Should I worry about Apple Intelligence hallucinating wrong answers for my parents?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, but the same concern applies to every AI tool, including ChatGPT and Claude. Apple Intelligence is somewhat more conservative — it tends to refuse tasks it cannot do well rather than fabricate answers — but it can still produce wrong information, especially in notification summaries. Never let your parents rely on AI output for medical, legal, or financial decisions without verifying against an authoritative source."
-      }
-    }
-  ]
-}
-</script>
+
 
 ## What to do next
 

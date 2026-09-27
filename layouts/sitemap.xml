@@ -2,11 +2,14 @@
      These pages are noindex,follow (correctly), but leaving them in the
      sitemap wastes Google's crawl budget. 116 tag pages + 23 category
      pages = 139 URLs Google has to crawl but won't index. Excluding
-     them keeps the sitemap focused on indexable content. */}}
+     them keeps the sitemap focused on indexable content.
+
+     /search/ is filtered for the same reason: it is noindex,follow and
+     renders its results client-side from index.json. */}}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   {{- range .Data.Pages -}}
-  {{- if and (ne .Section "tags") (ne .Section "categories") -}}
+  {{- if and (ne .Section "tags") (ne .Section "categories") (ne .Layout "search") -}}
   <url>
     <loc>{{ .Permalink }}</loc>
     {{- if not .Lastmod.IsZero }}

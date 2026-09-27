@@ -3,6 +3,9 @@ canonifyURLs = true
 title = "Pragmatic Tech"
 theme = "PaperMod"
 
+[outputs]
+  home = ["HTML", "RSS", "JSON"]
+
 [author]
   name = "Pragmatic Sysadmin"
 
@@ -41,6 +44,18 @@ enableRobotsTXT = true
   # 'Pragmatic Tech' but the author identity stays the same.
   author = "Pragmatic Sysadmin"
   
+  # Fuse.js search options (used by PaperMod's fastsearch.js on /search/).
+  # PaperMod reads these keys in lowercase because Hugo lowercases param keys.
+  # `ignorelocation = true` searches the whole field (PaperMod's default), which
+  # matters here because the index stores full post bodies in `content`.
+  [params.fuseOpts]
+    iscasesensitive = false
+    shouldsort = true
+    minmatchcharlength = 2
+    threshold = 0.4
+    ignorelocation = true
+    keys = ["title", "permalink", "summary", "content"]
+
   # SEO & Social
   # NOTE: site-wide OG image is set in layouts/partials/extend_head.html
   # so per-post OG images take precedence. Do NOT set `images` here or
@@ -61,6 +76,12 @@ enableRobotsTXT = true
   name = "Home"
   url = "/"
   weight = 10
+
+[[menu.main]]
+  identifier = "search"
+  name = "Search"
+  url = "/search/"
+  weight = 11
 
 [[menu.main]]
   identifier = "senior-tech"

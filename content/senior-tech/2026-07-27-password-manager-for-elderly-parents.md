@@ -11,6 +11,17 @@ canonicalUrl: "https://pragmaticsysadmin.help/senior-tech/2026-07-27-password-ma
 seo:
   title: "Password Manager for Elderly Parents: 10-Minute Setup Guide (2026)"
   description: "How to set up Bitwarden or 1Password for aging parents in 10 minutes — what to pick, how to install it, and how to get them to actually use it."
+faq:
+  - question: "Is a password manager safe? What if the company gets hacked?"
+    answer: "Password managers store your vault encrypted with your master password. Even if the company is breached, attackers get encrypted blobs they cannot read without your master password — which the company never has. Both Bitwarden and 1Password have been audited independently and publish their security architecture. The realistic threat to your parents is not \"the password manager gets hacked\"; it is \"they reuse passwords across sites.\" The manager fixes the actual problem."
+  - question: "What if my parent forgets the master password?"
+    answer: "This is the most common failure mode and the one most likely to derail the whole project. Two defenses: (1) write the master password on a piece of paper and store it somewhere they trust — a wallet, a drawer, a safe. (2) Set up emergency access in Bitwarden or recovery in 1Password, with your email as the recovery contact. After a waiting period (you choose: 7 days, 14 days, 30 days), you can reset their master password on their behalf. This is the single most important setting to configure."
+  - question: "Can I share my own passwords with my parents?"
+    answer: "Yes — both Bitwarden and 1Password support shared folders within a family plan. Common use cases: shared Netflix, shared banking for an aging parent you have power of attorney over, shared medical portal logins. Anything in a shared folder is visible to every member of the family plan, so be deliberate about what goes there."
+  - question: "Should my parents use the free version of Bitwarden instead of paying?"
+    answer: "The free tier of Bitwarden is genuinely good, but it only syncs to one device type — either mobile or desktop, not both. For most elderly users who have one phone and one computer, that limitation will bite within the first week. The $1/month family plan removes the restriction and is worth it."
+  - question: "My parent already has 200 passwords saved in Chrome. Should I import them?"
+    answer: "You can, but I would not lead with it. Importing 200 logins creates a confusing vault full of dead accounts they will never touch. Better approach: let the vault grow organically as they log in to sites over the first month. After 30 days, you can run a one-time import of anything still missing — by then they will be comfortable enough with the tool to handle the cleanup. "
 ---
 
 If your parents are still reusing the same password across their bank, email, and Facebook — or, worse, writing them on a sticky note stuck to the monitor — it is not a matter of *if* they will get phished. It is a matter of when. This guide shows you, the adult child who got voluntold to be the family IT department, how to install a password manager on their devices in roughly ten minutes of hands-on time, and how to actually get them to use it without a fight.
@@ -105,54 +116,7 @@ The free tier of Bitwarden is genuinely good, but it only syncs to one device ty
 
 You can, but I would not lead with it. Importing 200 logins creates a confusing vault full of dead accounts they will never touch. Better approach: let the vault grow organically as they log in to sites over the first month. After 30 days, you can run a one-time import of anything still missing — by then they will be comfortable enough with the tool to handle the cleanup.
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Is a password manager safe? What if the company gets hacked?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Password managers store your vault encrypted with your master password. Even if the company is breached, attackers get encrypted blobs they cannot read without your master password — which the company never has. Both Bitwarden and 1Password have been audited independently and publish their security architecture. The realistic threat is not the password manager getting hacked; it is reusing passwords across sites."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What if my parent forgets the master password?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Write the master password on paper and store it somewhere trusted, like a wallet or safe. Also set up emergency access (Bitwarden) or recovery (1Password) with your email as the recovery contact. After a waiting period you choose — 7, 14, or 30 days — you can reset their master password on their behalf."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I share my own passwords with my parents?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. Both Bitwarden and 1Password support shared folders within a family plan. Common use cases include shared streaming accounts, shared banking for power-of-attorney situations, and shared medical portal logins. Anything in a shared folder is visible to every family plan member."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Should my parents use the free version of Bitwarden instead of paying?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Bitwarden's free tier only syncs to one device type — either mobile or desktop, not both. For most elderly users with one phone and one computer, that limitation bites within the first week. The $1/month family plan removes the restriction and is worth it."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "My parent already has 200 passwords saved in Chrome. Should I import them?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "You can, but it is better to let the vault grow organically as your parent logs in to sites over the first month. Importing 200 logins creates a confusing vault full of dead accounts. After 30 days, run a one-time import of anything still missing."
-      }
-    }
-  ]
-}
-</script>
+
 
 ## What to do next
 

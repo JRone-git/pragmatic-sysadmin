@@ -1,9 +1,18 @@
 {{/*
   Post newsletter CTA — appears at the bottom of every blog post.
   Captures emails via Buttondown. Offers lead magnets as incentive.
+
+  Injected by layouts/partials/extend_post_content.html (PaperMod hook that
+  renders between the post body and the post footer).
+
+  Article sections on this site are senior-tech, sysadmin and meta; the blog
+  posts under "posts" are kept in the list for compatibility.
+
+  NOTE: Hugo's `in` takes the collection first, the item second.
 */}}
 
-{{- if and (eq .Type "posts") .IsPage (not .IsHome) -}}
+{{- $articleSections := slice "posts" "senior-tech" "sysadmin" "meta" -}}
+{{- if and (in $articleSections .Type) .IsPage (not .IsHome) -}}
 <div class="post-newsletter-cta" id="post-newsletter">
   <div class="pnl-header">
     <span class="pnl-icon">📬</span>
@@ -39,6 +48,25 @@
     <span class="pnl-perk">👴 <strong>Free:</strong> Senior Phone Setup Checklist PDF</span>
     <span class="pnl-perk">🛠️ <strong>Free:</strong> 5 Bash Scripts for Sysadmins pack</span>
   </div>
+
+  {{/* Contextual Product Box: $9 Server Toolkit for sysadmin posts, $5 Checklist for senior-tech */}}
+  {{- if eq .Type "sysadmin" -}}
+  <div style="margin-top:1.25em;padding:1em 1.15em;background:rgba(90,122,94,0.08);border:1px solid rgba(90,122,94,0.25);border-radius:6px;display:flex;align-items:center;justify-content:space-between;gap:1em;flex-wrap:wrap;">
+    <div>
+      <strong style="color:var(--primary,#2a2a2a);font-size:0.95em;">The 5-Minute Server Health Check Toolkit ($9)</strong>
+      <p style="margin:0.2em 0 0;font-size:0.85em;color:var(--secondary,#555);">3 production-ready bash scripts + printable weekly checklist. Catch outages before 3am.</p>
+    </div>
+    <a href="/products/health-check-toolkit/" style="display:inline-block;padding:0.5em 1em;background:#5a7a5e;color:#fff;text-decoration:none;border-radius:5px;font-weight:600;font-size:0.88em;white-space:nowrap;">Get the Toolkit →</a>
+  </div>
+  {{- else if eq .Type "senior-tech" -}}
+  <div style="margin-top:1.25em;padding:1em 1.15em;background:rgba(201,123,94,0.08);border:1px solid rgba(201,123,94,0.25);border-radius:6px;display:flex;align-items:center;justify-content:space-between;gap:1em;flex-wrap:wrap;">
+    <div>
+      <strong style="color:var(--primary,#2a2a2a);font-size:0.95em;">Senior Phone Setup &amp; Maintenance Checklist ($5)</strong>
+      <p style="margin:0.2em 0 0;font-size:0.85em;color:var(--secondary,#555);">All four senior-tech guides distilled into a laminatable, printable PDF for your parent.</p>
+    </div>
+    <a href="https://ko-fi.com/s/a567718347" target="_blank" rel="noopener" style="display:inline-block;padding:0.5em 1em;background:#c97b5e;color:#fff;text-decoration:none;border-radius:5px;font-weight:600;font-size:0.88em;white-space:nowrap;">Get the Printable →</a>
+  </div>
+  {{- end -}}
 
   <p class="pnl-foot">
     Sent every Tuesday morning. Practical, no marketing, no upsells in every email.

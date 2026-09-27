@@ -26,6 +26,27 @@ Hugo static site for [pragmaticsysadmin.help](https://pragmaticsysadmin.help).
 └── hugo.toml             # Hugo config + main menu
 ```
 
+## Site features (native, no external services)
+
+- **Search** (`/search/`): PaperMod's client-side Fuse.js search. `content/search.md`
+  (`layout: "search"`) + `outputs.home = ["HTML", "RSS", "JSON"]` in `hugo.toml` make Hugo
+  emit `index.json` (55 pages) from the theme's `index.json` layout. Ranking is tuned with
+  `[params.fuseOpts]` (lowercase keys — Hugo lowercases param keys). The page is
+  `noindex, follow` and filtered out of `sitemap.xml` because its HTML is thin content.
+- **Reading progress bar**: CSS + JS live in `layouts/partials/extend_head.html`, scoped to
+  article sections (`$articleSections` slice) via `.IsPage` + `.Type`.
+- **Newsletter CTA** (`layouts/partials/post-newsletter.html`): rendered by
+  `layouts/partials/extend_post_content.html`, a PaperMod hook that runs between the post
+  body and the post footer.
+
+⚠️ **`extend_footer.html` is cached per page *kind*, not per page.** PaperMod calls
+`partialCached "footer.html" . .Layout .Kind ...`, so anything page-specific (e.g. `.Type`
+conditionals) placed there leaks one page's output to every other page of the same
+layout/kind. Put per-page content in `extend_head.html` (rendered per page) instead.
+
+Also note: Hugo's `in` takes the collection **first**, the item second —
+`in $slice .Type`, not `in .Type (slice ...)` (the latter silently evaluates to false).
+
 ## ⭐ The product automation system
 
 The site has a small automation system that turns product definitions into
