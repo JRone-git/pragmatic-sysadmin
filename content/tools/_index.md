@@ -136,6 +136,25 @@ Click any tool to open it. All run client-side — nothing uploaded, no tracking
 <span class="tag">humor · useful for real work</span>
 </a>
 
+<a href="/tools/homelab-architect.html" class="tool-card">
+<div class="name">Homelab Architect &amp; Spec Calculator</div>
+<p class="desc">Design and calculate hardware specs, hypervisor, storage, and networking for home labs and small server setups.</p>
+<span class="tag">interactive · hardware planner</span>
+</a>
+
+<a href="/tools/plain-english.html" class="tool-card">
+<div class="name">Plain English Tech Explainer</div>
+<p class="desc">Translate arcane error messages and technical jargon into clear, plain English explanations you can share with anyone.</p>
+<span class="tag">jargon buster · client-side</span>
+</a>
+
+<a href="/tools/prism-engine.html" class="tool-card">
+<div class="name">PRISM Architecture Simulator</div>
+<p class="desc">Interactive distributed systems failure and resilience playground. Visualize bottlenecks, failover, and high availability.</p>
+<span class="tag">interactive · architecture playground</span>
+</a>
+
+
 </div>
 
 ---

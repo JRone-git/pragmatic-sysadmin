@@ -58,3 +58,9 @@ if published_count > 0:
         print("Regenerating OpenGraph social images...")
         subprocess.run([sys.executable, str(og_script)], check=False)
 
+    llms_script = REPO_ROOT / "scripts" / "build_llms_txt.py"
+    if llms_script.exists():
+        print("Regenerating llms.txt & llms-full.txt...")
+        subprocess.run([sys.executable, str(llms_script)], check=False)
+
+

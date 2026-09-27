@@ -642,12 +642,17 @@
         <ul id="tipsList"></ul>
       </div>
 
-      <button class="share-btn" onclick="shareScore()">
-        <span>📤</span> SHARE YOUR SCORE
-      </button>
-      <button class="reset-btn" onclick="resetForm()">
-        <span>↺</span> TRY AGAIN
-      </button>
+      <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1.25rem;">
+        <button class="share-btn" style="margin-top:0;" onclick="shareScore()">
+          <span>📤</span> SHARE YOUR SCORE
+        </button>
+        <button class="share-btn" style="margin-top:0;background:#1e293b;border:1px solid #475569;" onclick="copyGitHubBadge()">
+          <span>🏷️</span> COPY GITHUB README BADGE
+        </button>
+        <button class="reset-btn" style="margin-top:0;margin-left:0;" onclick="resetForm()">
+          <span>↺</span> TRY AGAIN
+        </button>
+      </div>
     </div>
 
     <footer>
@@ -775,7 +780,7 @@
 
     function shareScore() {
       const total = Object.values(scores).reduce((a, b) => a + b, 0);
-      const text = `🖥️ My Battle Station Score: ${total}/100\n\n${document.getElementById('rank').textContent.replace('RANK: ', '')}\n\nCalculate yours at pragmaticsysadmin.help/tools/battle-station-score.html`;
+      const text = `🖥️ My Battle Station Score: ${total}/100\n\n${document.getElementById('rank').textContent.replace('RANK: ', '')}\n\nCalculate yours at https://pragmaticsysadmin.help/tools/battle-station-score.html`;
       
       if (navigator.share) {
         navigator.share({
@@ -787,6 +792,18 @@
           alert('Score copied to clipboard!');
         });
       }
+    }
+
+    function copyGitHubBadge() {
+      const total = Object.values(scores).reduce((a, b) => a + b, 0);
+      const rank = document.getElementById('rank').textContent.replace('RANK: ', '').trim();
+      const color = total >= 90 ? 'brightgreen' : total >= 75 ? 'green' : total >= 60 ? 'blue' : total >= 40 ? 'yellow' : 'red';
+      const badgeUrl = `https://img.shields.io/badge/Battlestation-${total}%2F100_${encodeURIComponent(rank)}-${color}?style=flat-square&logo=visualstudiocode&logoColor=white`;
+      const markdown = `[![Battle Station Score](${badgeUrl})](https://pragmaticsysadmin.help/tools/battle-station-score.html)`;
+
+      navigator.clipboard.writeText(markdown).then(() => {
+        alert('Badge Markdown copied to clipboard! Paste it into your GitHub profile or repo README.');
+      });
     }
 
     function resetForm() {

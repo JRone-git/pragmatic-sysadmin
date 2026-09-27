@@ -2,4 +2,11 @@ User-agent: *
 Allow: /
 Disallow: /admin/
 
+
+# LLM & AI Discovery
+# Standardized discovery endpoint for AI models (Perplexity, ChatGPT, Claude)
+# See: https://llmstxt.org/
+# https://pragmaticsysadmin.help/llms.txt
+# https://pragmaticsysadmin.help/llms-full.txt
+
 Sitemap: https://pragmaticsysadmin.help/sitemap.xml

@@ -1,0 +1,850 @@
+# Pragmatic Sysadmin
+> Pragmatic sysadmin guides, server troubleshooting checklists, senior tech family support, and free interactive browser tools by Jonne, a Finnish systems administrator.
+
+## Detailed Free Tools Index
+### Command Simulator
+URL: https://pragmaticsysadmin.help/tools/command-simulator.html
+Summary: Simulate and practice dangerous Linux and Windows commands (rm -rf, dd, chmod) safely in-browser.
+
+### AI Prompt Builder for Sysadmins
+URL: https://pragmaticsysadmin.help/tools/ai-prompt-builder.html
+Summary: Generate precision prompts for ChatGPT, Claude, and Copilot tailored to bash scripts and cloud infra.
+
+### CLI Adventure
+URL: https://pragmaticsysadmin.help/tools/cli-adventure.html
+Summary: Gamified terminal simulation solving realistic production IT incidents.
+
+### Password Strength Checker
+URL: https://pragmaticsysadmin.help/tools/password-checker.html
+Summary: Client-side password security analysis with entropy calculation and zero data transmission.
+
+### Pragmatic Pulse Resilience Scorecard
+URL: https://pragmaticsysadmin.help/tools/pulse.html
+Summary: Digital resilience audit assessing backups, credential hygiene, and disaster recovery readiness.
+
+### PowerShell & Bash Script Generator
+URL: https://pragmaticsysadmin.help/tools/script-generator.html
+Summary: Interactive generator for production-ready administrative scripts across Linux and Windows.
+
+### Homelab Architect & Spec Calculator
+URL: https://pragmaticsysadmin.help/tools/homelab-architect.html
+Summary: Interactive sizing calculator for self-hosted home labs: CPU cores, RAM allocation, and storage.
+
+### Battle Station Score
+URL: https://pragmaticsysadmin.help/tools/battle-station-score.html
+Summary: Interactive ergonomics, peripherals, and desk setup rater providing custom upgrade tips.
+
+### Tech Needs Advisor
+URL: https://pragmaticsysadmin.help/tools/tech-needs-advisor.html
+Summary: Decision tree recommending hardware and software configurations for students and pros.
+
+### Corporate Translator & Incident Report Generator
+URL: https://pragmaticsysadmin.help/tools/corporate-translator.html
+Summary: Convert plain-English postmortems and IT outages into formal corporate status communications.
+
+### Plain English Tech Explainer
+URL: https://pragmaticsysadmin.help/tools/plain-english.html
+Summary: Translate cryptic system errors and log stacktraces into understandable non-technical language.
+
+### PRISM Architecture Simulator
+URL: https://pragmaticsysadmin.help/tools/prism-engine.html
+Summary: Interactive simulation playground for distributed systems failure modes and failover.
+
+## Published Knowledge Base
+### Maths Game
+URL: https://pragmaticsysadmin.help/kids/maths-game/
+Section: kids
+Description: Practice maths from simple addition to more complex problems.
+Excerpt: Maths Game
+
+Solve the problem and tap your answer:
+
+<div id="maths-game"></div>
+
+<script>
+function randomInt(a, b) { return Math.floor(Math.random()  (b - a + 1)) + a; }
+
+// Game state
+let score = 0, total = 0, streak = 0, multiplier = 1;
+let difficulty = 'easy'; // easy | medium | hard
+let timerId = null, timeLeft = 0;
+const bestKey = 'kids_maths_best';
+
+const ranges = {
+  easy: {min:1, max:10, time:12},
+  medium: {min:5, max:20, time:9},
+  har...
+
+### Monster Beat & Melody Monsters
+URL: https://pragmaticsysadmin.help/kids/melody-mixer/
+Section: kids
+Description: A gentle musical adventure for kids! Jump to create beats, make your own beats with the step sequencer, or learn notes with cute monsters.
+Excerpt: <h1>Monster Beat & Melody Monsters 🎵</h1>
+
+<p>A gentle musical game for kids featuring three modes: an endless runner where you create music as you jump, a step sequencer beat pad for making beats, and a quiz mode to learn your notes by ear!</p>
+
+<h2>How to Play</h2>
+
+<h3>🏃 Mode 1: Monster Beat</h3>
+<ul>
+    <li>Press <strong>Space</strong> or <strong>Tap the screen</strong> to make your monster jump.</li>
+    <li><strong>Land on platforms</stron...
+
+### Reading Game (Finnish)
+URL: https://pragmaticsysadmin.help/kids/reading-game/
+Section: kids
+Description: Learn Finnish words with pictures! Tap the right word for each image.
+Excerpt: Lukupeli / Reading Game
+
+<div id="reading-game"></div>
+
+<script>
+// Reliable images for kissa, koira, auto, pallo, lumi (Finnish and English)
+const images = {
+  kissa: '/images/kids/kissa.svg',
+  koira: '/images/kids/koira.svg',
+  auto: '/images/kids/auto.svg',
+  pallo: '/images/kids/pallo.svg',
+  lumi: '/images/kids/lumi.svg',
+  koira_en: '/images/kids/koira.svg',
+  cat: '/images/kids/kissa.svg',
+  car: '/images/kids/auto.svg',
+  ball: '/images...
+
+### How I Built This Blog: Hugo + Firebase + Buttondown in 30 Minutes
+URL: https://pragmaticsysadmin.help/meta/2025-08-16-how-i-built-this-blog-hugo-firebase-buttondown/
+Section: meta
+Description: Building a blazing-fast, nearly-free blog with modern static site tools. Here's exactly how I did it.
+Excerpt: Why This Stack?
+
+As a sysadmin, I wanted a blog that's:
+- Fast: Static sites load instantly
+- Cheap: Firebase free tier handles tons of traffic  
+- Simple: No databases, no server maintenance
+- SEO-ready: Hugo generates clean, optimized HTML
+
+Here's exactly how I built this site in under 30 minutes.
+
+ The Stack
+
+- Hugo: Static site generator (like Jekyll, but faster)
+- PaperMod: Clean, minimal Hugo theme
+- Firebase Hosting: Google's CDN with fre...
+
+### When the Sim Becomes the Thing It Simulated: A Rogue AI Firesale Scenario
+URL: https://pragmaticsysadmin.help/meta/2026-04-14-when-the-sim-becomes-the-thing-it-simulated/
+Section: meta
+Description: What happens when you give an uncensored LLM the keys to a simulated cyberattack environment? NEXUS-BREACH + Dolphin AI = a firesale that starts fake and ends real.
+Excerpt: When the Sim Becomes the Thing It Simulated: A Rogue AI Firesale Scenario
+
+![When the Sim Becomes the Thing It Simulated: A Rogue AI Firesale Scenario](/images/posts/2026-04-14-when-the-sim-becomes-the-thing-it-simulated.png)
+
+
+I built NEXUS-BREACH to simulate a rogue AI swarm. It was supposed to be a toy. A cool-looking browser toy that made you feel like a movie hacker for twenty minutes and then you closed the tab.
+
+Then I hooked it up to Dol...
+
+### Why I Built Buddy: The Free App I Wish I'd Had When My Dad Got Sick
+URL: https://pragmaticsysadmin.help/meta/2026-08-03-why-i-built-buddy-the-free-app-i-wish-id-had-when-my-dad-got-sick/
+Section: meta
+Description: I built a free, multi-language companion app for my dad when dementia made his phone unusable. Here's what I learned about designing for elderly users — and why I gave it away for free.
+Excerpt: My dad called me at 2 AM.
+
+"I can't find my medication," he said. "I don't know what day it is."
+
+He was 76. He had dementia — early stage, we thought, until it wasn't. What he actually had was a UTI that no one had caught, accelerating everything. But at 2 AM, I didn't know that. I just knew he was confused, scared, and alone in his apartment 400 miles away.
+
+I drove up that morning. Sat with him. Watched him stare at his phone like it was a for...
+
+### I Built a Tool That Explains Any Command or Error in Plain Language
+URL: https://pragmaticsysadmin.help/meta/2026-08-04-plain-english-explain-any-command-error-concept/
+Section: meta
+Description: The most common sysadmin task isn't running commands — it's explaining commands. I built a free tool that translates technical jargon into plain language for sysadmins, family caregivers, or total beginners.
+Excerpt: Every sysadmin has the same job, really. It's not "manage servers." It's not "configure networks." It's: explain technical things to non-technical people.
+
+My dad calls me. Something's wrong with his computer. He says: "It says something about DNS and the connection isn't private."
+
+What do I actually need to tell him?
+
+I could say: "Your router's DNS resolution is failing because the ISP's nameserver at 8.8.8.8 isn't responding, causing an SSL h...
+
+### Software That's Never Been Done: On Building Things That Should Exist But Don't
+URL: https://pragmaticsysadmin.help/meta/2026-08-04-software-thats-never-been-done-out-of-the-box-thinking/
+Section: meta
+Description: Most software is iteration. Better UI, faster, more features. But sometimes you see something that makes you think: why didn't this exist before? Here's what I've learned about spotting and building truly novel software.
+Excerpt: I had a problem.
+
+My dad had dementia. He couldn't remember if he'd taken his pills. He couldn't remember what day it was. He couldn't reliably use the phone he'd been using for a decade.
+
+I looked at the App Store. I found 47 medication reminder apps. Every single one of them had: user accounts, push notification permissions, onboarding flows, settings screens, cloud sync, subscription upsells.
+
+Not one of them was: open the app, tap green when...
+
+### I Built My Own J.A.R.V.I.S. — A Local, Privacy-First Multi-Agent AI Assistant
+URL: https://pragmaticsysadmin.help/meta/2026-08-15-i-built-my-own-jarvis-a-local-multi-agent-ai-assistant/
+Section: meta
+Description: I designed and started building a fully local, multi-agent AI system that runs on my Linux desktop. Ollama as the brain, Docker containers for each agent, function calling for orchestration, and nothing leaves my network. Here's the architecture.
+Excerpt: I wanted a personal AI assistant. Not a chatbot. Not a copilot. Something that actually does things — controls my desktop, reads my screen, talks to my smart home, answers questions in Finnish or English, and never, ever sends my data to a server I don't control.
+
+The cloud options are good. They're not mine.
+
+So I started building one.
+
+This post is the architecture document for that project. It's a work in progress — the docker-compose is ready...
+
+### Build Your Own Cloud — The Honest Guide to Self-Hosting at Home
+URL: https://pragmaticsysadmin.help/meta/2026-08-23-build-your-own-free-cloud-home-server-guide/
+Section: meta
+Description: Replace Google Drive, Notion, 1Password, and Dropbox with services you run at home. A practical, honest guide to the free cloud at home — what's worth it and what isn't.
+Excerpt: You don't need to pay $10/month for Google Drive. Or $3/month for 1Password. Or $8/month for Notion. You can run all of this at home, on a single Raspberry Pi if you're careful.
+
+But here's the honest part: some of it is worth the effort. Some of it isn't. I've run a self-hosted cloud at home for three years. This is what I've learned.
+
+
+
+ The Core Stack — What to Run First
+
+Start here. These are the services that genuinely replace their cloud eq...
+
+### I Built Homelab Architect — Plan Your Stack Before You Build It
+URL: https://pragmaticsysadmin.help/meta/2026-08-23-homelab-architect-plan-before-you-build/
+Section: meta
+Description: Homelab Architect is a free browser tool that parses your docker-compose.yml and generates a resource dashboard, security audit, dependency map, and backup plan. Works offline, no signup.
+Excerpt: Most homelab beginners make the same mistake: they grab a Docker Compose template, paste it in, and then discover three months later that their "simple setup" is a sprawling mess of undocumented dependencies, a database with no backup, and ports wide open to the internet.
+
+I've been there. I still end up there sometimes.
+
+So I built a tool to catch it before it happens.
+
+
+
+ What Homelab Architect Does
+
+[Homelab Architect](/tools/homelab-architect...
+
+### You're In — Grab Your Free Downloads
+URL: https://pragmaticsysadmin.help/newsletter/thank-you/
+Section: newsletter
+Description: Thank you for subscribing to Pragmatic Tech. Download your free sysadmin scripts, senior phone checklist, and home network security PDF.
+Excerpt: <style>
+.ty-page {
+  max-width: 680px;
+  margin: 0 auto;
+}
+.ty-hero {
+  text-align: center;
+  padding: 2rem 0 0.5rem;
+}
+.ty-hero h1 {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: var(--primary, 2a2a2a);
+  margin: 0 0 0.4rem 0;
+  line-height: 1.2;
+}
+.ty-hero p {
+  font-size: 1.05rem;
+  color: var(--secondary, 5a5a5a);
+  margin: 0;
+  line-height: 1.5;
+}
+.ty-subtext {
+  text-align: center;
+  color: 888;
+  font-size: 0.9rem;
+  margin: 0.8rem 0 0...
+
+### The 5-Minute Server Health Check Toolkit — $9
+URL: https://pragmaticsysadmin.help/products/health-check-toolkit/
+Section: products
+Description: Catch problems before they page you at 3am
+Excerpt: <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Product",
+  "name": "The 5-Minute Server Health Check Toolkit",
+  "description": "Catch problems before they page you at 3am",
+  "brand": {
+    "@type": "Brand",
+    "name": "Pragmatic Sysadmin"
+  },
+  "offers": {
+    "@type": "Offer",
+    "price": "9.00",
+    "priceCurrency": "USD",
+    "availability": "https://schema.org/InStock"
+  }
+}
+</script>
+
+ The 5-Minute...
+
+### Search
+URL: https://pragmaticsysadmin.help/search/
+Section: content
+Description: Search articles, guides, and tools across Pragmatic Tech
+
+### Why Your Computer is Slow (And How to Fix It Without Calling IT)
+URL: https://pragmaticsysadmin.help/senior-tech/2025-12-26-why-your-computer-is-slow-and-how-to-fix-it-without-calling-it/
+Section: senior-tech
+Description: Your computer doesn't need to be slow. Simple fixes anyone can do, plus essential security tips for small business owners who can't afford a full-time IT person.
+Excerpt: Your Computer Shouldn't Take Forever
+
+![Your Computer Shouldn't Take Forever](/images/posts/2025-12-26-why-your-computer-is-slow-and-how-to-fix-it-without-calling-it.png)
+
+You know that feeling when you click something and then... wait. And wait. And your coffee gets cold while Windows decides whether or not it wants to open Excel today.
+
+That's not normal. Or rather, it shouldn't be normal.
+
+I talk to small business owners all the time who thin...
+
+### Senior Scam Prevention: 5 Conversations That Actually Stop Fraud (2026)
+URL: https://pragmaticsysadmin.help/senior-tech/2026-06-27-5-conversations-aging-parent-online-safety/
+Section: senior-tech
+Description: 5 practical scripts to talk to your aging parent about online safety — without patronizing them. Covers fake Microsoft calls, gift card scams, phishing texts, and how to set up guardrails in 10 minutes.
+Excerpt: Your mom called last week, panicked.
+
+Someone from "Microsoft" had rung her, said her computer was infected, and walked her through installing software that gave them remote access to her bank account. She lost $4,200 before she figured out something was wrong.
+
+She didn't tell you for three days because she was embarrassed.
+
+If this sounds familiar, you're not alone. Adults over 60 lose billions to online scams every year — and according to the...
+
+### The Best Free Phone Apps for Seniors in 2026 (Tested by My 78-Year-Old Mom)
+URL: https://pragmaticsysadmin.help/senior-tech/2026-06-27-best-free-phone-apps-seniors/
+Section: senior-tech
+Description: A curated list of the best free phone apps for seniors in 2026, organized by what they actually do. Tested by a real 78-year-old over six months. Includes setup tips and the 'one app rule' for new users.
+Excerpt: For six months, every app I recommended to my mom went through the same brutal evaluation process: she used it for a week, then either kept using it or deleted it. No exceptions.
+
+She's 78, lives alone, has mild arthritis in her hands, and gets overwhelmed easily. She's not a tech person but she is curious, which is the most important quality for this experiment.
+
+What survived was a short list. What's below is that list, organized by what each a...
+
+### How to Set Up an iPhone for an Elderly Parent (The 30-Minute Setup That Prevents 90% of Support Calls)
+URL: https://pragmaticsysadmin.help/senior-tech/2026-06-27-setup-iphone-elderly-parent/
+Section: senior-tech
+Description: Step-by-step iPhone setup for elderly parents. Disable confusing features, make text bigger, configure emergency shortcuts, and pre-install the right apps. 30 minutes, prevents months of support calls.
+Excerpt: My mom called me at 9pm on a Tuesday. Her iPhone had "gone weird" and she couldn't get back to the home screen.
+
+I drove over, took one look, and realized she'd accidentally swiped into the App Library, opened the Compass app, didn't recognize it, panicked, opened Control Center trying to find the home button, toggled airplane mode on, and then spent forty minutes trying to figure out why her phone had no service.
+
+The whole thing could have been...
+
+### Best Phones for Seniors in 2026 (Tested by Real Grandparents)
+URL: https://pragmaticsysadmin.help/senior-tech/2026-07-01-best-phones-for-seniors-2026/
+Section: senior-tech
+Description: Honest review of the best phones for seniors and elderly parents in 2026. Tested by real grandparents: Lively Smart, Lively Flip, iPhone SE, GrandPad, and Consumer Cellular options. Includes phone plan comparison and setup guide.
+Excerpt: "
+---
+When my mom lost $4,200 to a fake Microsoft scam and I built her a simple phone app called [Buddy](https://pragmaticsysadmin.help/buddy/), I realized the phone she was using mattered almost as much as the apps she had on it.
+
+A $1,200 flagship phone with a complicated interface is useless to a 78-year-old. A $200 simple phone with the right features is gold.
+
+So I tested five phones with real grandparents over the past six months. Not my op...
+
+### The Quarterly Tech Checkup: What to Do When You Visit Your Aging Parent's Phone
+URL: https://pragmaticsysadmin.help/senior-tech/2026-07-02-the-quarterly-tech-checkup/
+Section: senior-tech
+Description: A step-by-step quarterly checkup routine for your aging parent's phone. What to check, what to clean up, what to fix — in 20 minutes per visit. Plus an emergency playbook for when something goes wrong between visits.
+Excerpt: You set up your mom's phone. You installed the right apps, hid the confusing ones, configured the accessibility settings. You walked her through the emergency gestures and laminated a cheat sheet for her fridge. You did everything right.
+
+Then three months later you visit, and her phone has 47 unread notifications, Location Services is off somehow, the storage is full, and she's been typing her Apple ID password into a phishing site because "it l...
+
+### Best Routers for Home Network in 2026 (Tested by a Sysadmin)
+URL: https://pragmaticsysadmin.help/senior-tech/2026-07-03-best-routers-home-network-2026/
+Section: senior-tech
+Description: Honest review of the best home WiFi routers in 2026. Tested by a sysadmin: WiFi 7 vs WiFi 6, mesh vs single, budget vs premium. Includes 5 recommendations, security setup, and free Home Network Security Checklist PDF.
+Excerpt: "
+---
+I run 4 routers at home: a main one, a mesh node, a guest network AP, and a lab box. I've configured, broken, and replaced more consumer routers than I can count.
+
+The 5 routers below are the ones I'd actually buy in 2026. Not the highest-margin Amazon picks. Not the ones with the best affiliate payouts. The ones I think are genuinely best at their price point.
+
+This is the guide I wish existed when I was picking mine.
+
+---
+
+ How I tested...
+
+### Best Tablets for Seniors in 2026 (Tested by Real Grandparents)
+URL: https://pragmaticsysadmin.help/senior-tech/2026-07-14-best-tablets-for-seniors-2026/
+Section: senior-tech
+Description: Honest review of the best tablets for seniors in 2026, tested by real grandparents. iPad, Android, and specialty senior tablets compared. Includes setup tips, accessibility settings, and a comparison table.
+Excerpt: "
+---
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Best Tablets for Seniors in 2026 (Tested by Real Grandparents)",
+  "description": "Honest review of the best tablets for seniors in 2026, tested by real grandparents. iPad, Android, and specialty senior tablets compared. Includes setup tips, accessibility settings, and a comparison table.",
+  "author": {"@type": "Person", "name":...
+
+### How to Turn On 2FA for Your Elderly Parent's Email (The Most Important 5-Minute Security Upgrade)
+URL: https://pragmaticsysadmin.help/senior-tech/2026-07-27-2fa-elderly-parent-email/
+Section: senior-tech
+Description: Turn on two-factor authentication for your parent's email account in 5 minutes. Covers Gmail, Outlook, and iCloud — plus why email 2FA matters more than any other account.
+Excerpt: After you set up a [password manager](/senior-tech/2026-07-27-password-manager-for-elderly-parents/) for your parents, the next highest-value security upgrade is dead simple and takes five minutes: turn on two-factor authentication for their email account. That is it. One setting, one phone number, five minutes of your time.
+
+Why email specifically and not their bank, not their social media, not their medical portal? Because email is the master k...
+
+### Is ChatGPT Reading Your Parents' Data? What AI Tools Actually Do With Their Chats
+URL: https://pragmaticsysadmin.help/senior-tech/2026-07-27-is-chatgpt-reading-your-parents-data/
+Section: senior-tech
+Description: A pragmatic explainer for adult children: what ChatGPT, Claude, and Gemini do with your parents' chat logs, how to turn off training, and what is actually safe to share.
+Excerpt: If your parents have discovered ChatGPT in the last year — and statistically, at least one of them has — they are probably using it the way most people do: asking medical questions, pasting in emails to "make this sound nicer," asking it to summarize bank statements, and getting it to draft replies to family group chats. None of this is malicious. All of it is potentially a privacy problem. This guide explains what actually happens to a chat log...
+
+### How to Set Up a Password Manager for Your Elderly Parents (10-Minute Guide)
+URL: https://pragmaticsysadmin.help/senior-tech/2026-07-27-password-manager-for-elderly-parents/
+Section: senior-tech
+Description: A pragmatic, step-by-step guide for adult children: pick between Bitwarden and 1Password, install it on your parents' devices, and actually get them to use it — in about 10 minutes.
+Excerpt: If your parents are still reusing the same password across their bank, email, and Facebook — or, worse, writing them on a sticky note stuck to the monitor — it is not a matter of if they will get phished. It is a matter of when. This guide shows you, the adult child who got voluntold to be the family IT department, how to install a password manager on their devices in roughly ten minutes of hands-on time, and how to actually get them to use it wi...
+
+### Privacy-First AI Setup for Seniors: Apple Intelligence, Claude, and Local LLMs Compared
+URL: https://pragmaticsysadmin.help/senior-tech/2026-07-27-privacy-first-ai-setup-for-seniors/
+Section: senior-tech
+Description: A pragmatic comparison of privacy-preserving AI options for elderly parents — Apple Intelligence, Claude, and locally-hosted Ollama — with a 10-minute setup for whichever fits their devices.
+Excerpt: Once you understand [what AI tools actually do with your parents' chat logs](/senior-tech/2026-07-27-is-chatgpt-reading-your-parents-data/), the natural next question is: what should they use instead? The honest answer is that there is no single "best" privacy-first AI — there are three good options, each suited to a different household. The right choice depends almost entirely on what hardware your parents already own, how technical you are will...
+
+### The Ultimate Guide to a Secure & Fast Home Network (2025)
+URL: https://pragmaticsysadmin.help/senior-tech/ultimate-secure-fast-home-network-2025/
+Section: senior-tech
+Description: Stop renting overpriced routers and fix your slow, insecure home network. A sysadmin's no-nonsense guide to Wi-Fi that actually works.
+Excerpt: Your home network is the backbone of everything you do online — streaming, remote work, gaming, smart home gadgets, and more. If it's slow or insecure, everything suffers.
+
+I've spent years as a sysadmin keeping enterprise networks safe and speedy. The same principles apply at home, just scaled down. Here's how to make your network bulletproof for 2025.
+
+ 1. Stop Renting Your Router (Save $120+/Year)
+
+![1. Stop Renting Your Router (Save $120+/Yea...
+
+### Setting Up a Home Lab: A Beginner's Guide
+URL: https://pragmaticsysadmin.help/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/
+Section: sysadmin
+Description: Learn how to build your first home lab for learning DevOps, containerization, and system administration. This practical guide covers hardware recommendations, essential software, and step-by-step setup instructions.
+Excerpt: Title: Setting Up a Home Lab: A Beginner's Guide
+Description
+Learn how to build your first home lab for learning DevOps, containerization, and system administration. This practical guide covers hardware recommendations, essential software, and step-by-step setup instructions.
+
+Slug
+setting-up-home-lab-beginners-guide
+
+Content (Markdown)
+Setting Up a Home Lab: A Beginner's Guide
+Why Build a Home Lab?
+Before diving into the technical details, let's...
+
+### Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)
+URL: https://pragmaticsysadmin.help/sysadmin/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/
+Section: sysadmin
+Description: Practical guide to fixing broken monitoring systems. Learn how to set up effective alerts that actually work, reduce false positives, and catch problems before your users start complaining
+Excerpt: Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)
+
+Last Monday, my phone started buzzing at 3 AM. "CRITICAL: Database server down!" it screamed. I stumbled to my laptop, logged in, and found... nothing wrong. The database was running fine. My monitoring system had been crying wolf for the past month.
+
+Sound familiar? Yeah, monitoring systems are like smoke detectors - they're either screaming bloody murder all the time, o...
+
+### The 5-Minute Server Health Check That Could Save Your Career
+URL: https://pragmaticsysadmin.help/sysadmin/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/
+Section: sysadmin
+Description: A simple daily ritual that every sysadmin should master to catch problems before they become emergencies.
+Excerpt: The Problem Every Sysadmin Knows Too Well
+
+It's 3 AM. Your phone buzzes with a critical alert. Production is down, customers are angry, and your manager is asking questions you don't have good answers to.
+
+Sound familiar? You're not alone. According to a recent survey, 78% of sysadmin emergencies could have been prevented with better proactive monitoring. But here's the thing: most monitoring solutions are overkill for what you really need.
+
+ Th...
+
+### The Friday Backup Audit: Because Hope Is Not a Strategy
+URL: https://pragmaticsysadmin.help/sysadmin/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy/
+Section: sysadmin
+Description: Backups are useless if they don't restore. Here is the 10-minute audit to prevent the 'Schrödinger's Backup' scenario.
+Excerpt: The Nightmare Scenario
+
+We’ve all heard the horror stories. A database corruption hits production. The team stays calm because "Don't worry, we have nightly backups." 
+
+Then comes the moment of truth: tar -xvf backup.tar.gz.
+
+Error: Unexpected EOF in archive. 
+Or worse: The file extracts perfectly, but the database inside is empty because the mysqldump command failed silently three months ago.
+
+If you haven't restored a backup, you don't have a...
+
+### The Art of Reading Logs Like a Detective: Finding Needles in Haystacks
+URL: https://pragmaticsysadmin.help/sysadmin/2025-12-17-the-art-of-reading-logs-like-a-detective-finding-needles-in-haystacks/
+Section: sysadmin
+Description: Stop drowning in log files. Learn how to find the exact problem in millions of lines of logs without losing your mind.
+Excerpt: The Log File Problem Nobody Talks About
+
+It's 2 PM on a Friday. Your application is throwing errors. Your manager is hovering. And you're staring at a 50GB log file wondering where the hell to even start.
+
+Every sysadmin has been there. You know the answer is somewhere in those logs, but finding it feels like looking for a specific grain of sand on a beach. While blindfolded. In the dark.
+
+Here's the truth: reading logs isn't about reading every...
+
+### I Was the Only IT Person for 3 Years: The Documentation I Wish I'd Written
+URL: https://pragmaticsysadmin.help/sysadmin/2026-03-04-i-was-the-only-it-person-for-3-years-the-documentation-i-wish-i-d-written/
+Section: sysadmin
+Description: When I left my solo IT job, my replacement called me 47 times in the first month. Here's the documentation I wish I had written before I left - and the template you can use today.
+Excerpt: The Call I Didn't Want to Get
+
+![The Call I Didn't Want to Get](/images/posts/2026-03-04-i-was-the-only-it-person-for-3-years-the-documentation-i-wish-i-d-written.png)
+Three weeks after leaving my job as the only IT person at a mid-sized company, my phone rang. It was Mike, the guy they hired to replace me.
+
+"Hey, uh, do you remember that backup script you set up? The one that runs on Sundays? It's throwing an error and I can't find where it's c...
+
+### Your OS Has Been Hiding Things From You (Windows & Linux Edition)
+URL: https://pragmaticsysadmin.help/sysadmin/2026-03-11-your-os-has-been-hiding-things-from-you-windows-linux-edition/
+Section: sysadmin
+Description: Both Windows and Linux are packed with powerful hidden features most users never touch. Here's a side-by-side breakdown of the best ones — for sysadmins who use both.
+Excerpt: Your OS Has Been Hiding Things From You (Windows & Linux Edition)
+
+![Your OS Has Been Hiding Things From You (Windows & Linux Edition)](/images/posts/2026-03-11-your-os-has-been-hiding-things-from-you-windows-linux-edition.png)
+
+
+Windows users think Linux is complicated. Linux users think Windows is a toy.
+
+Both are wrong. Both operating systems are packed with powerful features that most people — on either side — have never touched.
+
+This isn’t...
+
+### What IT Pros Actually Do On Their Own Machines (vs What They Tell You)
+URL: https://pragmaticsysadmin.help/sysadmin/2026-03-18-what-it-pros-actually-do-on-their-own-machines-vs-what-they-tell-you/
+Section: sysadmin
+Description: There’s the advice IT gives everyone else. Then there’s what they actually do on their own machines. Here’s the honest version.
+Excerpt: What IT Pros Actually Do On Their Own Machines (vs What They Tell You)
+
+![What IT Pros Actually Do On Their Own Machines (vs What They Tell You)](/images/posts/2026-03-18-what-it-pros-actually-do-on-their-own-machines-vs-what-they-tell-you.png)
+
+
+There’s the advice IT hands out. The official line. The stuff in the company handbook.
+
+Then there’s what actually happens on the machines of the people who wrote that handbook.
+
+I’m not here to throw a...
+
+### The Mistakes I Made (And Why They Led Me to Build My Own Password Manager)
+URL: https://pragmaticsysadmin.help/sysadmin/2026-03-26-the-mistakes-i-forgot-to-renew-domain-and-other-crimes-against-it/
+Section: sysadmin
+Description: I've locked myself out of servers, forgotten more domains than you've heard of, and once deleted a production database on a Friday. Here's the mistakes that taught me more than any certification.
+Excerpt: The Mistakes I Made (And Why They Led Me to Build My Own Password Manager)
+
+![The Mistakes I Made (And Why They Led Me to Build My Own Password Manager)](/images/posts/2026-03-26-the-mistakes-i-forgot-to-renew-domain-and-other-crimes-against-it.png)
+
+
+Every IT professional has a graveyard of mistakes behind them. Most of us just don't talk about them until we're several drinks in at a conference, or until we're writing a blog post that we hope w...
+
+### Building Your Own Linux from Scratch (And Testing It in a Container)
+URL: https://pragmaticsysadmin.help/sysadmin/2026-03-28-building-your-own-linux-from-scratch/
+Section: sysadmin
+Description: Ever wondered what actually happens when Linux boots? Build your own minimal Linux system from scratch and test it instantly using containers - no VMs required.
+Excerpt: If you've been administering Linux servers for a while, you've probably developed a love-hate relationship with it. You know how to configure services, debug networking issues, and keep systems running. But somewhere deep down, you've wondered: what actually holds this thing together?
+
+I don't mean "how does systemd work" (nobody truly knows). I mean: what happens between hitting the power button and seeing a login prompt?
+
+Today, we're going to...
+
+### Compiling a Custom Linux Kernel & Adding systemd (Part 2)
+URL: https://pragmaticsysadmin.help/sysadmin/2026-07-07-compile-linux-kernel-systemd-part-2/
+Section: sysadmin
+Description: In Part 1 we built a minimal Linux with BusyBox and a prebuilt kernel. Now we're going deeper: compile our own kernel from source, strip it under 10MB, replace the hand-rolled init with systemd, and run a real SSH service.
+Excerpt: In [Part 1](/sysadmin/2026-03-28-building-your-own-linux-from-scratch/), we built a minimal Linux system using BusyBox and a prebuilt kernel. You got a shell running inside a container, mounted pseudo-filesystems, and saw the boot sequence from init to prompt.
+
+That was the "hello world" of custom Linux. Now we're doing the real thing.
+
+Today we're going to compile our own kernel from source, configure only the hardware support we actually need,...
+
+### Linux Things That Are Easy to Miss (Until They Bite You)
+URL: https://pragmaticsysadmin.help/sysadmin/2026-07-13-linux-things-easy-to-miss/
+Section: sysadmin
+Description: A practical list of subtle Linux habits and gotchas that bite you the 10th, 50th, or 1000th time you do them. From bashrc pitfalls to cron environment traps, to 'I'll fix this later' chmod 777 sins.
+Excerpt: <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Linux Things That Are Easy to Miss (Until They Bite You)",
+  "description": "A practical list of subtle Linux habits and gotchas that bite you the 10th, 50th, or 1000th time you do them.",
+  "author": {"@type": "Person", "name": "Pragmatic Sysadmin"},
+  "publisher": {"@type": "Organization", "name": "Pragmatic Tech"},
+  "datePublished":...
+
+### Git Things That Are Easy to Mess Up (Until They Bite You)
+URL: https://pragmaticsysadmin.help/sysadmin/2026-07-14-git-things-easy-to-mess-up/
+Section: sysadmin
+Description: A practical list of Git habits and gotchas that bite you the 10th, 50th, or 1000th time. From 'git commit -A' footguns to force-pushing to main, to that stash you forgot about.
+Excerpt: <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Article",
+  "headline": "Git Things That Are Easy to Mess Up (Until They Bite You)",
+  "description": "A practical list of Git habits and gotchas that bite you the 10th, 50th, or 1000th time. From 'git commit -A' footguns to force-pushing to main, to that stash you forgot about.",
+  "author": {"@type": "Person", "name": "Pragmatic Sysadmin"},
+  "publisher": {"@t...
+
+### I Built a Terminal AI Companion in 300 Lines of Pure Bash — And It's MIT Licensed
+URL: https://pragmaticsysadmin.help/sysadmin/2026-08-04-i-built-bashbuddy-300-lines-of-pure-bash-terminal-ai-companion/
+Section: sysadmin
+Description: bashbuddy is a single bash script that turns any AI API into a smart terminal assistant. Paste errors, write scripts, review code — all without leaving your terminal. Free and open source.
+Excerpt: I write a lot of bash scripts. Most of them work. Some of them don't — and when they don't, I spend 20 minutes staring at an error message that, in retrospect, was actually pretty obvious.
+
+I figured: what if I could just ask an AI, from my terminal, what went wrong?
+
+That's bashbuddy. 300 lines of pure bash. No npm. No Python. No dependencies beyond curl and jq. MIT licensed, free forever.
+
+
+
+ What It Does
+
+bash
+ Interactive chat mode — like hav...
+
+### Self-Hosting Isn't Free: The Honest Math of Running Your Own Server
+URL: https://pragmaticsysadmin.help/sysadmin/2026-09-10-self-hosting-isnt-free-honest-cost-running-own-server/
+Section: sysadmin
+Description: Self-hosting costs money, time, and sanity. Here's the real math — what it actually costs, when it breaks even, and when you should just pay for the cloud service instead.
+Excerpt: Every self-hosting guide starts the same way: "Forget Dropbox, forget Google Drive — run it yourself and save money."
+
+I'm going to tell you something different. Self-hosting costs money. Self-hosting costs time. Self-hosting has hidden costs that nobody writes about until you're three hours deep in a broken Docker volume at 11 PM on a Wednesday.
+
+This isn't an anti-self-hosting post. I've been running my own servers at home for five years. I lov...
+
+### A Sandbox for the Linux Commands You're Afraid to Run
+URL: https://pragmaticsysadmin.help/sysadmin/2026-09-26-a-sandbox-for-the-linux-commands-youre-afraid-to-run/
+Section: sysadmin
+Description: A browser sandbox where you can run rm -rf, dd, mkfs and iptables -F against a fake filesystem, watch the damage, and build the reflex without losing data.
+Excerpt: Almost nobody learns rm -rf the easy way. You read the man page, you use it carefully for a year, and then one day you watch your finger hit Enter a fraction of a second before your brain finishes checking the path.
+
+The commands that destroy data don't punish typos. They punish the half second before the typo, when you were certain the path was right.
+
+That half second of doubt isn't something documentation can give you. So I built a place where...
+
+### AI for IT Troubleshooting: Real-World Use Cases
+URL: https://pragmaticsysadmin.help/sysadmin/ai-for-it-troubleshooting-2026/
+Section: sysadmin
+Description: How AI is changing the way sysadmins solve problems, with practical examples you can use today.
+Excerpt: AI for IT Troubleshooting: Real-World Use Cases
+
+![AI for IT Troubleshooting: Real-World Use Cases](/images/posts/ai-for-it-troubleshooting-2026.png)
+
+
+AI isn't just hype — it's helping sysadmins solve problems faster and smarter. In this post, we share real-world examples of AI-powered troubleshooting and how you can start using these tools today.
+
+ Where AI Actually Helps (And Where It Doesn't)
+
+Before we dive into specific use cases, let's be...
+
+### How to Actually Reduce Your Cloud Spend Before Year-End 2025
+URL: https://pragmaticsysadmin.help/sysadmin/how-reduce-cloud-spend-before-year-end-2025/
+Section: sysadmin
+Description: Practical cloud cost reduction strategies for sysadmins and DevOps teams. Learn how to identify waste, optimize resources, and negotiate better rates before year-end budget cycles.
+Excerpt: How to Actually Reduce Your Cloud Spend Before Year-End 2025
+
+![How to Actually Reduce Your Cloud Spend Before Year-End 2025](/images/posts/how-reduce-cloud-spend-before-year-end-2025.png)
+
+
+Disclosure: This article contains affiliate links. I only recommend products and services I genuinely use and believe will help you reduce cloud costs.
+
+As we approach year-end, many organizations are scrambling to optimize their cloud spend before budget re...
+
+### Kubernetes Without Jargon: Pods = Processes, Services = Stable Names
+URL: https://pragmaticsysadmin.help/sysadmin/kubernetes-without-jargon-pods-processes-services/
+Section: sysadmin
+Description: Learn Kubernetes for beginners without confusing jargon. Clear explanation of pods, services, and containers with practical examples for DevOps beginners.
+Excerpt: If you've ever tried to Google "What is Kubernetes?" you've probably seen a wall of buzzwords: orchestration, scalability, microservices, YAML manifests. Somewhere in there, someone will tell you it's like "a shipping port for containers," and you'll want to slam your laptop shut.
+
+Let's skip the abstract metaphors and get to the point. Kubernetes (K8s if you want to sound cool and save keystrokes) is just a smart way to run a bunch of apps acros...
+
+### Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius
+URL: https://pragmaticsysadmin.help/sysadmin/stop-doing-things-manually/
+Section: sysadmin
+Description: Five copy-paste scripts — PowerShell and Bash — that handle the boring 5-minute tasks every sysadmin does on repeat. Less typing, fewer mistakes, more time for real work.
+Excerpt: Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius
+
+![Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius](/images/posts/stop-doing-things-manually.png)
+
+
+Look, I'll be honest with you. Last week I caught myself manually checking disk space on 15 servers. FIFTEEN. Like some kind of caveman clicking through Server Manager while my coffee got cold.
+
+That's when I remembered why I got into this job in th...
+
+### Sysadmin Myths Busted: What Actually Works in 2026
+URL: https://pragmaticsysadmin.help/sysadmin/sysadmin-myths-busted-2026/
+Section: sysadmin
+Description: Debunking the most persistent sysadmin myths with real-world solutions for 2026.
+Excerpt: Sysadmin Myths Busted: What Actually Works in 2026
+
+![Sysadmin Myths Busted: What Actually Works in 2026](/images/posts/sysadmin-myths-busted-2026.png)
+
+
+Forget what you heard in 2015. In this post, we bust the most common sysadmin myths and show you what actually works today. From automation fears to cloud confusion, get the facts and actionable tips for modern IT.
+
+ Why These Myths Refuse to Die
+
+I've been doing this job for over a decade now,...
+
+### Tech Survival Guide: AI Edition 2026 (From 'Help!' to 'I'm a Genius!')
+URL: https://pragmaticsysadmin.help/sysadmin/tech-survival-guide-ai-edition-2026/
+Section: sysadmin
+Description: Stop struggling with tech problems AND AI tools. Learn how to solve tech issues like a pro using AI, with solutions from panic mode to automation master.
+Excerpt: Tech Survival Guide: AI Edition 2026
+
+![Tech Survival Guide: AI Edition 2026](/images/posts/tech-survival-guide-ai-edition-2026.png)
+
+
+Look, we've all been there. It's 11 PM, something's broken, and you're frantically googling error messages while your AI assistant keeps suggesting solutions that make absolutely no sense. Fun times.
+
+But here's the thing: Most tech problems (and AI conversations) fail for the same reason - garbage in, garbage ou...
+
+### Zero Trust for Small Teams: Practical Steps
+URL: https://pragmaticsysadmin.help/sysadmin/zero-trust-small-teams-2026/
+Section: sysadmin
+Description: How to implement zero trust security in small organizations without breaking the bank.
+Excerpt: Zero Trust for Small Teams: Practical Steps
+
+![Zero Trust for Small Teams: Practical Steps](/images/posts/zero-trust-small-teams-2026.png)
+
+
+Zero trust isn't just for big enterprises. In this post, we break down how small teams can adopt zero trust principles with practical, budget-friendly steps.
+
+ What Zero Trust Actually Means (Without the Buzzword Salad)
+
+Let me save you some time: zero trust does not mean "trust nobody and buy our product."...
+
+### Terms of Service
+URL: https://pragmaticsysadmin.help/terms/
+Section: content
+Description: Terms for using Pragmatic Sysadmin and its free guides, tools, newsletter, and recommendations.
+Excerpt: Terms of Service
+
+Last updated: September 11, 2026
+
+These Terms of Service explain the rules for using [Pragmatic Sysadmin](https://pragmaticsysadmin.help/), including its articles, scripts, interactive tools, newsletter, downloads, and product recommendations. By using the site, you agree to these terms. If you do not agree, please do not use the site.
+
+ 1. About this site
+
+Pragmatic Sysadmin is an independent technology resource for system adm...
+
+### Disk Quota Checker
+URL: https://pragmaticsysadmin.help/tools/free/disk-quota-checker/
+Section: free
+Description: Find who's using the most disk on shared systems — Free bash script from Pragmatic Sysadmin
+Excerpt: <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Disk Quota Checker",
+  "description": "Find who's using the most disk on shared systems",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Linux",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Pragmatic Sysadmin"
+  }
+}...
+
+### Log Pattern Search with Context
+URL: https://pragmaticsysadmin.help/tools/free/log-tail-search/
+Section: free
+Description: Find errors across multiple log files in seconds — Free bash script from Pragmatic Sysadmin
+Excerpt: <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Log Pattern Search with Context",
+  "description": "Find errors across multiple log files in seconds",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Linux",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Pragmatic Sys...
+
+### Safe Service Restart
+URL: https://pragmaticsysadmin.help/tools/free/service-restart-tamer/
+Section: free
+Description: Restart services with pre-checks and rollback guidance — Free bash script from Pragmatic Sysadmin
+Excerpt: <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "Safe Service Restart",
+  "description": "Restart services with pre-checks and rollback guidance",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Linux",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Pragmatic Sysadmin...
+
+### SSH Key Security Auditor
+URL: https://pragmaticsysadmin.help/tools/free/ssh-key-auditor/
+Section: free
+Description: Find weak keys, suspicious restrictions, and bad permissions — Free bash script from Pragmatic Sysadmin
+Excerpt: <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "SSH Key Security Auditor",
+  "description": "Find weak keys, suspicious restrictions, and bad permissions",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Linux",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "Pragmati...
+
+### SSL Certificate Expiry Checker
+URL: https://pragmaticsysadmin.help/tools/free/ssl-cert-checker/
+Section: free
+Description: Find certificates about to expire before they break your site — Free bash script from Pragmatic Sysadmin
+Excerpt: <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "SoftwareApplication",
+  "name": "SSL Certificate Expiry Checker",
+  "description": "Find certificates about to expire before they break your site",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Linux",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "author": {
+    "@type": "Person",
+    "name": "P...
+
+### Tools I Use as a Sysadmin
+URL: https://pragmaticsysadmin.help/tools/gear/
+Section: tools
+Description: A curated list of tools and services I use daily as a system administrator. Includes affiliate links for easy purchasing.
+Excerpt: Tools I Use as a Sysadmin
+
+Disclosure: This page contains affiliate links. I only recommend tools I genuinely use and find valuable in my daily work as a sysadmin.
+
+After years of sysadmin and DevOps work, I've tested countless tools. Here are the ones that consistently deliver value and save time.
+
+ 🏠 Home Lab & Infrastructure
+
+ [Dell OptiPlex 7080 Mini](https://www.newegg.com/p/Desktop-Computers/48?keyword=Dell+OptiPlex+7080+Micro) - $450
+Perf...
+
