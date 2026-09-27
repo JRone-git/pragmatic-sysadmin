@@ -415,10 +415,11 @@ unless the URL genuinely needs to differ from the file name.
   then may `publish --due` flip `draft: false`.
 - Every generated file records which model produced it in a `blogforge:` block
   in the front matter, so provenance is never a mystery later.
-- The home page currently claims *"Everything written by hand, not AI."* If
-  AI-drafted posts get published, that claim has to be updated honestly — see
-  `docs/BLOGFORGE.md`. Being upfront about the process is more on-brand than
-  keeping the claim.
+- The home page must not claim *"Everything written by hand, not AI."* That
+  claim was removed on 2026-09-27 once AI-assisted posts went live; do not
+  reintroduce it. Provenance stays documented per-post via the `blogforge:`
+  front matter block and `docs/BLOGFORGE.md`. Being upfront about the process
+  is more on-brand than an absolutist claim.
 """
 
 

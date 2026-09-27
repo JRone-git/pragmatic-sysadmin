@@ -4,7 +4,7 @@
 `blogforge/voice.py`; *the numbers below are measured from the posts and*
 should never be hand-edited.*
 
-Measured from **43 published posts** in the whole corpus.
+Measured from **44 published posts** in the whole corpus.
 
 ## 1. Who is writing, and for whom
 
@@ -142,10 +142,11 @@ unless the URL genuinely needs to differ from the file name.
   then may `publish --due` flip `draft: false`.
 - Every generated file records which model produced it in a `blogforge:` block
   in the front matter, so provenance is never a mystery later.
-- The home page currently claims *"Everything written by hand, not AI."* If
-  AI-drafted posts get published, that claim has to be updated honestly — see
-  `docs/BLOGFORGE.md`. Being upfront about the process is more on-brand than
-  keeping the claim.
+- The home page must not claim *"Everything written by hand, not AI."* That
+  claim was removed on 2026-09-27 once AI-assisted posts went live; do not
+  reintroduce it. Provenance stays documented per-post via the `blogforge:`
+  front matter block and `docs/BLOGFORGE.md`. Being upfront about the process
+  is more on-brand than an absolutist claim.
 
 ## 7. The measured fingerprint
 
@@ -154,30 +155,30 @@ makes a generated post read like the rest of the site.
 
 | Metric | Median | Accepted band | Range seen |
 |---|---|---|---|
-| Words per post | 1399 | 518.25 – 2575 | 261 – 2910 |
+| Words per post | 1395.5 | 518.25 – 2575 | 261 – 2910 |
 | Reading time (min) | 7 | 2.25 – 12.5 | 1 – 15 |
-| Words per sentence | 14.06 | 8.45 – 27.57 | 9.9 – 37.29 |
-| Sentences per paragraph | 2.08 | 1.11 – 4.55 | 0.54 – 4.23 |
-| H2 sections per 1000 words | 5.72 | 2.53 – 15.45 | 0.53 – 26.82 |
-| Code blocks per 1000 words | 1.67 | 0 – 21.07 | 0 – 34.48 |
-| Bullet lines per 1000 words | 11.28 | 2.34 – 58.54 | 0 – 82.82 |
+| Words per sentence | 14 | 8.45 – 27.57 | 9.9 – 37.29 |
+| Sentences per paragraph | 2.12 | 1.11 – 4.55 | 0.54 – 4.23 |
+| H2 sections per 1000 words | 5.73 | 2.53 – 15.45 | 0.53 – 26.82 |
+| Code blocks per 1000 words | 2.05 | 0 – 21.07 | 0 – 34.48 |
+| Bullet lines per 1000 words | 10.81 | 2.34 – 58.54 | 0 – 82.82 |
 | Tables per post | 0 | 0 – 1.25 | 0 – 3 |
-| Contractions per 1000 words | 16.29 | 0 – 35.39 | 0 – 42.34 |
-| 'I' / my per 1000 words | 11.6 | 3.34 – 39.73 | 1.57 – 69.68 |
-| 'you' / your per 1000 words | 30.61 | 6.49 – 55.75 | 0 – 63.39 |
-| Em dashes per 1000 words | 10.01 | 0 – 22.64 | 0 – 26.92 |
-| Standalone questions per 1000 words | 1.29 | 0 – 4.64 | 0 – 8.02 |
-| Concrete figures per 1000 words | 3.41 | 0.54 – 23.06 | 0 – 39.31 |
+| Contractions per 1000 words | 16.21 | 0 – 35.39 | 0 – 42.34 |
+| 'I' / my per 1000 words | 12.36 | 3.34 – 39.73 | 1.57 – 69.68 |
+| 'you' / your per 1000 words | 30.73 | 6.49 – 55.75 | 0 – 63.39 |
+| Em dashes per 1000 words | 9.84 | 0 – 22.64 | 0 – 26.92 |
+| Standalone questions per 1000 words | 1.21 | 0 – 4.64 | 0 – 8.02 |
+| Concrete figures per 1000 words | 3.38 | 0.54 – 23.06 | 0 – 39.31 |
 
 ### Conventions in the published corpus
 
 | Convention | Share of posts |
 |---|---|
-| Uses <!--more--> summary divider | 19% |
-| Ends with a 'Related reads' block | 60% |
+| Uses <!--more--> summary divider | 20% |
+| Ends with a 'Related reads' block | 61% |
 | Ends with an italic one-line closer | 16% |
-| Includes FAQPage JSON-LD | 12% |
-| Includes an inline JSON-LD block | 16% |
+| Includes FAQPage JSON-LD | 0% |
+| Includes an inline JSON-LD block | 7% |
 | Sets ShowToc in front matter | 9% |
 
 ## 8. How the existing posts actually sound

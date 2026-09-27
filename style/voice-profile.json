@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "generated_at": "2026-09-25T13:06:47Z",
-  "post_count": 43,
+  "generated_at": "2026-09-27T16:53:11Z",
+  "post_count": 44,
   "sections": {
     "meta": {
       "posts": 8,
@@ -653,8 +653,8 @@
         "has_more_tag": 0.0,
         "has_related_reads": 0.46,
         "has_closing_cta": 0.15,
-        "has_faq": 0.38,
-        "has_jsonld": 0.38,
+        "has_faq": 0.0,
+        "has_jsonld": 0.08,
         "has_toc": 0.31
       },
       "buzzword_hits": {
@@ -775,81 +775,81 @@
       }
     },
     "sysadmin": {
-      "posts": 22,
+      "posts": 23,
       "metrics": {
         "words": {
-          "median": 1409.0,
-          "mean": 1363.0,
+          "median": 1399.0,
+          "mean": 1339.35,
           "min": 454.0,
           "max": 2060.0,
           "p10": 691.0,
           "p25": 961.0,
-          "p75": 1792.0,
+          "p75": 1690.0,
           "p90": 1895.0
         },
         "reading_minutes": {
           "median": 7.0,
-          "mean": 6.68,
+          "mean": 6.57,
           "min": 2.0,
           "max": 10.0,
           "p10": 3.0,
           "p25": 5.0,
-          "p75": 9.0,
+          "p75": 8.0,
           "p90": 9.0
         },
         "words_per_sentence": {
-          "median": 14.08,
-          "mean": 15.83,
+          "median": 13.94,
+          "mean": 15.71,
           "min": 9.9,
           "max": 32.9,
           "p10": 11.44,
-          "p25": 12.07,
-          "p75": 16.78,
+          "p25": 12.91,
+          "p75": 16.12,
           "p90": 22.02
         },
         "sentences_per_paragraph": {
-          "median": 1.96,
+          "median": 2.02,
           "mean": 2.13,
           "min": 0.75,
           "max": 3.64,
           "p10": 1.63,
-          "p25": 1.71,
-          "p75": 2.29,
+          "p25": 1.8,
+          "p75": 2.25,
           "p90": 3.27
         },
         "h2_per_1k": {
-          "median": 6.11,
-          "mean": 7.69,
+          "median": 6.3,
+          "mean": 7.68,
           "min": 0.53,
           "max": 20.7,
           "p10": 3.53,
-          "p25": 4.46,
-          "p75": 11.01,
+          "p25": 5.37,
+          "p75": 10.32,
           "p90": 12.26
         },
         "code_blocks_per_1k": {
-          "median": 6.21,
-          "mean": 8.06,
+          "median": 7.01,
+          "mean": 8.03,
           "min": 0.0,
           "max": 26.38,
           "p10": 0.55,
-          "p25": 2.52,
-          "p75": 12.68,
+          "p25": 2.87,
+          "p75": 12.42,
           "p90": 18.71
         },
         "bullets_per_1k": {
-          "median": 11.38,
-          "mean": 14.93,
+          "median": 11.28,
+          "mean": 14.7,
           "min": 1.58,
           "max": 54.99,
           "p10": 7.06,
-          "p25": 9.17,
-          "p75": 13.77,
+          "p25": 9.22,
+          "p75": 13.7,
           "p90": 20.7
         },
         "tables": {
           "median": 0.0,
-          "mean": 0.41,
+          "mean": 0.39,
           "min": 0.0,
           "max": 3.0,
           "p10": 0.0,
@@ -858,63 +858,63 @@
           "p90": 1.0
         },
         "contractions_per_1k": {
-          "median": 18.66,
-          "mean": 19.07,
+          "median": 18.39,
+          "mean": 18.82,
           "min": 0.0,
           "max": 42.34,
           "p10": 4.34,
           "p25": 14.31,
-          "p75": 24.84,
+          "p75": 24.23,
           "p90": 31.71
         },
         "first_person_per_1k": {
-          "median": 11.59,
-          "mean": 16.56,
+          "median": 11.6,
+          "mean": 16.42,
           "min": 1.57,
           "max": 69.68,
           "p10": 4.46,
-          "p25": 8.46,
-          "p75": 17.89,
+          "p25": 9.36,
+          "p75": 17.41,
           "p90": 23.59
         },
         "second_person_per_1k": {
-          "median": 33.0,
-          "mean": 34.4,
+          "median": 33.07,
+          "mean": 34.66,
           "min": 14.47,
           "max": 54.11,
           "p10": 22.42,
-          "p25": 28.16,
-          "p75": 42.89,
+          "p25": 30.61,
+          "p75": 41.85,
           "p90": 44.72
         },
         "em_dash_per_1k": {
-          "median": 7.75,
-          "mean": 7.83,
+          "median": 7.69,
+          "mean": 7.6,
           "min": 0.0,
           "max": 26.92,
           "p10": 0.0,
-          "p25": 0.0,
-          "p75": 10.59,
+          "p25": 1.45,
+          "p75": 10.01,
           "p90": 14.31
         },
         "questions_per_1k": {
           "median": 1.44,
-          "mean": 2.17,
+          "mean": 2.07,
           "min": 0.0,
           "max": 8.02,
           "p10": 0.0,
           "p25": 0.6,
-          "p75": 3.07,
+          "p75": 3.03,
           "p90": 5.8
         },
         "concrete_numbers_per_1k": {
-          "median": 3.79,
-          "mean": 7.0,
+          "median": 3.74,
+          "mean": 6.8,
           "min": 0.0,
           "max": 39.31,
           "p10": 1.57,
-          "p25": 2.08,
-          "p75": 8.28,
+          "p25": 2.2,
+          "p75": 7.23,
           "p90": 18.45
         }
       },
@@ -979,31 +979,31 @@
       "ideals": {
         "words": [
           720.75,
-          2240.0
+          2112.5
         ],
         "reading_minutes": [
           3.75,
-          11.25
+          10.0
         ],
         "words_per_sentence": [
-          9.05,
-          20.98
+          9.68,
+          20.15
         ],
         "sentences_per_paragraph": [
-          1.28,
-          2.86
+          1.35,
+          2.81
         ],
         "h2_per_1k": [
-          3.34,
-          13.76
+          4.03,
+          12.9
         ],
         "code_blocks_per_1k": [
-          1.89,
-          15.85
+          2.15,
+          15.53
         ],
         "bullets_per_1k": [
-          6.88,
-          17.21
+          6.92,
+          17.12
         ],
         "tables": [
           0.0,
@@ -1011,32 +1011,32 @@
         ],
         "contractions_per_1k": [
           10.73,
-          31.05
+          30.29
         ],
         "first_person_per_1k": [
-          6.35,
-          22.36
+          7.02,
+          21.76
         ],
         "second_person_per_1k": [
-          21.12,
-          53.61
+          22.96,
+          52.31
         ],
         "em_dash_per_1k": [
-          0.0,
-          13.24
+          1.09,
+          12.51
         ],
         "questions_per_1k": [
           0.45,
-          3.84
+          3.79
         ],
         "concrete_numbers_per_1k": [
-          1.56,
-          10.35
+          1.65,
+          9.04
         ]
       },
       "conventions": {
-        "has_more_tag": 0.09,
-        "has_related_reads": 0.86,
+        "has_more_tag": 0.13,
+        "has_related_reads": 0.87,
         "has_closing_cta": 0.09,
         "has_faq": 0.0,
         "has_jsonld": 0.09,
@@ -1136,23 +1136,23 @@
         ]
       },
       "top_tags": {
-        "sysadmin": 12,
+        "sysadmin": 13,
+        "troubleshooting": 6,
+        "linux": 6,
         "bash": 5,
         "automation": 5,
-        "troubleshooting": 5,
         "productivity": 5,
         "devops": 5,
-        "linux": 5,
         "ai": 3,
+        "security": 3,
         "homelab": 3,
+        "tools": 3,
         "career": 2,
-        "security": 2,
         "containers": 2,
         "cloud": 2,
         "common mistakes": 2,
         "systemd": 2,
         "DIY": 2,
-        "tools": 2,
         "Home Lab": 1,
         "backups": 1,
         "recovery": 1,
@@ -1165,21 +1165,21 @@
     }
   },
   "global": {
-    "posts": 43,
+    "posts": 44,
     "metrics": {
       "words": {
-        "median": 1399.0,
-        "mean": 1415.07,
+        "median": 1395.5,
+        "mean": 1401.52,
         "min": 261.0,
         "max": 2910.0,
         "p10": 691.0,
         "p25": 961.0,
-        "p75": 1792.0,
+        "p75": 1785.0,
         "p90": 2060.0
       },
       "reading_minutes": {
         "median": 7.0,
-        "mean": 7.0,
+        "mean": 6.93,
         "min": 1.0,
         "max": 15.0,
         "p10": 3.0,
@@ -1188,38 +1188,38 @@
         "p90": 10.0
       },
       "words_per_sentence": {
-        "median": 14.06,
-        "mean": 16.01,
+        "median": 14.0,
+        "mean": 15.94,
         "min": 9.9,
         "max": 37.29,
         "p10": 11.27,
-        "p25": 11.87,
-        "p75": 18.2,
+        "p25": 12.07,
+        "p75": 16.78,
         "p90": 22.06
       },
       "sentences_per_paragraph": {
-        "median": 2.08,
+        "median": 2.12,
         "mean": 2.29,
         "min": 0.54,
         "max": 4.23,
         "p10": 1.48,
-        "p25": 1.71,
-        "p75": 2.92,
+        "p25": 1.8,
+        "p75": 2.72,
         "p90": 3.64
       },
       "h2_per_1k": {
-        "median": 5.72,
-        "mean": 7.47,
+        "median": 5.73,
+        "mean": 7.46,
         "min": 0.53,
         "max": 26.82,
         "p10": 3.37,
         "p25": 4.48,
-        "p75": 10.7,
+        "p75": 10.32,
         "p90": 12.36
       },
       "code_blocks_per_1k": {
-        "median": 1.67,
-        "mean": 5.14,
+        "median": 2.05,
+        "mean": 5.19,
         "min": 0.0,
         "max": 34.48,
         "p10": 0.0,
@@ -1228,18 +1228,18 @@
         "p90": 16.86
       },
       "bullets_per_1k": {
-        "median": 11.28,
-        "mean": 17.6,
+        "median": 10.81,
+        "mean": 17.42,
         "min": 0.0,
         "max": 82.82,
         "p10": 3.12,
-        "p25": 6.6,
-        "p75": 21.79,
+        "p25": 7.06,
+        "p75": 20.7,
         "p90": 46.83
       },
       "tables": {
         "median": 0.0,
-        "mean": 0.44,
+        "mean": 0.43,
         "min": 0.0,
         "max": 3.0,
         "p10": 0.0,
@@ -1248,63 +1248,63 @@
         "p90": 1.0
       },
       "contractions_per_1k": {
-        "median": 16.29,
-        "mean": 15.91,
+        "median": 16.21,
+        "mean": 15.86,
         "min": 0.0,
         "max": 42.34,
         "p10": 0.0,
-        "p25": 7.78,
-        "p75": 23.71,
+        "p25": 7.99,
+        "p75": 22.84,
         "p90": 28.31
       },
       "first_person_per_1k": {
-        "median": 11.6,
-        "mean": 16.17,
+        "median": 12.36,
+        "mean": 16.11,
         "min": 1.57,
         "max": 69.68,
         "p10": 4.46,
-        "p25": 5.71,
-        "p75": 21.37,
+        "p25": 7.55,
+        "p75": 20.69,
         "p90": 31.78
       },
       "second_person_per_1k": {
-        "median": 30.61,
-        "mean": 29.16,
+        "median": 30.73,
+        "mean": 29.41,
         "min": 0.0,
         "max": 63.39,
         "p10": 8.65,
-        "p25": 20.74,
+        "p25": 21.89,
         "p75": 36.78,
         "p90": 44.6
       },
       "em_dash_per_1k": {
-        "median": 10.01,
-        "mean": 10.21,
+        "median": 9.84,
+        "mean": 10.03,
         "min": 0.0,
         "max": 26.92,
         "p10": 0.0,
         "p25": 4.85,
-        "p75": 14.78,
+        "p75": 14.57,
         "p90": 18.11
       },
       "questions_per_1k": {
-        "median": 1.29,
-        "mean": 1.77,
+        "median": 1.21,
+        "mean": 1.73,
         "min": 0.0,
         "max": 8.02,
         "p10": 0.0,
         "p25": 0.0,
-        "p75": 3.03,
+        "p75": 2.85,
         "p90": 3.71
       },
       "concrete_numbers_per_1k": {
-        "median": 3.41,
-        "mean": 6.74,
+        "median": 3.38,
+        "mean": 6.65,
         "min": 0.0,
         "max": 39.31,
         "p10": 0.72,
-        "p25": 2.08,
-        "p75": 8.71,
+        "p25": 2.2,
+        "p75": 8.57,
         "p90": 18.45
       }
     },
@@ -1369,67 +1369,67 @@
     "ideals": {
       "words": [
         720.75,
-        2240.0
+        2231.25
       ],
       "reading_minutes": [
         3.75,
         11.25
       ],
       "words_per_sentence": [
-        8.9,
-        22.75
+        9.05,
+        20.98
       ],
       "sentences_per_paragraph": [
-        1.28,
-        3.65
+        1.35,
+        3.4
       ],
       "h2_per_1k": [
         3.36,
-        13.38
+        12.9
       ],
       "code_blocks_per_1k": [
         0.0,
         8.86
       ],
       "bullets_per_1k": [
-        4.95,
-        27.24
+        5.29,
+        25.88
       ],
       "tables": [
         0.0,
         1.25
       ],
       "contractions_per_1k": [
-        5.83,
-        29.64
+        5.99,
+        28.55
       ],
       "first_person_per_1k": [
-        4.28,
-        26.71
+        5.66,
+        25.86
       ],
       "second_person_per_1k": [
-        15.55,
+        16.42,
         45.98
       ],
       "em_dash_per_1k": [
         3.64,
-        18.47
+        18.21
       ],
       "questions_per_1k": [
         0.0,
-        3.79
+        3.56
       ],
       "concrete_numbers_per_1k": [
-        1.56,
-        10.89
+        1.65,
+        10.71
       ]
     },
     "conventions": {
-      "has_more_tag": 0.19,
-      "has_related_reads": 0.6,
+      "has_more_tag": 0.2,
+      "has_related_reads": 0.61,
       "has_closing_cta": 0.16,
-      "has_faq": 0.12,
-      "has_jsonld": 0.16,
+      "has_faq": 0.0,
+      "has_jsonld": 0.07,
       "has_toc": 0.09
     },
     "buzzword_hits": {
@@ -1529,20 +1529,20 @@
       ]
     },
     "top_tags": {
-      "sysadmin": 12,
+      "sysadmin": 13,
       "ai": 8,
-      "security": 7,
-      "linux": 7,
+      "security": 8,
+      "linux": 8,
       "bash": 6,
+      "troubleshooting": 6,
       "automation": 5,
-      "troubleshooting": 5,
       "productivity": 5,
       "devops": 5,
       "homelab": 5,
+      "tools": 5,
       "privacy": 4,
       "seniors": 4,
       "self-hosted": 4,
-      "tools": 4,
       "cloud": 3,
       "accessibility": 2,
       "career": 2,
