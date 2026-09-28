@@ -136,22 +136,22 @@ Click any tool to open it. All run client-side — nothing uploaded, no tracking
 <span class="tag">humor · useful for real work</span>
 </a>
 
-<a href="/tools/homelab-architect.html" class="tool-card">
-<div class="name">Homelab Architect &amp; Spec Calculator</div>
-<p class="desc">Design and calculate hardware specs, hypervisor, storage, and networking for home labs and small server setups.</p>
-<span class="tag">interactive · hardware planner</span>
-</a>
-
 <a href="/tools/plain-english.html" class="tool-card">
-<div class="name">Plain English Tech Explainer</div>
-<p class="desc">Translate arcane error messages and technical jargon into clear, plain English explanations you can share with anyone.</p>
-<span class="tag">jargon buster · client-side</span>
+<div class="name">Plain English Explain</div>
+<p class="desc">Paste any bash command, error message, config file, or concept. Get a plain-language explanation tailored for sysadmins, family caregivers, or beginners.</p>
+<span class="tag">AI · explained</span>
 </a>
 
 <a href="/tools/prism-engine.html" class="tool-card">
-<div class="name">PRISM Architecture Simulator</div>
-<p class="desc">Interactive distributed systems failure and resilience playground. Visualize bottlenecks, failover, and high availability.</p>
-<span class="tag">interactive · architecture playground</span>
+<div class="name">Prism Engine</div>
+<p class="desc">Paste a Docker Compose or K8s config. See your infrastructure rendered as a 3D topology. Click nodes to see risk analysis. Demo loads on open.</p>
+<span class="tag">3D · infrastructure</span>
+</a>
+
+<a href="/tools/homelab-architect.html" class="tool-card">
+<div class="name">Homelab Architect</div>
+<p class="desc">Plan your homelab before you build it. Paste a docker-compose.yml or use the service picker. Get a resource dashboard, security audit, dependency map, SPOF detection, and backup plan.</p>
+<span class="tag">homelab · new</span>
 </a>
 
 
@@ -222,26 +222,6 @@ Five production-tested scripts I run daily. All MIT licensed. Grab the whole pac
 ---
 
 <div class="section-divider"></div>
-
-
-
-<a href="/tools/plain-english.html" class="tool-card">
-<div class="name">Plain English Explain</div>
-<p class="desc">Paste any bash command, error message, config file, or concept. Get a plain-language explanation tailored for sysadmins, family caregivers, or beginners.</p>
-<span class="tag">AI · explained</span>
-</a>
-
-<a href="/tools/prism-engine.html" class="tool-card">
-<div class="name">Prism Engine</div>
-<p class="desc">Paste a Docker Compose or K8s config. See your infrastructure rendered as a 3D topology. Click nodes to see risk analysis. Demo loads on open.</p>
-<span class="tag">3D · infrastructure</span>
-</a>
-
-<a href="/tools/homelab-architect.html" class="tool-card">
-<div class="name">Homelab Architect</div>
-<p class="desc">Plan your homelab before you build it. Paste a docker-compose.yml or use the service picker. Get a resource dashboard, security audit, dependency map, SPOF detection, and backup plan.</p>
-<span class="tag">homelab · new</span>
-</a>
 
 
 - **[Tools I Use as a Sysadmin](/tools/gear/)** — the gear I run daily (hardware, software, services). Honest recommendations with affiliate links where I use them.

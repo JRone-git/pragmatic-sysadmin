@@ -1,0 +1,112 @@
+# Pragmatic Sysadmin tool catalog
+# Single source of truth for the free browser tools in static/tools/.
+#
+# Consumed by:
+#   * layouts/sitemap.xml                -- lists tool pages in sitemap.xml
+#   * layouts/partials/related-tools.html -- article -> tool internal links
+#   * scripts/inject-tool-cta.py          -- tool -> tool cross-links
+#
+# Adding an entry here is not enough on its own: the HTML file must exist in
+# static/tools/, and TOOL_META in scripts/inject-tool-cta.py should carry that
+# tool's guides/offer so its CTA block has something to link to.
+#
+# `tags` use the site's real post tag vocabulary (see content/*/ *.md) so that
+# related-tools.html can match articles to tools by shared tags.
+# `audience` is the fallback when a post carries no matching tags.
+
+tools:
+  - slug: command-simulator
+    title: "Linux Command Simulator"
+    path: "/tools/command-simulator.html"
+    audience: sysadmin
+    description: "Preview what destructive Linux commands do (rm -rf, dd, mkfs, iptables -F) against a simulated filesystem before you ever type them on a real server."
+    tags: [linux, cli, troubleshooting, beginners, security, sysadmin]
+    related: [cli-adventure, script-generator, plain-english]
+
+  - slug: cli-adventure
+    title: "CLI Adventure"
+    path: "/tools/cli-adventure.html"
+    audience: sysadmin
+    description: "Learn Linux troubleshooting by playing: a terminal adventure where you diagnose servers with real commands in a safe fake environment."
+    tags: [linux, cli, troubleshooting, beginners, sysadmin]
+    related: [command-simulator, plain-english, script-generator]
+
+  - slug: script-generator
+    title: "Script Generator (Bash & PowerShell)"
+    path: "/tools/script-generator.html"
+    audience: sysadmin
+    description: "Generate ready-to-edit bash and PowerShell scripts for common sysadmin chores -- disk checks, log cleanup, service restarts, backups -- without starting from a blank file."
+    tags: [bash, powershell, automation, scripts, productivity, sysadmin]
+    related: [command-simulator, pulse, homelab-architect]
+
+  - slug: ai-prompt-builder
+    title: "AI Prompt Builder for IT Tasks"
+    path: "/tools/ai-prompt-builder.html"
+    audience: sysadmin
+    description: "Build better prompts for ChatGPT, Claude, or Copilot in seconds. Pick an IT task, fill in the blanks, and copy a prompt that gets useful answers instead of generic ones."
+    tags: [ai, chatgpt, claude, ollama, productivity, automation]
+    related: [plain-english, corporate-translator, script-generator]
+
+  - slug: password-checker
+    title: "Password Strength Checker"
+    path: "/tools/password-checker.html"
+    audience: senior
+    description: "Check how strong a password really is -- length, character classes, and common-pattern weaknesses -- right in your browser. Nothing is sent anywhere."
+    tags: [security, privacy, 2fa, password-manager, bitwarden, 1password, seniors, yubikey]
+    related: [pulse, tech-needs-advisor, plain-english]
+
+  - slug: pulse
+    title: "Pragmatic PULSE Resilience Scorecard"
+    path: "/tools/pulse.html"
+    audience: sysadmin
+    description: "A short digital resilience assessment: score how well your backups, updates, passwords, and recovery plan would survive a real incident."
+    tags: [backups, recovery, disaster-recovery, security, homelab, sysadmin, self-hosted]
+    related: [script-generator, password-checker, homelab-architect]
+
+  - slug: homelab-architect
+    title: "Homelab Architect"
+    path: "/tools/homelab-architect.html"
+    audience: sysadmin
+    description: "Paste your Docker Compose stack to visualize it, audit for security issues, find single points of failure, and generate a backup plan. Free homelab design tool."
+    tags: [homelab, home-lab, docker, containers, self-hosted, DIY]
+    related: [prism-engine, script-generator, pulse]
+
+  - slug: prism-engine
+    title: "PRISM Engine: Infrastructure Topology Visualizer"
+    path: "/tools/prism-engine.html"
+    audience: sysadmin
+    description: "Turn a Docker Compose, Kubernetes, or network config into a 3D infrastructure topology you can click through, with risk analysis per node."
+    tags: [kubernetes, docker, containers, devops, homelab, scaling, cloud]
+    related: [homelab-architect, command-simulator, pulse]
+
+  - slug: plain-english
+    title: "Plain English Explainer"
+    path: "/tools/plain-english.html"
+    audience: sysadmin
+    description: "Paste any command, error message, or log line and get it explained in plain English -- what it means, why it happened, and what to check next."
+    tags: [plain-english, explanation, beginners, troubleshooting, cli, linux]
+    related: [command-simulator, ai-prompt-builder, corporate-translator]
+
+  - slug: corporate-translator
+    title: "Corporate Translator (Incident Reports)"
+    path: "/tools/corporate-translator.html"
+    audience: sysadmin
+    description: "Turn technical incident notes into corporate-speak incident reports management will actually read -- with severity, impact, and next steps."
+    tags: [productivity, ux, explanation, sysadmin, small business]
+    related: [plain-english, ai-prompt-builder, pulse]
+
+  - slug: tech-needs-advisor
+    title: "Tech Needs Advisor"
+    path: "/tools/tech-needs-advisor.html"
+    audience: senior
+    description: "Answer a few questions about how your parent uses tech -- calls, photos, video calls, reading -- and get a recommendation for the right phone, tablet, or setup."
+    tags: [seniors, elderly, accessibility, privacy, beginners]
+    related: [password-checker, plain-english, pulse]
+
+  - slug: battle-station-score
+    title: "Battle Station Score"
+    path: "/tools/battle-station-score.html"
+    audience: sysadmin
+    description: "Rate your desk, chair, monitors, and lighting and get a 0-100 battle station score with concrete fixes. Includes a copy-paste GitHub README badge of your score."
+    tags: [homelab, home-lab, productivity, DIY, side-project, projects]
+    related: [homelab-architect, script-generator, prism-engine]

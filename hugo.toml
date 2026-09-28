@@ -3,6 +3,12 @@ canonifyURLs = true
 title = "Pragmatic Tech"
 theme = "PaperMod"
 
+# Tool metadata lives in catalog/ (the repo's single-source-of-truth directory,
+# alongside products.yaml and topics.yaml), so point Hugo's data dir at it.
+# This exposes catalog/tools.yaml as `site.Data.tools` for
+# layouts/sitemap.xml and layouts/partials/related-tools.html.
+dataDir = "catalog"
+
 [outputs]
   home = ["HTML", "RSS", "JSON"]
 

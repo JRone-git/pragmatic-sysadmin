@@ -28,6 +28,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
@@ -112,13 +113,68 @@ def head_block(title: str, description: str, url: str, has_canonical: bool, has_
     return "\n".join(lines) + "\n"
 
 
+def _load_catalog() -> dict[str, dict]:
+    """Read catalog/tools.yaml (single source of truth) as {slug: entry}.
+
+    BlogForge's yamlmini is used so this stays dependency-free, matching the
+    rest of the repo. A missing or unparsable catalog is not fatal: the tool
+    pages simply keep their existing CTA without a cross-link list, and
+    --check reports it.
+    """
+    catalog_path = REPO_ROOT / "catalog" / "tools.yaml"
+    if not catalog_path.exists():
+        return {}
+    try:
+        if str(REPO_ROOT) not in sys.path:
+            sys.path.insert(0, str(REPO_ROOT))
+        from blogforge import yamlmini
+
+        data = yamlmini.loads(catalog_path.read_text(encoding="utf-8"))
+    except Exception as exc:  # pragma: no cover - defensive, reported by --check
+        print(f"  ! catalog/tools.yaml could not be read: {exc}")
+        return {}
+    return {entry["slug"]: entry for entry in data.get("tools", [])}
+
+
+CATALOG = _load_catalog()
+
+
+def related_tools_html(filename: str) -> str:
+    """Cross-link this tool to its `related` siblings from catalog/tools.yaml.
+
+    Tool pages are hand-written HTML copied by Hugo, so they form their own
+    little silo unless something links them to each other. The `related` lists
+    in the catalog turn those 12 leaves into a crawlable cluster, and keep a
+    reader who finished with one tool inside the site.
+    """
+    slug = filename[:-5] if filename.endswith(".html") else filename
+    entry = CATALOG.get(slug)
+    if not entry:
+        return ""
+    items = [CATALOG[r] for r in entry.get("related", []) if r in CATALOG]
+    if not items:
+        return ""
+    links = "\n".join(
+        f'      <li style="margin:.35rem 0;"><a href="{SITE}{t["path"]}" style="{LINK}">{_esc(t["title"])}</a></li>'
+        for t in items
+    )
+    return f'''    <div style="margin:0 0 1.5rem;">
+      <h3 style="color:#f8fafc;font-size:1rem;margin:0 0 .4rem;">More free tools that pair with this one</h3>
+      <ul style="margin:0;padding-left:1.15rem;line-height:1.6;font-size:.95rem;">
+{links}
+      </ul>
+    </div>
+'''
+
+
 def cta_block(meta: dict) -> str:
-    """Guide links + newsletter capture + one contextual paid offer."""
+    """Guide links + tool cross-links + newsletter capture + one paid offer."""
     guide_items = "\n".join(
         f'      <li style="margin:.35rem 0;"><a href="{SITE}{path}" style="{LINK}">{_esc(anchor)}</a></li>'
         for anchor, path in meta["guides"]
     )
     offer = OFFERS[meta["offer"]]
+    related = related_tools_html(meta["name"])
     return f'''{CTA_MARKER_START}
 <section style="background:#0f172a;border-top:1px solid #334155;color:#cbd5e1;padding:2rem 1.25rem 2.25rem;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
   <div style="max-width:820px;margin:0 auto;">
@@ -127,6 +183,7 @@ def cta_block(meta: dict) -> str:
 {guide_items}
     </ul>
 
+{related}
     <div style="{CARD}">
       <h3 style="color:#f8fafc;font-size:1rem;margin:0 0 .4rem;">📬 One practical guide a week — free</h3>
       <p style="margin:0 0 .9rem;font-size:.92rem;line-height:1.5;">Sysadmin how-tos, senior-tech fixes, and new free tools. No spam, unsubscribe anytime.</p>

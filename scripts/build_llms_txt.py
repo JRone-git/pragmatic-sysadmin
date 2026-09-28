@@ -3,10 +3,15 @@
 
 Enables AI search engines (Perplexity, ChatGPT, Claude) to index and cite
 our tools and articles accurately.
+
+The tool list is read from catalog/tools.yaml (the single source of truth shared
+with layouts/sitemap.xml, layouts/partials/related-tools.html and
+scripts/inject-tool-cta.py) rather than being repeated here, so the tools
+advertised to AI engines can never drift from the ones the site actually ships.
 """
 
-import os
 import re
+import sys
 from pathlib import Path
 
 ROOT = Path(__file__).resolve().parent.parent
@@ -14,68 +19,27 @@ CONTENT_DIR = ROOT / "content"
 STATIC_DIR = ROOT / "static"
 BASE_URL = "https://pragmaticsysadmin.help"
 
-TOOLS = [
-    {
-        "name": "Command Simulator",
-        "url": f"{BASE_URL}/tools/command-simulator.html",
-        "desc": "Simulate and practice dangerous Linux and Windows commands (rm -rf, dd, chmod) safely in-browser."
-    },
-    {
-        "name": "AI Prompt Builder for Sysadmins",
-        "url": f"{BASE_URL}/tools/ai-prompt-builder.html",
-        "desc": "Generate precision prompts for ChatGPT, Claude, and Copilot tailored to bash scripts and cloud infra."
-    },
-    {
-        "name": "CLI Adventure",
-        "url": f"{BASE_URL}/tools/cli-adventure.html",
-        "desc": "Gamified terminal simulation solving realistic production IT incidents."
-    },
-    {
-        "name": "Password Strength Checker",
-        "url": f"{BASE_URL}/tools/password-checker.html",
-        "desc": "Client-side password security analysis with entropy calculation and zero data transmission."
-    },
-    {
-        "name": "Pragmatic Pulse Resilience Scorecard",
-        "url": f"{BASE_URL}/tools/pulse.html",
-        "desc": "Digital resilience audit assessing backups, credential hygiene, and disaster recovery readiness."
-    },
-    {
-        "name": "PowerShell & Bash Script Generator",
-        "url": f"{BASE_URL}/tools/script-generator.html",
-        "desc": "Interactive generator for production-ready administrative scripts across Linux and Windows."
-    },
-    {
-        "name": "Homelab Architect & Spec Calculator",
-        "url": f"{BASE_URL}/tools/homelab-architect.html",
-        "desc": "Interactive sizing calculator for self-hosted home labs: CPU cores, RAM allocation, and storage."
-    },
-    {
-        "name": "Battle Station Score",
-        "url": f"{BASE_URL}/tools/battle-station-score.html",
-        "desc": "Interactive ergonomics, peripherals, and desk setup rater providing custom upgrade tips."
-    },
-    {
-        "name": "Tech Needs Advisor",
-        "url": f"{BASE_URL}/tools/tech-needs-advisor.html",
-        "desc": "Decision tree recommending hardware and software configurations for students and pros."
-    },
-    {
-        "name": "Corporate Translator & Incident Report Generator",
-        "url": f"{BASE_URL}/tools/corporate-translator.html",
-        "desc": "Convert plain-English postmortems and IT outages into formal corporate status communications."
-    },
-    {
-        "name": "Plain English Tech Explainer",
-        "url": f"{BASE_URL}/tools/plain-english.html",
-        "desc": "Translate cryptic system errors and log stacktraces into understandable non-technical language."
-    },
-    {
-        "name": "PRISM Architecture Simulator",
-        "url": f"{BASE_URL}/tools/prism-engine.html",
-        "desc": "Interactive simulation playground for distributed systems failure modes and failover."
-    }
-]
+
+def load_tools() -> list[dict]:
+    """Read catalog/tools.yaml into the {name, url, desc} shape used below."""
+    catalog = ROOT / "catalog" / "tools.yaml"
+    if str(ROOT) not in sys.path:
+        sys.path.insert(0, str(ROOT))
+    from blogforge import yamlmini
+
+    data = yamlmini.loads(catalog.read_text(encoding="utf-8"))
+    return [
+        {
+            "name": entry["title"],
+            "url": f"{BASE_URL}{entry['path']}",
+            "desc": entry["description"],
+        }
+        for entry in data.get("tools", [])
+    ]
+
+
+TOOLS = load_tools()
+
 
 def parse_post(file_path: Path):
     text = file_path.read_text(encoding="utf-8")

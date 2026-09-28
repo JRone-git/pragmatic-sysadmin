@@ -2,53 +2,53 @@
 > Pragmatic sysadmin guides, server troubleshooting checklists, senior tech family support, and free interactive browser tools by Jonne, a Finnish systems administrator.
 
 ## Detailed Free Tools Index
-### Command Simulator
+### Linux Command Simulator
 URL: https://pragmaticsysadmin.help/tools/command-simulator.html
-Summary: Simulate and practice dangerous Linux and Windows commands (rm -rf, dd, chmod) safely in-browser.
-
-### AI Prompt Builder for Sysadmins
-URL: https://pragmaticsysadmin.help/tools/ai-prompt-builder.html
-Summary: Generate precision prompts for ChatGPT, Claude, and Copilot tailored to bash scripts and cloud infra.
+Summary: Preview what destructive Linux commands do (rm -rf, dd, mkfs, iptables -F) against a simulated filesystem before you ever type them on a real server.
 
 ### CLI Adventure
 URL: https://pragmaticsysadmin.help/tools/cli-adventure.html
-Summary: Gamified terminal simulation solving realistic production IT incidents.
+Summary: Learn Linux troubleshooting by playing: a terminal adventure where you diagnose servers with real commands in a safe fake environment.
+
+### Script Generator (Bash & PowerShell)
+URL: https://pragmaticsysadmin.help/tools/script-generator.html
+Summary: Generate ready-to-edit bash and PowerShell scripts for common sysadmin chores -- disk checks, log cleanup, service restarts, backups -- without starting from a blank file.
+
+### AI Prompt Builder for IT Tasks
+URL: https://pragmaticsysadmin.help/tools/ai-prompt-builder.html
+Summary: Build better prompts for ChatGPT, Claude, or Copilot in seconds. Pick an IT task, fill in the blanks, and copy a prompt that gets useful answers instead of generic ones.
 
 ### Password Strength Checker
 URL: https://pragmaticsysadmin.help/tools/password-checker.html
-Summary: Client-side password security analysis with entropy calculation and zero data transmission.
+Summary: Check how strong a password really is -- length, character classes, and common-pattern weaknesses -- right in your browser. Nothing is sent anywhere.
 
-### Pragmatic Pulse Resilience Scorecard
+### Pragmatic PULSE Resilience Scorecard
 URL: https://pragmaticsysadmin.help/tools/pulse.html
-Summary: Digital resilience audit assessing backups, credential hygiene, and disaster recovery readiness.
+Summary: A short digital resilience assessment: score how well your backups, updates, passwords, and recovery plan would survive a real incident.
 
-### PowerShell & Bash Script Generator
-URL: https://pragmaticsysadmin.help/tools/script-generator.html
-Summary: Interactive generator for production-ready administrative scripts across Linux and Windows.
-
-### Homelab Architect & Spec Calculator
+### Homelab Architect
 URL: https://pragmaticsysadmin.help/tools/homelab-architect.html
-Summary: Interactive sizing calculator for self-hosted home labs: CPU cores, RAM allocation, and storage.
+Summary: Paste your Docker Compose stack to visualize it, audit for security issues, find single points of failure, and generate a backup plan. Free homelab design tool.
 
-### Battle Station Score
-URL: https://pragmaticsysadmin.help/tools/battle-station-score.html
-Summary: Interactive ergonomics, peripherals, and desk setup rater providing custom upgrade tips.
+### PRISM Engine: Infrastructure Topology Visualizer
+URL: https://pragmaticsysadmin.help/tools/prism-engine.html
+Summary: Turn a Docker Compose, Kubernetes, or network config into a 3D infrastructure topology you can click through, with risk analysis per node.
+
+### Plain English Explainer
+URL: https://pragmaticsysadmin.help/tools/plain-english.html
+Summary: Paste any command, error message, or log line and get it explained in plain English -- what it means, why it happened, and what to check next.
+
+### Corporate Translator (Incident Reports)
+URL: https://pragmaticsysadmin.help/tools/corporate-translator.html
+Summary: Turn technical incident notes into corporate-speak incident reports management will actually read -- with severity, impact, and next steps.
 
 ### Tech Needs Advisor
 URL: https://pragmaticsysadmin.help/tools/tech-needs-advisor.html
-Summary: Decision tree recommending hardware and software configurations for students and pros.
+Summary: Answer a few questions about how your parent uses tech -- calls, photos, video calls, reading -- and get a recommendation for the right phone, tablet, or setup.
 
-### Corporate Translator & Incident Report Generator
-URL: https://pragmaticsysadmin.help/tools/corporate-translator.html
-Summary: Convert plain-English postmortems and IT outages into formal corporate status communications.
-
-### Plain English Tech Explainer
-URL: https://pragmaticsysadmin.help/tools/plain-english.html
-Summary: Translate cryptic system errors and log stacktraces into understandable non-technical language.
-
-### PRISM Architecture Simulator
-URL: https://pragmaticsysadmin.help/tools/prism-engine.html
-Summary: Interactive simulation playground for distributed systems failure modes and failover.
+### Battle Station Score
+URL: https://pragmaticsysadmin.help/tools/battle-station-score.html
+Summary: Rate your desk, chair, monitors, and lighting and get a 0-100 battle station score with concrete fixes. Includes a copy-paste GitHub README badge of your score.
 
 ## Published Knowledge Base
 ### Maths Game
