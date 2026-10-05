@@ -1,0 +1,50 @@
+name: Auto-merge cline branches
+
+# BlogForge / Cline worktrees push finished work to `cline/<id>` branches.
+# This merges them straight into main so content deploys without manual
+# intervention. Skips branches that are already contained in main, and
+# deletes the branch after a successful merge.
+
+on:
+  push:
+    branches:
+      - 'cline/*'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: auto-merge-main
+  cancel-in-progress: false
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    # Safety: only ever merges into this repo.
+    if: github.repository == 'JRone-git/pragmatic-sysadmin'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Merge into main
+        run: |
+          BRANCH="$GITHUB_REF_NAME"
+          git fetch origin main "$BRANCH"
+          if git merge-base --is-ancestor "origin/$BRANCH" origin/main; then
+            echo "::notice::$BRANCH is already merged into main — nothing to do."
+            exit 0
+          fi
+          echo "Merging $BRANCH into main (merge commit)…"
+          gh api -X PUT "repos/${GITHUB_REPOSITORY}/merges" \
+            -f base=main \
+            -f head="$BRANCH" \
+            -f merge_method=merge
+          echo "Merged."
+
+      - name: Delete merged branch
+        if: success()
+        run: |
+          BRANCH="$GITHUB_REF_NAME"
+          gh api -X DELETE "repos/${GITHUB_REPOSITORY}/git/refs/heads/${BRANCH}" \
+            && echo "Deleted branch $BRANCH."
