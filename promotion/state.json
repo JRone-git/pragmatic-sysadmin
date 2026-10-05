@@ -1,5 +1,7 @@
 {
-  "last_posted": {},
+  "last_posted": {
+    "bluesky": "2026-10-05T11:17:04+00:00"
+  },
   "posts": {
     "2fa-elderly-parent-email": {
       "channels": {
@@ -62,17 +64,17 @@
     "a-sandbox-for-the-linux-commands-youre-afraid-to-run": {
       "channels": {
         "bluesky": {
-          "at": "2026-10-05T10:41:03+00:00",
-          "error": "BLUESKY_HANDLE / BLUESKY_APP_PASSWORD not set",
-          "status": "failed"
+          "at": "2026-10-05T11:17:04+00:00",
+          "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3mx4s4svzsm2q",
+          "status": "posted"
         },
         "devto": {
-          "at": "2026-10-05T10:41:03+00:00",
-          "error": "DEVTO_API_KEY not set",
+          "at": "2026-10-05T11:17:04+00:00",
+          "error": "dev.to post failed: 401 b'{\"error\":\"unauthorized\",\"status\":401}'",
           "status": "failed"
         },
         "mastodon": {
-          "at": "2026-10-05T10:41:03+00:00",
+          "at": "2026-10-05T11:17:04+00:00",
           "error": "MASTODON_ACCESS_TOKEN not set",
           "status": "failed"
         }
