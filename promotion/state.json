@@ -1,7 +1,7 @@
 {
   "last_posted": {
-    "bluesky": "2026-10-05T11:17:04+00:00",
-    "mastodon": "2026-10-05T11:28:47+00:00"
+    "bluesky": "2026-10-05T11:44:13+00:00",
+    "mastodon": "2026-10-05T11:44:13+00:00"
   },
   "posts": {
     "2fa-elderly-parent-email": {
@@ -70,7 +70,7 @@
           "status": "posted"
         },
         "devto": {
-          "at": "2026-10-05T11:39:47+00:00",
+          "at": "2026-10-05T11:44:13+00:00",
           "error": "dev.to post failed: 401 b'{\"error\":\"unauthorized\",\"status\":401}'",
           "status": "failed"
         },
@@ -638,7 +638,18 @@
       "url": "https://pragmaticsysadmin.help/senior-tech/2026-07-27-password-manager-for-elderly-parents/"
     },
     "password-strength-checker-browser-private": {
-      "channels": {},
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T11:44:13+00:00",
+          "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3mx4tnegh3j2g",
+          "status": "posted"
+        },
+        "mastodon": {
+          "at": "2026-10-05T11:44:13+00:00",
+          "ref": "https://mastodon.social/@JRone/117388126028696244",
+          "status": "posted"
+        }
+      },
       "published_at": "2026-10-05T00:00:00+00:00",
       "queued_at": "2026-10-05T11:37:23+00:00",
       "section": "sysadmin",
