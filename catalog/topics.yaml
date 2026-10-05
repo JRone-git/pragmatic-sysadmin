@@ -63,3 +63,11 @@ topics:
     status: idea
     priority: 2
     tags: "[]"
+  - id: tech-needs-advisor
+    title: What I learned building tech-needs-advisor
+    section: sysadmin
+    angle: Read static/tools/tech-needs-advisor.html and write the honest build log.
+    artifact: static/tools/tech-needs-advisor.html
+    status: idea
+    priority: 2
+    tags: []
