@@ -70,7 +70,7 @@
           "status": "posted"
         },
         "devto": {
-          "at": "2026-10-05T11:44:13+00:00",
+          "at": "2026-10-05T11:48:38+00:00",
           "error": "dev.to post failed: 401 b'{\"error\":\"unauthorized\",\"status\":401}'",
           "status": "failed"
         },
