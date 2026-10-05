@@ -1,6 +1,7 @@
 {
   "last_posted": {
     "bluesky": "2026-10-05T11:44:13+00:00",
+    "devto": "2026-10-05T11:55:46+00:00",
     "mastodon": "2026-10-05T11:44:13+00:00"
   },
   "posts": {
@@ -70,9 +71,9 @@
           "status": "posted"
         },
         "devto": {
-          "at": "2026-10-05T11:52:38+00:00",
-          "error": "dev.to post failed: 401 b'{\"error\":\"unauthorized\",\"status\":401}'",
-          "status": "failed"
+          "at": "2026-10-05T11:55:46+00:00",
+          "ref": "https://dev.to/jronegit/a-sandbox-for-the-linux-commands-youre-afraid-to-run-4n3h",
+          "status": "posted"
         },
         "mastodon": {
           "at": "2026-10-05T11:28:47+00:00",
