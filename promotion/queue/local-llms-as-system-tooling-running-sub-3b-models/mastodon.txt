@@ -1,0 +1,5 @@
+You need an AI assistant that runs on your own machine. Here is how to set up a local sub-3B model for privacy and reliability without buying new hardware.
+
+https://pragmaticsysadmin.help/senior-tech/2026-10-05-local-llms-as-system-tooling-running-sub-3b-models/
+
+#ai #localllm #privacy

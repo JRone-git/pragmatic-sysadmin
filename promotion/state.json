@@ -609,6 +609,14 @@
       "title": "Linux Things That Are Easy to Miss (Until They Bite You)",
       "url": "https://pragmaticsysadmin.help/sysadmin/2026-07-13-linux-things-easy-to-miss/"
     },
+    "local-llms-as-system-tooling-running-sub-3b-models": {
+      "channels": {},
+      "published_at": "2026-10-05T00:00:00+00:00",
+      "queued_at": "2026-10-05T12:49:38+00:00",
+      "section": "senior-tech",
+      "title": "Local LLMs as System Tooling: Running Sub-3B Models on Edge and Budget Hardware",
+      "url": "https://pragmaticsysadmin.help/senior-tech/2026-10-05-local-llms-as-system-tooling-running-sub-3b-models/"
+    },
     "password-manager-for-elderly-parents": {
       "channels": {
         "bluesky": {

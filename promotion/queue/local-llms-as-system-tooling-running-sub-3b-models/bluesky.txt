@@ -1,0 +1,5 @@
+You need an AI assistant that runs on your own machine
+
+https://pragmaticsysadmin.help/senior-tech/2026-10-05-local-llms-as-system-tooling-running-sub-3b-models/
+
+#ai #localllm #privacy
