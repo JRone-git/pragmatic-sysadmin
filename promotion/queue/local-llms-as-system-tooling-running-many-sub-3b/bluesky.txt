@@ -1,0 +1,5 @@
+You don't need a rack of servers to run an AI assistant
+
+https://pragmaticsysadmin.help/sysadmin/2026-10-05-local-llms-as-system-tooling-running-many-sub-3b/
+
+#ai #localllm #sysadmin

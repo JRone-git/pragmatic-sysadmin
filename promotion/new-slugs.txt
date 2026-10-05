@@ -1,1 +1,1 @@
-local-llms-as-system-tooling-running-sub-3b-models
+local-llms-as-system-tooling-running-many-sub-3b
