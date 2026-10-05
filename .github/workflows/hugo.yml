@@ -62,3 +62,8 @@ jobs:
 
       - name: Submit URLs to IndexNow
         run: python scripts/submit-indexnow.py --live
+
+      - name: Submit sitemap + inspect URLs via Google Search Console
+        env:
+          GSC_SA_JSON: ${{ secrets.GSC_SA_JSON }}
+        run: python scripts/submit-searchconsole.py
