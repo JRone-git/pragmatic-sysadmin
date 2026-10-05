@@ -674,13 +674,17 @@ def cmd_open_issues(args) -> int:
         print("open-issues: gh CLI not found; skipping.", file=sys.stderr)
         return 0
 
+    # Prefer GITHUB_TOKEN but never clobber an existing GH_TOKEN.
+    gh_env = {**os.environ,
+              "GH_TOKEN": os.environ.get("GITHUB_TOKEN")
+              or os.environ.get("GH_TOKEN", "")}
     created = []
     # Existing open promotion issues (label = promotion).
     res = subprocess.run(
         ["gh", "issue", "list", "--label", "promotion", "--state", "open",
          "--json", "number,title,body"],
         capture_output=True, text=True,
-        env={**os.environ, "GH_TOKEN": os.environ.get("GITHUB_TOKEN", "")},
+        env=gh_env,
     )
     existing = []
     if res.returncode == 0 and res.stdout.strip():
@@ -707,7 +711,7 @@ def cmd_open_issues(args) -> int:
             ["gh", "issue", "create", "--label", "promotion",
              "--title", title, "--body-file", "-"],
             input=body_res.stdout, capture_output=True, text=True,
-            env={**os.environ, "GH_TOKEN": os.environ.get("GITHUB_TOKEN", "")},
+            env=gh_env,
         )
         if res.returncode == 0:
             url = res.stdout.strip()
