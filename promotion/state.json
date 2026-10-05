@@ -1,6 +1,7 @@
 {
   "last_posted": {
-    "bluesky": "2026-10-05T11:17:04+00:00"
+    "bluesky": "2026-10-05T11:17:04+00:00",
+    "mastodon": "2026-10-05T11:28:47+00:00"
   },
   "posts": {
     "2fa-elderly-parent-email": {
@@ -69,14 +70,14 @@
           "status": "posted"
         },
         "devto": {
-          "at": "2026-10-05T11:17:04+00:00",
+          "at": "2026-10-05T11:28:47+00:00",
           "error": "dev.to post failed: 401 b'{\"error\":\"unauthorized\",\"status\":401}'",
           "status": "failed"
         },
         "mastodon": {
-          "at": "2026-10-05T11:17:04+00:00",
-          "error": "MASTODON_ACCESS_TOKEN not set",
-          "status": "failed"
+          "at": "2026-10-05T11:28:47+00:00",
+          "ref": "https://mastodon.social/@JRone/117388065320531593",
+          "status": "posted"
         }
       },
       "published_at": "2026-09-26T00:00:00+00:00",
