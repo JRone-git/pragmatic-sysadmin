@@ -13,6 +13,13 @@ on:
     # Daily retry so cadence-gated posts go out when their window opens.
     - cron: '30 8 * * *'
   workflow_dispatch:
+    inputs:
+      force:
+        description: 'Bypass the 48h channel cadence (manual override)'
+        required: false
+        default: 'false'
+        type: choice
+        options: ['false', 'true']
 
 permissions:
   contents: write
@@ -47,9 +54,17 @@ jobs:
           MASTODON_INSTANCE: ${{ secrets.MASTODON_INSTANCE }}
           MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
           DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+          FORCE: ${{ inputs.force || 'false' }}
         # A missing secret skips that channel (status=failed with a clear
         # message) without failing the whole run for the others.
-        run: python scripts/promote.py auto-post || true
+        # FORCE=true is only settable via manual dispatch — scheduled and
+        # push runs always respect the 48h cadence.
+        run: |
+          if [ "$FORCE" = "true" ]; then
+            python scripts/promote.py auto-post --force || true
+          else
+            python scripts/promote.py auto-post || true
+          fi
 
       - name: Create promotion issues for manual channels
         env:

@@ -637,6 +637,14 @@
       "title": "How to Set Up a Password Manager for Your Elderly Parents (10-Minute Guide)",
       "url": "https://pragmaticsysadmin.help/senior-tech/2026-07-27-password-manager-for-elderly-parents/"
     },
+    "password-strength-checker-browser-private": {
+      "channels": {},
+      "published_at": "2026-10-05T00:00:00+00:00",
+      "queued_at": "2026-10-05T11:37:23+00:00",
+      "section": "sysadmin",
+      "title": "I Built a Password Strength Checker That Runs 100% in Your Browser (and What It Taught Me About Passwords)",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2026-10-06-password-strength-checker-browser-private/"
+    },
     "plain-english-explain-any-command-error-concept": {
       "channels": {
         "bluesky": {

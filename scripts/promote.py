@@ -508,13 +508,18 @@ def cmd_auto_post(args) -> int:
     state = load_state()
     poster = {"bluesky": post_bluesky, "mastodon": post_mastodon, "devto": post_devto}
     exit_code = 0
+    force = getattr(args, "force", False)
     for channel in AUTO_CHANNELS:
         if args.channels and channel not in args.channels.split(","):
             continue
-        wait = CADENCE_HOURS - hours_since(state, channel)
-        if wait > 0:
-            print(f"{channel}: cadence cooldown, {wait:.1f}h remaining. Skipping.")
-            continue
+        if not force:
+            wait = CADENCE_HOURS - hours_since(state, channel)
+            if wait > 0:
+                print(f"{channel}: cadence cooldown, {wait:.1f}h remaining. "
+                      "Skipping.")
+                continue
+        else:
+            print(f"{channel}: force mode, cadence bypassed.")
         posted = 0
         for slug, ps, pkg in _pending_posts(state, channel):
             if posted >= MAX_PER_RUN:
@@ -1006,6 +1011,8 @@ def main(argv=None) -> int:
     p = sub.add_parser("auto-post", help="post queued content to auto channels")
     p.add_argument("--channels", default="",
                    help="comma list: bluesky,mastodon,devto (default: all)")
+    p.add_argument("--force", action="store_true",
+                   help="bypass the 48h cadence (manual dispatch only)")
     p.add_argument("--dry-run", action="store_true")
 
     p = sub.add_parser("issue-body", help="print tracking issue body")
