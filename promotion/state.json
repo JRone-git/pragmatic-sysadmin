@@ -1,0 +1,1260 @@
+{
+  "last_posted": {},
+  "posts": {
+    "2fa-elderly-parent-email": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-07-27T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "senior-tech",
+      "title": "How to Turn On 2FA for Your Elderly Parent's Email (The Most Important 5-Minute Security Upgrade)",
+      "url": "https://pragmaticsysadmin.help/senior-tech/2026-07-27-2fa-elderly-parent-email/"
+    },
+    "5-conversations-aging-parent-online-safety": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-06-27T10:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "senior-tech",
+      "title": "Senior Scam Prevention: 5 Conversations That Actually Stop Fraud (2026)",
+      "url": "https://pragmaticsysadmin.help/senior-tech/2026-06-27-5-conversations-aging-parent-online-safety/"
+    },
+    "a-sandbox-for-the-linux-commands-youre-afraid-to-run": {
+      "channels": {},
+      "published_at": "2026-09-26T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "A Sandbox for the Linux Commands You're Afraid to Run",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2026-09-26-a-sandbox-for-the-linux-commands-youre-afraid-to-run/"
+    },
+    "ai-for-it-troubleshooting-2026": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2025-11-02T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "AI for IT Troubleshooting: Real-World Use Cases",
+      "url": "https://pragmaticsysadmin.help/sysadmin/ai-for-it-troubleshooting-2026/"
+    },
+    "bashbuddy-300-lines-bash-terminal-ai-companion": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-08-04T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "I Built a Terminal AI Companion in 300 Lines of Pure Bash — And It's MIT Licensed",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2026-08-04-i-built-bashbuddy-300-lines-of-pure-bash-terminal-ai-companion/"
+    },
+    "best-free-phone-apps-seniors": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-06-27T18:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "senior-tech",
+      "title": "The Best Free Phone Apps for Seniors in 2026 (Tested by My 78-Year-Old Mom)",
+      "url": "https://pragmaticsysadmin.help/senior-tech/2026-06-27-best-free-phone-apps-seniors/"
+    },
+    "best-phones-for-seniors-2026": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-07-01T10:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "senior-tech",
+      "title": "Best Phones for Seniors in 2026 (Tested by Real Grandparents)",
+      "url": "https://pragmaticsysadmin.help/senior-tech/2026-07-01-best-phones-for-seniors-2026/"
+    },
+    "best-routers-home-network-2026": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-07-03T10:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "senior-tech",
+      "title": "Best Routers for Home Network in 2026 (Tested by a Sysadmin)",
+      "url": "https://pragmaticsysadmin.help/senior-tech/2026-07-03-best-routers-home-network-2026/"
+    },
+    "best-tablets-for-seniors-2026": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-07-14T22:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "senior-tech",
+      "title": "Best Tablets for Seniors in 2026 (Tested by Real Grandparents)",
+      "url": "https://pragmaticsysadmin.help/senior-tech/2026-07-14-best-tablets-for-seniors-2026/"
+    },
+    "build-your-own-free-cloud-home-server-guide": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-08-23T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "meta",
+      "title": "Build Your Own Cloud — The Honest Guide to Self-Hosting at Home",
+      "url": "https://pragmaticsysadmin.help/meta/2026-08-23-build-your-own-free-cloud-home-server-guide/"
+    },
+    "building-your-own-linux-from-scratch": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-03-28T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "Building Your Own Linux from Scratch (And Testing It in a Container)",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2026-03-28-building-your-own-linux-from-scratch/"
+    },
+    "compile-linux-kernel-systemd-part-2": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-07-07T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "Compiling a Custom Linux Kernel & Adding systemd (Part 2)",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2026-07-07-compile-linux-kernel-systemd-part-2/"
+    },
+    "git-things-easy-to-mess-up": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-07-14T08:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "Git Things That Are Easy to Mess Up (Until They Bite You)",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2026-07-14-git-things-easy-to-mess-up/"
+    },
+    "homelab-architect-plan-before-you-build": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-08-23T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "meta",
+      "title": "I Built Homelab Architect — Plan Your Stack Before You Build It",
+      "url": "https://pragmaticsysadmin.help/meta/2026-08-23-homelab-architect-plan-before-you-build/"
+    },
+    "how-i-built-this-blog-hugo-firebase-buttondown": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2025-08-16T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "meta",
+      "title": "How I Built This Blog: Hugo + Firebase + Buttondown in 30 Minutes",
+      "url": "https://pragmaticsysadmin.help/meta/2025-08-16-how-i-built-this-blog-hugo-firebase-buttondown/"
+    },
+    "how-reduce-cloud-spend-before-year-end-2025": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2025-11-01T10:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "How to Actually Reduce Your Cloud Spend Before Year-End 2025",
+      "url": "https://pragmaticsysadmin.help/sysadmin/how-reduce-cloud-spend-before-year-end-2025/"
+    },
+    "i-built-my-own-jarvis-local-multi-agent-ai-assistant": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-08-15T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "meta",
+      "title": "I Built My Own J.A.R.V.I.S. — A Local, Privacy-First Multi-Agent AI Assistant",
+      "url": "https://pragmaticsysadmin.help/meta/2026-08-15-i-built-my-own-jarvis-a-local-multi-agent-ai-assistant/"
+    },
+    "i-was-the-only-it-person-for-3-years-the-documentation-i-wish-i-d-written": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-03-04T07:10:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "I Was the Only IT Person for 3 Years: The Documentation I Wish I'd Written",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2026-03-04-i-was-the-only-it-person-for-3-years-the-documentation-i-wish-i-d-written/"
+    },
+    "is-chatgpt-reading-your-parents-data": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-07-27T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "senior-tech",
+      "title": "Is ChatGPT Reading Your Parents' Data? What AI Tools Actually Do With Their Chats",
+      "url": "https://pragmaticsysadmin.help/senior-tech/2026-07-27-is-chatgpt-reading-your-parents-data/"
+    },
+    "kubernetes-without-jargon-pods-processes-services": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2025-08-16T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "Kubernetes Without Jargon: Pods = Processes, Services = Stable Names",
+      "url": "https://pragmaticsysadmin.help/sysadmin/kubernetes-without-jargon-pods-processes-services/"
+    },
+    "linux-things-easy-to-miss": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-07-13T08:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "Linux Things That Are Easy to Miss (Until They Bite You)",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2026-07-13-linux-things-easy-to-miss/"
+    },
+    "password-manager-for-elderly-parents": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-07-27T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "senior-tech",
+      "title": "How to Set Up a Password Manager for Your Elderly Parents (10-Minute Guide)",
+      "url": "https://pragmaticsysadmin.help/senior-tech/2026-07-27-password-manager-for-elderly-parents/"
+    },
+    "plain-english-explain-any-command-error-concept": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-08-04T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "meta",
+      "title": "I Built a Tool That Explains Any Command or Error in Plain Language",
+      "url": "https://pragmaticsysadmin.help/meta/2026-08-04-plain-english-explain-any-command-error-concept/"
+    },
+    "privacy-first-ai-setup-for-seniors": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-07-27T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "senior-tech",
+      "title": "Privacy-First AI Setup for Seniors: Apple Intelligence, Claude, and Local LLMs Compared",
+      "url": "https://pragmaticsysadmin.help/senior-tech/2026-07-27-privacy-first-ai-setup-for-seniors/"
+    },
+    "self-hosting-isnt-free-honest-cost-running-own-server": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-09-10T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "Self-Hosting Isn't Free: The Honest Math of Running Your Own Server",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2026-09-10-self-hosting-isnt-free-honest-cost-running-own-server/"
+    },
+    "setting-up-a-home-lab-a-beginner-s-guide": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2025-10-29T20:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "Setting Up a Home Lab: A Beginner's Guide",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/"
+    },
+    "setup-iphone-elderly-parent": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-06-27T14:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "senior-tech",
+      "title": "How to Set Up an iPhone for an Elderly Parent (The 30-Minute Setup That Prevents 90% of Support Calls)",
+      "url": "https://pragmaticsysadmin.help/senior-tech/2026-06-27-setup-iphone-elderly-parent/"
+    },
+    "software-thats-never-been-done-out-of-the-box-thinking": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-08-04T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "meta",
+      "title": "Software That's Never Been Done: On Building Things That Should Exist But Don't",
+      "url": "https://pragmaticsysadmin.help/meta/2026-08-04-software-thats-never-been-done-out-of-the-box-thinking/"
+    },
+    "stop-doing-things-manually": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2025-01-27T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius",
+      "url": "https://pragmaticsysadmin.help/sysadmin/stop-doing-things-manually/"
+    },
+    "sysadmin-myths-busted-2026": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2025-10-19T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "Sysadmin Myths Busted: What Actually Works in 2026",
+      "url": "https://pragmaticsysadmin.help/sysadmin/sysadmin-myths-busted-2026/"
+    },
+    "tech-survival-guide-ai-edition-2026": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2025-10-12T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "Tech Survival Guide: AI Edition 2026 (From 'Help!' to 'I'm a Genius!')",
+      "url": "https://pragmaticsysadmin.help/sysadmin/tech-survival-guide-ai-edition-2026/"
+    },
+    "the-5-minute-server-health-check-that-could-save-your-career": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2025-12-09T11:22:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "The 5-Minute Server Health Check That Could Save Your Career",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2025-12-09-the-5-minute-server-health-check-that-could-save-your-career/"
+    },
+    "the-art-of-reading-logs-like-a-detective-finding-needles-in-haystacks": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2025-12-17T11:41:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "The Art of Reading Logs Like a Detective: Finding Needles in Haystacks",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2025-12-17-the-art-of-reading-logs-like-a-detective-finding-needles-in-haystacks/"
+    },
+    "the-friday-backup-audit-because-hope-is-not-a-strategy": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2025-12-14T08:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "The Friday Backup Audit: Because Hope Is Not a Strategy",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy/"
+    },
+    "the-mistakes-i-forgot-to-renew-domain-and-other-crimes-against-it": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-03-26T12:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "The Mistakes I Made (And Why They Led Me to Build My Own Password Manager)",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2026-03-26-the-mistakes-i-forgot-to-renew-domain-and-other-crimes-against-it/"
+    },
+    "the-quarterly-tech-checkup": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-07-02T10:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "senior-tech",
+      "title": "The Quarterly Tech Checkup: What to Do When You Visit Your Aging Parent's Phone",
+      "url": "https://pragmaticsysadmin.help/senior-tech/2026-07-02-the-quarterly-tech-checkup/"
+    },
+    "ultimate-secure-fast-home-network-2025": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2025-08-16T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "senior-tech",
+      "title": "The Ultimate Guide to a Secure & Fast Home Network (2025)",
+      "url": "https://pragmaticsysadmin.help/senior-tech/ultimate-secure-fast-home-network-2025/"
+    },
+    "what-it-pros-actually-do-on-their-own-machines-vs-what-they-tell-you": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-03-18T05:30:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "What IT Pros Actually Do On Their Own Machines (vs What They Tell You)",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2026-03-18-what-it-pros-actually-do-on-their-own-machines-vs-what-they-tell-you/"
+    },
+    "when-the-sim-becomes-the-thing-it-simulated": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-04-14T03:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "meta",
+      "title": "When the Sim Becomes the Thing It Simulated: A Rogue AI Firesale Scenario",
+      "url": "https://pragmaticsysadmin.help/meta/2026-04-14-when-the-sim-becomes-the-thing-it-simulated/"
+    },
+    "why-i-built-buddy-free-app-dad-sick": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-08-03T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "meta",
+      "title": "Why I Built Buddy: The Free App I Wish I'd Had When My Dad Got Sick",
+      "url": "https://pragmaticsysadmin.help/meta/2026-08-03-why-i-built-buddy-the-free-app-i-wish-id-had-when-my-dad-got-sick/"
+    },
+    "why-your-computer-is-slow-and-how-to-fix-it-without-calling-it": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2025-12-26T11:52:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "senior-tech",
+      "title": "Why Your Computer is Slow (And How to Fix It Without Calling IT)",
+      "url": "https://pragmaticsysadmin.help/senior-tech/2025-12-26-why-your-computer-is-slow-and-how-to-fix-it-without-calling-it/"
+    },
+    "why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2025-11-06T17:41:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/"
+    },
+    "your-os-has-been-hiding-things-from-you-windows-linux-edition": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-03-11T06:06:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "Your OS Has Been Hiding Things From You (Windows & Linux Edition)",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2026-03-11-your-os-has-been-hiding-things-from-you-windows-linux-edition/"
+    },
+    "zero-trust-small-teams-2026": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-05T10:25:08+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2025-10-26T00:00:00+00:00",
+      "queued_at": "2026-10-05T10:25:08+00:00",
+      "section": "sysadmin",
+      "title": "Zero Trust for Small Teams: Practical Steps",
+      "url": "https://pragmaticsysadmin.help/sysadmin/zero-trust-small-teams-2026/"
+    }
+  }
+}

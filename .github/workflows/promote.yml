@@ -1,0 +1,68 @@
+name: Promote new posts
+
+# Generates pitch packages for newly published posts, auto-posts to the safe
+# channels (Bluesky / Mastodon / dev.to — 48h cadence) and opens a tracking
+# issue with ready-to-submit HN/Reddit drafts. See docs/PROMOTION.md.
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - 'content/**/*.md'
+  schedule:
+    # Daily retry so cadence-gated posts go out when their window opens.
+    - cron: '30 8 * * *'
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  issues: write
+
+concurrency:
+  group: promote
+  cancel-in-progress: false
+
+jobs:
+  promote:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          submodules: recursive
+          fetch-depth: 0
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Queue pitch packages for new posts
+        run: python scripts/promote.py generate
+
+      - name: Auto-post to safe channels
+        env:
+          BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
+          BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
+          MASTODON_INSTANCE: ${{ secrets.MASTODON_INSTANCE }}
+          MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+        # A missing secret skips that channel (status=failed with a clear
+        # message) without failing the whole run for the others.
+        run: python scripts/promote.py auto-post || true
+
+      - name: Create promotion issues for manual channels
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh label create promotion \
+            --description "Autonomous promotion queue (HN/Reddit approval)" \
+            --color D4C5F9 2>/dev/null || true
+          python scripts/promote.py open-issues
+
+      - name: Commit queue and state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add promotion/
+          git diff --staged --quiet || (git commit -m "Promotion queue update [skip ci]" && git push)
