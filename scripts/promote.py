@@ -402,8 +402,9 @@ def post_devto(pkg: Path, *, dry_run: bool) -> str:
     status, raw = _req(
         "https://dev.to/api/articles",
         method="POST",
-        token=api_key,
-        headers={"Content-Type": "application/json"},
+        # NOTE: Forem authenticates with an `api-key` header, NOT
+        # `Authorization: Bearer` (that 401s even with a valid key).
+        headers={"Content-Type": "application/json", "api-key": api_key},
         data=payload,
     )
     if status not in (200, 201):
