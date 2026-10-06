@@ -28,10 +28,14 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Merge into main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -x
           BRANCH="$GITHUB_REF_NAME"
-          git fetch origin main "$BRANCH"
-          if git merge-base --is-ancestor "origin/$BRANCH" origin/main; then
+          STATUS=$(gh api "repos/${GITHUB_REPOSITORY}/compare/main...${BRANCH}" --jq '.status')
+          echo "compare main...$BRANCH => $STATUS"
+          if [ "$STATUS" = "identical" ] || [ "$STATUS" = "behind" ]; then
             echo "::notice::$BRANCH is already merged into main — nothing to do."
             exit 0
           fi
@@ -39,12 +43,16 @@ jobs:
           gh api -X PUT "repos/${GITHUB_REPOSITORY}/merges" \
             -f base=main \
             -f head="$BRANCH" \
-            -f merge_method=merge
+            -f merge_method=merge \
+            --jq '.sha'
           echo "Merged."
 
       - name: Delete merged branch
         if: success()
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
+          set -x
           BRANCH="$GITHUB_REF_NAME"
           gh api -X DELETE "repos/${GITHUB_REPOSITORY}/git/refs/heads/${BRANCH}" \
             && echo "Deleted branch $BRANCH."
