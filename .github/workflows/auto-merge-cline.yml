@@ -33,18 +33,31 @@ jobs:
         run: |
           set -x
           BRANCH="$GITHUB_REF_NAME"
-          STATUS=$(gh api "repos/${GITHUB_REPOSITORY}/compare/main...${BRANCH}" --jq '.status')
-          echo "compare main...$BRANCH => $STATUS"
+          echo "repo=$GITHUB_REPOSITORY branch=$BRANCH ref=$GITHUB_REF"
+          gh auth status || echo "WARN: gh auth status failed"
+          COMPARE_JSON=$(gh api "repos/${GITHUB_REPOSITORY}/compare/main...${BRANCH}" --jq '{status: .status, ahead: .ahead_by, behind: .behind_by}' 2>&1) || {
+            echo "compare call failed: $COMPARE_JSON"
+            exit 1
+          }
+          echo "compare => $COMPARE_JSON"
+          STATUS=$(echo "$COMPARE_JSON" | python3 -c "import json,sys; print(json.load(sys.stdin)['status'])")
           if [ "$STATUS" = "identical" ] || [ "$STATUS" = "behind" ]; then
             echo "::notice::$BRANCH is already merged into main — nothing to do."
             exit 0
           fi
           echo "Merging $BRANCH into main (merge commit)…"
-          gh api -X PUT "repos/${GITHUB_REPOSITORY}/merges" \
+          MERGE_OUT=$(gh api -X PUT "repos/${GITHUB_REPOSITORY}/merges" \
             -f base=main \
             -f head="$BRANCH" \
-            -f merge_method=merge \
-            --jq '.sha'
+            -f merge_method=merge 2>&1) || {
+            echo "merge call failed: $MERGE_OUT"
+            # Already-merged races (e.g. duplicate runs) are success, not error.
+            case "$MERGE_OUT" in
+              *"already"*|*"up to date"*|*"merged"*) exit 0 ;;
+            esac
+            exit 1
+          }
+          echo "merge => $MERGE_OUT"
           echo "Merged."
 
       - name: Delete merged branch
