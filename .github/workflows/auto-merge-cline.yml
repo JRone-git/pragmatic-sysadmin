@@ -26,6 +26,10 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v4
+        with:
+          # Full history: the merge step needs real parentage between
+          # main and the cline branch (depth-1 clones = unrelated histories).
+          fetch-depth: 0
 
       - name: Merge into main
         env:
