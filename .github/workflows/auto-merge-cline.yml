@@ -31,30 +31,51 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
-          set -x
           BRANCH="$GITHUB_REF_NAME"
+          echo "::notice::debug: token_len=${#GH_TOKEN} branch=${BRANCH} repo=${GITHUB_REPOSITORY}"
           API="https://api.github.com/repos/${GITHUB_REPOSITORY}"
-          HDRS=(-H "Authorization: Bearer ${GH_TOKEN:?GH_TOKEN missing}"
-                -H "Accept: application/vnd.github+json"
-                -H "X-GitHub-Api-Version: 2022-11-28")
-          COMPARE=$(curl -sS "${HDRS[@]}" "$API/compare/main...${BRANCH}") || {
-            echo "compare request failed (network)"; exit 1
-          }
-          STATUS=$(echo "$COMPARE" | python3 -c "import json,sys; print(json.load(sys.stdin).get('status','?'))")
-          echo "compare main...${BRANCH} => ${STATUS}"
-          if [ "$STATUS" = "identical" ] || [ "$STATUS" = "behind" ]; then
-            echo "::notice::${BRANCH} is already merged into main — nothing to do."
-            exit 0
+          set +e
+          COMPARE=$(curl -sS -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
+            "$API/compare/main...${BRANCH}" 2>/tmp/curlerr)
+          CURL_RC=$?
+          set -e
+          if [ "$CURL_RC" -ne 0 ]; then
+            echo "::error::compare curl failed rc=${CURL_RC} err=$(cat /tmp/curlerr)"
+            exit 1
           fi
-          echo "Merging ${BRANCH} into main (merge commit)…"
-          CODE=$(curl -sS -o /tmp/merge.json -w '%{http_code}' -X PUT "${HDRS[@]}" \
+          STATUS=$(echo "$COMPARE" | python3 -c "import json,sys
+          try: print(json.load(sys.stdin).get('status','?'))
+          except Exception as e: print('parse-error:'+str(e))")
+          echo "::notice::compare => status=${STATUS} head=$(echo "$COMPARE" | head -c 300)"
+          case "$STATUS" in
+            identical|behind)
+              echo "::notice::${BRANCH} already merged into main — nothing to do."
+              exit 0 ;;
+            ahead|diverged) ;;
+            *)
+              echo "::error::unexpected compare status: ${STATUS}"
+              exit 1 ;;
+          esac
+          set +e
+          CODE=$(curl -sS -o /tmp/merge.json -w '%{http_code}' -X PUT \
+            -H "Authorization: Bearer ${GH_TOKEN}" \
+            -H "Accept: application/vnd.github+json" \
+            -H "X-GitHub-Api-Version: 2022-11-28" \
             -H "Content-Type: application/json" \
             -d "{\"base\":\"main\",\"head\":\"${BRANCH}\",\"merge_method\":\"merge\"}" \
-            "$API/merges") || { echo "merge request failed (network)"; exit 1; }
-          echo "merge http=$CODE body=$(cat /tmp/merge.json)"
+            "$API/merges" 2>/tmp/curlerr2)
+          MERGE_RC=$?
+          set -e
+          if [ "$MERGE_RC" -ne 0 ]; then
+            echo "::error::merge curl failed rc=${MERGE_RC} err=$(cat /tmp/curlerr2)"
+            exit 1
+          fi
+          echo "::notice::merge http=${CODE} body=$(head -c 400 /tmp/merge.json)"
           case "$CODE" in
             200|201|204) echo "Merged." ;;
-            *) echo "merge failed (http $CODE) — leaving branch for manual resolution."; exit 1 ;;
+            *) echo "::error::merge failed with http ${CODE} — branch left for manual resolution."; exit 1 ;;
           esac
 
       - name: Delete merged branch
