@@ -1,0 +1,5 @@
+A practical list of Git habits and gotchas that bite you the 10th, 50th, or 1000th time
+
+https://pragmaticsysadmin.help/sysadmin/2026-07-14-git-things-easy-to-mess-up/
+
+#git #versioncontrol #devops

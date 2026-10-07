@@ -1,0 +1,5 @@
+A practical list of subtle Linux habits and gotchas that bite you the 10th, 50th, or 1000th time you do them
+
+https://pragmaticsysadmin.help/sysadmin/2026-07-13-linux-things-easy-to-miss/
+
+#linux #bash #bashrc

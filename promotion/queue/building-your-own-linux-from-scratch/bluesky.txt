@@ -1,0 +1,3 @@
+Ever wondered what actually happens when Linux boots? Build your own minimal Linux system from scratch and test it instantly using containers - no VMs…
+
+https://pragmaticsysadmin.help/sysadmin/2026-03-28-building-your-own-linux-from-scratch/

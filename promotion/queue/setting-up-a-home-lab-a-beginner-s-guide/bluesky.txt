@@ -1,0 +1,5 @@
+Learn how to build your first home lab for learning DevOps, containerization, and system administration
+
+https://pragmaticsysadmin.help/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/
+
+#homelab

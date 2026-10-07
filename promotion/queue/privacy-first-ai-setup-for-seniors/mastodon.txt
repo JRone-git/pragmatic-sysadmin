@@ -1,0 +1,3 @@
+A pragmatic comparison of privacy-preserving AI options for elderly parents — Apple Intelligence, Claude, and locally-hosted Ollama — with a 10-minute setup for whichever fits their devices.
+
+https://pragmaticsysadmin.help/senior-tech/2026-07-27-privacy-first-ai-setup-for-seniors/

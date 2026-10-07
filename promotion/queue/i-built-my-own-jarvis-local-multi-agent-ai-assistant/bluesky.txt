@@ -1,0 +1,3 @@
+I designed and started building a fully local, multi-agent AI system that runs on my Linux desktop
+
+https://pragmaticsysadmin.help/meta/2026-08-15-i-built-my-own-jarvis-a-local-multi-agent-ai-assistant/

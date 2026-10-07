@@ -1,0 +1,3 @@
+I designed and started building a fully local, multi-agent AI system that runs on my Linux desktop. Ollama as the brain, Docker containers for each agent, function calling for orchestration, and nothing leaves my network. Here's the architecture.
+
+https://pragmaticsysadmin.help/meta/2026-08-15-i-built-my-own-jarvis-a-local-multi-agent-ai-assistant/
