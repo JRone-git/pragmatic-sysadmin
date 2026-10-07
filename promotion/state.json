@@ -1,8 +1,8 @@
 {
   "last_posted": {
-    "bluesky": "2026-10-05T11:44:13+00:00",
-    "devto": "2026-10-05T11:55:46+00:00",
-    "mastodon": "2026-10-05T11:44:13+00:00"
+    "bluesky": "2026-10-07T15:38:37+00:00",
+    "devto": "2026-10-07T15:38:39+00:00",
+    "mastodon": "2026-10-07T15:38:38+00:00"
   },
   "posts": {
     "2fa-elderly-parent-email": {
@@ -618,7 +618,18 @@
       "url": "https://pragmaticsysadmin.help/sysadmin/2026-10-05-local-llms-as-system-tooling-running-many-sub-3b/"
     },
     "local-llms-as-system-tooling-running-sub-3b-models": {
-      "channels": {},
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-07T15:38:37+00:00",
+          "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3mxcboe7yu42i",
+          "status": "posted"
+        },
+        "mastodon": {
+          "at": "2026-10-07T15:38:38+00:00",
+          "ref": "https://mastodon.social/@JRone/117400372420188609",
+          "status": "posted"
+        }
+      },
       "published_at": "2026-10-05T00:00:00+00:00",
       "queued_at": "2026-10-05T12:49:38+00:00",
       "section": "senior-tech",
@@ -659,6 +670,11 @@
         "bluesky": {
           "at": "2026-10-05T11:44:13+00:00",
           "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3mx4tnegh3j2g",
+          "status": "posted"
+        },
+        "devto": {
+          "at": "2026-10-07T15:38:39+00:00",
+          "ref": "https://dev.to/jronegit/i-built-a-password-strength-checker-that-runs-100-in-your-browser-and-what-it-taught-me-about-2oka",
           "status": "posted"
         },
         "mastodon": {
