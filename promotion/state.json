@@ -1,8 +1,8 @@
 {
   "last_posted": {
-    "bluesky": "2026-10-07T15:38:37+00:00",
+    "bluesky": "2026-10-10T14:32:31+00:00",
     "devto": "2026-10-07T15:38:39+00:00",
-    "mastodon": "2026-10-07T15:38:38+00:00"
+    "mastodon": "2026-10-10T14:32:31+00:00"
   },
   "posts": {
     "2fa-elderly-parent-email": {
@@ -610,7 +610,18 @@
       "url": "https://pragmaticsysadmin.help/sysadmin/2026-07-13-linux-things-easy-to-miss/"
     },
     "local-llms-as-system-tooling-running-many-sub-3b": {
-      "channels": {},
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-10T14:32:31+00:00",
+          "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3mxjpevvxpa2t",
+          "status": "posted"
+        },
+        "mastodon": {
+          "at": "2026-10-10T14:32:31+00:00",
+          "ref": "https://mastodon.social/@JRone/117417099366977866",
+          "status": "posted"
+        }
+      },
       "published_at": "2026-10-05T00:00:00+00:00",
       "queued_at": "2026-10-05T13:09:32+00:00",
       "section": "sysadmin",
@@ -623,6 +634,11 @@
           "at": "2026-10-07T15:38:37+00:00",
           "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3mxcboe7yu42i",
           "status": "posted"
+        },
+        "devto": {
+          "at": "2026-10-10T14:32:32+00:00",
+          "error": "dev.to post failed: 422 b'{\"error\":\"Tag \\\\\"local-llm\\\\\" contains non-alphanumeric or prohibited unicode characters and Tag \\\\\"senior-tech\\\\\" contains non-alphanumeric or prohibited unicode characters\",\"status\":422}'",
+          "status": "failed"
         },
         "mastodon": {
           "at": "2026-10-07T15:38:38+00:00",
