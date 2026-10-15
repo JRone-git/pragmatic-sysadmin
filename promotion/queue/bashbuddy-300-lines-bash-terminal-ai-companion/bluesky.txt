@@ -1,0 +1,3 @@
+bashbuddy is a single bash script that turns any AI API into a smart terminal assistant
+
+https://pragmaticsysadmin.help/sysadmin/2026-08-04-i-built-bashbuddy-300-lines-of-pure-bash-terminal-ai-companion/

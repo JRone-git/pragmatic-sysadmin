@@ -76,8 +76,37 @@ def submit_indexnow(urls: list[str]) -> bool:
         return False
 
 def main():
+    live = "--live" in sys.argv
     repo_root = Path(__file__).resolve().parent.parent
     sitemap = repo_root / "public" / "sitemap.xml"
+
+    if live:
+        # Post-deploy mode: the freshly deployed sitemap is the source of
+        # truth (the runner has no Hugo build output in this job).
+        import time
+        time.sleep(10)  # let CDN/edges settle right after deploy
+        url = f"https://{HOST}/sitemap.xml"
+        try:
+            req = urllib.request.Request(
+                url, headers={"User-Agent": "pragmatic-sysadmin-promote/1.0"})
+            with urllib.request.urlopen(req, timeout=30) as resp:
+                data = resp.read()
+        except Exception as e:
+            print(f"Failed to fetch live sitemap {url}: {e}", file=sys.stderr)
+            sys.exit(1)
+        root = ET.fromstring(data)
+        ns = {"ns": "http://www.sitemaps.org/schemas/sitemap/0.9"}
+        urls = [loc.text.strip() for loc in root.findall(".//ns:loc", ns)
+                if loc.text]
+        if not urls:
+            for elem in root.iter():
+                if elem.tag.endswith("loc") and elem.text:
+                    urls.append(elem.text.strip())
+        print(f"Discovered {len(urls)} URLs from live sitemap.")
+        if not submit_indexnow(urls):
+            print("IndexNow submission warning (will retry on next deploy).")
+        return
+
     if not sitemap.exists():
         # Fallback to static if built locally or search in public
         print(f"Sitemap not found at {sitemap}. Run hugo build first.")

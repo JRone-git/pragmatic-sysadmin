@@ -1,0 +1,3 @@
+Replace Google Drive, Notion, 1Password, and Dropbox with services you run at home
+
+https://pragmaticsysadmin.help/meta/2026-08-23-build-your-own-free-cloud-home-server-guide/

@@ -199,6 +199,27 @@ python scripts/post-generator-ui.py --port 8766
 
 Then open `http://127.0.0.1:8766/`.
 
+## 📣 Autonomous promotion (traffic engine)
+
+Every new post is automatically pitched to the channels that matter — see
+[`docs/PROMOTION.md`](docs/PROMOTION.md) for the full setup.
+
+- **`scripts/promote.py generate`** — writes ready-to-submit pitches
+  (HN, Reddit, Bluesky, Mastodon, dev.to) into `promotion/queue/<slug>/`
+- **`promote.yml` workflow** — auto-posts to Bluesky/Mastodon/dev.to with a
+  48-hour cadence and opens a `📣 Promote:` tracking issue for HN/Reddit
+- **`promote-approve.yml`** — comment `/submit hn` or
+  `/submit reddit r/sysadmin` on the issue to publish (API or copy-paste)
+- **`evergreen.yml`** — weekly reshare of an older post so the back
+  catalogue keeps earning traffic
+- **IndexNow** — every deploy pings Bing/Yandex with the live sitemap
+  (`scripts/submit-indexnow.py --live` in `hugo.yml`)
+
+```bash
+python scripts/promote.py generate         # queue new posts
+python scripts/promote.py auto-post --dry-run
+```
+
 ## Adding a new language
 
 1. Add `[languages.<code>]` block to `hugo.toml`
