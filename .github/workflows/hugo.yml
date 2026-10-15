@@ -57,5 +57,13 @@ jobs:
         with:
           python-version: '3.x'
 
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
       - name: Submit URLs to IndexNow
-        run: python scripts/submit-indexnow.py || echo "IndexNow submission skipped"
+        run: python scripts/submit-indexnow.py --live
+
+      - name: Submit sitemap + inspect URLs via Google Search Console
+        env:
+          GSC_SA_JSON: ${{ secrets.GSC_SA_JSON }}
+        run: python scripts/submit-searchconsole.py

@@ -1,0 +1,83 @@
+name: Auto-merge cline branches
+
+# BlogForge / Cline worktrees push finished work to `cline/<id>` branches.
+# This merges them straight into main so content deploys without manual
+# intervention. Skips branches that are already contained in main, and
+# deletes the branch after a successful merge.
+
+on:
+  push:
+    branches:
+      - 'cline/*'
+
+permissions:
+  contents: write
+  pull-requests: write
+
+concurrency:
+  group: auto-merge-main
+  cancel-in-progress: false
+
+jobs:
+  merge:
+    runs-on: ubuntu-latest
+    # Safety: only ever merges into this repo.
+    if: github.repository == 'JRone-git/pragmatic-sysadmin'
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+        with:
+          # Full history: the merge step needs real parentage between
+          # main and the cline branch (depth-1 clones = unrelated histories).
+          fetch-depth: 0
+
+      - name: Merge into main
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -e
+          BRANCH="$GITHUB_REF_NAME"
+          echo "::notice::debug: branch=${BRANCH} repo=${GITHUB_REPOSITORY}"
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          set +e
+          OUT=$(git fetch origin \
+            "refs/heads/main:refs/remotes/origin/main" \
+            "refs/heads/${BRANCH}:refs/remotes/origin/${BRANCH}" 2>&1); RC=$?
+          set -e
+          if [ "$RC" -ne 0 ]; then
+            echo "::error::fetch failed rc=${RC}: $(echo "$OUT" | tr -d '\n' | tr '"' "'")"
+            exit 1
+          fi
+          if git merge-base --is-ancestor "origin/${BRANCH}" origin/main; then
+            echo "::notice::${BRANCH} is already merged into main — nothing to do."
+            exit 0
+          fi
+          git checkout -B merge-work origin/main
+          set +e
+          OUT=$(git merge --no-edit "origin/${BRANCH}" 2>&1); RC=$?
+          set -e
+          if [ "$RC" -ne 0 ]; then
+            echo "::error::git merge conflict rc=${RC}: $(echo "$OUT" | tr -d '\n' | tr '"' "'")"
+            git merge --abort 2>/dev/null || true
+            exit 1
+          fi
+          set +e
+          OUT=$(git push origin HEAD:main 2>&1); RC=$?
+          set -e
+          if [ "$RC" -ne 0 ]; then
+            echo "::error::push to main failed rc=${RC}: $(echo "$OUT" | tr -d '\n' | tr '"' "'")"
+            exit 1
+          fi
+          echo "::notice::merged ${BRANCH} into main successfully."
+
+      - name: Delete merged branch
+        if: success()
+        run: |
+          set +e
+          OUT=$(git push origin --delete "$GITHUB_REF_NAME" 2>&1); RC=$?
+          if [ "$RC" -ne 0 ]; then
+            echo "::notice::branch delete non-fatal failure: $(echo "$OUT" | tr -d '\n' | tr '"' "'")"
+            exit 0
+          fi
+          echo "Deleted branch $GITHUB_REF_NAME."

@@ -1,0 +1,3 @@
+Five copy-paste scripts — PowerShell and Bash — that handle the boring 5-minute tasks every sysadmin does on repeat. Less typing, fewer mistakes, more time for real work.
+
+https://pragmaticsysadmin.help/sysadmin/stop-doing-things-manually/

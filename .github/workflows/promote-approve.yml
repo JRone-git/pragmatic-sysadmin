@@ -1,0 +1,55 @@
+name: Promotion approval
+
+# Listens for /submit and /skip commands on promotion issues and acts on
+# them: posts to Reddit via API when secrets exist, otherwise replies with
+# copy-paste blocks + pre-filled links. See docs/PROMOTION.md.
+
+on:
+  issue_comment:
+    types: [created]
+
+permissions:
+  contents: write
+  issues: write
+
+jobs:
+  handle:
+    # Only run on promotion issues for actual /submit|/skip commands.
+    if: >
+      startsWith(github.event.issue.title, '📣 Promote:') &&
+      (startsWith(github.event.comment.body, '/submit') ||
+       startsWith(github.event.comment.body, '/skip'))
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
+      - name: Handle approval command
+        id: handle
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REDDIT_CLIENT_ID: ${{ secrets.REDDIT_CLIENT_ID }}
+          REDDIT_CLIENT_SECRET: ${{ secrets.REDDIT_CLIENT_SECRET }}
+          REDDIT_USERNAME: ${{ secrets.REDDIT_USERNAME }}
+          REDDIT_PASSWORD: ${{ secrets.REDDIT_PASSWORD }}
+        run: python scripts/promote.py handle-comment
+
+      - name: Reply on issue
+        if: steps.handle.outputs.reply != ''
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPLY: ${{ steps.handle.outputs.reply }}
+        run: |
+          gh issue comment ${{ github.event.issue.number }} --body "$REPLY"
+
+      - name: Commit state
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git add promotion/state.json
+          git diff --staged --quiet || (git commit -m "Promotion: record approval outcome [skip ci]" && git push)
