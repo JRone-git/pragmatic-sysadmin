@@ -88,7 +88,7 @@ Zero-dependency HTTP client supporting free LLM backends:
 1. **Ollama (Default / Local)**: Queries `http://localhost:11434`. Automatically handles reasoning/thinking models (such as `qwen3.5` and `deepseek-r1`) by setting `think: false` for drafting so token budgets are spent on prose rather than hidden reasoning blocks.
 2. **Google Gemini Free Tier**: Set `GEMINI_API_KEY` or `GOOGLE_API_KEY` (defaults to `gemini-3.8-flash`).
 3. **Groq Free Tier**: Set `GROQ_API_KEY` (defaults to `llama-3.3-70b-versatile`).
-4. **OpenRouter Free Tier**: Set `OPENROUTER_API_KEY` (defaults to `meta-llama/llama-3.3-70b-instruct:free`).
+4. **OpenRouter Free Tier**: Set `OPENROUTER_API_KEY` (defaults to `nvidia/nemotron-3-super-120b-a12b:free`).
 5. **Template**: Offline structural generator that creates a complete, compliant markdown outline without an LLM.
 
 ### `blogforge/generator.py` & `prompts.py`

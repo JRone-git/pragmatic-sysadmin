@@ -222,6 +222,12 @@ So I built a tool to catch it before it happens.
 
 [Homelab Architect](/tools/homelab-architect...
 
+### Probabilistic Code Needs Human Ground Truth
+URL: https://pragmaticsysadmin.help/meta/2026-10-15-the-limits-of-probabilistic-code-why-ai-augments-work/
+Section: meta
+Description: AI writes code that looks right but can't verify it. I show the copilot workflow that keeps you fast without handing truth to a probability distribution.
+Excerpt: Last month I watched a support team demo their new AI deflection wall with pride. A customer asked where their invoice was, and the bot answered — confidently, politely, instantly — with a ticket number that didn't exist. Nobody caught it for three days. The bot wasn't lying. It was doing exactly what probabilistic models do: producing the most likely next tokens. The team had just mistaken fluency for truth, and their customers paid for the conf...
+
 ### You're In — Grab Your Free Downloads
 URL: https://pragmaticsysadmin.help/newsletter/thank-you/
 Section: newsletter
@@ -406,6 +412,24 @@ URL: https://pragmaticsysadmin.help/senior-tech/2026-07-27-privacy-first-ai-setu
 Section: senior-tech
 Description: A pragmatic comparison of privacy-preserving AI options for elderly parents — Apple Intelligence, Claude, and locally-hosted Ollama — with a 10-minute setup for whichever fits their devices.
 Excerpt: Once you understand [what AI tools actually do with your parents' chat logs](/senior-tech/2026-07-27-is-chatgpt-reading-your-parents-data/), the natural next question is: what should they use instead? The honest answer is that there is no single "best" privacy-first AI — there are three good options, each suited to a different household. The right choice depends almost entirely on what hardware your parents already own, how technical you are will...
+
+### Local LLMs as System Tooling: Running Sub-3B Models on Edge and Budget Hardware
+URL: https://pragmaticsysadmin.help/senior-tech/2026-10-05-local-llms-as-system-tooling-running-sub-3b-models/
+Section: senior-tech
+Description: You need an AI assistant that runs on your own machine. Here is how to set up a local sub-3B model for privacy and reliability without buying new hardware.
+Excerpt: You need an AI assistant that runs on your own machine. The cloud options are good but they are not yours. You want something that actually does things — reads your screen, controls your smart home, answers questions in Finnish or English, and never sends your data to a server you don't control.
+
+The local LLM trend is about as practical as it sounds. It works on mid-range hardware if you pick the right model size. A sub-3B parameter model fits c...
+
+### AI Is a Fast Helper, Not the Truth
+URL: https://pragmaticsysadmin.help/senior-tech/2026-10-15-ai-is-a-fast-helper-not-the-truth/
+Section: senior-tech
+Description: Why you should treat AI answers as a starting point, not proof, and how to verify them before acting on money, health, or work.
+Excerpt: You see a message from your mom: “The bank says I owe $500, here’s the proof.” She attached a picture that looks like a bank statement, but it was made by an AI. You feel a pang of worry.
+
+You’ve been there before — an AI chatbot gave a support ticket number that turned out to be fake, and nobody noticed for three days. The confidence in the answer made it feel real.
+
+That’s the problem: AI sounds sure even when it’s wrong. Confidence is not proo...
 
 ### The Ultimate Guide to a Secure & Fast Home Network (2025)
 URL: https://pragmaticsysadmin.help/senior-tech/ultimate-secure-fast-home-network-2025/
@@ -619,6 +643,14 @@ Excerpt: Almost nobody learns rm -rf the easy way. You read the man page, you us
 The commands that destroy data don't punish typos. They punish the half second before the typo, when you were certain the path was right.
 
 That half second of doubt isn't something documentation can give you. So I built a place where...
+
+### Local LLMs as System Tooling: Running many Sub-3B Models on Edge and Budget Hardware
+URL: https://pragmaticsysadmin.help/sysadmin/2026-10-05-local-llms-as-system-tooling-running-many-sub-3b/
+Section: sysadmin
+Description: You don't need a rack of servers to run an AI assistant. A sub-3B parameter model fits on consumer gear, handles everyday tasks, and keeps your data private. Here's how to set it up on budget hardware without needing a dedicated GPU.
+Excerpt: You need an AI assistant that runs on your own machine. The cloud options are good, but they are not yours. You want something that actually does things — reads your screen, controls your smart home, answers questions in Finnish or English, and never sends your data to a server you don't control.
+
+The local LLM trend is about as practical as it sounds. It works on mid-range hardware if you pick the right model size. A sub-3B parameter model fits...
 
 ### AI for IT Troubleshooting: Real-World Use Cases
 URL: https://pragmaticsysadmin.help/sysadmin/ai-for-it-troubleshooting-2026/

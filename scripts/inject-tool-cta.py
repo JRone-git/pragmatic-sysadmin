@@ -12,6 +12,9 @@ What each tool gets:
      Open Graph + Twitter Card tags, and WebApplication JSON-LD.
      Without these, sharing a tool on HN/Reddit/X produces a bare link with
      no card — which is the main way these pages travel.
+     Each tool points at its own card in static/og/tools-<slug>.png (rendered
+     by scripts/generate-og-images.py) when that file exists, so a shared tool
+     link shows the tool's own title instead of the generic site card.
   2. End of <body>: a "keep the momentum" block that
        - links 2-3 relevant guides (internal links = SEO + affiliate surface),
        - captures email for the newsletter (Buttondown, same list as the blog),
@@ -33,6 +36,7 @@ from pathlib import Path
 
 REPO_ROOT = Path(__file__).resolve().parent.parent
 TOOLS_DIR = REPO_ROOT / "static" / "tools"
+OG_DIR = REPO_ROOT / "static" / "og"
 SITE = "https://pragmaticsysadmin.help"
 
 HEAD_MARKER_START = "<!-- Pragmatic Sysadmin Tool Meta (scripts/inject-tool-cta.py) -->"
@@ -73,7 +77,28 @@ CARD = "background:#1e293b;border:1px solid #334155;border-left:3px solid #2563e
 LINK = "color:#93c5fd;text-decoration:none;"
 
 
-def head_block(title: str, description: str, url: str, has_canonical: bool, has_description: bool) -> str:
+def tool_og_image(name: str) -> str:
+    """Absolute URL of this tool's own social card, or the site default.
+
+    scripts/generate-og-images.py writes static/og/tools-<slug>.png for every
+    entry in catalog/tools.yaml. Falling back to the generic card keeps the
+    generated HTML valid even before those images are committed.
+    """
+    slug = name[:-5] if name.endswith(".html") else name
+    candidate = OG_DIR / f"tools-{slug}.png"
+    if candidate.exists():
+        return f"{SITE}/og/{candidate.name}"
+    return OG_IMAGE
+
+
+def head_block(
+    title: str,
+    description: str,
+    url: str,
+    has_canonical: bool,
+    has_description: bool,
+    og_image: str = OG_IMAGE,
+) -> str:
     """Canonical + description (only when missing) + social cards + JSON-LD."""
     lines = [HEAD_MARKER_START]
     if not has_canonical:
@@ -86,13 +111,15 @@ def head_block(title: str, description: str, url: str, has_canonical: bool, has_
         f'<meta property="og:title" content="{_esc(title)}">',
         f'<meta property="og:description" content="{_esc(description)}">',
         f'<meta property="og:url" content="{url}">',
-        f'<meta property="og:image" content="{OG_IMAGE}">',
+        f'<meta property="og:image" content="{og_image}">',
         '<meta property="og:image:width" content="1200">',
         '<meta property="og:image:height" content="630">',
+        f'<meta property="og:image:alt" content="{_esc(title)}">',
         '<meta name="twitter:card" content="summary_large_image">',
         f'<meta name="twitter:title" content="{_esc(title)}">',
         f'<meta name="twitter:description" content="{_esc(description)}">',
-        f'<meta name="twitter:image" content="{OG_IMAGE}">',
+        f'<meta name="twitter:image" content="{og_image}">',
+        f'<meta name="twitter:image:alt" content="{_esc(title)}">',
     ]
     schema = {
         "@context": "https://schema.org",
@@ -102,8 +129,16 @@ def head_block(title: str, description: str, url: str, has_canonical: bool, has_
         "description": description,
         "applicationCategory": "UtilitiesApplication",
         "operatingSystem": "Any (runs in the browser)",
+        "browserRequirements": "Requires JavaScript",
+        "inLanguage": "en",
         "isAccessibleForFree": True,
+        "image": og_image,
         "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"},
+        "isPartOf": {
+            "@type": "CollectionPage",
+            "name": "Sysadmin Tools",
+            "url": TOOLS_URL,
+        },
         "publisher": {"@type": "Organization", "name": "Pragmatic Sysadmin", "url": f"{SITE}/"},
     }
     lines.append('<script type="application/ld+json">')
@@ -356,6 +391,7 @@ def _inject_head(html: str, meta: dict, url: str) -> tuple[str, bool]:
         url=url,
         has_canonical=bool(re.search(r'rel="canonical"', base_html, flags=re.I)),
         has_description=bool(re.search(r'<meta\s+name="description"', base_html, flags=re.I)),
+        og_image=tool_og_image(meta["name"]),
     )
     if HEAD_MARKER_START in html:
         pattern = re.compile(re.escape(HEAD_MARKER_START) + r".*?" + re.escape(HEAD_MARKER_END) + r"\n?", re.S)
