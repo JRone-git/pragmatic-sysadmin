@@ -1,0 +1,5 @@
+AI writes code that looks right but can't verify it
+
+https://pragmaticsysadmin.help/meta/2026-10-15-the-limits-of-probabilistic-code-why-ai-augments-work/
+
+#ai #automation #trust

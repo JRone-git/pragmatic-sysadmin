@@ -116,6 +116,14 @@
       "title": "AI for IT Troubleshooting: Real-World Use Cases",
       "url": "https://pragmaticsysadmin.help/sysadmin/ai-for-it-troubleshooting-2026/"
     },
+    "ai-is-a-fast-helper-not-the-truth": {
+      "channels": {},
+      "published_at": "2026-10-15T00:00:00+00:00",
+      "queued_at": "2026-10-15T17:35:58+00:00",
+      "section": "senior-tech",
+      "title": "AI Is a Fast Helper, Not the Truth",
+      "url": "https://pragmaticsysadmin.help/senior-tech/2026-10-15-ai-is-a-fast-helper-not-the-truth/"
+    },
     "bashbuddy-300-lines-bash-terminal-ai-companion": {
       "channels": {
         "bluesky": {
@@ -636,7 +644,7 @@
           "status": "posted"
         },
         "devto": {
-          "at": "2026-10-15T13:33:20+00:00",
+          "at": "2026-10-15T17:35:58+00:00",
           "error": "dev.to post failed: 422 b'{\"error\":\"Tag \\\\\"local-llm\\\\\" contains non-alphanumeric or prohibited unicode characters and Tag \\\\\"senior-tech\\\\\" contains non-alphanumeric or prohibited unicode characters\",\"status\":422}'",
           "status": "failed"
         },
@@ -1056,6 +1064,14 @@
       "section": "sysadmin",
       "title": "The Friday Backup Audit: Because Hope Is Not a Strategy",
       "url": "https://pragmaticsysadmin.help/sysadmin/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy/"
+    },
+    "the-limits-of-probabilistic-code-why-ai-augments-work": {
+      "channels": {},
+      "published_at": "2026-10-15T00:00:00+00:00",
+      "queued_at": "2026-10-15T17:35:58+00:00",
+      "section": "meta",
+      "title": "Probabilistic Code Needs Human Ground Truth",
+      "url": "https://pragmaticsysadmin.help/meta/2026-10-15-the-limits-of-probabilistic-code-why-ai-augments-work/"
     },
     "the-mistakes-i-forgot-to-renew-domain-and-other-crimes-against-it": {
       "channels": {
