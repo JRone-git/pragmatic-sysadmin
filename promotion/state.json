@@ -1,8 +1,8 @@
 {
   "last_posted": {
-    "bluesky": "2026-10-17T12:16:51+00:00",
+    "bluesky": "2026-10-19T15:44:40+00:00",
     "devto": "2026-10-07T15:38:39+00:00",
-    "mastodon": "2026-10-17T12:16:52+00:00"
+    "mastodon": "2026-10-19T15:44:41+00:00"
   },
   "posts": {
     "2fa-elderly-parent-email": {
@@ -655,7 +655,7 @@
           "status": "posted"
         },
         "devto": {
-          "at": "2026-10-18T12:40:40+00:00",
+          "at": "2026-10-19T15:44:42+00:00",
           "error": "dev.to post failed: 422 b'{\"error\":\"Tag \\\\\"local-llm\\\\\" contains non-alphanumeric or prohibited unicode characters and Tag \\\\\"senior-tech\\\\\" contains non-alphanumeric or prohibited unicode characters\",\"status\":422}'",
           "status": "failed"
         },
@@ -1077,7 +1077,18 @@
       "url": "https://pragmaticsysadmin.help/sysadmin/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy/"
     },
     "the-limits-of-probabilistic-code-why-ai-augments-work": {
-      "channels": {},
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-19T15:44:40+00:00",
+          "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3myahma74x22c",
+          "status": "posted"
+        },
+        "mastodon": {
+          "at": "2026-10-19T15:44:41+00:00",
+          "ref": "https://mastodon.social/@JRone/117468343930583731",
+          "status": "posted"
+        }
+      },
       "published_at": "2026-10-15T00:00:00+00:00",
       "queued_at": "2026-10-15T17:35:58+00:00",
       "section": "meta",
