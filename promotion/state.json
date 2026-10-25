@@ -655,7 +655,7 @@
           "status": "posted"
         },
         "devto": {
-          "at": "2026-10-24T12:47:47+00:00",
+          "at": "2026-10-25T13:15:09+00:00",
           "error": "dev.to post failed: 422 b'{\"error\":\"Tag \\\\\"local-llm\\\\\" contains non-alphanumeric or prohibited unicode characters and Tag \\\\\"senior-tech\\\\\" contains non-alphanumeric or prohibited unicode characters\",\"status\":422}'",
           "status": "failed"
         },
