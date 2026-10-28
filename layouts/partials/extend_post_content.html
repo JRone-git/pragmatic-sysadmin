@@ -1,0 +1,17 @@
+{{/*
+  PaperMod `extend_post_content.html` hook.
+
+  The theme's single.html calls this partial between the post body and the
+  post footer (tags, prev/next links, share buttons), which is exactly where
+  the newsletter signup belongs. Overriding this one stub keeps PaperMod's
+  core templates untouched.
+
+  Order matters: the related-tools block goes first, so it sits immediately
+  after the article while the reader's attention is still on the topic, and the
+  newsletter (the primary CTA) stays the last thing before the post footer.
+
+  Each partial decides for itself which pages it applies to — see
+  layouts/partials/related-tools.html and layouts/partials/post-newsletter.html.
+*/}}
+{{- partial "related-tools.html" . -}}
+{{- partial "post-newsletter.html" . -}}

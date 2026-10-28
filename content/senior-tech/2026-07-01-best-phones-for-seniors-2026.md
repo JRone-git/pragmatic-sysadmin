@@ -18,7 +18,19 @@ description: "Honest review of the best phones for seniors and elderly parents i
 author: "Pragmatic Sysadmin"
 aliases:
   - /posts/2026-07-01-best-phones-for-seniors-2026/
-
+faq:
+  - question: "My parent lost $4,200 to a scam. Should I get them a different phone?"
+    answer: "Probably not — the phone isn't the vulnerability. Scammers target humans, not devices. What helps is: - Silence Unknown Callers enabled - Spam text filtering on - A family member who picks up when they call scared - A simple scam checker (Buddy has one built in)"
+  - question: "What about a simple flip phone for under $50?"
+    answer: "Consumer Cellular sells basic flip phones starting around $50. They work fine for calls and texts. The downside is they're not as robust as Lively's flip phone."
+  - question: "Can my parent keep their old phone number?"
+    answer: "Yes, in all cases. Porting a number takes 1-24 hours usually."
+  - question: "My parent resists getting a new phone. What do I do?"
+    answer: "Frame it as \"I'm replacing this because it broke\" not \"you need this because you're old.\" If they currently have an iPhone, replacing with the same model is friction-free."
+  - question: "Should I get insurance?"
+    answer: "For expensive phones (iPhone SE and up), yes. For budget phones, probably not worth it. Lively phones are durable enough."
+  - question: "What's the difference between Jitterbug and Lively?"
+    answer: "Lively is the new name. Jitterbug was acquired and rebranded. Same phones, same service, new name. ---"
 ---
 When my mom lost $4,200 to a fake Microsoft scam and I built her a simple phone app called [Buddy](https://pragmaticsysadmin.help/buddy/), I realized the phone she was using mattered almost as much as the apps she had on it.
 

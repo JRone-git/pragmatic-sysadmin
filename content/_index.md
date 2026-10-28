@@ -372,7 +372,7 @@ build:
 
 <div class="footer-note">
 Free, ad-free, tracking-free. If it helped you — <a href="https://ko-fi.com/sysadmin_dad" target="_blank" rel="noopener">buy me a coffee</a>.
-<br>By <a href="/about/">Jonne</a>. Everything written by hand, not AI. <a href="/resources/">Affiliate disclosure</a>.
+<br>By <a href="/about/">Jonne</a>. <a href="/resources/">Affiliate disclosure</a>.
 </div>
 
 </div>

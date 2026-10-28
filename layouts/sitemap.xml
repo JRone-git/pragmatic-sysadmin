@@ -2,11 +2,14 @@
      These pages are noindex,follow (correctly), but leaving them in the
      sitemap wastes Google's crawl budget. 116 tag pages + 23 category
      pages = 139 URLs Google has to crawl but won't index. Excluding
-     them keeps the sitemap focused on indexable content. */}}
+     them keeps the sitemap focused on indexable content.
+
+     /search/ is filtered for the same reason: it is noindex,follow and
+     renders its results client-side from index.json. */}}
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9"
   xmlns:xhtml="http://www.w3.org/1999/xhtml">
   {{- range .Data.Pages -}}
-  {{- if and (ne .Section "tags") (ne .Section "categories") -}}
+  {{- if and (ne .Section "tags") (ne .Section "categories") (ne .Layout "search") -}}
   <url>
     <loc>{{ .Permalink }}</loc>
     {{- if not .Lastmod.IsZero }}
@@ -15,4 +18,17 @@
   </url>
   {{- end -}}
   {{- end -}}
+  {{/* The 12 interactive tools in static/tools/*.html are copied verbatim by
+       Hugo, so they are not Hugo pages and never appear via .Data.Pages —
+       which left every tool page out of the sitemap entirely. They are listed
+       here from catalog/tools.yaml (the single source of truth shared with
+       layouts/partials/related-tools.html and scripts/inject-tool-cta.py).
+
+       No <lastmod> is emitted: Hugo cannot stat static files, and a wrong or
+       missing lastmod is worse than none. */}}
+  {{- range site.Data.tools.tools }}
+  <url>
+    <loc>{{ .path | absURL }}</loc>
+  </url>
+  {{- end }}
 </urlset>

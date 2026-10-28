@@ -369,8 +369,72 @@
       .container { padding: 1rem; }
     }
   </style>
+<!-- Pragmatic Sysadmin Tool Meta (scripts/inject-tool-cta.py) -->
+<link rel="canonical" href="https://pragmaticsysadmin.help/tools/battle-station-score.html">
+<meta name="description" content="Rate your desk, chair, monitors, and lighting and get a 0-100 battle station score with concrete fixes. Free, no signup.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Pragmatic Sysadmin">
+<meta property="og:title" content="Battle Station Score Calculator">
+<meta property="og:description" content="Rate your desk, chair, monitors, and lighting and get a 0-100 battle station score with concrete fixes. Free, no signup.">
+<meta property="og:url" content="https://pragmaticsysadmin.help/tools/battle-station-score.html">
+<meta property="og:image" content="https://pragmaticsysadmin.help/og/tools-battle-station-score.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Battle Station Score Calculator">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="Battle Station Score Calculator">
+<meta name="twitter:description" content="Rate your desk, chair, monitors, and lighting and get a 0-100 battle station score with concrete fixes. Free, no signup.">
+<meta name="twitter:image" content="https://pragmaticsysadmin.help/og/tools-battle-station-score.png">
+<meta name="twitter:image:alt" content="Battle Station Score Calculator">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "WebApplication",
+  "name": "Battle Station Score Calculator",
+  "url": "https://pragmaticsysadmin.help/tools/battle-station-score.html",
+  "description": "Rate your desk, chair, monitors, and lighting and get a 0-100 battle station score with concrete fixes. Free, no signup.",
+  "applicationCategory": "UtilitiesApplication",
+  "operatingSystem": "Any (runs in the browser)",
+  "browserRequirements": "Requires JavaScript",
+  "inLanguage": "en",
+  "isAccessibleForFree": true,
+  "image": "https://pragmaticsysadmin.help/og/tools-battle-station-score.png",
+  "offers": {
+    "@type": "Offer",
+    "price": "0",
+    "priceCurrency": "USD"
+  },
+  "isPartOf": {
+    "@type": "CollectionPage",
+    "name": "Sysadmin Tools",
+    "url": "https://pragmaticsysadmin.help/tools/"
+  },
+  "publisher": {
+    "@type": "Organization",
+    "name": "Pragmatic Sysadmin",
+    "url": "https://pragmaticsysadmin.help/"
+  }
+}
+</script>
+<!-- Pragmatic Sysadmin Tool Meta end (scripts/inject-tool-cta.py) -->
 </head>
 <body>
+<!-- Pragmatic Sysadmin Global Navigation -->
+<nav style="background:#0f172a; border-bottom:1px solid #334155; padding:0.6rem 1.25rem; display:flex; justify-content:space-between; align-items:center; font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif; font-size:0.875rem; color:#cbd5e1; z-index:99999; position:relative;">
+  <div style="display:flex; align-items:center; gap:0.75rem;">
+    <a href="https://pragmaticsysadmin.help/" style="color:#f8fafc; font-weight:700; text-decoration:none; display:flex; align-items:center; gap:0.4rem;">
+      <span>🐧</span> Pragmatic Sysadmin
+    </a>
+    <span style="color:#475569;">|</span>
+    <span style="color:#94a3b8;">Free Web Tools</span>
+  </div>
+  <div style="display:flex; gap:1.25rem; align-items:center;">
+    <a href="https://pragmaticsysadmin.help/tools/" style="color:#93c5fd; text-decoration:none;">All Tools</a>
+    <a href="https://pragmaticsysadmin.help/sysadmin/" style="color:#cbd5e1; text-decoration:none;">Guides</a>
+    <a href="https://pragmaticsysadmin.help/" style="background:#2563eb; color:#fff; padding:0.25rem 0.65rem; border-radius:4px; text-decoration:none; font-weight:500; font-size:0.8rem;">Home →</a>
+  </div>
+</nav>
+
   <div class="container">
     <header>
       <h1>BATTLE STATION SCORE</h1>
@@ -588,12 +652,17 @@
         <ul id="tipsList"></ul>
       </div>
 
-      <button class="share-btn" onclick="shareScore()">
-        <span>📤</span> SHARE YOUR SCORE
-      </button>
-      <button class="reset-btn" onclick="resetForm()">
-        <span>↺</span> TRY AGAIN
-      </button>
+      <div style="display:flex;gap:0.75rem;flex-wrap:wrap;margin-top:1.25rem;">
+        <button class="share-btn" style="margin-top:0;" onclick="shareScore()">
+          <span>📤</span> SHARE YOUR SCORE
+        </button>
+        <button class="share-btn" style="margin-top:0;background:#1e293b;border:1px solid #475569;" onclick="copyGitHubBadge()">
+          <span>🏷️</span> COPY GITHUB README BADGE
+        </button>
+        <button class="reset-btn" style="margin-top:0;margin-left:0;" onclick="resetForm()">
+          <span>↺</span> TRY AGAIN
+        </button>
+      </div>
     </div>
 
     <footer>
@@ -721,7 +790,7 @@
 
     function shareScore() {
       const total = Object.values(scores).reduce((a, b) => a + b, 0);
-      const text = `🖥️ My Battle Station Score: ${total}/100\n\n${document.getElementById('rank').textContent.replace('RANK: ', '')}\n\nCalculate yours at pragmaticsysadmin.help/tools/battle-station-score.html`;
+      const text = `🖥️ My Battle Station Score: ${total}/100\n\n${document.getElementById('rank').textContent.replace('RANK: ', '')}\n\nCalculate yours at https://pragmaticsysadmin.help/tools/battle-station-score.html`;
       
       if (navigator.share) {
         navigator.share({
@@ -733,6 +802,18 @@
           alert('Score copied to clipboard!');
         });
       }
+    }
+
+    function copyGitHubBadge() {
+      const total = Object.values(scores).reduce((a, b) => a + b, 0);
+      const rank = document.getElementById('rank').textContent.replace('RANK: ', '').trim();
+      const color = total >= 90 ? 'brightgreen' : total >= 75 ? 'green' : total >= 60 ? 'blue' : total >= 40 ? 'yellow' : 'red';
+      const badgeUrl = `https://img.shields.io/badge/Battlestation-${total}%2F100_${encodeURIComponent(rank)}-${color}?style=flat-square&logo=visualstudiocode&logoColor=white`;
+      const markdown = `[![Battle Station Score](${badgeUrl})](https://pragmaticsysadmin.help/tools/battle-station-score.html)`;
+
+      navigator.clipboard.writeText(markdown).then(() => {
+        alert('Badge Markdown copied to clipboard! Paste it into your GitHub profile or repo README.');
+      });
     }
 
     function resetForm() {
@@ -749,5 +830,48 @@
       document.getElementById('calculateBtn').disabled = true;
     }
   </script>
+<!-- Pragmatic Sysadmin Tool CTA (scripts/inject-tool-cta.py) -->
+<section style="background:#0f172a;border-top:1px solid #334155;color:#cbd5e1;padding:2rem 1.25rem 2.25rem;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,sans-serif;">
+  <div style="max-width:820px;margin:0 auto;">
+    <h2 style="color:#f8fafc;font-size:1.1rem;margin:0 0 .6rem;">Keep going — the guides behind this tool</h2>
+    <ul style="margin:0 0 1.5rem;padding-left:1.15rem;line-height:1.6;font-size:.95rem;">
+      <li style="margin:.35rem 0;"><a href="https://pragmaticsysadmin.help/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/" style="color:#93c5fd;text-decoration:none;">Setting Up a Home Lab: A Beginner's Guide</a></li>
+      <li style="margin:.35rem 0;"><a href="https://pragmaticsysadmin.help/sysadmin/2026-03-18-what-it-pros-actually-do-on-their-own-machines-vs-what-they-tell-you/" style="color:#93c5fd;text-decoration:none;">What IT Pros Actually Do On Their Own Machines</a></li>
+    </ul>
+
+    <div style="margin:0 0 1.5rem;">
+      <h3 style="color:#f8fafc;font-size:1rem;margin:0 0 .4rem;">More free tools that pair with this one</h3>
+      <ul style="margin:0;padding-left:1.15rem;line-height:1.6;font-size:.95rem;">
+      <li style="margin:.35rem 0;"><a href="https://pragmaticsysadmin.help/tools/homelab-architect.html" style="color:#93c5fd;text-decoration:none;">Homelab Architect</a></li>
+      <li style="margin:.35rem 0;"><a href="https://pragmaticsysadmin.help/tools/script-generator.html" style="color:#93c5fd;text-decoration:none;">Script Generator (Bash &amp; PowerShell)</a></li>
+      <li style="margin:.35rem 0;"><a href="https://pragmaticsysadmin.help/tools/prism-engine.html" style="color:#93c5fd;text-decoration:none;">PRISM Engine: Infrastructure Topology Visualizer</a></li>
+      </ul>
+    </div>
+
+    <div style="background:#1e293b;border:1px solid #334155;border-left:3px solid #2563eb;border-radius:8px;padding:1.15rem 1.25rem;">
+      <h3 style="color:#f8fafc;font-size:1rem;margin:0 0 .4rem;">📬 One practical guide a week — free</h3>
+      <p style="margin:0 0 .9rem;font-size:.92rem;line-height:1.5;">Sysadmin how-tos, senior-tech fixes, and new free tools. No spam, unsubscribe anytime.</p>
+      <form action="https://buttondown.com/api/emails/embed-subscribe/jonne" method="post" target="_top" style="display:flex;gap:.5rem;flex-wrap:wrap;margin:0 0 .8rem;">
+        <input type="email" name="email" required placeholder="your@email.com" autocomplete="email" aria-label="Email address" style="flex:1;min-width:220px;padding:.6rem .8rem;border:1px solid #475569;border-radius:6px;background:#0f172a;color:#f1f5f9;font-size:.95rem;font-family:inherit;">
+        <button type="submit" style="background:#2563eb;color:#fff;border:0;border-radius:6px;padding:.6rem 1.15rem;font-weight:600;font-size:.95rem;cursor:pointer;font-family:inherit;white-space:nowrap;">Subscribe free →</button>
+      </form>
+      <p style="margin:0;font-size:.8rem;color:#94a3b8;">Subscribers also get the free Home Network Security Checklist and the 5 Bash Scripts pack.</p>
+    </div>
+
+    <div style="background:#1e293b;border:1px solid #334155;border-left:3px solid #2563eb;border-radius:8px;padding:1.15rem 1.25rem;border-left-color:#c97b5e;margin-top:1rem;">
+      <h3 style="color:#f8fafc;font-size:1rem;margin:0 0 .4rem;">The 5-Minute Server Health Check Toolkit — $9</h3>
+      <p style="margin:0 0 .7rem;font-size:.92rem;line-height:1.5;">3 production-tested bash scripts, a printable weekly checklist, and a decision tree for every warning.</p>
+      <a href="https://pragmaticsysadmin.help/products/health-check-toolkit/" style="display:inline-block;background:#c97b5e;color:#fff;padding:.55rem 1.1rem;border-radius:6px;font-weight:600;font-size:.92rem;text-decoration:none;">See what's inside →</a>
+    </div>
+
+    <p style="margin:1.5rem 0 0;font-size:.88rem;display:flex;gap:1.25rem;flex-wrap:wrap;">
+      <a href="https://pragmaticsysadmin.help/tools/" style="color:#93c5fd;text-decoration:none;">All free tools →</a>
+      <a href="https://pragmaticsysadmin.help/shop/" style="color:#93c5fd;text-decoration:none;">Shop: scripts &amp; printable guides →</a>
+      <a href="https://ko-fi.com/sysadmin_dad" style="color:#93c5fd;text-decoration:none;">☕ Support on Ko-fi</a>
+    </p>
+  </div>
+</section>
+<!-- Pragmatic Sysadmin Tool CTA end (scripts/inject-tool-cta.py) -->
+
 </body>
 </html>

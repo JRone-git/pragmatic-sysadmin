@@ -11,6 +11,17 @@ canonicalUrl: "https://pragmaticsysadmin.help/senior-tech/2026-07-27-is-chatgpt-
 seo:
   title: "Is ChatGPT Reading Your Parents' Data? AI Privacy Explained (2026)"
   description: "What ChatGPT, Claude, and Gemini do with chat logs, how to turn off model training, and what your elderly parents should never type into an AI in 2026."
+faq:
+  - question: "Does ChatGPT use my parents' conversations to train its models?"
+    answer: "Yes, by default, on the free tier. OpenAI's terms allow free-tier conversations to be sampled into training data. ChatGPT Plus and Pro subscriptions have training disabled by default. The free-tier training can be turned off by disabling \"Chat history & training\" in Settings → Data Controls."
+  - question: "Is Claude more private than ChatGPT?"
+    answer: "For free-tier users in 2026, yes. Anthropic does not train on Claude conversations by default on any tier. ChatGPT free-tier training is on by default. The privacy posture can change, so verify the current policy before relying on it for sensitive use."
+  - question: "Can I delete my parents' old ChatGPT conversations?"
+    answer: "Yes. In ChatGPT, go to Settings → Data Controls → \"Delete all\" or navigate to the chat list and delete individual conversations. Deleted chats are removed from active systems within 30 days, though OpenAI may retain them in backups for up to 90 days."
+  - question: "What about Apple Intelligence? Is that safer for my parents?"
+    answer: "Apple Intelligence, on-device on iPhone 15 Pro and later, processes many AI requests locally without sending data to Apple's servers at all. For the requests that do go to Apple's cloud, Apple uses \"Private Cloud Compute\" with a no-storage, no-training guarantee that is cryptographically attested. For iPhone-using parents, Apple Intelligence is currently the strongest privacy posture available for everyday AI tasks like email summaries and notification grouping."
+  - question: "Should my parents just stop using AI tools?"
+    answer: "No. The realistic threat from AI tools is lower than the threat from reused passwords, unpatched software, and phishing emails. If you have done the work in the password manager guide, your parents are already protected from the bigger risks. Adding the three AI privacy settings above is a smaller, complementary upgrade. The goal is not to make them afraid of AI — it is to let them use it safely. "
 ---
 
 If your parents have discovered ChatGPT in the last year — and statistically, at least one of them has — they are probably using it the way most people do: asking medical questions, pasting in emails to "make this sound nicer," asking it to summarize bank statements, and getting it to draft replies to family group chats. None of this is malicious. All of it is potentially a privacy problem. This guide explains what actually happens to a chat log after your parent hits send, which AI tools are safer than others, and the three settings you need to flip on their account the next time you visit.
@@ -103,54 +114,7 @@ Apple Intelligence, on-device on iPhone 15 Pro and later, processes many AI requ
 
 No. The realistic threat from AI tools is lower than the threat from reused passwords, unpatched software, and phishing emails. If you have done the work in the [password manager guide](/senior-tech/2026-07-27-password-manager-for-elderly-parents/), your parents are already protected from the bigger risks. Adding the three AI privacy settings above is a smaller, complementary upgrade. The goal is not to make them afraid of AI — it is to let them use it safely.
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Does ChatGPT use my parents' conversations to train its models?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, by default, on the free tier. OpenAI's terms allow free-tier conversations to be sampled into training data. ChatGPT Plus and Pro subscriptions have training disabled by default. The free-tier training can be turned off by disabling Chat history and training in Settings → Data Controls."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is Claude more private than ChatGPT?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "For free-tier users in 2026, yes. Anthropic does not train on Claude conversations by default on any tier. ChatGPT free-tier training is on by default. The privacy posture can change, so verify the current policy before relying on it for sensitive use."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I delete my parents' old ChatGPT conversations?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. In ChatGPT, go to Settings → Data Controls → Delete all, or delete individual conversations from the chat list. Deleted chats are removed from active systems within 30 days, though OpenAI may retain them in backups for up to 90 days."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What about Apple Intelligence? Is that safer for my parents?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Apple Intelligence, on-device on iPhone 15 Pro and later, processes many AI requests locally without sending data to Apple's servers. For requests that do go to Apple's cloud, Apple uses Private Cloud Compute with a no-storage, no-training guarantee that is cryptographically attested. For iPhone-using parents, Apple Intelligence is currently the strongest privacy posture available for everyday AI tasks."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Should my parents just stop using AI tools?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. The realistic threat from AI tools is lower than the threat from reused passwords, unpatched software, and phishing emails. If your parents use a password manager and have basic security hygiene in place, adding AI privacy settings is a smaller complementary upgrade. The goal is not to make them afraid of AI — it is to let them use it safely."
-      }
-    }
-  ]
-}
-</script>
+
 
 ## What to do next
 

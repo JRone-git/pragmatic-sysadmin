@@ -3,6 +3,13 @@
 <meta name="robots" content="noindex, follow">
 {{- end -}}
 
+{{/* /search/ renders its results client-side from index.json, so the served
+     HTML is thin content. Keep it crawlable (follow) but out of the index.
+     The page is also filtered out of sitemap.xml for the same reason. */}}
+{{- if (eq .Layout "search") -}}
+<meta name="robots" content="noindex, follow">
+{{- end -}}
+
 <!-- Rakuten Automate starts here -->
 <script type="text/javascript">
   var _rakuten_automate = {
@@ -154,6 +161,110 @@
   "dateModified": {{ .Lastmod.Format "2006-01-02T15:04:05Z07:00" | jsonify }},
   "keywords": {{ with .Params.tags }}{{ . | jsonify }}{{ else }}[]{{ end }}
 }
+</script>
+{{- end -}}
+
+{{/* FAQPage JSON-LD schema for Google Rich Snippets.
+     Emitted when a page defines .Params.faq in frontmatter. */}}
+{{- with .Params.faq -}}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {{- range $i, $item := . -}}
+    {{- if $i }},{{ end }}
+    {
+      "@type": "Question",
+      "name": {{ $item.question | jsonify }},
+      "acceptedAnswer": {
+        "@type": "Answer",
+        "text": {{ $item.answer | jsonify }}
+      }
+    }
+    {{- end -}}
+  ]
+}
+</script>
+{{- end -}}
+
+
+{{/* Reading progress bar — CSS + JS for the bar (the <div> is created at
+     runtime, so PaperMod's core single.html needs no override).
+     Both halves live here, not in extend_footer.html, because PaperMod renders
+     the footer through `partialCached "footer.html" . .Layout .Kind ...` —
+     anything page-specific there leaks across pages sharing the cache key.
+     Scoped to article pages so listings, taxonomies and standalone pages
+     stay untouched.
+     NOTE: `in` takes the collection first, the item second —
+     `in (slice ...) .Type`, not `in .Type (slice ...)`. */}}
+{{- $articleSections := slice "posts" "senior-tech" "sysadmin" "meta" -}}
+{{- if and .IsPage (in $articleSections .Type) -}}
+<style>
+#reading-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 3px;
+  z-index: 100;
+  background: linear-gradient(90deg, #5a7a5e 0%, #c97b5e 100%);
+  pointer-events: none;
+  transition: width 0.1s linear;
+}
+@media (prefers-reduced-motion: reduce) {
+  #reading-progress { transition: none; }
+}
+</style>
+<script>
+(function () {
+  function init() {
+    var article = document.querySelector('.post-content');
+    if (!article) return;
+
+    var bar = document.createElement('div');
+    bar.id = 'reading-progress';
+    bar.setAttribute('aria-hidden', 'true');
+    document.body.appendChild(bar);
+
+    var ticking = false;
+
+    function update() {
+      ticking = false;
+      var start = article.getBoundingClientRect().top + window.pageYOffset;
+      var span = article.offsetHeight - window.innerHeight;
+
+      // Short post: the whole body fits on one screen, so there is nothing
+      // left to scroll through. Park the bar at full width.
+      if (span < 1) {
+        bar.style.width = '100%';
+        return;
+      }
+
+      var pct = (window.pageYOffset - start) / span;
+      pct = Math.max(0, Math.min(1, pct));
+      bar.style.width = (pct * 100).toFixed(2) + '%';
+    }
+
+    function onScroll() {
+      if (!ticking) {
+        ticking = true;
+        window.requestAnimationFrame(update);
+      }
+    }
+
+    update();
+    window.addEventListener('scroll', onScroll, { passive: true });
+    window.addEventListener('resize', onScroll, { passive: true });
+  }
+
+  // Inline script in <head>, so the DOM is usually still parsing here.
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', init);
+  } else {
+    init();
+  }
+})();
 </script>
 {{- end -}}
 

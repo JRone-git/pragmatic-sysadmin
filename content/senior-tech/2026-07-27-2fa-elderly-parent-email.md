@@ -11,6 +11,17 @@ canonicalUrl: "https://pragmaticsysadmin.help/senior-tech/2026-07-27-2fa-elderly
 seo:
   title: "2FA for Elderly Parent's Email: 5-Minute Setup Guide (2026)"
   description: "How to turn on two-factor authentication for your parent's Gmail, Outlook, or iCloud email in 5 minutes. The single most important security upgrade after a password manager."
+faq:
+  - question: "What if my parent loses their phone?"
+    answer: "If they have SMS 2FA, they need their phone number transferred to a new phone (call the carrier — this is routine and takes 10 minutes). If they set up a backup phone number during 2FA setup, Google/Microsoft can send codes to the backup number. If neither option is available, use the backup codes that were generated during setup. If you lost the backup codes too, Google and Microsoft have account recovery processes that take 3-7 days — slow but workable. Write the backup codes down. Store them."
+  - question: "Can I turn on 2FA for my parent remotely?"
+    answer: "Yes, if you have access to their email account (for example, if they shared their password with you or if you set up the account on their behalf). Sign in to the security settings page listed above, follow the steps, and verify using their phone number. The phone itself does not need to be in your hands — your parent just needs to read you the SMS code when it arrives."
+  - question: "Should I turn on 2FA for their bank too?"
+    answer: "Yes, but do it after email. Bank 2FA is important, but most banks already require it or offer it by default. Email is the one most people skip, and email is the highest-value target because it controls password resets for everything else. Email first, bank second, social media third."
+  - question: "Does 2FA prevent all email hacks?"
+    answer: "No. 2FA prevents account takeover from password-only attacks, which is the most common vector. It does not prevent phishing attacks where your parent voluntarily enters both a password and a code on a fake login page. The defense against that is the password manager (which will not autofill on a fake domain) and the scam prevention conversations. 2FA is one layer of a multi-layer defense, not a silver bullet."
+  - question: "What about passkeys? Are those better than 2FA?"
+    answer: "Passkeys (FIDO2/WebAuthn without a physical key) are the future and are gradually being adopted by Google, Apple, and Microsoft. They replace passwords entirely with device-based authentication — your parent's phone or computer becomes the key. In 2026, passkey support is still uneven across services, and the setup process is confusing for non-technical users. Stick with SMS 2FA now, and consider passkeys when the setup UX matures — probably in 2027-2028. "
 ---
 
 After you set up a [password manager](/senior-tech/2026-07-27-password-manager-for-elderly-parents/) for your parents, the next highest-value security upgrade is dead simple and takes five minutes: turn on two-factor authentication for their email account. That is it. One setting, one phone number, five minutes of your time.
@@ -113,54 +124,7 @@ No. 2FA prevents account takeover from password-only attacks, which is the most 
 
 Passkeys (FIDO2/WebAuthn without a physical key) are the future and are gradually being adopted by Google, Apple, and Microsoft. They replace passwords entirely with device-based authentication — your parent's phone or computer becomes the key. In 2026, passkey support is still uneven across services, and the setup process is confusing for non-technical users. Stick with SMS 2FA now, and consider passkeys when the setup UX matures — probably in 2027-2028.
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "What if my parent loses their phone?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Get the phone number transferred to a new device by calling the carrier. If a backup phone number was set up during 2FA setup, codes can go there. If neither works, use the backup codes generated during setup. Google and Microsoft also have account recovery processes that take 3-7 days."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Can I turn on 2FA for my parent remotely?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, if you have access to their email account. Sign in to the security settings page, follow the steps, and verify using their phone number. Your parent just needs to read you the SMS code when it arrives."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Should I turn on 2FA for their bank too?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes, but email first. Email is the highest-value target because it controls password resets for everything else. Bank 2FA is often enabled by default. Email 2FA is the one most people skip."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does 2FA prevent all email hacks?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. 2FA prevents password-only account takeover, the most common vector. It does not prevent phishing where someone voluntarily enters both password and code on a fake page. Use a password manager and scam prevention conversations as complementary defenses."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What about passkeys? Are those better than 2FA?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Passkeys are the future and replace passwords with device-based authentication. In 2026, passkey support is still uneven and setup is confusing for non-technical users. Stick with SMS 2FA now and consider passkeys when the UX matures, likely 2027-2028."
-      }
-    }
-  ]
-}
-</script>
+
 
 ## What to do next
 

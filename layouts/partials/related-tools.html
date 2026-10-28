@@ -1,0 +1,151 @@
+{{/*
+  Related free tools — the article -> tool half of the internal-link graph.
+
+  Before this partial existed, only 1 of 36 articles linked to any page under
+  /tools/, so the tool pages collected almost none of the site's internal link
+  equity — even though they are the pages built to be shared and linked to.
+
+  Tools and their tags come from catalog/tools.yaml (site.Data.tools), the same
+  single source of truth that layouts/sitemap.xml and scripts/inject-tool-cta.py
+  read. Matching is by shared tag against the site's real tag vocabulary, with a
+  section-based fallback for posts that carry no matching tags.
+
+  Rendered by layouts/partials/extend_post_content.html, between the article
+  body and the newsletter CTA.
+*/}}
+
+{{- $articleSections := slice "posts" "senior-tech" "sysadmin" "meta" -}}
+{{- $tools := site.Data.tools.tools -}}
+
+{{- if and $tools .IsPage (not .IsHome) (in $articleSections .Type) -}}
+
+  {{- /* Normalise the post's tags so "DIY" and "diy" match the same tool. */ -}}
+  {{- $pageTags := slice -}}
+  {{- range .Params.tags -}}
+    {{- $pageTags = $pageTags | append (lower .) -}}
+  {{- end -}}
+
+  {{- /* Score every tool by how many tags it shares with this post. */ -}}
+  {{- $scored := slice -}}
+  {{- range $tools -}}
+    {{- $hits := 0 -}}
+    {{- range .tags -}}
+      {{- if in $pageTags (lower .) -}}
+        {{- $hits = add $hits 1 -}}
+      {{- end -}}
+    {{- end -}}
+    {{- if gt $hits 0 -}}
+      {{- $scored = $scored | append (dict "hits" $hits "tool" .) -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- /* No tag overlap? Fall back to tools aimed at this post's audience, so
+         an untagged post still gets relevant links instead of none. */ -}}
+  {{- $picked := slice -}}
+  {{- if $scored -}}
+    {{- $picked = first 3 (sort $scored "hits" "desc") -}}
+  {{- else -}}
+    {{- $audience := cond (eq .Type "senior-tech") "senior" "sysadmin" -}}
+    {{- range first 3 (where $tools "audience" $audience) -}}
+      {{- $picked = $picked | append (dict "hits" 0 "tool" .) -}}
+    {{- end -}}
+  {{- end -}}
+
+  {{- with $picked }}
+<div class="post-related-tools" id="post-related-tools">
+  <h3 class="prt-title">🔧 Free tools for this topic</h3>
+  <ul class="prt-list">
+    {{- range . }}
+    <li class="prt-item">
+      <a class="prt-link" href="{{ .tool.path }}">{{ .tool.title }} →</a>
+      <span class="prt-desc">{{ .tool.description }}</span>
+    </li>
+    {{- end }}
+  </ul>
+  <p class="prt-foot">
+    All {{ len $tools }} tools run in your browser — no signup, nothing uploaded.
+    <a class="prt-all" href="/tools/">See every tool →</a>
+  </p>
+</div>
+
+<style>
+.post-related-tools {
+  margin: 2.5em 0 1.5em;
+  padding: 1.25em 1.4em 1.1em;
+  background: rgba(90,122,94,0.06);
+  border: 1px solid rgba(90,122,94,0.22);
+  border-left: 4px solid #5a7a5e;
+  border-radius: 8px;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+}
+.prt-title {
+  margin: 0 0 0.7em 0;
+  font-size: 1em;
+  font-weight: 600;
+  color: #2a2a2a;
+  line-height: 1.3;
+}
+.prt-list {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  display: flex;
+  flex-direction: column;
+  gap: 0.7em;
+}
+.prt-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15em;
+  line-height: 1.45;
+}
+.prt-link {
+  font-size: 0.95em;
+  font-weight: 600;
+  color: #5a7a5e;
+  text-decoration: none;
+  align-self: flex-start;
+}
+.prt-link:hover {
+  text-decoration: underline;
+}
+.prt-desc {
+  font-size: 0.85em;
+  color: #555;
+}
+.prt-foot {
+  margin: 0.9em 0 0;
+  padding-top: 0.75em;
+  border-top: 1px solid rgba(90,122,94,0.18);
+  font-size: 0.78em;
+  color: #777;
+  line-height: 1.5;
+}
+.prt-all {
+  color: #5a7a5e;
+  text-decoration: none;
+  font-weight: 500;
+  white-space: nowrap;
+}
+.prt-all:hover {
+  text-decoration: underline;
+}
+@media (max-width: 600px) {
+  .post-related-tools { padding: 1.1em 1em 1em; }
+}
+@media (prefers-color-scheme: dark) {
+  .post-related-tools {
+    background: rgba(90,122,94,0.1);
+    border-color: #3a3d38;
+    border-left-color: #5a7a5e;
+  }
+  .prt-title { color: #f0f0f0; }
+  .prt-desc { color: #b8b8b8; }
+  .prt-link { color: #8fb494; }
+  .prt-foot { color: #888; border-top-color: #3a3d38; }
+  .prt-all { color: #8fb494; }
+}
+</style>
+  {{- end }}
+
+{{- end -}}

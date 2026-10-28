@@ -1,11 +1,17 @@
 #!/usr/bin/env python3
 """
-Generate branded Open Graph images for every post in content/posts/.
+Generate branded Open Graph images for every post in content/posts/ — and one
+card per interactive tool in catalog/tools.yaml.
 
 For each post, reads the title and description from front-matter and
 renders a 1200x630 PNG into static/og/<slug>.png.
+Each catalog tool gets static/og/tools-<slug>.png with an extra
+"Interactive Tool" badge, so a shared tool link shows the tool's own title
+instead of the generic site card. scripts/inject-tool-cta.py picks those files
+up by name and writes the matching og:image / twitter:image + schema.org
+`image` on the tool pages.
 
-Run this whenever you add or rename a post:
+Run this whenever you add or rename a post or a tool:
     python3 scripts/generate-og-images.py
 
 The images are committed to the repo so GitHub Pages serves them
@@ -51,14 +57,18 @@ TITLE_FONT_SIZE = 64
 DESC_FONT_SIZE = 26
 SITE_FONT_SIZE = 24
 
-# Fonts (Liberation Sans is installed; falls back to DejaVu)
+# Fonts (Liberation Sans is installed on Linux; falls back to Windows system fonts)
 FONT_PATHS = [
     "/usr/share/fonts/truetype/liberation/LiberationSans-Bold.ttf",
     "/usr/share/fonts/truetype/dejavu/DejaVuSans-Bold.ttf",
+    "C:/Windows/Fonts/arialbd.ttf",
+    "C:/Windows/Fonts/segoeuib.ttf",
 ]
 BODY_FONT_PATHS = [
     "/usr/share/fonts/truetype/liberation/LiberationSans-Regular.ttf",
     "/usr/share/fonts/truetype/dejavu/DejaVuSans.ttf",
+    "C:/Windows/Fonts/arial.ttf",
+    "C:/Windows/Fonts/segoeui.ttf",
 ]
 
 
@@ -120,7 +130,7 @@ def parse_front_matter(path):
     return fm, slug
 
 
-def render_image(title, description, slug, site_name="Pragmatic Tech"):
+def render_image(title, description, slug, site_name="Pragmatic Tech", badge=""):
     """Render one OG image and save to OUTPUT_DIR/<slug>.png."""
     img = Image.new("RGB", (WIDTH, HEIGHT), BG_TOP)
     draw = ImageDraw.Draw(img)
@@ -150,6 +160,21 @@ def render_image(title, description, slug, site_name="Pragmatic Tech"):
                            radius=8, fill=LOGO_BG)
     draw.text((pill_x0 + pill_pad_x, pill_y0 + pill_pad_y),
               site_text, fill=(255, 255, 255), font=title_font)
+
+    # Optional secondary pill / badge (e.g. "Interactive Tool" or category)
+    if badge:
+        badge_font = ImageFont.truetype(BODY_FONT_PATH, SITE_FONT_SIZE - 2)
+        b_box = draw.textbbox((0, 0), badge, font=badge_font)
+        bw = b_box[2] - b_box[0]
+        bh = b_box[3] - b_box[1]
+        bx0 = pill_x1 + 16
+        by0 = pill_y0
+        bx1 = bx0 + bw + pill_pad_x * 2
+        by1 = pill_y1
+        draw.rounded_rectangle([bx0, by0, bx1, by1],
+                               radius=8, fill=(30, 41, 59), outline=(71, 85, 105), width=2)
+        draw.text((bx0 + pill_pad_x, by0 + pill_pad_y),
+                  badge, fill=(148, 163, 184), font=badge_font)
 
     # Title — wrapped, multi-line
     title_font_big = ImageFont.truetype(TITLE_FONT_PATH, TITLE_FONT_SIZE)
@@ -200,6 +225,49 @@ def render_image(title, description, slug, site_name="Pragmatic Tech"):
     return out_path
 
 
+def load_tools_catalog():
+    """Load tools from catalog/tools.yaml."""
+    catalog_path = ROOT / "catalog" / "tools.yaml"
+    if not catalog_path.exists():
+        return []
+    try:
+        if str(ROOT) not in sys.path:
+            sys.path.insert(0, str(ROOT))
+        from blogforge import yamlmini
+
+        data = yamlmini.loads(catalog_path.read_text(encoding="utf-8"))
+        return data.get("tools", [])
+    except Exception as exc:
+        print(f"Warning: Could not read catalog/tools.yaml: {exc}", file=sys.stderr)
+        return []
+
+
+def generate_tool_images():
+    """Generate branded OG images for all interactive tools in catalog/tools.yaml."""
+    tools = load_tools_catalog()
+    if not tools:
+        print("No tools found in catalog/tools.yaml")
+        return 0, 0
+
+    print(f"\nGenerating OG images for {len(tools)} interactive tools...")
+    generated, failed = 0, 0
+    for t in tools:
+        slug = t.get("slug")
+        title = t.get("title", slug)
+        desc = t.get("description", "")
+        # OG image output filename will be tools-<slug>.png
+        img_slug = f"tools-{slug}"
+        try:
+            render_image(title, desc, img_slug, site_name="Pragmatic Tools", badge="Interactive Tool")
+            generated += 1
+            print(f"  [OK] {img_slug}.png")
+        except Exception as e:
+            print(f"  [ERR] {slug}: {e}", file=sys.stderr)
+            failed += 1
+    return generated, failed
+
+
+
 def main():
     posts = []
     for posts_dir in POSTS_DIRS:
@@ -207,21 +275,24 @@ def main():
             posts.extend(sorted(posts_dir.glob("*.md")))
     if not posts:
         print("No posts found in any of:", [str(p) for p in POSTS_DIRS])
-        return
+    else:
+        print(f"Generating OG images for {len(posts)} posts...")
+        generated, skipped, failed = 0, 0, 0
+        for p in posts:
+            try:
+                fm, slug = parse_front_matter(p)
+                title = fm.get("title", p.stem)
+                description = fm.get("description", "")
+                out = render_image(title, description, slug)
+                generated += 1
+                print(f"  [OK] {slug}.png")
+            except Exception as e:
+                print(f"  [ERR] {p.name}: {e}", file=sys.stderr)
+                failed += 1
 
-    print(f"Generating OG images for {len(posts)} posts...")
-    generated, skipped, failed = 0, 0, 0
-    for p in posts:
-        try:
-            fm, slug = parse_front_matter(p)
-            title = fm.get("title", p.stem)
-            description = fm.get("description", "")
-            out = render_image(title, description, slug)
-            generated += 1
-            print(f"  ✓ {slug}.png")
-        except Exception as e:
-            print(f"  ✗ {p.name}: {e}", file=sys.stderr)
-            failed += 1
+    tool_gen, tool_fail = generate_tool_images()
+    generated += tool_gen
+    failed += tool_fail
 
     print(f"\nDone. {generated} generated, {failed} failed.")
     print(f"Output: {OUTPUT_DIR}")
