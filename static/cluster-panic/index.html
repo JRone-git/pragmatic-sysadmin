@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cluster Panic: 99.99%</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="min-h-screen bg-gray-950 text-gray-200">
+    <div id="game-container" class="container mx-auto max-w-6xl px-4 py-8">
+        <header class="mb-8 text-center">
+            <h1 class="mb-2 text-5xl font-bold text-green-400">CLUSTER PANIC</h1>
+            <p class="text-xl text-gray-400">99.99% UPTIME CHALLENGE</p>
+        </header>
+
+        <div class="mb-6 rounded-lg border border-gray-700 bg-gray-900/80 p-4">
+            <div class="grid grid-cols-2 gap-4 text-center md:grid-cols-4">
+                <div><p class="text-xs uppercase text-gray-500">Uptime</p><p id="uptime-score" class="text-2xl text-green-400">100.00%</p></div>
+                <div><p class="text-xs uppercase text-gray-500">Days Survived</p><p id="days-survived" class="text-2xl text-cyan-400">0.00</p></div>
+                <div><p class="text-xs uppercase text-gray-500">Best Rank</p><p id="best-rank" class="text-2xl text-yellow-400">Novice</p></div>
+                <div><p class="text-xs uppercase text-gray-500">Incidents</p><p id="incident-count" class="text-2xl text-purple-400">0</p></div>
+            </div>
+        </div>
+
+        <div class="mb-6 rounded-lg border border-gray-700 bg-gray-900/80 p-6">
+            <h2 class="mb-4 text-center text-xl text-green-400">SERVER RACK</h2>
+            <div id="servers-container" class="grid grid-cols-1 gap-4 md:grid-cols-2 lg:grid-cols-4"></div>
+        </div>
+
+        <div class="mb-6 rounded-lg border border-gray-700 bg-gray-900/80 p-6">
+            <h2 class="mb-4 text-center text-xl text-green-400">CONTROLS</h2>
+            <div class="grid grid-cols-1 gap-4 md:grid-cols-2">
+                <div class="rounded-lg bg-gray-800 p-4">
+                    <p class="mb-2 text-sm text-gray-400">KEYBOARD SHORTCUTS</p>
+                    <div class="space-y-2 text-sm"><div><span class="rounded bg-gray-700 px-2 py-1 text-xs">1-4</span> Select Server</div><div><span class="rounded bg-gray-700 px-2 py-1 text-xs">Space</span> Boost Fans (Hold)</div><div><span class="rounded bg-gray-700 px-2 py-1 text-xs">R</span> Restart Selected Server</div></div>
+                </div>
+                <div class="rounded-lg bg-gray-800 p-4 text-sm">
+                    <p class="mb-2 text-sm text-gray-400">INCIDENT TYPES</p>
+                    <div class="space-y-2"><div><span class="rounded bg-red-900/50 px-2 py-1 text-xs text-red-300">Disk Full</span> Purge /tmp</div><div><span class="rounded bg-yellow-900/50 px-2 py-1 text-xs text-yellow-300">SYN Flood</span> Enable Firewall</div><div><span class="rounded bg-blue-900/50 px-2 py-1 text-xs text-blue-300">Memory Leak</span> Restart Pod</div><div><span class="rounded bg-orange-900/50 px-2 py-1 text-xs text-orange-300">Overheating</span> Boost Fan</div></div>
+                </div>
+            </div>
+        </div>
+
+        <div class="mb-6 h-12 text-center"><p id="game-message" class="text-xl text-cyan-400">Welcome to Cluster Panic! Keep all servers running.</p></div>
+
+        <div id="start-screen" class="fixed inset-0 z-50 flex items-center justify-center bg-black/95 p-4">
+            <div class="max-w-md text-center"><h1 class="mb-6 text-6xl text-green-400">CLUSTER PANIC</h1><p class="mb-8 text-xl text-gray-300">Keep 4 server nodes running as long as possible!</p><div class="mb-8 space-y-4 rounded-lg bg-gray-900 p-6 text-left"><div>Disk Full: Purge /tmp</div><div>SYN Flood: Enable Firewall</div><div>Memory Leak: Restart Pod</div><div>Overheating: Boost Fan</div></div><button id="start-game-btn" class="rounded-lg bg-green-600 px-12 py-4 text-xl font-bold text-white hover:bg-green-500">INITIALIZE SYSTEM</button></div>
+        </div>
+
+        <footer class="mt-8 text-center text-sm text-gray-500"><p>Cluster Panic: 99.99% &copy; 2026 | Keep the servers running!</p></footer>
+    </div>
+    <script src="game.js"></script>
+</body>
+</html>
