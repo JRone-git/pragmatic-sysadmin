@@ -367,6 +367,35 @@
       "title": "Compiling a Custom Linux Kernel & Adding systemd (Part 2)",
       "url": "https://pragmaticsysadmin.help/sysadmin/2026-07-07-compile-linux-kernel-systemd-part-2/"
     },
+    "essential-home-automation-older-parents-practical-setup-guide": {
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-28T18:36:44+00:00",
+          "status": "seeded"
+        },
+        "devto": {
+          "at": "2026-10-28T18:36:44+00:00",
+          "status": "seeded"
+        },
+        "hn": {
+          "at": "2026-10-28T18:36:44+00:00",
+          "status": "seeded"
+        },
+        "mastodon": {
+          "at": "2026-10-28T18:36:44+00:00",
+          "status": "seeded"
+        },
+        "reddit": {
+          "at": "2026-10-28T18:36:44+00:00",
+          "status": "seeded"
+        }
+      },
+      "published_at": "2026-09-25T00:00:00+00:00",
+      "queued_at": "2026-10-28T18:36:44+00:00",
+      "section": "senior-tech",
+      "title": "Essential Home Automation for Older Parents: A Practical, Low-Cost Setup Guide",
+      "url": "https://pragmaticsysadmin.help/senior-tech/2026-09-25-essential-home-automation-older-parents-practical-low-cost-setup-guide/"
+    },
     "git-things-easy-to-mess-up": {
       "channels": {
         "bluesky": {
@@ -659,7 +688,7 @@
           "status": "posted"
         },
         "devto": {
-          "at": "2026-10-28T15:14:31+00:00",
+          "at": "2026-10-28T18:36:45+00:00",
           "error": "dev.to post failed: 422 b'{\"error\":\"Tag \\\\\"local-llm\\\\\" contains non-alphanumeric or prohibited unicode characters and Tag \\\\\"senior-tech\\\\\" contains non-alphanumeric or prohibited unicode characters\",\"status\":422}'",
           "status": "failed"
         },
