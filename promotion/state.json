@@ -1,8 +1,8 @@
 {
   "last_posted": {
-    "bluesky": "2026-10-19T15:44:40+00:00",
+    "bluesky": "2026-10-28T15:42:34+00:00",
     "devto": "2026-10-07T15:38:39+00:00",
-    "mastodon": "2026-10-19T15:44:41+00:00"
+    "mastodon": "2026-10-28T15:42:34+00:00"
   },
   "posts": {
     "2fa-elderly-parent-email": {
@@ -428,8 +428,10 @@
     "how-i-built-this-blog-hugo-firebase-buttondown": {
       "channels": {
         "bluesky": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-10-28T15:42:34+00:00",
+          "kind": "evergreen",
+          "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3myx3oqnytd2w",
+          "status": "posted"
         },
         "devto": {
           "at": "2026-10-05T10:25:08+00:00",
@@ -440,8 +442,10 @@
           "status": "seeded"
         },
         "mastodon": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-10-28T15:42:34+00:00",
+          "kind": "evergreen",
+          "ref": "https://mastodon.social/@JRone/117519296406219396",
+          "status": "posted"
         },
         "reddit": {
           "at": "2026-10-05T10:25:08+00:00",
