@@ -688,7 +688,7 @@
           "status": "posted"
         },
         "devto": {
-          "at": "2026-10-28T18:36:45+00:00",
+          "at": "2026-10-28T18:39:31+00:00",
           "error": "dev.to post failed: 422 b'{\"error\":\"Tag \\\\\"local-llm\\\\\" contains non-alphanumeric or prohibited unicode characters and Tag \\\\\"senior-tech\\\\\" contains non-alphanumeric or prohibited unicode characters\",\"status\":422}'",
           "status": "failed"
         },
@@ -1243,6 +1243,14 @@
       "section": "sysadmin",
       "title": "What IT Pros Actually Do On Their Own Machines (vs What They Tell You)",
       "url": "https://pragmaticsysadmin.help/sysadmin/2026-03-18-what-it-pros-actually-do-on-their-own-machines-vs-what-they-tell-you/"
+    },
+    "when-code-meets-life-sysadmin-mindset-family-home-repairs": {
+      "channels": {},
+      "published_at": "2026-10-28T00:00:00+00:00",
+      "queued_at": "2026-10-28T18:39:31+00:00",
+      "section": "sysadmin",
+      "title": "When Code Meets Life: Applying the Sysadmin Mindset to Family Chaos & Home Repairs",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2026-10-28-when-code-meets-life-sysadmin-mindset-family-home-repairs/"
     },
     "when-the-sim-becomes-the-thing-it-simulated": {
       "channels": {
