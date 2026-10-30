@@ -1,3 +1,0 @@
-Building a wall-mounted smart display from an ESP32 and a 4.2\" e-paper panel
-
-https://pragmaticsysadmin.help/sysadmin/2026-10-30-second-life-part-1-the-30-prototype/
