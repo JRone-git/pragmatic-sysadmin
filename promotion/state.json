@@ -688,7 +688,7 @@
           "status": "posted"
         },
         "devto": {
-          "at": "2026-10-28T18:39:31+00:00",
+          "at": "2026-10-29T15:19:08+00:00",
           "error": "dev.to post failed: 422 b'{\"error\":\"Tag \\\\\"local-llm\\\\\" contains non-alphanumeric or prohibited unicode characters and Tag \\\\\"senior-tech\\\\\" contains non-alphanumeric or prohibited unicode characters\",\"status\":422}'",
           "status": "failed"
         },
@@ -992,6 +992,14 @@
       "section": "sysadmin",
       "title": "Sysadmin Myths Busted: What Actually Works in 2026",
       "url": "https://pragmaticsysadmin.help/sysadmin/sysadmin-myths-busted-2026/"
+    },
+    "tech-in-a-busy-household-networks-gaming-rigs-diy-tinkering": {
+      "channels": {},
+      "published_at": "2026-10-28T00:00:00+00:00",
+      "queued_at": "2026-10-28T18:41:15+00:00",
+      "section": "sysadmin",
+      "title": "Tech in a Busy Household: Balancing Home Networks, Gaming Rigs, and DIY Tinkering",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2026-10-28-tech-in-a-busy-household-networks-gaming-rigs-diy-tinkering/"
     },
     "tech-survival-guide-ai-edition-2026": {
       "channels": {
