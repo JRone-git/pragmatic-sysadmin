@@ -1,0 +1,84 @@
+{{/*
+  Series navigation — "Part N of M" box for multi-part build series.
+
+  Renders only when the post carries `series:` in its frontmatter.
+
+  Two sources are merged:
+    1. Written parts — every post in the same series, ordered by the
+       per-post `series_order` frontmatter field.
+    2. Planned parts — the `series_planned` list on the current post.
+       This lets a series advertise parts that don't exist yet, so a reader
+       landing on Part 1 can see the shape of the whole thing.
+
+  Frontmatter contract:
+    series:         "Second Life"        # taxonomy term (required)
+    series_order:   1                    # 1-based position among written parts
+    series_title:   "The €30 Prototype"  # optional short title for the nav list
+    series_planned: ["The €30 Prototype", "The €56 Wall Mount", ...]
+                    # optional: full ladder, written or not
+*/}}
+{{- $term := .Params.series -}}
+{{- if $term -}}
+  {{- $written := where (where site.RegularPages "Type" "in" site.Params.mainSections) "Params.series" $term -}}
+  {{- if gt (len $written) 0 -}}
+    {{- $sorted := sort $written "Params.series_order" "asc" -}}
+    {{- $planned := .Params.series_planned -}}
+    {{- $total := len $sorted -}}
+    {{- with $planned -}}{{- $total = len . -}}{{- end -}}
+    {{- $current := . -}}
+    {{- $idx := 0 -}}
+    {{- range $i, $p := $sorted -}}
+      {{- if eq $p.RelPermalink $current.RelPermalink -}}{{- $idx = add $i 1 -}}{{- end -}}
+    {{- end -}}
+    {{- $seriesPage := site.GetPage (printf "/series/%s" (urlize $term)) -}}
+  <nav class="series-nav" aria-label="Series navigation">
+    <div class="series-nav__head">
+      <span class="series-nav__eyebrow">Series</span>
+      <span class="series-nav__title">{{ $term }}</span>
+      {{- if $idx }}
+        <span class="series-nav__count">Part {{ $idx }} of {{ $total }}</span>
+      {{- end }}
+    </div>
+
+    <ol class="series-nav__list">
+      {{- if $planned }}
+        {{/* Full ladder from the plan — written parts link, planned ones don't. */}}
+        {{- range $i, $title := $planned }}
+          {{- $n := add $i 1 }}
+          {{- $match := index (where $sorted "Params.series_title" $title) 0 -}}
+          {{- if $match }}
+            {{- $isCurrent := eq $match.RelPermalink $current.RelPermalink }}
+            <li class="series-nav__item{{ if $isCurrent }} is-current{{ end }}">
+              <span class="series-nav__num">{{ $n }}</span>
+              <a href="{{ $match.RelPermalink }}"{{ if $isCurrent }} aria-current="page"{{ end }}>{{ $title }}</a>
+              {{- if $isCurrent }}<span class="series-nav__badge">you are here</span>{{ end }}
+            </li>
+          {{- else }}
+            <li class="series-nav__item is-planned">
+              <span class="series-nav__num">{{ $n }}</span>
+              <span class="series-nav__title-text">{{ $title }}</span>
+              <span class="series-nav__planned-tag">coming</span>
+            </li>
+          {{- end }}
+        {{- end }}
+      {{- else }}
+        {{- range $i, $p := $sorted }}
+          {{- $n := add $i 1 }}
+          {{- $isCurrent := eq $p.RelPermalink $current.RelPermalink }}
+          <li class="series-nav__item{{ if $isCurrent }} is-current{{ end }}">
+            <span class="series-nav__num">{{ $n }}</span>
+            <a href="{{ $p.RelPermalink }}"{{ if $isCurrent }} aria-current="page"{{ end }}>
+              {{ if $p.Params.series_title }}{{ $p.Params.series_title }}{{ else }}{{ $p.Title }}{{ end }}
+            </a>
+            {{- if $isCurrent }}<span class="series-nav__badge">you are here</span>{{ end }}
+          </li>
+        {{- end }}
+      {{- end }}
+    </ol>
+
+    {{- with $seriesPage }}
+      <p class="series-nav__all"><a href="{{ .RelPermalink }}">All parts of {{ $term }} →</a></p>
+    {{- end }}
+  </nav>
+  {{- end -}}
+{{- end -}}

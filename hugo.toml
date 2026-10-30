@@ -17,6 +17,21 @@ dataDir = "catalog"
 
 [pagination]
   pagerSize = 10
+
+# Sections that hold blog posts. PaperMod reads this from site.Params
+# (i.e. it must live under [params]) for the prev/next post nav and the
+# archives listing. Without it PaperMod falls back to Hugo's default
+# ["posts"], which doesn't exist on this site — so prev/next rendered empty.
+# The homepage is a custom layout and ignores this.
+mainSections = ["sysadmin", "senior-tech", "meta", "kids"]
+
+# Custom taxonomy for multi-part build series ("Second Life", etc).
+# Hugo's built-in taxonomies are tags/categories; series gives multi-part
+# posts a canonical landing page plus the "Part N of M" nav rendered by
+# layouts/partials/series-nav.html. Order within a series comes from the
+# per-post `series_order` frontmatter field, not from the term list.
+[taxonomies]
+  series = "series"
 enableRobotsTXT = true
 
 # Sitemap priorities — tells search engines which pages matter most
@@ -38,6 +53,7 @@ enableRobotsTXT = true
     weight = 1
 
 [params]
+  mainSections = ["sysadmin", "senior-tech", "meta", "kids"]
   description = "Practical sysadmin guides, senior tech help for aging parents, and kids' learning games — without the buzzwords. By Jonne, a Finnish sysadmin."
   defaultTheme = "auto"
   ShowReadingTime = true
