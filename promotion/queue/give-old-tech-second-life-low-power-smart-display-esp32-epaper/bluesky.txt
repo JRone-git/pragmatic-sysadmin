@@ -1,3 +1,0 @@
-Turn a drawer of forgotten tech into a wall-mounted smart photo frame and weather dashboard
-
-https://pragmaticsysadmin.help/sysadmin/2026-10-30-give-old-tech-second-life-low-power-smart-display-esp32-epaper/
