@@ -8,7 +8,6 @@ no_publish: true
 tags: ["esp32", "e-paper", "diy", "homelab", "hardware", "electronics", "power-management"]
 slug: give-old-tech-second-life-low-power-smart-display-esp32-epaper
 topics: ["homelab", "diy", "hardware"]
-series: "Old Tech Second Life"
 ---
 
 Every sysadmin has a drawer.
