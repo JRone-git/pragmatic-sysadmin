@@ -1,8 +1,8 @@
 {
   "last_posted": {
-    "bluesky": "2026-10-28T15:42:34+00:00",
+    "bluesky": "2026-10-31T14:37:06+00:00",
     "devto": "2026-10-07T15:38:39+00:00",
-    "mastodon": "2026-10-28T15:42:34+00:00"
+    "mastodon": "2026-10-31T14:37:08+00:00"
   },
   "posts": {
     "2fa-elderly-parent-email": {
@@ -425,6 +425,14 @@
       "title": "Git Things That Are Easy to Mess Up (Until They Bite You)",
       "url": "https://pragmaticsysadmin.help/sysadmin/2026-07-14-git-things-easy-to-mess-up/"
     },
+    "give-old-tech-second-life-low-power-smart-display-esp32-epaper": {
+      "channels": {},
+      "published_at": "2026-10-30T00:00:00+00:00",
+      "queued_at": "2026-10-31T14:37:05+00:00",
+      "section": "sysadmin",
+      "title": "Give Old Tech a Second Life: Building a Low-Power Smart Display with ESP32 and E-Paper",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2026-10-30-give-old-tech-second-life-low-power-smart-display-esp32-epaper/"
+    },
     "homelab-architect-plan-before-you-build": {
       "channels": {
         "bluesky": {
@@ -688,7 +696,7 @@
           "status": "posted"
         },
         "devto": {
-          "at": "2026-10-30T15:17:14+00:00",
+          "at": "2026-10-31T14:37:08+00:00",
           "error": "dev.to post failed: 422 b'{\"error\":\"Tag \\\\\"local-llm\\\\\" contains non-alphanumeric or prohibited unicode characters and Tag \\\\\"senior-tech\\\\\" contains non-alphanumeric or prohibited unicode characters\",\"status\":422}'",
           "status": "failed"
         },
@@ -1253,7 +1261,18 @@
       "url": "https://pragmaticsysadmin.help/sysadmin/2026-03-18-what-it-pros-actually-do-on-their-own-machines-vs-what-they-tell-you/"
     },
     "when-code-meets-life-sysadmin-mindset-family-home-repairs": {
-      "channels": {},
+      "channels": {
+        "bluesky": {
+          "at": "2026-10-31T14:37:06+00:00",
+          "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3mz6jghoese2e",
+          "status": "posted"
+        },
+        "mastodon": {
+          "at": "2026-10-31T14:37:08+00:00",
+          "ref": "https://mastodon.social/@JRone/117536026012335906",
+          "status": "posted"
+        }
+      },
       "published_at": "2026-10-28T00:00:00+00:00",
       "queued_at": "2026-10-28T18:39:31+00:00",
       "section": "sysadmin",
