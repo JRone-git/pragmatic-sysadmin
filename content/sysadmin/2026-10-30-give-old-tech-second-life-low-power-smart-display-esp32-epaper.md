@@ -4,6 +4,7 @@ date: 2026-10-30
 author: "Pragmatic Sysadmin"
 description: "Turn a drawer of forgotten tech into a wall-mounted smart photo frame and weather dashboard. Three build paths compared, plus a real ESP32 + E-Ink prototype that runs for months on one 18650 cell."
 draft: true
+no_publish: true
 tags: ["esp32", "e-paper", "diy", "homelab", "hardware", "electronics", "power-management"]
 slug: give-old-tech-second-life-low-power-smart-display-esp32-epaper
 topics: ["homelab", "diy", "hardware"]

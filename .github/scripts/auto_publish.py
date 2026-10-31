@@ -3,6 +3,11 @@
 Scans content/sysadmin, content/senior-tech, content/meta, content/posts, etc.
 If date <= today and draft: true (and not blocked), flips draft: false.
 Also runs OG image generation so social cards exist immediately.
+
+Blocking: set `no_publish: true` in a post's frontmatter to hold it down
+regardless of its date. The daily cron used to flip every dated draft to
+live, which meant "take this post down" silently reversed itself the next
+morning. `no_publish` is the explicit opt-out for that.
 """
 
 import os
@@ -18,6 +23,7 @@ SECTIONS = ["sysadmin", "senior-tech", "meta", "posts"]
 
 DATE_PATTERN = re.compile(r'^date:\s*["\']?([0-9]{4}-[0-9]{2}-[0-9]{2})', re.MULTILINE)
 DRAFT_PATTERN = re.compile(r'^draft:\s*true\b', re.MULTILINE)
+NO_PUBLISH_PATTERN = re.compile(r'^no_publish:\s*true\b', re.MULTILINE)
 
 now = datetime.now(timezone.utc).date()
 published_count = 0
@@ -36,6 +42,13 @@ for section in SECTIONS:
 
         date_match = DATE_PATTERN.search(content)
         draft_match = DRAFT_PATTERN.search(content)
+
+        # Explicit hold — `no_publish: true` keeps a post down even after its
+        # date has passed. Checked before the date comparison so a held post
+        # is never flipped to live.
+        if NO_PUBLISH_PATTERN.search(content):
+            print(f"Held (no_publish): {section}/{path.name}")
+            continue
 
         if date_match and draft_match:
             try:
