@@ -413,6 +413,18 @@ Section: senior-tech
 Description: A pragmatic comparison of privacy-preserving AI options for elderly parents — Apple Intelligence, Claude, and locally-hosted Ollama — with a 10-minute setup for whichever fits their devices.
 Excerpt: Once you understand [what AI tools actually do with your parents' chat logs](/senior-tech/2026-07-27-is-chatgpt-reading-your-parents-data/), the natural next question is: what should they use instead? The honest answer is that there is no single "best" privacy-first AI — there are three good options, each suited to a different household. The right choice depends almost entirely on what hardware your parents already own, how technical you are will...
 
+### Essential Home Automation for Older Parents: A Practical, Low-Cost Setup Guide
+URL: https://pragmaticsysadmin.help/senior-tech/2026-09-25-essential-home-automation-older-parents-practical-low-cost-setup-guide/
+Section: senior-tech
+Description: A practical guide to setting up safe, affordable home automation for aging parents on a budget. Smart plugs from €5, DIY motion sensors, leak detectors, Zigbee, and Home Assistant — no monthly fees.
+Excerpt: My mum kept leaving the iron on.
+
+Every visit, I'd find it still plugged in, sitting on the ironing board cover she'd forgotten to put away. She'd been doing it for years — a habit so ingrained she didn't notice anymore. But I noticed. Every time I drove home, that iron sat there like a small fire hazard waiting to happen.
+
+So I bought a smart plug.
+
+Problem solved. Now the iron turns off automatically at 9 PM, whether she remembered or not. She...
+
 ### Local LLMs as System Tooling: Running Sub-3B Models on Edge and Budget Hardware
 URL: https://pragmaticsysadmin.help/senior-tech/2026-10-05-local-llms-as-system-tooling-running-sub-3b-models/
 Section: senior-tech
@@ -427,9 +439,9 @@ Section: senior-tech
 Description: Why you should treat AI answers as a starting point, not proof, and how to verify them before acting on money, health, or work.
 Excerpt: You see a message from your mom: “The bank says I owe $500, here’s the proof.” She attached a picture that looks like a bank statement, but it was made by an AI. You feel a pang of worry.
 
-You’ve been there before — an AI chatbot gave a support ticket number that turned out to be fake, and nobody noticed for three days. The confidence in the answer made it feel real.
+You’ve been there before — an AI chatbot gave a support ticket number that turned out to be fake, and nobody noticed for 3 days. The confidence in the answer made it feel real.
 
-That’s the problem: AI sounds sure even when it’s wrong. Confidence is not proo...
+That’s the problem: AI sounds sure even when it’s wrong. Confidence is not proof. I...
 
 ### The Ultimate Guide to a Secure & Fast Home Network (2025)
 URL: https://pragmaticsysadmin.help/senior-tech/ultimate-secure-fast-home-network-2025/
@@ -651,6 +663,54 @@ Description: You don't need a rack of servers to run an AI assistant. A sub-3B p
 Excerpt: You need an AI assistant that runs on your own machine. The cloud options are good, but they are not yours. You want something that actually does things — reads your screen, controls your smart home, answers questions in Finnish or English, and never sends your data to a server you don't control.
 
 The local LLM trend is about as practical as it sounds. It works on mid-range hardware if you pick the right model size. A sub-3B parameter model fits...
+
+### I Built a Password Strength Checker That Runs 100% in Your Browser (and What It Taught Me About Passwords)
+URL: https://pragmaticsysadmin.help/sysadmin/2026-10-06-password-strength-checker-browser-private/
+Section: sysadmin
+Description: Password strength meters are everywhere and most of them are wrong — or worse, they phone your password home. I built one that runs entirely in the browser, then tested 200 real-world passwords against it. Here's what actually makes a password strong.
+Excerpt: The Phone Call That Started This
+
+A client's junior admin called me last month. Their company had just rolled out a new password policy — 14 characters, three character classes, rotation every 90 days — and the helpdesk was drowning in reset tickets. The admin was proud of the policy. The users were writing the new passwords on sticky notes stuck to their monitors.
+
+That is the entire password industry in one story: we keep making the rules hard...
+
+### Tech in a Busy Household: Balancing Home Networks, Gaming Rigs, and DIY Tinkering
+URL: https://pragmaticsysadmin.help/sysadmin/2026-10-28-tech-in-a-busy-household-networks-gaming-rigs-diy-tinkering/
+Section: sysadmin
+Description: A practical guide to running a home network with gaming PCs, smart home, kids' devices, and your own homelab projects in it. Segmentation, QoS, IP management, and a tinkering budget that keeps the family online.
+Excerpt: My home network serves four separate humans, two cats, a Nintendo Switch, three streaming devices, a NAS, a homelab in the closet, and an unreasonable number of Raspberry Pis.
+
+It also serves a PlayStation 5 that's downloading a 90GB game update at 9 PM, while my wife is on a work call from the kitchen, while I'm restarting a service I broke twenty minutes ago.
+
+None of these things are hard individually. All of them at once is how you end up wit...
+
+### When Code Meets Life: Applying the Sysadmin Mindset to Family Chaos & Home Repairs
+URL: https://pragmaticsysadmin.help/sysadmin/2026-10-28-when-code-meets-life-sysadmin-mindset-family-home-repairs/
+Section: sysadmin
+Description: Reading logs, isolating variables, and knowing when to escalate — the sysadmin troubleshooting methodology works just as well on a leaking radiator as it does on a production server.
+Excerpt: Last Tuesday the kitchen tap started dripping.
+
+Not a lot. Just one drip every four seconds or so. Annoying, not alarming. The kind of thing you notice, mentally file under "weekend," and then forget about for three weeks until it's dripping onto the floor and you've got a puddle forming near the dishwasher.
+
+I did what any sysadmin does. I didn't fix it. I investigated it.
+
+
+
+ Step 1: Is This Actually a Tap Problem?
+
+Twenty minutes of observatio...
+
+### Give Old Tech a Second Life: Building a Low-Power Smart Display with ESP32 and E-Paper
+URL: https://pragmaticsysadmin.help/sysadmin/2026-10-30-give-old-tech-second-life-low-power-smart-display-esp32-epaper/
+Section: sysadmin
+Description: Turn a drawer of forgotten tech into a wall-mounted smart photo frame and weather dashboard. Three build paths compared, plus a real ESP32 + E-Ink prototype that runs for months on one 18650 cell.
+Excerpt: Every sysadmin has a drawer.
+
+Mine currently holds: an old Android tablet with a cracked digitizer, two Raspberry Pi 3Bs that are too slow for anything I'd deploy today, a pile of ESP8266 boards from 2019, a box of 7-segment displays, and — somewhere at the bottom — a laptop LCD panel I pulled out of a ThinkPad that died.
+
+None of it will ever run a modern app. All of it is perfectly capable of running something useful.
+
+This series is about givi...
 
 ### AI for IT Troubleshooting: Real-World Use Cases
 URL: https://pragmaticsysadmin.help/sysadmin/ai-for-it-troubleshooting-2026/
