@@ -99,6 +99,10 @@ def parse_post(path: Path):
 
     if fm.get("draft", "false").lower() == "true":
         return None
+    # `no_publish: true` is an explicit hold — the post stays down even if
+    # something else flips draft to false (e.g. the auto-publish cron).
+    if fm.get("no_publish", "false").lower() == "true":
+        return None
     title = fm.get("title", "")
     if not title:
         return None
