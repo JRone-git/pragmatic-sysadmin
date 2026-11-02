@@ -1,0 +1,731 @@
+{
+  "_comment": "Backfill strings for Buddy v4 (PIN-protected notes, onboarding wizard, note form) and v5 (photo contacts, medication alarms). English is the reference: every language must end up with exactly the same key set as 'en'. Keys already present in a language are left alone - these are only the ones that were missing. Run scripts/apply-buddy-i18n.js to apply, scripts/check-buddy-i18n.js to verify.",
+  "en": {
+    "tiles": {
+      "notes": {
+        "label": "My Notes",
+        "sub": "Passwords & things to remember"
+      }
+    },
+    "notes": {
+      "title": "My Notes",
+      "hint": "Passwords, phone numbers, and other things you want to remember. Protected by your PIN.",
+      "pinSetTitle": "Set a PIN",
+      "pinSetBody": "Pick 4 numbers you'll remember. You'll type this each time you want to see your notes.",
+      "pinConfirmTitle": "Type it again",
+      "pinConfirmBody": "Type the same 4 numbers one more time to make sure.",
+      "pinEnterTitle": "Enter your PIN",
+      "pinEnterBody": "Type your 4-digit PIN to see your notes.",
+      "pinWarning": "⚠️ If you forget your PIN, your notes can't be recovered. Choose something you'll remember.",
+      "pinError": "Wrong PIN. Try again.",
+      "pinMismatch": "PINs didn't match. Try again.",
+      "pinSaved": "✓ PIN set",
+      "empty": "No notes yet. Tap below to add your first one.",
+      "addCta": "+ Add a Note",
+      "addTitle": "Add a Note",
+      "editTitle": "Edit Note",
+      "lock": "🔒 Lock Notes",
+      "copy": "Copy",
+      "edit": "Edit",
+      "delete": "Delete",
+      "copied": "✓ Copied to clipboard",
+      "copyFailed": "Couldn't copy. Try selecting the text manually.",
+      "deleted": "✓ Note deleted",
+      "confirmDelete": "Delete this note? This can't be undone.",
+      "cat": {
+        "password": "Password",
+        "phone": "Phone",
+        "address": "Address",
+        "other": "Other"
+      }
+    },
+    "onboarding": {
+      "welcome": {
+        "title": "Welcome to Buddy",
+        "body": "I'm here to help you stay connected with family, remember your medicines, and stay safe from scams.",
+        "steps": "Let's set me up together. Just 4 short steps.",
+        "cta": "Let's Go"
+      },
+      "people": {
+        "title": "Add your people",
+        "body": "These are the family and friends you want to call quickly. You can add more anytime.",
+        "addCta": "+ Add a person",
+        "empty": "No people added yet. Tap below to add your first."
+      },
+      "meds": {
+        "title": "Medicine reminders",
+        "body": "What medicines do you take? I'll remind you at the right time each day.",
+        "addCta": "+ Add a medicine",
+        "empty": "No medicines added yet. Tap below to add your first."
+      },
+      "size": {
+        "title": "How big should things be?",
+        "body": "Choose a size that's comfortable for your eyes.",
+        "comfortable": "Comfortable",
+        "large": "Large",
+        "extraLarge": "Extra Large"
+      },
+      "back": "Back",
+      "next": "Next",
+      "skip": "Set up later",
+      "finish": "All Set!",
+      "reopen": "Re-run Setup Wizard",
+      "toastSkip": "You can set me up anytime from the How-To screen.",
+      "toastDone": "✓ You're all set! Welcome to Buddy."
+    },
+    "form": {
+      "title": "Title",
+      "content": "Content",
+      "category": "Category",
+      "placeholderNoteTitle": "e.g. WiFi password, Doctor's number",
+      "placeholderNoteContent": "The actual thing you want to remember",
+      "needContent": "Please write the thing you want to remember."
+    },
+    "people": {
+      "addPhoto": "Add Photo",
+      "removePhoto": "Remove Photo",
+      "photoError": "Couldn't process the image. Try a different one."
+    },
+    "meds": {
+      "alarmTitle": "⏰ Reminder for {name}",
+      "alarmHint": "Pick a time each day for Buddy to remind you about this medicine.",
+      "alarmTime": "Reminder time",
+      "alarmNote": "Buddy will send a notification when it's time. You can also just tap the green circle on this page when you've taken it.",
+      "alarmTimeRequired": "Please pick a time.",
+      "alarmSet": "✓ Alarm set for {time}",
+      "alarmSetNoNotify": "⏰ Alarm saved for {time} (notifications blocked — allow them in your browser settings)",
+      "alarmClear": "🔕 Remove this alarm",
+      "alarmCleared": "✓ Alarm removed",
+      "alarmDefaultBody": "Time to take your medicine. Tap here when you've taken it.",
+      "alarmUnsupported": "Your browser doesn't support notifications.",
+      "alarmDenied": "Notifications are blocked. Allow them in your browser settings to enable alarms."
+    },
+    "toast": {
+      "saved": "Saved"
+    }
+  },
+  "es": {
+    "tiles": {
+      "notes": {
+        "label": "Mis Notas",
+        "sub": "Contraseñas y cosas para recordar"
+      }
+    },
+    "notes": {
+      "title": "Mis Notas",
+      "hint": "Contraseñas, números de teléfono y otras cosas que quieres recordar. Protegido con tu PIN.",
+      "pinSetTitle": "Elige un PIN",
+      "pinSetBody": "Elige 4 números que recuerdes. Los escribirás cada vez que quieras ver tus notas.",
+      "pinConfirmTitle": "Escríbelo otra vez",
+      "pinConfirmBody": "Escribe los mismos 4 números una vez más para asegurarnos.",
+      "pinEnterTitle": "Escribe tu PIN",
+      "pinEnterBody": "Escribe tu PIN de 4 dígitos para ver tus notas.",
+      "pinWarning": "⚠️ Si olvidas tu PIN, tus notas no se pueden recuperar. Elige uno que recuerdes.",
+      "pinError": "PIN incorrecto. Inténtalo otra vez.",
+      "pinMismatch": "Los PIN no coinciden. Inténtalo otra vez.",
+      "pinSaved": "✓ PIN guardado",
+      "empty": "Todavía no hay notas. Toca abajo para añadir la primera.",
+      "addCta": "+ Añadir una nota",
+      "addTitle": "Añadir una nota",
+      "editTitle": "Editar la nota",
+      "lock": "🔒 Bloquear las notas",
+      "copy": "Copiar",
+      "edit": "Editar",
+      "delete": "Eliminar",
+      "copied": "✓ Copiado al portapapeles",
+      "copyFailed": "No se pudo copiar. Intenta seleccionar el texto a mano.",
+      "deleted": "✓ Nota eliminada",
+      "confirmDelete": "¿Eliminar esta nota? Esto no se puede deshacer.",
+      "cat": {
+        "password": "Contraseña",
+        "phone": "Teléfono",
+        "address": "Dirección",
+        "other": "Otro"
+      }
+    },
+    "onboarding": {
+      "welcome": {
+        "title": "Bienvenido a Buddy",
+        "body": "Estoy aquí para ayudarte a mantener el contacto con tu familia, acordarte de tus medicamentos y evitar estafas.",
+        "steps": "Vamos a configurarme juntos. Solo 4 pasos cortos.",
+        "cta": "Vamos"
+      },
+      "people": {
+        "title": "Añade a tus personas",
+        "body": "Estas son las personas de tu familia y tus amigos a las que quieres llamar rápido. Puedes añadir más cuando quieras.",
+        "addCta": "+ Añadir una persona",
+        "empty": "Todavía no has añadido a nadie. Toca abajo para añadir la primera."
+      },
+      "meds": {
+        "title": "Recordatorios de medicación",
+        "body": "¿Qué medicación tomas? Te lo recordaré a la hora correcta cada día.",
+        "addCta": "+ Añadir un medicamento",
+        "empty": "Todavía no has añadido medicación. Toca abajo para añadir la primera."
+      },
+      "size": {
+        "title": "¿Qué tan grande debe ser?",
+        "body": "Elige un tamaño que te resulte cómodo a la vista.",
+        "comfortable": "Cómodo",
+        "large": "Grande",
+        "extraLarge": "Muy grande"
+      },
+      "back": "Atrás",
+      "next": "Siguiente",
+      "skip": "Configurar más tarde",
+      "finish": "¡Todo listo!",
+      "reopen": "Repetir la configuración",
+      "toastSkip": "Puedes configurarme cuando quieras desde la pantalla de ayuda.",
+      "toastDone": "✓ ¡Ya está todo listo! Bienvenido a Buddy."
+    },
+    "form": {
+      "title": "Título",
+      "content": "Contenido",
+      "category": "Categoría",
+      "placeholderNoteTitle": "p. ej. contraseña del wifi, número del médico",
+      "placeholderNoteContent": "Lo que quieres recordar de verdad",
+      "needContent": "Escribe lo que quieres recordar."
+    },
+    "people": {
+      "addPhoto": "Añadir Foto",
+      "removePhoto": "Quitar Foto",
+      "photoError": "No se pudo procesar la imagen. Prueba con otra."
+    },
+    "meds": {
+      "alarmTitle": "⏰ Recordatorio de {name}",
+      "alarmHint": "Elige una hora cada día para que Buddy te recuerde este medicamento.",
+      "alarmTime": "Hora del recordatorio",
+      "alarmNote": "Buddy te enviará un aviso cuando sea la hora. También puedes tocar el círculo verde de esta página cuando lo hayas tomado.",
+      "alarmTimeRequired": "Elige una hora.",
+      "alarmSet": "✓ Recordatorio programado para las {time}",
+      "alarmSetNoNotify": "⏰ Recordatorio guardado para las {time} (las notificaciones están bloqueadas — actívalas en los ajustes del navegador)",
+      "alarmClear": "🔕 Quitar este recordatorio",
+      "alarmCleared": "✓ Recordatorio eliminado",
+      "alarmDefaultBody": "Es hora de tomar tu medicamento. Toca aquí cuando lo hayas tomado.",
+      "alarmUnsupported": "Tu navegador no admite notificaciones.",
+      "alarmDenied": "Las notificaciones están bloqueadas. Actívalas en los ajustes del navegador para usar los recordatorios."
+    },
+    "toast": {
+      "saved": "Guardado"
+    }
+  },
+  "fr": {
+    "tiles": {
+      "notes": {
+        "label": "Mes Notes",
+        "sub": "Mots de passe et choses à retenir"
+      }
+    },
+    "notes": {
+      "title": "Mes Notes",
+      "hint": "Mots de passe, numéros de téléphone et autres choses que vous voulez retenir. Protégé par votre code.",
+      "pinSetTitle": "Choisissez un code",
+      "pinSetBody": "Choisissez 4 chiffres dont vous vous souviendrez. Vous les taperez chaque fois que vous voudrez voir vos notes.",
+      "pinConfirmTitle": "Tapez-le encore",
+      "pinConfirmBody": "Tapez les mêmes 4 chiffres une fois de plus pour vérifier.",
+      "pinEnterTitle": "Entrez votre code",
+      "pinEnterBody": "Tapez votre code à 4 chiffres pour voir vos notes.",
+      "pinWarning": "⚠️ Si vous oubliez votre code, vos notes ne peuvent pas être récupérées. Choisissez un code dont vous vous souviendrez.",
+      "pinError": "Code incorrect. Réessayez.",
+      "pinMismatch": "Les codes ne correspondent pas. Réessayez.",
+      "pinSaved": "✓ Code enregistré",
+      "empty": "Pas encore de notes. Appuyez ci-dessous pour ajouter la première.",
+      "addCta": "+ Ajouter une note",
+      "addTitle": "Ajouter une note",
+      "editTitle": "Modifier la note",
+      "lock": "🔒 Verrouiller les notes",
+      "copy": "Copier",
+      "edit": "Modifier",
+      "delete": "Supprimer",
+      "copied": "✓ Copié dans le presse-papiers",
+      "copyFailed": "Impossible de copier. Essayez de sélectionner le texte à la main.",
+      "deleted": "✓ Note supprimée",
+      "confirmDelete": "Supprimer cette note ? C'est impossible de l'annuler.",
+      "cat": {
+        "password": "Mot de passe",
+        "phone": "Téléphone",
+        "address": "Adresse",
+        "other": "Autre"
+      }
+    },
+    "onboarding": {
+      "welcome": {
+        "title": "Bienvenue dans Buddy",
+        "body": "Je suis là pour vous aider à rester en contact avec votre famille, à penser à vos médicaments et à vous protéger des arnaques.",
+        "steps": "Configurons-moi ensemble. Juste 4 étapes courtes.",
+        "cta": "C'est parti"
+      },
+      "people": {
+        "title": "Ajoutez vos proches",
+        "body": "Voici les personnes de votre famille et vos amis que vous voulez appeler vite. Vous pouvez en ajouter d'autres à tout moment.",
+        "addCta": "+ Ajouter une personne",
+        "empty": "Aucune personne pour l'instant. Appuyez ci-dessous pour ajouter la première."
+      },
+      "meds": {
+        "title": "Rappels de médicaments",
+        "body": "Quels médicaments prenez-vous ? Je vous le rappellerai à la bonne heure chaque jour.",
+        "addCta": "+ Ajouter un médicament",
+        "empty": "Aucun médicament pour l'instant. Appuyez ci-dessous pour ajouter le premier."
+      },
+      "size": {
+        "title": "Quelle taille choisir ?",
+        "body": "Choisissez une taille confortable pour vos yeux.",
+        "comfortable": "Confortable",
+        "large": "Grande",
+        "extraLarge": "Très grande"
+      },
+      "back": "Retour",
+      "next": "Suivant",
+      "skip": "Configurer plus tard",
+      "finish": "C'est prêt !",
+      "reopen": "Refaire la configuration",
+      "toastSkip": "Vous pouvez me configurer à tout moment depuis l'écran d'aide.",
+      "toastDone": "✓ C'est prêt ! Bienvenue dans Buddy."
+    },
+    "form": {
+      "title": "Titre",
+      "content": "Contenu",
+      "category": "Catégorie",
+      "placeholderNoteTitle": "p. ex. mot de passe Wi-Fi, numéro du médecin",
+      "placeholderNoteContent": "Ce que vous voulez vraiment retenir",
+      "needContent": "Écrivez ce que vous voulez retenir."
+    },
+    "people": {
+      "addPhoto": "Ajouter une photo",
+      "removePhoto": "Retirer la photo",
+      "photoError": "Impossible de traiter l'image. Essayez-en une autre."
+    },
+    "meds": {
+      "alarmTitle": "⏰ Rappel pour {name}",
+      "alarmHint": "Choisissez une heure chaque jour pour que Buddy vous rappelle ce médicament.",
+      "alarmTime": "Heure du rappel",
+      "alarmNote": "Buddy vous enverra une notification au moment venu. Vous pouvez aussi toucher le rond vert de cette page une fois le médicament pris.",
+      "alarmTimeRequired": "Choisissez une heure.",
+      "alarmSet": "✓ Rappel réglé à {time}",
+      "alarmSetNoNotify": "⏰ Rappel enregistré à {time} (notifications bloquées — autorisez-les dans les réglages du navigateur)",
+      "alarmClear": "🔕 Supprimer ce rappel",
+      "alarmCleared": "✓ Rappel supprimé",
+      "alarmDefaultBody": "Il est temps de prendre votre médicament. Touchez ici une fois l'avoir pris.",
+      "alarmUnsupported": "Votre navigateur ne prend pas en charge les notifications.",
+      "alarmDenied": "Les notifications sont bloquées. Autorisez-les dans les réglages du navigateur pour activer les rappels."
+    },
+    "toast": {
+      "saved": "Enregistré"
+    }
+  },
+  "de": {
+    "tiles": {
+      "notes": {
+        "label": "Meine Notizen",
+        "sub": "Passwörter und Dinge zum Merken"
+      }
+    },
+    "notes": {
+      "title": "Meine Notizen",
+      "hint": "Passwörter, Telefonnummern und andere Dinge, die Sie sich merken möchten. Mit Ihrer PIN geschützt.",
+      "pinSetTitle": "PIN festlegen",
+      "pinSetBody": "Wählen Sie 4 Zahlen, die Sie sich merken. Sie tippen sie jedes Mal, wenn Sie Ihre Notizen sehen wollen.",
+      "pinConfirmTitle": "Noch einmal eintippen",
+      "pinConfirmBody": "Tippen Sie dieselben 4 Zahlen noch einmal, zur Sicherheit.",
+      "pinEnterTitle": "PIN eingeben",
+      "pinEnterBody": "Tippen Sie Ihre 4-stellige PIN, um Ihre Notizen zu sehen.",
+      "pinWarning": "⚠️ Wenn Sie Ihre PIN vergessen, können Ihre Notizen nicht wiederhergestellt werden. Wählen Sie eine, die Sie sich merken.",
+      "pinError": "Falsche PIN. Bitte erneut versuchen.",
+      "pinMismatch": "Die PINs stimmen nicht überein. Bitte erneut versuchen.",
+      "pinSaved": "✓ PIN gespeichert",
+      "empty": "Noch keine Notizen. Tippen Sie unten, um die erste hinzuzufügen.",
+      "addCta": "+ Notiz hinzufügen",
+      "addTitle": "Notiz hinzufügen",
+      "editTitle": "Notiz bearbeiten",
+      "lock": "🔒 Notizen sperren",
+      "copy": "Kopieren",
+      "edit": "Bearbeiten",
+      "delete": "Löschen",
+      "copied": "✓ In die Zwischenablage kopiert",
+      "copyFailed": "Kopieren fehlgeschlagen. Markieren Sie den Text bitte von Hand.",
+      "deleted": "✓ Notiz gelöscht",
+      "confirmDelete": "Diese Notiz löschen? Das lässt sich nicht rückgängig machen.",
+      "cat": {
+        "password": "Passwort",
+        "phone": "Telefon",
+        "address": "Adresse",
+        "other": "Sonstiges"
+      }
+    },
+    "onboarding": {
+      "welcome": {
+        "title": "Willkommen bei Buddy",
+        "body": "Ich bin da, um Ihnen zu helfen, mit Ihrer Familie in Kontakt zu bleiben, an Ihre Medikamente zu denken und vor Betrug sicher zu sein.",
+        "steps": "Lassen Sie uns mich gemeinsam einrichten. Nur 4 kurze Schritte.",
+        "cta": "Los geht's"
+      },
+      "people": {
+        "title": "Ihre Angehörigen hinzufügen",
+        "body": "Das sind die Familienmitglieder und Freunde, die Sie schnell anrufen möchten. Sie können jederzeit weitere hinzufügen.",
+        "addCta": "+ Person hinzufügen",
+        "empty": "Noch niemand hinzugefügt. Tippen Sie unten, um die erste Person hinzuzufügen."
+      },
+      "meds": {
+        "title": "Medikamenten-Erinnerungen",
+        "body": "Welche Medikamente nehmen Sie? Ich erinnere Sie jeden Tag zur richtigen Zeit.",
+        "addCta": "+ Medikament hinzufügen",
+        "empty": "Noch keine Medikamente hinzugefügt. Tippen Sie unten, um das erste hinzuzufügen."
+      },
+      "size": {
+        "title": "Wie groß soll alles sein?",
+        "body": "Wählen Sie eine Größe, die für Ihre Augen angenehm ist.",
+        "comfortable": "Angenehm",
+        "large": "Groß",
+        "extraLarge": "Sehr groß"
+      },
+      "back": "Zurück",
+      "next": "Weiter",
+      "skip": "Später einrichten",
+      "finish": "Alles fertig!",
+      "reopen": "Einrichtung wiederholen",
+      "toastSkip": "Sie können mich jederzeit über den Hilfe-Bildschirm einrichten.",
+      "toastDone": "✓ Alles fertig! Willkommen bei Buddy."
+    },
+    "form": {
+      "title": "Titel",
+      "content": "Inhalt",
+      "category": "Kategorie",
+      "placeholderNoteTitle": "z. B. WLAN-Passwort, Nummer des Arztes",
+      "placeholderNoteContent": "Was Sie sich wirklich merken möchten",
+      "needContent": "Schreiben Sie, was Sie sich merken möchten."
+    },
+    "people": {
+      "addPhoto": "Foto hinzufügen",
+      "removePhoto": "Foto entfernen",
+      "photoError": "Das Bild konnte nicht verarbeitet werden. Versuchen Sie ein anderes."
+    },
+    "meds": {
+      "alarmTitle": "⏰ Erinnerung für {name}",
+      "alarmHint": "Wählen Sie eine tägliche Uhrzeit, zu der Buddy Sie an dieses Medikament erinnert.",
+      "alarmTime": "Erinnerungszeit",
+      "alarmNote": "Buddy schickt Ihnen eine Benachrichtigung, wenn es so weit ist. Sie können auch auf den grünen Kreis auf dieser Seite tippen, sobald Sie es eingenommen haben.",
+      "alarmTimeRequired": "Bitte wählen Sie eine Uhrzeit.",
+      "alarmSet": "✓ Erinnerung für {time} gesetzt",
+      "alarmSetNoNotify": "⏰ Erinnerung für {time} gespeichert (Benachrichtigungen blockiert — erlauben Sie sie in den Browser-Einstellungen)",
+      "alarmClear": "🔕 Diese Erinnerung entfernen",
+      "alarmCleared": "✓ Erinnerung entfernt",
+      "alarmDefaultBody": "Zeit für Ihre Medikamente. Tippen Sie hier, wenn Sie es eingenommen haben.",
+      "alarmUnsupported": "Ihr Browser unterstützt keine Benachrichtigungen.",
+      "alarmDenied": "Benachrichtigungen sind blockiert. Erlauben Sie sie in den Browser-Einstellungen, um Erinnerungen zu aktivieren."
+    },
+    "toast": {
+      "saved": "Gespeichert"
+    }
+  },
+  "pt": {
+    "tiles": {
+      "notes": {
+        "label": "Minhas Notas",
+        "sub": "Senhas e coisas para lembrar"
+      }
+    },
+    "notes": {
+      "title": "Minhas Notas",
+      "hint": "Senhas, números de telefone e outras coisas que você quer lembrar. Protegido pelo seu PIN.",
+      "pinSetTitle": "Defina um PIN",
+      "pinSetBody": "Escolha 4 números que você vai lembrar. Você vai digitá-los toda vez que quiser ver suas notas.",
+      "pinConfirmTitle": "Digite de novo",
+      "pinConfirmBody": "Digite os mesmos 4 números mais uma vez para confirmar.",
+      "pinEnterTitle": "Digite seu PIN",
+      "pinEnterBody": "Digite seu PIN de 4 dígitos para ver suas notas.",
+      "pinWarning": "⚠️ Se você esquecer seu PIN, suas notas não podem ser recuperadas. Escolha um que você vai lembrar.",
+      "pinError": "PIN incorreto. Tente de novo.",
+      "pinMismatch": "Os PINs não são iguais. Tente de novo.",
+      "pinSaved": "✓ PIN definido",
+      "empty": "Nenhuma nota ainda. Toque abaixo para adicionar a primeira.",
+      "addCta": "+ Adicionar uma nota",
+      "addTitle": "Adicionar uma nota",
+      "editTitle": "Editar nota",
+      "lock": "🔒 Bloquear notas",
+      "copy": "Copiar",
+      "edit": "Editar",
+      "delete": "Apagar",
+      "copied": "✓ Copiado para a área de transferência",
+      "copyFailed": "Não foi possível copiar. Tente selecionar o texto manualmente.",
+      "deleted": "✓ Nota apagada",
+      "confirmDelete": "Apagar esta nota? Isso não pode ser desfeito.",
+      "cat": {
+        "password": "Senha",
+        "phone": "Telefone",
+        "address": "Endereço",
+        "other": "Outro"
+      }
+    },
+    "onboarding": {
+      "welcome": {
+        "title": "Bem-vindo ao Buddy",
+        "body": "Estou aqui para ajudar você a ficar em contato com a família, a lembrar dos seus remédios e a se proteger de golpes.",
+        "steps": "Vamos me configurar juntos. São só 4 passos curtos.",
+        "cta": "Vamos lá"
+      },
+      "people": {
+        "title": "Adicione as suas pessoas",
+        "body": "Estas são as pessoas da família e os amigos que você quer ligar rápido. Você pode adicionar mais a qualquer momento.",
+        "addCta": "+ Adicionar uma pessoa",
+        "empty": "Ninguém adicionado ainda. Toque abaixo para adicionar a primeira pessoa."
+      },
+      "meds": {
+        "title": "Lembretes de remédio",
+        "body": "Quais remédios você toma? Eu vou te lembrar no horário certo todos os dias.",
+        "addCta": "+ Adicionar um remédio",
+        "empty": "Nenhum remédio adicionado ainda. Toque abaixo para adicionar o primeiro."
+      },
+      "size": {
+        "title": "Qual o tamanho certo?",
+        "body": "Escolha um tamanho que seja confortável para os seus olhos.",
+        "comfortable": "Confortável",
+        "large": "Grande",
+        "extraLarge": "Muito grande"
+      },
+      "back": "Voltar",
+      "next": "Avançar",
+      "skip": "Configurar depois",
+      "finish": "Tudo pronto!",
+      "reopen": "Refazer a configuração",
+      "toastSkip": "Você pode me configurar quando quiser, na tela Como Usar.",
+      "toastDone": "✓ Tudo pronto! Bem-vindo ao Buddy."
+    },
+    "form": {
+      "title": "Título",
+      "content": "Conteúdo",
+      "category": "Categoria",
+      "placeholderNoteTitle": "ex.: senha do Wi-Fi, número do médico",
+      "placeholderNoteContent": "A coisa que você realmente quer lembrar",
+      "needContent": "Escreva o que você quer lembrar."
+    },
+    "people": {
+      "addPhoto": "Adicionar Foto",
+      "removePhoto": "Remover Foto",
+      "photoError": "Não foi possível processar a imagem. Tente outra."
+    },
+    "meds": {
+      "alarmTitle": "⏰ Lembrete de {name}",
+      "alarmHint": "Escolha um horário para o Buddy te lembrar deste remédio todos os dias.",
+      "alarmTime": "Horário do lembrete",
+      "alarmNote": "O Buddy vai enviar uma notificação na hora. Você também pode tocar no círculo verde desta página quando tiver tomado.",
+      "alarmTimeRequired": "Escolha um horário.",
+      "alarmSet": "✓ Lembrete definido para {time}",
+      "alarmSetNoNotify": "⏰ Lembrete salvo para {time} (notificações bloqueadas — permita nas configurações do navegador)",
+      "alarmClear": "🔕 Remover este lembrete",
+      "alarmCleared": "✓ Lembrete removido",
+      "alarmDefaultBody": "Hora de tomar o remédio. Toque aqui quando tiver tomado.",
+      "alarmUnsupported": "Seu navegador não suporta notificações.",
+      "alarmDenied": "As notificações estão bloqueadas. Permita-as nas configurações do navegador para usar os lembretes."
+    },
+    "toast": {
+      "saved": "Salvo"
+    }
+  },
+  "zh": {
+    "tiles": {
+      "notes": {
+        "label": "我的备忘",
+        "sub": "密码和要记住的事"
+      }
+    },
+    "notes": {
+      "title": "我的备忘",
+      "hint": "密码、电话号码，以及其他你想记住的事。用密码保护。",
+      "pinSetTitle": "设置密码",
+      "pinSetBody": "选 4 个你记得住的数字。每次想看备忘时都要输入它们。",
+      "pinConfirmTitle": "再输入一次",
+      "pinConfirmBody": "再输入一次同样的 4 位数字，确认没有记错。",
+      "pinEnterTitle": "输入密码",
+      "pinEnterBody": "输入你的 4 位密码来查看备忘。",
+      "pinWarning": "⚠️ 如果你忘记密码，备忘就无法恢复。请选一个你记得住的。",
+      "pinError": "密码不对，请再试一次。",
+      "pinMismatch": "两次输入不一致，请再试一次。",
+      "pinSaved": "✓ 密码已设置",
+      "empty": "还没有备忘。点击下方添加第一条。",
+      "addCta": "+ 添加一条备忘",
+      "addTitle": "添加备忘",
+      "editTitle": "编辑备忘",
+      "lock": "🔒 锁定备忘",
+      "copy": "复制",
+      "edit": "编辑",
+      "delete": "删除",
+      "copied": "✓ 已复制到剪贴板",
+      "copyFailed": "无法复制。请手动选中文本。",
+      "deleted": "✓ 备忘已删除",
+      "confirmDelete": "删除这条备忘吗？此操作无法撤销。",
+      "cat": {
+        "password": "密码",
+        "phone": "电话",
+        "address": "地址",
+        "other": "其他"
+      }
+    },
+    "onboarding": {
+      "welcome": {
+        "title": "欢迎使用 Buddy",
+        "body": "我可以帮你保持和家人的联系，提醒你吃药，还能帮你避开诈骗。",
+        "steps": "我们一起来设置吧。只有 4 个简单步骤。",
+        "cta": "开始吧"
+      },
+      "people": {
+        "title": "添加你的家人",
+        "body": "这些是你想快速联系的家人和朋友。之后随时可以再添加。",
+        "addCta": "+ 添加一个人",
+        "empty": "还没有添加任何人。点击下方添加第一位。"
+      },
+      "meds": {
+        "title": "吃药提醒",
+        "body": "你在吃哪些药？我每天会在正确的时间提醒你。",
+        "addCta": "+ 添加一种药",
+        "empty": "还没有添加药物。点击下方添加第一种。"
+      },
+      "size": {
+        "title": "文字要多大？",
+        "body": "选一个看着舒服的大小。",
+        "comfortable": "舒适",
+        "large": "大",
+        "extraLarge": "特大"
+      },
+      "back": "返回",
+      "next": "下一步",
+      "skip": "以后再设置",
+      "finish": "都设置好了！",
+      "reopen": "重新设置",
+      "toastSkip": "你随时可以在「怎么用」页面里设置我。",
+      "toastDone": "✓ 都设置好了！欢迎使用 Buddy。"
+    },
+    "form": {
+      "title": "标题",
+      "content": "内容",
+      "category": "分类",
+      "placeholderNoteTitle": "例如：Wi-Fi 密码、医生的号码",
+      "placeholderNoteContent": "你真正想记住的那件事",
+      "needContent": "请写下你想记住的事。"
+    },
+    "people": {
+      "addPhoto": "添加照片",
+      "removePhoto": "移除照片",
+      "photoError": "无法处理这张图片。请换一张试试。"
+    },
+    "meds": {
+      "alarmTitle": "⏰ 吃药提醒：{name}",
+      "alarmHint": "选一个每天提醒你的时间。",
+      "alarmTime": "提醒时间",
+      "alarmNote": "到时间时 Buddy 会发送通知。你也可以在本页面点击绿色圆圈表示已经吃过药。",
+      "alarmTimeRequired": "请选择时间。",
+      "alarmSet": "✓ 已设置 {time} 的提醒",
+      "alarmSetNoNotify": "⏰ 已保存 {time} 的提醒（通知被阻止 — 请在浏览器设置中允许）",
+      "alarmClear": "🔕 移除这个提醒",
+      "alarmCleared": "✓ 提醒已移除",
+      "alarmDefaultBody": "该吃药了。吃过之后请点击这里。",
+      "alarmUnsupported": "你的浏览器不支持通知。",
+      "alarmDenied": "通知被阻止。请在浏览器设置中允许通知，才能使用提醒功能。"
+    },
+    "toast": {
+      "saved": "已保存"
+    }
+  },
+  "fi": {
+    "tiles": {
+      "notes": {
+        "label": "Muistiinpanot",
+        "sub": "Salasanoja ja muistettavat asiat"
+      }
+    },
+    "notes": {
+      "title": "Muistiinpanot",
+      "hint": "Salasanoja, puhelinnumeroita ja muita asioita, jotka haluat muistaa. Suojattu PIN-koodilla.",
+      "pinSetTitle": "Aseta PIN-koodi",
+      "pinSetBody": "Valitse 4 numeroa, jotka muistat. Kirjoitat ne joka kerran, kun haluat nähdä muistiinpanosi.",
+      "pinConfirmTitle": "Kirjoita uudelleen",
+      "pinConfirmBody": "Kirjoita samat 4 numeroa uudelleen varmistaaksesi.",
+      "pinEnterTitle": "Syötä PIN-koodisi",
+      "pinEnterBody": "Kirjoita 4-numeroinen PIN-koodisi nähdäksesi muistiinpanosi.",
+      "pinWarning": "⚠️ Jos unohdat PIN-koodisi, muistiinpanoja ei voi palauttaa. Valitse sellainen, jonka muistat.",
+      "pinError": "Väärä PIN-koodi. Yritä uudelleen.",
+      "pinMismatch": "PIN-koodit eivät täsmänneet. Yritä uudelleen.",
+      "pinSaved": "✓ PIN-koodi asetettu",
+      "empty": "Ei vielä muistiinpanoja. Napauta alla lisätäksesi ensimmäisen.",
+      "addCta": "+ Lisää muistiinpano",
+      "addTitle": "Lisää muistiinpano",
+      "editTitle": "Muokkaa muistiinpanoa",
+      "lock": "🔒 Lukitse muistiinpanot",
+      "copy": "Kopioi",
+      "edit": "Muokkaa",
+      "delete": "Poista",
+      "copied": "✓ Kopioitu leikepöydälle",
+      "copyFailed": "Kopiointi ei onnistunut. Valitse teksti käsin.",
+      "deleted": "✓ Muistiinpano poistettu",
+      "confirmDelete": "Poistetaanko tämä muistiinpano? Tätä ei voi perua.",
+      "cat": {
+        "password": "Salasana",
+        "phone": "Puhelin",
+        "address": "Osoite",
+        "other": "Muu"
+      }
+    },
+    "onboarding": {
+      "welcome": {
+        "title": "Tervetuloa Buddyyn",
+        "body": "Olen täällä auttamassa sinua pysymään yhteydessä perheeseen, muistamaan lääkkeet ja välttämään huijauksia.",
+        "steps": "Asetetaan minut yhdessä. Vain 4 lyhyttä vaihetta.",
+        "cta": "Aloitetaan"
+      },
+      "people": {
+        "title": "Lisää läheisesi",
+        "body": "Nämä ovat perheenjäseniä ja ystäviä, joille haluat soittaa nopeasti. Voit lisätä lisää milloin tahansa.",
+        "addCta": "+ Lisää henkilö",
+        "empty": "Et ole vielä lisännyt ketään. Napauta alla lisätäksesi ensimmäisen."
+      },
+      "meds": {
+        "title": "Lääkemuistutukset",
+        "body": "Mitä lääkkeitä otat? Muistutan sinut joka päivä oikeaan aikaan.",
+        "addCta": "+ Lisää lääke",
+        "empty": "Et ole vielä lisännyt lääkkeitä. Napauta alla lisätäksesi ensimmäisen."
+      },
+      "size": {
+        "title": "Minkä kokoinen teksti olisi hyvä?",
+        "body": "Valitse koko, joka on silmillesi mukava.",
+        "comfortable": "Mukava",
+        "large": "Suuri",
+        "extraLarge": "Erittäin suuri"
+      },
+      "back": "Takaisin",
+      "next": "Seuraava",
+      "skip": "Aseta myöhemmin",
+      "finish": "Kaikki valmista!",
+      "reopen": "Aseta uudelleen",
+      "toastSkip": "Voit asettaa minut milloin tahansa Ohje-näkymässä.",
+      "toastDone": "✓ Kaikki valmista! Tervetuloa Buddyyn."
+    },
+    "form": {
+      "title": "Otsikko",
+      "content": "Sisältö",
+      "category": "Luokka",
+      "placeholderNoteTitle": "esim. Wi-Fi-salasana, lääkärin numero",
+      "placeholderNoteContent": "Se asia, jonka haluat oikeasti muistaa",
+      "needContent": "Kirjoita asia, jonka haluat muistaa."
+    },
+    "people": {
+      "addPhoto": "Lisää kuva",
+      "removePhoto": "Poista kuva",
+      "photoError": "Kuvaa ei voitu käsitellä. Kokeile toista kuvaa."
+    },
+    "meds": {
+      "alarmTitle": "⏰ Muistutus: {name}",
+      "alarmHint": "Valitse aika, jolloin Buddy muistuttaa sinua tästä lääkkeestä joka päivä.",
+      "alarmTime": "Muistutusaika",
+      "alarmNote": "Buddy lähettää ilmoituksen, kun on aika. Voit myös napauttaa vihreää ympyrää tällä sivulla, kun olet ottanut lääkkeen.",
+      "alarmTimeRequired": "Valitse aika.",
+      "alarmSet": "✓ Muistutus asetettu klo {time}",
+      "alarmSetNoNotify": "⏰ Muistutus tallennettu klo {time} (ilmoitukset on estetty — salli ne selaimen asetuksista)",
+      "alarmClear": "🔕 Poista muistutus",
+      "alarmCleared": "✓ Muistutus poistettu",
+      "alarmDefaultBody": "On aika ottaa lääke. Napauta tästä, kun olet ottanut sen.",
+      "alarmUnsupported": "Selaimesi ei tue ilmoituksia.",
+      "alarmDenied": "Ilmoitukset on estetty. Salli ne selaimen asetuksista, jotta muistutukset toimivat."
+    },
+    "toast": {
+      "saved": "Tallennettu"
+    }
+  }
+}

@@ -23,6 +23,11 @@ const state = {
 // ========== i18n ==========
 const FALLBACK = 'en';
 
+// Plural endings a translation may use as a placeholder: "medicine{s}",
+// "Medikament{e}", "señal{es}", "sinal{is}". The placeholder name is the
+// ending to append when the count is not one.
+const PLURAL_ENDINGS = new Set(['s', 'e', 'es', 'is']);
+
 function getLang() {
   if (state.lang && TRANSLATIONS[state.lang]) return state.lang;
   const nav = (navigator.language || 'en').toLowerCase();
@@ -55,13 +60,15 @@ function t(key, params = {}) {
 
   // Interpolate {key} with params
   return str.replace(/\{(\w+)\}/g, (_, k) => {
-    if (params[k] === undefined) return `{${k}}`;
-    let v = String(params[k]);
-    // Plural support: {s} → 's' or '' based on {n}
-    if (k === 's' && params.n !== undefined) {
-      v = params.n === 1 ? '' : 's';
+    // Plural markers. The placeholder name IS the ending to append when the
+    // count is not one: {s} -> "medicines", {e} -> "Medikamente" (German),
+    // {es} -> "señales" (Spanish), {is} -> "sinais" (Portuguese).
+    // The caller only has to pass the count as {n}.
+    if (PLURAL_ENDINGS.has(k) && params.n !== undefined) {
+      return params.n === 1 ? '' : k;
     }
-    return v;
+    if (params[k] === undefined) return `{${k}}`;
+    return String(params[k]);
   });
 }
 
@@ -249,7 +256,7 @@ function renderHome() {
   if (total === 0) status = t('checkin.empty');
   else if (taken === 0) status = t('checkin.pending', { n: total });
   else if (taken === total) status = t('checkin.done', { total });
-  else status = t('checkin.partial', { taken, total });
+  else status = t('checkin.partial', { taken, total, n: taken });
   $('#checkin-status').textContent = status;
 }
 
