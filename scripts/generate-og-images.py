@@ -38,6 +38,8 @@ POSTS_DIRS = [
     ROOT / "content" / "posts",
     ROOT / "content" / "sysadmin",
     ROOT / "content" / "senior-tech",
+    # content/meta was missing here, so no meta post ever got a social card.
+    ROOT / "content" / "meta",
 ]
 OUTPUT_DIR = ROOT / "static" / "og"
 OUTPUT_DIR.mkdir(parents=True, exist_ok=True)
