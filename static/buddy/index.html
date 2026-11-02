@@ -14,6 +14,14 @@
   <link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,500;0,600;0,700;1,500&display=swap" rel="stylesheet">
 
   <link rel="stylesheet" href="style.css">
+
+  <!-- Installable to a home screen, and openable with no signal.
+       See sw.js for the offline cache. -->
+  <link rel="manifest" href="manifest.webmanifest">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-title" content="Buddy">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
 </head>
 <body>
   <main id="app">
@@ -367,5 +375,23 @@
 
   <script src="i18n.js"></script>
   <script src="app.js"></script>
+  <script>
+    // Register the offline cache.
+    //
+    // Buddy has to open when there is no signal. A parent in a lift, in a
+    // basement flat, or in a hospital car park is exactly the moment they
+    // reach for the phone — so the app shell is cached by a service worker
+    // rather than relying on the browser happening to have cached it.
+    //
+    // Registration failure is non-fatal: the app still works, it just
+    // depends on the network for a cold start.
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', function () {
+        navigator.serviceWorker.register('sw.js').catch(function (err) {
+          console.warn('Buddy: offline cache unavailable —', err);
+        });
+      });
+    }
+  </script>
 </body>
 </html>

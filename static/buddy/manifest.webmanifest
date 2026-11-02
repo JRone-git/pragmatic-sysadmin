@@ -1,0 +1,35 @@
+{
+  "name": "Buddy — Your Everyday Helper",
+  "short_name": "Buddy",
+  "description": "A free, simple companion app for older adults. One-tap calls to family, daily medicine reminders, a scam message checker, and step-by-step guides. No account required. 7 languages.",
+  "start_url": "./",
+  "scope": "./",
+  "id": "/buddy/",
+  "display": "standalone",
+  "orientation": "portrait",
+  "background_color": "#FBF6EE",
+  "theme_color": "#2D6A4F",
+  "lang": "en",
+  "dir": "ltr",
+  "categories": ["lifestyle", "utilities", "health", "medical"],
+  "icons": [
+    {
+      "src": "./icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any"
+    },
+    {
+      "src": "./apple-touch-icon.png",
+      "sizes": "180x180",
+      "type": "image/png",
+      "purpose": "any"
+    }
+  ]
+}
