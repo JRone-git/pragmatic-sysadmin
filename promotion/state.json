@@ -1,8 +1,8 @@
 {
   "last_posted": {
-    "bluesky": "2026-10-31T14:37:06+00:00",
+    "bluesky": "2026-11-02T17:28:50+00:00",
     "devto": "2026-10-07T15:38:39+00:00",
-    "mastodon": "2026-10-31T14:37:08+00:00"
+    "mastodon": "2026-11-02T17:28:51+00:00"
   },
   "posts": {
     "2fa-elderly-parent-email": {
@@ -425,6 +425,14 @@
       "title": "Git Things That Are Easy to Mess Up (Until They Bite You)",
       "url": "https://pragmaticsysadmin.help/sysadmin/2026-07-14-git-things-easy-to-mess-up/"
     },
+    "hallway-display-for-my-parents-the-idea": {
+      "channels": {},
+      "published_at": "2026-11-02T00:00:00+00:00",
+      "queued_at": "2026-11-02T17:28:49+00:00",
+      "section": "meta",
+      "title": "I'm Building a Hallway Display for My Parents — It Costs Less to Run Than the Light Bulb Above It",
+      "url": "https://pragmaticsysadmin.help/meta/2026-11-02-hallway-display-for-my-parents-the-idea/"
+    },
     "homelab-architect-plan-before-you-build": {
       "channels": {
         "bluesky": {
@@ -688,7 +696,7 @@
           "status": "posted"
         },
         "devto": {
-          "at": "2026-11-01T15:19:33+00:00",
+          "at": "2026-11-02T17:28:51+00:00",
           "error": "dev.to post failed: 422 b'{\"error\":\"Tag \\\\\"local-llm\\\\\" contains non-alphanumeric or prohibited unicode characters and Tag \\\\\"senior-tech\\\\\" contains non-alphanumeric or prohibited unicode characters\",\"status\":422}'",
           "status": "failed"
         },
@@ -994,7 +1002,18 @@
       "url": "https://pragmaticsysadmin.help/sysadmin/sysadmin-myths-busted-2026/"
     },
     "tech-in-a-busy-household-networks-gaming-rigs-diy-tinkering": {
-      "channels": {},
+      "channels": {
+        "bluesky": {
+          "at": "2026-11-02T17:28:50+00:00",
+          "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3mzdtxet7jl2p",
+          "status": "posted"
+        },
+        "mastodon": {
+          "at": "2026-11-02T17:28:51+00:00",
+          "ref": "https://mastodon.social/@JRone/117548025848604701",
+          "status": "posted"
+        }
+      },
       "published_at": "2026-10-28T00:00:00+00:00",
       "queued_at": "2026-10-28T18:41:15+00:00",
       "section": "sysadmin",
