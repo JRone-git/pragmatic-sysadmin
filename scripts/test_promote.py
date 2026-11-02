@@ -1,0 +1,235 @@
+#!/usr/bin/env python3
+"""Tests for the promotion pipeline's channel-specific formatting.
+
+Run:  python3 scripts/test_promote.py
+
+Kept deliberately small and dependency-free (stdlib unittest only) so it can
+run in CI, in a cron job, or on a laptop without installing anything.
+
+The dev.to tag rules are the reason this file exists. dev.to's API rejects
+any tag that is not purely alphanumeric, and it rejects it with a 422 that
+reads like a server error rather than a validation message:
+
+    422 {"error":"Tag \\"local-llm\\" contains non-alphanumeric or prohibited
+    unicode characters and Tag \\"senior-tech\\" contains non-alphanumeric or
+    prohibited unicode characters","status":422}
+
+Every dev.to cross-post in promotion/state.json failed with exactly that
+before scripts/promote.py learned to strip separators instead of
+hyphenating them.
+"""
+
+from __future__ import annotations
+
+import importlib.util
+import sys
+import unittest
+from pathlib import Path
+
+ROOT = Path(__file__).resolve().parent.parent
+SPEC = importlib.util.spec_from_file_location("promote", ROOT / "scripts" / "promote.py")
+promote = importlib.util.module_from_spec(SPEC)
+SPEC.loader.exec_module(promote)
+
+
+class DevtoTags(unittest.TestCase):
+    """dev.to tags must be alphanumeric-only, at most four, never empty."""
+
+    def test_hyphens_are_stripped_not_preserved(self):
+        # The bug: re.sub(r"[^a-z0-9]", "-", ...) produced "senior-tech",
+        # which dev.to rejects with a 422.
+        self.assertEqual(promote.devto_tags(["senior-tech"]), ["seniortech"])
+        self.assertEqual(promote.devto_tags(["local-llm"]), ["localllm"])
+        self.assertEqual(promote.devto_tags(["home-lab"]), ["homelab"])
+
+    def test_every_tag_is_alphanumeric(self):
+        tags = promote.devto_tags(
+            ["senior-tech", "local-llm", "home-lab", "C++", "café", "e-paper"]
+        )
+        for tag in tags:
+            with self.subTest(tag=tag):
+                self.assertTrue(tag.isalnum(), f"{tag!r} is not alphanumeric")
+                self.assertTrue(tag.islower() or tag.isdigit() or tag.isalpha())
+
+    def test_at_most_four_tags(self):
+        self.assertEqual(len(promote.devto_tags(["a", "b", "c", "d", "e", "f"])), 4)
+
+    def test_duplicates_collapse(self):
+        # home-lab and homelab both sanitise to "homelab"; sending both would
+        # be a duplicate tag.
+        self.assertEqual(promote.devto_tags(["home-lab", "homelab"]), ["homelab"])
+
+    def test_empty_and_punctuation_only_fall_back(self):
+        self.assertEqual(promote.devto_tags([]), ["sysadmin"])
+        self.assertEqual(promote.devto_tags(["---", "..."]), ["sysadmin"])
+
+    def test_tag_length_is_capped(self):
+        long_tag = "x" * 80
+        self.assertLessEqual(len(promote.devto_tags([long_tag])[0]), 24)
+
+    def test_site_vocabulary_round_trips(self):
+        """Every tag used on the site must produce a valid dev.to tag."""
+        import re
+
+        allowed = re.compile(r"^[a-z0-9]+$")
+        seen = 0
+        for section in ("sysadmin", "senior-tech", "meta", "posts"):
+            directory = ROOT / "content" / section
+            if not directory.is_dir():
+                continue
+            for path in directory.glob("*.md"):
+                if path.name.startswith("_"):
+                    continue
+                text = path.read_text(encoding="utf-8")
+                match = re.search(r"^tags:\s*\[(.*?)\]", text, re.MULTILINE)
+                if not match:
+                    continue
+                raw = [t.strip().strip("\"'") for t in match.group(1).split(",")]
+                raw = [t for t in raw if t]
+                if not raw:
+                    continue
+                seen += 1
+                for tag in promote.devto_tags(raw):
+                    with self.subTest(post=path.name, tag=tag):
+                        self.assertRegex(tag, allowed)
+        self.assertGreater(seen, 10, "expected to find posts with tags")
+
+
+class PackageGeneration(unittest.TestCase):
+    """The generated devto.md front matter must be parseable by post_devto."""
+
+    def setUp(self):
+        # write_package() writes into the live promotion/queue tree. Point it at
+        # a temp dir for the duration of the test, or the test stages and then
+        # deletes a real promotion package.
+        import tempfile
+
+        self._tmp = tempfile.TemporaryDirectory()
+        self._orig_queue = promote.QUEUE_DIR
+        promote.QUEUE_DIR = Path(self._tmp.name)
+
+    def tearDown(self):
+        promote.QUEUE_DIR = self._orig_queue
+        self._tmp.cleanup()
+
+    def _real_post(self):
+        """Use a real post from the repo so the dict shape is the real one."""
+        for section in ("meta", "senior-tech", "sysadmin"):
+            directory = ROOT / "content" / section
+            if not directory.is_dir():
+                continue
+            for path in sorted(directory.glob("*.md")):
+                if path.name.startswith("_"):
+                    continue
+                post = promote.parse_post(path)
+                if post and post.get("tags"):
+                    return post
+        self.skipTest("no posts with tags found")
+
+    def test_devto_frontmatter_round_trip(self):
+        import re
+
+        post = self._real_post()
+        pkg = promote.write_package(post)
+        try:
+            front = (pkg / "devto.md").read_text(encoding="utf-8")
+        finally:
+            for child in sorted(pkg.iterdir()):
+                child.unlink()
+            pkg.rmdir()
+
+        match = re.match(r"^---\n(.*?)\n---\n(.*)$", front, re.DOTALL)
+        self.assertIsNotNone(match, "devto.md must have front matter")
+        fm = {}
+        for line in match.group(1).splitlines():
+            if ":" in line:
+                key, value = line.split(":", 1)
+                fm[key.strip()] = value.strip()
+
+        tags = [t.strip() for t in fm["tags"].split(",") if t.strip()]
+        self.assertTrue(tags, "devto.md must carry at least one tag")
+        self.assertLessEqual(len(tags), 4)
+        for tag in tags:
+            with self.subTest(tag=tag):
+                self.assertRegex(tag, r"^[a-z0-9]+$")
+        self.assertEqual(fm["canonical_url"], post["url"])
+        # the same tags the helper produces, in the same order
+        self.assertEqual(tags, promote.devto_tags(post["tags"]))
+
+    def test_relative_links_are_absolutised(self):
+        import re
+
+        post = self._real_post()
+        post = dict(post)
+        post["slug"] = "test-relative-links"
+        post["body"] = "Body with a [link](/buddy/) and an ![img](/og/x.png)."
+        pkg = promote.write_package(post)
+        try:
+            front = (pkg / "devto.md").read_text(encoding="utf-8")
+        finally:
+            for child in sorted(pkg.iterdir()):
+                child.unlink()
+            pkg.rmdir()
+        body = re.match(r"^---\n(.*?)\n---\n(.*)$", front, re.DOTALL).group(2)
+        self.assertIn("https://pragmaticsysadmin.help/buddy/", body)
+        self.assertIn("https://pragmaticsysadmin.help/og/x.png", body)
+
+
+class PostingPath(unittest.TestCase):
+    """The tags must be clean on the way OUT too, not just on the way in.
+
+    The promotion queue already holds packages whose devto.md was written by
+    the old hyphenating code. Cleaning only at write time leaves those
+    packages failing forever, because post_devto() reads the tags straight
+    out of the file. This is the test that would have caught that.
+    """
+
+    def setUp(self):
+        import tempfile
+
+        self._tmp = tempfile.TemporaryDirectory()
+        self.pkg = Path(self._tmp.name)
+
+    def tearDown(self):
+        self._tmp.cleanup()
+
+    def _package_with_tags(self, tags: str):
+        (self.pkg / "devto.md").write_text(
+            f'---\ntitle: "A title"\ncanonical_url: https://example.com/p/\n'
+            f"tags: {tags}\n---\n\nBody text.\n",
+            encoding="utf-8",
+        )
+        return self.pkg
+
+    def _posted_tags(self, tags: str):
+        import contextlib
+        import io
+        import json
+
+        pkg = self._package_with_tags(tags)
+        buffer = io.StringIO()
+        with contextlib.redirect_stdout(buffer):
+            promote.post_devto(pkg, dry_run=True)
+        line = buffer.getvalue().strip()
+        payload = json.loads(line.split(": ", 1)[1].rstrip("…"))
+        return payload["article"]["tags"]
+
+    def test_hyphenated_tags_from_an_old_package_are_cleaned_on_post(self):
+        posted = self._posted_tags("senior-tech, local-llm, family-tech")
+        # separators are removed, not replaced: "local-llm" -> "localllm"
+        self.assertEqual(posted, ["seniortech", "localllm", "familytech"])
+        for tag in posted:
+            self.assertTrue(tag.isalnum(), f"{tag!r} is not alphanumeric")
+
+    def test_clean_tags_are_left_alone(self):
+        self.assertEqual(self._posted_tags("sysadmin, bash"), ["sysadmin", "bash"])
+
+    def test_posted_tags_are_never_empty(self):
+        posted = self._posted_tags("---, !!!")
+        self.assertTrue(posted)
+        for tag in posted:
+            self.assertTrue(tag.isalnum(), f"{tag!r} is not alphanumeric")
+
+
+if __name__ == "__main__":
+    unittest.main(verbosity=2)

@@ -62,6 +62,40 @@ SUBREDDITS = {
 
 
 # ---------------------------------------------------------------------------
+# Channel-specific formatting helpers
+# ---------------------------------------------------------------------------
+
+
+def devto_tags(tags, limit: int = 4) -> list[str]:
+    """Sanitise site tags into dev.to's tag format.
+
+    dev.to's API rejects any tag that is not purely alphanumeric. A hyphen is
+    a hard 422, not a warning:
+
+        422 {"error":"Tag \"local-llm\" contains non-alphanumeric or
+        prohibited unicode characters and Tag \"senior-tech\" contains
+        non-alphanumeric or prohibited unicode characters","status":422}
+
+    So `senior-tech` has to go out as `seniortech`. Strip the separators
+    rather than hyphenating them, because a hyphen is exactly what the API
+    is refusing. Articles also cap at four tags, and a tag made entirely of
+    punctuation would sanitise to an empty string and be rejected too.
+
+    Tags are taken from the site's own front matter, whose vocabulary is
+    hyphenated by design (`senior-tech`, `home-lab`, `local-llm`). This is
+    the single conversion point between the two vocabularies.
+    """
+    out: list[str] = []
+    for raw in tags or []:
+        clean = re.sub(r"[^a-z0-9]", "", str(raw).lower())[:24]
+        if clean and clean not in out:
+            out.append(clean)
+        if len(out) == limit:
+            break
+    return out or ["sysadmin"]
+
+
+# ---------------------------------------------------------------------------
 # Front matter + state helpers
 # ---------------------------------------------------------------------------
 
@@ -254,11 +288,7 @@ def write_package(post: dict) -> Path:
     # dev.to cross-post: front matter with canonical_url + absolute image URLs.
     body = re.sub(r"\]\(/", f"]({BASE_URL}/", post["body"])
     body = re.sub(r'src="/', f'src="{BASE_URL}/', body)
-    dev_tags = [
-        re.sub(r"[^a-z0-9]", "-", t.lower()).strip("-")[:24]
-        for t in post["tags"][:4]
-        if re.sub(r"[^a-z0-9]", "", t.lower())
-    ] or ["sysadmin"]
+    dev_tags = devto_tags(post["tags"])
     (pkg / "devto.md").write_text(
         f"---\ntitle: {json.dumps(title)}\n"
         f"canonical_url: {url}\ntags: {', '.join(dev_tags)}\n---\n\n{body}\n",
@@ -393,7 +423,14 @@ def post_devto(pkg: Path, *, dry_run: bool) -> str:
             "body_markdown": body,
             "published": True,
             "canonical_url": fm.get("canonical_url", ""),
-            "tags": [t.strip() for t in fm.get("tags", "").split(",") if t.strip()],
+            # Sanitise here as well as at write time. The queue already holds
+            # packages written by the old hyphenating code, and dev.to's API
+            # rejects a hyphenated tag outright - so a package staged before
+            # the fix would keep failing forever unless the tags are cleaned
+            # on the way out.
+            "tags": devto_tags(
+                [t.strip() for t in fm.get("tags", "").split(",") if t.strip()]
+            ),
         }
     }
     if dry_run:
