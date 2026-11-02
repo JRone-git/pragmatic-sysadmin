@@ -154,6 +154,12 @@ Click any tool to open it. All run client-side — nothing uploaded, no tracking
 <span class="tag">homelab · new</span>
 </a>
 
+<a href="/tools/photo-dither.html" class="tool-card">
+<div class="name">Photo Dither</div>
+<p class="desc">Turn any photo into 1-bit black and white for e-paper and reflective displays. Five dithering algorithms, panel size presets, and a true 1-bit PNG export. Nothing is uploaded.</p>
+<span class="tag">e-paper · new</span>
+</a>
+
 
 </div>
 

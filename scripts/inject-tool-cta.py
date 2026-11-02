@@ -305,6 +305,14 @@ TOOL_META: dict[str, dict] = {
         ],
         "offer": "senior",
     },
+    "photo-dither.html": {
+        "description": "Convert any photo to 1-bit black and white for e-paper and reflective LCD displays. Five dithering algorithms, panel size presets, and a true 1-bit PNG export. Nothing is uploaded, nothing tracked.",
+        "guides": [
+            ("Setting Up a Home Lab: A Beginner's Guide", "/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/"),
+            ("Essential Home Automation for Older Parents", "/senior-tech/essential-home-automation-older-parents-practical-setup-guide/"),
+        ],
+        "offer": "senior",
+    },
     "plain-english.html": {
         "description": "Paste any command, error message, or log line and get it explained in plain English — what it means, why it happened, and what to check next.",
         "guides": [
