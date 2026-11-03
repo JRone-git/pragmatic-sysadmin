@@ -160,13 +160,27 @@ def parse_post(path: Path):
     rel_no_ext = re.sub(r"\.md$", "", rel)
     slug = fm.get("slug") or re.sub(r"^\d{4}-\d{2}-\d{2}-", "", path.stem)
 
+    # The public URL has to match what Hugo actually publishes. Hugo uses
+    # the front matter `slug:` when there is one and falls back to the file
+    # name when there is not - so building the URL from the file name
+    # produces a 404 for every post that sets a slug.
+    #
+    #   content/meta/2026-11-02-hallway-display-for-my-parents-the-idea.md
+    #     slug: hallway-display-for-my-parents-the-idea
+    #     -> /meta/hallway-display-for-my-parents-the-idea/
+    #     not /meta/2026-11-02-hallway-display-for-my-parents-the-idea/
+    if fm.get("slug"):
+        url = f"{BASE_URL}/{path.parent.name}/{fm['slug']}/"
+    else:
+        url = f"{BASE_URL}/{rel_no_ext}/"
+
     return {
         "slug": slug,
         "title": title,
         "description": fm.get("description", fm.get("summary", "")),
         "tags": tags,
         "section": path.parent.name,
-        "url": f"{BASE_URL}/{rel_no_ext}/",
+        "url": url,
         "date": post_date.isoformat() if post_date else None,
         "body": body,
         "subreddits": [
@@ -472,6 +486,69 @@ def iter_posts():
             post = parse_post(path)
             if post:
                 yield post
+
+
+def cmd_refresh_urls(args) -> int:
+    """Rewrite stale URLs in already-queued promotion packages.
+
+    `generate` skips posts that are already in the queue, so a package written
+    with the wrong URL keeps that wrong URL forever. The URL used to be built
+    from the post's file name, which is only right for posts that do not set
+    a `slug:` in their front matter. Hugo uses the slug when there is one, so
+    every such post pointed at a 404 - as the canonical_url on dev.to, which
+    is exactly the link that has to work.
+
+    This walks the queue, recomputes the URL from the source post and
+    rewrites it everywhere it appears in the package.
+    """
+    by_slug = {post["slug"]: post for post in iter_posts()}
+    changed = 0
+    for pkg in sorted(QUEUE_DIR.iterdir()) if QUEUE_DIR.is_dir() else []:
+        if not pkg.is_dir():
+            continue
+        pj = pkg / "package.json"
+        if not pj.exists():
+            continue
+        try:
+            meta = json.loads(pj.read_text(encoding="utf-8"))
+        except (OSError, ValueError):
+            continue
+        old_url = meta.get("url", "")
+        post = by_slug.get(meta.get("slug", ""))
+        if not post or not old_url or post["url"] == old_url:
+            continue
+        new_url = post["url"]
+        touched = 0
+        for child in sorted(pkg.iterdir()):
+            if not child.is_file():
+                continue
+            try:
+                text = child.read_text(encoding="utf-8")
+            except (OSError, UnicodeDecodeError):
+                continue
+            if old_url not in text:
+                continue
+            child.write_text(text.replace(old_url, new_url), encoding="utf-8")
+            touched += 1
+        print(f"refresh: {meta['slug']} -> {new_url}  ({touched} file(s))")
+        changed += 1
+
+    # state.json keeps its own copy of the URL for every queued post.
+    state = load_state()
+    state_changed = 0
+    for slug, entry in (state.get("posts") or {}).items():
+        post = by_slug.get(slug)
+        if not post or not isinstance(entry, dict):
+            continue
+        if entry.get("url") and entry["url"] != post["url"]:
+            print(f"refresh: state.json {slug} -> {post['url']}")
+            entry["url"] = post["url"]
+            state_changed += 1
+    if state_changed:
+        save_state(state)
+
+    print(f"refresh: {changed} package(s) and {state_changed} state entry/entries updated.")
+    return 0
 
 
 def cmd_generate(args) -> int:
@@ -1050,6 +1127,11 @@ def main(argv=None) -> int:
              "as historical (default: 14)",
     )
 
+    sub.add_parser(
+        "refresh-urls",
+        help="rewrite stale URLs in already-queued packages",
+    )
+
     p = sub.add_parser("auto-post", help="post queued content to auto channels")
     p.add_argument("--channels", default="",
                    help="comma list: bluesky,mastodon,devto (default: all)")
@@ -1070,6 +1152,7 @@ def main(argv=None) -> int:
     args = parser.parse_args(argv)
     handlers = {
         "generate": cmd_generate,
+        "refresh-urls": cmd_refresh_urls,
         "auto-post": cmd_auto_post,
         "issue-body": cmd_issue_body,
         "open-issues": cmd_open_issues,

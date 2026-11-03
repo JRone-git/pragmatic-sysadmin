@@ -231,5 +231,88 @@ class PostingPath(unittest.TestCase):
             self.assertTrue(tag.isalnum(), f"{tag!r} is not alphanumeric")
 
 
+class PostUrls(unittest.TestCase):
+    """The promotion URL must be the URL Hugo actually publishes.
+
+    Hugo uses the front matter `slug:` when there is one and falls back to
+    the file name when there is not. Building the URL from the file name
+    alone therefore produces a 404 for every post that sets a slug - and on
+    dev.to that URL is the canonical_url, so the cross-post would point
+    readers at a dead link.
+    """
+
+    def setUp(self):
+        import tempfile
+
+        self._tmp = tempfile.TemporaryDirectory()
+        self.content = Path(self._tmp.name) / "content"
+        (self.content / "meta").mkdir(parents=True)
+        self._orig_content = promote.CONTENT_DIR
+        promote.CONTENT_DIR = self.content
+
+    def tearDown(self):
+        promote.CONTENT_DIR = self._orig_content
+        self._tmp.cleanup()
+
+    def _write(self, name: str, frontmatter: str):
+        path = self.content / "meta" / name
+        path.write_text(f"---\n{frontmatter}\n---\n\nBody.\n", encoding="utf-8")
+        return path
+
+    def test_slug_in_frontmatter_decides_the_url(self):
+        path = self._write(
+            "2026-11-02-hallway-display-for-my-parents-the-idea.md",
+            'title: "A title"\ndate: 2026-11-02\nslug: hallway-display-for-my-parents-the-idea',
+        )
+        post = promote.parse_post(path)
+        self.assertEqual(
+            post["url"],
+            "https://pragmaticsysadmin.help/meta/hallway-display-for-my-parents-the-idea/",
+        )
+
+    def test_without_a_slug_the_file_name_is_used(self):
+        path = self._write(
+            "2026-08-04-plain-english-explain-any-command-error-concept.md",
+            'title: "A title"\ndate: 2026-08-04',
+        )
+        post = promote.parse_post(path)
+        self.assertEqual(
+            post["url"],
+            "https://pragmaticsysadmin.help/meta/2026-08-04-plain-english-explain-any-command-error-concept/",
+        )
+
+    def test_refresh_urls_rewrites_a_stale_package(self):
+        import json
+
+        pkg = Path(self._tmp.name) / "queue" / "a-slug"
+        pkg.mkdir(parents=True)
+        old = "https://pragmaticsysadmin.help/meta/2026-11-02-a-slug/"
+        new = "https://pragmaticsysadmin.help/meta/a-slug/"
+        (pkg / "package.json").write_text(
+            json.dumps({"slug": "a-slug", "url": old}), encoding="utf-8"
+        )
+        (pkg / "devto.md").write_text(f"canonical_url: {old}\n", encoding="utf-8")
+
+        # a post whose slug is a-slug, living in the temp content dir
+        self._write("2026-11-02-a-slug.md", 'title: "T"\nslug: a-slug')
+
+        import contextlib
+        import io as _io
+
+        orig_queue = promote.QUEUE_DIR
+        promote.QUEUE_DIR = Path(self._tmp.name) / "queue"
+        try:
+            with contextlib.redirect_stdout(_io.StringIO()):
+                promote.cmd_refresh_urls(None)
+        finally:
+            promote.QUEUE_DIR = orig_queue
+
+        self.assertEqual(
+            json.loads((pkg / "package.json").read_text())["url"], new
+        )
+        self.assertIn(new, (pkg / "devto.md").read_text())
+        self.assertNotIn(old, (pkg / "devto.md").read_text())
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

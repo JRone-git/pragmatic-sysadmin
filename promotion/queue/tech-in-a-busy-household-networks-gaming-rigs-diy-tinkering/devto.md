@@ -1,6 +1,6 @@
 ---
 title: "Tech in a Busy Household: Balancing Home Networks, Gaming Rigs, and DIY Tinkering"
-canonical_url: https://pragmaticsysadmin.help/sysadmin/2026-10-28-tech-in-a-busy-household-networks-gaming-rigs-diy-tinkering/
+canonical_url: https://pragmaticsysadmin.help/sysadmin/tech-in-a-busy-household-networks-gaming-rigs-diy-tinkering/
 tags: sysadmin
 ---
 

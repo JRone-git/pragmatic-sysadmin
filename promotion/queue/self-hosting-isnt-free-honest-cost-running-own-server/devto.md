@@ -1,6 +1,6 @@
 ---
 title: "Self-Hosting Isn't Free: The Honest Math of Running Your Own Server"
-canonical_url: https://pragmaticsysadmin.help/sysadmin/2026-09-10-self-hosting-isnt-free-honest-cost-running-own-server/
+canonical_url: https://pragmaticsysadmin.help/sysadmin/self-hosting-isnt-free-honest-cost-running-own-server/
 tags: sysadmin
 ---
 

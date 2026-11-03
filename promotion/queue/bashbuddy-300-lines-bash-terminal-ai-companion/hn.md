@@ -8,6 +8,6 @@
 bashbuddy is a single bash script that turns any AI API into a smart terminal assistant. Paste errors, write scripts, review code — all without leaving your terminal. Free and open source.
 
 Full write-up with the commands and checklists:
-https://pragmaticsysadmin.help/sysadmin/2026-08-04-i-built-bashbuddy-300-lines-of-pure-bash-terminal-ai-companion/
+https://pragmaticsysadmin.help/sysadmin/bashbuddy-300-lines-bash-terminal-ai-companion/
 
 Happy to answer questions about the approach.

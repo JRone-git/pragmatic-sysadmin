@@ -8,6 +8,6 @@
 I built a free, multi-language companion app for my dad when dementia made his phone unusable. Here's what I learned about designing for elderly users — and why I gave it away for free.
 
 Full write-up with the commands and checklists:
-https://pragmaticsysadmin.help/meta/2026-08-03-why-i-built-buddy-the-free-app-i-wish-id-had-when-my-dad-got-sick/
+https://pragmaticsysadmin.help/meta/why-i-built-buddy-free-app-dad-sick/
 
 Happy to answer questions about the approach.

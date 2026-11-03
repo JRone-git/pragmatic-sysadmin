@@ -1,6 +1,6 @@
 ---
 title: "Why I Built Buddy: The Free App I Wish I'd Had When My Dad Got Sick"
-canonical_url: https://pragmaticsysadmin.help/meta/2026-08-03-why-i-built-buddy-the-free-app-i-wish-id-had-when-my-dad-got-sick/
+canonical_url: https://pragmaticsysadmin.help/meta/why-i-built-buddy-free-app-dad-sick/
 tags: sysadmin
 ---
 

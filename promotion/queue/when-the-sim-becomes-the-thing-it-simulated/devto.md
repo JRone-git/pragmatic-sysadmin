@@ -1,6 +1,6 @@
 ---
 title: "When the Sim Becomes the Thing It Simulated: A Rogue AI Firesale Scenario"
-canonical_url: https://pragmaticsysadmin.help/meta/2026-04-14-when-the-sim-becomes-the-thing-it-simulated/
+canonical_url: https://pragmaticsysadmin.help/meta/when-the-sim-becomes-the-thing-it-simulated/
 tags: sysadmin
 ---
 

@@ -162,7 +162,7 @@
       "queued_at": "2026-10-05T10:25:08+00:00",
       "section": "sysadmin",
       "title": "I Built a Terminal AI Companion in 300 Lines of Pure Bash — And It's MIT Licensed",
-      "url": "https://pragmaticsysadmin.help/sysadmin/2026-08-04-i-built-bashbuddy-300-lines-of-pure-bash-terminal-ai-companion/"
+      "url": "https://pragmaticsysadmin.help/sysadmin/bashbuddy-300-lines-bash-terminal-ai-companion/"
     },
     "best-free-phone-apps-seniors": {
       "channels": {
@@ -307,7 +307,7 @@
       "queued_at": "2026-10-05T10:25:08+00:00",
       "section": "meta",
       "title": "Build Your Own Cloud — The Honest Guide to Self-Hosting at Home",
-      "url": "https://pragmaticsysadmin.help/meta/2026-08-23-build-your-own-free-cloud-home-server-guide/"
+      "url": "https://pragmaticsysadmin.help/meta/build-your-own-free-cloud-home-server-guide/"
     },
     "building-your-own-linux-from-scratch": {
       "channels": {
@@ -394,7 +394,7 @@
       "queued_at": "2026-10-28T18:36:44+00:00",
       "section": "senior-tech",
       "title": "Essential Home Automation for Older Parents: A Practical, Low-Cost Setup Guide",
-      "url": "https://pragmaticsysadmin.help/senior-tech/2026-09-25-essential-home-automation-older-parents-practical-low-cost-setup-guide/"
+      "url": "https://pragmaticsysadmin.help/senior-tech/essential-home-automation-older-parents-practical-setup-guide/"
     },
     "git-things-easy-to-mess-up": {
       "channels": {
@@ -431,7 +431,7 @@
       "queued_at": "2026-11-02T17:28:49+00:00",
       "section": "meta",
       "title": "I'm Building a Hallway Display for My Parents — It Costs Less to Run Than the Light Bulb Above It",
-      "url": "https://pragmaticsysadmin.help/meta/2026-11-02-hallway-display-for-my-parents-the-idea/"
+      "url": "https://pragmaticsysadmin.help/meta/hallway-display-for-my-parents-the-idea/"
     },
     "homelab-architect-plan-before-you-build": {
       "channels": {
@@ -460,7 +460,7 @@
       "queued_at": "2026-10-05T10:25:08+00:00",
       "section": "meta",
       "title": "I Built Homelab Architect — Plan Your Stack Before You Build It",
-      "url": "https://pragmaticsysadmin.help/meta/2026-08-23-homelab-architect-plan-before-you-build/"
+      "url": "https://pragmaticsysadmin.help/meta/homelab-architect-plan-before-you-build/"
     },
     "how-i-built-this-blog-hugo-firebase-buttondown": {
       "channels": {
@@ -551,7 +551,7 @@
       "queued_at": "2026-10-05T10:25:08+00:00",
       "section": "meta",
       "title": "I Built My Own J.A.R.V.I.S. — A Local, Privacy-First Multi-Agent AI Assistant",
-      "url": "https://pragmaticsysadmin.help/meta/2026-08-15-i-built-my-own-jarvis-a-local-multi-agent-ai-assistant/"
+      "url": "https://pragmaticsysadmin.help/meta/i-built-my-own-jarvis-local-multi-agent-ai-assistant/"
     },
     "i-was-the-only-it-person-for-3-years-the-documentation-i-wish-i-d-written": {
       "channels": {
@@ -792,7 +792,7 @@
       "queued_at": "2026-10-05T10:25:08+00:00",
       "section": "meta",
       "title": "I Built a Tool That Explains Any Command or Error in Plain Language",
-      "url": "https://pragmaticsysadmin.help/meta/2026-08-04-plain-english-explain-any-command-error-concept/"
+      "url": "https://pragmaticsysadmin.help/meta/plain-english-explain-any-command-error-concept/"
     },
     "privacy-first-ai-setup-for-seniors": {
       "channels": {
@@ -850,7 +850,7 @@
       "queued_at": "2026-10-05T10:25:08+00:00",
       "section": "sysadmin",
       "title": "Self-Hosting Isn't Free: The Honest Math of Running Your Own Server",
-      "url": "https://pragmaticsysadmin.help/sysadmin/2026-09-10-self-hosting-isnt-free-honest-cost-running-own-server/"
+      "url": "https://pragmaticsysadmin.help/sysadmin/self-hosting-isnt-free-honest-cost-running-own-server/"
     },
     "setting-up-a-home-lab-a-beginner-s-guide": {
       "channels": {
@@ -937,7 +937,7 @@
       "queued_at": "2026-10-05T10:25:08+00:00",
       "section": "meta",
       "title": "Software That's Never Been Done: On Building Things That Should Exist But Don't",
-      "url": "https://pragmaticsysadmin.help/meta/2026-08-04-software-thats-never-been-done-out-of-the-box-thinking/"
+      "url": "https://pragmaticsysadmin.help/meta/software-thats-never-been-done-out-of-the-box-thinking/"
     },
     "stop-doing-things-manually": {
       "channels": {
@@ -1018,7 +1018,7 @@
       "queued_at": "2026-10-28T18:41:15+00:00",
       "section": "sysadmin",
       "title": "Tech in a Busy Household: Balancing Home Networks, Gaming Rigs, and DIY Tinkering",
-      "url": "https://pragmaticsysadmin.help/sysadmin/2026-10-28-tech-in-a-busy-household-networks-gaming-rigs-diy-tinkering/"
+      "url": "https://pragmaticsysadmin.help/sysadmin/tech-in-a-busy-household-networks-gaming-rigs-diy-tinkering/"
     },
     "tech-survival-guide-ai-edition-2026": {
       "channels": {
@@ -1288,7 +1288,7 @@
       "queued_at": "2026-10-28T18:39:31+00:00",
       "section": "sysadmin",
       "title": "When Code Meets Life: Applying the Sysadmin Mindset to Family Chaos & Home Repairs",
-      "url": "https://pragmaticsysadmin.help/sysadmin/2026-10-28-when-code-meets-life-sysadmin-mindset-family-home-repairs/"
+      "url": "https://pragmaticsysadmin.help/sysadmin/when-code-meets-life-sysadmin-mindset-family-home-repairs/"
     },
     "when-the-sim-becomes-the-thing-it-simulated": {
       "channels": {
@@ -1317,7 +1317,7 @@
       "queued_at": "2026-10-05T10:25:08+00:00",
       "section": "meta",
       "title": "When the Sim Becomes the Thing It Simulated: A Rogue AI Firesale Scenario",
-      "url": "https://pragmaticsysadmin.help/meta/2026-04-14-when-the-sim-becomes-the-thing-it-simulated/"
+      "url": "https://pragmaticsysadmin.help/meta/when-the-sim-becomes-the-thing-it-simulated/"
     },
     "why-i-built-buddy-free-app-dad-sick": {
       "channels": {
@@ -1346,7 +1346,7 @@
       "queued_at": "2026-10-05T10:25:08+00:00",
       "section": "meta",
       "title": "Why I Built Buddy: The Free App I Wish I'd Had When My Dad Got Sick",
-      "url": "https://pragmaticsysadmin.help/meta/2026-08-03-why-i-built-buddy-the-free-app-i-wish-id-had-when-my-dad-got-sick/"
+      "url": "https://pragmaticsysadmin.help/meta/why-i-built-buddy-free-app-dad-sick/"
     },
     "why-your-computer-is-slow-and-how-to-fix-it-without-calling-it": {
       "channels": {

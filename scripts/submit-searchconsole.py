@@ -22,6 +22,7 @@ from __future__ import annotations
 import base64
 import json
 import os
+import socket
 import subprocess
 import sys
 import tempfile
@@ -89,8 +90,11 @@ def access_token(sa: dict) -> str:
         headers={"Content-Type": "application/x-www-form-urlencoded"},
         method="POST",
     )
-    with urllib.request.urlopen(req, timeout=30) as resp:
-        data = json.loads(resp.read())
+    try:
+        with urllib.request.urlopen(req, timeout=30) as resp:
+            data = json.loads(resp.read())
+    except (urllib.error.URLError, TimeoutError, socket.timeout, OSError) as e:
+        raise RuntimeError(f"token request failed: {e}") from e
     return data["access_token"]
 
 
@@ -107,6 +111,12 @@ def api(method: str, url: str, token: str, payload: dict | None = None):
             return resp.status, json.loads(raw) if raw else {}
     except urllib.error.HTTPError as e:
         return e.code, e.read().decode("utf-8", "ignore")[:500]
+    except (urllib.error.URLError, TimeoutError, socket.timeout, OSError) as e:
+        # A socket timeout raises URLError, not HTTPError, so it used to
+        # escape as an unhandled exception. That made the whole deploy job
+        # fail on a slow Google API - after the site had already deployed.
+        # The site is live either way; the SEO ping is best effort.
+        return 0, f"request failed: {e}"
 
 
 def submit_sitemap(token: str) -> bool:

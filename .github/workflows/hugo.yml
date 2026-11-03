@@ -61,9 +61,14 @@ jobs:
         uses: actions/checkout@v4
 
       - name: Submit URLs to IndexNow
+        # Best effort. A slow or refusing third-party API must not be able
+        # to fail the deploy - the site is already published by this point,
+        # and a red build on every push hides the failures that matter.
+        continue-on-error: true
         run: python scripts/submit-indexnow.py --live
 
       - name: Submit sitemap + inspect URLs via Google Search Console
+        continue-on-error: true
         env:
           GSC_SA_JSON: ${{ secrets.GSC_SA_JSON }}
         run: python scripts/submit-searchconsole.py

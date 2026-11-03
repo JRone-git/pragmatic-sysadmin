@@ -1,6 +1,6 @@
 ---
 title: "I Built a Tool That Explains Any Command or Error in Plain Language"
-canonical_url: https://pragmaticsysadmin.help/meta/2026-08-04-plain-english-explain-any-command-error-concept/
+canonical_url: https://pragmaticsysadmin.help/meta/plain-english-explain-any-command-error-concept/
 tags: sysadmin
 ---
 

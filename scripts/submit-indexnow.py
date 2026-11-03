@@ -12,7 +12,7 @@ import xml.etree.ElementTree as ET
 from pathlib import Path
 
 HOST = "pragmaticsysadmin.help"
-KEY = "39100d6315e3be674773e62e0ae5f859"
+KEY = "087f60f93fbdabaf797a507e6f04498a"
 KEY_LOCATION = f"https://{HOST}/{KEY}.txt"
 INDEXNOW_ENDPOINT = "https://api.indexnow.org/indexnow"
 
@@ -69,7 +69,16 @@ def submit_indexnow(urls: list[str]) -> bool:
         if e.code in (200, 202):
             print(f"IndexNow accepted: {e.code}")
             return True
-        print(f"IndexNow HTTP Error: {e.code} - {e.read().decode('utf-8', errors='ignore')}", file=sys.stderr)
+        detail = e.read().decode("utf-8", errors="ignore")
+        print(f"IndexNow HTTP Error: {e.code} - {detail}", file=sys.stderr)
+        if e.code == 403:
+            print(
+                "IndexNow: the key is not authorised for this host. Check that\n"
+                f"  {KEY_LOCATION}\n"
+                "  serves exactly the key, and that the key is registered for\n"
+                f"  {HOST} in Bing Webmaster Tools / the IndexNow portal.",
+                file=sys.stderr,
+            )
         return False
     except Exception as e:
         print(f"IndexNow submission failed: {e}", file=sys.stderr)

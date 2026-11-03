@@ -1,6 +1,6 @@
 ---
 title: "When Code Meets Life: Applying the Sysadmin Mindset to Family Chaos & Home Repairs"
-canonical_url: https://pragmaticsysadmin.help/sysadmin/2026-10-28-when-code-meets-life-sysadmin-mindset-family-home-repairs/
+canonical_url: https://pragmaticsysadmin.help/sysadmin/when-code-meets-life-sysadmin-mindset-family-home-repairs/
 tags: sysadmin
 ---
 

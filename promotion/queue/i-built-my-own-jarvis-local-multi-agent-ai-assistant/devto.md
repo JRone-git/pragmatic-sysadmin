@@ -1,6 +1,6 @@
 ---
 title: "I Built My Own J.A.R.V.I.S. \u2014 A Local, Privacy-First Multi-Agent AI Assistant"
-canonical_url: https://pragmaticsysadmin.help/meta/2026-08-15-i-built-my-own-jarvis-a-local-multi-agent-ai-assistant/
+canonical_url: https://pragmaticsysadmin.help/meta/i-built-my-own-jarvis-local-multi-agent-ai-assistant/
 tags: sysadmin
 ---
 

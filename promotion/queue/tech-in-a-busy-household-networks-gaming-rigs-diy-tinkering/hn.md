@@ -8,6 +8,6 @@
 A practical guide to running a home network with gaming PCs, smart home, kids' devices, and your own homelab projects in it. Segmentation, QoS, IP management, and a tinkering budget that keeps the family online.
 
 Full write-up with the commands and checklists:
-https://pragmaticsysadmin.help/sysadmin/2026-10-28-tech-in-a-busy-household-networks-gaming-rigs-diy-tinkering/
+https://pragmaticsysadmin.help/sysadmin/tech-in-a-busy-household-networks-gaming-rigs-diy-tinkering/
 
 Happy to answer questions about the approach.
