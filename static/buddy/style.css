@@ -55,6 +55,18 @@
 
 * { box-sizing: border-box; margin: 0; padding: 0; }
 
+/* Utility: hide an element.
+ *
+ * There used to be no generic rule for this - only .onboarding.hidden,
+ * .onboarding-step.hidden, .pin-error.hidden and .photo-clear.hidden. Any
+ * element with a bare class="hidden" was therefore NOT hidden at all, which
+ * is how the three notes panels (PIN setup, PIN entry, notes list) all
+ * rendered stacked on top of each other on the Notes screen.
+ *
+ * The JS toggles a bare 'hidden' class in a dozen places, so the class has
+ * to work on its own. */
+.hidden { display: none; }
+
 html { font-size: var(--base-font-size, 18px); -webkit-text-size-adjust: 100%; }
 @media (min-width: 768px) { html { font-size: calc(var(--base-font-size, 18px) + 2px); } }
 

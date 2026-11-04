@@ -52,7 +52,7 @@ const NOTES_ORDER = [
   'pinEnterTitle', 'pinEnterBody',
   'pinWarning', 'pinError', 'pinMismatch', 'pinSaved',
   'empty', 'addCta', 'addTitle', 'editTitle',
-  'lock', 'copy', 'edit', 'delete',
+  'lock', 'pinClear', 'pinDelete', 'copy', 'edit', 'delete',
   'copied', 'copyFailed', 'deleted', 'confirmDelete',
 ];
 
@@ -64,6 +64,7 @@ const ONBOARDING_ORDER = [
   // flat keys — one entry each. Grouping them into a single array would make
   // the destructuring below swallow six of them.
   ['back', null],
+  ['stepOf', null],
   ['next', null],
   ['skip', null],
   ['finish', null],

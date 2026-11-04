@@ -57,8 +57,38 @@ function serve() {
 }
 
 const LANGS = ['en', 'es', 'fr', 'de', 'pt', 'zh', 'fi'];
+
+// Words that must never appear untranslated in a non-English language. These
+// are UI chrome, not brand names or content.
+const ENGLISH_UI_WORDS = [
+  'step', 'clear', 'save', 'cancel', 'add', 'delete', 'edit', 'copy',
+  'loading', 'back', 'next', 'skip', 'done', 'close', 'open', 'search',
+  'loading…', 'loading...',
+];
+
 const problems = [];
 let checks = 0;
+
+/* Find English UI words that were never translated.
+ *
+ * The translation checker works on keys, so a string that is hardcoded in
+ * the HTML or the JS is invisible to it - and that is exactly how "Clear"
+ * and "Step 1 of 4" stayed English in every other language.
+ */
+async function findEnglishWords(page, lang, where) {
+  return page.evaluate((words) => {
+    const out = [];
+    document
+      .querySelectorAll('button, label, h1, h2, h3, .pin-key, .onboarding-progress-text, .progress-text, .modal-title')
+      .forEach((el) => {
+        if (el.offsetParent === null) return; // not rendered right now
+        const text = (el.textContent || '').trim();
+        const low = text.toLowerCase();
+        if (words.includes(low)) out.push(`${el.id || el.className || el.tagName} -> "${text}"`);
+      });
+    return out;
+  }, ENGLISH_UI_WORDS);
+}
 
 (async () => {
   fs.mkdirSync(SHOTS, { recursive: true });
@@ -139,7 +169,63 @@ let checks = 0;
       problems.push(`${lang}: check-in line has an unresolved placeholder -> "${checkin}"`);
     }
 
-    // 4. the Add-a-person form must have real labels
+    // 4. no untranslated English UI words. A hardcoded "Step 1 of 4" or
+    //    "Clear" used to sit in the middle of the Chinese and Finnish UI
+    //    with nothing to catch it - the translation checker only looks at
+    //    keys, and a hardcoded string is not a key.
+    if (lang !== 'en') {
+      const stray = await findEnglishWords(page, lang, 'home');
+      checks++;
+      if (stray.length) {
+        problems.push(`${lang}: untranslated English UI word(s) on the home screen: ${stray.join(', ')}`);
+      }
+    }
+
+    // 5. the onboarding wizard - every step, in this language
+    await page.evaluate(() => {
+      if (typeof initOnboarding === 'function') initOnboarding();
+    });
+    await page.waitForTimeout(350);
+    for (let step = 1; step <= 4; step++) {
+      await page.evaluate((n) => {
+        if (typeof setOnboardingStep === 'function') setOnboardingStep(n);
+      }, step);
+      await page.waitForTimeout(250);
+      if (lang !== 'en') {
+        const stray = await findEnglishWords(page, lang, `onboarding step ${step}`);
+        checks++;
+        if (stray.length) {
+          problems.push(`${lang}: untranslated English UI word(s) in onboarding step ${step}: ${stray.join(', ')}`);
+        }
+      }
+    }
+    await page.evaluate(() => {
+      const o = document.querySelector('#onboarding');
+      if (o) o.classList.add('hidden');
+    });
+    await page.waitForTimeout(200);
+
+    // 6. the Notes screen - the PIN pad is built in JS, so it needs a visit
+    await page.evaluate(() => {
+      const b = document.querySelector('[data-go="notes"]');
+      if (b) b.click();
+    });
+    await page.waitForTimeout(500);
+    if (lang !== 'en') {
+      const stray = await findEnglishWords(page, lang, 'notes');
+      checks++;
+      if (stray.length) {
+        problems.push(`${lang}: untranslated English UI word(s) on the notes screen: ${stray.join(', ')}`);
+      }
+    }
+    await page.evaluate(() => {
+      const b = document.querySelector('[data-go="home"]');
+      if (b) b.click();
+      else show('home');
+    });
+    await page.waitForTimeout(300);
+
+    // 7. the Add-a-person form must have real labels
     await page.evaluate(() => {
       const tile = document.querySelector('[data-go="people"]');
       if (tile) tile.click();

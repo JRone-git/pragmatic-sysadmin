@@ -700,6 +700,70 @@ function closeModal() {
 }
 
 function saveModal() {
+  // Each modal type has its own fields. The note form has #n-title and
+  // #n-content, the alarm form has #alarm-time, and only the person and
+  // medicine forms have #m-name.
+  //
+  // This used to read $('#m-name').value before looking at modalMode, so
+  // saving a note threw "Cannot read properties of null" every single time
+  // and the note was never saved. The note feature shipped broken and
+  // stayed broken because nothing in the build checked the save path.
+  if (modalMode === 'note') {
+    const content = $('#n-content').value.trim();
+    const title = $('#n-title').value.trim();
+    if (!content) {
+      alert(t('form.needContent'));
+      $('#n-content').focus();
+      return;
+    }
+    const selectedCat = $('#modal-body').querySelector('.category-option.selected');
+    const category = selectedCat ? selectedCat.dataset.cat : 'other';
+    if (modalEditing) {
+      modalEditing.title = title || content.substring(0, 30);
+      modalEditing.content = content;
+      modalEditing.category = category;
+    } else {
+      state.notes.push({
+        id: 'n' + Date.now(),
+        title: title || content.substring(0, 30),
+        content,
+        category,
+        createdAt: new Date().toISOString()
+      });
+    }
+    save();
+    renderNotesList();
+    modalEditing = null;
+    toast(t('toast.saved'));
+    closeModal();
+    return;
+  }
+
+  if (modalMode === 'alarm') {
+    const time = $('#alarm-time').value;
+    if (!time) { alert(t('meds.alarmTimeRequired')); return; }
+    const med = state.meds.find(m => m.id === pendingAlarmMedId);
+    if (med) {
+      med.alarmTime = time;
+      save();
+      // Request permission + schedule
+      ensureNotificationPermission().then(granted => {
+        if (granted) {
+          scheduleMedAlarm(med);
+          renderMeds();
+          toast(t('meds.alarmSet', { time: formatTime12(time) }));
+        } else {
+          renderMeds();
+          toast(t('meds.alarmSetNoNotify', { time: formatTime12(time) }));
+        }
+      });
+      pendingAlarmMedId = null;
+    }
+    closeModal();
+    return;
+  }
+
+  // person and medicine forms
   const name = $('#m-name').value.trim();
   if (!name) {
     alert(t('form.needName'));
@@ -738,53 +802,6 @@ function saveModal() {
     renderHome();
     renderOnboardingLists();
     toast(t('toast.added'));
-  } else if (modalMode === 'note') {
-    const content = $('#n-content').value.trim();
-    const title = $('#n-title').value.trim();
-    if (!content) {
-      alert(t('form.needContent'));
-      $('#n-content').focus();
-      return;
-    }
-    const selectedCat = body.querySelector('.category-option.selected');
-    const category = selectedCat ? selectedCat.dataset.cat : 'other';
-    if (modalEditing) {
-      modalEditing.title = title || content.substring(0, 30);
-      modalEditing.content = content;
-      modalEditing.category = category;
-    } else {
-      state.notes.push({
-        id: 'n' + Date.now(),
-        title: title || content.substring(0, 30),
-        content,
-        category,
-        createdAt: new Date().toISOString()
-      });
-    }
-    save();
-    renderNotesList();
-    modalEditing = null;
-    toast(t('toast.saved'));
-  } else if (modalMode === 'alarm') {
-    const time = $('#alarm-time').value;
-    if (!time) { alert(t('meds.alarmTimeRequired')); return; }
-    const med = state.meds.find(m => m.id === pendingAlarmMedId);
-    if (med) {
-      med.alarmTime = time;
-      save();
-      // Request permission + schedule
-      ensureNotificationPermission().then(granted => {
-        if (granted) {
-          scheduleMedAlarm(med);
-          renderMeds();
-          toast(t('meds.alarmSet', { time: formatTime12(time) }));
-        } else {
-          renderMeds();
-          toast(t('meds.alarmSetNoNotify', { time: formatTime12(time) }));
-        }
-      });
-      pendingAlarmMedId = null;
-    }
   }
   closeModal();
 }
@@ -979,7 +996,7 @@ function setOnboardingStep(n) {
   const fill = $('#onboarding-fill');
   if (fill) fill.style.width = pct + '%';
   const txt = $('#onboarding-progress-text');
-  if (txt) txt.textContent = `Step ${n} of ${total}`;
+  if (txt) txt.textContent = t('onboarding.stepOf', { n, total });
   // Re-render lists for steps 2 & 3
   if (n === 2 || n === 3) renderOnboardingLists();
 }
@@ -1103,8 +1120,10 @@ function buildPinPad(mode) {
   if (!container) return;
   const keys = ['1','2','3','4','5','6','7','8','9','clear','0','del'];
   container.innerHTML = keys.map(k => {
-    if (k === 'clear') return `<button class="pin-key action" data-action="clear" type="button">Clear</button>`;
-    if (k === 'del') return `<button class="pin-key action" data-action="del" type="button">⌫</button>`;
+    // The Clear button used to be a hardcoded "Clear" - the only English
+    // string left in the app, sitting in the middle of the Chinese keypad.
+    if (k === 'clear') return `<button class="pin-key action" data-action="clear" type="button" aria-label="${escapeHtml(t('notes.pinClear'))}">${escapeHtml(t('notes.pinClear'))}</button>`;
+    if (k === 'del') return `<button class="pin-key action" data-action="del" type="button" aria-label="${escapeHtml(t('notes.pinDelete'))}">⌫</button>`;
     return `<button class="pin-key" data-digit="${k}" type="button">${k}</button>`;
   }).join('');
   container.onclick = (e) => {
@@ -1122,23 +1141,45 @@ let setupStage = 'first'; // 'first' | 'confirm'
 
 function pinKeyPress(key, mode) {
   if (mode === 'setup') {
-    if (key === 'del') { setupPin = setupPin.slice(0, -1); renderPinDots('setup', setupPin); return; }
-    if (key === 'clear') { setupPin = ''; renderPinDots('setup', setupPin); return; }
-    if (setupPin.length < 4) {
-      setupPin += key;
-      renderPinDots('setup', setupPin);
-      if (setupPin.length === 4) {
-        if (setupStage === 'first') {
-          // Move to confirm
+    // Two stages: 'first' collects the PIN, 'confirm' collects it again.
+    //
+    // The second stage used to append to setupPin as well, so setupPinConfirm
+    // was reset to '' and never received a single digit. The comparison
+    // setupPin === setupPinConfirm could therefore never be true, and the
+    // length guard (setupPin.length < 4) blocked the second entry as well.
+    // The PIN could never be set, which meant the notes list was unreachable.
+    const confirming = setupStage === 'confirm';
+    const buf = confirming ? setupPinConfirm : setupPin;
+
+    if (key === 'del') {
+      if (confirming) setupPinConfirm = setupPinConfirm.slice(0, -1);
+      else setupPin = setupPin.slice(0, -1);
+      renderPinDots('setup', confirming ? setupPinConfirm : setupPin);
+      return;
+    }
+    if (key === 'clear') {
+      if (confirming) setupPinConfirm = '';
+      else setupPin = '';
+      renderPinDots('setup', confirming ? setupPinConfirm : setupPin);
+      return;
+    }
+    if (buf.length < 4) {
+      const next = buf + key;
+      if (confirming) setupPinConfirm = next;
+      else setupPin = next;
+      renderPinDots('setup', next);
+      if (next.length === 4) {
+        if (!confirming) {
+          // Move to the confirm stage
+          setupStage = 'confirm';
+          setupPinConfirm = '';
           setTimeout(() => {
-            setupStage = 'confirm';
-            setupPinConfirm = '';
-            // Update label
             const lbl = $('#notes-pin-setup h3');
             if (lbl) lbl.textContent = t('notes.pinConfirmTitle');
             const body = $('#notes-pin-setup p');
             if (body) body.textContent = t('notes.pinConfirmBody');
-            renderPinDots('setup', '');
+            // Only clear the dots if the user has not started typing already
+            if (!setupPinConfirm) renderPinDots('setup', '');
           }, 300);
         } else {
           // Verify match
