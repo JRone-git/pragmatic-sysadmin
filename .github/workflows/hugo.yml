@@ -33,6 +33,13 @@ jobs:
       - name: Build
         run: hugo --minify --buildFuture --environment production --cleanDestinationDir --gc
 
+      - name: Check affiliate links earn what they promise
+        # The site once claimed a commission on links that carried no
+        # tracking at all. This check makes that impossible to reintroduce:
+        # it fails the build if any page promises money on a link that
+        # earns nothing.
+        run: python scripts/check-affiliate-links.py public
+
       - name: Add .nojekyll file
         run: touch ./public/.nojekyll
 

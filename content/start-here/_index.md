@@ -91,7 +91,7 @@ A four-part series born from setting up my own mom's tech.
 3. **[The Best Free Phone Apps for Seniors in 2026](/senior-tech/2026-06-27-best-free-phone-apps-seniors/)** — tested by my 78-year-old mom for six months. What stayed, what got deleted.
 4. **[The Quarterly Tech Checkup](/senior-tech/2026-07-02-the-quarterly-tech-checkup/)** — the 20-minute maintenance routine that keeps everything working, plus an emergency playbook.
 
-**Printable version:** [Senior Phone Setup & Maintenance Checklist](https://ko-fi.com/s/a567718347) — all four posts in one laminatable PDF ($5).
+**Printable version:** {{< aff merchant="ko-fi" text="Senior Phone Setup & Maintenance Checklist" url="https://ko-fi.com/s/a567718347" >}} — all four posts in one laminatable PDF ($5).
 
 **Related:** [Why Your Computer is Slow (And How to Fix It Without Calling IT)](/senior-tech/2025-12-26-why-your-computer-is-slow-and-how-to-fix-it-without-calling-it/) — for the parent who keeps calling you about their slow laptop.
 

@@ -1,0 +1,27 @@
+{{- /*
+  Page-level affiliate disclosure, generated from catalog/affiliates.json.
+
+  Renders the truth either way. If the page has a link to a programme that
+  pays, it names it. If it does not, it says that the links on the page
+  earn nothing yet - which is better than a hand-written paragraph
+  promising a commission on links that carry no tracking at all.
+
+  Output is raw HTML rather than markdown because a `{{< >}}` shortcode's
+  output is not passed through the markdown renderer.
+*/ -}}
+{{- $names := slice -}}
+{{- $raw := "" -}}
+{{- with .Page -}}{{- $raw = .RawContent | default "" -}}{{- end -}}
+{{- range $key, $m := site.Data.affiliates -}}
+  {{- if and (reflect.IsMap $m) (eq (index $m "status") "applied") (ne (index $m "kind") "donation") -}}
+    {{- if strings.Contains $raw (printf "merchant=%q" $key) -}}
+      {{- $names = $names | append (index $m "name") -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+{{- if $names -}}
+{{- $list := delimit $names ", " " and " -}}
+<p><strong>Disclosure:</strong> Some links on this page earn me a small commission through {{ $list }}. That costs you nothing extra and it doesn't change my recommendations — I only list tools I actually use.</p>
+{{- else }}
+<p><strong>Disclosure:</strong> The links on this page are not affiliate links yet — I haven't finished wiring up the referral codes, so they earn me nothing at the moment. I'd rather say that than pretend otherwise. It doesn't change a single recommendation.</p>
+{{- end -}}

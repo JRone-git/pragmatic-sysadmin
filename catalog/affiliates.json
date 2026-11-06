@@ -1,0 +1,164 @@
+{
+  "digitalocean": {
+    "name": "DigitalOcean",
+    "url": "https://digitalocean.com",
+    "param": "ref",
+    "code": "",
+    "status": "not-applied",
+    "note": "The affiliate programme pays 10% of the referred customer's spend for 12 months, via Awin. The separate referral programme pays $25 of account credit instead of cash. They need different codes.",
+    "claim": "affiliate link — new accounts get $200 of credit for 60 days, and I earn a commission"
+  },
+  "siteground": {
+    "name": "SiteGround",
+    "url": "https://www.siteground.com",
+    "param": "afcode",
+    "code": "",
+    "status": "not-applied",
+    "note": "$50 per sale rising to $100+, 60 day cookie, paid weekly with no minimum. The referred account has to stay active for 30 days (multi-month terms) or 90 days (monthly terms) before the sale validates.",
+    "claim": "affiliate link — I earn a commission if you sign up"
+  },
+  "bluehost": {
+    "name": "Bluehost",
+    "url": "https://www.bluehost.com",
+    "param": "aff",
+    "code": "",
+    "status": "not-applied",
+    "note": "$65 per qualified sale, 30 day cookie. A poor audience fit for this site: the readers already run their own servers and are not looking for shared WordPress hosting. Bluehost also refuses applications from sites with thin traffic.",
+    "claim": "affiliate link — I earn a commission if you sign up"
+  },
+  "vultr": {
+    "name": "Vultr",
+    "url": "https://www.vultr.com",
+    "param": "ref",
+    "code": "",
+    "status": "not-applied",
+    "note": "$10 per paid account, 30 day cookie. Direct programme, no affiliate network in between.",
+    "claim": "affiliate link — I earn a commission if you sign up"
+  },
+  "amazon": {
+    "name": "Amazon Associates",
+    "url": "https://www.amazon.com",
+    "param": "tag",
+    "code": "",
+    "status": "not-applied",
+    "note": "Needs a store ID. Three qualifying sales within 180 days of applying trigger a review; below that the account is closed and the tag cannot be reinstated.",
+    "claim": "affiliate link — I earn a small commission at no extra cost to you"
+  },
+  "newegg": {
+    "name": "Newegg",
+    "url": "https://www.newegg.com",
+    "param": "",
+    "mode": "widget",
+    "code": "",
+    "status": "pending",
+    "note": "Tracked by the Rakuten Automate widget already installed on the site. The widget rewrites the link on click - but only once the account is partnered with Newegg inside Rakuten. Until then the links earn nothing. This is the cheapest win available: the plumbing is already done.",
+    "claim": "affiliate link — I earn a small commission at no extra cost to you"
+  },
+  "ebay": {
+    "name": "eBay Partner Network",
+    "url": "https://www.ebay.com",
+    "param": "mkcid",
+    "code": "",
+    "status": "not-applied",
+    "note": "1-4% plus a bonus on the top categories. The parameter varies by programme type - confirm which one the dashboard issues before pasting a code.",
+    "claim": "affiliate link — I earn a small commission at no extra cost to you"
+  },
+  "lively": {
+    "name": "Lively",
+    "url": "https://www.lively.com",
+    "param": "",
+    "mode": "direct",
+    "code": "",
+    "status": "not-applied",
+    "note": "Runs an affiliate programme. The link format has to be taken from the programme dashboard rather than guessed, so the url is left plain until the code and the exact parameter are known.",
+    "claim": "affiliate link — I earn a commission if you sign up"
+  },
+  "consumercellular": {
+    "name": "Consumer Cellular",
+    "url": "https://www.consumercellular.com",
+    "param": "",
+    "mode": "direct",
+    "code": "",
+    "status": "not-applied",
+    "note": "Runs an affiliate programme, roughly $5-15 per activation. The link format has to be taken from the programme dashboard rather than guessed.",
+    "claim": "affiliate link — I earn a commission if you sign up"
+  },
+  "bayalarm": {
+    "name": "Bay Alarm Medical",
+    "url": "https://www.bayalarmmedical.com",
+    "param": "",
+    "mode": "direct",
+    "code": "",
+    "status": "not-applied",
+    "note": "Runs an affiliate programme with a recurring commission. The link format has to be taken from the programme dashboard rather than guessed.",
+    "claim": "affiliate link — I earn a commission if you sign up"
+  },
+  "backblaze": {
+    "name": "Backblaze",
+    "url": "https://www.backblaze.com",
+    "param": "",
+    "mode": "direct",
+    "code": "",
+    "status": "not-applied",
+    "note": "Runs a referral programme worth about $5 per customer. The link format has to be taken from the programme dashboard rather than guessed.",
+    "claim": "affiliate link — I earn a commission if you sign up"
+  },
+  "nordvpn": {
+    "name": "NordVPN",
+    "url": "https://go.nordvpn.net/aff_c?offer_id=15&aff_id=143264&url_id=902",
+    "param": "",
+    "mode": "url",
+    "code": "143264",
+    "status": "applied",
+    "note": "The affiliate code is already baked into the url, so the code is embedded rather than appended. Commissions are paid on renewals as well as the first sale."
+  },
+  "nordpass": {
+    "name": "NordPass",
+    "url": "https://go.nordpass.io/aff_c?offer_id=488&aff_id=143264&url_id=9356",
+    "param": "",
+    "mode": "url",
+    "code": "143264",
+    "status": "applied",
+    "note": "The affiliate code is already baked into the url, so the code is embedded rather than appended."
+  },
+  "1password": {
+    "name": "1Password",
+    "url": "https://1password.com",
+    "param": "",
+    "mode": "direct",
+    "code": "",
+    "status": "not-applied",
+    "note": "Runs an affiliate programme worth roughly $5-10 a sale, through Impact. The link format has to be taken from the programme dashboard rather than guessed.",
+    "claim": "affiliate link — I earn a commission if you sign up"
+  },
+  "audible": {
+    "name": "Audible",
+    "url": "https://www.audible.com",
+    "param": "",
+    "mode": "direct",
+    "code": "",
+    "status": "not-applied",
+    "note": "No separate public affiliate programme. Audible is an Amazon company, so the Amazon Associates tag is the way to monetise these links - but it applies to Amazon domain links, so it needs its own handling.",
+    "claim": "affiliate link — I earn a commission if you sign up"
+  },
+  "hetzner": {
+    "name": "Hetzner",
+    "url": "https://www.hetzner.com/cloud",
+    "param": "",
+    "mode": "direct",
+    "code": "",
+    "status": "not-applied",
+    "note": "No classic affiliate programme. There is a separate Cloud referral programme that pays in credit; it is worth applying for once there is traffic.",
+    "claim": "affiliate link — I earn a commission if you sign up"
+  },
+  "ko-fi": {
+    "name": "Ko-fi",
+    "url": "https://ko-fi.com/sysadmin_dad",
+    "param": "",
+    "mode": "direct",
+    "code": "",
+    "status": "applied",
+    "note": "Direct donations, not a commission programme. This is the only link on the site that currently earns anything, and it is the reason the disclosure can say 'some links' and mean it.",
+    "kind": "donation"
+  }
+}

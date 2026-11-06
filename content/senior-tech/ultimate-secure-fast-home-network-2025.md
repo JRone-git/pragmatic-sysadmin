@@ -23,12 +23,12 @@ I've spent years as a sysadmin keeping enterprise networks safe and speedy. The 
 ### What to Buy
 
 **For most homes**: Wi-Fi 6 router with at least 4 streams
-- **Budget pick**: [TP-Link Archer AX55](https://www.newegg.com/tp-link-archer-ax55/p/N82E16833704603) - Solid performance, easy setup
-- **Power user**: [ASUS RT-AX86U Pro](https://www.newegg.com/asus-rt-ax86u-pro/p/N82E16833320549) - Gaming features, enterprise-grade security
+- **Budget pick**: {{< aff merchant="newegg" text="TP-Link Archer AX55" url="https://www.newegg.com/tp-link-archer-ax55/p/N82E16833704603" >}} - Solid performance, easy setup
+- **Power user**: {{< aff merchant="newegg" text="ASUS RT-AX86U Pro" url="https://www.newegg.com/asus-rt-ax86u-pro/p/N82E16833320549" >}} - Gaming features, enterprise-grade security
 
 **For large homes (3000+ sq ft)**: Mesh system beats single router
-- [TP-Link Deco X55](https://www.newegg.com/tp-link-deco-x55-mesh-wifi-system/p/N82E16833704626) - Consistent coverage, simple management
-- [ASUS ZenWiFi AX6600](https://www.newegg.com/p/pl?d=asus+zenwifi+ax6600) - Advanced features, better wired backhaul
+- {{< aff merchant="newegg" text="TP-Link Deco X55" url="https://www.newegg.com/tp-link-deco-x55-mesh-wifi-system/p/N82E16833704626" >}} - Consistent coverage, simple management
+- {{< aff merchant="newegg" text="ASUS ZenWiFi AX6600" url="https://www.newegg.com/p/pl?d=asus+zenwifi+ax6600" >}} - Advanced features, better wired backhaul
 
 ### Why Wi-Fi 6 Matters
 
@@ -37,7 +37,7 @@ I've spent years as a sysadmin keeping enterprise networks safe and speedy. The 
 - **Lower latency** for gaming and video calls
 - **Future-proof** for next 5+ years
 
-*Disclaimer: Some links are affiliates - helps support this blog at no cost to you.*
+{{< aff-disclosure-inline >}}
 
 ## 2. Lock Down Your Wi-Fi (Stop Freeloaders)
 
@@ -175,7 +175,7 @@ You can't secure what you can't see.
 - **Split tunneling**: Local traffic stays fast, sensitive traffic goes through VPN
 - **Kill switch**: Blocks internet if VPN disconnects
 
-For most homes, the easiest approach is a VPN app on each device. I use and recommend [NordVPN](https://go.nordvpn.net/aff_c?offer_id=15&aff_id=143264&url_id=902) — it has good speeds, a kill switch, and works on iOS, Android, Windows, and Mac. If your router supports it, you can install the VPN at the router level to protect every device on your network without installing anything on them individually.
+For most homes, the easiest approach is a VPN app on each device. I use and recommend {{< aff merchant="nordvpn" text="NordVPN" >}} — it has good speeds, a kill switch, and works on iOS, Android, Windows, and Mac. If your router supports it, you can install the VPN at the router level to protect every device on your network without installing anything on them individually.
 
 ## Common Mistakes to Avoid
 
@@ -211,7 +211,9 @@ No spam, just practical tips that actually work.
 
 ---
 
-*Some product links are affiliates through Newegg / Rakuten Advertising - they help support this blog at no extra cost to you. I only recommend gear I've personally tested and would buy myself.*
+{{< aff-disclosure-inline >}}
+
+I only recommend gear I've personally tested and would buy myself.
 
 *Related reads:*
 - *[Setting Up a Home Lab: A Beginner's Guide](/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)*

@@ -1,0 +1,31 @@
+{{- /*
+  The commission claim next to an affiliate link.
+
+  Usage:
+    → [Sign up](...) *(affiliate - I get a commission)*
+
+  becomes:
+
+    → [Sign up]({{< aff merchant="digitalocean" text="Sign up" >}}) {{< aff-note merchant="digitalocean" >}}
+
+  The claim is generated from catalog/affiliates.json, and it only appears
+  when the merchant actually has tracking. That is the whole point: the
+  resources page used to promise a commission on a link with no referral
+  code, and the promise was a lie.
+
+  The output carries data-aff-note="<merchant>" so
+  scripts/check-affiliate-links.py can prove that no claim is ever printed
+  next to a link that earns nothing.
+*/ -}}
+{{- $merchant := .Get "merchant" -}}
+{{- $m := index site.Data.affiliates $merchant -}}
+{{- if not $m -}}
+  {{- errorf "aff-note shortcode: unknown merchant %q" $merchant -}}
+{{- end -}}
+{{- $mode := $m.mode | default "param" -}}
+{{- $code := $m.code | default "" -}}
+{{- $tracking := or (and $code (ne $mode "direct")) (and (eq $mode "widget") (eq $m.status "applied")) -}}
+{{- if $tracking -}}
+{{- $claim := $m.claim | default "affiliate link — I earn a commission, you pay exactly the same price" -}}
+<em class="aff-note" data-aff-note="{{ $merchant }}">{{ $claim }}</em>
+{{- end -}}

@@ -59,4 +59,6 @@ If you're here because your parent got scammed, or you're tired of being their t
 
 ### A note on affiliate links
 
-Some links on this site earn a small commission (at no extra cost to you) through Newegg and Rakuten Advertising. I also earn a commission if you sign up for NordVPN or NordPass through links on this site. These help cover hosting costs and keep all the content free. I only link to products I've actually tested or use myself — the full disclosure is on the [Resources page](/resources/).
+{{< aff-disclosure-inline >}}
+
+These help cover hosting costs and keep all the content free. I only link to products I've actually tested or use myself — the full disclosure is on the [Resources page](/resources/).

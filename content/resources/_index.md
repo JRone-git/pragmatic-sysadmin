@@ -43,7 +43,7 @@ Simple, predictable pricing. $4/month droplets are perfect for homelabs and smal
 - **Why I use it:** Reliable, no surprise bills, great documentation
 - **Use case:** VPS for personal projects, staging environments, this very website
 
-→ [Sign up](https://digitalocean.com) *(affiliate — you get $200 free credit for 60 days, I get a commission)*
+→ {{< aff merchant="digitalocean" text="Sign up" >}} {{< aff-note merchant="digitalocean" >}}
 
 ### Backup storage — Backblaze B2
 
@@ -53,7 +53,7 @@ S3-compatible object storage at $6/TB/month. Half the price of AWS S3 for the sa
 - **Why I use it:** Cheapest reliable cloud storage I've found
 - **Use case:** Off-site backups of all my servers
 
-→ [Sign up for B2](https://www.backblaze.com/b2/)
+→ {{< aff merchant="backblaze" text="Sign up for B2" url="https://www.backblaze.com/b2/" >}}
 
 ### Domain registrar — Cloudflare Registrar
 
@@ -73,7 +73,7 @@ The only password manager I've recommended for 10+ years. Works for individuals,
 - **Why I use it:** Cross-platform, secure by design, the family plan is great for sharing with non-technical relatives
 - **Use case:** My entire digital life, plus shared family vaults for parents
 
-→ [Get 1Password](https://1password.com/)
+→ {{< aff merchant="1password" text="Get 1Password" url="https://1password.com/" >}}
 
 ### Server monitoring — UptimeRobot
 
@@ -103,7 +103,7 @@ Best price/performance ratio in Europe. If your users are in Europe, Hetzner is 
 - **Why I use it:** Insanely cheap, reliable, great hardware
 - **Use case:** Personal projects, European clients
 
-→ [Check Hetzner](https://www.hetzner.com/cloud)
+→ {{< aff merchant="hetzner" text="Check Hetzner" >}}
 
 ---
 
@@ -120,7 +120,7 @@ The simplest smartphones and flip phones designed for older users. Big buttons, 
 - **Why I recommend it:** My mom has one. The interface is genuinely senior-friendly. The emergency response has saved lives.
 - **Use case:** Parents who don't want a complex smartphone but need to be reachable
 
-→ [Browse Lively phones](https://www.lively.com/)
+→ {{< aff merchant="lively" text="Browse Lively phones" url="https://www.lively.com/" >}}
 
 ### Senior phone plan — Consumer Cellular
 
@@ -130,7 +130,7 @@ Senior-focused phone plans with no contracts, no hidden fees. Often the cheapest
 - **Why I recommend it:** Honest pricing, no upsells, good coverage on AT&T and T-Mobile networks
 - **Use case:** Anyone who doesn't want to overpay for cell service
 
-→ [Check Consumer Cellular](https://www.consumercellular.com/)
+→ {{< aff merchant="consumercellular" text="Check Consumer Cellular" url="https://www.consumercellular.com/" >}}
 
 ### Smart display — Amazon Echo Show 8
 
@@ -140,7 +140,7 @@ The single best device for tech-shy seniors. Video calls work without touching a
 - **Why I recommend it:** My dad uses this daily. Zero learning curve after the initial setup.
 - **Use case:** Parents who live alone and need simple video calling + reminders
 
-→ [Echo Show 8 on Newegg](https://www.newegg.com/p/2E3-010D-00308)
+→ {{< aff merchant="newegg" text="Echo Show 8 on Newegg" url="https://www.newegg.com/p/2E3-010D-00308" >}}
 
 ### Audiobooks — Audible
 
@@ -150,7 +150,7 @@ For seniors with vision issues, audiobooks are transformational. Audible has the
 - **Why I recommend it:** The single most-appreciated gift I've given my parents in the last 5 years
 - **Use case:** Parents who "can't read anymore" — they can still listen
 
-→ [Try Audible](https://www.audible.com/)
+→ {{< aff merchant="audible" text="Try Audible" url="https://www.audible.com/" >}}
 
 ### Medical alert — Bay Alarm Medical
 
@@ -160,7 +160,7 @@ For seniors living alone. A button (wrist or pendant) connects to a 24/7 monitor
 - **Why I recommend it:** The actual monitoring center is US-based and well-reviewed. Equipment is reliable.
 - **Use case:** Parents at risk of falls or with health conditions
 
-→ [Bay Alarm Medical](https://www.bayalarmmedical.com/)
+→ {{< aff merchant="bayalarm" text="Bay Alarm Medical" url="https://www.bayalarmmedical.com/" >}}
 
 ### Large-button universal remote — Logitech Harmony Elite (refurbished)
 
@@ -170,7 +170,7 @@ If your parent has 4 remotes and can't figure out which one turns on the TV, thi
 - **Why I recommend it:** Solves a daily frustration for thousands of seniors
 - **Use case:** Parents with complex TV setups
 
-→ [Check Harmony on eBay](https://www.ebay.com/sch/i.html?_nkw=harmony+elite)
+→ {{< aff merchant="ebay" text="Check Harmony on eBay" url="https://www.ebay.com/sch/i.html?_nkw=harmony+elite" >}}
 
 ---
 
@@ -190,7 +190,7 @@ These are mine. No affiliate links. Just tools I made because I needed them.
 
 I update this list quarterly. Tools get added when they prove themselves over months of real use. Tools get removed when something better comes along or they disappoint.
 
-**Affiliate disclosure:** Some links above are affiliate links. If you buy through them, I earn a small commission (typically 5-25% depending on the program). This costs you nothing extra and doesn't influence my recommendations. I'm required by the FTC to tell you this, and I'd want to tell you anyway.
+{{< aff-disclosure >}}
 
 **My rule:** if a tool is here, I actually use it. If I don't use it, it doesn't make the list, even if the affiliate commission is good.
 
@@ -199,15 +199,7 @@ I update this list quarterly. Tools get added when they prove themselves over mo
 <a id="disclosure"></a>
 ## Full disclosure
 
-This page contains affiliate links to the following programs:
-- DigitalOcean (referral program, ~$25/signup commission)
-- 1Password (affiliate program, ~$5-10/sale commission)
-- Newegg / Rakuten Advertising (commission on Newegg purchases)
-- Lively (affiliate program, $15-25/activation commission)
-- Consumer Cellular (affiliate program, $5-15/activation commission)
-- Bay Alarm Medical (affiliate program, recurring commission)
-- Backblaze (referral program, $5/customer commission)
-- Other programs as listed
+The list above is generated from the same file that builds the links, so it can't drift out of date. A programme only appears here once its referral code is actually in place and working.
 
 I only recommend tools I personally use or have used extensively. Affiliate relationships do not influence which tools appear on this page. The opinions expressed are my own.
 

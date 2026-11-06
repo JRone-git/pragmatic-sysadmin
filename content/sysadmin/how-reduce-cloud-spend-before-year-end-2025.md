@@ -20,7 +20,9 @@ robots: noindex, follow
 ![How to Actually Reduce Your Cloud Spend Before Year-End 2025](/images/posts/how-reduce-cloud-spend-before-year-end-2025.png)
 
 
-**Disclosure**: *This article contains affiliate links. I only recommend products and services I genuinely use and believe will help you reduce cloud costs.*
+{{< aff-disclosure-inline >}}
+
+I only recommend products and services I genuinely use and believe will help you reduce cloud costs.
 
 As we approach year-end, many organizations are scrambling to optimize their cloud spend before budget renewals. If you're a sysadmin or DevOps engineer looking to make a real impact, this guide will help you identify and eliminate cloud waste while improving performance.
 
@@ -117,7 +119,7 @@ Storage is where most cloud costs hide.
 
 **Storage Optimization Strategies:**
 - **S3 lifecycle policies**: Move old data to cheaper storage classes
-- **Compression**: Use tools like [GNU Parallel](https://www.newegg.com/p/pl?d=gnu+parallel+book) for batch compression
+- **Compression**: Use tools like {{< aff merchant="newegg" text="GNU Parallel" url="https://www.newegg.com/p/pl?d=gnu+parallel+book" >}} for batch compression
 - **Deduplication**: Remove duplicate files before uploading
 - **Tiering**: Move infrequently accessed data to Glacier
 
@@ -148,7 +150,7 @@ End of year is prime time for contract negotiations.
 ## Tools I Use for Cloud Cost Analysis
 
 **Free Tools:**
-- [AWS Cost Explorer](https://console.aws.amazon.com/cost-reports/) - Built-in cost analysis
+- {{< aff merchant="amazon" text="AWS Cost Explorer" url="https://console.aws.amazon.com/cost-reports/" >}} - Built-in cost analysis
 - [Google Cloud Billing Export](https://cloud.google.com/billing/docs/how-to/export-data) - BigQuery integration
 - [Azure Cost Management](https://portal.azure.com/#blade/Microsoft_Azure_Billing/CostManagementBVMVBlade/overview) - Automated alerts
 
@@ -157,7 +159,7 @@ End of year is prime time for contract negotiations.
 - [CloudHealth](https://www.vmware.com/products/cloudhealth.html) - Multi-cloud optimization
 - [CloudCheckr](https://www.cloudcheckr.com/) - AI-powered cost optimization
 
-*[Disclosure: I use affiliate links for tools I recommend. Prices may be higher for you, but I only recommend tools that save more than they cost.]*
+*[Prices may be higher for you on some links, but I only recommend tools that save more than they cost.]*
 
 ## Case Study: How I Saved $2,400/month in One Week
 

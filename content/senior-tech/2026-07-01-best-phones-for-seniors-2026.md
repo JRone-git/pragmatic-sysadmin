@@ -63,10 +63,10 @@ The reviews below reflect their actual experience, not marketing claims.
 
 **If you want to skip the comparison:**
 
-- 🏆 **Best overall: [Lively Smart](https://www.lively.com/)** — smartphone designed for seniors, with built-in medical alert
-- **Best flip phone: [Lively Flip](https://www.lively.com/)** — simple, with one-push emergency button
-- **Best mainstream phone for tech-comfortable seniors: [iPhone SE](https://www.newegg.com/apple-iphone-se-6-1-3g-4g-lte-black/p/23M-0003-01X57)** + [Buddy app](https://pragmaticsysadmin.help/buddy/)
-- **Best tablet for video calling: [GrandPad](https://www.newegg.com/p/pl?d=grandpad)**
+- 🏆 **Best overall: {{< aff merchant="lively" text="Lively Smart" url="https://www.lively.com/" >}}** — smartphone designed for seniors, with built-in medical alert
+- **Best flip phone: {{< aff merchant="lively" text="Lively Flip" url="https://www.lively.com/" >}}** — simple, with one-push emergency button
+- **Best mainstream phone for tech-comfortable seniors: {{< aff merchant="newegg" text="iPhone SE" url="https://www.newegg.com/apple-iphone-se-6-1-3g-4g-lte-black/p/23M-0003-01X57" >}}** + [Buddy app](https://pragmaticsysadmin.help/buddy/)
+- **Best tablet for video calling: {{< aff merchant="newegg" text="GrandPad" url="https://www.newegg.com/p/pl?d=grandpad" >}}**
 - **Best budget option: Consumer Cellular phones** + their senior plans
 
 Let me explain why, with the actual tradeoffs.
@@ -101,7 +101,7 @@ She went from calling me once a day for help to calling me once a week. That's t
 
 **Best for:** Anyone 70+ who needs a real smartphone but gets overwhelmed by mainstream phones. Anyone who lives alone. Anyone with a fall risk.
 
-→ [Check Lively phones and plans](https://www.lively.com/)
+→ {{< aff merchant="lively" text="Check Lively phones and plans" url="https://www.lively.com/" >}}
 
 ---
 
@@ -128,7 +128,7 @@ She went from calling me once a day for help to calling me once a week. That's t
 
 **Best for:** Seniors who currently use or want a flip phone. Anyone who only needs to make calls and send the occasional text.
 
-→ [Check Lively Flip](https://www.lively.com/)
+→ {{< aff merchant="lively" text="Check Lively Flip" url="https://www.lively.com/" >}}
 
 ---
 
@@ -156,7 +156,7 @@ She went from calling me once a day for help to calling me once a week. That's t
 
 **Best for:** Tech-comfortable seniors who already use or are willing to learn iPhones. Seniors whose adult children use iPhones and can help remotely.
 
-→ [Check current iPhone SE pricing](https://www.newegg.com/apple-iphone-se-6-1-3g-4g-lte-black/p/23M-0003-01X57) *(affiliate — pricing varies)*
+→ {{< aff merchant="newegg" text="Check current iPhone SE pricing" url="https://www.newegg.com/apple-iphone-se-6-1-3g-4g-lte-black/p/23M-0003-01X57" >}} {{< aff-note merchant="newegg" >}} *(pricing varies)*
 
 **Pair with:** [Buddy app](https://pragmaticsysadmin.help/buddy/) for one-tap calling, medicine reminders, and scam protection. The Buddy app turns the iPhone into a senior-friendly phone. Add it during setup.
 
@@ -187,7 +187,7 @@ She went from calling me once a day for help to calling me once a week. That's t
 
 **Best for:** Grandparents whose main need is video calling grandchildren. Seniors who refuse to learn smartphones. Families willing to pay for the service for peace of mind.
 
-→ [Check GrandPad on Newegg](https://www.newegg.com/p/pl?d=grandpad) *(reviews vary by year/model)*
+→ {{< aff merchant="newegg" text="Check GrandPad on Newegg" url="https://www.newegg.com/p/pl?d=grandpad" >}} *(reviews vary by year/model)*
 
 ---
 
@@ -215,7 +215,7 @@ She went from calling me once a day for help to calling me once a week. That's t
 
 **Best for:** Budget-conscious families. Seniors who just want a simple phone without all the extras. Anyone who doesn't need medical alert.
 
-→ [Check Consumer Cellular phones](https://www.consumercellular.com/) *(affiliate — also offers AARP discount)*
+→ {{< aff merchant="consumercellular" text="Check Consumer Cellular phones" url="https://www.consumercellular.com/" >}} {{< aff-note merchant="consumercellular" >}} *(also offers an AARP discount)*
 
 ---
 
@@ -241,13 +241,13 @@ Even the best phone is useless without a good plan. Here's how the major senior-
 
 ## Phone plan quick-buy links
 
-| Plan | Link | Commission | Why |
-|------|------|-----------|-----|
-| Lively | [lively.com](https://www.lively.com/) | ~$15-25/activation | Best all-in-one for seniors |
-| Consumer Cellular | [consumercellular.com](https://www.consumercellular.com/) | ~$5-15/activation | Cheapest reliable option |
-| Mint Mobile | [mintmobile.com](https://www.mintmobile.com/) | One-time commission | Best if you want modern phones |
+| Plan | Link | Why |
+|------|------|-----|
+| Lively | {{< aff merchant="lively" text="lively.com" url="https://www.lively.com/" >}} | Best all-in-one for seniors |
+| Consumer Cellular | {{< aff merchant="consumercellular" text="consumercellular.com" url="https://www.consumercellular.com/" >}} | Cheapest reliable option |
+| Mint Mobile | [mintmobile.com](https://www.mintmobile.com/) | Best if you want modern phones |
 
-*(Affiliate disclosure: links marked affiliate earn me a commission. This doesn't change my recommendations. I get paid if you buy through them.)*
+{{< aff-disclosure-inline >}}
 
 ---
 
@@ -269,7 +269,7 @@ For the full setup guide with specific menu paths, see [How to Set Up an iPhone 
 
 ## My top pick in 2026: Lively Smart
 
-If I'm buying one phone for one senior today, it's the [Lively Smart](https://www.lively.com/).
+If I'm buying one phone for one senior today, it's the {{< aff merchant="lively" text="Lively Smart" url="https://www.lively.com/" >}}.
 
 Three reasons:
 
@@ -347,4 +347,6 @@ Whatever you choose, take 30 minutes on a Saturday to set it up properly. The ph
 - *[Best Free Phone Apps for Seniors](/senior-tech/2026-06-27-best-free-phone-apps-seniors/)*
 - *[Buddy — Free companion app for elderly parents](/buddy/)*
 
-*Affiliate disclosure: links to Lively, Consumer Cellular, and Newegg are affiliate links. I earn a small commission at no extra cost to you if you buy through them. This doesn't change my recommendations — every phone above was tested by a real grandparent. See the [Resources page](/resources/) for full disclosure.*
+{{< aff-disclosure-inline >}}
+
+Every phone above was tested by a real grandparent, and affiliate money doesn't change a single recommendation. See the [Resources page](/resources/) for the full disclosure.

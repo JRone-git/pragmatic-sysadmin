@@ -96,7 +96,7 @@ Computers get slow when they're running out of space. Like really slow. If your 
 - Click OK and wait
 
 **5. If you're still full after cleaning, add an SSD**
-The single biggest speed upgrade for any older computer is replacing a spinning hard drive with an SSD. A [1TB NVMe SSD](https://www.newegg.com/p/pl?d=1tb+nvme+ssd) costs around $60 and makes an old laptop feel brand new. Boot times drop from 3 minutes to 15 seconds. Programs open instantly. It's the one upgrade I recommend to everyone, regardless of technical skill.
+The single biggest speed upgrade for any older computer is replacing a spinning hard drive with an SSD. A {{< aff merchant="newegg" text="1TB NVMe SSD" url="https://www.newegg.com/p/pl?d=1tb+nvme+ssd" >}} costs around $60 and makes an old laptop feel brand new. Boot times drop from 3 minutes to 15 seconds. Programs open instantly. It's the one upgrade I recommend to everyone, regardless of technical skill.
 
 **For small business owners:** If you're storing years of old files, consider moving them to an external hard drive or cloud storage. You probably don't need every invoice from 2017 on your computer.
 
@@ -110,7 +110,7 @@ Close tabs you're not using. Right now. Yes, all of them.
 
 **Better solution:** Bookmark important pages instead of keeping tabs open.
 
-**If you're genuinely running out of RAM** (check: Task Manager → Performance → Memory — if it's consistently above 85%), adding more RAM is cheap and easy. A [16GB DDR4 RAM kit](https://www.newegg.com/p/pl?d=16gb+ddr4+ram) costs around $35-50 and snaps into your computer in about 2 minutes. Most laptops have a panel on the bottom you can remove. Desktops are even easier. If your computer has 4GB or 8GB and you're running Windows 11, upgrading to 16GB will feel like getting a new machine.
+**If you're genuinely running out of RAM** (check: Task Manager → Performance → Memory — if it's consistently above 85%), adding more RAM is cheap and easy. A {{< aff merchant="newegg" text="16GB DDR4 RAM kit" url="https://www.newegg.com/p/pl?d=16gb+ddr4+ram" >}} costs around $35-50 and snaps into your computer in about 2 minutes. Most laptops have a panel on the bottom you can remove. Desktops are even easier. If your computer has 4GB or 8GB and you're running Windows 11, upgrading to 16GB will feel like getting a new machine.
 
 **Windows:**
 - Press **Ctrl + D** to bookmark the current page
@@ -160,7 +160,7 @@ Not "I should do this." Do it TODAY.
 If your computer dies tomorrow, can you keep running your business? If the answer is "no," you need backups.
 
 **The simple way:**
-- Buy an [external hard drive](https://www.newegg.com/p/pl?d=external+hard+drive) (256GB+ for most small businesses)
+- Buy an {{< aff merchant="newegg" text="external hard drive" url="https://www.newegg.com/p/pl?d=external+hard+drive" >}} (256GB+ for most small businesses)
 - Plug it in
 - Windows: Settings → System → Storage → "Configure Backup"
 - Mac: Time Machine does this automatically when you plug in a drive

@@ -123,7 +123,7 @@ service to come back up, and prints recent logs if something fails.
 
 A complete server health check toolkit: multiple scripts, documentation, and decision trees from a real-world-tested workflow. For sysadmins, by a sysadmin.
 
-[Read full description →](/products/health-check-toolkit/) · [Buy on Ko-fi →](https://ko-fi.com/s/5157a41780)
+[Read full description →](/products/health-check-toolkit/) · {{< aff merchant="ko-fi" text="Buy on Ko-fi →" url="https://ko-fi.com/s/5157a41780" >}}
 
 ---
 
@@ -140,7 +140,7 @@ What's inside:
 - Part 4: Fridge quick-reference card (cut out and laminate)
 - Part 5: Checkup calendar and note-taking template
 
-[Read the free blog series →](/senior-tech/2026-07-02-the-quarterly-tech-checkup/) · [Buy the printable PDF on Ko-fi →](https://ko-fi.com/s/a567718347)
+[Read the free blog series →](/senior-tech/2026-07-02-the-quarterly-tech-checkup/) · {{< aff merchant="ko-fi" text="Buy the printable PDF on Ko-fi →" url="https://ko-fi.com/s/a567718347" >}}
 
 ---
 
@@ -179,4 +179,4 @@ You own what you buy. Modify it. Redistribute it. Use it in your team. It's your
 
 Email [pragmatic@pragmaticsysadmin.help](mailto:pragmatic@pragmaticsysadmin.help)
 
-Or tip what you want at [Buy me a coffee on Ko-fi](https://ko-fi.com/sysadmin_dad) if you find the free content useful.
+Or tip what you want at {{< aff merchant="ko-fi" text="Buy me a coffee on Ko-fi" >}} if you find the free content useful.

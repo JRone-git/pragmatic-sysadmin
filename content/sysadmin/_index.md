@@ -67,7 +67,9 @@ If you've ever been paged at 3 AM and thought "I should have set up better monit
 
 No sponsored content, no vendor pitches. If I recommend a tool, it's because I use it on my own systems. The [gear page](/tools/gear/) has the full list of hardware and software I actually use daily.
 
-Some links earn a small commission through Newegg, Rakuten Advertising, NordVPN, or NordPass — at no extra cost to you. These help cover the ~€100/year hosting cost. The full disclosure is on the [Resources page](/resources/).
+{{< aff-disclosure-inline >}}
+
+These help cover the hosting cost. The full disclosure is on the [Resources page](/resources/).
 
 ### Stay updated
 

@@ -203,7 +203,7 @@ You've probably heard this before, but are you actually doing it?
 - **2 different storage types** (local disk + cloud/object storage)
 - **1 copy off-site** (different building, different provider, different region)
 
-I use [Backblaze B2](https://www.backblaze.com/b2/) for the off-site copy. It's $6/TB/month, which means my 50 GB of critical backups cost about $0.30/month. There's no excuse for not having an off-site copy in 2026. The upload can be automated with `restic` or `rclone` on a cron schedule. Set it up once, check it monthly, and forget about it.
+I use {{< aff merchant="backblaze" text="Backblaze B2" url="https://www.backblaze.com/b2/" >}} for the off-site copy. It's $6/TB/month, which means my 50 GB of critical backups cost about $0.30/month. There's no excuse for not having an off-site copy in 2026. The upload can be automated with `restic` or `rclone` on a cron schedule. Set it up once, check it monthly, and forget about it.
 
 ## Summary
 

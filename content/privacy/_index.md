@@ -38,7 +38,7 @@ When you buy a toolkit or tip via **Ko-fi** (ko-fi.com), Ko-fi processes your pa
 
 ### 5. Affiliate links
 
-Some links on the [Resources](/resources/) page are affiliate links. If you click one and buy, I earn a small commission at no extra cost to you. The vendor (e.g. DigitalOcean) may set a cookie on your browser to track that you came from my site. I do not control these cookies; check the vendor's privacy policy for details.
+Some links on the [Resources](/resources/) page are affiliate links. Where a link is marked as an affiliate link, I may earn a commission at no extra cost to you. The vendor may set a cookie on your browser to track that you came from my site. I do not control these cookies; check the vendor's privacy policy for details.
 
 ### 6. Theme preference
 

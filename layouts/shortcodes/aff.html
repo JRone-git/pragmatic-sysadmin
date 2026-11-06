@@ -1,0 +1,41 @@
+{{- /*
+  Affiliate link shortcode.
+
+  Usage:
+    {{< aff merchant="digitalocean" text="Sign up" >}}
+    {{< aff merchant="newegg" text="Echo Show 8" url="https://www.newegg.com/p/2E3-010D-00308" >}}
+
+  The tracking comes from catalog/affiliates.json, so joining a programme is
+  a one-line change in that file rather than an edit in every post.
+
+  A merchant with no code yet still renders - it just goes out without
+  tracking, and it carries data-aff-untracked="true" so
+  scripts/check-affiliate-links.py can report that it earns nothing. That
+  matters: the old hand-written link said "I get a commission" on a URL
+  with no referral code at all, and nothing in the build noticed.
+
+  Note the reflect.IsMap guard. Hugo's data loader hands back whatever
+  shape the file has, and a stray key holding a list instead of a map
+  breaks every field lookup on the whole file.
+*/ -}}
+{{- $merchant := .Get "merchant" -}}
+{{- $m := index site.Data.affiliates $merchant -}}
+{{- if not $m -}}
+  {{- errorf "aff shortcode: unknown merchant %q" $merchant -}}
+{{- end -}}
+{{- $text := .Get "text" | default $m.name -}}
+{{- $url := .Get "url" | default $m.url -}}
+{{- $mode := $m.mode | default "param" -}}
+{{- $code := $m.code | default "" -}}
+{{- $tracked := false -}}
+{{- if and $code (ne $mode "widget") (ne $mode "direct") -}}
+  {{- $tracked = true -}}
+  {{- if eq $mode "path" -}}
+    {{- $url = replace $url "{code}" $code -}}
+  {{- else if and $m.param (ne $mode "url") -}}
+    {{- $sep := "?" -}}
+    {{- if strings.Contains $url "?" -}}{{- $sep = "&" -}}{{- end -}}
+    {{- $url = printf "%s%s%s=%s" $url $sep $m.param $code -}}
+  {{- end -}}
+{{- end -}}
+<a href="{{ $url }}" data-aff="{{ $merchant }}" data-aff-mode="{{ $mode }}"{{ if not $tracked }} data-aff-untracked="true"{{ end }}>{{ $text }}</a>

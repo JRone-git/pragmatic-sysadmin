@@ -1,0 +1,46 @@
+{{- /*
+  Affiliate disclosure, generated from catalog/affiliates.json.
+
+  The old version was hand-written and listed seven programmes with specific
+  commissions - none of which carried tracking. It was a false statement,
+  and nothing in the build noticed.
+
+  This renders only the programmes that are actually joined, and only on a
+  page that actually contains a link to one of them. A page whose links all
+  go nowhere says so instead of claiming money.
+
+  The wrapper element carries data-aff-disclosure so the link check can tell
+  the page-level disclosure apart from a per-link commission claim.
+*/ -}}
+{{- $applied := slice -}}
+{{- $earning := false -}}
+{{- $raw := "" -}}
+{{- with .Page -}}{{- $raw = .RawContent | default "" -}}{{- end -}}
+{{- range $key, $m := site.Data.affiliates -}}
+  {{- if and (reflect.IsMap $m) (eq (index $m "status") "applied") (ne (index $m "kind") "donation") -}}
+    {{- if strings.Contains $raw (printf "merchant=%q" $key) -}}
+      {{- $earning = true -}}
+      {{- $applied = $applied | append (dict "name" (index $m "name") "note" (index $m "note")) -}}
+    {{- end -}}
+  {{- end -}}
+{{- end -}}
+<div class="aff-disclosure" data-aff-disclosure="true">
+{{- if $earning }}
+<p><strong>Affiliate disclosure:</strong> Some links above are affiliate links. If you buy
+through them, I earn a small commission at no extra cost to you. This doesn't
+change my recommendations &mdash; I only list tools I actually use. I'm required by
+the FTC to tell you this, and I'd want to tell you anyway.</p>
+<p>This page earns a commission through:</p>
+<ul>
+{{- range $applied }}
+  <li>{{ .name }}</li>
+{{- end }}
+</ul>
+{{- else }}
+<p><strong>Affiliate disclosure:</strong> Some links on this site are affiliate links and
+some are not. Where a link is marked as an affiliate link, I earn a commission
+at no extra cost to you. On this page none of the links currently earn me
+anything &mdash; the referral codes are not set up yet, and I would rather say
+that than pretend otherwise. Prices and recommendations are unaffected either way.</p>
+{{- end }}
+</div>
