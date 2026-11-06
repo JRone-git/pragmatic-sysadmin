@@ -18,9 +18,22 @@ jobs:
           hugo-version: latest
           extended: true
       
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+
       - name: Build
         run: hugo --minify --buildFuture
-        
+
+      - name: Check affiliate links earn what they promise
+        # This workflow and hugo.yml both publish to GitHub Pages, and
+        # whichever finishes last wins. The affiliate check therefore has
+        # to run here as well - otherwise a page could promise a
+        # commission on a link that earns nothing, and this workflow
+        # would publish it without complaint.
+        run: python scripts/check-affiliate-links.py public
+
       - uses: actions/upload-pages-artifact@v3
         with:
           path: ./public
