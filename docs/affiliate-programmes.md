@@ -67,6 +67,23 @@ sits around 1–2% for publishers.
 Amazon's 24 hours. On a product roundup where a reader browses for a week and
 then buys, Newegg is the better bet than Amazon.
 
+**The evidence, measured.** A headless browser was pointed at the live site
+and a real Newegg link clicked. The Rakuten widget does fire — it calls
+
+```
+https://automate.linksynergy.com/click?origin=…&link=https://www.newegg.com/p/2E3-010D-00308&widget_key=7LPHGCV9BUkW9tlD8KQFcwkPMqUmzwsW&err_code=2&domain=newegg.com
+```
+
+— and then sends the reader to `https://www.newegg.com/p/2E3-010D-00308` with
+**no referral parameter at all**. The same happens for amazon.com, ko-fi.com
+and lively.com: `err_code=2` every time, no affiliate link created, plain
+destination.
+
+So the widget is not broken. It is doing exactly what it is supposed to do
+with an account that has no advertiser partnership behind it. Forty clicks a
+month on Newegg product links, and every one of them currently earns nothing.
+
+
 ---
 
 ## 2. DigitalOcean — best economics for this audience
