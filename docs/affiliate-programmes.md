@@ -221,18 +221,32 @@ the traffic ever moves.
 These have the best commission-per-click in the whole list and the shortest
 application forms. Batch them into one sitting.
 
-| Programme | Pays | Where it plugs in |
-|---|---|---|
-| **1Password** | ~$5–10 per sale | Resources page, `content/resources/_index.md` |
-| **Lively** | ~$15–25 per activation | 7 links, senior phone roundups |
-| **Consumer Cellular** | ~$5–15 per activation | 3 links, phone roundups |
-| **Bay Alarm Medical** | recurring | Resources page |
-| **Backblaze** | ~$5 per customer | 2 links, homelab + backup posts |
+| Programme | Network | Pays | Where it plugs in |
+|---|---|---|---|
+| **Lively** | **CJ Affiliate** | **$25+ per device**, 45-day cookie | 7 links, senior phone roundups |
+| **Consumer Cellular** | varies | CPA per activation | 3 links, phone roundups |
+| **1Password** | **Impact** | ~$5–10 per sale | Resources page |
+| **Bay Alarm Medical** | in-house | recurring, `?affiliate_id=rr_<id>` | Resources page |
+| **Backblaze** | in-house | ~$5 per customer | 2 links, homelab + backup posts |
 
-Lively and Consumer Cellular are the best two on this list: the audience is
-literally "an adult child buying a phone for a parent", the conversion window
-is short, and the commission is per activation rather than a percentage of a
-small basket.
+**Two networks, five programmes.** Lively and Bluehost are on **CJ Affiliate**;
+1Password is on **Impact**; DigitalOcean is on Awin or CJ depending on the
+route you take. Bay Alarm and Backblaze are in-house, so they need no network
+at all — just an approval and a link format.
+
+CJ and Impact each need one account, one tax form and one payout method, and
+then each advertiser inside them is a separate application. That is why the
+small ones are worth batching: it is one afternoon, not five.
+
+**Lively is the best of the lot.** $25 per device sale with a 45-day cookie and
+unlimited referrals, and the audience is literally "an adult child buying a
+phone for a parent". That is a $89.99 device with a $25/month service attached
+to it, and it is a conversion that happens in a week, not a quarter.
+
+Careful with Lively: **the commission is per device, and only on the devices
+in the programme** (Jitterbug Flip2, Jitterbug Smart4, Lively Mobile2). A
+reader who buys a plain smartphone through the Lively site earns you nothing,
+so link the device pages, not the homepage.
 
 ---
 

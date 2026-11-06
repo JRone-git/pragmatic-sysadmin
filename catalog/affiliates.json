@@ -70,7 +70,7 @@
     "mode": "direct",
     "code": "",
     "status": "not-applied",
-    "note": "Runs an affiliate programme. The link format has to be taken from the programme dashboard rather than guessed, so the url is left plain until the code and the exact parameter are known.",
+    "note": "CJ Affiliate. Lively's own page: payouts start at $25 per device sale and rise with performance, with spiffs on top. 45 day cookie, unlimited referrals. The link format has to be taken from the CJ dashboard.",
     "claim": "affiliate link — I earn a commission if you sign up"
   },
   "consumercellular": {
@@ -80,17 +80,17 @@
     "mode": "direct",
     "code": "",
     "status": "not-applied",
-    "note": "Runs an affiliate programme, roughly $5-15 per activation. The link format has to be taken from the programme dashboard rather than guessed.",
+    "note": "CPA model - a flat fee per activation, varying by partner and network. The link format has to be taken from the network dashboard rather than guessed.",
     "claim": "affiliate link — I earn a commission if you sign up"
   },
   "bayalarm": {
     "name": "Bay Alarm Medical",
     "url": "https://www.bayalarmmedical.com",
-    "param": "",
+    "param": "affiliate_id",
     "mode": "direct",
     "code": "",
     "status": "not-applied",
-    "note": "Runs an affiliate programme with a recurring commission. The link format has to be taken from the programme dashboard rather than guessed.",
+    "note": "In-house programme. Their own quote links carry a parameter of the form affiliate_id=rr_<id>, so the code is the part after 'rr_'. Commissions are recurring on the monitoring service.",
     "claim": "affiliate link — I earn a commission if you sign up"
   },
   "backblaze": {
@@ -100,7 +100,7 @@
     "mode": "direct",
     "code": "",
     "status": "not-applied",
-    "note": "Runs a referral programme worth about $5 per customer. The link format has to be taken from the programme dashboard rather than guessed.",
+    "note": "In-house referral programme, about $5 per customer. No affiliate network in between.",
     "claim": "affiliate link — I earn a commission if you sign up"
   },
   "nordvpn": {
@@ -128,7 +128,7 @@
     "mode": "direct",
     "code": "",
     "status": "not-applied",
-    "note": "Runs an affiliate programme worth roughly $5-10 a sale, through Impact. The link format has to be taken from the programme dashboard rather than guessed.",
+    "note": "Runs through Impact at roughly $5-10 per sale. Impact lets one publisher account apply to many programmes from one tax form.",
     "claim": "affiliate link — I earn a commission if you sign up"
   },
   "audible": {
