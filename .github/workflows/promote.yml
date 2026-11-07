@@ -9,6 +9,11 @@ on:
     branches: [main]
     paths:
       - 'content/**/*.md'
+      # The engine itself is a trigger too: changing the pacing rules is a
+      # deliberate instruction to publish, and waiting for the next content
+      # commit would quietly ignore it.
+      - 'scripts/promote.py'
+      - 'promotion/release.yaml'
   schedule:
     # Daily retry so cadence-gated posts go out when their window opens.
     - cron: '30 8 * * *'
@@ -55,15 +60,20 @@ jobs:
           MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
           DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
           FORCE: ${{ inputs.force || 'false' }}
+          # How many dev.to articles one run may publish. dev.to is an
+          # article library, not a feed, so a small daily batch drains the
+          # backlog without burying anyone's timeline. The social channels
+          # ignore this - they stay at one post per run.
+          DEVTO_BATCH: ${{ vars.DEVTO_BATCH || '5' }}
         # A missing secret skips that channel (status=failed with a clear
         # message) without failing the whole run for the others.
         # FORCE=true is only settable via manual dispatch — scheduled and
         # push runs always respect the 48h cadence.
         run: |
           if [ "$FORCE" = "true" ]; then
-            python scripts/promote.py auto-post --force || true
+            python scripts/promote.py auto-post --force --batch "$DEVTO_BATCH" || true
           else
-            python scripts/promote.py auto-post || true
+            python scripts/promote.py auto-post --batch "$DEVTO_BATCH" || true
           fi
 
       - name: Create promotion issues for manual channels

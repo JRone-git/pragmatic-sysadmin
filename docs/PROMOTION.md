@@ -14,7 +14,7 @@ new post lands on main (content/**/*.md)
 │ generate     → pitch package in promotion/queue/<slug>/  │
 │                + state in promotion/state.json           │
 │ auto-post    → Bluesky + Mastodon + dev.to (canonical)   │
-│                48h cadence, 1 post/channel/run           │
+│                48h cadence on social, 24h on dev.to        │
 │ open-issues  → GitHub issue "📣 Promote: <title>"        │
 │                (label: promotion) with HN/Reddit drafts  │
 └──────────────────────────────────────────────────────────┘
@@ -42,7 +42,19 @@ reshares one post older than 30 days to Bluesky/Mastodon
 | Reddit | **approval** | Auto-posting self-promo gets accounts shadowbanned; approval keeps you in control of *which* subreddit and *when* |
 
 Cadence rule (from `hacker-news-pitches.md`) is enforced in code: **at most
-one post per platform per 48 hours**, tracked in `promotion/state.json`
+one post per platform per 48 hours**, tracked in `promotion/state.json`.
+
+**dev.to is the exception, and it is a deliberate one.** The 48 hour rule
+exists so followers on Bluesky and Mastodon are not buried — it protects
+the people who chose to follow you. dev.to has no followers to protect.
+It is an article library: every post is a permanent, separately browsable
+page, and publishing one interrupts nobody. So dev.to gets a **24 hour
+cadence and a batch of up to 5 articles per run**, and historical posts
+that were "seeded" for evergreen resharing are eligible there too.
+
+The social channels stay at **one post per run, no matter what**. 42
+queued posts dumped on a follower timeline at once is spam, and a
+suspended account earns nothing at all.
 (committed back by the workflow so it persists between runs).
 
 ## Required setup (GitHub repo → Settings → Secrets and variables → Actions)
@@ -85,7 +97,11 @@ python scripts/promote.py evergreen --dry-run      # preview weekly reshare
 
 ## Tuning knobs (top of `scripts/promote.py`)
 
-- `CADENCE_HOURS = 48` — minimum gap per platform
+- `CADENCE_HOURS = 48` — default minimum gap per platform
+- `CHANNEL_CADENCE_HOURS` / `CHANNEL_MAX_PER_RUN` — per-channel overrides
+  (dev.to: 24h, 5 per run; social: 48h, 1 per run)
+- `DEVTO_BATCH` repository variable — how many dev.to articles one run may
+  publish (default 5). `--batch` on the CLI overrides it.
 - `MAX_PER_RUN = 1` — posts per auto channel per workflow run
 - `SUBREDDITS` — default candidate subreddits per section; override a single
   post with `promotion_subreddits: r/foo, r/bar` in its front matter

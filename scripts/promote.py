@@ -31,6 +31,7 @@ import json
 import os
 import re
 import sys
+import time
 import urllib.error
 import urllib.parse
 import urllib.request
@@ -46,10 +47,25 @@ STATE_PATH = PROMO_DIR / "state.json"
 BASE_URL = "https://pragmaticsysadmin.help"
 SECTIONS = ("sysadmin", "senior-tech", "meta", "posts")
 AUTO_CHANNELS = ("bluesky", "mastodon", "devto")
-CADENCE_HOURS = 48  # "once per platform per 48 hours" - see hacker-news-pitches.md
-MAX_PER_RUN = 1  # max posts per auto channel per run
+CADENCE_HOURS = 48  # default: "once per platform per 48 hours" - see hacker-news-pitches.md
+MAX_PER_RUN = 1  # default: max posts per auto channel per run
 EVERGREEN_MIN_AGE_DAYS = 30
 EVERGREEN_RESHARE_DAYS = 60
+
+# The 48 hour rule exists so followers on Bluesky and Mastodon are not
+# buried. dev.to is not a feed - it is an article library. Every post
+# there is a permanent, separately browsable page, and nothing gets
+# interrupted. One article a day keeps the same courtesy while giving the
+# queue a way to drain.
+#
+# The social channels stay at one post per run. That is deliberate: 42
+# queued posts dumped on a follower timeline at once is spam, and a
+# suspended account earns nothing at all.
+CHANNEL_CADENCE_HOURS = {"bluesky": 48, "mastodon": 48, "devto": 24}
+CHANNEL_MAX_PER_RUN = {"bluesky": 1, "mastodon": 1, "devto": 5}
+# dev.to's API allows 30 write requests per 30 seconds. Six seconds is
+# well inside that and still leaves the run readable in the log.
+DEVTO_POST_PAUSE_SECONDS = 6
 
 # Fallback subreddits per section (first match wins; overridable per-post
 # with a `promotion_subreddits:` line in front matter).
@@ -610,14 +626,24 @@ def cmd_generate(args) -> int:
 
 
 def _pending_posts(state: dict, channel: str):
-    """Posts whose package exists and this channel hasn't succeeded yet."""
+    """Posts whose package exists and this channel hasn't succeeded yet.
+
+    "seeded" means the post was judged historical when the queue was
+    generated, so it is held back from the social channels and left for
+    evergreen resharing. dev.to is different: it is an article library,
+    not a feed, and a cross-post there interrupts nobody. A seeded post
+    that already has a package is therefore eligible for dev.to.
+    """
     for slug, ps in sorted(
         state["posts"].items(), key=lambda kv: kv[1].get("queued_at", "")
     ):
         pkg = QUEUE_DIR / slug
         if not (pkg / "package.json").exists():
             continue
-        if channel_status(ps, channel) in ("posted", "skipped", "seeded"):
+        status = channel_status(ps, channel)
+        if status in ("posted", "skipped"):
+            continue
+        if status == "seeded" and channel != "devto":
             continue
         yield slug, ps, pkg
 
@@ -631,17 +657,24 @@ def cmd_auto_post(args) -> int:
     for channel in AUTO_CHANNELS:
         if args.channels and channel not in args.channels.split(","):
             continue
+        cadence = CHANNEL_CADENCE_HOURS.get(channel, CADENCE_HOURS)
         if not force:
-            wait = CADENCE_HOURS - hours_since(state, channel)
+            wait = cadence - hours_since(state, channel)
             if wait > 0:
                 print(f"{channel}: cadence cooldown, {wait:.1f}h remaining. "
                       "Skipping.")
                 continue
         else:
             print(f"{channel}: force mode, cadence bypassed.")
+        # --batch only ever applies to dev.to. The social channels stay at
+        # one post per run no matter what, so a batch can never turn into
+        # a follower-timeline dump.
+        limit = CHANNEL_MAX_PER_RUN.get(channel, MAX_PER_RUN)
+        if channel == "devto" and getattr(args, "batch", 0):
+            limit = args.batch
         posted = 0
         for slug, ps, pkg in _pending_posts(state, channel):
-            if posted >= MAX_PER_RUN:
+            if posted >= limit:
                 break
             if channel == "devto":
                 text = (pkg / "devto.md").read_text(encoding="utf-8")
@@ -663,6 +696,8 @@ def cmd_auto_post(args) -> int:
                 set_channel(ps, channel, "posted", ref=ref)
                 state["last_posted"][channel] = now().isoformat(timespec="seconds")
             posted += 1
+            if channel == "devto" and posted < limit:
+                time.sleep(DEVTO_POST_PAUSE_SECONDS)
     if not args.dry_run:
         save_state(state)
     else:
@@ -1137,6 +1172,10 @@ def main(argv=None) -> int:
                    help="comma list: bluesky,mastodon,devto (default: all)")
     p.add_argument("--force", action="store_true",
                    help="bypass the 48h cadence (manual dispatch only)")
+    p.add_argument("--batch", type=int, default=0,
+                   help="how many dev.to articles to publish in one run "
+                        "(ignored for the social channels, which stay at one "
+                        "post per run so a follower timeline is never dumped)")
     p.add_argument("--dry-run", action="store_true")
 
     p = sub.add_parser("issue-body", help="print tracking issue body")
