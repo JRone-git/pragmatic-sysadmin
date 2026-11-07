@@ -65,7 +65,35 @@ CHANNEL_CADENCE_HOURS = {"bluesky": 48, "mastodon": 48, "devto": 24}
 CHANNEL_MAX_PER_RUN = {"bluesky": 1, "mastodon": 1, "devto": 5}
 # dev.to's API allows 30 write requests per 30 seconds. Six seconds is
 # well inside that and still leaves the run readable in the log.
-DEVTO_POST_PAUSE_SECONDS = 6
+DEVTO_POST_PAUSE_SECONDS = 35
+# dev.to's article endpoint rate-limits well below the published
+# 30-requests-per-30-seconds figure for general API traffic: two articles
+# in twelve seconds came back 429. One article every 35 seconds is
+# comfortably inside it.
+DEVTO_RETRY_ATTEMPTS = 3
+DEVTO_RETRY_WAIT_SECONDS = 40
+
+
+def _post_devto_with_retry(pkg: Path, *, dry_run: bool) -> str:
+    """Post to dev.to, waiting out a rate limit instead of giving up.
+
+    The first version treated a 429 like a broken configuration: it marked
+    the post failed and abandoned the whole batch. Two articles went out,
+    the third hit the limit, and the two behind it were never tried.
+    """
+    last = ""
+    for attempt in range(1, DEVTO_RETRY_ATTEMPTS + 1):
+        try:
+            return post_devto(pkg, dry_run=dry_run)
+        except RateLimited as e:
+            last = str(e)
+            if attempt == DEVTO_RETRY_ATTEMPTS:
+                break
+            wait = DEVTO_RETRY_WAIT_SECONDS
+            print(f"dev.to/{pkg.parent.name}: rate limited, waiting {wait}s "
+                  f"(attempt {attempt}/{DEVTO_RETRY_ATTEMPTS})")
+            time.sleep(wait)
+    raise RuntimeError(last or "dev.to post failed")
 
 # Fallback subreddits per section (first match wins; overridable per-post
 # with a `promotion_subreddits:` line in front matter).
@@ -435,6 +463,14 @@ def post_mastodon(text: str, *, dry_run: bool) -> str:
     return ref
 
 
+class RateLimited(RuntimeError):
+    """dev.to said "try again in 30 seconds". Transient, not fatal."""
+
+
+class ConfigError(RuntimeError):
+    """Something is wrong with the setup, so every post would fail."""
+
+
 def post_devto(pkg: Path, *, dry_run: bool) -> str:
     """Cross-post to dev.to with canonical_url pointing back at the site."""
     front = (pkg / "devto.md").read_text(encoding="utf-8")
@@ -469,7 +505,7 @@ def post_devto(pkg: Path, *, dry_run: bool) -> str:
 
     api_key = os.environ.get("DEVTO_API_KEY", "")
     if not api_key:
-        raise RuntimeError("DEVTO_API_KEY not set")
+        raise ConfigError("DEVTO_API_KEY not set")
     status, raw = _req(
         "https://dev.to/api/articles",
         method="POST",
@@ -478,6 +514,11 @@ def post_devto(pkg: Path, *, dry_run: bool) -> str:
         headers={"Content-Type": "application/json", "api-key": api_key},
         data=payload,
     )
+    if status == 429:
+        # "Rate limit reached, try again in 30 seconds". The article itself
+        # is fine - the account posted too many too fast. This is not a
+        # reason to mark the post failed and abandon the batch.
+        raise RateLimited("dev.to rate limit reached")
     if status not in (200, 201):
         raise RuntimeError(f"dev.to post failed: {status} {raw[:300]!r}")
     ref = json.loads(raw).get("url", "")
@@ -682,21 +723,28 @@ def cmd_auto_post(args) -> int:
                 text = (pkg / f"{channel}.txt").read_text(encoding="utf-8")
             try:
                 if channel == "devto":
-                    ref = post_devto(pkg, dry_run=args.dry_run)
+                    ref = _post_devto_with_retry(pkg, dry_run=args.dry_run)
                 else:
                     ref = poster[channel](text, dry_run=args.dry_run)
-            except RuntimeError as e:
-                # Config errors will fail for every post; stop early rather
-                # than spamming failures.
+            except ConfigError as e:
+                # A setup problem will fail every post. Stop rather than
+                # spamming failures, and say what is actually wrong.
                 print(f"{channel}/{slug}: FAILED - {e}")
                 set_channel(ps, channel, "failed", error=str(e))
                 exit_code = 1
                 break
+            except RuntimeError as e:
+                # One bad article should not cost us the rest of the batch.
+                # Leave it eligible so the next run tries it again.
+                print(f"{channel}/{slug}: FAILED - {e}")
+                set_channel(ps, channel, "failed", error=str(e))
+                exit_code = 1
+                continue
             if not args.dry_run:
                 set_channel(ps, channel, "posted", ref=ref)
                 state["last_posted"][channel] = now().isoformat(timespec="seconds")
             posted += 1
-            if channel == "devto" and posted < limit:
+            if channel == "devto" and posted < limit and not args.dry_run:
                 time.sleep(DEVTO_POST_PAUSE_SECONDS)
     if not args.dry_run:
         save_state(state)
