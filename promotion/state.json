@@ -1,7 +1,7 @@
 {
   "last_posted": {
     "bluesky": "2026-11-05T16:34:57+00:00",
-    "devto": "2026-11-05T16:34:59+00:00",
+    "devto": "2026-11-07T15:20:20+00:00",
     "mastodon": "2026-11-05T16:34:58+00:00"
   },
   "posts": {
@@ -12,8 +12,9 @@
           "status": "seeded"
         },
         "devto": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-11-07T15:20:13+00:00",
+          "ref": "https://dev.to/jronegit/how-to-turn-on-2fa-for-your-elderly-parents-email-the-most-important-5-minute-security-upgrade-56ik",
+          "status": "posted"
         },
         "hn": {
           "at": "2026-10-05T10:25:08+00:00",
@@ -41,8 +42,9 @@
           "status": "seeded"
         },
         "devto": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-11-07T15:20:20+00:00",
+          "ref": "https://dev.to/jronegit/senior-scam-prevention-5-conversations-that-actually-stop-fraud-2026-2ej9",
+          "status": "posted"
         },
         "hn": {
           "at": "2026-10-05T10:25:08+00:00",
@@ -94,8 +96,9 @@
           "status": "seeded"
         },
         "devto": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-11-07T15:20:26+00:00",
+          "error": "dev.to post failed: 429 b'{\"error\":\"Rate limit reached, try again in 30 seconds\",\"status\":429}'",
+          "status": "failed"
         },
         "hn": {
           "at": "2026-10-05T10:25:08+00:00",
