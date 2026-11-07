@@ -4,21 +4,6 @@ canonical_url: https://pragmaticsysadmin.help/sysadmin/2026-07-13-linux-things-e
 tags: linux, bash, bashrc, sysadmin
 ---
 
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Linux Things That Are Easy to Miss (Until They Bite You)",
-  "description": "A practical list of subtle Linux habits and gotchas that bite you the 10th, 50th, or 1000th time you do them.",
-  "author": {"@type": "Person", "name": "Pragmatic Sysadmin"},
-  "publisher": {"@type": "Organization", "name": "Pragmatic Tech"},
-  "datePublished": "2026-07-13",
-  "dateModified": "2026-07-13",
-  "mainEntityOfPage": {"@type": "WebPage", "id": "https://pragmaticsysadmin.help/sysadmin/2026-07-13-linux-things-easy-to-miss/"},
-  "image": {"@type": "ImageObject", "url": "https://pragmaticsysadmin.help/og/2026-07-13-linux-things-easy-to-miss.png", "width": 1200, "height": 630}
-}
-</script>
-
 # Linux Things That Are Easy to Miss (Until They Bite You)
 
 The other day I spent 20 minutes debugging a cron job that worked perfectly when I ran it from the shell. The fix? `PATH` was different in cron. That's not a one-time thing — I trip over the same class of subtle Linux papercuts every few months. So I wrote them all down.

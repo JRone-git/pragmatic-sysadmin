@@ -1,7 +1,7 @@
 ---
 title: "Senior Scam Prevention: 5 Conversations That Actually Stop Fraud (2026)"
 canonical_url: https://pragmaticsysadmin.help/senior-tech/2026-06-27-5-conversations-aging-parent-online-safety/
-tags: aging-parents, senior-scams, online-safety, family-tech
+tags: agingparents, seniorscams, onlinesafety, familytech
 ---
 
 Your mom called last week, panicked.

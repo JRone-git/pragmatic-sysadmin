@@ -1,7 +1,7 @@
 ---
 title: "I Was the Only IT Person for 3 Years: The Documentation I Wish I'd Written"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/2026-03-04-i-was-the-only-it-person-for-3-years-the-documentation-i-wish-i-d-written/
-tags: documentation, sysadmin, career, knowledge-management
+tags: documentation, sysadmin, career, knowledgemanagement
 ---
 
 ## The Call I Didn't Want to Get

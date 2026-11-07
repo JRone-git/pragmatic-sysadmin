@@ -1,7 +1,7 @@
 ---
 title: "Local LLMs as System Tooling: Running many Sub-3B Models on Edge and Budget Hardware"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/2026-10-05-local-llms-as-system-tooling-running-many-sub-3b/
-tags: ai, local-llm, sysadmin, privacy
+tags: ai, localllm, sysadmin, privacy
 ---
 
 You need an AI assistant that runs on your own machine. The cloud options are good, but they are not yours. You want something that actually *does things* — reads your screen, controls your smart home, answers questions in Finnish or English, and never sends your data to a server you don't control.

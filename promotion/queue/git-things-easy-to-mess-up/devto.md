@@ -1,23 +1,8 @@
 ---
 title: "Git Things That Are Easy to Mess Up (Until They Bite You)"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/2026-07-14-git-things-easy-to-mess-up/
-tags: git, version-control, devops, sysadmin
+tags: git, versioncontrol, devops, sysadmin
 ---
-
-<script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "Article",
-  "headline": "Git Things That Are Easy to Mess Up (Until They Bite You)",
-  "description": "A practical list of Git habits and gotchas that bite you the 10th, 50th, or 1000th time. From 'git commit -A' footguns to force-pushing to main, to that stash you forgot about.",
-  "author": {"@type": "Person", "name": "Pragmatic Sysadmin"},
-  "publisher": {"@type": "Organization", "name": "Pragmatic Tech"},
-  "datePublished": "2026-07-14",
-  "dateModified": "2026-07-14",
-  "mainEntityOfPage": {"@type": "WebPage", "id": "https://pragmaticsysadmin.help/sysadmin/2026-07-14-git-things-easy-to-mess-up/"},
-  "image": {"@type": "ImageObject", "url": "https://pragmaticsysadmin.help/og/2026-07-14-git-things-easy-to-mess-up.png", "width": 1200, "height": 630}
-}
-</script>
 
 # Git Things That Are Easy to Mess Up (Until They Bite You)
 

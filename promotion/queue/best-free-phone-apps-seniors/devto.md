@@ -1,7 +1,7 @@
 ---
 title: "The Best Free Phone Apps for Seniors in 2026 (Tested by My 78-Year-Old Mom)"
 canonical_url: https://pragmaticsysadmin.help/senior-tech/2026-06-27-best-free-phone-apps-seniors/
-tags: apps-for-seniors, best-apps-elderly, senior-phone-apps, apps-for-aging-parents
+tags: appsforseniors, bestappselderly, seniorphoneapps, appsforagingparents
 ---
 
 For six months, every app I recommended to my mom went through the same brutal evaluation process: **she used it for a week, then either kept using it or deleted it.** No exceptions.

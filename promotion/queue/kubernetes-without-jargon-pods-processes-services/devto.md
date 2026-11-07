@@ -163,7 +163,7 @@ The right time to switch from Docker Compose to Kubernetes is when you hit a wal
 ## Getting Started: The Practical Path
 
 **1. Learn Docker first**: Kubernetes runs containers, so understand containers
-**2. Try managed Kubernetes**: [Vultr Kubernetes Engine](https://www.vultr.com/?ref=9794136), Google GKE, AWS EKS handle the hard parts
+**2. Try managed Kubernetes**: {{< aff merchant="vultr" text="Vultr Kubernetes Engine" url="https://www.vultr.com/?ref=9794136" >}}, Google GKE, AWS EKS handle the hard parts
 **3. Start small**: Deploy one simple app, get comfortable with `kubectl`
 **4. Gradually migrate**: Move one service at a time, not everything at once
 
@@ -183,7 +183,7 @@ The right time to switch from Docker Compose to Kubernetes is when you hit a wal
 
 ## Next Steps
 
-In my next post, I'll show you Kubernetes hands-on with a "hello world" cluster on [Vultr](https://www.vultr.com/?ref=9794136) — no jargon, just working commands. You'll deploy an app, break it on purpose, and watch Kubernetes fix it.
+In my next post, I'll show you Kubernetes hands-on with a "hello world" cluster on {{< aff merchant="vultr" text="Vultr" url="https://www.vultr.com/?ref=9794136" >}} — no jargon, just working commands. You'll deploy an app, break it on purpose, and watch Kubernetes fix it.
 
 **Why Vultr for learning?** Simple pricing ($10/month for managed K8s), fast provisioning, and no surprise bills. Perfect for experimenting without enterprise complexity.
 
@@ -293,7 +293,9 @@ For most small teams, a few well-configured servers with good deployment scripts
 
 ---
 
-*Disclosure: Some links to courses, books, and cloud providers are affiliates - they help keep this blog running at no extra cost to you. I only recommend resources I've personally used and found valuable for learning and real-world projects.*
+{{< aff-disclosure-inline >}}
+
+I only recommend resources I've personally used and found valuable for learning and real-world projects.
 
 *Related reads:*
 - *[Setting Up a Home Lab: A Beginner's Guide](https://pragmaticsysadmin.help/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/)*

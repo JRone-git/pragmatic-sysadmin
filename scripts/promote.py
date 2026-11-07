@@ -43,6 +43,7 @@ CONTENT_DIR = ROOT / "content"
 PROMO_DIR = ROOT / "promotion"
 QUEUE_DIR = PROMO_DIR / "queue"
 STATE_PATH = PROMO_DIR / "state.json"
+RELEASE_PATH = PROMO_DIR / "release.yaml"
 
 BASE_URL = "https://pragmaticsysadmin.help"
 SECTIONS = ("sysadmin", "senior-tech", "meta", "posts")
@@ -148,15 +149,36 @@ def now() -> datetime:
     return datetime.now(timezone.utc)
 
 
+def split_front_matter(text: str) -> tuple[str, str] | None:
+    """Split YAML front matter from the body, or return None.
+
+    The naive `text.split("---", 2)` breaks on any post whose front matter
+    contains a --- inside a quoted string. Three of the best posts did: an
+    FAQ answer ended with "Same phones, same service, new name. ---" and
+    the splitter took that for the end of the front matter. The body then
+    started with a stray quote and a horizontal rule, and dev.to published
+    it exactly like that.
+
+    A --- only ends the front matter when it is alone on its own line.
+    Hugo's own YAML parser agrees, so this matches what the site renders.
+    """
+    lines = text.splitlines(keepends=True)
+    if not lines or lines[0].strip() != "---":
+        return None
+    for i in range(1, len(lines)):
+        if lines[i].strip() == "---":
+            return "".join(lines[1:i]), "".join(lines[i + 1:])
+    return None
+
+
 def parse_post(path: Path):
     """Return dict with title/description/tags/section/url/body or None."""
     text = path.read_text(encoding="utf-8")
-    if not text.startswith("---"):
+    split = split_front_matter(text)
+    if split is None:
         return None
-    parts = text.split("---", 2)
-    if len(parts) < 3:
-        return None
-    fm_text, body = parts[1], parts[2].strip()
+    fm_text, body = split
+    body = body.strip()
 
     fm = {}
     tags: list[str] = []
@@ -288,6 +310,39 @@ def _clip(text: str, limit: int) -> str:
 
 
 
+def strip_scripts(body: str) -> str:
+    """Remove real <script> blocks from a cross-post body.
+
+    Two reasons. JSON-LD belongs on the canonical site - the canonical_url
+    points dev.to at the original anyway, so repeating the structured data
+    helps nobody, and Forem renders a <script> block as visible text. One
+    post had two of them.
+
+    And one post carried the site's own Google Analytics snippet. On
+    dev.to that would have re-instrumented a third-party site with our
+    property. Forem strips scripts anyway, but leaving it in the source
+    is asking for trouble.
+
+    Only blocks that start a line are removed. `bash <script>` inside
+    inline code is not a tag and must survive - the closing </script> it
+    might otherwise pair with could be a long way away.
+    """
+    body = re.sub(
+        r'^[ \t]*<script\b[^>]*>.*?</script>[ \t]*\n?',
+        "",
+        body,
+        flags=re.DOTALL | re.MULTILINE | re.IGNORECASE,
+    )
+    # A self-closing external script, e.g. <script async src="..."></script>
+    body = re.sub(
+        r'^[ \t]*<script\b[^>]*/>[ \t]*\n?',
+        "",
+        body,
+        flags=re.MULTILINE | re.IGNORECASE,
+    )
+    return body.strip()
+
+
 def write_package(post: dict) -> Path:
     """Write channel-ready pitch files for one post. Returns package dir."""
     pkg = QUEUE_DIR / post["slug"]
@@ -346,6 +401,7 @@ def write_package(post: dict) -> Path:
     # dev.to cross-post: front matter with canonical_url + absolute image URLs.
     body = re.sub(r"\]\(/", f"]({BASE_URL}/", post["body"])
     body = re.sub(r'src="/', f'src="{BASE_URL}/', body)
+    body = strip_scripts(body)
     dev_tags = devto_tags(post["tags"])
     (pkg / "devto.md").write_text(
         f"---\ntitle: {json.dumps(title)}\n"
@@ -689,30 +745,97 @@ def _pending_posts(state: dict, channel: str):
         yield slug, ps, pkg
 
 
+def load_release() -> dict:
+    """Optional release control read from promotion/release.yaml.
+
+    A tiny key: value file, because the repo has no YAML parser available
+    to a stdlib-only script and this does not need to be YAML.
+
+        devto_batch: 8
+        devto_ignore_cadence: true
+
+    The file is a one-shot ticket: it is deleted once a run has actually
+    published something, so a release does not repeat on every later push.
+    """
+    out: dict = {}
+    if not RELEASE_PATH.exists():
+        return out
+    for raw in RELEASE_PATH.read_text(encoding="utf-8").splitlines():
+        line = raw.split("#", 1)[0].strip()
+        if not line or ":" not in line:
+            continue
+        key, value = line.split(":", 1)
+        value = value.strip().strip('"').strip("'")
+        if value.lower() in ("true", "yes", "on"):
+            out[key.strip()] = True
+        elif value.lower() in ("false", "no", "off"):
+            out[key.strip()] = False
+        else:
+            try:
+                out[key.strip()] = int(value)
+            except ValueError:
+                out[key.strip()] = value
+    return out
+
+
+def cmd_rebuild(args) -> int:
+    """Regenerate the pitch packages from the source posts.
+
+    The packages are derived data. A change to the front matter splitter,
+    the tag cleaning or the URL rule should not need the queue to be
+    emptied and refilled by hand - and a package written by a buggy
+    splitter stays wrong forever otherwise.
+
+    Only posts that already have a package are rebuilt, so this never
+    pulls a historical post into the queue behind the operator's back.
+    """
+    state = load_state()
+    count = 0
+    for post in iter_posts():
+        pkg = QUEUE_DIR / post["slug"]
+        if not (pkg / "package.json").exists():
+            continue
+        write_package(post)
+        count += 1
+    print(f"rebuild: regenerated {count} package(s).")
+    return 0
+
+
 def cmd_auto_post(args) -> int:
     """Post queued content to the safe auto channels, cadence-enforced."""
     state = load_state()
     poster = {"bluesky": post_bluesky, "mastodon": post_mastodon, "devto": post_devto}
     exit_code = 0
     force = getattr(args, "force", False)
+    release = load_release()
+    devto_published = 0
     for channel in AUTO_CHANNELS:
         if args.channels and channel not in args.channels.split(","):
             continue
         cadence = CHANNEL_CADENCE_HOURS.get(channel, CADENCE_HOURS)
-        if not force:
+        # A release ticket can wave the dev.to cooldown through. It cannot
+        # wave through the social channels - those stay on their cadence
+        # whatever the file says.
+        skip_cadence = force or (
+            channel == "devto" and release.get("devto_ignore_cadence")
+        )
+        if not skip_cadence:
             wait = cadence - hours_since(state, channel)
             if wait > 0:
                 print(f"{channel}: cadence cooldown, {wait:.1f}h remaining. "
                       "Skipping.")
                 continue
         else:
-            print(f"{channel}: force mode, cadence bypassed.")
+            print(f"{channel}: release override, cadence bypassed.")
         # --batch only ever applies to dev.to. The social channels stay at
         # one post per run no matter what, so a batch can never turn into
         # a follower-timeline dump.
         limit = CHANNEL_MAX_PER_RUN.get(channel, MAX_PER_RUN)
-        if channel == "devto" and getattr(args, "batch", 0):
-            limit = args.batch
+        if channel == "devto":
+            if getattr(args, "batch", 0):
+                limit = args.batch
+            elif release.get("devto_batch"):
+                limit = int(release["devto_batch"])
         posted = 0
         for slug, ps, pkg in _pending_posts(state, channel):
             if posted >= limit:
@@ -744,10 +867,19 @@ def cmd_auto_post(args) -> int:
                 set_channel(ps, channel, "posted", ref=ref)
                 state["last_posted"][channel] = now().isoformat(timespec="seconds")
             posted += 1
-            if channel == "devto" and posted < limit and not args.dry_run:
-                time.sleep(DEVTO_POST_PAUSE_SECONDS)
+            if channel == "devto":
+                devto_published += 1
+                if posted < limit and not args.dry_run:
+                    time.sleep(DEVTO_POST_PAUSE_SECONDS)
     if not args.dry_run:
         save_state(state)
+        # A release ticket is spent once it has published something. If the
+        # run published nothing, it stays on disk so the next run can try
+        # again rather than silently dropping the intent.
+        if devto_published and RELEASE_PATH.exists():
+            RELEASE_PATH.unlink()
+            print(f"promotion: release ticket consumed after "
+                  f"{devto_published} dev.to article(s).")
     else:
         print("(dry-run: state not saved)")
     return exit_code
@@ -1229,6 +1361,8 @@ def main(argv=None) -> int:
     p = sub.add_parser("issue-body", help="print tracking issue body")
     p.add_argument("--slug", required=True)
 
+    sub.add_parser("rebuild", help="regenerate pitch packages from the posts")
+
     sub.add_parser("open-issues", help="create promotion issues via gh CLI")
 
     sub.add_parser("handle-comment", help="process /submit or /skip comment")
@@ -1240,6 +1374,7 @@ def main(argv=None) -> int:
     handlers = {
         "generate": cmd_generate,
         "refresh-urls": cmd_refresh_urls,
+        "rebuild": cmd_rebuild,
         "auto-post": cmd_auto_post,
         "issue-body": cmd_issue_body,
         "open-issues": cmd_open_issues,

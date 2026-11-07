@@ -52,6 +52,13 @@ jobs:
       - name: Queue pitch packages for new posts
         run: python scripts/promote.py generate
 
+      - name: Rebuild existing pitch packages
+        # The packages are derived from the posts. When the extraction
+        # rules change, the packages that are already on disk have to be
+        # regenerated too - otherwise a fixed generator sits next to 53
+        # stale packages that were written by the broken one.
+        run: python scripts/promote.py rebuild
+
       - name: Auto-post to safe channels
         env:
           BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}

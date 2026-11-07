@@ -1,7 +1,7 @@
 ---
 title: "How to Set Up an iPhone for an Elderly Parent (The 30-Minute Setup That Prevents 90% of Support Calls)"
 canonical_url: https://pragmaticsysadmin.help/senior-tech/2026-06-27-setup-iphone-elderly-parent/
-tags: iphone-for-seniors, elderly-parent-phone-set, iphone-accessibility, senior-tech-help
+tags: iphoneforseniors, elderlyparentphonesetup, iphoneaccessibility, seniortechhelp
 ---
 
 My mom called me at 9pm on a Tuesday. Her iPhone had "gone weird" and she couldn't get back to the home screen.

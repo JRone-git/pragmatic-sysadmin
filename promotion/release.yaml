@@ -1,0 +1,14 @@
+# One-shot release ticket for the promotion engine.
+#
+# The 42 historical articles in the queue were held back from every channel
+# when they were judged old. dev.to is an article library rather than a feed,
+# so those articles are eligible there - but the 24 hour cadence meant one
+# every two days, seven weeks to drain the queue.
+#
+# This ticket releases a batch now, and is deleted by the engine once it has
+# actually published something.
+#
+# devto_batch:             how many articles one run may publish
+# devto_ignore_cadence:    wave the cooldown through for this run only
+devto_batch: 8
+devto_ignore_cadence: true

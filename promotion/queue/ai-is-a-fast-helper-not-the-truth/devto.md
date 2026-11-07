@@ -1,7 +1,7 @@
 ---
 title: "AI Is a Fast Helper, Not the Truth"
 canonical_url: https://pragmaticsysadmin.help/senior-tech/2026-10-15-ai-is-a-fast-helper-not-the-truth/
-tags: ai, critical-thinking, senior-tech, family-it
+tags: ai, criticalthinking, seniortech, familyit
 ---
 
 You see a message from your mom: “The bank says I owe $500, here’s the proof.” She attached a picture that looks like a bank statement, but it was made by an AI. You feel a pang of worry.

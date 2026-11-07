@@ -1,7 +1,7 @@
 ---
 title: "Local LLMs as System Tooling: Running Sub-3B Models on Edge and Budget Hardware"
 canonical_url: https://pragmaticsysadmin.help/senior-tech/2026-10-05-local-llms-as-system-tooling-running-sub-3b-models/
-tags: ai, local-llm, privacy, senior-tech
+tags: ai, localllm, privacy, seniortech
 ---
 
 You need an AI assistant that runs on your own machine. The cloud options are good but they are not yours. You want something that actually *does things* — reads your screen, controls your smart home, answers questions in Finnish or English, and never sends your data to a server you don't control.

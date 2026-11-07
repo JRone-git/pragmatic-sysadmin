@@ -1,11 +1,9 @@
 ---
 title: "Best Routers for Home Network in 2026 (Tested by a Sysadmin)"
 canonical_url: https://pragmaticsysadmin.help/senior-tech/2026-07-03-best-routers-home-network-2026/
-tags: best-router-2026, home-router, wifi-router, home-network
+tags: bestrouter2026, homerouter, wifirouter, homenetwork
 ---
 
-"
----
 I run 4 routers at home: a main one, a mesh node, a guest network AP, and a lab box. I've configured, broken, and replaced more consumer routers than I can count.
 
 The 5 routers below are the ones I'd actually buy in 2026. Not the highest-margin Amazon picks. Not the ones with the best affiliate payouts. The ones I think are genuinely best at their price point.
@@ -71,7 +69,7 @@ Let me explain why, with the actual tradeoffs.
 
 **Best for:** Most people with gigabit or slower internet who want a future-proof router that "just works."
 
-→ [Check current TP-Link Archer BE550 price](https://www.newegg.com/tp-link-archer-be550-6-ghz-5760-mbps-5-ghz-2880-mbps-2-4-ghz-574-mbps/p/N82E16833704711) *(affiliate)*
+→ {{< aff merchant="newegg" text="Check current TP-Link Archer BE550 price" url="https://www.newegg.com/tp-link-archer-be550-6-ghz-5760-mbps-5-ghz-2880-mbps-2-4-ghz-574-mbps/p/N82E16833704711" >}} {{< aff-note merchant="newegg" >}}
 
 ---
 
@@ -98,7 +96,7 @@ Let me explain why, with the actual tradeoffs.
 
 **Best for:** Homes with dead spots, multi-floor homes, anyone who wants "no thinking required."
 
-→ [Check current Deco XE75 Pro price](https://www.newegg.com/tp-link-deco-xe75-pro-mesh-wifi-system/p/N82E16833704668) *(affiliate)*
+→ {{< aff merchant="newegg" text="Check current Deco XE75 Pro price" url="https://www.newegg.com/tp-link-deco-xe75-pro-mesh-wifi-system/p/N82E16833704668" >}} {{< aff-note merchant="newegg" >}}
 
 ---
 
@@ -125,7 +123,7 @@ Let me explain why, with the actual tradeoffs.
 
 **Best for:** Anyone with <1 Gbps internet who wants a cheap, reliable router. Most people.
 
-→ [Check current Archer AX55 price](https://www.newegg.com/tp-link-archer-ax55/p/N82E16833704603) *(affiliate)*
+→ {{< aff merchant="newegg" text="Check current Archer AX55 price" url="https://www.newegg.com/tp-link-archer-ax55/p/N82E16833704603" >}} {{< aff-note merchant="newegg" >}}
 
 ---
 
@@ -153,7 +151,7 @@ Let me explain why, with the actual tradeoffs.
 
 **Best for:** Sysadmins, security professionals, anyone who actually wants to configure their network.
 
-→ [Check current ASUS RT-AX86U Pro price](https://www.newegg.com/asus-rt-ax86u-pro/p/N82E16833320549) *(affiliate)*
+→ {{< aff merchant="newegg" text="Check current ASUS RT-AX86U Pro price" url="https://www.newegg.com/asus-rt-ax86u-pro/p/N82E16833320549" >}} {{< aff-note merchant="newegg" >}}
 
 ---
 
@@ -181,7 +179,7 @@ Let me explain why, with the actual tradeoffs.
 
 **Best for:** Large homes (3,000+ sq ft), multi-floor homes with concrete/steel, anyone who wants the absolute best and will pay for it.
 
-→ [Check current Orbi 970 price](https://www.newegg.com/netgear-orbi-970-mesh-wifi-system/p/N82E16833222329) *(affiliate)*
+→ {{< aff merchant="newegg" text="Check current Orbi 970 price" url="https://www.newegg.com/netgear-orbi-970-mesh-wifi-system/p/N82E16833222329" >}} {{< aff-note merchant="newegg" >}}
 
 ---
 
@@ -269,7 +267,7 @@ A: If you have a single router covering your whole home well, no. If you have de
 A: Adds the 6 GHz band. Useful for VR/AR and very dense WiFi environments. For most homes, the 6 GHz range is shorter than 5 GHz, so you don't get the benefit. Skip WiFi 6E in 2026 — go straight to WiFi 7.
 
 **Q: Are these affiliate links?**
-A: Yes. I earn a small commission if you buy through them. Doesn't change my recommendations.
+A: Where a link is marked as an affiliate link, I earn a small commission if you buy through it. It doesn't change my recommendations.
 
 **Q: What if my router is already pretty new?**
 A: Keep it. Routers don't need to be replaced yearly. Replace when: it's >5 years old, doesn't support WPA3, has security issues, or doesn't cover your home.
@@ -291,7 +289,9 @@ It's overkill for most people. But I'm a sysadmin, so.
 
 ## Affiliate disclosure
 
-Links to TP-Link, ASUS, and Netgear products on Newegg are affiliate links. I earn a small commission (1-4%) at no extra cost to you. Doesn't change my recommendations — every router above was tested by me for 2+ weeks.
+{{< aff-disclosure-inline >}}
+
+Doesn't change my recommendations — every router above was tested by me for 2+ weeks.
 
 See the [Resources page](https://pragmaticsysadmin.help/resources/) for the full list of tools I use and recommend.
 

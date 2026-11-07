@@ -77,13 +77,6 @@ enableRobotsTXT = true
 Created `layouts/partials/head-end.html` with GA4 tracking:
 
 ```html
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-WCG1VLDG4T"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-  gtag('config', 'G-WCG1VLDG4T');
-</script>
 ```
 
 ### 6. Deploy to Firebase

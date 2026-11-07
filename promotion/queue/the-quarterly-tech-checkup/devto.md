@@ -1,7 +1,7 @@
 ---
 title: "The Quarterly Tech Checkup: What to Do When You Visit Your Aging Parent's Phone"
 canonical_url: https://pragmaticsysadmin.help/senior-tech/2026-07-02-the-quarterly-tech-checkup/
-tags: senior-phone-maintenance, aging-parent-tech-checku, elderly-phone-check, quarterly-tech-check
+tags: seniorphonemaintenance, agingparenttechcheckup, elderlyphonecheck, quarterlytechcheck
 ---
 
 You set up your mom's phone. You installed the right apps, hid the confusing ones, configured the accessibility settings. You walked her through the emergency gestures and laminated a cheat sheet for her fridge. You did everything right.
@@ -227,7 +227,7 @@ This post is part four of a series on helping aging parents with technology. If 
 3. **[The Best Free Phone Apps for Seniors in 2026](https://pragmaticsysadmin.help/senior-tech/2026-06-27-best-free-phone-apps-seniors/)** — the mom-tested list of apps worth installing.
 4. **The Quarterly Tech Checkup** — this post. The maintenance routine that keeps everything working.
 
-**Want a printable version?** I made a [Senior Phone Setup & Maintenance Checklist](https://ko-fi.com/s/a567718347) that covers all four posts in one place — initial setup, quarterly checkup steps, and the emergency playbook. Laminate it, keep it in your bag, and you'll never forget a step.
+**Want a printable version?** I made a {{< aff merchant="ko-fi" text="Senior Phone Setup & Maintenance Checklist" url="https://ko-fi.com/s/a567718347" >}} that covers all four posts in one place — initial setup, quarterly checkup steps, and the emergency playbook. Laminate it, keep it in your bag, and you'll never forget a step.
 
 ---
 

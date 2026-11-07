@@ -1,7 +1,7 @@
 ---
 title: "Setting Up a Home Lab: A Beginner's Guide"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/
-tags: home-lab
+tags: homelab
 ---
 
 Title: Setting Up a Home Lab: A Beginner's Guide
@@ -33,14 +33,14 @@ Don't underestimate the RAM requirement. Virtualization is memory-hungry. Each V
 
 For storage, prioritize SSDs over HDDs. A $60 NVMe SSD will make your VMs feel snappy compared to even a fast spinning disk. If you need bulk storage (for media servers, backups), add a large HDD as a secondary drive — but put your OS and VMs on the SSD.
 
-Network is non-negotiable: use wired Ethernet, not Wi-Fi. A [Cat6a ethernet cable](https://www.newegg.com/p/3C6-02B0-001B3) costs about $15 and gives you reliable 10 Gbps-capable connectivity. Wi-Fi adds latency and jitter that will drive you crazy when debugging network issues.
+Network is non-negotiable: use wired Ethernet, not Wi-Fi. A {{< aff merchant="newegg" text="Cat6a ethernet cable" url="https://www.newegg.com/p/3C6-02B0-001B3" >}} costs about $15 and gives you reliable 10 Gbps-capable connectivity. Wi-Fi adds latency and jitter that will drive you crazy when debugging network issues.
 
 Recommended Setup
 
 For a beginner-friendly lab, consider:
 
-Budget Option: [Raspberry Pi 4 (8GB)](https://www.newegg.com/p/3D0-0001-00014) + external drives
-Mid-Range: Refurbished [Dell OptiPlex](https://www.newegg.com/dell-optiplex-7080-business-desktops-workstations/p/1VK-0001-6GXW5) / HP Elitedesk
+Budget Option: {{< aff merchant="newegg" text="Raspberry Pi 4 (8GB)" url="https://www.newegg.com/p/3D0-0001-00014" >}} + external drives
+Mid-Range: Refurbished {{< aff merchant="newegg" text="Dell OptiPlex" url="https://www.newegg.com/dell-optiplex-7080-business-desktops-workstations/p/1VK-0001-6GXW5" >}} / HP Elitedesk
 High-End: Custom build with virtualization support
 
 I strongly recommend the mid-range option for most people. A refurbished Dell OptiPlex 7080 Mini costs around $450, comes with 16 GB RAM and a 512 GB SSD, and is small enough to sit on your desk. It draws about 15-30 watts under load, so leaving it running 24/7 adds maybe $3-5 to your monthly electricity bill. Compare that to cloud VMs at $20-50/month for equivalent specs.
@@ -48,13 +48,13 @@ I strongly recommend the mid-range option for most people. A refurbished Dell Op
 
 Need the parts? Here's where I'd buy them:
 
-- [Raspberry Pi 4 (8GB)](https://www.newegg.com/p/3D0-0001-00014) - Budget lab starter (~$75)
-- [Dell OptiPlex 7080 Mini](https://www.newegg.com/dell-optiplex-7080-business-desktops-workstations/p/1VK-0001-6GXW5) - Best value mini PC for labs (~$450)
-- [1TB NVMe SSD](https://www.newegg.com/p/pl?d=1tb+nvme+ssd) - Fast storage for VMs (~$60)
-- [Managed Network Switch](https://www.newegg.com/Switches/SubCategory/ID-30) - For VLAN segmentation (~$89)
-- [Cat6a Ethernet Cable](https://www.newegg.com/p/3C6-02B0-001B3) - Don't cheap out on cables (~$15)
+- {{< aff merchant="newegg" text="Raspberry Pi 4 (8GB)" url="https://www.newegg.com/p/3D0-0001-00014" >}} - Budget lab starter (~$75)
+- {{< aff merchant="newegg" text="Dell OptiPlex 7080 Mini" url="https://www.newegg.com/dell-optiplex-7080-business-desktops-workstations/p/1VK-0001-6GXW5" >}} - Best value mini PC for labs (~$450)
+- {{< aff merchant="newegg" text="1TB NVMe SSD" url="https://www.newegg.com/p/pl?d=1tb+nvme+ssd" >}} - Fast storage for VMs (~$60)
+- {{< aff merchant="newegg" text="Managed Network Switch" url="https://www.newegg.com/Switches/SubCategory/ID-30" >}} - For VLAN segmentation (~$89)
+- {{< aff merchant="newegg" text="Cat6a Ethernet Cable" url="https://www.newegg.com/p/3C6-02B0-001B3" >}} - Don't cheap out on cables (~$15)
 
-*(Affiliate links through Newegg / Rakuten Advertising — supports the blog at no cost to you)*
+{{< aff-note merchant="newegg" >}}
 
 ---
 
@@ -165,7 +165,7 @@ Security Best Practices
 Network Security
 VLANs: Isolate different network segments
 Firewall Rules: Restrict unnecessary access
-VPN: Secure remote access — I use [NordVPN](https://go.nordvpn.net/aff_c?offer_id=15&aff_id=143264&url_id=902)
+VPN: Secure remote access — I use {{< aff merchant="nordvpn" text="NordVPN" >}}
 Updates: Regular system and application updates
 Access Control
 bash
