@@ -1,7 +1,7 @@
 {
   "last_posted": {
     "bluesky": "2026-11-05T16:34:57+00:00",
-    "devto": "2026-11-07T15:20:20+00:00",
+    "devto": "2026-11-07T15:29:44+00:00",
     "mastodon": "2026-11-05T16:34:58+00:00"
   },
   "posts": {
@@ -96,9 +96,9 @@
           "status": "seeded"
         },
         "devto": {
-          "at": "2026-11-07T15:20:26+00:00",
-          "error": "dev.to post failed: 429 b'{\"error\":\"Rate limit reached, try again in 30 seconds\",\"status\":429}'",
-          "status": "failed"
+          "at": "2026-11-07T15:27:18+00:00",
+          "ref": "https://dev.to/jronegit/ai-for-it-troubleshooting-real-world-use-cases-38dl",
+          "status": "posted"
         },
         "hn": {
           "at": "2026-10-05T10:25:08+00:00",
@@ -145,8 +145,9 @@
           "status": "seeded"
         },
         "devto": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-11-07T15:27:53+00:00",
+          "ref": "https://dev.to/jronegit/i-built-a-terminal-ai-companion-in-300-lines-of-pure-bash-u2014-and-its-mit-licensed-4bfg",
+          "status": "posted"
         },
         "hn": {
           "at": "2026-10-05T10:25:08+00:00",
@@ -174,8 +175,9 @@
           "status": "seeded"
         },
         "devto": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-11-07T15:28:33+00:00",
+          "ref": "https://dev.to/jronegit/the-best-free-phone-apps-for-seniors-in-2026-tested-by-my-78-year-old-mom-29fh",
+          "status": "posted"
         },
         "hn": {
           "at": "2026-10-05T10:25:08+00:00",
@@ -203,8 +205,9 @@
           "status": "seeded"
         },
         "devto": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-11-07T15:29:09+00:00",
+          "ref": "https://dev.to/jronegit/best-phones-for-seniors-in-2026-tested-by-real-grandparents-1jan",
+          "status": "posted"
         },
         "hn": {
           "at": "2026-10-05T10:25:08+00:00",
@@ -232,8 +235,9 @@
           "status": "seeded"
         },
         "devto": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-11-07T15:29:44+00:00",
+          "ref": "https://dev.to/jronegit/best-routers-for-home-network-in-2026-tested-by-a-sysadmin-4mg2",
+          "status": "posted"
         },
         "hn": {
           "at": "2026-10-05T10:25:08+00:00",
