@@ -223,8 +223,12 @@ def main() -> int:
             code = (spec.get("code") or "").strip()
             if tracked:
                 state = f"tracked ({code})" if code else "tracked (widget)"
+            elif spec.get("kind") == "donation":
+                state = "donation link - earns directly, not a commission"
             elif spec.get("mode") == "direct":
                 state = "plain link, earns nothing"
+            elif spec.get("mode") == "widget":
+                state = "widget - not partnered with the advertiser yet"
             else:
                 state = "Earns nothing - no code yet"
             print(f"  {merchant:<20} {counts[merchant]:>3} link(s)   {state}")

@@ -24,6 +24,8 @@ I get asked constantly: "what do you use for X?" So I made this page.
 
 These are the tools I genuinely use and recommend. Some links below are affiliate links — if you buy through them, I earn a small commission at no extra cost to you. **This doesn't change my recommendations.** I only list tools I actually use.
 
+Where a link below is marked as an affiliate link, that one earns me a commission. Where it is not marked, it does not — and I would rather say that plainly than let you assume otherwise. {{< aff-disclosure-inline >}}
+
 If a tool is here, it's earned its spot. If it's not, I either don't use it or haven't found it worth keeping.
 
 **Last updated:** June 2026
