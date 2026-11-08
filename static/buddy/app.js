@@ -1171,8 +1171,9 @@ function pinKeyPress(key, mode) {
       if (next.length === 4) {
         if (!confirming) {
           // Move to the confirm stage
+          setupPinConfirm = setupPin;
+          setupPin = '';
           setupStage = 'confirm';
-          setupPinConfirm = '';
           setTimeout(() => {
             const lbl = $('#notes-pin-setup h3');
             if (lbl) lbl.textContent = t('notes.pinConfirmTitle');
