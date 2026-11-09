@@ -2,7 +2,12 @@
   "slug": "sysadmin-myths-busted-2026",
   "title": "Sysadmin Myths Busted: What Actually Works in 2026",
   "description": "Debunking the most persistent sysadmin myths with real-world solutions for 2026.",
-  "tags": [],
+  "tags": [
+    "sysadmin",
+    "myths",
+    "productivity",
+    "automation"
+  ],
   "section": "sysadmin",
   "url": "https://pragmaticsysadmin.help/sysadmin/sysadmin-myths-busted-2026/",
   "date": "2025-10-19T00:00:00+00:00",

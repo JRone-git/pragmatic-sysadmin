@@ -1,3 +1,5 @@
 Learn Kubernetes for beginners without confusing jargon
 
 https://pragmaticsysadmin.help/sysadmin/kubernetes-without-jargon-pods-processes-services/
+
+#kubernetes #devops #containers

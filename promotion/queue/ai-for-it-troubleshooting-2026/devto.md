@@ -1,7 +1,7 @@
 ---
 title: "AI for IT Troubleshooting: Real-World Use Cases"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/ai-for-it-troubleshooting-2026/
-tags: sysadmin
+tags: ai, troubleshooting, sysadmin, automation
 ---
 
 # AI for IT Troubleshooting: Real-World Use Cases

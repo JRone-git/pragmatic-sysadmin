@@ -2,7 +2,13 @@
   "slug": "kubernetes-without-jargon-pods-processes-services",
   "title": "Kubernetes Without Jargon: Pods = Processes, Services = Stable Names",
   "description": "Learn Kubernetes for beginners without confusing jargon. Clear explanation of pods, services, and containers with practical examples for DevOps beginners.",
-  "tags": [],
+  "tags": [
+    "kubernetes",
+    "devops",
+    "containers",
+    "cloud",
+    "scaling"
+  ],
   "section": "sysadmin",
   "url": "https://pragmaticsysadmin.help/sysadmin/kubernetes-without-jargon-pods-processes-services/",
   "date": "2025-08-16T00:00:00+00:00",

@@ -421,5 +421,60 @@ class UnicodeEscapes(unittest.TestCase):
         self.assertNotIn("\\u2014", front)
 
 
+class TagParsing(unittest.TestCase):
+    """Tags come in three YAML shapes and all three have to work.
+
+    The parser only understood the list form, so a post written with the
+    inline `tags: [a, b]` form was queued with no tags at all. That
+    article then went up on dev.to with the generic "sysadmin" fallback
+    tag instead of its own topic - ten of the sixteen live articles.
+    """
+
+    def _tags(self, front_matter):
+        post = {
+            "title": "T",
+            "url": "https://example.com/x/",
+            "body": "b",
+            "tags": [],
+            "subreddits": [],
+        }
+        text = f"---\n{front_matter}\n---\n\nbody\n"
+        with tempfile.TemporaryDirectory() as tmp:
+            path = Path(tmp) / "2026-01-01-x.md"
+            path.write_text(text, encoding="utf-8")
+            orig = promote.CONTENT_DIR
+            promote.CONTENT_DIR = Path(tmp)
+            try:
+                parsed = promote.parse_post(path)
+            finally:
+                promote.CONTENT_DIR = orig
+        return parsed["tags"]
+
+    def test_inline_array_tags(self):
+        self.assertEqual(
+            self._tags('title: "T"\ntags: ["seniors", "android", "iphone"]'),
+            ["seniors", "android", "iphone"],
+        )
+
+    def test_inline_array_tags_with_quotes(self):
+        self.assertEqual(
+            self._tags("title: \"T\"\ntags: ['a', 'b']"), ["a", "b"]
+        )
+
+    def test_comma_string_tags(self):
+        self.assertEqual(
+            self._tags('title: "T"\ntags: seniors, android'), ["seniors", "android"]
+        )
+
+    def test_list_tags_still_work(self):
+        self.assertEqual(
+            self._tags('title: "T"\ntags:\n  - seniors\n  - android'),
+            ["seniors", "android"],
+        )
+
+    def test_no_tags_at_all(self):
+        self.assertEqual(self._tags('title: "T"'), [])
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

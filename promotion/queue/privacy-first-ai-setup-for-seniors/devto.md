@@ -1,7 +1,7 @@
 ---
 title: "Privacy-First AI Setup for Seniors: Apple Intelligence, Claude, and Local LLMs Compared"
 canonical_url: https://pragmaticsysadmin.help/senior-tech/2026-07-27-privacy-first-ai-setup-for-seniors/
-tags: sysadmin
+tags: ai, privacy, appleintelligence, claude
 ---
 
 Once you understand [what AI tools actually do with your parents' chat logs](https://pragmaticsysadmin.help/senior-tech/2026-07-27-is-chatgpt-reading-your-parents-data/), the natural next question is: what should they use instead? The honest answer is that there is no single "best" privacy-first AI — there are three good options, each suited to a different household. The right choice depends almost entirely on what hardware your parents already own, how technical you are willing to get, and what they actually want to do with AI in the first place.

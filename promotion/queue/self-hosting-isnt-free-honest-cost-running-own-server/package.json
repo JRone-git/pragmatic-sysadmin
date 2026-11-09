@@ -2,7 +2,14 @@
   "slug": "self-hosting-isnt-free-honest-cost-running-own-server",
   "title": "Self-Hosting Isn't Free: The Honest Math of Running Your Own Server",
   "description": "Self-hosting costs money, time, and sanity. Here's the real math — what it actually costs, when it breaks even, and when you should just pay for the cloud service instead.",
-  "tags": [],
+  "tags": [
+    "homelab",
+    "self-hosted",
+    "cost",
+    "cloud",
+    "linux",
+    "honest-guide"
+  ],
   "section": "sysadmin",
   "url": "https://pragmaticsysadmin.help/sysadmin/self-hosting-isnt-free-honest-cost-running-own-server/",
   "date": "2026-09-10T00:00:00+00:00",

@@ -1,3 +1,5 @@
 How AI is changing the way sysadmins solve problems, with practical examples you can use today.
 
 https://pragmaticsysadmin.help/sysadmin/ai-for-it-troubleshooting-2026/
+
+#ai #troubleshooting #sysadmin

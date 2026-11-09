@@ -1,7 +1,7 @@
 ---
 title: "Why I Built Buddy: The Free App I Wish I'd Had When My Dad Got Sick"
 canonical_url: https://pragmaticsysadmin.help/meta/why-i-built-buddy-free-app-dad-sick/
-tags: sysadmin
+tags: buddy, personal, elderly, ux
 ---
 
 My dad called me at 2 AM.

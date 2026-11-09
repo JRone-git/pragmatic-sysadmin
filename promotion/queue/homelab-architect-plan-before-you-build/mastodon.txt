@@ -1,3 +1,5 @@
 Homelab Architect is a free browser tool that parses your docker-compose.yml and generates a resource dashboard, security audit, dependency map, and backup plan. Works offline, no signup.
 
 https://pragmaticsysadmin.help/meta/homelab-architect-plan-before-you-build/
+
+#homelab #docker #selfhosted

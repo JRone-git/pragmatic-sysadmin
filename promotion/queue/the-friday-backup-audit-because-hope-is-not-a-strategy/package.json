@@ -2,7 +2,12 @@
   "slug": "the-friday-backup-audit-because-hope-is-not-a-strategy",
   "title": "The Friday Backup Audit: Because Hope Is Not a Strategy",
   "description": "Backups are useless if they don't restore. Here is the 10-minute audit to prevent the 'Schrödinger's Backup' scenario.",
-  "tags": [],
+  "tags": [
+    "backups",
+    "recovery",
+    "bash",
+    "disaster-recovery"
+  ],
   "section": "sysadmin",
   "url": "https://pragmaticsysadmin.help/sysadmin/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy/",
   "date": "2025-12-14T08:00:00+00:00",

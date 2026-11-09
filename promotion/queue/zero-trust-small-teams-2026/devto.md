@@ -1,7 +1,7 @@
 ---
 title: "Zero Trust for Small Teams: Practical Steps"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/zero-trust-small-teams-2026/
-tags: sysadmin
+tags: security, zerotrust, sysadmin, smallbusiness
 ---
 
 # Zero Trust for Small Teams: Practical Steps

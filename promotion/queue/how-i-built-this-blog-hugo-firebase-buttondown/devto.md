@@ -1,7 +1,7 @@
 ---
 title: "How I Built This Blog: Hugo + Firebase + Buttondown in 30 Minutes"
 canonical_url: https://pragmaticsysadmin.help/meta/2025-08-16-how-i-built-this-blog-hugo-firebase-buttondown/
-tags: sysadmin
+tags: hugo, firebase, blogging, staticsites
 ---
 
 ## Why This Stack?

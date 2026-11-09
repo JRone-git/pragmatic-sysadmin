@@ -1,7 +1,7 @@
 ---
 title: "Essential Home Automation for Older Parents: A Practical, Low-Cost Setup Guide"
 canonical_url: https://pragmaticsysadmin.help/senior-tech/essential-home-automation-older-parents-practical-setup-guide/
-tags: sysadmin
+tags: homeautomation, seniortech, smarthome, budgetsetup
 ---
 
 My mum kept leaving the iron on.

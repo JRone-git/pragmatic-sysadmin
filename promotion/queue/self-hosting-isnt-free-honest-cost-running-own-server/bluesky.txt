@@ -1,3 +1,5 @@
 Self-hosting costs money, time, and sanity
 
 https://pragmaticsysadmin.help/sysadmin/self-hosting-isnt-free-honest-cost-running-own-server/
+
+#homelab #selfhosted #cost

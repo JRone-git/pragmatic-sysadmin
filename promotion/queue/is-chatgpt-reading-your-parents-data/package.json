@@ -2,7 +2,14 @@
   "slug": "is-chatgpt-reading-your-parents-data",
   "title": "Is ChatGPT Reading Your Parents' Data? What AI Tools Actually Do With Their Chats",
   "description": "A pragmatic explainer for adult children: what ChatGPT, Claude, and Gemini do with your parents' chat logs, how to turn off training, and what is actually safe to share.",
-  "tags": [],
+  "tags": [
+    "ai",
+    "privacy",
+    "chatgpt",
+    "claude",
+    "gemini",
+    "seniors"
+  ],
   "section": "senior-tech",
   "url": "https://pragmaticsysadmin.help/senior-tech/2026-07-27-is-chatgpt-reading-your-parents-data/",
   "date": "2026-07-27T00:00:00+00:00",

@@ -71,3 +71,11 @@ topics:
     status: idea
     priority: 2
     tags: []
+  - id: photo-dither
+    title: What I learned building photo-dither
+    section: sysadmin
+    angle: Read static/tools/photo-dither.html and write the honest build log.
+    artifact: static/tools/photo-dither.html
+    status: idea
+    priority: 2
+    tags: []

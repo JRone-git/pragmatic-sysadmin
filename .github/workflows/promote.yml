@@ -59,13 +59,18 @@ jobs:
         # stale packages that were written by the broken one.
         run: python scripts/promote.py rebuild
 
-      - name: Repair escaped dev.to titles
+      - name: Repair dev.to titles and tags
         # Articles published while the generator escaped non-ASCII characters
-        # are already live with a literal \u2014 in the title. Repair them in
-        # place; it is a no-op once they are correct.
+        # are already live with a literal \u2014 in the title. And articles
+        # published while the front matter parser only understood YAML list
+        # tags went up with the generic "sysadmin" tag instead of their own
+        # topic - ten of the sixteen. Repair both in place; each command is
+        # a no-op once everything is correct.
         env:
           DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
-        run: python scripts/promote.py fix-devto-titles || true
+        run: |
+          python scripts/promote.py fix-devto-titles || true
+          python scripts/promote.py fix-devto-tags || true
 
       - name: Auto-post to safe channels
         env:

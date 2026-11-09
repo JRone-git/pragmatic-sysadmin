@@ -2,7 +2,12 @@
   "slug": "ai-for-it-troubleshooting-2026",
   "title": "AI for IT Troubleshooting: Real-World Use Cases",
   "description": "How AI is changing the way sysadmins solve problems, with practical examples you can use today.",
-  "tags": [],
+  "tags": [
+    "ai",
+    "troubleshooting",
+    "sysadmin",
+    "automation"
+  ],
   "section": "sysadmin",
   "url": "https://pragmaticsysadmin.help/sysadmin/ai-for-it-troubleshooting-2026/",
   "date": "2025-11-02T00:00:00+00:00",

@@ -188,8 +188,33 @@ def parse_post(path: Path):
     tags: list[str] = []
     in_tags = False
     for line in fm_text.splitlines():
-        if re.match(r"^tags\s*:", line):
-            in_tags = True
+        # Tags come in three YAML shapes and all three are valid:
+        #   tags: [a, b]      inline array
+        #   tags: a, b        comma string
+        #   tags:             list, one dash item per line
+        # Only the third was understood, so every post written with the
+        # inline form was queued with no tags at all and fell back to the
+        # generic "sysadmin" on dev.to. Ten of the sixteen live articles
+        # carried that generic tag instead of their own topic.
+        m_tags = re.match(r"^tags\s*:\s*(.*)$", line)
+        if m_tags:
+            inline = m_tags.group(1).strip()
+            if inline.startswith("["):
+                tags = [
+                    t.strip().strip('"').strip("'")
+                    for t in inline.strip("[]").split(",")
+                    if t.strip().strip('"').strip("'")
+                ]
+                in_tags = False
+            elif inline:
+                tags = [
+                    t.strip().strip('"').strip("'")
+                    for t in inline.split(",")
+                    if t.strip()
+                ]
+                in_tags = False
+            else:
+                in_tags = True
             continue
         if in_tags:
             m = re.match(r"^\s*-\s*(.+)$", line)
@@ -565,6 +590,121 @@ def _front_title(raw: str) -> str:
     return decode_unicode_escapes(title)
 
 
+def _devto_update(article_id, payload, api_key) -> tuple[int, bytes]:
+    """PUT an article, waiting out dev.to's rate limit.
+
+    dev.to refuses article writes with a 429 when the account has posted
+    too much too fast, and GitHub-hosted runners share an IP, so the
+    limit can already be partly consumed by other tenants. A 429 is
+    transient: wait it out rather than walking past it and leaving the
+    article half-repaired.
+    """
+    url = f"https://dev.to/api/articles/{article_id}"
+    headers = {"Content-Type": "application/json", "api-key": api_key}
+    st, body = _req(url, method="PUT", headers=headers, data=payload)
+    attempt = 0
+    while st == 429 and attempt < DEVTO_REPAIR_ATTEMPTS:
+        attempt += 1
+        print(f"dev.to: rate limited on article {article_id}, waiting "
+              f"{DEVTO_REPAIR_WAIT_SECONDS}s "
+              f"(attempt {attempt}/{DEVTO_REPAIR_ATTEMPTS})")
+        time.sleep(DEVTO_REPAIR_WAIT_SECONDS)
+        st, body = _req(url, method="PUT", headers=headers, data=payload)
+    return st, body
+
+
+def _devto_front(pkg: Path) -> tuple[dict, str]:
+    """Split a devto.md package into its front matter and its body."""
+    front = (pkg / "devto.md").read_text(encoding="utf-8")
+    m = re.match(r"^---\n(.*?)\n---\n(.*)$", front, re.DOTALL)
+    if not m:
+        raise RuntimeError(f"devto.md front matter malformed in {pkg}")
+    fm_text, body = m.group(1), m.group(2).strip()
+    fm = {}
+    for line in fm_text.splitlines():
+        if ":" in line:
+            k, v = line.split(":", 1)
+            fm[k.strip()] = v.strip()
+    return fm, body
+
+
+def _package_tags(pkg: Path) -> list[str]:
+    """The dev.to tags a package says it should carry."""
+    fm, _ = _devto_front(pkg)
+    raw = fm.get("tags", "")
+    return devto_tags([t.strip() for t in raw.split(",") if t.strip()])
+
+
+def cmd_fix_devto_tags(args) -> int:
+    """Give published dev.to articles the tags their package says they should have.
+
+    The front matter parser only understood YAML list tags, so a post
+    written with the inline `tags: [a, b]` form was queued with no tags
+    at all and fell back to the generic "sysadmin". Ten of the sixteen
+    live articles carried that generic tag instead of their own topic,
+    which is exactly the signal dev.to uses to decide who sees them.
+    """
+    api_key = os.environ.get("DEVTO_API_KEY", "")
+    if not api_key:
+        raise ConfigError("DEVTO_API_KEY not set")
+    status, raw = _req(
+        "https://dev.to/api/articles/me?per_page=100",
+        headers={"api-key": api_key},
+    )
+    if status != 200:
+        print(f"fix-devto-tags: could not list articles (HTTP {status})")
+        return 1
+    try:
+        articles = json.loads(raw.decode("utf-8"))
+    except ValueError:
+        print("fix-devto-tags: could not parse the article list")
+        return 1
+
+    fixed = 0
+    # Match on the canonical URL rather than the last path segment: the
+    # package directory is named after the front matter slug, which is not
+    # the same as the URL segment when a post has no slug of its own.
+    index = {}
+    for pkg in sorted(QUEUE_DIR.glob("*/devto.md")):
+        try:
+            fm, _ = _devto_front(pkg.parent)
+        except (RuntimeError, OSError):
+            continue
+        url = (fm.get("canonical_url") or "").rstrip("/")
+        if url:
+            index[url] = pkg.parent
+
+    for art in articles:
+        canonical = (art.get("canonical_url") or "").rstrip("/")
+        pkg = index.get(canonical)
+        if pkg is None:
+            continue
+        slug = pkg.name
+        want = _package_tags(pkg)
+        have = list(art.get("tag_list") or [])
+        if not want or want == have:
+            continue
+        payload = {
+            "article": {
+                "id": art.get("id"),
+                "title": decode_unicode_escapes(art.get("title") or ""),
+                "body_markdown": art.get("body_markdown") or "",
+                "published": art.get("published") is not False,
+                "canonical_url": canonical,
+                "tags": want,
+            }
+        }
+        st, body = _devto_update(art.get("id"), payload, api_key)
+        if st == 200:
+            fixed += 1
+            print(f"fix-devto-tags: {slug} -> {want}")
+        else:
+            print(f"fix-devto-tags: HTTP {st} for article {art.get('id')}: "
+                  f"{body[:160]!r}")
+    print(f"fix-devto-tags: {fixed} article(s) retagged")
+    return 0
+
+
 def cmd_fix_devto_titles(args) -> int:
     """Repair dev.to articles whose title shows a literal \\uXXXX escape.
 
@@ -604,30 +744,7 @@ def cmd_fix_devto_titles(args) -> int:
                 "tags": devto_tags(art.get("tag_list") or []),
             }
         }
-        st, body = _req(
-            f"https://dev.to/api/articles/{art.get('id')}",
-            method="PUT",
-            headers={"Content-Type": "application/json", "api-key": api_key},
-            data=payload,
-        )
-        # dev.to rate limits article writes hard. The first repair went
-        # through and the second came back 429 "Retry later", so one
-        # escaped title was left live. Wait it out instead of walking
-        # past it - the next run would have repaired it, but that is a
-        # day of a broken title on an article that is already indexed.
-        attempt = 0
-        while st == 429 and attempt < DEVTO_REPAIR_ATTEMPTS:
-            attempt += 1
-            print(f"fix-devto-titles: rate limited on article "
-                  f"{art.get('id')}, waiting {DEVTO_REPAIR_WAIT_SECONDS}s "
-                  f"(attempt {attempt}/{DEVTO_REPAIR_ATTEMPTS})")
-            time.sleep(DEVTO_REPAIR_WAIT_SECONDS)
-            st, body = _req(
-                f"https://dev.to/api/articles/{art.get('id')}",
-                method="PUT",
-                headers={"Content-Type": "application/json", "api-key": api_key},
-                data=payload,
-            )
+        st, body = _devto_update(art.get("id"), payload, api_key)
         if st == 200:
             fixed += 1
             print(f"fix-devto-titles: repaired -> {repaired}")
@@ -1478,6 +1595,11 @@ def main(argv=None) -> int:
         help="repair published dev.to titles showing a literal \\uXXXX escape",
     )
 
+    sub.add_parser(
+        "fix-devto-tags",
+        help="give published dev.to articles the tags their package says",
+    )
+
     p = sub.add_parser("auto-post", help="post queued content to auto channels")
     p.add_argument("--channels", default="",
                    help="comma list: bluesky,mastodon,devto (default: all)")
@@ -1506,6 +1628,7 @@ def main(argv=None) -> int:
         "generate": cmd_generate,
         "refresh-urls": cmd_refresh_urls,
         "fix-devto-titles": cmd_fix_devto_titles,
+        "fix-devto-tags": cmd_fix_devto_tags,
         "rebuild": cmd_rebuild,
         "auto-post": cmd_auto_post,
         "issue-body": cmd_issue_body,

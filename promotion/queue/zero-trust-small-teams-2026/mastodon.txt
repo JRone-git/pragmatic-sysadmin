@@ -1,3 +1,5 @@
 How to implement zero trust security in small organizations without breaking the bank.
 
 https://pragmaticsysadmin.help/sysadmin/zero-trust-small-teams-2026/
+
+#security #zerotrust #sysadmin

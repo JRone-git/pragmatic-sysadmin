@@ -1,7 +1,7 @@
 ---
 title: "Tech Survival Guide: AI Edition 2026 (From 'Help!' to 'I'm a Genius!')"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/tech-survival-guide-ai-edition-2026/
-tags: sysadmin
+tags: ai, automation, troubleshooting, productivity
 ---
 
 # Tech Survival Guide: AI Edition 2026

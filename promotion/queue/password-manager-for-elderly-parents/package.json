@@ -2,7 +2,13 @@
   "slug": "password-manager-for-elderly-parents",
   "title": "How to Set Up a Password Manager for Your Elderly Parents (10-Minute Guide)",
   "description": "A pragmatic, step-by-step guide for adult children: pick between Bitwarden and 1Password, install it on your parents' devices, and actually get them to use it — in about 10 minutes.",
-  "tags": [],
+  "tags": [
+    "password-manager",
+    "security",
+    "seniors",
+    "bitwarden",
+    "1password"
+  ],
   "section": "senior-tech",
   "url": "https://pragmaticsysadmin.help/senior-tech/2026-07-27-password-manager-for-elderly-parents/",
   "date": "2026-07-27T00:00:00+00:00",

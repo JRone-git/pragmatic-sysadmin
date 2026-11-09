@@ -1,7 +1,7 @@
 ---
 title: "Building Your Own Linux from Scratch (And Testing It in a Container)"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/2026-03-28-building-your-own-linux-from-scratch/
-tags: sysadmin
+tags: linux, homelab, containers, docker
 ---
 
 If you've been administering Linux servers for a while, you've probably developed a love-hate relationship with it. You know how to configure services, debug networking issues, and keep systems running. But somewhere deep down, you've wondered: *what actually holds this thing together?*

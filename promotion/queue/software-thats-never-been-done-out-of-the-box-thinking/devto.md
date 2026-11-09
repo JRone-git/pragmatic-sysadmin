@@ -1,7 +1,7 @@
 ---
 title: "Software That's Never Been Done: On Building Things That Should Exist But Don't"
 canonical_url: https://pragmaticsysadmin.help/meta/software-thats-never-been-done-out-of-the-box-thinking/
-tags: sysadmin
+tags: philosophy, software, innovation, ux
 ---
 
 I had a problem.

@@ -1,3 +1,5 @@
 Most software is iteration
 
 https://pragmaticsysadmin.help/meta/software-thats-never-been-done-out-of-the-box-thinking/
+
+#philosophy #software #innovation

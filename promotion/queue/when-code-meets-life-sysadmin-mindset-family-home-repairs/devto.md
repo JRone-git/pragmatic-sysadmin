@@ -1,7 +1,7 @@
 ---
 title: "When Code Meets Life: Applying the Sysadmin Mindset to Family Chaos & Home Repairs"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/when-code-meets-life-sysadmin-mindset-family-home-repairs/
-tags: sysadmin
+tags: sysadmin, family, homerepairs, philosophy
 ---
 
 Last Tuesday the kitchen tap started dripping.

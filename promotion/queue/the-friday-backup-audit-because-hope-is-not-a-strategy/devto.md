@@ -1,7 +1,7 @@
 ---
 title: "The Friday Backup Audit: Because Hope Is Not a Strategy"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy/
-tags: sysadmin
+tags: backups, recovery, bash, disasterrecovery
 ---
 
 ## The Nightmare Scenario

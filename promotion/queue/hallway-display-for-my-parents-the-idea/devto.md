@@ -1,7 +1,7 @@
 ---
 title: "I'm Building a Hallway Display for My Parents — It Costs Less to Run Than the Light Bulb Above It"
 canonical_url: https://pragmaticsysadmin.help/meta/hallway-display-for-my-parents-the-idea/
-tags: sysadmin
+tags: diy, esp32, epaper, seniors
 ---
 
 When my dad's phone became unusable, the answer everyone gives you is a tablet. Big screen, big buttons, simple. And it works.

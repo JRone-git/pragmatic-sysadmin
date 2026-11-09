@@ -2,7 +2,13 @@
   "slug": "a-sandbox-for-the-linux-commands-youre-afraid-to-run",
   "title": "A Sandbox for the Linux Commands You're Afraid to Run",
   "description": "A browser sandbox where you can run rm -rf, dd, mkfs and iptables -F against a fake filesystem, watch the damage, and build the reflex without losing data.",
-  "tags": [],
+  "tags": [
+    "linux",
+    "sysadmin",
+    "troubleshooting",
+    "tools",
+    "security"
+  ],
   "section": "sysadmin",
   "url": "https://pragmaticsysadmin.help/sysadmin/2026-09-26-a-sandbox-for-the-linux-commands-youre-afraid-to-run/",
   "date": "2026-09-26T00:00:00+00:00",

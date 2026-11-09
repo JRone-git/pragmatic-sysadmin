@@ -1,7 +1,7 @@
 ---
 title: "I Built a Tool That Explains Any Command or Error in Plain Language"
 canonical_url: https://pragmaticsysadmin.help/meta/plain-english-explain-any-command-error-concept/
-tags: sysadmin
+tags: tools, ai, bash, plainenglish
 ---
 
 Every sysadmin has the same job, really. It's not "manage servers." It's not "configure networks." It's: **explain technical things to non-technical people.**

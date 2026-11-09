@@ -2,7 +2,13 @@
   "slug": "tech-survival-guide-ai-edition-2026",
   "title": "Tech Survival Guide: AI Edition 2026 (From 'Help!' to 'I'm a Genius!')",
   "description": "Stop struggling with tech problems AND AI tools. Learn how to solve tech issues like a pro using AI, with solutions from panic mode to automation master.",
-  "tags": [],
+  "tags": [
+    "ai",
+    "automation",
+    "troubleshooting",
+    "productivity",
+    "life-hacks"
+  ],
   "section": "sysadmin",
   "url": "https://pragmaticsysadmin.help/sysadmin/tech-survival-guide-ai-edition-2026/",
   "date": "2025-10-12T00:00:00+00:00",

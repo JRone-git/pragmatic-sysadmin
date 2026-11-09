@@ -2,7 +2,13 @@
   "slug": "ultimate-secure-fast-home-network-2025",
   "title": "The Ultimate Guide to a Secure & Fast Home Network (2025)",
   "description": "Stop renting overpriced routers and fix your slow, insecure home network. A sysadmin's no-nonsense guide to Wi-Fi that actually works.",
-  "tags": [],
+  "tags": [
+    "home networking",
+    "wifi",
+    "security",
+    "routers",
+    "dns"
+  ],
   "section": "senior-tech",
   "url": "https://pragmaticsysadmin.help/senior-tech/ultimate-secure-fast-home-network-2025/",
   "date": "2025-08-16T00:00:00+00:00",

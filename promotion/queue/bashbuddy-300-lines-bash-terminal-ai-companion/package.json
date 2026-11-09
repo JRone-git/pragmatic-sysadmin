@@ -2,7 +2,14 @@
   "slug": "bashbuddy-300-lines-bash-terminal-ai-companion",
   "title": "I Built a Terminal AI Companion in 300 Lines of Pure Bash — And It's MIT Licensed",
   "description": "bashbuddy is a single bash script that turns any AI API into a smart terminal assistant. Paste errors, write scripts, review code — all without leaving your terminal. Free and open source.",
-  "tags": [],
+  "tags": [
+    "bash",
+    "ai",
+    "cli",
+    "tools",
+    "open-source",
+    "productivity"
+  ],
   "section": "sysadmin",
   "url": "https://pragmaticsysadmin.help/sysadmin/bashbuddy-300-lines-bash-terminal-ai-companion/",
   "date": "2026-08-04T00:00:00+00:00",

@@ -1,3 +1,5 @@
 The most common sysadmin task isn't running commands — it's explaining commands
 
 https://pragmaticsysadmin.help/meta/plain-english-explain-any-command-error-concept/
+
+#tools #ai #bash

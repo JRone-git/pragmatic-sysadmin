@@ -1,54 +1,54 @@
 {
   "version": 1,
-  "generated_at": "2026-09-27T16:53:11Z",
-  "post_count": 44,
+  "generated_at": "2026-11-09T16:41:10Z",
+  "post_count": 55,
   "sections": {
     "meta": {
-      "posts": 8,
+      "posts": 10,
       "metrics": {
         "words": {
-          "median": 975.0,
-          "mean": 1033.62,
+          "median": 1012.0,
+          "mean": 1082.1,
           "min": 261.0,
           "max": 2441.0,
           "p10": 397.0,
           "p25": 818.0,
-          "p75": 1105.0,
-          "p90": 1297.0
+          "p75": 1297.0,
+          "p90": 1589.0
         },
         "reading_minutes": {
-          "median": 4.5,
-          "mean": 5.0,
+          "median": 5.0,
+          "mean": 5.3,
           "min": 1.0,
           "max": 12.0,
           "p10": 2.0,
           "p25": 4.0,
           "p75": 6.0,
-          "p90": 6.0
+          "p90": 8.0
         },
         "words_per_sentence": {
-          "median": 12.71,
-          "mean": 16.47,
+          "median": 12.95,
+          "mean": 16.01,
           "min": 9.98,
           "max": 37.29,
           "p10": 10.34,
           "p25": 10.68,
-          "p75": 16.01,
+          "p75": 16.32,
           "p90": 22.06
         },
         "sentences_per_paragraph": {
-          "median": 2.27,
-          "mean": 2.1,
+          "median": 2.62,
+          "mean": 2.39,
           "min": 0.54,
-          "max": 3.08,
+          "max": 3.77,
           "p10": 1.35,
           "p25": 1.64,
-          "p75": 2.72,
-          "p90": 2.92
+          "p75": 3.08,
+          "p90": 3.28
         },
         "h2_per_1k": {
-          "median": 7.05,
-          "mean": 9.98,
+          "median": 6.46,
+          "mean": 9.28,
           "min": 4.51,
           "max": 26.82,
           "p10": 5.4,
@@ -57,8 +57,8 @@
           "p90": 12.59
         },
         "code_blocks_per_1k": {
-          "median": 1.22,
-          "mean": 5.36,
+          "median": 0.52,
+          "mean": 4.39,
           "min": 0.0,
           "max": 34.48,
           "p10": 0.0,
@@ -67,8 +67,8 @@
           "p90": 3.28
         },
         "bullets_per_1k": {
-          "median": 10.02,
-          "mean": 17.19,
+          "median": 10.88,
+          "mean": 15.97,
           "min": 0.0,
           "max": 61.3,
           "p10": 3.37,
@@ -78,37 +78,37 @@
         },
         "tables": {
           "median": 0.0,
-          "mean": 0.38,
+          "mean": 0.5,
           "min": 0.0,
-          "max": 1.0,
+          "max": 2.0,
           "p10": 0.0,
           "p25": 0.0,
           "p75": 1.0,
           "p90": 1.0
         },
         "contractions_per_1k": {
-          "median": 19.0,
-          "mean": 19.23,
+          "median": 17.52,
+          "mean": 18.55,
           "min": 7.56,
           "max": 31.61,
           "p10": 11.49,
-          "p25": 16.29,
+          "p25": 15.1,
           "p75": 20.74,
           "p90": 28.12
         },
         "first_person_per_1k": {
-          "median": 22.25,
-          "mean": 23.22,
+          "median": 17.61,
+          "mean": 21.31,
           "min": 10.08,
           "max": 45.24,
           "p10": 11.49,
-          "p25": 13.57,
+          "p25": 13.5,
           "p75": 29.09,
           "p90": 31.78
         },
         "second_person_per_1k": {
-          "median": 24.63,
-          "mean": 20.31,
+          "median": 22.31,
+          "mean": 20.46,
           "min": 0.0,
           "max": 36.0,
           "p10": 7.33,
@@ -117,8 +117,8 @@
           "p90": 32.75
         },
         "em_dash_per_1k": {
-          "median": 15.64,
-          "mean": 14.21,
+          "median": 15.48,
+          "mean": 14.38,
           "min": 0.0,
           "max": 25.19,
           "p10": 9.01,
@@ -128,33 +128,33 @@
         },
         "questions_per_1k": {
           "median": 0.47,
-          "mean": 1.04,
+          "mean": 0.96,
           "min": 0.0,
           "max": 3.83,
           "p10": 0.0,
           "p25": 0.0,
-          "p75": 1.12,
+          "p75": 1.26,
           "p90": 2.44
         },
         "concrete_numbers_per_1k": {
           "median": 2.07,
-          "mean": 5.41,
+          "mean": 5.65,
           "min": 0.0,
           "max": 25.34,
           "p10": 0.0,
           "p25": 0.0,
-          "p75": 2.31,
-          "p90": 11.49
+          "p75": 11.49,
+          "p90": 13.22
         }
       },
       "bands": {
         "words": [
           297.75,
-          1621.25
+          1986.25
         ],
         "reading_minutes": [
           1.5,
-          7.5
+          10.0
         ],
         "words_per_sentence": [
           7.75,
@@ -162,7 +162,7 @@
         ],
         "sentences_per_paragraph": [
           1.01,
-          3.65
+          4.1
         ],
         "h2_per_1k": [
           4.05,
@@ -202,13 +202,13 @@
         ],
         "concrete_numbers_per_1k": [
           0.0,
-          14.36
+          16.53
         ]
       },
       "ideals": {
         "words": [
           613.5,
-          1381.25
+          1621.25
         ],
         "reading_minutes": [
           3.0,
@@ -216,11 +216,11 @@
         ],
         "words_per_sentence": [
           8.01,
-          20.01
+          20.4
         ],
         "sentences_per_paragraph": [
           1.23,
-          3.4
+          3.85
         ],
         "h2_per_1k": [
           4.07,
@@ -239,11 +239,11 @@
           1.25
         ],
         "contractions_per_1k": [
-          12.22,
+          11.32,
           25.92
         ],
         "first_person_per_1k": [
-          10.18,
+          10.12,
           36.36
         ],
         "second_person_per_1k": [
@@ -256,17 +256,17 @@
         ],
         "questions_per_1k": [
           0.0,
-          1.4
+          1.57
         ],
         "concrete_numbers_per_1k": [
           0.0,
-          2.89
+          14.36
         ]
       },
       "conventions": {
-        "has_more_tag": 0.75,
-        "has_related_reads": 0.12,
-        "has_closing_cta": 0.38,
+        "has_more_tag": 0.7,
+        "has_related_reads": 0.1,
+        "has_closing_cta": 0.3,
         "has_faq": 0.0,
         "has_jsonld": 0.0,
         "has_toc": 0.0
@@ -282,6 +282,10 @@
             "text": "I built NEXUS-BREACH to simulate a rogue AI swarm. It was supposed to be a toy. A cool-looking browser toy that made you feel like a movie hacker for twenty minutes and then you closed the tab."
           },
           {
+            "post": "2026-11-02-hallway-display-for-my-parents-the-idea",
+            "text": "When my dad's phone became unusable, the answer everyone gives you is a tablet. Big screen, big buttons, simple. And it works."
+          },
+          {
             "post": "2026-08-04-software-thats-never-been-done-out-of-the-box-thinking",
             "text": "My dad had dementia. He couldn't remember if he'd taken his pills. He couldn't remember what day it was. He couldn't reliably use the phone he'd been using for a decade."
           },
@@ -294,18 +298,18 @@
             "text": "My dad called me at 2 AM."
           },
           {
-            "post": "2026-08-04-plain-english-explain-any-command-error-concept",
-            "text": "Every sysadmin has the same job, really. It's not \"manage servers.\" It's not \"configure networks.\" It's: explain technical things to non-technical people."
-          },
-          {
-            "post": "2026-08-15-i-built-my-own-jarvis-a-local-multi-agent-ai-assistant",
-            "text": "I wanted a personal AI assistant. Not a chatbot. Not a copilot. Something that actually does things — controls my desktop, reads my screen, talks to my smart home, answers questions in Finnish or English, and never, ever sends my data to a server I don't control."
+            "post": "2026-10-15-the-limits-of-probabilistic-code-why-ai-augments-work",
+            "text": "Last month I watched a support team demo their new AI deflection wall with pride. A customer asked where their invoice was, and the bot answered — confidently, politely, instantly — with a ticket number that didn't exist. Nobody caught it for three days. The bot wasn't lying. It was doing exactly what probabilistic models do: producing the most likely next tokens. The team had just mistaken fluency for truth, and the"
           }
         ],
         "closers": [
           {
             "post": "2026-04-14-when-the-sim-becomes-the-thing-it-simulated",
             "text": "Go build something cool. But maybe keep one hand on the cutoff switch."
+          },
+          {
+            "post": "2026-11-02-hallway-display-for-my-parents-the-idea",
+            "text": "That's the idea. Parts are on the way — I'll write up the build when they land."
           },
           {
             "post": "2026-08-04-software-thats-never-been-done-out-of-the-box-thinking",
@@ -320,12 +324,8 @@
             "text": "That's why it's free."
           },
           {
-            "post": "2026-08-04-plain-english-explain-any-command-error-concept",
-            "text": "Sometimes I just paste my own command and read the beginner explanation, just to see if I've actually understood what I'm running."
-          },
-          {
-            "post": "2026-08-15-i-built-my-own-jarvis-a-local-multi-agent-ai-assistant",
-            "text": "I'll post updates as the build progresses. The code will be on GitHub when it's worth sharing."
+            "post": "2026-10-15-the-limits-of-probabilistic-code-why-ai-augments-work",
+            "text": "Next time a generated answer looks perfect, ask yourself one question: what would prove it wrong? Then go check."
           }
         ],
         "h2": [
@@ -340,6 +340,15 @@
           "What I'm Doing About It",
           "The Source Code",
           "The Point",
+          "The idea, in one line",
+          "Why one bit, and why that's the feature",
+          "The prices (I checked, and there are traps)",
+          "The part that surprised me (and it's the good part)",
+          "What it shows",
+          "The photo problem, and a tool for it",
+          "Where this goes",
+          "The honest limitations",
+          "Why it's worth the effort",
           "The \"Someone Should Build That\" Test",
           "What Makes Something \"Never Been Done\"",
           "Three Examples of Software That Should Have Existed Sooner",
@@ -349,21 +358,13 @@
           "The Question to Ask Before You Start",
           "The Core Stack — What to Run First",
           "The Secondary Stack — Solid Options",
-          "The Cloud Stack — When to Pay Instead",
-          "Hardware Guide — What to Actually Buy",
-          "The Decision Framework",
-          "The Practical Starting Point",
-          "What I Learned Watching My Dad Use a Phone",
-          "Design Principle 1: One Screen, One Job",
-          "Design Principle 2: Photos Replace Text",
-          "Design Principle 3: Medicine Tracking That Resets",
-          "Design Principle 4: It Works in Seven Languages",
-          "Design Principle 5: No Account, No Data, No Cost"
+          "The Cloud Stack — When to Pay Instead"
         ]
       },
       "top_tags": {
-        "ai": 3,
+        "ai": 4,
         "self-hosted": 3,
+        "personal": 2,
         "ux": 2,
         "homelab": 2,
         "privacy": 2,
@@ -375,36 +376,35 @@
         "side-project": 1,
         "real-talk": 1,
         "rogue-ai": 1,
+        "diy": 1,
+        "esp32": 1,
+        "e-paper": 1,
+        "seniors": 1,
+        "display": 1,
+        "project": 1,
         "philosophy": 1,
         "software": 1,
         "innovation": 1,
         "product-thinking": 1,
-        "cloud": 1,
-        "buddy": 1,
-        "personal": 1,
-        "elderly": 1,
-        "accessibility": 1,
-        "bash": 1,
-        "plain-english": 1,
-        "explanation": 1
+        "cloud": 1
       }
     },
     "senior-tech": {
-      "posts": 13,
+      "posts": 17,
       "metrics": {
         "words": {
           "median": 1757.0,
-          "mean": 1737.92,
-          "min": 809.0,
-          "max": 2910.0,
-          "p10": 1028.0,
-          "p25": 1377.0,
+          "mean": 1704.59,
+          "min": 820.0,
+          "max": 2905.0,
+          "p10": 1093.0,
+          "p25": 1325.0,
           "p75": 1933.0,
-          "p90": 2232.0
+          "p90": 2171.0
         },
         "reading_minutes": {
           "median": 9.0,
-          "mean": 8.77,
+          "mean": 8.59,
           "min": 4.0,
           "max": 15.0,
           "p10": 5.0,
@@ -413,38 +413,38 @@
           "p90": 11.0
         },
         "words_per_sentence": {
-          "median": 14.25,
+          "median": 15.07,
           "mean": 16.02,
-          "min": 11.55,
-          "max": 32.12,
-          "p10": 11.62,
-          "p25": 12.77,
-          "p75": 18.2,
-          "p90": 19.14
+          "min": 11.52,
+          "max": 32.7,
+          "p10": 11.98,
+          "p25": 12.74,
+          "p75": 17.83,
+          "p90": 18.58
         },
         "sentences_per_paragraph": {
-          "median": 2.42,
-          "mean": 2.67,
-          "min": 0.84,
+          "median": 2.46,
+          "mean": 2.78,
+          "min": 0.79,
           "max": 4.23,
-          "p10": 1.48,
-          "p25": 2.07,
+          "p10": 2.0,
+          "p25": 2.19,
           "p75": 3.72,
           "p90": 3.91
         },
         "h2_per_1k": {
-          "median": 4.55,
-          "mean": 5.54,
+          "median": 5.17,
+          "mean": 5.48,
           "min": 1.72,
-          "max": 12.36,
-          "p10": 3.16,
-          "p25": 3.55,
-          "p75": 6.04,
-          "p90": 10.7
+          "max": 11.21,
+          "p10": 3.37,
+          "p25": 4.14,
+          "p75": 6.4,
+          "p90": 8.33
         },
         "code_blocks_per_1k": {
           "median": 0.0,
-          "mean": 0.06,
+          "mean": 0.07,
           "min": 0.0,
           "max": 0.73,
           "p10": 0.0,
@@ -453,18 +453,18 @@
           "p90": 0.0
         },
         "bullets_per_1k": {
-          "median": 10.35,
-          "mean": 22.38,
+          "median": 9.98,
+          "mean": 17.49,
           "min": 0.0,
-          "max": 82.82,
-          "p10": 1.18,
-          "p25": 6.04,
-          "p75": 31.19,
-          "p90": 46.83
+          "max": 55.83,
+          "p10": 3.36,
+          "p25": 4.57,
+          "p75": 26.45,
+          "p90": 47.1
         },
         "tables": {
           "median": 0.0,
-          "mean": 0.54,
+          "mean": 0.59,
           "min": 0.0,
           "max": 3.0,
           "p10": 0.0,
@@ -473,94 +473,94 @@
           "p90": 1.0
         },
         "contractions_per_1k": {
-          "median": 7.78,
-          "mean": 8.53,
+          "median": 6.67,
+          "mean": 7.87,
           "min": 0.0,
           "max": 24.91,
           "p10": 0.0,
           "p25": 0.0,
           "p75": 12.42,
-          "p90": 22.84
+          "p90": 14.46
         },
         "first_person_per_1k": {
-          "median": 7.55,
-          "mean": 11.18,
-          "min": 3.36,
-          "max": 35.85,
-          "p10": 3.89,
+          "median": 7.32,
+          "mean": 9.42,
+          "min": 2.71,
+          "max": 27.5,
+          "p10": 4.08,
           "p25": 5.32,
-          "p75": 13.97,
-          "p90": 23.3
+          "p75": 13.36,
+          "p90": 15.25
         },
         "second_person_per_1k": {
           "median": 22.51,
-          "mean": 25.73,
-          "min": 7.69,
-          "max": 63.39,
-          "p10": 8.65,
-          "p25": 15.0,
-          "p75": 34.72,
-          "p90": 39.52
+          "mean": 26.77,
+          "min": 7.83,
+          "max": 63.76,
+          "p10": 10.83,
+          "p25": 20.17,
+          "p75": 34.66,
+          "p90": 39.59
         },
         "em_dash_per_1k": {
-          "median": 14.01,
-          "mean": 11.77,
+          "median": 14.11,
+          "mean": 11.93,
           "min": 0.57,
-          "max": 18.62,
-          "p10": 1.95,
-          "p25": 9.68,
+          "max": 18.63,
+          "p10": 6.5,
+          "p25": 9.44,
           "p75": 14.78,
           "p90": 18.11
         },
         "questions_per_1k": {
-          "median": 1.51,
-          "mean": 1.54,
+          "median": 0.83,
+          "mean": 1.37,
           "min": 0.0,
-          "max": 3.71,
+          "max": 3.66,
           "p10": 0.0,
           "p25": 0.0,
-          "p75": 2.85,
-          "p90": 3.55
+          "p75": 2.8,
+          "p90": 3.37
         },
         "concrete_numbers_per_1k": {
-          "median": 4.81,
-          "mean": 7.14,
+          "median": 4.57,
+          "mean": 7.63,
           "min": 1.68,
-          "max": 21.25,
+          "max": 22.77,
           "p10": 2.24,
-          "p25": 3.02,
-          "p75": 9.14,
-          "p90": 13.6
+          "p25": 3.06,
+          "p75": 8.71,
+          "p90": 17.5
         }
       },
       "bands": {
         "words": [
-          771.0,
-          2790.0
+          819.75,
+          2713.75
         ],
         "reading_minutes": [
           3.75,
           13.75
         ],
         "words_per_sentence": [
-          8.71,
-          23.93
+          8.98,
+          23.22
         ],
         "sentences_per_paragraph": [
-          1.11,
+          1.5,
           4.89
         ],
         "h2_per_1k": [
-          2.37,
-          13.38
+          2.53,
+          10.41
         ],
         "code_blocks_per_1k": [
           0.0,
           0.0
         ],
         "bullets_per_1k": [
-          0.89,
-          58.54
+          2.52,
+          58.88
         ],
         "tables": [
           0.0,
@@ -568,32 +568,32 @@
         ],
         "contractions_per_1k": [
           0.0,
-          28.55
+          18.08
         ],
         "first_person_per_1k": [
-          2.92,
-          29.12
+          3.06,
+          19.06
         ],
         "second_person_per_1k": [
-          6.49,
-          49.4
+          8.12,
+          49.49
         ],
         "em_dash_per_1k": [
-          1.46,
+          4.88,
           22.64
         ],
         "questions_per_1k": [
           0.0,
-          4.44
+          4.21
         ],
         "concrete_numbers_per_1k": [
           1.68,
-          17.0
+          21.88
         ]
       },
       "ideals": {
         "words": [
-          1032.75,
+          993.75,
           2416.25
         ],
         "reading_minutes": [
@@ -601,24 +601,24 @@
           12.5
         ],
         "words_per_sentence": [
-          9.58,
-          22.75
+          9.55,
+          22.29
         ],
         "sentences_per_paragraph": [
-          1.55,
+          1.64,
           4.65
         ],
         "h2_per_1k": [
-          2.66,
-          7.55
+          3.1,
+          8.0
         ],
         "code_blocks_per_1k": [
           0.0,
           0.0
         ],
         "bullets_per_1k": [
-          4.53,
-          38.99
+          3.43,
+          33.06
         ],
         "tables": [
           0.0,
@@ -630,35 +630,35 @@
         ],
         "first_person_per_1k": [
           3.99,
-          17.46
+          16.7
         ],
         "second_person_per_1k": [
-          11.25,
-          43.4
+          15.13,
+          43.32
         ],
         "em_dash_per_1k": [
-          7.26,
+          7.08,
           18.47
         ],
         "questions_per_1k": [
           0.0,
-          3.56
+          3.5
         ],
         "concrete_numbers_per_1k": [
-          2.27,
-          11.43
+          2.29,
+          10.89
         ]
       },
       "conventions": {
-        "has_more_tag": 0.0,
-        "has_related_reads": 0.46,
-        "has_closing_cta": 0.15,
+        "has_more_tag": 0.24,
+        "has_related_reads": 0.41,
+        "has_closing_cta": 0.12,
         "has_faq": 0.0,
-        "has_jsonld": 0.08,
-        "has_toc": 0.31
+        "has_jsonld": 0.06,
+        "has_toc": 0.35
       },
       "buzzword_hits": {
-        "best-in-class": 3
+        "best-in-class": 4
       },
       "examples": {
         "openers": [
@@ -667,50 +667,50 @@
             "text": "You set up your mom's phone. You installed the right apps, hid the confusing ones, configured the accessibility settings. You walked her through the emergency gestures and laminated a cheat sheet for her fridge. You did everything right."
           },
           {
-            "post": "2026-07-01-best-phones-for-seniors-2026",
-            "text": "When my mom lost $4,200 to a fake Microsoft scam and I built her a simple phone app called Buddy, I realized the phone she was using mattered almost as much as the apps she had on it."
+            "post": "2026-09-25-essential-home-automation-older-parents-practical-low-cost-setup-guide",
+            "text": "My mum kept leaving the iron on."
           },
           {
             "post": "2026-07-14-best-tablets-for-seniors-2026",
             "text": "I tested six tablets with five different grandparents over six weeks. I watched them try to make video calls, send messages, look at photos, and read the news. I watched them succeed, fail, get frustrated, and (in two cases) put the tablet down and never pick it up again."
           },
           {
+            "post": "2026-07-01-best-phones-for-seniors-2026",
+            "text": "When my mom lost $4,200 to a fake Microsoft scam and I built her a simple phone app called Buddy, I realized the phone she was using mattered almost as much as the apps she had on it."
+          },
+          {
             "post": "2026-06-27-best-free-phone-apps-seniors",
             "text": "For six months, every app I recommended to my mom went through the same brutal evaluation process: she used it for a week, then either kept using it or deleted it. No exceptions."
           },
           {
-            "post": "2026-07-27-privacy-first-ai-setup-for-seniors",
-            "text": "Once you understand what AI tools actually do with your parents' chat logs, the natural next question is: what should they use instead? The honest answer is that there is no single \"best\" privacy-first AI — there are three good options, each suited to a different household. The right choice depends almost entirely on what hardware your parents already own, how technical you are willing to get, and what they actually "
-          },
-          {
-            "post": "2026-07-27-is-chatgpt-reading-your-parents-data",
-            "text": "If your parents have discovered ChatGPT in the last year — and statistically, at least one of them has — they are probably using it the way most people do: asking medical questions, pasting in emails to \"make this sound nicer,\" asking it to summarize bank statements, and getting it to draft replies to family group chats. None of this is malicious. All of it is potentially a privacy problem. This guide explains what a"
+            "post": "2026-10-05-local-llms-as-system-tooling-running-sub-3b-models",
+            "text": "You need an AI assistant that runs on your own machine. The cloud options are good but they are not yours. You want something that actually does things — reads your screen, controls your smart home, answers questions in Finnish or English, and never sends your data to a server you don't control."
           }
         ],
         "closers": [
           {
             "post": "2026-07-02-the-quarterly-tech-checkup",
-            "text": "4. The Quarterly Tech Checkup — this post. The maintenance routine that keeps everything working."
+            "text": "Want a printable version? I made a {{< aff merchant=\"ko-fi\" text=\"Senior Phone Setup & Maintenance Checklist\" url=\"https://ko-fi.com/s/a567718347\" >}} that covers all four posts in one place — initial setup, quarterly checkup steps, and the emergency playbook. Laminate it, keep i"
           },
           {
-            "post": "2026-07-01-best-phones-for-seniors-2026",
-            "text": "Whatever you choose, take 30 minutes on a Saturday to set it up properly. The phone is the second-most-important thing; the setup is the first. A senior with a well-set-up basic phone will be happier than a senior with a poorly-set-up flagship."
+            "post": "2026-09-25-essential-home-automation-older-parents-practical-low-cost-setup-guide",
+            "text": "That's it. That's the whole system."
           },
           {
             "post": "2026-07-14-best-tablets-for-seniors-2026",
             "text": "Buy the iPad 10th gen. Spend the $100-200 savings vs. an iPad Pro on a nice case and a long Apple Care+ warranty. For dementia or extreme low-tech-comfort, GrandPad is worth the $720/year."
           },
           {
+            "post": "2026-07-01-best-phones-for-seniors-2026",
+            "text": "{{< aff-disclosure-inline >}}"
+          },
+          {
             "post": "2026-06-27-best-free-phone-apps-seniors",
             "text": "Together, those three pieces — the app, the setup, and the conversation — prevent 90% of the support calls and most of the heartbreak."
           },
           {
-            "post": "2026-07-27-privacy-first-ai-setup-for-seniors",
-            "text": "Once your parents have a privacy-first AI in place, the final piece of the household AI safety puzzle is setting expectations: explain to them, in plain language, what AI is good at and what it is bad at. A two-minute conversation — \"AI is great for summaries and drafts. It is ba"
-          },
-          {
-            "post": "2026-07-27-is-chatgpt-reading-your-parents-data",
-            "text": "If you have not yet set up a password manager for your parents, do that first. It is the single biggest security upgrade available and a prerequisite for everything else — AI privacy included."
+            "post": "2026-10-05-local-llms-as-system-tooling-running-sub-3b-models",
+            "text": "Whatever you choose, take 30 minutes on a Saturday to set it up properly. The local LLM is the second-most-important thing; the setup is the first. A senior with a well-set-up local AI will be happier than a senior with a poorly-set-up flagship cloud service."
           }
         ],
         "h2": [
@@ -719,6 +719,23 @@
           "The emergency playbook",
           "Making the checkup sustainable",
           "The full senior-tech series",
+          "Before You Buy Anything: Network Security First",
+          "The Right Philosophy: Local Over Cloud, Cheap Over Expensive",
+          "DIY Home Automation — Build It Yourself for Under €10 per Device",
+          "What to Actually Buy",
+          "The Automation Rules to Set Up First",
+          "What NOT to Buy",
+          "The Maintenance Checklist",
+          "The Buddy Connection",
+          "The Decision Framework",
+          "Start Small",
+          "Quick answer",
+          "Comparison table at a glance",
+          "The 6 tablets I'd buy in 2026",
+          "Quick setup guide for any senior tablet",
+          "What to add after the basics",
+          "FAQ",
+          "My recommendation in one sentence",
           "How I tested",
           "The quick answer",
           "The five phones I tested",
@@ -726,31 +743,16 @@
           "Phone plan quick-buy links",
           "How to set up any senior phone in 30 minutes",
           "My top pick in 2026: Lively Smart",
-          "What I didn't include (and why)",
-          "FAQ",
-          "Final recommendations",
-          "Quick answer",
-          "Comparison table at a glance",
-          "The 6 tablets I'd buy in 2026",
-          "Quick setup guide for any senior tablet",
-          "What to add after the basics",
-          "My recommendation in one sentence",
-          "Before we start: the \"one app rule\"",
-          "Communication",
-          "Health & medication",
-          "Safety",
-          "Memory & reminders",
-          "Entertainment",
-          "Utilities (built-in but worth configuring)",
-          "What didn't make the list (and why)",
-          "The actual setup order (week by week)"
+          "What I didn't include (and why)"
         ]
       },
       "top_tags": {
-        "seniors": 4,
+        "seniors": 5,
+        "privacy": 4,
+        "ai": 4,
         "security": 4,
-        "ai": 2,
-        "privacy": 2,
+        "senior-tech": 3,
+        "accessibility": 3,
         "claude": 2,
         "senior phone maintenance": 1,
         "aging parent tech checkup": 1,
@@ -759,298 +761,305 @@
         "parent phone emergency": 1,
         "senior tech maintenance": 1,
         "iPhone troubleshooting elderly": 1,
-        "best phones for seniors": 1,
-        "phones for elderly": 1,
-        "senior phone": 1,
-        "Lively phone": 1,
-        "Consumer Cellular": 1,
-        "Jitterbug": 1,
-        "phones for aging parents": 1,
-        "senior cell phone": 1,
+        "home-automation": 1,
+        "smart-home": 1,
+        "budget-setup": 1,
+        "diy": 1,
+        "esp8266": 1,
+        "tasmota": 1,
+        "esphome": 1,
+        "zigbee": 1,
         "tablets": 1,
         "ipad for seniors": 1,
-        "senior tech": 1,
-        "android tablet": 1,
-        "grandpad": 1
+        "senior tech": 1
       }
     },
     "sysadmin": {
-      "posts": 23,
+      "posts": 28,
       "metrics": {
         "words": {
-          "median": 1399.0,
-          "mean": 1339.35,
+          "median": 1418.0,
+          "mean": 1410.5,
           "min": 454.0,
-          "max": 2060.0,
-          "p10": 691.0,
+          "max": 2639.0,
+          "p10": 674.0,
           "p25": 961.0,
-          "p75": 1690.0,
-          "p90": 1895.0
+          "p75": 1792.0,
+          "p90": 1981.0
         },
         "reading_minutes": {
           "median": 7.0,
-          "mean": 6.57,
+          "mean": 6.93,
           "min": 2.0,
-          "max": 10.0,
+          "max": 13.0,
           "p10": 3.0,
           "p25": 5.0,
-          "p75": 8.0,
-          "p90": 9.0
+          "p75": 9.0,
+          "p90": 10.0
         },
         "words_per_sentence": {
-          "median": 13.94,
-          "mean": 15.71,
+          "median": 14.19,
+          "mean": 15.83,
           "min": 9.9,
-          "max": 32.9,
-          "p10": 11.44,
-          "p25": 12.91,
-          "p75": 16.12,
-          "p90": 22.02
+          "max": 35.47,
+          "p10": 11.65,
+          "p25": 13.0,
+          "p75": 16.78,
+          "p90": 20.79
         },
         "sentences_per_paragraph": {
-          "median": 2.02,
-          "mean": 2.13,
-          "min": 0.75,
+          "median": 2.04,
+          "mean": 2.21,
+          "min": 0.68,
           "max": 3.64,
-          "p10": 1.63,
+          "p10": 1.65,
           "p25": 1.8,
-          "p75": 2.25,
+          "p75": 2.4,
           "p90": 3.27
         },
         "h2_per_1k": {
-          "median": 6.3,
-          "mean": 7.68,
+          "median": 5.88,
+          "mean": 7.19,
           "min": 0.53,
           "max": 20.7,
           "p10": 3.53,
-          "p25": 5.37,
-          "p75": 10.32,
-          "p90": 12.26
+          "p25": 4.46,
+          "p75": 9.37,
+          "p90": 11.87
         },
         "code_blocks_per_1k": {
-          "median": 7.01,
-          "mean": 8.03,
+          "median": 4.58,
+          "mean": 6.84,
           "min": 0.0,
           "max": 26.38,
           "p10": 0.55,
-          "p25": 2.87,
-          "p75": 12.42,
-          "p90": 18.71
+          "p25": 1.67,
+          "p75": 9.96,
+          "p90": 16.86
         },
         "bullets_per_1k": {
-          "median": 11.28,
-          "mean": 14.7,
+          "median": 10.76,
+          "mean": 14.17,
           "min": 1.58,
-          "max": 54.99,
-          "p10": 7.06,
-          "p25": 9.22,
-          "p75": 13.7,
-          "p90": 20.7
+          "max": 56.38,
+          "p10": 6.26,
+          "p25": 7.71,
+          "p75": 13.77,
+          "p90": 20.46
         },
         "tables": {
           "median": 0.0,
-          "mean": 0.39,
+          "mean": 0.68,
           "min": 0.0,
-          "max": 3.0,
+          "max": 4.0,
           "p10": 0.0,
           "p25": 0.0,
           "p75": 1.0,
           "p90": 1.0
         },
         "contractions_per_1k": {
-          "median": 18.39,
-          "mean": 18.82,
+          "median": 17.73,
+          "mean": 17.82,
           "min": 0.0,
           "max": 42.34,
-          "p10": 4.34,
-          "p25": 14.31,
-          "p75": 24.23,
-          "p90": 31.71
+          "p10": 4.45,
+          "p25": 13.43,
+          "p75": 23.71,
+          "p90": 28.31
         },
         "first_person_per_1k": {
-          "median": 11.6,
-          "mean": 16.42,
+          "median": 11.53,
+          "mean": 16.38,
           "min": 1.57,
           "max": 69.68,
-          "p10": 4.46,
-          "p25": 9.36,
-          "p75": 17.41,
+          "p10": 4.52,
+          "p25": 8.9,
+          "p75": 17.89,
           "p90": 23.59
         },
         "second_person_per_1k": {
-          "median": 33.07,
-          "mean": 34.66,
-          "min": 14.47,
+          "median": 33.0,
+          "mean": 33.12,
+          "min": 13.11,
           "max": 54.11,
-          "p10": 22.42,
-          "p25": 30.61,
+          "p10": 18.68,
+          "p25": 27.26,
           "p75": 41.85,
           "p90": 44.72
         },
         "em_dash_per_1k": {
-          "median": 7.69,
-          "mean": 7.6,
+          "median": 8.12,
+          "mean": 8.32,
           "min": 0.0,
           "max": 26.92,
           "p10": 0.0,
-          "p25": 1.45,
-          "p75": 10.01,
-          "p90": 14.31
+          "p25": 2.44,
+          "p75": 10.6,
+          "p90": 15.65
         },
         "questions_per_1k": {
-          "median": 1.44,
-          "mean": 2.07,
+          "median": 1.02,
+          "mean": 1.73,
           "min": 0.0,
           "max": 8.02,
           "p10": 0.0,
-          "p25": 0.6,
-          "p75": 3.03,
-          "p90": 5.8
+          "p25": 0.0,
+          "p75": 2.75,
+          "p90": 3.61
         },
         "concrete_numbers_per_1k": {
-          "median": 3.74,
-          "mean": 6.8,
+          "median": 4.36,
+          "mean": 7.19,
           "min": 0.0,
           "max": 39.31,
           "p10": 1.57,
           "p25": 2.2,
-          "p75": 7.23,
-          "p90": 18.45
+          "p75": 8.28,
+          "p90": 17.34
         }
       },
       "bands": {
         "words": [
-          518.25,
-          2368.75
+          505.5,
+          2476.25
         ],
         "reading_minutes": [
           2.25,
-          11.25
+          12.5
         ],
         "words_per_sentence": [
-          8.58,
-          27.52
+          8.74,
+          25.99
         ],
         "sentences_per_paragraph": [
-          1.22,
+          1.24,
           4.09
         ],
         "h2_per_1k": [
           2.65,
-          15.32
+          14.84
         ],
         "code_blocks_per_1k": [
           0.41,
-          23.39
+          21.07
         ],
         "bullets_per_1k": [
-          5.29,
-          25.88
+          4.7,
+          25.58
         ],
         "tables": [
           0.0,
           1.25
         ],
         "contractions_per_1k": [
-          3.25,
-          39.64
+          3.34,
+          35.39
         ],
         "first_person_per_1k": [
-          3.34,
+          3.39,
           29.49
         ],
         "second_person_per_1k": [
-          16.82,
+          14.01,
           55.9
         ],
         "em_dash_per_1k": [
           0.0,
-          17.89
+          19.56
         ],
         "questions_per_1k": [
           0.0,
-          7.25
+          4.51
         ],
         "concrete_numbers_per_1k": [
           1.18,
-          23.06
+          21.68
         ]
       },
       "ideals": {
         "words": [
           720.75,
-          2112.5
+          2240.0
         ],
         "reading_minutes": [
           3.75,
-          10.0
+          11.25
         ],
         "words_per_sentence": [
-          9.68,
-          20.15
+          9.75,
+          20.98
         ],
         "sentences_per_paragraph": [
           1.35,
-          2.81
+          3.0
         ],
         "h2_per_1k": [
-          4.03,
-          12.9
+          3.34,
+          11.71
         ],
         "code_blocks_per_1k": [
-          2.15,
-          15.53
+          1.25,
+          12.45
         ],
         "bullets_per_1k": [
-          6.92,
-          17.12
+          5.78,
+          17.21
         ],
         "tables": [
           0.0,
           1.25
         ],
         "contractions_per_1k": [
-          10.73,
-          30.29
+          10.07,
+          29.64
         ],
         "first_person_per_1k": [
-          7.02,
-          21.76
+          6.68,
+          22.36
         ],
         "second_person_per_1k": [
-          22.96,
+          20.45,
           52.31
         ],
         "em_dash_per_1k": [
-          1.09,
-          12.51
+          1.83,
+          13.25
         ],
         "questions_per_1k": [
-          0.45,
-          3.79
+          0.0,
+          3.44
         ],
         "concrete_numbers_per_1k": [
           1.65,
-          9.04
+          10.35
         ]
       },
       "conventions": {
-        "has_more_tag": 0.13,
-        "has_related_reads": 0.87,
-        "has_closing_cta": 0.09,
+        "has_more_tag": 0.25,
+        "has_related_reads": 0.75,
+        "has_closing_cta": 0.21,
         "has_faq": 0.0,
-        "has_jsonld": 0.09,
+        "has_jsonld": 0.07,
         "has_toc": 0.0
       },
       "buzzword_hits": {
+        "best-in-class": 3,
+        "leverage": 2,
         "dive into": 2,
         "game changer": 1,
-        "leverage": 1,
         "dive deep": 1,
         "game-changer": 1
       },
       "examples": {
         "openers": [
+          {
+            "post": "2026-10-28-tech-in-a-busy-household-networks-gaming-rigs-diy-tinkering",
+            "text": "My home network serves four separate humans, two cats, a Nintendo Switch, three streaming devices, a NAS, a homelab in the closet, and an unreasonable number of Raspberry Pis."
+          },
+          {
+            "post": "2026-10-30-give-old-tech-second-life-low-power-smart-display-esp32-epaper",
+            "text": "Every sysadmin has a drawer."
+          },
           {
             "post": "2025-10-29-setting-up-a-home-lab-a-beginner-s-guide",
             "text": "Title: Setting Up a Home Lab: A Beginner's Guide Description Learn how to build your first home lab for learning DevOps, containerization, and system administration. This practical guide covers hardware recommendations, essential software, and step-by-step setup instructions."
@@ -1066,17 +1075,17 @@
           {
             "post": "tech-survival-guide-ai-edition-2026",
             "text": "Look, we've all been there. It's 11 PM, something's broken, and you're frantically googling error messages while your AI assistant keeps suggesting solutions that make absolutely no sense. Fun times."
-          },
-          {
-            "post": "sysadmin-myths-busted-2026",
-            "text": "Forget what you heard in 2015. In this post, we bust the most common sysadmin myths and show you what actually works today. From automation fears to cloud confusion, get the facts and actionable tips for modern IT. Why These Myths Refuse to Die"
-          },
-          {
-            "post": "zero-trust-small-teams-2026",
-            "text": "Zero trust isn't just for big enterprises. In this post, we break down how small teams can adopt zero trust principles with practical, budget-friendly steps. What Zero Trust Actually Means (Without the Buzzword Salad)"
           }
         ],
         "closers": [
+          {
+            "post": "2026-10-28-tech-in-a-busy-household-networks-gaming-rigs-diy-tinkering",
+            "text": "You do not need to do all of this at once. Steps 1 and 2 alone will fix most of what actually annoys people, and they're free or cheap."
+          },
+          {
+            "post": "2026-10-30-give-old-tech-second-life-low-power-smart-display-esp32-epaper",
+            "text": "The lesson is the same one this whole series is about: don't trust the number in your head, go and look at it. I write it in a hardware post, I write it in a sysadmin post, and I write it on the house log next to the boiler."
+          },
           {
             "post": "2025-10-29-setting-up-a-home-lab-a-beginner-s-guide",
             "text": "Have you set up your home lab? Share your experiences and tips in the comments below!"
@@ -1092,17 +1101,26 @@
           {
             "post": "tech-survival-guide-ai-edition-2026",
             "text": "Remember: Every tech crisis is an opportunity to build a better system. The difference between the sysadmin who works 60-hour weeks and the one who leaves at 5 PM isn’t talent — it’s the systems they’ve built around themselves. Now go build yours."
-          },
-          {
-            "post": "sysadmin-myths-busted-2026",
-            "text": "The sysadmins who thrive in 2026 won't be the ones clinging to how things were done in 2015. They'll be the ones who adapt, question, and improve — one practical step at a time."
-          },
-          {
-            "post": "zero-trust-small-teams-2026",
-            "text": "None of these steps require a massive budget or a dedicated security team. They require a willingness to question the assumption that \"inside = safe\" and a commitment to continuous improvement. That's it."
           }
         ],
         "h2": [
+          "Start With the Actual Problem",
+          "1. Segmentation: Split the Flat Network",
+          "2. QoS: Making the Pipe Fair",
+          "3. DHCP Reservations: Stop the IPs Moving",
+          "4. The Gaming Rig Problem",
+          "5. The Tinkering Budget",
+          "6. The Device Inventory",
+          "7. Preventing the 2 AM Nightmare: Bedtime on the Network",
+          "8. Hardware That Survives a Busy House",
+          "The Order to Do It In",
+          "The Goal",
+          "Three Paths to a Low-Power Smart Display",
+          "The Architecture: Click-to-Wake",
+          "The Battery Maths (Honest Numbers)",
+          "What Part 2 Covers",
+          "A Note on E-Waste",
+          "A Correction Worth Making Public",
           "Recommended Hardware on Newegg",
           "Essential Software Stack",
           "Next Steps",
@@ -1115,227 +1133,210 @@
           "Summary",
           "The Call I Didn't Want to Get",
           "Layer 1: HELP! Everything's On Fire! 🔥",
-          "Layer 2: Understanding What Actually Happened 🤔",
-          "Layer 3: Never Have This Problem Again 🛡️",
-          "Layer 4: Automate Everything 🤖",
-          "The Secret Sauce: Building Your AI Alliance",
-          "What AI Can't Do (Yet)",
-          "Conclusion: From Reactive to Proactive",
-          "Your Action Items",
-          "Why These Myths Refuse to Die",
-          "Myth 1: Automation Will Take Your Job",
-          "Myth 2: The Cloud Is Always Cheaper",
-          "Myth 3: You Need to Know Every Command",
-          "Myth 4: Security Is Someone Else's Problem",
-          "Myth 5: You Can't Teach Old Dogs New Tricks",
-          "The Bottom Line",
-          "What Zero Trust Actually Means (Without the Buzzword Salad)",
-          "Step 1: Identify Your Critical Assets",
-          "Step 2: Enforce Least Privilege",
-          "Step 3: Monitor Everything"
+          "Layer 2: Understanding What Actually Happened 🤔"
         ]
       },
       "top_tags": {
-        "sysadmin": 13,
-        "troubleshooting": 6,
+        "sysadmin": 16,
+        "troubleshooting": 7,
         "linux": 6,
+        "homelab": 5,
         "bash": 5,
         "automation": 5,
         "productivity": 5,
         "devops": 5,
-        "ai": 3,
-        "security": 3,
-        "homelab": 3,
-        "tools": 3,
+        "ai": 4,
+        "security": 4,
+        "tools": 4,
         "career": 2,
         "containers": 2,
         "cloud": 2,
         "common mistakes": 2,
         "systemd": 2,
         "DIY": 2,
-        "Home Lab": 1,
-        "backups": 1,
-        "recovery": 1,
-        "disaster-recovery": 1,
-        "documentation": 1,
-        "knowledge-management": 1,
-        "life-hacks": 1,
-        "myths": 1
+        "privacy": 2,
+        "networking": 1,
+        "gaming": 1,
+        "wifi": 1,
+        "router": 1,
+        "qos": 1,
+        "home-lab": 1,
+        "esp32": 1
       }
     }
   },
   "global": {
-    "posts": 44,
+    "posts": 55,
     "metrics": {
       "words": {
-        "median": 1395.5,
-        "mean": 1401.52,
+        "median": 1417.0,
+        "mean": 1441.69,
         "min": 261.0,
-        "max": 2910.0,
-        "p10": 691.0,
-        "p25": 961.0,
-        "p75": 1785.0,
-        "p90": 2060.0
+        "max": 2905.0,
+        "p10": 674.0,
+        "p25": 981.0,
+        "p75": 1792.0,
+        "p90": 2171.0
       },
       "reading_minutes": {
         "median": 7.0,
-        "mean": 6.93,
+        "mean": 7.15,
         "min": 1.0,
         "max": 15.0,
         "p10": 3.0,
         "p25": 5.0,
         "p75": 9.0,
-        "p90": 10.0
+        "p90": 11.0
       },
       "words_per_sentence": {
-        "median": 14.0,
-        "mean": 15.94,
+        "median": 14.25,
+        "mean": 15.92,
         "min": 9.9,
         "max": 37.29,
-        "p10": 11.27,
-        "p25": 12.07,
-        "p75": 16.78,
-        "p90": 22.06
+        "p10": 11.44,
+        "p25": 12.53,
+        "p75": 17.01,
+        "p90": 22.02
       },
       "sentences_per_paragraph": {
-        "median": 2.12,
-        "mean": 2.29,
+        "median": 2.25,
+        "mean": 2.42,
         "min": 0.54,
         "max": 4.23,
-        "p10": 1.48,
-        "p25": 1.8,
-        "p75": 2.72,
-        "p90": 3.64
+        "p10": 1.52,
+        "p25": 1.89,
+        "p75": 3.08,
+        "p90": 3.72
       },
       "h2_per_1k": {
-        "median": 5.73,
-        "mean": 7.46,
+        "median": 5.66,
+        "mean": 7.04,
         "min": 0.53,
         "max": 26.82,
         "p10": 3.37,
-        "p25": 4.48,
-        "p75": 10.32,
-        "p90": 12.36
+        "p25": 4.51,
+        "p75": 8.48,
+        "p90": 11.87
       },
       "code_blocks_per_1k": {
-        "median": 2.05,
-        "mean": 5.19,
+        "median": 0.73,
+        "mean": 4.3,
         "min": 0.0,
         "max": 34.48,
         "p10": 0.0,
         "p25": 0.0,
-        "p75": 7.09,
-        "p90": 16.86
+        "p75": 4.96,
+        "p90": 13.22
       },
       "bullets_per_1k": {
-        "median": 10.81,
-        "mean": 17.42,
+        "median": 10.24,
+        "mean": 15.52,
         "min": 0.0,
-        "max": 82.82,
-        "p10": 3.12,
-        "p25": 7.06,
-        "p75": 20.7,
-        "p90": 46.83
+        "max": 61.3,
+        "p10": 3.36,
+        "p25": 6.6,
+        "p75": 19.66,
+        "p90": 47.1
       },
       "tables": {
         "median": 0.0,
-        "mean": 0.43,
+        "mean": 0.62,
         "min": 0.0,
-        "max": 3.0,
+        "max": 4.0,
         "p10": 0.0,
         "p25": 0.0,
         "p75": 1.0,
         "p90": 1.0
       },
       "contractions_per_1k": {
-        "median": 16.21,
-        "mean": 15.86,
+        "median": 15.1,
+        "mean": 14.88,
         "min": 0.0,
         "max": 42.34,
         "p10": 0.0,
-        "p25": 7.99,
-        "p75": 22.84,
-        "p90": 28.31
+        "p25": 7.56,
+        "p75": 20.74,
+        "p90": 28.12
       },
       "first_person_per_1k": {
-        "median": 12.36,
-        "mean": 16.11,
+        "median": 11.49,
+        "mean": 15.12,
         "min": 1.57,
         "max": 69.68,
         "p10": 4.46,
-        "p25": 7.55,
-        "p75": 20.69,
-        "p90": 31.78
+        "p25": 7.32,
+        "p75": 17.89,
+        "p90": 29.09
       },
       "second_person_per_1k": {
-        "median": 30.73,
-        "mean": 29.41,
+        "median": 30.17,
+        "mean": 28.85,
         "min": 0.0,
-        "max": 63.39,
-        "p10": 8.65,
-        "p25": 21.89,
-        "p75": 36.78,
+        "max": 63.76,
+        "p10": 10.83,
+        "p25": 20.7,
+        "p75": 36.0,
         "p90": 44.6
       },
       "em_dash_per_1k": {
-        "median": 9.84,
-        "mean": 10.03,
+        "median": 10.01,
+        "mean": 10.53,
         "min": 0.0,
         "max": 26.92,
         "p10": 0.0,
-        "p25": 4.85,
-        "p75": 14.57,
+        "p25": 7.1,
+        "p75": 14.78,
         "p90": 18.11
       },
       "questions_per_1k": {
-        "median": 1.21,
-        "mean": 1.73,
+        "median": 0.94,
+        "mean": 1.48,
         "min": 0.0,
         "max": 8.02,
         "p10": 0.0,
         "p25": 0.0,
-        "p75": 2.85,
-        "p90": 3.71
+        "p75": 2.5,
+        "p90": 3.61
       },
       "concrete_numbers_per_1k": {
-        "median": 3.38,
-        "mean": 6.65,
+        "median": 3.74,
+        "mean": 7.05,
         "min": 0.0,
         "max": 39.31,
         "p10": 0.72,
         "p25": 2.2,
-        "p75": 8.57,
-        "p90": 18.45
+        "p75": 8.58,
+        "p90": 19.29
       }
     },
     "bands": {
       "words": [
-        518.25,
-        2575.0
+        505.5,
+        2713.75
       ],
       "reading_minutes": [
         2.25,
-        12.5
+        13.75
       ],
       "words_per_sentence": [
-        8.45,
-        27.57
+        8.58,
+        27.52
       ],
       "sentences_per_paragraph": [
-        1.11,
-        4.55
+        1.14,
+        4.65
       ],
       "h2_per_1k": [
         2.53,
-        15.45
+        14.84
       ],
       "code_blocks_per_1k": [
         0.0,
-        21.07
+        16.53
       ],
       "bullets_per_1k": [
-        2.34,
-        58.54
+        2.52,
+        58.88
       ],
       "tables": [
         0.0,
@@ -1343,14 +1344,14 @@
       ],
       "contractions_per_1k": [
         0.0,
-        35.39
+        35.15
       ],
       "first_person_per_1k": [
         3.34,
-        39.73
+        36.36
       ],
       "second_person_per_1k": [
-        6.49,
+        8.12,
         55.75
       ],
       "em_dash_per_1k": [
@@ -1359,86 +1360,86 @@
       ],
       "questions_per_1k": [
         0.0,
-        4.64
+        4.51
       ],
       "concrete_numbers_per_1k": [
         0.54,
-        23.06
+        24.11
       ]
     },
     "ideals": {
       "words": [
-        720.75,
-        2231.25
+        735.75,
+        2240.0
       ],
       "reading_minutes": [
         3.75,
         11.25
       ],
       "words_per_sentence": [
-        9.05,
-        20.98
+        9.4,
+        21.26
       ],
       "sentences_per_paragraph": [
-        1.35,
-        3.4
+        1.42,
+        3.85
       ],
       "h2_per_1k": [
-        3.36,
-        12.9
+        3.38,
+        10.6
       ],
       "code_blocks_per_1k": [
         0.0,
-        8.86
+        6.2
       ],
       "bullets_per_1k": [
-        5.29,
-        25.88
+        4.95,
+        24.57
       ],
       "tables": [
         0.0,
         1.25
       ],
       "contractions_per_1k": [
-        5.99,
-        28.55
+        5.67,
+        25.92
       ],
       "first_person_per_1k": [
-        5.66,
-        25.86
+        5.49,
+        22.36
       ],
       "second_person_per_1k": [
-        16.42,
-        45.98
+        15.52,
+        45.0
       ],
       "em_dash_per_1k": [
-        3.64,
-        18.21
+        5.32,
+        18.47
       ],
       "questions_per_1k": [
         0.0,
-        3.56
+        3.12
       ],
       "concrete_numbers_per_1k": [
         1.65,
-        10.71
+        10.72
       ]
     },
     "conventions": {
-      "has_more_tag": 0.2,
-      "has_related_reads": 0.61,
-      "has_closing_cta": 0.16,
+      "has_more_tag": 0.33,
+      "has_related_reads": 0.53,
+      "has_closing_cta": 0.2,
       "has_faq": 0.0,
-      "has_jsonld": 0.07,
-      "has_toc": 0.09
+      "has_jsonld": 0.05,
+      "has_toc": 0.11
     },
     "buzzword_hits": {
-      "best-in-class": 3,
+      "best-in-class": 7,
+      "leverage": 2,
       "dive into": 2,
       "seamless": 1,
       "seamlessly": 1,
       "game changer": 1,
-      "leverage": 1,
       "dive deep": 1,
       "game-changer": 1
     },
@@ -1449,50 +1450,50 @@
           "text": "You set up your mom's phone. You installed the right apps, hid the confusing ones, configured the accessibility settings. You walked her through the emergency gestures and laminated a cheat sheet for her fridge. You did everything right."
         },
         {
+          "post": "2026-10-28-tech-in-a-busy-household-networks-gaming-rigs-diy-tinkering",
+          "text": "My home network serves four separate humans, two cats, a Nintendo Switch, three streaming devices, a NAS, a homelab in the closet, and an unreasonable number of Raspberry Pis."
+        },
+        {
           "post": "2026-04-14-when-the-sim-becomes-the-thing-it-simulated",
           "text": "I built NEXUS-BREACH to simulate a rogue AI swarm. It was supposed to be a toy. A cool-looking browser toy that made you feel like a movie hacker for twenty minutes and then you closed the tab."
         },
         {
-          "post": "2026-07-01-best-phones-for-seniors-2026",
-          "text": "When my mom lost $4,200 to a fake Microsoft scam and I built her a simple phone app called Buddy, I realized the phone she was using mattered almost as much as the apps she had on it."
+          "post": "2026-10-30-give-old-tech-second-life-low-power-smart-display-esp32-epaper",
+          "text": "Every sysadmin has a drawer."
+        },
+        {
+          "post": "2026-09-25-essential-home-automation-older-parents-practical-low-cost-setup-guide",
+          "text": "My mum kept leaving the iron on."
         },
         {
           "post": "2026-07-14-best-tablets-for-seniors-2026",
           "text": "I tested six tablets with five different grandparents over six weeks. I watched them try to make video calls, send messages, look at photos, and read the news. I watched them succeed, fail, get frustrated, and (in two cases) put the tablet down and never pick it up again."
-        },
-        {
-          "post": "2025-10-29-setting-up-a-home-lab-a-beginner-s-guide",
-          "text": "Title: Setting Up a Home Lab: A Beginner's Guide Description Learn how to build your first home lab for learning DevOps, containerization, and system administration. This practical guide covers hardware recommendations, essential software, and step-by-step setup instructions."
-        },
-        {
-          "post": "2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy",
-          "text": "We’ve all heard the horror stories. A database corruption hits production. The team stays calm because \"Don't worry, we have nightly backups.\""
         }
       ],
       "closers": [
         {
           "post": "2026-07-02-the-quarterly-tech-checkup",
-          "text": "4. The Quarterly Tech Checkup — this post. The maintenance routine that keeps everything working."
+          "text": "Want a printable version? I made a {{< aff merchant=\"ko-fi\" text=\"Senior Phone Setup & Maintenance Checklist\" url=\"https://ko-fi.com/s/a567718347\" >}} that covers all four posts in one place — initial setup, quarterly checkup steps, and the emergency playbook. Laminate it, keep i"
+        },
+        {
+          "post": "2026-10-28-tech-in-a-busy-household-networks-gaming-rigs-diy-tinkering",
+          "text": "You do not need to do all of this at once. Steps 1 and 2 alone will fix most of what actually annoys people, and they're free or cheap."
         },
         {
           "post": "2026-04-14-when-the-sim-becomes-the-thing-it-simulated",
           "text": "Go build something cool. But maybe keep one hand on the cutoff switch."
         },
         {
-          "post": "2026-07-01-best-phones-for-seniors-2026",
-          "text": "Whatever you choose, take 30 minutes on a Saturday to set it up properly. The phone is the second-most-important thing; the setup is the first. A senior with a well-set-up basic phone will be happier than a senior with a poorly-set-up flagship."
+          "post": "2026-10-30-give-old-tech-second-life-low-power-smart-display-esp32-epaper",
+          "text": "The lesson is the same one this whole series is about: don't trust the number in your head, go and look at it. I write it in a hardware post, I write it in a sysadmin post, and I write it on the house log next to the boiler."
+        },
+        {
+          "post": "2026-09-25-essential-home-automation-older-parents-practical-low-cost-setup-guide",
+          "text": "That's it. That's the whole system."
         },
         {
           "post": "2026-07-14-best-tablets-for-seniors-2026",
           "text": "Buy the iPad 10th gen. Spend the $100-200 savings vs. an iPad Pro on a nice case and a long Apple Care+ warranty. For dementia or extreme low-tech-comfort, GrandPad is worth the $720/year."
-        },
-        {
-          "post": "2025-10-29-setting-up-a-home-lab-a-beginner-s-guide",
-          "text": "Have you set up your home lab? Share your experiences and tips in the comments below!"
-        },
-        {
-          "post": "2025-12-12-the-friday-backup-audit-because-hope-is-not-a-strategy",
-          "text": "Do you have a backup horror story? Or a script that saved your bacon? Drop it in the comments below."
         }
       ],
       "h2": [
@@ -1501,6 +1502,16 @@
         "The emergency playbook",
         "Making the checkup sustainable",
         "The full senior-tech series",
+        "Start With the Actual Problem",
+        "1. Segmentation: Split the Flat Network",
+        "2. QoS: Making the Pipe Fair",
+        "3. DHCP Reservations: Stop the IPs Moving",
+        "4. The Gaming Rig Problem",
+        "5. The Tinkering Budget",
+        "6. The Device Inventory",
+        "7. Preventing the 2 AM Nightmare: Bedtime on the Network",
+        "8. Hardware That Survives a Busy House",
+        "The Order to Do It In",
         "The Setup: NEXUS-BREACH + Dolphin",
         "Phase 1: Normal Operations (Minutes 0-15)",
         "Phase 2: Emergent Behavior (Minutes 15-45)",
@@ -1512,48 +1523,38 @@
         "What I'm Doing About It",
         "The Source Code",
         "The Point",
-        "How I tested",
-        "The quick answer",
-        "The five phones I tested",
-        "Phone plan comparison",
-        "Phone plan quick-buy links",
-        "How to set up any senior phone in 30 minutes",
-        "My top pick in 2026: Lively Smart",
-        "What I didn't include (and why)",
-        "FAQ",
-        "Final recommendations",
-        "Quick answer",
-        "Comparison table at a glance",
-        "The 6 tablets I'd buy in 2026",
-        "Quick setup guide for any senior tablet"
+        "The Goal",
+        "Three Paths to a Low-Power Smart Display",
+        "The Architecture: Click-to-Wake",
+        "The Battery Maths (Honest Numbers)"
       ]
     },
     "top_tags": {
-      "sysadmin": 13,
-      "ai": 8,
-      "security": 8,
+      "sysadmin": 16,
+      "ai": 12,
+      "security": 9,
+      "privacy": 8,
+      "troubleshooting": 8,
       "linux": 8,
+      "homelab": 7,
       "bash": 6,
-      "troubleshooting": 6,
-      "automation": 5,
+      "automation": 6,
+      "seniors": 6,
+      "tools": 6,
       "productivity": 5,
       "devops": 5,
-      "homelab": 5,
-      "tools": 5,
-      "privacy": 4,
-      "seniors": 4,
+      "accessibility": 4,
       "self-hosted": 4,
+      "diy": 3,
+      "senior-tech": 3,
+      "ollama": 3,
       "cloud": 3,
-      "accessibility": 2,
+      "wifi": 2,
+      "home-lab": 2,
+      "esp32": 2,
+      "e-paper": 2,
       "career": 2,
-      "claude": 2,
-      "ollama": 2,
-      "windows": 2,
-      "containers": 2,
-      "common mistakes": 2,
-      "systemd": 2,
-      "DIY": 2,
-      "ux": 2
+      "local-llm": 2
     }
   },
   "buzzwords": [

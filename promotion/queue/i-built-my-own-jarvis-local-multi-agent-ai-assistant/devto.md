@@ -1,7 +1,7 @@
 ---
 title: "I Built My Own J.A.R.V.I.S. — A Local, Privacy-First Multi-Agent AI Assistant"
 canonical_url: https://pragmaticsysadmin.help/meta/i-built-my-own-jarvis-local-multi-agent-ai-assistant/
-tags: sysadmin
+tags: ai, selfhosted, linux, homelab
 ---
 
 I wanted a personal AI assistant. Not a chatbot. Not a copilot. Something that actually *does things* — controls my desktop, reads my screen, talks to my smart home, answers questions in Finnish or English, and never, ever sends my data to a server I don't control.

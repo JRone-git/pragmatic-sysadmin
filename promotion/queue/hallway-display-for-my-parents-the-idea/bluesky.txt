@@ -1,3 +1,5 @@
 I'm building a low-power 1-bit wall display for my parents: a $10.83 reflective TFT panel and a $1.09 microcontroller
 
 https://pragmaticsysadmin.help/meta/hallway-display-for-my-parents-the-idea/
+
+#diy #esp32 #epaper

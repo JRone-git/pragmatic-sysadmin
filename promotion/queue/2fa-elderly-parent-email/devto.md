@@ -1,7 +1,7 @@
 ---
 title: "How to Turn On 2FA for Your Elderly Parent's Email (The Most Important 5-Minute Security Upgrade)"
 canonical_url: https://pragmaticsysadmin.help/senior-tech/2026-07-27-2fa-elderly-parent-email/
-tags: sysadmin
+tags: 2fa, security, seniors, gmail
 ---
 
 After you set up a [password manager](https://pragmaticsysadmin.help/senior-tech/2026-07-27-password-manager-for-elderly-parents/) for your parents, the next highest-value security upgrade is dead simple and takes five minutes: turn on two-factor authentication for their email account. That is it. One setting, one phone number, five minutes of your time.

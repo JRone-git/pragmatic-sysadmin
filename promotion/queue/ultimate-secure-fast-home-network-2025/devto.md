@@ -1,7 +1,7 @@
 ---
 title: "The Ultimate Guide to a Secure & Fast Home Network (2025)"
 canonical_url: https://pragmaticsysadmin.help/senior-tech/ultimate-secure-fast-home-network-2025/
-tags: sysadmin
+tags: homenetworking, wifi, security, routers
 ---
 
 Your home network is the backbone of everything you do online — streaming, remote work, gaming, smart home gadgets, and more. If it's slow or insecure, everything suffers.

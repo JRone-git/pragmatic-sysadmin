@@ -2,7 +2,13 @@
   "slug": "software-thats-never-been-done-out-of-the-box-thinking",
   "title": "Software That's Never Been Done: On Building Things That Should Exist But Don't",
   "description": "Most software is iteration. Better UI, faster, more features. But sometimes you see something that makes you think: why didn't this exist before? Here's what I've learned about spotting and building truly novel software.",
-  "tags": [],
+  "tags": [
+    "philosophy",
+    "software",
+    "innovation",
+    "ux",
+    "product-thinking"
+  ],
   "section": "meta",
   "url": "https://pragmaticsysadmin.help/meta/software-thats-never-been-done-out-of-the-box-thinking/",
   "date": "2026-08-04T00:00:00+00:00",

@@ -1,7 +1,7 @@
 ---
 title: "Kubernetes Without Jargon: Pods = Processes, Services = Stable Names"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/kubernetes-without-jargon-pods-processes-services/
-tags: sysadmin
+tags: kubernetes, devops, containers, cloud
 ---
 
 If you've ever tried to Google "What is Kubernetes?" you've probably seen a wall of buzzwords: *orchestration, scalability, microservices, YAML manifests*. Somewhere in there, someone will tell you it's like "a shipping port for containers," and you'll want to slam your laptop shut.

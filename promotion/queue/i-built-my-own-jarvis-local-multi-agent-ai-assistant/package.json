@@ -2,7 +2,15 @@
   "slug": "i-built-my-own-jarvis-local-multi-agent-ai-assistant",
   "title": "I Built My Own J.A.R.V.I.S. — A Local, Privacy-First Multi-Agent AI Assistant",
   "description": "I designed and started building a fully local, multi-agent AI system that runs on my Linux desktop. Ollama as the brain, Docker containers for each agent, function calling for orchestration, and nothing leaves my network. Here's the architecture.",
-  "tags": [],
+  "tags": [
+    "ai",
+    "self-hosted",
+    "linux",
+    "home-lab",
+    "ollama",
+    "privacy",
+    "agents"
+  ],
   "section": "meta",
   "url": "https://pragmaticsysadmin.help/meta/i-built-my-own-jarvis-local-multi-agent-ai-assistant/",
   "date": "2026-08-15T00:00:00+00:00",

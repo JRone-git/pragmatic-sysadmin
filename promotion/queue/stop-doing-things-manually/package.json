@@ -2,7 +2,13 @@
   "slug": "stop-doing-things-manually",
   "title": "Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius",
   "description": "Five copy-paste scripts — PowerShell and Bash — that handle the boring 5-minute tasks every sysadmin does on repeat. Less typing, fewer mistakes, more time for real work.",
-  "tags": [],
+  "tags": [
+    "automation",
+    "powershell",
+    "bash",
+    "scripts",
+    "sysadmin"
+  ],
   "section": "sysadmin",
   "url": "https://pragmaticsysadmin.help/sysadmin/stop-doing-things-manually/",
   "date": "2025-01-27T00:00:00+00:00",

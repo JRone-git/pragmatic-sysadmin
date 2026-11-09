@@ -1,7 +1,7 @@
 ---
 title: "How to Set Up a Password Manager for Your Elderly Parents (10-Minute Guide)"
 canonical_url: https://pragmaticsysadmin.help/senior-tech/2026-07-27-password-manager-for-elderly-parents/
-tags: sysadmin
+tags: passwordmanager, security, seniors, bitwarden
 ---
 
 If your parents are still reusing the same password across their bank, email, and Facebook — or, worse, writing them on a sticky note stuck to the monitor — it is not a matter of *if* they will get phished. It is a matter of when. This guide shows you, the adult child who got voluntold to be the family IT department, how to install a password manager on their devices in roughly ten minutes of hands-on time, and how to actually get them to use it without a fight.

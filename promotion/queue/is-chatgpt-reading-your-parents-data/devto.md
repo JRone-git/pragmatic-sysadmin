@@ -1,7 +1,7 @@
 ---
 title: "Is ChatGPT Reading Your Parents' Data? What AI Tools Actually Do With Their Chats"
 canonical_url: https://pragmaticsysadmin.help/senior-tech/2026-07-27-is-chatgpt-reading-your-parents-data/
-tags: sysadmin
+tags: ai, privacy, chatgpt, claude
 ---
 
 If your parents have discovered ChatGPT in the last year — and statistically, at least one of them has — they are probably using it the way most people do: asking medical questions, pasting in emails to "make this sound nicer," asking it to summarize bank statements, and getting it to draft replies to family group chats. None of this is malicious. All of it is potentially a privacy problem. This guide explains what actually happens to a chat log after your parent hits send, which AI tools are safer than others, and the three settings you need to flip on their account the next time you visit.

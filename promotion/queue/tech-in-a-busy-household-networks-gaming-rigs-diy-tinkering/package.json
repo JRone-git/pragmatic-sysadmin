@@ -2,7 +2,15 @@
   "slug": "tech-in-a-busy-household-networks-gaming-rigs-diy-tinkering",
   "title": "Tech in a Busy Household: Balancing Home Networks, Gaming Rigs, and DIY Tinkering",
   "description": "A practical guide to running a home network with gaming PCs, smart home, kids' devices, and your own homelab projects in it. Segmentation, QoS, IP management, and a tinkering budget that keeps the family online.",
-  "tags": [],
+  "tags": [
+    "networking",
+    "homelab",
+    "gaming",
+    "wifi",
+    "router",
+    "qos",
+    "home-lab"
+  ],
   "section": "sysadmin",
   "url": "https://pragmaticsysadmin.help/sysadmin/tech-in-a-busy-household-networks-gaming-rigs-diy-tinkering/",
   "date": "2026-10-28T00:00:00+00:00",

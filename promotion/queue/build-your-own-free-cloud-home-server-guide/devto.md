@@ -1,7 +1,7 @@
 ---
 title: "Build Your Own Cloud — The Honest Guide to Self-Hosting at Home"
 canonical_url: https://pragmaticsysadmin.help/meta/build-your-own-free-cloud-home-server-guide/
-tags: sysadmin
+tags: homelab, selfhosted, cloud, privacy
 ---
 
 You don't need to pay $10/month for Google Drive. Or $3/month for 1Password. Or $8/month for Notion. You can run all of this at home, on a single Raspberry Pi if you're careful.

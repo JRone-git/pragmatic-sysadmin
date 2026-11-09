@@ -2,7 +2,13 @@
   "slug": "plain-english-explain-any-command-error-concept",
   "title": "I Built a Tool That Explains Any Command or Error in Plain Language",
   "description": "The most common sysadmin task isn't running commands — it's explaining commands. I built a free tool that translates technical jargon into plain language for sysadmins, family caregivers, or total beginners.",
-  "tags": [],
+  "tags": [
+    "tools",
+    "ai",
+    "bash",
+    "plain-english",
+    "explanation"
+  ],
   "section": "meta",
   "url": "https://pragmaticsysadmin.help/meta/plain-english-explain-any-command-error-concept/",
   "date": "2026-08-04T00:00:00+00:00",

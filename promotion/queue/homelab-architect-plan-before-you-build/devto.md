@@ -1,7 +1,7 @@
 ---
 title: "I Built Homelab Architect — Plan Your Stack Before You Build It"
 canonical_url: https://pragmaticsysadmin.help/meta/homelab-architect-plan-before-you-build/
-tags: sysadmin
+tags: homelab, docker, selfhosted, tools
 ---
 
 Most homelab beginners make the same mistake: they grab a Docker Compose template, paste it in, and then discover three months later that their "simple setup" is a sprawling mess of undocumented dependencies, a database with no backup, and ports wide open to the internet.

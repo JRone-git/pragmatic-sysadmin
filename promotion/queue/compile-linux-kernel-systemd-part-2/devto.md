@@ -1,7 +1,7 @@
 ---
 title: "Compiling a Custom Linux Kernel & Adding systemd (Part 2)"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/2026-07-07-compile-linux-kernel-systemd-part-2/
-tags: sysadmin
+tags: linux, kernel, systemd, homelab
 ---
 
 In [Part 1](https://pragmaticsysadmin.help/sysadmin/2026-03-28-building-your-own-linux-from-scratch/), we built a minimal Linux system using BusyBox and a prebuilt kernel. You got a shell running inside a container, mounted pseudo-filesystems, and saw the boot sequence from init to prompt.

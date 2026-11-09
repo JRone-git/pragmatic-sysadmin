@@ -1,7 +1,7 @@
 ---
 title: "Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/stop-doing-things-manually/
-tags: sysadmin
+tags: automation, powershell, bash, scripts
 ---
 
 # Stop Doing Things Manually: 5 Scripts That'll Make You Look Like a Genius

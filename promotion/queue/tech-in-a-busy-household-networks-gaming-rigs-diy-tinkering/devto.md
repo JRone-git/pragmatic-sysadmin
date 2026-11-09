@@ -1,7 +1,7 @@
 ---
 title: "Tech in a Busy Household: Balancing Home Networks, Gaming Rigs, and DIY Tinkering"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/tech-in-a-busy-household-networks-gaming-rigs-diy-tinkering/
-tags: sysadmin
+tags: networking, homelab, gaming, wifi
 ---
 
 My home network serves four separate humans, two cats, a Nintendo Switch, three streaming devices, a NAS, a homelab in the closet, and an unreasonable number of Raspberry Pis.

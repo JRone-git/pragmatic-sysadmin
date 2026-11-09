@@ -1,7 +1,7 @@
 ---
 title: "I Built a Terminal AI Companion in 300 Lines of Pure Bash — And It's MIT Licensed"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/bashbuddy-300-lines-bash-terminal-ai-companion/
-tags: sysadmin
+tags: bash, ai, cli, tools
 ---
 
 I write a lot of bash scripts. Most of them work. Some of them don't — and when they don't, I spend 20 minutes staring at an error message that, in retrospect, was actually pretty obvious.

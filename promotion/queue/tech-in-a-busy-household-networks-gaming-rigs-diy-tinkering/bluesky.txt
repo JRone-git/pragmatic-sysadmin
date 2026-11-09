@@ -1,3 +1,5 @@
 A practical guide to running a home network with gaming PCs, smart home, kids' devices, and your own homelab projects in it
 
 https://pragmaticsysadmin.help/sysadmin/tech-in-a-busy-household-networks-gaming-rigs-diy-tinkering/
+
+#networking #homelab #gaming

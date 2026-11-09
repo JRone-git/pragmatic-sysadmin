@@ -1,7 +1,7 @@
 ---
 title: "Sysadmin Myths Busted: What Actually Works in 2026"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/sysadmin-myths-busted-2026/
-tags: sysadmin
+tags: sysadmin, myths, productivity, automation
 ---
 
 # Sysadmin Myths Busted: What Actually Works in 2026

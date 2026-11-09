@@ -1,7 +1,7 @@
 ---
 title: "A Sandbox for the Linux Commands You're Afraid to Run"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/2026-09-26-a-sandbox-for-the-linux-commands-youre-afraid-to-run/
-tags: sysadmin
+tags: linux, sysadmin, troubleshooting, tools
 ---
 
 Almost nobody learns `rm -rf` the easy way. You read the man page, you use it carefully for a year, and then one day you watch your finger hit Enter a fraction of a second before your brain finishes checking the path.

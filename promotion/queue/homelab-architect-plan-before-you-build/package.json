@@ -2,7 +2,13 @@
   "slug": "homelab-architect-plan-before-you-build",
   "title": "I Built Homelab Architect — Plan Your Stack Before You Build It",
   "description": "Homelab Architect is a free browser tool that parses your docker-compose.yml and generates a resource dashboard, security audit, dependency map, and backup plan. Works offline, no signup.",
-  "tags": [],
+  "tags": [
+    "homelab",
+    "docker",
+    "self-hosted",
+    "tools",
+    "beginners"
+  ],
   "section": "meta",
   "url": "https://pragmaticsysadmin.help/meta/homelab-architect-plan-before-you-build/",
   "date": "2026-08-23T00:00:00+00:00",

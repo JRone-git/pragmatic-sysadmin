@@ -1,3 +1,5 @@
 I designed and started building a fully local, multi-agent AI system that runs on my Linux desktop
 
 https://pragmaticsysadmin.help/meta/i-built-my-own-jarvis-local-multi-agent-ai-assistant/
+
+#ai #selfhosted #linux

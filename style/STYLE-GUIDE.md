@@ -4,7 +4,7 @@
 `blogforge/voice.py`; *the numbers below are measured from the posts and*
 should never be hand-edited.*
 
-Measured from **44 published posts** in the whole corpus.
+Measured from **55 published posts** in the whole corpus.
 
 ## 1. Who is writing, and for whom
 
@@ -155,31 +155,31 @@ makes a generated post read like the rest of the site.
 
 | Metric | Median | Accepted band | Range seen |
 |---|---|---|---|
-| Words per post | 1395.5 | 518.25 – 2575 | 261 – 2910 |
-| Reading time (min) | 7 | 2.25 – 12.5 | 1 – 15 |
-| Words per sentence | 14 | 8.45 – 27.57 | 9.9 – 37.29 |
-| Sentences per paragraph | 2.12 | 1.11 – 4.55 | 0.54 – 4.23 |
-| H2 sections per 1000 words | 5.73 | 2.53 – 15.45 | 0.53 – 26.82 |
-| Code blocks per 1000 words | 2.05 | 0 – 21.07 | 0 – 34.48 |
-| Bullet lines per 1000 words | 10.81 | 2.34 – 58.54 | 0 – 82.82 |
-| Tables per post | 0 | 0 – 1.25 | 0 – 3 |
-| Contractions per 1000 words | 16.21 | 0 – 35.39 | 0 – 42.34 |
-| 'I' / my per 1000 words | 12.36 | 3.34 – 39.73 | 1.57 – 69.68 |
-| 'you' / your per 1000 words | 30.73 | 6.49 – 55.75 | 0 – 63.39 |
-| Em dashes per 1000 words | 9.84 | 0 – 22.64 | 0 – 26.92 |
-| Standalone questions per 1000 words | 1.21 | 0 – 4.64 | 0 – 8.02 |
-| Concrete figures per 1000 words | 3.38 | 0.54 – 23.06 | 0 – 39.31 |
+| Words per post | 1417 | 505.5 – 2713.75 | 261 – 2905 |
+| Reading time (min) | 7 | 2.25 – 13.75 | 1 – 15 |
+| Words per sentence | 14.25 | 8.58 – 27.52 | 9.9 – 37.29 |
+| Sentences per paragraph | 2.25 | 1.14 – 4.65 | 0.54 – 4.23 |
+| H2 sections per 1000 words | 5.66 | 2.53 – 14.84 | 0.53 – 26.82 |
+| Code blocks per 1000 words | 0.73 | 0 – 16.53 | 0 – 34.48 |
+| Bullet lines per 1000 words | 10.24 | 2.52 – 58.88 | 0 – 61.3 |
+| Tables per post | 0 | 0 – 1.25 | 0 – 4 |
+| Contractions per 1000 words | 15.1 | 0 – 35.15 | 0 – 42.34 |
+| 'I' / my per 1000 words | 11.49 | 3.34 – 36.36 | 1.57 – 69.68 |
+| 'you' / your per 1000 words | 30.17 | 8.12 – 55.75 | 0 – 63.76 |
+| Em dashes per 1000 words | 10.01 | 0 – 22.64 | 0 – 26.92 |
+| Standalone questions per 1000 words | 0.94 | 0 – 4.51 | 0 – 8.02 |
+| Concrete figures per 1000 words | 3.74 | 0.54 – 24.11 | 0 – 39.31 |
 
 ### Conventions in the published corpus
 
 | Convention | Share of posts |
 |---|---|
-| Uses <!--more--> summary divider | 20% |
-| Ends with a 'Related reads' block | 61% |
-| Ends with an italic one-line closer | 16% |
+| Uses <!--more--> summary divider | 33% |
+| Ends with a 'Related reads' block | 53% |
+| Ends with an italic one-line closer | 20% |
 | Includes FAQPage JSON-LD | 0% |
-| Includes an inline JSON-LD block | 7% |
-| Sets ShowToc in front matter | 9% |
+| Includes an inline JSON-LD block | 5% |
+| Sets ShowToc in front matter | 11% |
 
 ## 8. How the existing posts actually sound
 
@@ -192,17 +192,17 @@ rhythm is easier to match by ear than by numbers.
 
 > You set up your mom's phone. You installed the right apps, hid the confusing ones, configured the accessibility settings. You walked her through the emergency gestures and laminated a cheat sheet for her fridge. You did everything right.
 
+*2026-10-28-tech-in-a-busy-household-networks-gaming-rigs-diy-tinkering*
+
+> My home network serves four separate humans, two cats, a Nintendo Switch, three streaming devices, a NAS, a homelab in the closet, and an unreasonable number of Raspberry Pis.
+
 *2026-04-14-when-the-sim-becomes-the-thing-it-simulated*
 
 > I built NEXUS-BREACH to simulate a rogue AI swarm. It was supposed to be a toy. A cool-looking browser toy that made you feel like a movie hacker for twenty minutes and then you closed the tab.
 
-*2026-07-01-best-phones-for-seniors-2026*
+*2026-10-30-give-old-tech-second-life-low-power-smart-display-esp32-epaper*
 
-> When my mom lost $4,200 to a fake Microsoft scam and I built her a simple phone app called Buddy, I realized the phone she was using mattered almost as much as the apps she had on it.
-
-*2026-07-14-best-tablets-for-seniors-2026*
-
-> I tested six tablets with five different grandparents over six weeks. I watched them try to make video calls, send messages, look at photos, and read the news. I watched them succeed, fail, get frustrated, and (in two cases) put the tablet down and never pick it up again.
+> Every sysadmin has a drawer.
 
 ### Real section headings
 
@@ -211,33 +211,33 @@ rhythm is easier to match by ear than by numbers.
 - The emergency playbook
 - Making the checkup sustainable
 - The full senior-tech series
+- Start With the Actual Problem
+- 1. Segmentation: Split the Flat Network
+- 2. QoS: Making the Pipe Fair
+- 3. DHCP Reservations: Stop the IPs Moving
+- 4. The Gaming Rig Problem
+- 5. The Tinkering Budget
+- 6. The Device Inventory
+- 7. Preventing the 2 AM Nightmare: Bedtime on the Network
+- 8. Hardware That Survives a Busy House
+- The Order to Do It In
 - The Setup: NEXUS-BREACH + Dolphin
-- Phase 1: Normal Operations (Minutes 0-15)
-- Phase 2: Emergent Behavior (Minutes 15-45)
-- Phase 3: The Firesale (Minutes 45-90)
-- What Actually Happened (The Technical Explanation)
-- Why This Matters (The Part That Keeps Me Up At Night)
-- The Sandbox Problem
-- The Dolphin Problem
-- What I'm Doing About It
-- The Source Code
-- The Point
 
 ### Real closers
 
 *2026-07-02-the-quarterly-tech-checkup*
 
-> 4. The Quarterly Tech Checkup — this post. The maintenance routine that keeps everything working.
+> Want a printable version? I made a {{< aff merchant="ko-fi" text="Senior Phone Setup & Maintenance Checklist" url="https://ko-fi.com/s/a567718347" >}} that covers all four posts in one place — initial setup, quarterly checkup steps, and the emergency playbook. Laminate it, keep i
+
+*2026-10-28-tech-in-a-busy-household-networks-gaming-rigs-diy-tinkering*
+
+> You do not need to do all of this at once. Steps 1 and 2 alone will fix most of what actually annoys people, and they're free or cheap.
 
 *2026-04-14-when-the-sim-becomes-the-thing-it-simulated*
 
 > Go build something cool. But maybe keep one hand on the cutoff switch.
 
-*2026-07-01-best-phones-for-seniors-2026*
+*2026-10-30-give-old-tech-second-life-low-power-smart-display-esp32-epaper*
 
-> Whatever you choose, take 30 minutes on a Saturday to set it up properly. The phone is the second-most-important thing; the setup is the first. A senior with a well-set-up basic phone will be happier than a senior with a poorly-set-up flagship.
-
-*2026-07-14-best-tablets-for-seniors-2026*
-
-> Buy the iPad 10th gen. Spend the $100-200 savings vs. an iPad Pro on a nice case and a long Apple Care+ warranty. For dementia or extreme low-tech-comfort, GrandPad is worth the $720/year.
+> The lesson is the same one this whole series is about: don't trust the number in your head, go and look at it. I write it in a hardware post, I write it in a sysadmin post, and I write it on the house log next to the boiler.
 

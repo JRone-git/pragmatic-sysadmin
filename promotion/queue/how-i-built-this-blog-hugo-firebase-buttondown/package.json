@@ -2,7 +2,12 @@
   "slug": "how-i-built-this-blog-hugo-firebase-buttondown",
   "title": "How I Built This Blog: Hugo + Firebase + Buttondown in 30 Minutes",
   "description": "Building a blazing-fast, nearly-free blog with modern static site tools. Here's exactly how I did it.",
-  "tags": [],
+  "tags": [
+    "hugo",
+    "firebase",
+    "blogging",
+    "static sites"
+  ],
   "section": "meta",
   "url": "https://pragmaticsysadmin.help/meta/2025-08-16-how-i-built-this-blog-hugo-firebase-buttondown/",
   "date": "2025-08-16T00:00:00+00:00",

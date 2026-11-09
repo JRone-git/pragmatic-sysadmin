@@ -1,7 +1,7 @@
 ---
 title: "Self-Hosting Isn't Free: The Honest Math of Running Your Own Server"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/self-hosting-isnt-free-honest-cost-running-own-server/
-tags: sysadmin
+tags: homelab, selfhosted, cost, cloud
 ---
 
 Every self-hosting guide starts the same way: *"Forget Dropbox, forget Google Drive — run it yourself and save money."*
