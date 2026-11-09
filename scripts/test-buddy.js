@@ -337,7 +337,10 @@ try {
         window.__buddy.state.lang = lang;
         [['checkin.pending', {n:1}], ['checkin.pending', {n:3}],
          ['checkin.partial', {taken:2, total:5, n:2}],
-         ['safety.risky', {n:3, hits:'x'}]].forEach(function(pair) {
+         ['safety.risky', {n:3, hits:'x'}],
+         ['notes.pinTriesLeft', {count:1}], ['notes.pinTriesLeft', {count:3}],
+         ['notes.pinTooMany', {count:1}], ['notes.pinTooMany', {count:30}]]
+          .forEach(function(pair) {
           const text = t(pair[0], pair[1]);
           if (/[{}]/.test(text)) out.push(lang + ' ' + pair[0] + ' -> ' + text);
           if (!text.trim()) out.push(lang + ' ' + pair[0] + ' -> empty');
@@ -351,6 +354,45 @@ try {
     passed.push('Plurals render in all 7 languages with no leftover placeholders');
   } else {
     errors.push(`${bad.length} plural rendering problem(s) -> ${bad.join(', ')}`);
+  }
+
+  // A leftover-brace check cannot see a wrong ending. German turns
+  // "Sekunde" into "Sekunden" and Finnish turns "yritys" into "yritystä",
+  // and both are one letter on the end of a stem. Pin the exact output so
+  // a future edit cannot produce "Sekundeen" or "yritystäa" again.
+  const exact = dom.window.eval(`
+    (function() {
+      const out = [];
+      const cases = [
+        ['de', 'notes.pinTooMany', {count:30}, '30 Sekunden'],
+        ['de', 'notes.pinTooMany', {count:1},  '1 Sekunde'],
+        ['de', 'notes.pinTriesLeft', {count:3}, '3 Versuche'],
+        ['fi', 'notes.pinTriesLeft', {count:3}, '3 yritystä'],
+        ['fi', 'notes.pinTriesLeft', {count:1}, '1 yritys'],
+        ['fi', 'notes.pinTooMany', {count:30}, '30 sekuntia'],
+        ['en', 'notes.pinTriesLeft', {count:3}, '3 attempts'],
+        ['en', 'notes.pinTriesLeft', {count:1}, '1 attempt'],
+      ];
+      cases.forEach(function(c) {
+        window.__buddy.state.lang = c[0];
+        const text = t(c[1], c[2]);
+        // Word boundaries, not a substring test: "yritystäa" contains
+        // "yritystä", and a substring check would call that correct.
+        // The expected strings are plain words, so matching spaces loosely
+        // is all the escaping that is needed.
+        const esc = c[3].split(' ').join('\\\\s+');
+        if (!new RegExp('(^|\\\\W)' + esc + '($|\\\\W)').test(text)) {
+          out.push(c[0] + ' ' + c[1] + ' -> "' + text + '" (expected "' + c[3] + '")');
+        }
+      });
+      window.__buddy.state.lang = 'en';
+      return out;
+    })()
+  `);
+  if (exact.length === 0) {
+    passed.push('German and Finnish plural endings are exact');
+  } else {
+    errors.push(`${exact.length} wrong plural ending(s) -> ${exact.join(', ')}`);
   }
 } catch (e) {
   errors.push(`Plural test failed: ${e.message}`);

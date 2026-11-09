@@ -8,7 +8,9 @@ const state = {
   meds: [],
   notes: [],           // [{id, title, content, category, createdAt}]
   notesPin: null,      // hashed PIN for notes (XOR-based for MVP)
-  notesUnlocked: false, // session-only, not persisted
+  notesUnlocked: false, // session-only, never persisted (see save())
+  pinAttempts: 0,      // wrong-PIN attempts since the last lockout
+  pinLockoutUntil: 0,  // timestamp; no PIN entry until then
   takenToday: {},      // { medId: 'Wed Jun 26 2026' }
   emails: [],          // captured upgrade leads
   lang: null,          // null = auto-detect
@@ -26,7 +28,7 @@ const FALLBACK = 'en';
 // Plural endings a translation may use as a placeholder: "medicine{s}",
 // "Medikament{e}", "señal{es}", "sinal{is}". The placeholder name is the
 // ending to append when the count is not one.
-const PLURAL_ENDINGS = new Set(['s', 'e', 'es', 'is']);
+const PLURAL_ENDINGS = new Set(['s', 'e', 'es', 'is', 'a', 'en', 'n', 'tä']);
 
 function getLang() {
   if (state.lang && TRANSLATIONS[state.lang]) return state.lang;
@@ -59,13 +61,21 @@ function t(key, params = {}) {
   }
 
   // Interpolate {key} with params
-  return str.replace(/\{(\w+)\}/g, (_, k) => {
+  // \w is ASCII-only, which left the Finnish ending {tä} unmatched and
+  // printed literally. Match any letter, not just an English one.
+  return str.replace(/\{([\p{L}\p{N}_]+)\}/gu, (_, k) => {
     // Plural markers. The placeholder name IS the ending to append when the
     // count is not one: {s} -> "medicines", {e} -> "Medikamente" (German),
     // {es} -> "señales" (Spanish), {is} -> "sinais" (Portuguese).
     // The caller only has to pass the count as {n}.
-    if (PLURAL_ENDINGS.has(k) && params.n !== undefined) {
-      return params.n === 1 ? '' : k;
+    //
+    // A placeholder the caller actually supplied is never a marker, so
+    // {n} can be the count in one string and the German "-n" ending in
+    // another. The count itself may arrive as {count} for the strings that
+    // need {n} for something else.
+    const count = params.n !== undefined ? params.n : params.count;
+    if (params[k] === undefined && PLURAL_ENDINGS.has(k) && count !== undefined) {
+      return count === 1 ? '' : k;
     }
     if (params[k] === undefined) return `{${k}}`;
     return String(params[k]);
@@ -134,7 +144,12 @@ function load() {
 
 function save() {
   try {
-    localStorage.setItem(KEY, JSON.stringify(state));
+    // notesUnlocked is session-only. load() resets it, but writing it out
+    // at all is a landmine: any future code that trusted the stored flag
+    // would open somebody's passwords without the PIN.
+    const persisted = { ...state };
+    delete persisted.notesUnlocked;
+    localStorage.setItem(KEY, JSON.stringify(persisted));
   } catch (e) { console.warn('Could not save', e); }
 }
 
@@ -1055,6 +1070,22 @@ function renderOnboardingLists() {
 // ========== NOTES (PIN-PROTECTED) ==========
 const NOTE_CATEGORIES = ['password', 'phone', 'address', 'other'];
 let notePinEntry = '';
+let pinChangeMode = false;   // true while choosing a replacement PIN
+
+// A 4-digit PIN has ten thousand possibilities. Leaving it unguarded
+// means anyone who picks up the phone can read a parent's passwords in a
+// few minutes, so five wrong tries buys a short pause.
+const PIN_MAX_ATTEMPTS = 5;
+const PIN_LOCKOUT_MS = 30000;
+
+function pinLockoutRemaining() {
+  const until = state.pinLockoutUntil || 0;
+  return Math.max(0, Math.ceil((until - Date.now()) / 1000));
+}
+
+function pinAttemptsLeft() {
+  return Math.max(0, PIN_MAX_ATTEMPTS - (state.pinAttempts || 0));
+}
 
 function initNotes() {
   // Re-render notes when navigating to the screen
@@ -1071,6 +1102,81 @@ function initNotes() {
   // Add note
   const addNoteBtn = $('#add-note');
   if (addNoteBtn) addNoteBtn.addEventListener('click', () => openNoteModal());
+  // Change PIN - the notes stay, only the PIN is replaced.
+  const changeBtn = $('#notes-change-pin');
+  if (changeBtn) changeBtn.addEventListener('click', startPinChange);
+  // Forgot PIN - the escape hatch. Without it a forgotten PIN meant the
+  // notes were unreachable forever, and the only way out was clearing
+  // site data, which took the medicines and contacts with it.
+  const forgotBtn = $('#notes-pin-forgot');
+  if (forgotBtn) forgotBtn.addEventListener('click', resetPinAndNotes);
+  // Keyboard entry. The on-screen keypad is the only way in otherwise,
+  // which locks out anyone using a physical keyboard, a stylus or a
+  // screen reader.
+  document.addEventListener('keydown', onPinKeydown);
+}
+
+function onPinKeydown(e) {
+  const notesScreen = $('[data-screen="notes"]');
+  if (!notesScreen || !notesScreen.classList.contains('active')) return;
+  const modal = $('#modal');
+  if (modal && modal.classList.contains('show')) return;
+  const setup = $('#notes-pin-setup');
+  const entry = $('#notes-pin-entry');
+  let mode = null;
+  if (setup && !setup.classList.contains('hidden')) mode = 'setup';
+  else if (entry && !entry.classList.contains('hidden')) mode = 'entry';
+  if (!mode) return;
+  if (/^[0-9]$/.test(e.key)) {
+    e.preventDefault();
+    pinKeyPress(e.key, mode);
+  } else if (e.key === 'Backspace') {
+    e.preventDefault();
+    pinKeyPress('del', mode);
+  } else if (e.key === 'Escape') {
+    e.preventDefault();
+    pinKeyPress('clear', mode);
+  }
+}
+
+function startPinChange() {
+  pinChangeMode = true;
+  setupStage = 'first';
+  setupPin = '';
+  setupPinConfirm = '';
+  showPinSetup(t('notes.pinChangeTitle'));
+}
+
+function resetPinAndNotes() {
+  if (!window.confirm(t('notes.pinResetBody'))) return;
+  // The notes cannot be recovered without the PIN, so they go. Everything
+  // else stays: medicines, contacts, alarms, the lot. Being locked out of
+  // somebody's blood pressure medication list would be a far worse
+  // outcome than losing a note.
+  state.notes = [];
+  state.notesPin = null;
+  const list = $('#notes-list');
+  if (list) list.innerHTML = '';   // do not leave the old notes in the DOM
+  state.notesUnlocked = false;
+  state.pinAttempts = 0;
+  state.pinLockoutUntil = 0;
+  save();
+  toast(t('notes.pinResetDone'));
+  showNotesScreen();
+}
+
+// Show the setup panel with a given heading. Used for the first-time
+// setup and for changing an existing PIN.
+function showPinSetup(heading) {
+  const setup = $('#notes-pin-setup');
+  if (!setup) return;
+  setup.classList.remove('hidden');
+  const lbl = $('#notes-pin-setup h3');
+  if (lbl) lbl.textContent = heading || t('notes.pinSetTitle');
+  const body = $('#notes-pin-setup p');
+  if (body) body.textContent = t('notes.pinSetBody');
+  buildPinPad('setup');
+  renderPinDots('setup', '');
 }
 
 function showNotesScreen() {
@@ -1085,8 +1191,7 @@ function showNotesScreen() {
 
   if (!state.notesPin) {
     // First time — set up PIN
-    setup.classList.remove('hidden');
-    buildPinPad('setup');
+    showPinSetup(t('notes.pinSetTitle'));
   } else if (!state.notesUnlocked) {
     // Returning — enter PIN
     entry.classList.remove('hidden');
@@ -1186,8 +1291,9 @@ function pinKeyPress(key, mode) {
           // Verify match
           if (setupPin === setupPinConfirm) {
             state.notesPin = hashPin(setupPin);
-            save();
             state.notesUnlocked = true;
+            save();
+            pinChangeMode = false;
             toast(t('notes.pinSaved'));
             showNotesScreen();
             // Reset
@@ -1210,6 +1316,12 @@ function pinKeyPress(key, mode) {
       }
     }
   } else if (mode === 'entry') {
+    // During the pause after too many wrong tries, the keypad does nothing.
+    const wait = pinLockoutRemaining();
+    if (wait > 0) {
+      toast(t('notes.pinTooMany', { count: wait }));
+      return;
+    }
     if (key === 'del') { notePinEntry = notePinEntry.slice(0, -1); renderPinDots('entry', notePinEntry); return; }
     if (key === 'clear') { notePinEntry = ''; renderPinDots('entry', notePinEntry); return; }
     if (notePinEntry.length < 4) {
@@ -1218,10 +1330,24 @@ function pinKeyPress(key, mode) {
       if (notePinEntry.length === 4) {
         if (verifyPin(notePinEntry)) {
           state.notesUnlocked = true;
+          state.pinAttempts = 0;
+          state.pinLockoutUntil = 0;
           notePinEntry = '';
           $('#notes-pin-error').classList.add('hidden');
           showNotesScreen();
         } else {
+          state.pinAttempts = (state.pinAttempts || 0) + 1;
+          let msg = t('notes.pinError');
+          if (state.pinAttempts >= PIN_MAX_ATTEMPTS) {
+            state.pinLockoutUntil = Date.now() + PIN_LOCKOUT_MS;
+            state.pinAttempts = 0;
+            msg = t('notes.pinTooMany', { count: Math.ceil(PIN_LOCKOUT_MS / 1000) });
+          } else {
+            msg = t('notes.pinTriesLeft', { count: pinAttemptsLeft() });
+          }
+          save();
+          const err = $('#notes-pin-error');
+          if (err) err.textContent = msg;
           $('#notes-pin-error').classList.remove('hidden');
           notePinEntry = '';
           setTimeout(() => renderPinDots('entry', ''), 300);
@@ -1245,6 +1371,9 @@ function renderPinDots(mode, value) {
 function lockNotes() {
   state.notesUnlocked = false;
   notePinEntry = '';
+  state.pinAttempts = 0;
+  state.pinLockoutUntil = 0;
+  save();
   showNotesScreen();
 }
 

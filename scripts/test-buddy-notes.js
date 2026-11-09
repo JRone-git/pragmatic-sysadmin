@@ -88,6 +88,8 @@ function ok(condition, message) {
   const errors = [];
   page.on('pageerror', (e) => errors.push(`PAGEERROR: ${e.message}`));
   page.on('console', (m) => { if (m.type() === 'error') errors.push(`CONSOLE: ${m.text()}`); });
+  // One handler for every confirm() in the app.
+  page.on('dialog', (d) => d.accept());
 
   const type = async (pad, digits) => {
     for (const d of digits) {
@@ -190,11 +192,100 @@ function ok(condition, message) {
   ok(await page.isVisible('#notes-unlocked'), 'the right PIN unlocks the notes');
   ok(/Wifi password/.test(await page.textContent('#notes-list')), 'the notes are still there');
 
+  console.log('\n  The PIN is never persisted as unlocked');
+  ok(
+    await page.evaluate(() => {
+      const raw = localStorage.getItem('buddy-state-v2');
+      if (!raw) return true;
+      return !('notesUnlocked' in JSON.parse(raw));
+    }),
+    'notesUnlocked is not written to localStorage'
+  );
+
+  console.log('\n  Keyboard entry');
+  await page.click('#notes-lock');
+  await page.waitForTimeout(500);
+  await page.keyboard.type('1234', { delay: 90 });
+  await page.waitForTimeout(700);
+  ok(await page.isVisible('#notes-unlocked'), 'typing on a physical keyboard unlocks the notes');
+
+  console.log('\n  Changing the PIN');
+  await page.click('#notes-change-pin');
+  await page.waitForTimeout(500);
+  ok(await page.isVisible('#notes-pin-setup'), 'the change-PIN flow shows the setup panel');
+  ok(
+    /new PIN/i.test(await page.textContent('#notes-pin-setup h3')),
+    'the setup panel asks for a new PIN'
+  );
+  await type('setup', ['5', '6', '7', '8']);
+  await page.waitForTimeout(600);
+  await type('setup', ['5', '6', '7', '8']);
+  await page.waitForTimeout(800);
+  ok(await page.isVisible('#notes-unlocked'), 'the new PIN unlocks the notes');
+  await page.click('#notes-lock');
+  await page.waitForTimeout(500);
+  await type('entry', ['1', '2', '3', '4']);
+  await page.waitForTimeout(600);
+  ok(!(await page.isVisible('#notes-unlocked')), 'the old PIN no longer works');
+  await type('entry', ['5', '6', '7', '8']);
+  await page.waitForTimeout(600);
+  ok(await page.isVisible('#notes-unlocked'), 'the new PIN works');
+
+  console.log('\n  Wrong PINs are counted');
+  // A note to lose when the PIN is reset.
+  await page.click('#add-note');
+  await page.waitForTimeout(400);
+  await page.fill('#n-title', 'Router admin password');
+  await page.fill('#n-content', 'letmein');
+  await page.click('#modal-save');
+  await page.waitForTimeout(700);
+  await page.click('#notes-lock');
+  await page.waitForTimeout(500);
+  for (let i = 0; i < 2; i++) {
+    await type('entry', ['9', '9', '9', '9']);
+    await page.waitForTimeout(500);
+  }
+  const errText = await page.textContent('#notes-pin-error');
+  ok(/2|left/i.test(errText), `the error says how many tries are left (got "${errText.trim()}")`);
+
+  console.log('\n  Too many wrong tries');
+  // Two were already used above, so three more reaches the limit of five.
+  for (let i = 0; i < 3; i++) {
+    await type('entry', ['9', '9', '9', '9']);
+    await page.waitForTimeout(450);
+  }
+  const lockedMsg = await page.textContent('#notes-pin-error').catch(() => '');
+  ok(/wait/i.test(lockedMsg), `too many tries causes a pause (got "${lockedMsg.trim()}")`);
+  await type('entry', ['1', '2', '3', '4']);
+  await page.waitForTimeout(500);
+  ok(!(await page.isVisible('#notes-unlocked')), 'the keypad does nothing during the pause');
+
   console.log('\n  Deleting a note');
-  page.on('dialog', (d) => d.accept());
   await page.evaluate(() => document.querySelector('#notes-list button[data-action="delete"]').click());
   await page.waitForTimeout(700);
   ok(!/Wifi password/.test(await page.textContent('#notes-list')), 'the note is deleted');
+
+  console.log('\n  Forgetting the PIN');
+  const before = await page.evaluate(() => {
+    const s = JSON.parse(localStorage.getItem('buddy-state-v2') || '{}');
+    return { meds: (s.meds || []).length, people: (s.people || []).length, notes: (s.notes || []).length };
+  });
+  ok(before.notes > 0, 'there is a note to lose');
+  await page.click('#notes-pin-forgot');
+  await page.waitForTimeout(800);
+  ok(await page.isVisible('#notes-pin-setup'), 'forgetting the PIN returns to the setup panel');
+  const after = await page.evaluate(() => {
+    const s = JSON.parse(localStorage.getItem('buddy-state-v2') || '{}');
+    return { meds: (s.meds || []).length, people: (s.people || []).length, notes: (s.notes || []).length, pin: s.notesPin };
+  });
+  ok(!after.pin, 'the PIN is cleared');
+  ok(after.notes === 0, 'the notes are deleted - they cannot be recovered without the PIN');
+  ok(after.meds === before.meds, 'the medicines are kept');
+  ok(after.people === before.people, 'the contacts are kept');
+  ok(
+    !/Router admin password/.test(await page.textContent('#notes-list')),
+    'the old notes are gone from the page too'
+  );
 
   console.log('\n  The other forms still work');
   await page.evaluate(() => document.querySelector('[data-go="people"]').click());
