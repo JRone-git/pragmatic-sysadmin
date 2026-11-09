@@ -1,15 +1,16 @@
 {
   "last_posted": {
-    "bluesky": "2026-11-05T16:34:57+00:00",
-    "devto": "2026-11-07T15:29:44+00:00",
-    "mastodon": "2026-11-05T16:34:58+00:00"
+    "bluesky": "2026-11-09T16:15:31+00:00",
+    "devto": "2026-11-09T16:17:55+00:00",
+    "mastodon": "2026-11-09T16:15:32+00:00"
   },
   "posts": {
     "2fa-elderly-parent-email": {
       "channels": {
         "bluesky": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-11-09T16:15:31+00:00",
+          "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3mzvd4pfe5p27",
+          "status": "posted"
         },
         "devto": {
           "at": "2026-11-07T15:20:13+00:00",
@@ -21,8 +22,9 @@
           "status": "seeded"
         },
         "mastodon": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-11-09T16:15:32+00:00",
+          "ref": "https://mastodon.social/@JRone/117587373709775184",
+          "status": "posted"
         },
         "reddit": {
           "at": "2026-10-05T10:25:08+00:00",
@@ -265,8 +267,9 @@
           "status": "seeded"
         },
         "devto": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-11-09T16:15:32+00:00",
+          "ref": "https://dev.to/jronegit/best-tablets-for-seniors-in-2026-tested-by-real-grandparents-1mli",
+          "status": "posted"
         },
         "hn": {
           "at": "2026-10-05T10:25:08+00:00",
@@ -294,8 +297,9 @@
           "status": "seeded"
         },
         "devto": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-11-09T16:16:08+00:00",
+          "ref": "https://dev.to/jronegit/build-your-own-cloud-u2014-the-honest-guide-to-self-hosting-at-home-342o",
+          "status": "posted"
         },
         "hn": {
           "at": "2026-10-05T10:25:08+00:00",
@@ -323,8 +327,9 @@
           "status": "seeded"
         },
         "devto": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-11-09T16:16:43+00:00",
+          "ref": "https://dev.to/jronegit/building-your-own-linux-from-scratch-and-testing-it-in-a-container-5107",
+          "status": "posted"
         },
         "hn": {
           "at": "2026-10-05T10:25:08+00:00",
@@ -352,8 +357,9 @@
           "status": "seeded"
         },
         "devto": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-11-09T16:17:18+00:00",
+          "ref": "https://dev.to/jronegit/compiling-a-custom-linux-kernel-adding-systemd-part-2-19f5",
+          "status": "posted"
         },
         "hn": {
           "at": "2026-10-05T10:25:08+00:00",
@@ -410,8 +416,9 @@
           "status": "seeded"
         },
         "devto": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-11-09T16:17:55+00:00",
+          "ref": "https://dev.to/jronegit/git-things-that-are-easy-to-mess-up-until-they-bite-you-2p84",
+          "status": "posted"
         },
         "hn": {
           "at": "2026-10-05T10:25:08+00:00",
