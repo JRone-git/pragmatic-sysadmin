@@ -59,6 +59,14 @@ jobs:
         # stale packages that were written by the broken one.
         run: python scripts/promote.py rebuild
 
+      - name: Repair escaped dev.to titles
+        # Articles published while the generator escaped non-ASCII characters
+        # are already live with a literal \u2014 in the title. Repair them in
+        # place; it is a no-op once they are correct.
+        env:
+          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
+        run: python scripts/promote.py fix-devto-titles || true
+
       - name: Auto-post to safe channels
         env:
           BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}

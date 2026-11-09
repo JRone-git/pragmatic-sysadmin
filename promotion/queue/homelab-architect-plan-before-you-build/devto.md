@@ -1,5 +1,5 @@
 ---
-title: "I Built Homelab Architect \u2014 Plan Your Stack Before You Build It"
+title: "I Built Homelab Architect — Plan Your Stack Before You Build It"
 canonical_url: https://pragmaticsysadmin.help/meta/homelab-architect-plan-before-you-build/
 tags: sysadmin
 ---

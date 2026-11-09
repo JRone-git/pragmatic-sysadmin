@@ -1,5 +1,5 @@
 ---
-title: "Build Your Own Cloud \u2014 The Honest Guide to Self-Hosting at Home"
+title: "Build Your Own Cloud — The Honest Guide to Self-Hosting at Home"
 canonical_url: https://pragmaticsysadmin.help/meta/build-your-own-free-cloud-home-server-guide/
 tags: sysadmin
 ---

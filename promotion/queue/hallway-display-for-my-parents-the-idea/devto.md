@@ -1,5 +1,5 @@
 ---
-title: "I'm Building a Hallway Display for My Parents \u2014 It Costs Less to Run Than the Light Bulb Above It"
+title: "I'm Building a Hallway Display for My Parents — It Costs Less to Run Than the Light Bulb Above It"
 canonical_url: https://pragmaticsysadmin.help/meta/hallway-display-for-my-parents-the-idea/
 tags: sysadmin
 ---

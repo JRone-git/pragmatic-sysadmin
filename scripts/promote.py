@@ -404,7 +404,11 @@ def write_package(post: dict) -> Path:
     body = strip_scripts(body)
     dev_tags = devto_tags(post["tags"])
     (pkg / "devto.md").write_text(
-        f"---\ntitle: {json.dumps(title)}\n"
+        # ensure_ascii=False matters: json.dumps escapes an em-dash to the
+        # six characters \u2014 by default, and dev.to's front matter
+        # parser does not decode that - it rendered the escape literally
+        # in the title of a published article.
+        f"---\ntitle: {json.dumps(title, ensure_ascii=False)}\n"
         f"canonical_url: {url}\ntags: {', '.join(dev_tags)}\n---\n\n{body}\n",
         encoding="utf-8",
     )
@@ -527,6 +531,91 @@ class ConfigError(RuntimeError):
     """Something is wrong with the setup, so every post would fail."""
 
 
+def decode_unicode_escapes(text: str) -> str:
+    """Turn literal backslash-uXXXX sequences back into real characters.
+
+    A title written with json.dumps' default ensure_ascii=True contains the
+    six characters \u2014 rather than an em-dash. dev.to stores that as
+    written, so the article goes up with the escape visible in its title.
+    """
+    return re.sub(
+        r"\\u([0-9a-fA-F]{4})",
+        lambda m: chr(int(m.group(1), 16)),
+        text,
+    )
+
+
+def _front_title(raw: str) -> str:
+    """Read the title out of the devto.md front matter.
+
+    Written as a JSON string so quotes and colons in a title cannot break
+    the front matter, so it is decoded as one when it looks like one.
+    """
+    raw = raw.strip()
+    try:
+        title = json.loads(raw)
+    except (ValueError, TypeError):
+        title = raw.strip('"')
+    if not isinstance(title, str):
+        title = raw.strip('"')
+    return decode_unicode_escapes(title)
+
+
+def cmd_fix_devto_titles(args) -> int:
+    """Repair dev.to articles whose title shows a literal \\uXXXX escape.
+
+    The escape came from json.dumps() escaping non-ASCII when the package
+    was written. The articles are already published, so they have to be
+    corrected in place through the API rather than reposted.
+    """
+    api_key = os.environ.get("DEVTO_API_KEY", "")
+    if not api_key:
+        raise ConfigError("DEVTO_API_KEY not set")
+    status, raw = _req(
+        "https://dev.to/api/articles/me?per_page=100",
+        headers={"api-key": api_key},
+    )
+    if status != 200:
+        print(f"fix-devto-titles: could not list articles (HTTP {status})")
+        return 1
+    try:
+        articles = json.loads(raw.decode("utf-8"))
+    except ValueError:
+        print("fix-devto-titles: could not parse the article list")
+        return 1
+
+    fixed = 0
+    for art in articles:
+        title = art.get("title") or ""
+        repaired = decode_unicode_escapes(title)
+        if repaired == title:
+            continue
+        payload = {
+            "article": {
+                "id": art.get("id"),
+                "title": repaired,
+                "body_markdown": art.get("body_markdown") or "",
+                "published": art.get("published", True),
+                "canonical_url": art.get("canonical_url") or "",
+                "tags": devto_tags(art.get("tag_list") or []),
+            }
+        }
+        st, body = _req(
+            f"https://dev.to/api/articles/{art.get('id')}",
+            method="PUT",
+            headers={"Content-Type": "application/json", "api-key": api_key},
+            data=payload,
+        )
+        if st == 200:
+            fixed += 1
+            print(f"fix-devto-titles: repaired -> {repaired}")
+        else:
+            print(f"fix-devto-titles: HTTP {st} for article {art.get('id')}: "
+                  f"{body[:160]!r}")
+    print(f"fix-devto-titles: {fixed} title(s) repaired")
+    return 0
+
+
 def post_devto(pkg: Path, *, dry_run: bool) -> str:
     """Cross-post to dev.to with canonical_url pointing back at the site."""
     front = (pkg / "devto.md").read_text(encoding="utf-8")
@@ -541,7 +630,7 @@ def post_devto(pkg: Path, *, dry_run: bool) -> str:
             fm[k.strip()] = v.strip()
     payload = {
         "article": {
-            "title": fm.get("title", "").strip('"'),
+            "title": _front_title(fm.get("title", "")),
             "body_markdown": body,
             "published": True,
             "canonical_url": fm.get("canonical_url", ""),
@@ -1358,6 +1447,11 @@ def main(argv=None) -> int:
         help="rewrite stale URLs in already-queued packages",
     )
 
+    sub.add_parser(
+        "fix-devto-titles",
+        help="repair published dev.to titles showing a literal \\uXXXX escape",
+    )
+
     p = sub.add_parser("auto-post", help="post queued content to auto channels")
     p.add_argument("--channels", default="",
                    help="comma list: bluesky,mastodon,devto (default: all)")
@@ -1385,6 +1479,7 @@ def main(argv=None) -> int:
     handlers = {
         "generate": cmd_generate,
         "refresh-urls": cmd_refresh_urls,
+        "fix-devto-titles": cmd_fix_devto_titles,
         "rebuild": cmd_rebuild,
         "auto-post": cmd_auto_post,
         "issue-body": cmd_issue_body,

@@ -365,5 +365,61 @@ class ShortPostEligibility(unittest.TestCase):
         self.assertEqual(found, ["a-slug"])
 
 
+class UnicodeEscapes(unittest.TestCase):
+    """A title with an em-dash must reach dev.to as an em-dash.
+
+    json.dumps escapes non-ASCII by default, so writing a title with
+    json.dumps produced the six characters \u2014. dev.to's front matter
+    parser does not decode that, and the article went up with the escape
+    visible in its title.
+    """
+
+    def test_a_literal_escape_is_decoded(self):
+        self.assertEqual(
+            promote.decode_unicode_escapes("Cloud \\u2014 The"),
+            "Cloud \u2014 The",
+        )
+
+    def test_a_title_written_as_json_is_decoded(self):
+        self.assertEqual(
+            promote._front_title('"Cloud \\u2014 The"'),
+            "Cloud \u2014 The",
+        )
+
+    def test_a_plain_title_is_left_alone(self):
+        self.assertEqual(promote._front_title("Plain Title"), "Plain Title")
+
+    def test_a_quoted_title_keeps_its_inner_quotes(self):
+        self.assertEqual(
+            promote._front_title('"The \"good\" guide"'),
+            'The "good" guide',
+        )
+
+    def test_a_written_package_keeps_the_character(self):
+        # The whole point: the file on disk must hold a real em-dash,
+        # not the six characters that broke two published titles.
+        tmp = tempfile.TemporaryDirectory()
+        orig = promote.QUEUE_DIR
+        promote.QUEUE_DIR = Path(tmp.name)
+        try:
+            pkg = promote.write_package({
+                "slug": "cloud-guide",
+                "title": "Build Your Own Cloud \u2014 The Honest Guide",
+                "description": "Self-hosting without the monthly bill.",
+                "url": "https://pragmaticsysadmin.help/meta/cloud-guide/",
+                "tags": ["sysadmin", "self-hosting"],
+                "subreddits": ["selfhosted"],
+                "body": "Some body text.",
+                "published_at": "2026-08-23",
+            })
+            front = (pkg / "devto.md").read_text(encoding="utf-8")
+        finally:
+            promote.QUEUE_DIR = orig
+            tmp.cleanup()
+
+        self.assertIn("\u2014", front)
+        self.assertNotIn("\\u2014", front)
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

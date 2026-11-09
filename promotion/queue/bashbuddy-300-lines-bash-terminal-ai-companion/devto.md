@@ -1,5 +1,5 @@
 ---
-title: "I Built a Terminal AI Companion in 300 Lines of Pure Bash \u2014 And It's MIT Licensed"
+title: "I Built a Terminal AI Companion in 300 Lines of Pure Bash — And It's MIT Licensed"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/bashbuddy-300-lines-bash-terminal-ai-companion/
 tags: sysadmin
 ---
