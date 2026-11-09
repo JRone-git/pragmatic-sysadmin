@@ -73,6 +73,10 @@ DEVTO_POST_PAUSE_SECONDS = 35
 # comfortably inside it.
 DEVTO_RETRY_ATTEMPTS = 3
 DEVTO_RETRY_WAIT_SECONDS = 40
+# Repairs are writes too, and they run on a shared GitHub runner IP, so
+# they can hit a limit that the first write of the run did not.
+DEVTO_REPAIR_ATTEMPTS = 4
+DEVTO_REPAIR_WAIT_SECONDS = 60
 
 
 def _post_devto_with_retry(pkg: Path, *, dry_run: bool) -> str:
@@ -606,9 +610,31 @@ def cmd_fix_devto_titles(args) -> int:
             headers={"Content-Type": "application/json", "api-key": api_key},
             data=payload,
         )
+        # dev.to rate limits article writes hard. The first repair went
+        # through and the second came back 429 "Retry later", so one
+        # escaped title was left live. Wait it out instead of walking
+        # past it - the next run would have repaired it, but that is a
+        # day of a broken title on an article that is already indexed.
+        attempt = 0
+        while st == 429 and attempt < DEVTO_REPAIR_ATTEMPTS:
+            attempt += 1
+            print(f"fix-devto-titles: rate limited on article "
+                  f"{art.get('id')}, waiting {DEVTO_REPAIR_WAIT_SECONDS}s "
+                  f"(attempt {attempt}/{DEVTO_REPAIR_ATTEMPTS})")
+            time.sleep(DEVTO_REPAIR_WAIT_SECONDS)
+            st, body = _req(
+                f"https://dev.to/api/articles/{art.get('id')}",
+                method="PUT",
+                headers={"Content-Type": "application/json", "api-key": api_key},
+                data=payload,
+            )
         if st == 200:
             fixed += 1
             print(f"fix-devto-titles: repaired -> {repaired}")
+            if fixed < len(articles):
+                # Leave a gap between writes so the second repair does not
+                # land on the same limit the first one used up.
+                time.sleep(DEVTO_POST_PAUSE_SECONDS)
         else:
             print(f"fix-devto-titles: HTTP {st} for article {art.get('id')}: "
                   f"{body[:160]!r}")
