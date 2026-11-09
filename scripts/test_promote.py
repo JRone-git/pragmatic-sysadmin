@@ -23,6 +23,7 @@ from __future__ import annotations
 
 import importlib.util
 import sys
+import tempfile
 import unittest
 from pathlib import Path
 
@@ -312,6 +313,56 @@ class PostUrls(unittest.TestCase):
         )
         self.assertIn(new, (pkg / "devto.md").read_text())
         self.assertNotIn(old, (pkg / "devto.md").read_text())
+
+
+class ShortPostEligibility(unittest.TestCase):
+    """A post published on dev.to owes the social channels a short post.
+
+    "seeded" held 42 old articles back from Bluesky and Mastodon so they
+    would not be blasted out at once. But the dev.to release published
+    seven of them, and their short posts could never go out: the auto
+    poster refused anything marked seeded, so the articles reached the
+    world with no amplification at all.
+    """
+
+    def _post(self, devto_status, bluesky_status):
+        return {"channels": {"devto": {"status": devto_status},
+                              "bluesky": {"status": bluesky_status}}}
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self._queue = Path(self._tmp.name)
+        pkg = self._queue / "a-slug"
+        pkg.mkdir(parents=True)
+        (pkg / "package.json").write_text("{}", encoding="utf-8")
+        self._orig_queue = promote.QUEUE_DIR
+        promote.QUEUE_DIR = self._queue
+
+    def tearDown(self):
+        promote.QUEUE_DIR = self._orig_queue
+        self._tmp.cleanup()
+
+    def _eligible(self, ps):
+        state = {"posts": {"a-slug": ps}}
+        found = [s for s, _, _ in promote._pending_posts(state, "bluesky")]
+        return found == ["a-slug"]
+
+    def test_a_seeded_post_is_not_social_posted_by_itself(self):
+        self.assertFalse(self._eligible(self._post("seeded", "seeded")))
+
+    def test_a_post_published_on_devto_owes_a_short_post(self):
+        self.assertTrue(self._eligible(self._post("posted", "seeded")))
+
+    def test_an_already_posted_post_is_not_posted_twice(self):
+        self.assertFalse(self._eligible(self._post("posted", "posted")))
+
+    def test_a_skipped_post_stays_skipped(self):
+        self.assertFalse(self._eligible(self._post("posted", "skipped")))
+
+    def test_devto_itself_still_accepts_seeded_posts(self):
+        state = {"posts": {"a-slug": self._post("seeded", "seeded")}}
+        found = [s for s, _, _ in promote._pending_posts(state, "devto")]
+        self.assertEqual(found, ["a-slug"])
 
 
 if __name__ == "__main__":

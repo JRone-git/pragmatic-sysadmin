@@ -741,7 +741,14 @@ def _pending_posts(state: dict, channel: str):
         if status in ("posted", "skipped"):
             continue
         if status == "seeded" and channel != "devto":
-            continue
+            # "seeded" held the post back from the social channels, so 42
+            # old articles would not be blasted out at once. But once the
+            # post has actually been published on dev.to the editorial gate
+            # has been passed: the article is out in the world, so its
+            # short post is due. The 48 hour cadence still keeps it to one
+            # per platform every two days.
+            if channel_status(ps, "devto") != "posted":
+                continue
         yield slug, ps, pkg
 
 
@@ -1251,7 +1258,11 @@ def cmd_evergreen(args) -> int:
         reshared = False
         for ch in AUTO_CHANNELS:
             st = (ps.get("channels") or {}).get(ch) or {}
-            if st.get("kind") == "evergreen" and st.get("at"):
+            # Any recent post on that channel blocks a reshare, not just an
+            # evergreen one. Otherwise a post whose first short post went
+            # out on Monday could be reshared on Wednesday, which reads as
+            # the same article twice in a week.
+            if st.get("at"):
                 try:
                     if (now() - datetime.fromisoformat(st["at"])).days \
                             < EVERGREEN_RESHARE_DAYS:
