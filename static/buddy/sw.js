@@ -20,12 +20,21 @@
  * round trip to open the app — and the network copy refreshes the cache
  * in the background for next time.
  *
- * Bump CACHE when the shell changes. The browser re-checks sw.js on
- * navigation, sees a new version, installs it, and the activate handler
- * drops the old cache.
+ * CACHE is stamped with a hash of the shell by scripts/bump-sw-cache.py,
+ * which runs before every build. The cache name used to be a fixed
+ * `buddy-v1` that was never bumped, so a browser kept serving the app.js
+ * it had already cached and only picked up a new one on the second load -
+ * stale-while-revalidate sends the cached copy immediately and refreshes
+ * in the background. That is how the same build behaves differently on
+ * two phones, and how a parent ends up running a week-old copy of Buddy
+ * with a bug in it.
+ *
+ * The hash only helps if sw.js itself changes, because a changed sw.js
+ * is what makes the browser install a new worker - and the activate
+ * handler drops the old cache.
  */
 
-const CACHE = 'buddy-v1';
+const CACHE = 'buddy-500aec802470';
 
 const SHELL = [
   './',

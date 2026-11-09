@@ -30,6 +30,15 @@ jobs:
           hugo-version: '0.148.2'
           extended: true
 
+      - name: Stamp the service worker cache name
+        # The Buddy service worker caches the app shell. Its cache name is
+        # a hash of the shell contents, so a changed app.js produces a
+        # changed sw.js, which is what makes a browser install the new
+        # worker and drop the old cache. Without this, a phone keeps
+        # running the copy of Buddy it cached - and only picks up a fix on
+        # the second load.
+        run: python scripts/bump-sw-cache.py
+
       - name: Build
         run: hugo --minify --buildFuture --environment production --cleanDestinationDir --gc
 

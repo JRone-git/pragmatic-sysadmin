@@ -1275,10 +1275,19 @@ function pinKeyPress(key, mode) {
       renderPinDots('setup', next);
       if (next.length === 4) {
         if (!confirming) {
-          // Move to the confirm stage
-          setupPinConfirm = setupPin;
-          setupPin = '';
+          // Move to the confirm stage.
+          //
+          // The first PIN stays in setupPin and the second entry is
+          // collected into setupPinConfirm, which starts empty.
+          //
+          // Do NOT pre-fill setupPinConfirm with the first PIN. The
+          // confirm buffer would then already be four characters long, the
+          // buf.length < 4 guard would reject every keypress, and the
+          // second entry could never be made - so the PIN could never be
+          // set at all. That is exactly what commit 5db4349 did, and it
+          // is why the PIN stopped working.
           setupStage = 'confirm';
+          setupPinConfirm = '';
           setTimeout(() => {
             const lbl = $('#notes-pin-setup h3');
             if (lbl) lbl.textContent = t('notes.pinConfirmTitle');
