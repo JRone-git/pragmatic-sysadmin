@@ -476,5 +476,69 @@ class TagParsing(unittest.TestCase):
         self.assertEqual(self._tags('title: "T"'), [])
 
 
+class QueueOrdering(unittest.TestCase):
+    """New content goes out first, then the backlog.
+
+    The queue was strictly first-in-first-out on queued_at, so a post
+    published today sat behind 37 backlog articles and waited a week for
+    its first run. Publishing more often only pays off if the new thing
+    is what gets out first.
+    """
+
+    def setUp(self):
+        self._tmp = tempfile.TemporaryDirectory()
+        self._queue = Path(self._tmp.name)
+        for slug in ("fresh-one", "fresh-two", "old-one"):
+            pkg = self._queue / slug
+            pkg.mkdir(parents=True)
+            (pkg / "package.json").write_text("{}", encoding="utf-8")
+        self._orig = promote.QUEUE_DIR
+        promote.QUEUE_DIR = self._queue
+
+    def tearDown(self):
+        promote.QUEUE_DIR = self._orig
+        self._tmp.cleanup()
+
+    def _order(self):
+        state = {
+            "posts": {
+                # queued first, but it is a backlog post
+                "old-one": {"queued_at": "2026-10-05T00:00:00+00:00",
+                             "published_at": "2026-06-01T00:00:00+00:00",
+                             "channels": {"devto": {"status": "seeded"}}},
+                # queued later, but it is fresh
+                "fresh-one": {"queued_at": "2026-11-09T00:00:00+00:00",
+                              "published_at": "2026-11-09T00:00:00+00:00",
+                              "channels": {}},
+                "fresh-two": {"queued_at": "2026-11-02T00:00:00+00:00",
+                              "published_at": "2026-11-02T00:00:00+00:00",
+                              "channels": {}},
+            }
+        }
+        return [s for s, _, _ in promote._pending_posts(state, "devto")]
+
+    def test_a_fresh_post_beats_the_backlog(self):
+        order = self._order()
+        self.assertEqual(order[0], "fresh-one")
+
+    def test_fresh_posts_are_newest_first(self):
+        order = self._order()
+        # fresh-one was published 2026-11-09, fresh-two on 2026-11-02, so
+        # the newer one leads.
+        self.assertLess(order.index("fresh-one"), order.index("fresh-two"))
+
+    def test_the_backlog_comes_last(self):
+        order = self._order()
+        self.assertEqual(order[-1], "old-one")
+
+    def test_a_post_with_no_channels_is_fresh(self):
+        self.assertTrue(promote._is_fresh({"channels": {}}))
+
+    def test_a_seeded_post_is_not_fresh(self):
+        self.assertFalse(
+            promote._is_fresh({"channels": {"bluesky": {"status": "seeded"}}})
+        )
+
+
 if __name__ == "__main__":
     unittest.main(verbosity=2)

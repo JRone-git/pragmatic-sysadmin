@@ -954,6 +954,18 @@ def cmd_generate(args) -> int:
     return 0
 
 
+def _is_fresh(ps: dict) -> bool:
+    """True for a post that was queued as new rather than as historical.
+
+    cmd_generate marks a post's channels "seeded" when it is older than
+    the promo window. A post with no such marker is fresh.
+    """
+    channels = ps.get("channels") or {}
+    return not any(
+        (v or {}).get("status") == "seeded" for v in channels.values()
+    )
+
+
 def _pending_posts(state: dict, channel: str):
     """Posts whose package exists and this channel hasn't succeeded yet.
 
@@ -963,9 +975,8 @@ def _pending_posts(state: dict, channel: str):
     not a feed, and a cross-post there interrupts nobody. A seeded post
     that already has a package is therefore eligible for dev.to.
     """
-    for slug, ps in sorted(
-        state["posts"].items(), key=lambda kv: kv[1].get("queued_at", "")
-    ):
+    candidates = []
+    for slug, ps in state["posts"].items():
         pkg = QUEUE_DIR / slug
         if not (pkg / "package.json").exists():
             continue
@@ -981,7 +992,22 @@ def _pending_posts(state: dict, channel: str):
             # per platform every two days.
             if channel_status(ps, "devto") != "posted":
                 continue
-        yield slug, ps, pkg
+        candidates.append((slug, ps, pkg))
+
+    # New content first, then the backlog.
+    #
+    # The queue was strictly first-in-first-out, so a post published today
+    # sat behind the 37 backlog articles and waited a week for its first
+    # run. That defeats the point of publishing more often: the whole
+    # reason to publish weekly rather than monthly is that the new thing
+    # is what people want. The backlog is evergreen - its order does not
+    # matter, it just has to keep draining.
+    fresh = [c for c in candidates if _is_fresh(c[1])]
+    backlog = [c for c in candidates if not _is_fresh(c[1])]
+    fresh.sort(key=lambda c: c[1].get("published_at") or c[1].get("queued_at") or "",
+               reverse=True)
+    backlog.sort(key=lambda c: c[1].get("queued_at") or "")
+    yield from fresh + backlog
 
 
 def load_release() -> dict:
