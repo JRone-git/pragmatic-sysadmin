@@ -1,7 +1,7 @@
 {
   "last_posted": {
     "bluesky": "2026-11-09T16:15:31+00:00",
-    "devto": "2026-11-09T16:17:55+00:00",
+    "devto": "2026-11-10T16:31:34+00:00",
     "mastodon": "2026-11-09T16:15:32+00:00"
   },
   "posts": {
@@ -126,6 +126,11 @@
         "bluesky": {
           "at": "2026-10-17T12:16:51+00:00",
           "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3my332rp63i2g",
+          "status": "posted"
+        },
+        "devto": {
+          "at": "2026-11-10T16:31:34+00:00",
+          "ref": "https://dev.to/jronegit/ai-is-a-fast-helper-not-the-truth-2ob4",
           "status": "posted"
         },
         "mastodon": {
@@ -446,6 +451,11 @@
           "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3mzlcdsf3bv2x",
           "status": "posted"
         },
+        "devto": {
+          "at": "2026-11-10T16:29:48+00:00",
+          "ref": "https://dev.to/jronegit/im-building-a-hallway-display-for-my-parents-it-costs-less-to-run-than-the-light-bulb-above-it-kg5",
+          "status": "posted"
+        },
         "mastodon": {
           "at": "2026-11-05T16:34:58+00:00",
           "ref": "https://mastodon.social/@JRone/117564800923118233",
@@ -743,7 +753,13 @@
       "url": "https://pragmaticsysadmin.help/senior-tech/2026-10-05-local-llms-as-system-tooling-running-sub-3b-models/"
     },
     "make-text-bigger-parent-phone": {
-      "channels": {},
+      "channels": {
+        "devto": {
+          "at": "2026-11-10T16:29:13+00:00",
+          "ref": "https://dev.to/jronegit/how-to-make-text-bigger-on-an-elderly-parents-phone-852",
+          "status": "posted"
+        }
+      },
       "published_at": "2026-11-09T00:00:00+00:00",
       "queued_at": "2026-11-09T16:38:39+00:00",
       "section": "senior-tech",
@@ -1046,6 +1062,11 @@
           "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3mzdtxet7jl2p",
           "status": "posted"
         },
+        "devto": {
+          "at": "2026-11-10T16:30:23+00:00",
+          "ref": "https://dev.to/jronegit/tech-in-a-busy-household-balancing-home-networks-gaming-rigs-and-diy-tinkering-3ecb",
+          "status": "posted"
+        },
         "mastodon": {
           "at": "2026-11-02T17:28:51+00:00",
           "ref": "https://mastodon.social/@JRone/117548025848604701",
@@ -1314,6 +1335,11 @@
         "bluesky": {
           "at": "2026-10-31T14:37:06+00:00",
           "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3mz6jghoese2e",
+          "status": "posted"
+        },
+        "devto": {
+          "at": "2026-11-10T16:30:59+00:00",
+          "ref": "https://dev.to/jronegit/when-code-meets-life-applying-the-sysadmin-mindset-to-family-chaos-home-repairs-2fhi",
           "status": "posted"
         },
         "mastodon": {
