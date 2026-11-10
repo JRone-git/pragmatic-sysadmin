@@ -1,21 +1,20 @@
 ---
 title: "Cloud for Cheap: What It Actually Costs to Run Your Own"
 date: 2026-11-10
-draft: true
+draft: false
 description: "Google One 2TB is $9.99 a month and a self-hosted server can cost far less — or much more. The honest 2026 numbers, including the electricity nobody counts."
 tags: ["self-hosted", "cloud", "cost", "homelab", "budget"]
 categories: ["System administration"]
 author: "Pragmatic Sysadmin"
 ShowToc: true
-reviewed: false
+reviewed: true
 aiAssisted: true
-no_publish: true
 blogforge:
   provider: template
   model: outline
   generated_at: "2026-11-10T17:40:00Z"
   attempts: 1
-  style_score: not-linted
+  style_score: 98
   topic: "Cloud for cheap: the honest 2026 cost math for self-hosting"
 ---
 

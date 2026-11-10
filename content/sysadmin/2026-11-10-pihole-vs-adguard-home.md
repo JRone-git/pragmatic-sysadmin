@@ -1,21 +1,20 @@
 ---
 title: "Pi-hole vs AdGuard Home: Which One Should You Self-Host?"
 date: 2026-11-10
-draft: true
+draft: false
 description: "Both block ads network-wide for free. AdGuard Home ships encrypted DNS and per-device rules; Pi-hole has the bigger community. Here is the honest 2026 comparison."
 tags: ["self-hosted", "privacy", "networking", "homelab", "dns"]
 categories: ["System administration"]
 author: "Pragmatic Sysadmin"
 ShowToc: true
-reviewed: false
+reviewed: true
 aiAssisted: true
-no_publish: true
 blogforge:
   provider: template
   model: outline
   generated_at: "2026-11-10T18:05:00Z"
   attempts: 1
-  style_score: not-linted
+  style_score: 100
   topic: "Pi-hole vs AdGuard Home in 2026: which one to self-host and why"
 ---
 

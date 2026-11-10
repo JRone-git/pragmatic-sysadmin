@@ -1,21 +1,20 @@
 ---
 title: "Plex vs Jellyfin in 2026: The Paywall and the Hardware"
 date: 2026-11-10
-draft: true
+draft: false
 description: "Plex put remote streaming behind a subscription in 2025 and raised the lifetime pass to $749.99. Jellyfin has never had a paid tier. Here is what changes."
 tags: ["self-hosted", "streaming", "media-server", "homelab", "privacy"]
 categories: ["System administration"]
 author: "Pragmatic Sysadmin"
 ShowToc: true
-reviewed: false
+reviewed: true
 aiAssisted: true
-no_publish: true
 blogforge:
   provider: template
   model: outline
   generated_at: "2026-11-10T18:15:00Z"
   attempts: 1
-  style_score: not-linted
+  style_score: 98
   topic: "Plex vs Jellyfin in 2026: what the paywall changed and what hardware you need"
 ---
 

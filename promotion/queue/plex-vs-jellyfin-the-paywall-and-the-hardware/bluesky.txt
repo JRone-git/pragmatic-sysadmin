@@ -1,0 +1,5 @@
+Plex put remote streaming behind a subscription in 2025 and raised the lifetime pass to $749.99
+
+https://pragmaticsysadmin.help/sysadmin/2026-11-10-plex-vs-jellyfin-the-paywall-and-the-hardware/
+
+#selfhosted #streaming #mediaserver

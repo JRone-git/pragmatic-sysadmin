@@ -1,0 +1,5 @@
+Immich gives you Google Photos on your own disk — but it needs 8 GB of RAM, a public endpoint and a few sharp edges. Here is what actually happens.
+
+https://pragmaticsysadmin.help/sysadmin/2026-11-10-replace-google-photos-with-immich/
+
+#selfhosted #immich #photos

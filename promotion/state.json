@@ -355,6 +355,14 @@
       "title": "Building Your Own Linux from Scratch (And Testing It in a Container)",
       "url": "https://pragmaticsysadmin.help/sysadmin/2026-03-28-building-your-own-linux-from-scratch/"
     },
+    "cloud-for-cheap-the-honest-cost-math": {
+      "channels": {},
+      "published_at": "2026-11-10T00:00:00+00:00",
+      "queued_at": "2026-11-10T16:51:34+00:00",
+      "section": "sysadmin",
+      "title": "Cloud for Cheap: What It Actually Costs to Run Your Own",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2026-11-10-cloud-for-cheap-the-honest-cost-math/"
+    },
     "compile-linux-kernel-systemd-part-2": {
       "channels": {
         "bluesky": {
@@ -819,6 +827,14 @@
       "title": "I Built a Password Strength Checker That Runs 100% in Your Browser (and What It Taught Me About Passwords)",
       "url": "https://pragmaticsysadmin.help/sysadmin/2026-10-06-password-strength-checker-browser-private/"
     },
+    "pihole-vs-adguard-home": {
+      "channels": {},
+      "published_at": "2026-11-10T00:00:00+00:00",
+      "queued_at": "2026-11-10T16:51:34+00:00",
+      "section": "sysadmin",
+      "title": "Pi-hole vs AdGuard Home: Which One Should You Self-Host?",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2026-11-10-pihole-vs-adguard-home/"
+    },
     "plain-english-explain-any-command-error-concept": {
       "channels": {
         "bluesky": {
@@ -848,6 +864,14 @@
       "title": "I Built a Tool That Explains Any Command or Error in Plain Language",
       "url": "https://pragmaticsysadmin.help/meta/plain-english-explain-any-command-error-concept/"
     },
+    "plex-vs-jellyfin-the-paywall-and-the-hardware": {
+      "channels": {},
+      "published_at": "2026-11-10T00:00:00+00:00",
+      "queued_at": "2026-11-10T16:51:34+00:00",
+      "section": "sysadmin",
+      "title": "Plex vs Jellyfin in 2026: The Paywall and the Hardware",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2026-11-10-plex-vs-jellyfin-the-paywall-and-the-hardware/"
+    },
     "privacy-first-ai-setup-for-seniors": {
       "channels": {
         "bluesky": {
@@ -876,6 +900,14 @@
       "section": "senior-tech",
       "title": "Privacy-First AI Setup for Seniors: Apple Intelligence, Claude, and Local LLMs Compared",
       "url": "https://pragmaticsysadmin.help/senior-tech/2026-07-27-privacy-first-ai-setup-for-seniors/"
+    },
+    "replace-google-photos-with-immich": {
+      "channels": {},
+      "published_at": "2026-11-10T00:00:00+00:00",
+      "queued_at": "2026-11-10T16:51:34+00:00",
+      "section": "sysadmin",
+      "title": "Replace Google Photos with Immich (The Honest 2026 Guide)",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2026-11-10-replace-google-photos-with-immich/"
     },
     "self-hosting-isnt-free-honest-cost-running-own-server": {
       "channels": {

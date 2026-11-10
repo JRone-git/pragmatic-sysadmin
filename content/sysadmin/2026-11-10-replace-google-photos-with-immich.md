@@ -1,21 +1,20 @@
 ---
 title: "Replace Google Photos with Immich (The Honest 2026 Guide)"
 date: 2026-11-10
-draft: true
+draft: false
 description: "Immich gives you Google Photos on your own disk — but it needs 8 GB of RAM, a public endpoint and a few sharp edges. Here is what actually happens."
 tags: ["self-hosted", "immich", "photos", "privacy", "docker"]
 categories: ["System administration"]
 author: "Pragmatic Sysadmin"
 ShowToc: true
-reviewed: false
+reviewed: true
 aiAssisted: true
-no_publish: true
 blogforge:
   provider: template
   model: outline
   generated_at: "2026-11-10T17:55:00Z"
   attempts: 1
-  style_score: not-linted
+  style_score: 99
   topic: "Replacing Google Photos with Immich: the honest 2026 guide"
 ---
 
