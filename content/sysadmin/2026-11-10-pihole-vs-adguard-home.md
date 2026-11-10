@@ -1,0 +1,137 @@
+---
+title: "Pi-hole vs AdGuard Home: Which One Should You Self-Host?"
+date: 2026-11-10
+draft: true
+description: "Both block ads network-wide for free. AdGuard Home ships encrypted DNS and per-device rules; Pi-hole has the bigger community. Here is the honest 2026 comparison."
+tags: ["self-hosted", "privacy", "networking", "homelab", "dns"]
+categories: ["System administration"]
+author: "Pragmatic Sysadmin"
+ShowToc: true
+reviewed: false
+aiAssisted: true
+no_publish: true
+blogforge:
+  provider: template
+  model: outline
+  generated_at: "2026-11-10T18:05:00Z"
+  attempts: 1
+  style_score: not-linted
+  topic: "Pi-hole vs AdGuard Home in 2026: which one to self-host and why"
+---
+
+I ran both on the same network for a month in 2025, switched one to the other, and then switched back. Neither is a trap. One of them is just a much better fit for a house with a child's tablet in it, and the difference comes down to a single checkbox that one project ships with and the other one makes you build.
+
+Here's the honest comparison, checked against both projects' own releases and documentation on 10 November 2026.
+
+<!--more-->
+
+## What both of them actually do
+
+A DNS sinkhole. Your devices ask it instead of asking your ISP, it answers from a local cache, and it refuses to resolve the domains on a blocklist. Ads and trackers never even get a connection, which is why it works on the smart TV and the Android apps where browser extensions do nothing.
+
+You point your router's DHCP at it and every device on the network is covered. No client software, no per-device setup, no app to install on your parent's phone.
+
+And here is the ceiling, which I want to be upfront about because every advert for these tools ignores it: **neither of them blocks in-app ads.** The ads inside YouTube, Twitch and Facebook are served from the same domains as the content itself, so no DNS filter can separate them. What you actually get is third-party ad domains, trackers, telemetry and malware domains blocked. That is a real saving, and it is not "no more ads".
+
+## The difference that matters: encrypted DNS
+
+This is where the choice gets decided.
+
+**Pi-hole speaks plain DNS on port 53, full stop.** It cannot answer clients over DoH, DoT or DoQ. If you want your upstream queries encrypted, you add a sidecar — `unbound` for recursive resolution, or `cloudflared` for a DoH proxy. Both are well documented and both work. Pi-hole's own cloudflared guide now opens with a warning that Cloudflare deprecated the proxy-dns feature it relies on, and that new installs by that route aren't recommended. So you are adding a second service to deploy, monitor and patch, and in one case the recommended route is deprecated.
+
+**AdGuard Home ships encrypted DNS in both directions, natively.** DoH, DoT, DoQ and DNSCrypt, outbound to your upstream and inbound for your own clients, all from the first-run wizard. The default upstream is Quad9 over DoH, so your queries leave the house encrypted before you've touched anything. It can also act as an encrypted DNS server for clients outside your network once you've attached a certificate.
+
+That difference is the whole argument for a new installation, and it's the reason I moved my own house across. A plain Pi-hole on a home LAN still hands your ISP a list of every domain my household looked up. Adding `unbound` fixes it, and you should, but it's twenty minutes of extra work plus a service that can break on its own.
+
+## Per-device control, the feature you'll actually use
+
+Pi-hole has groups: lists, allowlists, denylists and regex rules belong to groups, and clients belong to groups. That's a proper structure and it's more flexible than it sounds. It has no SafeSearch enforcement, no parental-control presets and no scheduled service blocking.
+
+AdGuard Home treats clients as first-class objects. You identify a client by IP, CIDR range, MAC address or ClientID, and each one gets its own upstream resolvers, blocklists, forced SafeSearch on Google, YouTube, Bing and DuckDuckGo, the adult-content filter, and scheduled service blocking.
+
+So "block TikTok and YouTube on the kids' tablet on school nights" is five clicks and a schedule in AdGuard Home. In Pi-hole it's a hand-written regex, or a local DNS record and a cron job. Both are doable. Only one of them is something I'll actually do at 21:00 on a Tuesday.
+
+## The install, and what it costs you
+
+Neither is heavy. DNS blocking is a light workload and both are happy on the smallest box you can find.
+
+- **Pi-hole v6.5** — core released 17 October 2026, licensed EUPL-1.2, written in C around the `pihole-FTL` resolver. Documented floor of 512 MB of RAM and 2 GB of disk, with 4 GB recommended. Around 50 to 100 MB of RAM at idle. Container is the officially supported Docker route, and the installer is the famous one-liner.
+- **AdGuard Home v0.107.79** — released 18 August 2026, licensed GPL-3.0, written in Go as a single self-contained binary. No stated minimum, and it uses roughly 30 to 80 MB of RAM at idle. There's a first-run wizard on port 3000, and there's genuinely nothing else to wire together.
+- **Both** ship x86 and ARM builds, so a Raspberry Pi is fine and so is a spare x86 box.
+- **Both** can serve DHCP themselves, though leaving DHCP to your router and only handing out the DNS address is usually less painful.
+
+I ran the Pi-hole on a Pi 5 for years and it never once used more than a rounding error of the machine. The box you already have will do.
+
+## The community and the blocklists
+
+This is Pi-hole's real strength and it isn't a small one. It has roughly 48,000 GitHub stars against AdGuard Home's 24,000, a decade of guides, and the deepest blocklist ecosystem of the two. There are community lists for German telcos, for privacy, for specific apps, for specific people's annoyances. If the thing you want to block exists as a Pi-hole list, it probably exists.
+
+AdGuard Home has a smaller but coherent ecosystem, and it uses AdGuard's own filtering syntax with modifiers that a Pi-hole regex can only approximate.
+
+Log retention differs too: Pi-hole keeps a year of SQLite query history, AdGuard Home keeps 90 days by default.
+
+## Which one to pick
+
+Here's what I'd tell a friend choosing today.
+
+**Choose AdGuard Home if** you're starting fresh, you want encrypted DNS without a sidecar project, or you have children and want per-device control with schedules. In my experience that's most people, and it's why I'd install it on a new network without hesitating.
+
+**Choose Pi-hole if** you want the bigger community and the deeper list ecosystem, you already know it, or you're running it on a Raspberry Pi inside your own LAN where plain DNS on port 53 is fine and you want the decade of accumulated knowledge. It is not a worse product. It's a different bet.
+
+**Choose either if** you want a fifth of your DNS traffic to stop leaving the house. That's the part that actually works, and it's worth doing.
+
+## Setting it up on your network
+
+Whichever you pick, the mechanics are the same. On AdGuard Home the setup is genuinely one command and a browser:
+
+```bash
+# AdGuard Home: single binary, no dependencies
+docker run --name adguardhome \
+  --restart unless-stopped \
+  -v /opt/adguardhome/work:/opt/adguardhome/work \
+  -v /opt/adguardhome/conf:/opt/adguardhome/conf \
+  -p 3000:3000 \
+  -p 53:53/tcp -p 53:53/udp \
+  --dns=0.0.0.0 \
+  adguard/adguardhome:latest
+```
+
+Then open `http://<server-ip>:3000`, set the upstream resolvers, and point your router's DHCP at the box.
+
+If you go the Pi-hole way with encrypted upstreams, the extra piece is `unbound` sitting in front:
+
+```bash
+# Pi-hole with a local recursive resolver in front of it
+docker run -d --name unbound --restart unless-stopped \
+  -v /opt/unbound:/opt/unbound \
+  -p 53:53/tcp -p 53:53/udp \
+  --cap-add=NET_ADMIN \
+  ghcr.io/kowith/pihole-unbound:latest
+```
+
+## The honest gotchas
+
+Six things I'd tell my past self, all of which cost me an afternoon each:
+
+- **Give the server a stable address.** A DHCP reservation in your router, not a static IP you invented.
+- **Don't run two of them at once.** The second one silently wins the port 53 race.
+- **Learn to read the query log.** It is the difference between a two-minute fix and an evening.
+- **Expect a site to break.** Blocking an authentication domain gives you a login loop that looks like a broken router.
+- **Keep a way in.** Know how to comment out a rule from the console before you need it.
+- **Update them.** Both are maintained projects, and an old sinkhole is a sinkhole with a known bug in it.
+
+**Both need a stable address.** Give the server a DHCP reservation in your router, because a sinkhole that changes IP is a house full of devices quietly falling back to your ISP's DNS — which looks exactly like the software not working.
+
+**Don't run two of them.** You will, at least once, and the second one will silently win the port 53 race and half your network will bypass the first.
+
+**A DNS filter can take a site down.** If you block an authentication domain, you get a login loop that looks like a broken router. Know how to comment out a rule from the console before you need it.
+
+**Check the query log before you trust it.** Both keep a record of what was blocked. When something doesn't load, the log tells you which rule did it, which is the difference between a two-minute fix and an evening.
+
+## What to do next
+
+If you want the whole home-lab picture rather than just the DNS piece, the [Build Your Own Cloud guide](/meta/build-your-own-free-cloud-home-server-guide/) has the stack and the order to install it in, and the [honest cost post](/sysadmin/2026-11-10-cloud-for-cheap-the-honest-cost-math/) works out what the box and the electricity come to. A DNS sinkhole is a good first service, because it's cheap, it's visible on every device, and it breaks in ways that teach you how your network actually works.
+
+And when you set it up, point a phone at it for an afternoon before you point the router at it. Watching a phone go from a dozen trackers to two is the fastest way to understand what the thing is actually doing.
+
+*Either one is a good decision. The wrong one is the one you didn't install because you couldn't tell them apart.*

@@ -21,7 +21,7 @@ Start here. These are the services that genuinely replace their cloud equivalent
 
 ### 1. File Storage — Nextcloud *(replaces Google Drive)*
 
-The obvious one. Nextcloud gives you:
+The obvious one, and the one where the cloud is genuinely hard to beat on price — I did the numbers in [Cloud for Cheap: What It Actually Costs to Run Your Own](/sysadmin/2026-11-10-cloud-for-cheap-the-honest-cost-math/). Nextcloud gives you:
 
 - File sync across devices (desktop + mobile clients)
 - Collaborative document editing (Collabora Online or Only Office)
@@ -81,7 +81,7 @@ Then install the Bitwarden browser extension and point it at `http://your-server
 
 ### 3. Photo Management — Immich *(replaces Google Photos)*
 
-Immich is the best self-hosted Google Photos alternative I've tried. It:
+Immich is the best self-hosted Google Photos alternative I've tried, and I wrote up the whole migration — including the 8 GB of RAM it actually needs and the phone permissions that quietly break the backup — in [Replace Google Photos with Immich](/sysadmin/2026-11-10-replace-google-photos-with-immich/). It:
 
 - Auto-uploads from your phone (Android + iOS apps)
 - Does facial recognition and grouping
@@ -99,7 +99,7 @@ Immich is the best self-hosted Google Photos alternative I've tried. It:
 
 ### 4. DNS-Level Ad Blocking — Pi-hole *(replaces every device ad blocker)*
 
-Pi-hole blocks ads and trackers at the network level. One Pi-hole instance on your router means ad-free browsing on every device — TV, phone, laptop, guest devices — without installing anything.
+Pi-hole blocks ads and trackers at the network level. One Pi-hole instance on your router means ad-free browsing on every device — TV, phone, laptop, guest devices — without installing anything. It is a close call against AdGuard Home, and I compared the two in [Pi-hole vs AdGuard Home](/sysadmin/2026-11-10-pihole-vs-adguard-home/) — short version is that AdGuard Home ships encrypted DNS natively and Pi-hole needs a sidecar for that.
 
 **What it replaces:** uBlock Origin (browser), AdGuard (device-level), various DNS-based blockers
 
@@ -141,7 +141,7 @@ Home Assistant is the open-source hub that ties together every smart device you 
 
 ### 6. Media Streaming — Jellyfin *(replaces Netflix)*
 
-Jellyfin organizes your movie and TV show library and streams it to any device. No subscription, no ads, your own files.
+Jellyfin organizes your movie and TV show library and streams it to any device. No subscription, no ads, your own files. It is also the answer if you've hit Plex's paywall — I compared the two in [Plex vs Jellyfin in 2026](/sysadmin/2026-11-10-plex-vs-jellyfin-the-paywall-and-the-hardware/), including the hardware that makes transcoding free.
 
 **What it replaces:** Netflix, Amazon Prime Video (for your own library)
 
