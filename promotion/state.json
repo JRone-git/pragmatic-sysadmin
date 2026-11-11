@@ -1,8 +1,8 @@
 {
   "last_posted": {
-    "bluesky": "2026-11-09T16:15:31+00:00",
+    "bluesky": "2026-11-11T16:23:15+00:00",
     "devto": "2026-11-10T16:31:34+00:00",
-    "mastodon": "2026-11-09T16:15:32+00:00"
+    "mastodon": "2026-11-11T16:23:16+00:00"
   },
   "posts": {
     "2fa-elderly-parent-email": {
@@ -356,7 +356,18 @@
       "url": "https://pragmaticsysadmin.help/sysadmin/2026-03-28-building-your-own-linux-from-scratch/"
     },
     "cloud-for-cheap-the-honest-cost-math": {
-      "channels": {},
+      "channels": {
+        "bluesky": {
+          "at": "2026-11-11T16:23:15+00:00",
+          "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3n22eifgs4q2x",
+          "status": "posted"
+        },
+        "mastodon": {
+          "at": "2026-11-11T16:23:16+00:00",
+          "ref": "https://mastodon.social/@JRone/117598728767528333",
+          "status": "posted"
+        }
+      },
       "published_at": "2026-11-10T00:00:00+00:00",
       "queued_at": "2026-11-10T16:51:34+00:00",
       "section": "sysadmin",
