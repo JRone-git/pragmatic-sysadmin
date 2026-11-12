@@ -1,7 +1,7 @@
 {
   "last_posted": {
     "bluesky": "2026-11-11T16:23:15+00:00",
-    "devto": "2026-11-10T16:31:34+00:00",
+    "devto": "2026-11-12T16:57:10+00:00",
     "mastodon": "2026-11-11T16:23:16+00:00"
   },
   "posts": {
@@ -360,6 +360,11 @@
         "bluesky": {
           "at": "2026-11-11T16:23:15+00:00",
           "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3n22eifgs4q2x",
+          "status": "posted"
+        },
+        "devto": {
+          "at": "2026-11-12T16:54:49+00:00",
+          "ref": "https://dev.to/jronegit/cloud-for-cheap-what-it-actually-costs-to-run-your-own-3ko4",
           "status": "posted"
         },
         "mastodon": {
@@ -839,7 +844,13 @@
       "url": "https://pragmaticsysadmin.help/sysadmin/2026-10-06-password-strength-checker-browser-private/"
     },
     "pihole-vs-adguard-home": {
-      "channels": {},
+      "channels": {
+        "devto": {
+          "at": "2026-11-12T16:55:24+00:00",
+          "ref": "https://dev.to/jronegit/pi-hole-vs-adguard-home-which-one-should-you-self-host-3pdn",
+          "status": "posted"
+        }
+      },
       "published_at": "2026-11-10T00:00:00+00:00",
       "queued_at": "2026-11-10T16:51:34+00:00",
       "section": "sysadmin",
@@ -876,7 +887,13 @@
       "url": "https://pragmaticsysadmin.help/meta/plain-english-explain-any-command-error-concept/"
     },
     "plex-vs-jellyfin-the-paywall-and-the-hardware": {
-      "channels": {},
+      "channels": {
+        "devto": {
+          "at": "2026-11-12T16:56:00+00:00",
+          "ref": "https://dev.to/jronegit/plex-vs-jellyfin-in-2026-the-paywall-and-the-hardware-4o87",
+          "status": "posted"
+        }
+      },
       "published_at": "2026-11-10T00:00:00+00:00",
       "queued_at": "2026-11-10T16:51:34+00:00",
       "section": "sysadmin",
@@ -913,7 +930,13 @@
       "url": "https://pragmaticsysadmin.help/senior-tech/2026-07-27-privacy-first-ai-setup-for-seniors/"
     },
     "replace-google-photos-with-immich": {
-      "channels": {},
+      "channels": {
+        "devto": {
+          "at": "2026-11-12T16:56:35+00:00",
+          "ref": "https://dev.to/jronegit/replace-google-photos-with-immich-the-honest-2026-guide-4fo4",
+          "status": "posted"
+        }
+      },
       "published_at": "2026-11-10T00:00:00+00:00",
       "queued_at": "2026-11-10T16:51:34+00:00",
       "section": "sysadmin",
@@ -1243,6 +1266,11 @@
         "bluesky": {
           "at": "2026-10-19T15:44:40+00:00",
           "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3myahma74x22c",
+          "status": "posted"
+        },
+        "devto": {
+          "at": "2026-11-12T16:57:10+00:00",
+          "ref": "https://dev.to/jronegit/probabilistic-code-needs-human-ground-truth-1ima",
           "status": "posted"
         },
         "mastodon": {
