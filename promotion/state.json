@@ -1,8 +1,8 @@
 {
   "last_posted": {
-    "bluesky": "2026-11-11T16:23:15+00:00",
+    "bluesky": "2026-11-13T16:34:20+00:00",
     "devto": "2026-11-12T16:57:10+00:00",
-    "mastodon": "2026-11-11T16:23:16+00:00"
+    "mastodon": "2026-11-13T16:34:20+00:00"
   },
   "posts": {
     "2fa-elderly-parent-email": {
@@ -845,9 +845,19 @@
     },
     "pihole-vs-adguard-home": {
       "channels": {
+        "bluesky": {
+          "at": "2026-11-13T16:34:20+00:00",
+          "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3n27g22eqki2x",
+          "status": "posted"
+        },
         "devto": {
           "at": "2026-11-12T16:55:24+00:00",
           "ref": "https://dev.to/jronegit/pi-hole-vs-adguard-home-which-one-should-you-self-host-3pdn",
+          "status": "posted"
+        },
+        "mastodon": {
+          "at": "2026-11-13T16:34:20+00:00",
+          "ref": "https://mastodon.social/@JRone/117610096938870115",
           "status": "posted"
         }
       },
