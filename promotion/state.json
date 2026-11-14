@@ -1,7 +1,7 @@
 {
   "last_posted": {
     "bluesky": "2026-11-13T16:34:20+00:00",
-    "devto": "2026-11-12T16:57:10+00:00",
+    "devto": "2026-11-14T15:15:12+00:00",
     "mastodon": "2026-11-13T16:34:20+00:00"
   },
   "posts": {
@@ -499,8 +499,9 @@
           "status": "seeded"
         },
         "devto": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-11-14T15:12:51+00:00",
+          "ref": "https://dev.to/jronegit/i-built-homelab-architect-plan-your-stack-before-you-build-it-ofi",
+          "status": "posted"
         },
         "hn": {
           "at": "2026-10-05T10:25:08+00:00",
@@ -530,8 +531,9 @@
           "status": "posted"
         },
         "devto": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-11-14T15:13:26+00:00",
+          "ref": "https://dev.to/jronegit/how-i-built-this-blog-hugo-firebase-buttondown-in-30-minutes-1flc",
+          "status": "posted"
         },
         "hn": {
           "at": "2026-10-05T10:25:08+00:00",
@@ -561,8 +563,9 @@
           "status": "seeded"
         },
         "devto": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-11-14T15:14:01+00:00",
+          "ref": "https://dev.to/jronegit/how-to-actually-reduce-your-cloud-spend-before-year-end-2025-5cag",
+          "status": "posted"
         },
         "hn": {
           "at": "2026-10-05T10:25:08+00:00",
@@ -590,8 +593,9 @@
           "status": "seeded"
         },
         "devto": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-11-14T15:14:37+00:00",
+          "ref": "https://dev.to/jronegit/i-built-my-own-jarvis-a-local-privacy-first-multi-agent-ai-assistant-276e",
+          "status": "posted"
         },
         "hn": {
           "at": "2026-10-05T10:25:08+00:00",
@@ -619,8 +623,9 @@
           "status": "seeded"
         },
         "devto": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-11-14T15:15:12+00:00",
+          "ref": "https://dev.to/jronegit/i-was-the-only-it-person-for-3-years-the-documentation-i-wish-id-written-13bg",
+          "status": "posted"
         },
         "hn": {
           "at": "2026-10-05T10:25:08+00:00",
