@@ -269,6 +269,8 @@ build:
 
 <p class="nl-privacy">
   No analytics, no tracking pixels, no cookies. <a href="/privacy/">Privacy policy</a>.
+  <br>
+  <small>Want to see past issues? <a href="/newsletter/archive/">Browse the archive</a>.</small>
 </p>
 
 </div>

@@ -120,6 +120,12 @@ enableRobotsTXT = true
   weight = 30
 
 [[menu.main]]
+  identifier = "archive"
+  name = "Archive"
+  url = "/newsletter/archive/"
+  weight = 31
+
+[[menu.main]]
   identifier = "tools"
   name = "Tools"
   url = "/tools/"

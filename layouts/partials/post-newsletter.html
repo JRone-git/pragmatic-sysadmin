@@ -23,11 +23,9 @@
   </div>
 
   <form
-    action="https://buttondown.com/api/emails/embed-subscribe/jonne"
-    method="post"
-    target="_top"
     class="pnl-form"
     id="pnl-form"
+    data-buttondown-action="https://buttondown.com/api/emails/embed-subscribe/jonne"
   >
     <input
       type="email"
@@ -41,6 +39,7 @@
     <button type="submit" class="pnl-submit">
       Subscribe free →
     </button>
+    <div id="pnl-form-status" class="pnl-form-status hidden" aria-live="polite"></div>
   </form>
 
   <div class="pnl-perks">
@@ -189,6 +188,35 @@
     width: 100%;
   }
 }
+.pnl-form-status {
+  margin-top: 0.75em;
+  padding: 0.75em 1em;
+  border-radius: 5px;
+  font-size: 0.9em;
+  line-height: 1.4;
+}
+.pnl-form-status.hidden {
+  display: none;
+}
+.pnl-form-status.success {
+  display: block;
+  background: #f0f7f0;
+  border: 1px solid #c5dfc5;
+  border-left: 4px solid #5a7a5e;
+  color: #2d5a30;
+}
+.pnl-form-status.error {
+  display: block;
+  background: #fef0f0;
+  border: 1px solid #f5c6c6;
+  border-left: 4px solid #e54e4b;
+  color: #b33a3a;
+}
+.pnl-form-status a {
+  color: inherit;
+  text-decoration: underline;
+  font-weight: 600;
+}
 @media (prefers-color-scheme: dark) {
   .post-newsletter-cta {
     background: linear-gradient(135deg, #2a2d28 0%, #1f211e 100%);
@@ -207,7 +235,72 @@
   }
   .pnl-perk { color: #b0b0b0; }
   .pnl-foot { color: #888; }
+  .pnl-form-status.success {
+    background: #1a2e1a;
+    border-color: #3a5a3a;
+    color: #8fd08f;
+  }
+  .pnl-form-status.error {
+    background: #2e1a1a;
+    border-color: #5a3a3a;
+    color: #f5a5a5;
+  }
 }
 </style>
+
+<script>
+(function() {
+  var form = document.getElementById('pnl-form');
+  if (!form) return;
+  var emailInput = document.getElementById('pnl-email');
+  var statusDiv = document.getElementById('pnl-form-status');
+  var submitBtn = form.querySelector('.pnl-submit');
+  var action = form.dataset.buttondownAction;
+
+  form.addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (!emailInput.value.trim()) return;
+
+    submitBtn.disabled = true;
+    submitBtn.textContent = 'Subscribing...';
+    statusDiv.className = 'pnl-form-status hidden';
+    statusDiv.textContent = '';
+
+    var formData = new FormData();
+    formData.append('email', emailInput.value.trim());
+
+    fetch(action, {
+      method: 'POST',
+      body: formData,
+      headers: { 'Accept': 'application/json' }
+    }).then(function(response) {
+      if (response.ok || response.status === 400) {
+        return response.json();
+      }
+      throw new Error('Network error');
+    }).then(function(data) {
+      if (data && data.success === false && data.error) {
+        statusDiv.className = 'pnl-form-status error';
+        statusDiv.textContent = data.error;
+        submitBtn.disabled = false;
+        submitBtn.textContent = 'Subscribe free →';
+      } else {
+        form.style.display = 'none';
+        var perks = document.querySelector('.pnl-perks');
+        if (perks) perks.style.display = 'none';
+        var foot = document.querySelector('.pnl-foot');
+        if (foot) foot.style.display = 'none';
+        statusDiv.className = 'pnl-form-status success';
+        statusDiv.innerHTML = '<strong>You\'re in!</strong> Check your inbox for a confirmation email, then grab your free downloads. <a href=\"/newsletter/thank-you/\">Get free scripts & checklists →</a>';
+      }
+    }).catch(function(err) {
+      statusDiv.className = 'pnl-form-status error';
+      statusDiv.innerHTML = 'Something went wrong. Please try again or subscribe directly at <a href=\"https://buttondown.com/jonne\" target=\"_blank\" rel=\"noopener\">buttondown.com/jonne</a>';
+      submitBtn.disabled = false;
+      submitBtn.textContent = 'Subscribe free →';
+    });
+  });
+})();
+</script>
 
 {{- end -}}
