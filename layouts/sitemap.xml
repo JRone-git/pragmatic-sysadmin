@@ -31,4 +31,18 @@
     <loc>{{ .path | absURL }}</loc>
   </url>
   {{- end }}
+  {{/* Static game pages are not Hugo pages, so they never appear via
+       .Data.Pages. List them here so Google can discover them. */}}
+  <url>
+    <loc>{{ .Site.BaseURL }}games/</loc>
+    <changefreq>monthly</changefreq>
+  </url>
+  <url>
+    <loc>{{ .Site.BaseURL }}games/phishing/index.html</loc>
+    <changefreq>yearly</changefreq>
+  </url>
+  <url>
+    <loc>{{ .Site.BaseURL }}games/sos/index.html</loc>
+    <changefreq>yearly</changefreq>
+  </url>
 </urlset>

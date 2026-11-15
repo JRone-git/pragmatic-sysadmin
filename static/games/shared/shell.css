@@ -238,6 +238,31 @@ button {
   color: var(--accent-hover);
 }
 
+@media print {
+  .psa-card {
+    border: none;
+    box-shadow: none;
+    background: white;
+  }
+  .psa-btn,
+  .psa-cta {
+    display: none;
+  }
+  body {
+    font-size: 16px;
+    color: #000;
+    background: white;
+  }
+  a::after {
+    content: " (" attr(href) ")";
+    font-size: 0.8rem;
+    color: #666;
+  }
+  .larger-text-toggle {
+    display: none;
+  }
+}
+
 .larger-text-toggle {
   margin-bottom: 1rem;
   text-align: right;

@@ -43,6 +43,7 @@ enableRobotsTXT = true
   ShowReadingTime = true
   ShowPostNavLinks = true
   ShowShareButtons = true
+  ShowBreadCrumbs = true
   # homeInfoParams removed — redundant with the custom homepage
   # (content/_index.md already has the hero). See layouts/_default/home.html
   # Author information — kept as 'Pragmatic Sysadmin' because that's

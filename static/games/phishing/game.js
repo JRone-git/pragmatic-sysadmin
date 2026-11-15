@@ -92,6 +92,10 @@
       "scam-safety-guide",
       "Get the one-page Scam Safety Guide (€9)"
     );
+    el("ctaSlot").insertAdjacentHTML(
+      "beforeend",
+      '<p style="font-size:0.9rem;color:var(--muted);margin-top:1rem;">New games? <a href="/newsletter/" class="psa-link">Join the newsletter</a>.</p>'
+    );
     PSA.save({ phishing: { score: s.score, badge, at: Date.now() } });
     PSA.track("phishing_complete", { score: s.score, badge });
   }
