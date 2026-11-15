@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Parent's Phone SOS — what do you do first?</title>
+  <link rel="stylesheet" href="/games/shared/shell.css">
+</head>
+<body class="psa">
+<main class="psa-card">
+
+  <div class="larger-text-toggle">
+    <button id="size-toggle">Larger text</button>
+  </div>
+
+  <section id="intro">
+    <h1>Parent's Phone SOS</h1>
+    <p>Your parent calls: “Nothing works.” Work through a real triage call step by step. You can go back at any time.</p>
+    <button id="start" class="psa-btn">Start</button>
+  </section>
+
+  <section id="game" hidden>
+    <button id="back" class="psa-btn" style="background:#e0ddd5;color:var(--text);border:1px solid var(--border);">← Back one step</button>
+    <div id="node"></div>
+  </section>
+
+</main>
+<script src="/games/shared/shell.js"></script>
+<script src="/games/sos/data.js"></script>
+<script src="/games/sos/game.js"></script>
+</body>
+</html>

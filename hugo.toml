@@ -132,6 +132,12 @@ enableRobotsTXT = true
   weight = 40
 
 [[menu.main]]
+  identifier = "games"
+  name = "Games"
+  url = "/games/"
+  weight = 41
+
+[[menu.main]]
   identifier = "shop"
   name = "Shop"
   url = "/shop/"

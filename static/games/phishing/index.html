@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Phishing Inbox — can you spot the scam?</title>
+  <link rel="stylesheet" href="/games/shared/shell.css">
+</head>
+<body class="psa">
+<main class="psa-card">
+
+  <div class="larger-text-toggle">
+    <button id="size-toggle">Larger text</button>
+  </div>
+
+  <section id="intro">
+    <h1>Phishing Inbox</h1>
+    <p>Eight emails. Some are real, some are scams. No timer, no tricks — just practice.</p>
+    <button id="start" class="psa-btn">Start</button>
+  </section>
+
+  <section id="game" hidden>
+    <p id="progress" class="psa-progress"></p>
+    <div class="psa-bar"><div id="bar"></div></div>
+
+    <article class="email">
+      <p class="email-from" id="from"></p>
+      <h2 class="email-subject" id="subject"></h2>
+      <p class="email-body" id="body"></p>
+    </article>
+
+    <div id="choices" class="choices">
+      <button class="psa-btn choice" data-guess="safe">1 · Looks safe</button>
+      <button class="psa-btn choice" data-guess="phishing">2 · Phishing</button>
+    </div>
+
+    <div id="feedback" role="status" aria-live="polite" hidden></div>
+
+    <button id="next" class="psa-btn psa-btn-primary" hidden>Next email →</button>
+    <p class="score-line">Score: <span id="score">0</span></p>
+  </section>
+
+  <section id="summary" hidden>
+    <h2>Result: <span id="badge"></span></h2>
+    <p>Score: <span id="finalScore"></span> · Best streak: <span id="bestStreak"></span></p>
+    <div id="ctaSlot"></div>
+    <button id="restart" class="psa-btn">Play again</button>
+  </section>
+
+</main>
+<script src="/games/shared/shell.js"></script>
+<script src="/games/phishing/data.js"></script>
+<script src="/games/phishing/game.js"></script>
+</body>
+</html>
