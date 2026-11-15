@@ -1,7 +1,7 @@
 name: Promote new posts
 
 # Generates pitch packages for newly published posts, auto-posts to the safe
-# channels (Bluesky / Mastodon / dev.to — 48h cadence) and opens a tracking
+# channels (Bluesky — 48h cadence) and opens a tracking
 # issue with ready-to-submit HN/Reddit drafts. See docs/PROMOTION.md.
 
 on:
@@ -59,41 +59,20 @@ jobs:
         # stale packages that were written by the broken one.
         run: python scripts/promote.py rebuild
 
-      - name: Repair dev.to titles and tags
-        # Articles published while the generator escaped non-ASCII characters
-        # are already live with a literal \u2014 in the title. And articles
-        # published while the front matter parser only understood YAML list
-        # tags went up with the generic "sysadmin" tag instead of their own
-        # topic - ten of the sixteen. Repair both in place; each command is
-        # a no-op once everything is correct.
-        env:
-          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
-        run: |
-          python scripts/promote.py fix-devto-titles || true
-          python scripts/promote.py fix-devto-tags || true
-
       - name: Auto-post to safe channels
         env:
           BLUESKY_HANDLE: ${{ secrets.BLUESKY_HANDLE }}
           BLUESKY_APP_PASSWORD: ${{ secrets.BLUESKY_APP_PASSWORD }}
-          MASTODON_INSTANCE: ${{ secrets.MASTODON_INSTANCE }}
-          MASTODON_ACCESS_TOKEN: ${{ secrets.MASTODON_ACCESS_TOKEN }}
-          DEVTO_API_KEY: ${{ secrets.DEVTO_API_KEY }}
           FORCE: ${{ inputs.force || 'false' }}
-          # How many dev.to articles one run may publish. dev.to is an
-          # article library, not a feed, so a small daily batch drains the
-          # backlog without burying anyone's timeline. The social channels
-          # ignore this - they stay at one post per run.
-          DEVTO_BATCH: ${{ vars.DEVTO_BATCH || '5' }}
         # A missing secret skips that channel (status=failed with a clear
         # message) without failing the whole run for the others.
         # FORCE=true is only settable via manual dispatch — scheduled and
         # push runs always respect the 48h cadence.
         run: |
           if [ "$FORCE" = "true" ]; then
-            python scripts/promote.py auto-post --force --batch "$DEVTO_BATCH" || true
+            python scripts/promote.py auto-post --force || true
           else
-            python scripts/promote.py auto-post --batch "$DEVTO_BATCH" || true
+            python scripts/promote.py auto-post || true
           fi
 
       - name: Create promotion issues for manual channels

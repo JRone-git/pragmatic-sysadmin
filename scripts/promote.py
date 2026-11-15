@@ -6,8 +6,8 @@ Turns every newly published post into platform-ready promotion:
   generate        Find published posts not yet promoted, write pitch packages
                   to promotion/queue/<slug>/ (HN, Reddit, Bluesky, Mastodon,
                   dev.to cross-post) and register them in promotion/state.json.
-  auto-post       Post queued content to the safe auto channels (Bluesky,
-                  Mastodon, dev.to) - cadence-enforced, dry-run capable.
+  auto-post       Post queued content to the safe auto channels (Bluesky)
+                  - cadence-enforced, dry-run capable.
   issue-body      Print the GitHub issue body (HN/Reddit drafts + prefill
                   links) for one queued post.
   open-issues     Create/update the tracking issue labelled `promotion` for
@@ -47,7 +47,7 @@ RELEASE_PATH = PROMO_DIR / "release.yaml"
 
 BASE_URL = "https://pragmaticsysadmin.help"
 SECTIONS = ("sysadmin", "senior-tech", "meta", "posts")
-AUTO_CHANNELS = ("bluesky", "mastodon", "devto")
+AUTO_CHANNELS = ("bluesky",)
 CADENCE_HOURS = 48  # default: "once per platform per 48 hours" - see hacker-news-pitches.md
 MAX_PER_RUN = 1  # default: max posts per auto channel per run
 EVERGREEN_MIN_AGE_DAYS = 30
@@ -1069,7 +1069,7 @@ def cmd_rebuild(args) -> int:
 def cmd_auto_post(args) -> int:
     """Post queued content to the safe auto channels, cadence-enforced."""
     state = load_state()
-    poster = {"bluesky": post_bluesky, "mastodon": post_mastodon, "devto": post_devto}
+    poster = {"bluesky": post_bluesky}
     exit_code = 0
     force = getattr(args, "force", False)
     release = load_release()
@@ -1081,39 +1081,21 @@ def cmd_auto_post(args) -> int:
         # A release ticket can wave the dev.to cooldown through. It cannot
         # wave through the social channels - those stay on their cadence
         # whatever the file says.
-        skip_cadence = force or (
-            channel == "devto" and release.get("devto_ignore_cadence")
-        )
+        skip_cadence = force
         if not skip_cadence:
             wait = cadence - hours_since(state, channel)
             if wait > 0:
                 print(f"{channel}: cadence cooldown, {wait:.1f}h remaining. "
                       "Skipping.")
                 continue
-        else:
-            print(f"{channel}: release override, cadence bypassed.")
-        # --batch only ever applies to dev.to. The social channels stay at
-        # one post per run no matter what, so a batch can never turn into
-        # a follower-timeline dump.
         limit = CHANNEL_MAX_PER_RUN.get(channel, MAX_PER_RUN)
-        if channel == "devto":
-            if getattr(args, "batch", 0):
-                limit = args.batch
-            elif release.get("devto_batch"):
-                limit = int(release["devto_batch"])
         posted = 0
         for slug, ps, pkg in _pending_posts(state, channel):
             if posted >= limit:
                 break
-            if channel == "devto":
-                text = (pkg / "devto.md").read_text(encoding="utf-8")
-            else:
-                text = (pkg / f"{channel}.txt").read_text(encoding="utf-8")
+            text = (pkg / f"{channel}.txt").read_text(encoding="utf-8")
             try:
-                if channel == "devto":
-                    ref = _post_devto_with_retry(pkg, dry_run=args.dry_run)
-                else:
-                    ref = poster[channel](text, dry_run=args.dry_run)
+                ref = poster[channel](text, dry_run=args.dry_run)
             except ConfigError as e:
                 # A setup problem will fail every post. Stop rather than
                 # spamming failures, and say what is actually wrong.
@@ -1132,19 +1114,8 @@ def cmd_auto_post(args) -> int:
                 set_channel(ps, channel, "posted", ref=ref)
                 state["last_posted"][channel] = now().isoformat(timespec="seconds")
             posted += 1
-            if channel == "devto":
-                devto_published += 1
-                if posted < limit and not args.dry_run:
-                    time.sleep(DEVTO_POST_PAUSE_SECONDS)
     if not args.dry_run:
         save_state(state)
-        # A release ticket is spent once it has published something. If the
-        # run published nothing, it stays on disk so the next run can try
-        # again rather than silently dropping the intent.
-        if devto_published and RELEASE_PATH.exists():
-            RELEASE_PATH.unlink()
-            print(f"promotion: release ticket consumed after "
-                  f"{devto_published} dev.to article(s).")
     else:
         print("(dry-run: state not saved)")
     return exit_code

@@ -1,0 +1,90 @@
+{
+  "name": "RSS to Telegram — Pragmatic Tech",
+  "nodes": [
+    {
+      "parameters": {
+        "rule": {
+          "interval": [{"field": "hours", "interval": 6}]
+        }
+      },
+      "name": "Cron (every 6h)",
+      "type": "n8n-nodes-base.cron",
+      "typeVersion": 1,
+      "position": [240, 300]
+    },
+    {
+      "parameters": {
+        "url": "https://pragmaticsysadmin.help/index.xml",
+        "responseFormat": "string",
+        "options": {}
+      },
+      "name": "Fetch RSS",
+      "type": "n8n-nodes-base.httpRequest",
+      "typeVersion": 4.1,
+      "position": [460, 300]
+    },
+    {
+      "parameters": {
+        "functionCode": "const xml = items[0].json.xml;\nconst items = xml.match(/<item>([\\s\\S]*?)<\\/item>/g) || [];\nreturn items.slice(0, 5).map(item => {\n  const title = item.match(/<title>([\\s\\S]*?)<\\/title>/)?.[1] || '';\n  const link = item.match(/<link>([\\s\\S]*?)<\\/link>/)?.[1] || '';\n  const pubDate = item.match(/<pubDate>([\\s\\S]*?)<\\/pubDate>/)?.[1] || '';\n  return {\n    json: { title: title.replace(/<[^>]*>/g, '').trim(), link, pubDate }\n  };\n});",
+        "outputOptions": {}
+      },
+      "name": "Parse RSS items",
+      "type": "n8n-nodes-base.function",
+      "typeVersion": 2,
+      "position": [680, 300]
+    },
+    {
+      "parameters": {
+        "operation": "get",
+        "table": "telegram_posted",
+        "columns": ["link"],
+        "filter": {
+          "link": "={{ $json.link }}"
+        }
+      },
+      "name": "Check already posted",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.2,
+      "position": [900, 200]
+    },
+    {
+      "parameters": {
+        "text": "📝 *{{ $json.title }}*\n\n{{ $json.link }}",
+        "chatId": "={{ $env.TELEGRAM_CHAT_ID }}",
+        "parseMode": "Markdown",
+        "disableWebPagePreview": false
+      },
+      "name": "Send to Telegram",
+      "type": "n8n-nodes-base.telegram",
+      "typeVersion": 1,
+      "position": [900, 400]
+    },
+    {
+      "parameters": {
+        "operation": "append",
+        "table": "telegram_posted",
+        "columns": ["link", "title", "posted_at"],
+        "values": ["={{ $json.link }}", "={{ $json.title }}", "={{ new Date().toISOString() }}"]
+      },
+      "name": "Record as posted",
+      "type": "n8n-nodes-base.googleSheets",
+      "typeVersion": 4.2,
+      "position": [1120, 300]
+    }
+  ],
+  "connections": {
+    "Cron (every 6h)": { "main": [[{ "node": "Fetch RSS", "type": "main", "index": 0 }]] },
+    "Fetch RSS": { "main": [[{ "node": "Parse RSS items", "type": "main", "index": 0 }]] },
+    "Parse RSS items": { "main": [[{ "node": "Check already posted", "type": "main", "index": 0 }]] },
+    "Check already posted": { "main": [[{ "node": "Send to Telegram", "type": "main", "index": 0 }], [{ "node": "Record as posted", "type": "main", "index": 0 }]] },
+    "Send to Telegram": { "main": [[{ "node": "Record as posted", "type": "main", "index": 0 }]] }
+  },
+  "active": false,
+  "settings": {},
+  "versionId": "1",
+  "meta": {
+    "instanceId": "",
+    "templateId": ""
+  },
+  "id": ""
+}
