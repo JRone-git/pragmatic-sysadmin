@@ -20,8 +20,8 @@ window.PSA = {
   },
   // Wire real Ko-fi URLs here once products exist in catalog/products.yaml.
   products: {
-    "scam-safety-guide": "https://ko-fi.com/s/REPLACE",
-    "tech-confidence-checklist": "https://ko-fi.com/s/REPLACE"
+    "scam-safety-guide": "https://ko-fi.com/X5J32AOGVX",
+    "tech-confidence-checklist": "https://ko-fi.com/X5J32AOGVX"
   },
   cta(slug, label) {
     const url = this.products[slug] || "#";
