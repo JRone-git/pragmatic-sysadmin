@@ -2,9 +2,9 @@
   const el = (id) => document.getElementById(id);
   let path = [];
 
-  function render(id) {
+  function render(id, push = true) {
     const node = window.SOS_TREE.nodes[id];
-    path.push(id);
+    if (push) path.push(id);
     const box = el("node");
     if (node.type === "q") {
       box.innerHTML = `<h2 class="q">${node.text}</h2>
@@ -32,10 +32,7 @@
   function back() {
     if (path.length <= 1) return;
     path.pop();
-    path.pop();
-    const prev = path[path.length - 1] || window.SOS_TREE.start;
-    path.pop();
-    render(prev);
+    render(path[path.length - 1], false);
   }
 
   document.addEventListener("DOMContentLoaded", () => {
@@ -46,6 +43,11 @@
       render(window.SOS_TREE.start);
     });
     el("back").addEventListener("click", back);
+
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest("[data-cta]");
+      if (a) PSA.track("cta_click", { slug: a.dataset.cta });
+    });
 
     const sizeBtn = el("size-toggle");
     sizeBtn.addEventListener("click", () => {

@@ -24,6 +24,7 @@
     el("intro").hidden = true;
     el("summary").hidden = true;
     el("game").hidden = false;
+    el("score").textContent = "0";
     PSA.track("phishing_start");
     render();
   }
@@ -82,7 +83,8 @@
     el("game").hidden = true;
     const sum = el("summary");
     sum.hidden = false;
-    const pct = s.score / (s.queue.length * 12);
+    const max = s.queue.reduce((acc, _, idx) => acc + 10 + Math.min(idx + 1, 5) * 2, 0);
+    const pct = max ? s.score / max : 0;
     const badge =
       pct > 0.85 ? "Sharp-eyed Spotter" : pct > 0.6 ? "Careful Checker" : "Keep Practicing";
     el("badge").textContent = badge;
@@ -113,11 +115,10 @@
       if (e.key === "2") answer("phishing");
       if (e.key === "Enter" && !el("next").hidden) next();
     });
-    document.querySelectorAll("[data-cta]").forEach((a) =>
-      a.addEventListener("click", () =>
-        PSA.track("cta_click", { slug: a.dataset.cta })
-      )
-    );
+    document.addEventListener("click", (e) => {
+      const a = e.target.closest("[data-cta]");
+      if (a) PSA.track("cta_click", { slug: a.dataset.cta });
+    });
 
     const sizeBtn = el("size-toggle");
     sizeBtn.addEventListener("click", () => {

@@ -50,8 +50,7 @@ window.PHISHING_DECK = [
       "Describes exactly what happened"
     ],
     explain: "Finnish healthcare notifications are informational. When in doubt, open Omakanta through your browser bookmark — not through an email link."
-  }
-];
+  },
   {
     id: "invoice-zip",
     from: "DHL Express <invoices@dhl-delivery-tracking.com>",
