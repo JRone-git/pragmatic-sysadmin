@@ -409,6 +409,14 @@
       "title": "Compiling a Custom Linux Kernel & Adding systemd (Part 2)",
       "url": "https://pragmaticsysadmin.help/sysadmin/2026-07-07-compile-linux-kernel-systemd-part-2/"
     },
+    "esp32-weather-station-3-2-lcd-what-broke": {
+      "channels": {},
+      "published_at": "2026-11-17T00:00:00+00:00",
+      "queued_at": "2026-11-17T11:03:20+00:00",
+      "section": "sysadmin",
+      "title": "ESP32 Weather Station with 3.2\\\" LCD: What Broke and Why I'm Reverting to Raspberry Pi B",
+      "url": "https://pragmaticsysadmin.help/sysadmin/2026-11-17-esp32-weather-station-3-2-lcd-what-broke/"
+    },
     "essential-home-automation-older-parents-practical-setup-guide": {
       "channels": {
         "bluesky": {
