@@ -19,6 +19,7 @@ without any build-time dependency on Pillow.
 """
 
 import os
+import pathlib
 import re
 import sys
 import html
@@ -132,8 +133,18 @@ def parse_front_matter(path):
     return fm, slug
 
 
-def render_image(title, description, slug, site_name="Pragmatic Tech", badge=""):
-    """Render one OG image and save to OUTPUT_DIR/<slug>.png."""
+def is_real_png(path) -> bool:
+    """True if the file starts with the PNG signature. The stub that sat at
+    static/og-default.png for months was a text file, not an image."""
+    try:
+        with open(path, "rb") as fh:
+            return fh.read(8) == b"\x89PNG\r\n\x1a\n"
+    except OSError:
+        return False
+
+
+def render_image(title, description, slug, site_name="Pragmatic Tech", badge="", out_path=None):
+    """Render one OG image and save to OUTPUT_DIR/<slug>.png (or out_path)."""
     img = Image.new("RGB", (WIDTH, HEIGHT), BG_TOP)
     draw = ImageDraw.Draw(img)
 
@@ -222,7 +233,9 @@ def render_image(title, description, slug, site_name="Pragmatic Tech", badge="")
               "pragmaticsysadmin.help",
               fill=TEXT_SECONDARY, font=url_font)
 
-    out_path = OUTPUT_DIR / f"{slug}.png"
+    out_path = out_path or (OUTPUT_DIR / f"{slug}.png")
+    out_path = pathlib.Path(out_path)
+    out_path.parent.mkdir(parents=True, exist_ok=True)
     img.save(out_path, "PNG", optimize=True)
     return out_path
 
@@ -271,6 +284,7 @@ def generate_tool_images():
 
 
 def main():
+    failed = 0
     posts = []
     for posts_dir in POSTS_DIRS:
         if posts_dir.exists():
@@ -291,6 +305,31 @@ def main():
             except Exception as e:
                 print(f"  [ERR] {p.name}: {e}", file=sys.stderr)
                 failed += 1
+
+    # The generic fallback card. layouts/partials/extend_head.html points at
+    # /og-default.png for any post without a card of its own. That file was
+    # for months a 68-byte text placeholder, so every fallback share card
+    # was a broken image.
+    #
+    # Repair only. If a real PNG is already there, leave it alone: the live
+    # card was hand-tuned, and regenerating it here would change every
+    # fallback share image on the site for no reason.
+    default_path = ROOT / "static" / "og-default.png"
+    if default_path.exists() and is_real_png(default_path):
+        print("  [OK] og-default.png (already a real PNG, left alone)")
+    else:
+        try:
+            default_out = render_image(
+                "Pragmatic Tech \u2014 Practical guides that work",
+                "Honest, tested sysadmin guides and family tech help. No "
+                "vendor pitches, no consultant-speak.",
+                "og-default",
+                out_path=default_path,
+            )
+            print(f"  [OK] {default_out}")
+        except Exception as e:
+            print(f"  [ERR] og-default.png: {e}", file=sys.stderr)
+            failed += 1
 
     tool_gen, tool_fail = generate_tool_images()
     generated += tool_gen
