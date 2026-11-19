@@ -1,0 +1,5 @@
+Where the cloud bill actually goes, the five checks that find most of it, and the commitment discounts worth up to 72%
+
+https://pragmaticsysadmin.help/sysadmin/2026-11-19-cloud-cost-optimization-how-to-cut-your-aws-and-azure-bill/
+
+#cloudcost #finops #aws
