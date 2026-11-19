@@ -183,6 +183,8 @@ These are the services where self-hosting is more trouble than it's worth:
 
 The rule I follow: if the self-hosted version requires more than 30 minutes of maintenance per month, and a managed alternative costs under $5/month, just pay for the managed version.
 
+And if you are already paying for the managed version, the first thing to do is not migrate — it is find out what you are paying for. Most cloud bills are mostly one service, a lot of resources nobody switched off, and a commitment discount you bought at the wrong size. I went through the whole process in [Cloud Cost Optimization: How to Cut Your AWS and Azure Bill](/sysadmin/2026-11-19-cloud-cost-optimization-how-to-cut-your-aws-and-azure-bill/) — what actually reduces a bill, and the three fixes that usually cost more than they save.
+
 ---
 
 ## Hardware Guide — What to Actually Buy

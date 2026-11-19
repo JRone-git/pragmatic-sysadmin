@@ -1,19 +1,18 @@
 ---
 title: "Cloud Cost Optimization: How to Cut Your AWS and Azure Bill"
-date: 2026-11-10
-draft: true
+date: 2026-11-19
+draft: false
 description: "Where the cloud bill actually goes, the five checks that find most of it, and the commitment discounts worth up to 72%. A 2026 guide to cutting AWS and Azure spend."
 tags: ["cloud-cost", "finops", "aws", "azure", "cost-optimization"]
 categories: ["System administration"]
 author: "Pragmatic Sysadmin"
 showToc: true
-reviewed: false
-no_publish: true
+reviewed: true
 aiAssisted: true
 blogforge:
   provider: template
   model: outline
-  generated_at: "2026-11-10T19:00:00Z"
+  generated_at: "2026-11-19T18:45:00Z"
   attempts: 1
   style_score: 96
   topic: "Cloud cost optimization: reducing an AWS or Azure bill in 2026"
