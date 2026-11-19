@@ -122,6 +122,8 @@ If the goal is **saving money**, start with the free option: [Syncthing between 
 
 If the goal is **owning your data**, the [Build Your Own Cloud guide](/meta/build-your-own-free-cloud-home-server-guide/) has the stack and the order to install it in. Budget for a backup disk, and for the evening.
 
+If the goal is **cutting the bill you already pay** — the AWS and Azure side rather than the home-server side — then my earlier [cloud spend reduction post](/sysadmin/how-reduce-cloud-spend-before-year-end-2025/) is the one that covers zombie resources, right-sizing and the negotiation step. Its checklist was written for a December deadline, so treat the actions as evergreen and the dates as expired.
+
 If the goal is **learning**, the [home lab beginner's guide](/sysadmin/2025-10-29-setting-up-a-home-lab-a-beginner-s-guide/) is the gentler version of the same question.
 
 Don't buy the hardware until you've done the arithmetic above for your own machine. The number that decides it is how many watts it draws while idle, and that's a number you can read in five minutes with a €12 plug meter.
