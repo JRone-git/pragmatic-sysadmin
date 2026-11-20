@@ -51,6 +51,8 @@ This is where most guides either lie or skip. Here's what the official requireme
 
 The 10 to 20% is for thumbnails and transcoded video, and it surprised me too. A 100 GB library becomes 120 GB on the disk.
 
+**Where to buy:** the {{< aff merchant="newegg" text="8GB DDR4 RAM" url="https://www.newegg.com/p/pl?d=8gb+ddr4+ram" >}} that clears the floor with headroom, a {{< aff merchant="newegg" text="1TB NVMe SSD" url="https://www.newegg.com/p/pl?d=1tb+nvme+ssd" >}} for the database, and a {{< aff merchant="newegg" text="spare external drive" url="https://www.newegg.com/p/pl?d=external+hard+drive" >}} for the backup. The database is not the backup, and the drive you put the photos on is not the backup either.
+
 Two more constraints that aren't obvious:
 
 **The database can't live on a network share.** The Postgres files have to sit on a local filesystem with proper user and group ownership — EXT4, ZFS, APFS, BTRFS, XFS all work. NTFS, exFAT and network mounts don't. The database itself is typically 1 to 3 GB, so give it local SSD space and let the photos live wherever you like.
@@ -131,5 +133,7 @@ Three things to sort out first, in this order:
 3. **Who else touches it?** Every extra person with an account is another invitation to forget a password.
 
 Then install it, put the admin account in place, and only then open it to the family.
+
+{{< aff-disclosure-inline >}}
 
 *Self-hosting your photos is not saving money. It is deciding that the photos are yours, and then accepting what that costs.*
