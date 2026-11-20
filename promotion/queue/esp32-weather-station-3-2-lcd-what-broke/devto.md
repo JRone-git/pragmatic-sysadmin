@@ -19,6 +19,13 @@ It wasn't.
 **Software:** Arduino IDE, TFT_eSPI (after LovyanGFX failed to compile)  
 **Data:** Open-Meteo API for weather, local JPG photos via LittleFS or SD card
 
+**Where to buy:**
+
+- {{< aff merchant="newegg" text="ESP32 DevKit (ESP-WROOM-32)" url="https://www.newegg.com/p/pl?d=esp32+devkit+esp-wroom-32+cp2102" >}} — the board this build used
+- {{< aff merchant="newegg" text="Waveshare 3.2\" 320x240 SPI LCD (ILI9341)" url="https://www.newegg.com/p/pl?d=waveshare+3.2+inch+320x240+ili9341+spi+lcd" >}} — the exact display, ILI9341 controller, 40-pin RPi header
+
+Prices move every week, so those links show today's price rather than me quoting one that is wrong by the time you read it.
+
 The wiring is simple — eight jumper wires from the display's 40-pin RPi header to the ESP32:
 
 | Display Pin | Function | ESP32 GPIO |
@@ -123,5 +130,7 @@ The ESP32 is a fantastic microcontroller. For sensor nodes, Wi-Fi relays, and ba
 I'll keep the ESP32 for something it's actually good at. The weather station is going on a Raspberry Pi B.
 
 ---
+
+{{< aff-disclosure-inline >}}
 
 *Have you driven an ILI9341 display from an ESP32 and actually gotten pixels to show? I'd like to know what I missed. [Email me](mailto:pragmatic@pragmaticsysadmin.help).*

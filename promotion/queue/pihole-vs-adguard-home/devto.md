@@ -47,6 +47,8 @@ Neither is heavy. DNS blocking is a light workload and both are happy on the sma
 
 I ran the Pi-hole on a Pi 5 for years and it never once used more than a rounding error of the machine. The box you already have will do.
 
+If you do need to buy one, a {{< aff merchant="newegg" text="Raspberry Pi 5" url="https://www.newegg.com/p/pl?d=raspberry+pi+5" >}} runs either of these without noticing the job.
+
 ## The community and the blocklists
 
 This is Pi-hole's real strength and it isn't a small one. It has roughly 48,000 GitHub stars against AdGuard Home's 24,000, a decade of guides, and the deepest blocklist ecosystem of the two. There are community lists for German telcos, for privacy, for specific apps, for specific people's annoyances. If the thing you want to block exists as a Pi-hole list, it probably exists.
@@ -118,5 +120,7 @@ Six things I'd tell my past self, all of which cost me an afternoon each:
 If you want the whole home-lab picture rather than just the DNS piece, the [Build Your Own Cloud guide](https://pragmaticsysadmin.help/meta/build-your-own-free-cloud-home-server-guide/) has the stack and the order to install it in, and the [honest cost post](https://pragmaticsysadmin.help/sysadmin/2026-11-10-cloud-for-cheap-the-honest-cost-math/) works out what the box and the electricity come to. A DNS sinkhole is a good first service, because it's cheap, it's visible on every device, and it breaks in ways that teach you how your network actually works.
 
 And when you set it up, point a phone at it for an afternoon before you point the router at it. Watching a phone go from a dozen trackers to two is the fastest way to understand what the thing is actually doing.
+
+{{< aff-disclosure-inline >}}
 
 *Either one is a good decision. The wrong one is the one you didn't install because you couldn't tell them apart.*
