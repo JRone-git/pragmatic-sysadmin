@@ -1,4 +1,4 @@
-Turn on two-factor authentication for your parent's email account in 5 minutes
+Two-factor authentication for your parent's email, step by step
 
 https://pragmaticsysadmin.help/senior-tech/2026-07-27-2fa-elderly-parent-email/
 

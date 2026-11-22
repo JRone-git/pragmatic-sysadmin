@@ -1,4 +1,4 @@
-Practical guide to fixing broken monitoring systems
+Your monitoring says everything is fine and your users still file tickets
 
 https://pragmaticsysadmin.help/sysadmin/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/
 

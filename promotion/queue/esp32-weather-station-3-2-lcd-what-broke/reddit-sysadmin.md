@@ -3,11 +3,11 @@
 **Subreddit:** r/sysadmin
 
 **Title:**
-> ESP32 Weather Station with 3.2\" LCD: What Broke and Why I'm Reverting to Raspberry Pi B
+> ESP32 Weather Station: What Broke and Why I Switched to a Pi
 
 **Body:**
 
-I built an ESP32 + Waveshare 3.2\" ILI9341 weather and photo dashboard. Code compiles, Serial Monitor shows life, but the screen stays blank. Here's what I tried, what didn't work, and why I'm going back to a Raspberry Pi B.
+An ESP32, a 3.2-inch ILI9341 LCD, and a blank screen. The wiring was right and the code compiled - so what actually went wrong?
 
 Full write-up (no paywall, no tracking): https://pragmaticsysadmin.help/sysadmin/2026-11-17-esp32-weather-station-3-2-lcd-what-broke/
 

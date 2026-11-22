@@ -1,5 +1,5 @@
 ---
-title: "Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)"
+title: "Why Your Monitoring Is Broken — and How to Fix It"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/
 tags: monitoring, alerting, infrastructure, automation
 ---

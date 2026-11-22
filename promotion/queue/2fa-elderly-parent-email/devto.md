@@ -1,5 +1,5 @@
 ---
-title: "How to Turn On 2FA for Your Elderly Parent's Email (The Most Important 5-Minute Security Upgrade)"
+title: "Turn On 2FA for Your Elderly Parent's Email in 5 Minutes"
 canonical_url: https://pragmaticsysadmin.help/senior-tech/2026-07-27-2fa-elderly-parent-email/
 tags: 2fa, security, seniors, gmail
 ---

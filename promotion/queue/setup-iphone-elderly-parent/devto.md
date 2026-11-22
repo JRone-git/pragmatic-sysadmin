@@ -1,5 +1,5 @@
 ---
-title: "How to Set Up an iPhone for an Elderly Parent (The 30-Minute Setup That Prevents 90% of Support Calls)"
+title: "How to Set Up an iPhone for an Elderly Parent in 30 Minutes"
 canonical_url: https://pragmaticsysadmin.help/senior-tech/2026-06-27-setup-iphone-elderly-parent/
 tags: iphoneforseniors, elderlyparentphonesetup, iphoneaccessibility, seniortechhelp
 ---

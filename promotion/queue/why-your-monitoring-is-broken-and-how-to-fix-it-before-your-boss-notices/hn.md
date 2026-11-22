@@ -1,11 +1,11 @@
 # Hacker News pitch
 
 **Title:**
-> Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)
+> Why Your Monitoring Is Broken — and How to Fix It
 
 **Body:**
 
-Practical guide to fixing broken monitoring systems. Learn how to set up effective alerts that actually work, reduce false positives, and catch problems before your users start complaining
+Your monitoring says everything is fine and your users still file tickets. The blind spots, the fixes, and how to prove it works.
 
 Full write-up with the commands and checklists:
 https://pragmaticsysadmin.help/sysadmin/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/

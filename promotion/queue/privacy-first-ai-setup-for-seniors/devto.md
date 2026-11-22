@@ -1,5 +1,5 @@
 ---
-title: "Privacy-First AI Setup for Seniors: Apple Intelligence, Claude, and Local LLMs Compared"
+title: "Privacy-First AI for Seniors: Apple, Claude and Local LLMs"
 canonical_url: https://pragmaticsysadmin.help/senior-tech/2026-07-27-privacy-first-ai-setup-for-seniors/
 tags: ai, privacy, appleintelligence, claude
 ---

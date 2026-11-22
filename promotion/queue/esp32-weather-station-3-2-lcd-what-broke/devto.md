@@ -1,5 +1,5 @@
 ---
-title: "ESP32 Weather Station with 3.2\\\" LCD: What Broke and Why I'm Reverting to Raspberry Pi B"
+title: "ESP32 Weather Station: What Broke and Why I Switched to a Pi"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/2026-11-17-esp32-weather-station-3-2-lcd-what-broke/
 tags: esp32, ili9341, waveshare, lcd
 ---

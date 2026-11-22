@@ -1,5 +1,5 @@
 ---
-title: "I Built a Password Strength Checker That Runs 100% in Your Browser (and What It Taught Me About Passwords)"
+title: "A Password Strength Checker That Runs 100% in Your Browser"
 canonical_url: https://pragmaticsysadmin.help/sysadmin/2026-10-06-password-strength-checker-browser-private/
 tags: security, passwords, sysadmin, tools
 ---
