@@ -1,8 +1,8 @@
 ---
-title: "Is ChatGPT Reading Your Parents' Data? What AI Tools Actually Do With Their Chats"
+title: "Is ChatGPT Reading Your Parents' Data? What Actually Happens"
 date: 2026-07-27
 draft: false
-description: "A pragmatic explainer for adult children: what ChatGPT, Claude, and Gemini do with your parents' chat logs, how to turn off training, and what is actually safe to share."
+description: "What ChatGPT, Claude and Gemini do with your parents' chat logs, how to turn off training, and what is actually safe to share."
 tags: ["ai", "privacy", "chatgpt", "claude", "gemini", "seniors"]
 categories: ["ai", "security"]
 ShowToc: true

@@ -1,5 +1,5 @@
 ---
-title: "How to Set Up an iPhone for an Elderly Parent (The 30-Minute Setup That Prevents 90% of Support Calls)"
+title: "How to Set Up an iPhone for an Elderly Parent in 30 Minutes"
 date: 2026-06-27T14:00:00.000Z
 categories:
   - Family Tech
@@ -12,7 +12,7 @@ tags:
   - senior tech help
   - aging parents technology
   - iOS setup guide
-description: "Step-by-step iPhone setup for elderly parents. Disable confusing features, make text bigger, configure emergency shortcuts, and pre-install the right apps. 30 minutes, prevents months of support calls."
+description: "Step-by-step iPhone setup for elderly parents: disable confusing features, make text bigger, set up emergency shortcuts and the right apps."
 author: "Pragmatic Sysadmin"
 aliases:
   - /posts/2026-06-27-setup-iphone-elderly-parent/

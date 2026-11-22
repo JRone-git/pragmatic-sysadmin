@@ -1,5 +1,5 @@
 ---
-title: "Why Your Monitoring is Broken (And How to Fix It Before Your Boss Notices)"
+title: "Why Your Monitoring Is Broken — and How to Fix It"
 date: 2025-11-06T17:41:00.000Z
 categories:
   - Monitoring
@@ -10,7 +10,7 @@ tags:
   - Alerting
   - Infrastructure
   - Automation
-description: "Practical guide to fixing broken monitoring systems. Learn how to set up effective alerts that actually work, reduce false positives, and catch problems before your users start complaining"
+description: "Your monitoring says everything is fine and your users still file tickets. The blind spots, the fixes, and how to prove it works."
 aliases:
   - /posts/2025-11-06-why-your-monitoring-is-broken-and-how-to-fix-it-before-your-boss-notices/
 

@@ -62,7 +62,15 @@ EVERGREEN_RESHARE_DAYS = 60
 # The social channels stay at one post per run. That is deliberate: 42
 # queued posts dumped on a follower timeline at once is spam, and a
 # suspended account earns nothing at all.
-CHANNEL_CADENCE_HOURS = {"bluesky": 48, "mastodon": 48, "devto": 24}
+#
+# The Bluesky window is 24 hours, not 48. The daily cron does not fire at
+# 08:30 UTC - GitHub has been starting it between 16:00 and 17:30 for
+# three weeks - so a 48-hour window means a post waits one to three days
+# to be announced. It also means the run can land just before the window
+# closes and skip it: on 2026-11-21 the log said "cadence cooldown, 1.2h
+# remaining. Skipping." and the cloud cost post sat unannounced for three
+# days. One post a day is nothing to a timeline, so 24 hours it is.
+CHANNEL_CADENCE_HOURS = {"bluesky": 24, "mastodon": 48, "devto": 24}
 CHANNEL_MAX_PER_RUN = {"bluesky": 1, "mastodon": 1, "devto": 5}
 # dev.to's API allows 30 write requests per 30 seconds. Six seconds is
 # well inside that and still leaves the run readable in the log.

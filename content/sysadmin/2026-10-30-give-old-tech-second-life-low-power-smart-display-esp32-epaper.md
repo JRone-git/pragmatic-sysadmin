@@ -1,8 +1,8 @@
 ---
-title: "Give Old Tech a Second Life: Building a Low-Power Smart Display with ESP32 and E-Paper"
+title: "Give Old Tech a Second Life with an ESP32 E-Paper Display"
 date: 2026-10-30
 author: "Pragmatic Sysadmin"
-description: "Turn a drawer of forgotten tech into a wall-mounted smart photo frame and weather dashboard. Three build paths compared, plus a real ESP32 + E-Ink prototype that runs for months on one 18650 cell."
+description: "Turn a drawer of forgotten tech into a wall-mounted photo frame and weather dashboard. Three build paths, and a real ESP32 + E-Ink prototype."
 draft: true
 no_publish: true
 tags: ["esp32", "e-paper", "diy", "homelab", "hardware", "electronics", "power-management"]

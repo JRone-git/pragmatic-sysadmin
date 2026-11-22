@@ -1,8 +1,8 @@
 ---
-title: "Privacy-First AI Setup for Seniors: Apple Intelligence, Claude, and Local LLMs Compared"
+title: "Privacy-First AI for Seniors: Apple, Claude and Local LLMs"
 date: 2026-07-27
 draft: false
-description: "A pragmatic comparison of privacy-preserving AI options for elderly parents — Apple Intelligence, Claude, and locally-hosted Ollama — with a 10-minute setup for whichever fits their devices."
+description: "Apple Intelligence, Claude and locally-hosted Ollama compared for elderly parents - with a 10-minute setup for whichever fits their device."
 tags: ["ai", "privacy", "apple-intelligence", "claude", "ollama", "seniors"]
 categories: ["ai", "security"]
 ShowToc: true
