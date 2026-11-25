@@ -63,7 +63,7 @@ The practical guidance from Jellyfin's own hardware notes, and the reason I like
 
 Jellyfin supports Intel QSV, NVIDIA NVENC, AMD AMF, VA-API on Linux, Apple VideoToolink on macOS and Rockchip RKMPP. On an N100 box that's free hardware acceleration. On Plex, hardware transcoding is behind Plex Pass — so the same box costs you $70 a year, or $249.99 for the five-year pass, to do the identical job.
 
-**Where to buy:** an {{< aff merchant="newegg" text="Intel N100 mini PC" url="https://www.newegg.com/p/pl?d=intel+n100+mini+pc" >}} for transcoding, a {{< aff merchant="newegg" text="Raspberry Pi 5" url="https://www.newegg.com/p/pl?d=raspberry+pi+5" >}} for direct play only, and a {{< aff merchant="newegg" text="1TB NVMe SSD" url="https://www.newegg.com/p/pl?d=1tb+nvme+ssd" >}} for the library. The prices move, so the links show today's rather than a number I would be quoting wrong by the weekend.
+**Where to buy:** an {{< aff merchant="ebay" text="Intel N100 mini PC" url="https://www.ebay.com/sch/i.html?_nkw=intel+n100+mini+pc" >}} for transcoding, a {{< aff merchant="ebay" text="Raspberry Pi 5" url="https://www.newegg.com/p/pl?d=raspberry+pi+5" >}} for direct play only, and a {{< aff merchant="ebay" text="1TB NVMe SSD" url="https://www.ebay.com/sch/i.html?_nkw=1tb+nvme+ssd" >}} for the library. The prices move, so the links show today's rather than a number I would be quoting wrong by the weekend.
 
 ## The privacy difference
 

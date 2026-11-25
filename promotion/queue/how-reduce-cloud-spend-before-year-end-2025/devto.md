@@ -108,7 +108,7 @@ Storage is where most cloud costs hide.
 
 **Storage Optimization Strategies:**
 - **S3 lifecycle policies**: Move old data to cheaper storage classes
-- **Compression**: Use tools like {{< aff merchant="newegg" text="GNU Parallel" url="https://www.newegg.com/p/pl?d=gnu+parallel+book" >}} for batch compression
+- **Compression**: Use tools like {{< aff merchant="ebay" text="GNU Parallel" url="https://www.ebay.com/sch/i.html?_nkw=gnu+parallel+book" >}} for batch compression
 - **Deduplication**: Remove duplicate files before uploading
 - **Tiering**: Move infrequently accessed data to Glacier
 

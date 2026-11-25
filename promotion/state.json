@@ -1,6 +1,6 @@
 {
   "last_posted": {
-    "bluesky": "2026-11-23T20:23:54+00:00",
+    "bluesky": "2026-11-25T05:53:25+00:00",
     "devto": "2026-11-14T15:15:12+00:00",
     "mastodon": "2026-11-13T16:34:20+00:00"
   },
@@ -811,6 +811,11 @@
     },
     "make-text-bigger-parent-phone": {
       "channels": {
+        "bluesky": {
+          "at": "2026-11-25T05:53:25+00:00",
+          "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3n34ht2azlp2y",
+          "status": "posted"
+        },
         "devto": {
           "at": "2026-11-10T16:29:13+00:00",
           "ref": "https://dev.to/jronegit/how-to-make-text-bigger-on-an-elderly-parents-phone-852",

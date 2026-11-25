@@ -13,6 +13,9 @@ setting-up-home-lab-beginners-guide
 
 Content (Markdown)
 Setting Up a Home Lab: A Beginner's Guide
+
+{{< aff-disclosure-inline >}}
+
 Why Build a Home Lab?
 Before diving into the technical details, let's understand why a home lab is invaluable for system administrators and DevOps engineers:
 
@@ -33,7 +36,7 @@ Don't underestimate the RAM requirement. Virtualization is memory-hungry. Each V
 
 For storage, prioritize SSDs over HDDs. A $60 NVMe SSD will make your VMs feel snappy compared to even a fast spinning disk. If you need bulk storage (for media servers, backups), add a large HDD as a secondary drive — but put your OS and VMs on the SSD.
 
-Network is non-negotiable: use wired Ethernet, not Wi-Fi. A {{< aff merchant="newegg" text="Cat6a ethernet cable" url="https://www.newegg.com/p/3C6-02B0-001B3" >}} costs about $15 and gives you reliable 10 Gbps-capable connectivity. Wi-Fi adds latency and jitter that will drive you crazy when debugging network issues.
+Network is non-negotiable: use wired Ethernet, not Wi-Fi. A {{< aff merchant="ebay" text="Cat6a ethernet cable" url="https://www.ebay.com/sch/i.html?_nkw=cat6a+ethernet+cable" >}} costs about $15 and gives you reliable 10 Gbps-capable connectivity. Wi-Fi adds latency and jitter that will drive you crazy when debugging network issues.
 
 Recommended Setup
 
@@ -44,17 +47,17 @@ Mid-Range: Refurbished {{< aff merchant="newegg" text="Dell OptiPlex" url="https
 High-End: Custom build with virtualization support
 
 I strongly recommend the mid-range option for most people. A refurbished Dell OptiPlex 7080 Mini costs around $450, comes with 16 GB RAM and a 512 GB SSD, and is small enough to sit on your desk. It draws about 15-30 watts under load, so leaving it running 24/7 adds maybe $3-5 to your monthly electricity bill. Compare that to cloud VMs at $20-50/month for equivalent specs.
-## Recommended Hardware on Newegg
+## Recommended Hardware
 
 Need the parts? Here's where I'd buy them:
 
 - {{< aff merchant="newegg" text="Raspberry Pi 4 (8GB)" url="https://www.newegg.com/p/3D0-0001-00014" >}} - Budget lab starter (~$75)
 - {{< aff merchant="newegg" text="Dell OptiPlex 7080 Mini" url="https://www.newegg.com/dell-optiplex-7080-business-desktops-workstations/p/1VK-0001-6GXW5" >}} - Best value mini PC for labs (~$450)
-- {{< aff merchant="newegg" text="1TB NVMe SSD" url="https://www.newegg.com/p/pl?d=1tb+nvme+ssd" >}} - Fast storage for VMs (~$60)
-- {{< aff merchant="newegg" text="Managed Network Switch" url="https://www.newegg.com/Switches/SubCategory/ID-30" >}} - For VLAN segmentation (~$89)
-- {{< aff merchant="newegg" text="Cat6a Ethernet Cable" url="https://www.newegg.com/p/3C6-02B0-001B3" >}} - Don't cheap out on cables (~$15)
+- {{< aff merchant="ebay" text="1TB NVMe SSD" url="https://www.ebay.com/sch/i.html?_nkw=1tb+nvme+ssd" >}} - Fast storage for VMs (~$60)
+- {{< aff merchant="ebay" text="Managed Network Switch" url="https://www.ebay.com/sch/i.html?_nkw=managed+network+switch" >}} - For VLAN segmentation (~$89)
+- {{< aff merchant="ebay" text="Cat6a Ethernet Cable" url="https://www.ebay.com/sch/i.html?_nkw=cat6a+ethernet+cable" >}} - Don't cheap out on cables (~$15)
 
-{{< aff-note merchant="newegg" >}}
+{{< aff-note merchant="ebay" >}}
 
 ---
 

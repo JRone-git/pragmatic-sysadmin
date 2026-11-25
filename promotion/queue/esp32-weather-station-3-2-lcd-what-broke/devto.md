@@ -21,7 +21,7 @@ It wasn't.
 
 **Where to buy:**
 
-- {{< aff merchant="newegg" text="ESP32 DevKit (ESP-WROOM-32)" url="https://www.newegg.com/p/pl?d=esp32+devkit+esp-wroom-32+cp2102" >}} — the board this build used
+- {{< aff merchant="ebay" text="ESP32 DevKit (ESP-WROOM-32)" url="https://www.ebay.com/sch/i.html?_nkw=esp32+devkit+esp-wroom-32+cp2102" >}} — the board this build used
 - {{< aff merchant="newegg" text="Waveshare 3.2\" 320x240 SPI LCD (ILI9341)" url="https://www.newegg.com/p/pl?d=waveshare+3.2+inch+320x240+ili9341+spi+lcd" >}} — the exact display, ILI9341 controller, 40-pin RPi header
 
 Prices move every week, so those links show today's price rather than me quoting one that is wrong by the time you read it.
