@@ -51,7 +51,7 @@ This is where most guides either lie or skip. Here's what the official requireme
 
 The 10 to 20% is for thumbnails and transcoded video, and it surprised me too. A 100 GB library becomes 120 GB on the disk.
 
-**Where to buy:** the {{< aff merchant="newegg" text="8GB DDR4 RAM" url="https://www.newegg.com/p/pl?d=8gb+ddr4+ram" >}} that clears the floor with headroom, a {{< aff merchant="newegg" text="1TB NVMe SSD" url="https://www.newegg.com/p/pl?d=1tb+nvme+ssd" >}} for the database, and a {{< aff merchant="newegg" text="spare external drive" url="https://www.newegg.com/p/pl?d=external+hard+drive" >}} for the backup. The database is not the backup, and the drive you put the photos on is not the backup either.
+**Where to buy:** the {{< aff merchant="ebay" text="8GB DDR4 RAM" url="https://www.ebay.com/sch/i.html?_nkw=8gb+ddr4+ram" >}} that clears the floor with headroom, a {{< aff merchant="ebay" text="1TB NVMe SSD" url="https://www.ebay.com/sch/i.html?_nkw=1tb+nvme+ssd" >}} for the database, and a {{< aff merchant="ebay" text="spare external drive" url="https://www.ebay.com/sch/i.html?_nkw=external+hard+drive" >}} for the backup. The database is not the backup, and the drive you put the photos on is not the backup either.
 
 Two more constraints that aren't obvious:
 

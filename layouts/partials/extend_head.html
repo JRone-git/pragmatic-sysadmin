@@ -10,6 +10,18 @@
 <meta name="robots" content="noindex, follow">
 {{- end -}}
 
+<!-- eBay Partner Network Smart Tools starts here
+     The script rewrites every eBay link on the page into a tracked link
+     with the right rotation id for its marketplace, and fires an impression
+     pixel. smartPopover is switched off: the popover is a share bubble for
+     mobile visitors, and it has no business on this site.
+     The links in the posts already carry the tracking parameters, so the
+     script has nothing to add - it normalises them to its own toolid. That
+     way the links still track for anyone reading with JavaScript off. -->
+<script>window._epn = {campaign: 5339259773, smartPopover: false};</script>
+<script src="https://epnt.ebay.com/static/epn-smart-tools.js" async></script>
+<!-- eBay Partner Network Smart Tools ends here -->
+
 <!-- Rakuten Automate starts here -->
 <script type="text/javascript">
   var _rakuten_automate = {

@@ -64,13 +64,13 @@ Network protocol analyzer. Essential for troubleshooting connectivity issues.
 
 ## 💻 Development Hardware
 
-### {{< aff merchant="newegg" text="Mechanical Keyboard" url="https://www.newegg.com/p/mechanical-keyboards/1?keyword=mechanical+keyboard" >}} - $120
+### {{< aff merchant="ebay" text="Mechanical Keyboard" url="https://www.ebay.com/sch/i.html?_nkw=mechanical+keyboard" >}} - $120
 MX Brown switches, backlit. Perfect for long coding sessions.
 
-### {{< aff merchant="newegg" text="Good USB Hub" url="https://www.newegg.com/p/usb-hubs/22?keyword=usb+hub" >}} - $25
+### {{< aff merchant="ebay" text="Good USB Hub" url="https://www.ebay.com/sch/i.html?_nkw=usb+hub" >}} - $25
 12-port powered hub for connecting lab equipment, drives, network gear.
 
-### {{< aff merchant="newegg" text="24\" Monitor" url="https://www.newegg.com/p/monitors/19?keyword=24+inch+monitor" >}} - $180
+### {{< aff merchant="ebay" text="24\" Monitor" url="https://www.ebay.com/sch/i.html?_nkw=24+inch+monitor" >}} - $180
 IPS panel, 1080p resolution. Adequate for sysadmin work without breaking the bank.
 
 ## 📚 Learning & Documentation
@@ -119,10 +119,10 @@ Budget tracking and cost optimization for Azure.
 
 ## 🎮 Testing & Learning
 
-### {{< aff merchant="newegg" text="Mini PC Clusters" url="https://www.newegg.com/p/Mini-PCs/494?keyword=Mini+PC+Cluster" >}} - $299 each
+### {{< aff merchant="ebay" text="Mini PC Clusters" url="https://www.ebay.com/sch/i.html?_nkw=mini+pc" >}} - $299 each
 Perfect for Kubernetes learning. 4GB RAM, runs Docker containers fine.
 
-### {{< aff merchant="newegg" text="Network Switch (Managed)" url="https://www.newegg.com/p/networking-switches/32?keyword=managed+switch" >}} - $89
+### {{< aff merchant="ebay" text="Network Switch (Managed)" url="https://www.ebay.com/sch/i.html?_nkw=managed+network+switch" >}} - $89
 8-port managed switch with VLAN support. Essential for network learning.
 
 ## 📱 Mobile Apps
@@ -135,10 +135,10 @@ Terminal emulator for Android. Run scripts on mobile devices.
 
 ## ⚡ Power Tools
 
-### {{< aff merchant="newegg" text="APC UPS" url="https://www.newegg.com/power-supply-ups/32?keyword=APC+UPS" >}} - $150
+### {{< aff merchant="ebay" text="APC UPS" url="https://www.ebay.com/sch/i.html?_nkw=apc+ups" >}} - $150
 Uninterruptible power supply. Essential for home lab protection.
 
-### {{< aff merchant="newegg" text="Cable Management" url="https://www.newegg.com/p/cable-management/1?keyword=cable+management" >}} - $20
+### {{< aff merchant="ebay" text="Cable Management" url="https://www.ebay.com/sch/i.html?_nkw=cable+management" >}} - $20
 Velcro ties and cable management. Keep your lab neat and organized.
 
 ## 🎓 Recommended Learning
