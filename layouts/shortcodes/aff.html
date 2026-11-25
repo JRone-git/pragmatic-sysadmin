@@ -4,6 +4,7 @@
   Usage:
     {{< aff merchant="digitalocean" text="Sign up" >}}
     {{< aff merchant="newegg" text="Echo Show 8" url="https://www.newegg.com/p/2E3-010D-00308" >}}
+    {{< aff merchant="taobao" link="49" text="the reflective TFT panel" >}}
 
   The tracking comes from catalog/affiliates.json, so joining a programme is
   a one-line change in that file rather than an edit in every post.
@@ -17,6 +18,17 @@
   Note the reflect.IsMap guard. Hugo's data loader hands back whatever
   shape the file has, and a stray key holding a list instead of a map
   breaks every field lookup on the whole file.
+
+  The {link} placeholder exists for Taobao. Rakuten tracks a Taobao product
+  by an offerid link id, and that id is a Rakuten-side record - the product
+  lives in Rakuten's database, not in the URL. So the id is substituted into
+  the link and the target is resolved server side when the reader clicks.
+
+  The "suffix" mode exists for eBay. An EPN link carries six tracking
+  parameters - mkevt, mkcid, mkrid, campid, toolid and customid - and they
+  have to be appended to whatever eBay URL the link points at. The target
+  changes per product, the tracking does not, so the merchant's "suffix"
+  field holds the query string and {code} stands for the campaign id.
 */ -}}
 {{- $merchant := .Get "merchant" -}}
 {{- $m := index site.Data.affiliates $merchant -}}
@@ -26,23 +38,42 @@
 {{- $text := .Get "text" | default $m.name -}}
 {{- $url := .Get "url" | default $m.url -}}
 {{- $mode := $m.mode | default "param" -}}
-{{- $code := $m.code | default "" -}}
+{{- $code := .Get "code" | default ($m.code | default "") -}}
+{{- $link := .Get "link" | default "" -}}
 {{- $tracked := false -}}
-{{- if and $code (ne $mode "widget") (ne $mode "direct") -}}
-  {{- $tracked = true -}}
-  {{- if eq $mode "path" -}}
-    {{- $url = replace $url "{code}" $code -}}
-  {{- else if and $m.param (ne $mode "url") -}}
-    {{- $sep := "?" -}}
-    {{- if strings.Contains $url "?" -}}{{- $sep = "&" -}}{{- end -}}
-    {{- $url = printf "%s%s%s=%s" $url $sep $m.param $code -}}
-  {{- end -}}
-{{- else if eq $mode "widget" -}}
+{{- if eq $mode "widget" -}}
   {{- /* The Rakuten Automate widget rewrites the link on click rather
          than carrying a code in the URL, so the link is tracked exactly
          when the account is partnered with the advertiser. Same rule
          aff-note uses, so the attribute and the claim can never
          disagree. */ -}}
   {{- $tracked = eq ($m.status | default "") "applied" -}}
+{{- else if eq $mode "direct" -}}
+  {{- /* A plain destination. It never tracks and never will. */ -}}
+{{- else if eq $mode "suffix" -}}
+  {{- $q := replace ($m.suffix | default "") "{code}" $code -}}
+  {{- $u := urls.Parse $url -}}
+  {{- $host := strings.TrimPrefix "www." ($u.Host | default "") -}}
+  {{- $mk := index ($m.markets | default dict) $host | default dict -}}
+  {{- $q = replace $q "{mkrid}" ($mk.mkrid | default "") -}}
+  {{- $q = replace $q "{siteid}" ($mk.siteid | default "") -}}
+  {{- if and $code $q -}}
+    {{- $sep := "?" -}}
+    {{- if strings.Contains $url "?" -}}{{- $sep = "&" -}}{{- end -}}
+    {{- $url = printf "%s%s%s" $url $sep $q -}}
+    {{- $tracked = true -}}
+  {{- end -}}
+{{- else if $code -}}
+  {{- $tracked = true -}}
+  {{- if eq $mode "path" -}}
+    {{- $url = replace $url "{code}" $code -}}
+    {{- if $link -}}
+      {{- $url = replace $url "{link}" $link -}}
+    {{- end -}}
+  {{- else if and $m.param (ne $mode "url") -}}
+    {{- $sep := "?" -}}
+    {{- if strings.Contains $url "?" -}}{{- $sep = "&" -}}{{- end -}}
+    {{- $url = printf "%s%s%s=%s" $url $sep $m.param $code -}}
+  {{- end -}}
 {{- end -}}
 <a href="{{ $url }}" data-aff="{{ $merchant }}" data-aff-mode="{{ $mode }}"{{ if not $tracked }} data-aff-untracked="true"{{ end }}>{{ $text }}</a>

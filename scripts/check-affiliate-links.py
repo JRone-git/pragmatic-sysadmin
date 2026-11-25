@@ -15,6 +15,9 @@ HTML and asserts:
 
   A. A link in "param" or "path" mode that has a code carries that code in
      its URL.
+  A2. No affiliate link ships an unsubstituted placeholder. A Taobao link
+     without its link id comes out as "...offerid=2095036.{link}" and lands
+     on the wrong page, so it has to fail the build.
   B. A link in "param" or "path" mode with no code earns nothing. Reported,
      not failed - that is the normal state before an application is approved.
   C. A link in "widget" mode is tracked by the Rakuten Automate widget, but
@@ -53,6 +56,10 @@ def _attr(group: str) -> str:
     """
     return rf'(?:"(?P<{group}>[^"]*)"|(?P<{group}2>[^\s>]+))'
 
+
+# Hugo percent-encodes the braces in an unsubstituted placeholder, so
+# "{link}" reaches the built HTML as "%7blink%7d". Catch both forms.
+PLACEHOLDER_RE = re.compile(r"\{[a-z]+\}|%7b[a-z]+%7d", re.IGNORECASE)
 
 ANCHOR_RE = re.compile(
     rf'<a\s[^>]*?href={_attr("href")}[^>]*?'
@@ -177,7 +184,7 @@ def main() -> int:
             end = pieces[i + 1].start() if i + 1 < len(pieces) else len(html_no_disclosure)
             trailing = html_no_disclosure[m.end() : end][:300]
 
-            if mode in ("param", "path"):
+            if mode in ("param", "path", "suffix"):
                 code = (spec.get("code") or "").strip()
                 param = (spec.get("param") or "").strip()
                 if not code:
@@ -188,8 +195,23 @@ def main() -> int:
                             f"but {merchant} has no code in catalog/affiliates.json - "
                             f"that link earns nothing."
                         )
+                elif mode == "suffix":
+                    # The tracking query has to be in the href, and it has to
+                    # carry this publisher's own campaign id - not somebody
+                    # else's link pasted in by hand.
+                    if f"campid={code}" not in href and f"={code}" not in href:
+                        missing_param.append(f"{rel}: {merchant}")
                 elif param and f"{param}={code}" not in href:
                     missing_param.append(f"{rel}: {merchant}")
+                # A2. A placeholder that was never substituted ships a broken
+                # link. "{link}" is the Taobao offerid link id; without it the
+                # reader lands on a link that resolves to the wrong thing.
+                if PLACEHOLDER_RE.search(href):
+                    failures.append(
+                        f"{rel}: a {merchant} link still contains an unsubstituted "
+                        f"placeholder ({href[:90]}). The shortcode needs the missing "
+                        f"argument or the link points at the wrong product."
+                    )
             elif mode == "widget":
                 if spec.get("status") != "applied":
                     pending_counts[merchant] = pending_counts.get(merchant, 0) + 1

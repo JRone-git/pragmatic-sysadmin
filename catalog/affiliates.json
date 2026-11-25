@@ -57,11 +57,72 @@
   "ebay": {
     "name": "eBay Partner Network",
     "url": "https://www.ebay.com",
-    "param": "mkcid",
-    "code": "",
-    "status": "not-applied",
-    "note": "1-4% plus a bonus on the top categories. The parameter varies by programme type - confirm which one the dashboard issues before pasting a code.",
-    "claim": "affiliate link — I earn a small commission at no extra cost to you"
+    "param": "",
+    "code": "5339259773",
+    "mode": "suffix",
+    "suffix": "mkevt=1&mkcid=1&mkrid={mkrid}&siteid={siteid}&customid=link&campid={code}&toolid=20001",
+    "toolid": "20001",
+    "status": "applied",
+    "note": "EPN link format: [TARGET][?|&]mkevt=1&mkcid=1&mkrid=[ROTATION-ID]&siteid=[SITE-ID]&customid=[SUB-ID]&campid=[EPN-CAMPAIGN-ID]&toolid=[TOOL-ID]. The target changes per product, the tracking does not, so the account values live here once and both scripts/ebay-link.py and the aff shortcode build every link from them. campid 5339259773 is this publisher's own campaign id. The rotation id and site id are per marketplace - the table is lifted verbatim from eBay's own epn-smart-tools.js, because guessing them produces links that look right and attribute to nobody. 1-4% of the sale price, 24 hour cookie, last-click, paid monthly on the 10th with a $10 floor. ebay.de and the other European marketplaces count. Not commissionable: gift cards, charity items, real estate.",
+    "claim": "affiliate link — I earn a small commission at no extra cost to you",
+    "markets": {
+      "ebay.com": {
+        "mkrid": "711-53200-19255-0",
+        "siteid": "0"
+      },
+      "ebay.ca": {
+        "mkrid": "706-53473-19255-0",
+        "siteid": "2"
+      },
+      "ebay.co.uk": {
+        "mkrid": "710-53481-19255-0",
+        "siteid": "3"
+      },
+      "ebay.com.au": {
+        "mkrid": "705-53470-19255-0",
+        "siteid": "15"
+      },
+      "ebay.at": {
+        "mkrid": "5221-53469-19255-0",
+        "siteid": "16"
+      },
+      "ebay.be": {
+        "mkrid": "1553-53471-19255-0",
+        "siteid": "23"
+      },
+      "ebay.fr": {
+        "mkrid": "709-53476-19255-0",
+        "siteid": "71"
+      },
+      "ebay.de": {
+        "mkrid": "707-53477-19255-0",
+        "siteid": "77"
+      },
+      "ebay.it": {
+        "mkrid": "724-53478-19255-0",
+        "siteid": "101"
+      },
+      "ebay.nl": {
+        "mkrid": "1346-53482-19255-0",
+        "siteid": "146"
+      },
+      "ebay.es": {
+        "mkrid": "1185-53479-19255-0",
+        "siteid": "186"
+      },
+      "ebay.ch": {
+        "mkrid": "5222-53480-19255-0",
+        "siteid": "193"
+      },
+      "ebay.ie": {
+        "mkrid": "5282-53468-19255-0",
+        "siteid": "205"
+      },
+      "ebay.pl": {
+        "mkrid": "4908-226936-19255-0",
+        "siteid": "212"
+      }
+    }
   },
   "lively": {
     "name": "Lively",
@@ -160,5 +221,15 @@
     "status": "applied",
     "note": "Direct donations, not a commission programme. This is the only link on the site that currently earns anything, and it is the reason the disclosure can say 'some links' and mean it.",
     "kind": "donation"
+  },
+  "taobao": {
+    "name": "Taobao",
+    "url": "https://click.linksynergy.com/fs-bin/click?id=9bfb%2f6Q9Df4&offerid=2095036.{link}&type=3&subid=0",
+    "param": "",
+    "code": "9bfb/6Q9Df4",
+    "mode": "path",
+    "status": "applied",
+    "note": "Rakuten tracks a Taobao product by an offerid link id. That id is a Rakuten-side record: the product itself lives in Rakuten's database, so {link} is substituted into the link and the target is resolved server side on click. Ids 18-49 are registered and resolve to their own product; an unregistered id falls back to the Taobao Global storefront - still attributed, but it lands on the shop rather than the item. Create a new id with Links > Link Tools > Link Locator, then build the link with scripts/rakuten-link.py.",
+    "claim": "affiliate link — I earn a commission, you pay exactly the same price"
   }
 }

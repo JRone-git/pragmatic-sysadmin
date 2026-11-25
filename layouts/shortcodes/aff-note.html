@@ -2,11 +2,15 @@
   The commission claim next to an affiliate link.
 
   Usage:
-    → [Sign up](...) *(affiliate - I get a commission)*
+    → {{< aff merchant="digitalocean" text="Sign up" >}} {{< aff-note merchant="digitalocean" >}}
 
   becomes:
 
-    → [Sign up]({{< aff merchant="digitalocean" text="Sign up" >}}) {{< aff-note merchant="digitalocean" >}}
+    → <a href="...">Sign up</a> <em class="aff-note">affiliate link — I earn a commission, you pay exactly the same price</em>
+
+  The shortcode emits a complete anchor, so it stands on its own - do not
+  wrap it in a markdown link, or the anchor ends up nested inside another
+  anchor and the page breaks.
 
   The claim is generated from catalog/affiliates.json, and it only appears
   when the merchant actually has tracking. That is the whole point: the
