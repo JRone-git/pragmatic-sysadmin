@@ -1,6 +1,6 @@
 {
   "last_posted": {
-    "bluesky": "2026-11-25T05:53:25+00:00",
+    "bluesky": "2026-11-26T18:30:44+00:00",
     "devto": "2026-11-14T15:15:12+00:00",
     "mastodon": "2026-11-13T16:34:20+00:00"
   },
@@ -40,8 +40,9 @@
     "5-conversations-aging-parent-online-safety": {
       "channels": {
         "bluesky": {
-          "at": "2026-10-05T10:25:08+00:00",
-          "status": "seeded"
+          "at": "2026-11-26T18:30:44+00:00",
+          "ref": "at://did:plc:v4dlyf3ushulmfjn2ja2owpz/app.bsky.feed.post/3n3acm5o27427",
+          "status": "posted"
         },
         "devto": {
           "at": "2026-11-07T15:20:20+00:00",
