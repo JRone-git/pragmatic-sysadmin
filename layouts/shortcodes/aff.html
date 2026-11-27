@@ -76,4 +76,6 @@
     {{- $url = printf "%s%s%s=%s" $url $sep $m.param $code -}}
   {{- end -}}
 {{- end -}}
-<a href="{{ $url }}" data-aff="{{ $merchant }}" data-aff-mode="{{ $mode }}"{{ if not $tracked }} data-aff-untracked="true"{{ end }}>{{ $text }}</a>
+<a href="{{ $url }}" data-aff="{{ $merchant }}" data-aff-mode="{{ $mode }}"{{ if not $tracked }} data-aff-untracked="true"{{ end }}>{{ $text }}</a>{{- /* No trailing newline. A shortcode that emits its own whitespace
+       puts a space in front of any punctuation that follows the link, which
+       is how you end up with "ESP32-C3 SuperMini , and any". */ -}}
